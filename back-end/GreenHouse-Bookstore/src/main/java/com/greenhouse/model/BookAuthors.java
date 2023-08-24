@@ -20,6 +20,4 @@ public class BookAuthors implements Serializable {
     @ManyToOne
     @JoinColumn(name = "ProductId")
     private Products product;
-
-    // Constructors, getters, setters...
 }

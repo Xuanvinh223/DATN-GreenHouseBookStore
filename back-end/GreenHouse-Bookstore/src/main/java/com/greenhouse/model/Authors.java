@@ -21,6 +21,4 @@ public class Authors implements Serializable {
 
     @Column(name = "Nation")
     private String nation;
-
-    // Constructors, getters, setters...
 }

@@ -46,8 +46,4 @@ public class Accounts implements Serializable {
 
     @Column(name = "Active")
     private boolean active;
-
-    // Getters and setters
-
-    // Other methods
 }

@@ -19,6 +19,4 @@ public class AuthenticPhotos implements Serializable {
     @ManyToOne
     @JoinColumn(name = "ProductReviewId")
     private ProductReviews productReview;
-
-    // Constructors, getters, setters...
 }

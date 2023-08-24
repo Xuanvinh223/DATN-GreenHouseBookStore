@@ -11,12 +11,13 @@ import java.math.BigDecimal;
 public class ImportInvoiceDetail implements Serializable {
    
     @ManyToOne
-    @MapsId("importInvoiceId")
     @EmbeddedId
+    @MapsId("importInvoiceId")
     @JoinColumn(name = "ImportInvoiceId")
     private ImportInvoice importInvoice;
 
     @ManyToOne
+    @EmbeddedId
     @JoinColumn(name = "InventoryId")
     private Inventory inventory;
 

@@ -17,8 +17,4 @@ public class Age implements Serializable {
 
     @Column(name = "Age")
     private int age;
-
-    // Getters and setters
-
-    // Other methods
 }

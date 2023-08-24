@@ -20,6 +20,4 @@ public class Brand implements Serializable {
 
     @Column(name = "Logo")
     private String logo;
-
-    // Constructors, getters, setters...
 }

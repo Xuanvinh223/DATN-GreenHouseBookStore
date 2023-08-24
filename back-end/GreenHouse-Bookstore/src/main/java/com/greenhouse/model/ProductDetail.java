@@ -14,7 +14,7 @@ public class ProductDetail implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "ProductDetailId")
-    @MapsId
+//    @MapsId
     private Products product;
 
     @ManyToOne

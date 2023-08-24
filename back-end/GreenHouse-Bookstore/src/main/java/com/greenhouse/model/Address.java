@@ -22,8 +22,4 @@ public class Address implements Serializable {
     @ManyToOne
     @JoinColumn(name = "Username")
     private Accounts accounts;
-
-    // Getters and setters
-
-    // Other methods
 }
