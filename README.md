@@ -16,3 +16,7 @@
 8. com.greenhouse.service: Package này chứa các class Service, nơi bạn định nghĩa logic kinh doanh của ứng dụng và tương tác với Repository.
 
 9. com.greenhouse.service.impl: Trong trường hợp bạn định nghĩa các implementation cụ thể của các interface Service, bạn có thể đặt chúng trong package này.
+    | Tên  | Tuổi |
+|------|------|
+| John | 30   |
+| Jane | 28   |
