@@ -29,6 +29,6 @@ public class Publishers implements Serializable {
     @Column(name = "Image", columnDefinition = "nvarchar(200)")
     private String image;
 
-    @OneToMany(mappedBy = "publisher")
+    @OneToMany(mappedBy = "productId")
     private List<Products> products;
 }

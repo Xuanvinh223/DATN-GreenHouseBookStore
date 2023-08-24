@@ -5,120 +5,67 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Project] - Fix font-end">
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/com/greenhouse/GreenHouseBookstoreApplication.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/GreenHouseBookstoreApplication.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Accounts.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Address.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Age.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/AuthenticPhotos.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Authorities.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Authors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/BookAuthors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Brand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Carts.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Categories.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/CategoryTypes.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Colors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Conversation.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/CoverTypes.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Discounts.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ImportInvoice.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ImportInvoiceDetail.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Inventory.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/InvoiceDetails.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Invoices.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Materials.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Message.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Orders.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Pages.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/PaymentStatus.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductCategory.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductDetail.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductDiscount.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductImages.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductPriceHistories.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductReviews.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Products.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Publishers.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Roles.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Sizes.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Status.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/StatusOrder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Suppliers.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/UserVoucher.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Vouchers.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Weight.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/test/java/com/greenhouse/GreenHouseBookstoreApplicationTests.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/GreenHouseBookstoreApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Accounts.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Address.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Age.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/AuthenticPhotos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Authorities.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Authors.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/BookAuthors.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Brand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Carts.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Categories.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/CategoryTypes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Colors.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Conversation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/CoverTypes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Discounts.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ImportInvoice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ImportInvoiceDetail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Inventory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/InvoiceDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Invoices.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Materials.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Orders.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Pages.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/PaymentStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ProductCategory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ProductDetail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ProductDiscount.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ProductImages.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ProductPriceHistories.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ProductReviews.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Products.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Publishers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Roles.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Sizes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Status.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/StatusOrder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Suppliers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/UserVoucher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Vouchers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Weight.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/test/java/com/greenhouse/GreenHouseBookstoreApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/.classpath" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/.settings/org.eclipse.jdt.apt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/.settings/org.springframework.ide.eclipse.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/HELP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/.project" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/com/greenhouse/GreenHouseBookstoreApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/GreenHouseBookstoreApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Accounts.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Address.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Age.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/AuthenticPhotos.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Authorities.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Authors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/BookAuthors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Brand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Carts.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Categories.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/CategoryTypes.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Colors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Conversation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/CoverTypes.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Discounts.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ImportInvoice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ImportInvoiceDetail.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Inventory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/InvoiceDetails.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Invoices.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Materials.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Message.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Orders.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Pages.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/PaymentStatus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductCategory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductDetail.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductDiscount.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductImages.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductPriceHistories.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductReviews.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Products.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Publishers.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Roles.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Sizes.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Status.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/StatusOrder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Suppliers.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/UserVoucher.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Vouchers.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Weight.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/test/java/com/greenhouse/GreenHouseBookstoreApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/GreenHouseBookstoreApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/GreenHouseBookstoreApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ImportInvoiceDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ImportInvoiceDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Publishers.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Publishers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/META-INF/maven/com.greenhouse/GreenHouse-Bookstore/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/META-INF/maven/com.greenhouse/GreenHouse-Bookstore/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/META-INF/maven/com.greenhouse/GreenHouse-Bookstore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/META-INF/maven/com.greenhouse/GreenHouse-Bookstore/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/com/greenhouse/GreenHouseBookstoreApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/test-classes/com/greenhouse/GreenHouseBookstoreApplicationTests.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

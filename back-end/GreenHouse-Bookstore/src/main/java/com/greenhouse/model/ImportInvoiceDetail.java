@@ -12,6 +12,7 @@ public class ImportInvoiceDetail implements Serializable {
    
     @ManyToOne
     @MapsId("importInvoiceId")
+    @EmbeddedId
     @JoinColumn(name = "ImportInvoiceId")
     private ImportInvoice importInvoice;
 
