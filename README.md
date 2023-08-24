@@ -1,4 +1,5 @@
 <!-- Viết hướng dẫn -->
+#Viết hướng dẫn
 1. com.greenhouse: Đây là package gốc của dự án của bạn. Nó có thể chứa các file cấu hình chung hoặc các file khởi đầu dự án.
 
 2. com.greenhouse.config: Package này chứa các class cấu hình tùy chỉnh cho ứng dụng. Đây có thể là cấu hình cho Spring Boot, Spring Security, cơ sở dữ liệu, và các cấu hình khác.
@@ -16,7 +17,14 @@
 8. com.greenhouse.service: Package này chứa các class Service, nơi bạn định nghĩa logic kinh doanh của ứng dụng và tương tác với Repository.
 
 9. com.greenhouse.service.impl: Trong trường hợp bạn định nghĩa các implementation cụ thể của các interface Service, bạn có thể đặt chúng trong package này.
-    | Tên  | Tuổi |
-|------|------|
-| John | 30   |
-| Jane | 28   |
+
+#Người đóng góp
+| Họ Tên  | Role |
+|---------------|--------------|
+| [Lâm Diễm Thúy](https://github.com/ThuyLam1210)  | Project Manager,Fullstack Developer   |
+| [Phạm Xuân Vinh]() | BackEnd Developer   |
+| [Mai Văn Đạt ]() | Tester,  BackEnd Developer |
+| [Hồ Thị Vân Anh]()|Tester,Fontend Developer|
+| [Nguyễn Minh Thức]()|  Fullstack Developer|
+| [Thái Hoàng An]()| Tester, Fontend Developer|
+
