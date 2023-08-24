@@ -22,7 +22,7 @@
 | Họ Tên  | Role |
 |---------------|--------------|
 | [Lâm Diễm Thúy](https://github.com/ThuyLam1210)  | Project Manager,Fullstack Developer   |
-| [Phạm Xuân Vinh]() | BackEnd Developer   |
+| [Phạm Xuân Vinh](https://github.com/Xuanvinh223) | Project Manager,BackEnd Developer   |
 | [Mai Văn Đạt ]() | Tester,  BackEnd Developer |
 | [Hồ Thị Vân Anh]()|Tester,Fontend Developer|
 | [Nguyễn Minh Thức]()|  Fullstack Developer|
