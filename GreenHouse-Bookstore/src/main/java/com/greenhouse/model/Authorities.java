@@ -1,0 +1,21 @@
+package com.greenhouse.model;
+import java.io.Serializable;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Authorities")
+public class Authorities implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "AuthoritiesId")
+    private int authoritiesId;
+
+    @Column(name = "Username")
+    private String username;
+
+    @ManyToOne
+    @JoinColumn(name = "RoleId")
+    private Roles role;
+
+    // Constructors, getters, setters...
+}
