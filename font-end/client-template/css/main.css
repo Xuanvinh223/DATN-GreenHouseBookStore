@@ -21488,7 +21488,10 @@ input[type=number] {
   opacity: 0.8;
 }
 .brand-slider .single-slide img {
-  width: 100%;
+  /* width: 100%; */
+  height: 120px;
+  width: 180px;
+
 }
 .brand-slider .single-slide:hover {
   opacity: 1;
@@ -24101,7 +24104,7 @@ input[type=number] {
   margin-bottom: 14px;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+
 }
 .footer-contact p:last-child {
   margin-bottom: 0;
