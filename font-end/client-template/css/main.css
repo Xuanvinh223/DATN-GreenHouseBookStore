@@ -84,7 +84,7 @@ body {
   font-size: 14px;
   line-height: 1.75;
   width: 100%;
-  background: #fff;
+ 
 }
 
 .site-wrapper {
@@ -22091,7 +22091,7 @@ input[type=number] {
   position: fixed;
   padding: 0;
   width: 100%;
-  z-index: 99999;
+  z-index: 999;
   background: #fff;
   -webkit-box-shadow: 0px 1px 13px 1px rgba(204, 204, 204, 0.384);
           box-shadow: 0px 1px 13px 1px rgba(204, 204, 204, 0.384);
@@ -22906,6 +22906,12 @@ input[type=number] {
 }
 .category-menu .has-children > .sub-menu > li:hover > a {
   color: #62ab00;
+}
+.category-menu .has-children >.sub-menu .single-block ul li:hover a {
+  color: #62ab00;
+}
+.category-menu .has-children >.sub-menu .single-block ul li a.title-last{
+  color: #14983a;
 }
 @media (min-width: 992px) {
   .category-menu .has-children:hover > .sub-menu {
