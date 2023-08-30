@@ -22716,14 +22716,23 @@ input[type=number] {
     border-left: 0;
   }
   ul.main-menu .has-children.mega-menu > .sub-menu.four-column {
-    width: 900px;
+    width: 1000px;
   }
   ul.main-menu .has-children.mega-menu > .sub-menu.four-column > li {
+    
     margin-bottom: 0;
     width: 25%;
     padding-left: 20px;
     border-left: 1px solid #ebebeb;
   }
+  ul.main-menu .has-children.mega-menu > .sub-menu.four-column > li.cus-col-50{
+    margin-bottom: 0;
+    width: 50%;
+    
+    padding-left: 20px;
+    border-left: 1px solid #ebebeb;
+  } 
+  
   ul.main-menu .has-children.mega-menu > .sub-menu.four-column > li:first-child {
     padding-left: 0;
     border-left: 0;
@@ -22912,6 +22921,16 @@ input[type=number] {
 }
 .category-menu .has-children >.sub-menu .single-block ul li a.title-last{
   color: #14983a;
+}
+.category-menu .has-children >.sub-menu .single-block ul li:hover  a.title-last{
+  color: #62ab00;
+}
+
+.four-column .cus-col-50 .mega-single-block  li  a.title-last{
+  color: #14983a;
+}
+.four-column .cus-col-50 .mega-single-block  li:hover  a.title-last{
+  color: #62ab00;
 }
 @media (min-width: 992px) {
   .category-menu .has-children:hover > .sub-menu {
@@ -28336,7 +28355,15 @@ p.form-messege.error {
           box-shadow: none;
   outline: none;
 }
-
+.menu-title1{
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #333;
+}
+ul.main-menu .menu-title1:hover a {
+  color: #62ab00 !important;
+}
 /*=====  End of 16. My Account  ======*/
 /*-- Order Complete --*/
 /*Order Complete Message*/

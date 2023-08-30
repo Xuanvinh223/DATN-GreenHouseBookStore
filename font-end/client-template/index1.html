@@ -136,7 +136,7 @@
             <div class="center_center" style="color: #0D0E0F; padding-bottom:24px; font-size: 1.23em;">xem
               thông báo</div>
             <button style="margin-top: 5px;" type="submit" class="button-default active" data-bs-toggle="modal"
-            data-bs-target="#authModal">
+              data-bs-target="#authModal">
               <span>Đăng nhập</span>
             </button>
             <button style="margin-top: 10px;" type="submit" class="button-default">
@@ -189,10 +189,12 @@
             </div>
           </a>
           <div class="top-dropdown" style="padding: 5px 10px 15px 10px;width: 16%">
-            <button style="margin-top: 5px;" type="button" class="button-default active" data-bs-toggle="modal" data-bs-target="#authModal">
+            <button style="margin-top: 5px;" type="button" class="button-default active" data-bs-toggle="modal"
+              data-bs-target="#authModal">
               <span>Đăng nhập</span>
             </button>
-            <button style="margin-top: 5px;" type="button" class="button-default" data-bs-toggle="modal" data-bs-target="#authModal">
+            <button style="margin-top: 5px;" type="button" class="button-default" data-bs-toggle="modal"
+              data-bs-target="#authModal">
               <span>Đăng ký</span>
             </button>
             <button style="margin-top: 5px;" type="button" class="button-facebook center_center">
@@ -255,7 +257,7 @@
 
   </nav>
 
-  <main class="page-section inner-page-sec-padding-bottom">
+  <main class="page-section">
     <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -263,22 +265,19 @@
             <!-- Pills navs -->
             <ul class="nav nav-pills nav-justified mb-3 custom-tab" id="ex1" role="tablist">
               <li class="nav-item custom-active-tab " role="presentation">
-                <a class="nav-link custom-active-tab-link active" id="tab-login"
-                  data-bs-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login"
-                  aria-selected="true">Đăng nhập</a>
+                <a class="nav-link custom-active-tab-link active" id="tab-login" data-bs-toggle="pill"
+                  href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true">Đăng nhập</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="nav-link custom-tab-link" id="tab-register" data-bs-toggle="pill"
-                  href="#pills-register" role="tab" aria-controls="pills-register"
-                  aria-selected="false">Đăng ký</a>
+                <a class="nav-link custom-tab-link" id="tab-register" data-bs-toggle="pill" href="#pills-register"
+                  role="tab" aria-controls="pills-register" aria-selected="false">Đăng ký</a>
               </li>
             </ul>
             <!-- Pills navs -->
 
             <!-- Pills content -->
             <div class="tab-content">
-              <div class="tab-pane fade show active" id="pills-login" role="tabpanel"
-                aria-labelledby="tab-login">
+              <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
                 <form>
                   <div class="text-center mb-3">
                     <a href="#" class="btn btn-primary btn-floating mx-1">
@@ -307,16 +306,14 @@
                     <div class="col-md-6 d-flex justify-content-center">
                       <!-- Checkbox -->
                       <div class="form-check mb-3 mb-md-0">
-                        <input class="form-check-input" type="checkbox" value=""
-                          id="loginCheck" checked />
+                        <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
                         <label class="form-check-label" for="loginCheck"> Ghi nhớ </label>
                       </div>
                     </div>
                     <div class="col-md-6 d-flex justify-content-center">
                       <!-- Simple link -->
                       <a href="#" class="text-red forgot-password-link" data-bs-toggle="modal"
-                        data-bs-target="#forgotPasswordModal"
-                        onclick="openForgotPasswordModal()">Quên mật khẩu?</a>
+                        data-bs-target="#forgotPasswordModal" onclick="openForgotPasswordModal()">Quên mật khẩu?</a>
                     </div>
                   </div>
 
@@ -325,8 +322,7 @@
                     nhập</button>
                 </form>
               </div>
-              <div class="tab-pane fade" id="pills-register" role="tabpanel"
-                aria-labelledby="tab-register">
+              <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
                 <form>
                   <div class="text-center mb-3">
                     <a href="#" class="btn btn-primary btn-floating mx-1">
@@ -371,8 +367,8 @@
 
                   <!-- Checkbox -->
                   <div class="form-check d-flex justify-content-center mb-4">
-                    <input class="form-check-input me-2" type="checkbox" value=""
-                      id="registerCheck" checked aria-describedby="registerCheckHelpText" />
+                    <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+                      aria-describedby="registerCheckHelpText" />
                     <label class="form-check-label" for="registerCheck">
                       Tôi đã đọc và đồng ý với các điều khoản.
                     </label>
@@ -432,7 +428,7 @@
       </div>
     </div>
   </main>
-  
+
   <div class="site-wrapper" id="top">
     <div class="site-header header-2 mb--20 d-none d-lg-block">
 
@@ -441,7 +437,7 @@
         <div class="container">
           <div class="row align-items-center">
             <div class="col-lg-3">
-              <nav class="category-nav white-nav   show">
+              <nav class="category-nav white-nav">
                 <div>
                   <a href="javascript:void(0)" class="category-trigger"><i class="fa fa-bars"></i>Danh mục sản phẩm</a>
                   <ul class="category-menu">
@@ -501,15 +497,74 @@
                         <li><a href="">Spools</a></li>
                       </ul>
                     </li>
-                    <li class="cat-item has-children"><a href="#">Dụng Cụ Học Sinh</a>
+                    <li class="cat-item has-children mega-menu"><a href="#">Dụng Cụ Học Sinh</a>
                       <ul class="sub-menu">
-                        <li><a href="">Brake Tools</a></li>
-                        <li><a href="">Driveshafts</a></li>
-                        <li><a href="">Emergency Brake</a></li>
-                        <li><a href="">Spools</a></li>
+                        <li class="single-block">
+                          <h3 class="title">Bút - Viết</h3>
+                          <ul>
+                            <li><a href="#">Bút Chì</a></li>
+                            <li><a href="#">Bút Bi</a></li>
+                            <li><a href="#">Bút Dạ Quang</a></li>
+                            <li><a href="#" class="title-last">Xem tất cả</a></li>
+                          </ul>
+                        </li>
+                        <li class="single-block">
+                          <h3 class="title">Sản Phẩm Về Giấy</h3>
+                          <ul>
+                            <li><a href="#">Tập - Vở</a></li>
+                            <li><a href="#">Sổ Tay</a></li>
+                            <li><a href="#">Giất Note</a></li>
+                            <li><a href="#" class="title-last">Xem tất cả</a></li>
+                          </ul>
+                        </li>
+                        <li class="single-block">
+                          <h3 class="title">Dụng Cụ Khác</h3>
+                          <ul>
+                            <li><a href="#">Hồ Dán</a></li>
+                            <li><a href="#">Thước</a></li>
+                            <li><a href="#">Hộp Bút - Hộp Viết</a></li>
+                            <li><a href="#" class="title-last">Xem tất cả</a></li>
+                          </ul>
+                        </li>
                       </ul>
                     </li>
-                    <li class="cat-item"><a href="#">Hành Trang Đến Trường</a></li>
+                    <li class="cat-item has-children mega-menu"><a href="#">Hành Trang Đến Trường</a>
+                      <ul class="sub-menu">
+                        <li class="single-block">
+                          <h3 class="title">Sách Giáo Khoa - Tham Khảo</h3>
+                          <ul>
+                            <li><a href="#">Lớp 1</a></li>
+                            <li><a href="#">Lớp 2</a></li>
+                            <li><a href="#">Lớp 3</a></li>
+                            <li><a href="#">Lớp 4</a></li>
+                            <li><a href="#">Lớp 5</a></li>
+                            <li><a href="#">Lớp 6</a></li>
+                            <li><a href="#">Lớp 7</a></li>
+                            <li><a href="#">Lớp 8</a></li>
+                            <li><a href="#">Lớp 9</a></li>
+                            <li><a href="#">Lớp 10</a></li>
+                            <li><a href="#">Lớp 11</a></li>
+                            <li><a href="#">Lớp 12</a></li>
+                            <li><a href="#" class="title-last">Xem tất cả</a></li>
+                          </ul>
+                        </li>
+                        
+                        <li class="single-block">
+                          <h3 class="title">Luyện Thi THPTQG - Lớp 12</h3>
+                          <ul>
+                            <li><a href="#">Luyện Thi Môn Toán</a></li>
+                            <li><a href="#">Luyện Thi Môn Văn</a></li>
+                            <li><a href="#">Luyện Thi Môn Tiếng Anh</a></li>
+                            <li><a href="#">Luyện Thi Môn Hóa</a></li>
+                            <li><a href="#">Luyện Thi Môn Sinh Học</a></li>
+                            <li><a href="#">Luyện Thi Môn Lịch Sử</a></li> 
+                            <li><a href="#">Luyện Thi Môn Địa Lý</a></li>  
+                            <li><a href="#">Luyện Thi Môn Vật Lý</a></li>               
+                            <li><a href="#" class="title-last">Xem tất cả</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
 
                     <li class="cat-item"><a href="#" class="js-expand-hidden-menu">Xem Nhiều Hơn</a></li>
                   </ul>
@@ -526,50 +581,23 @@
                   <!-- Shop -->
                   <li class="menu-item has-children mega-menu">
                     <a href="javascript:void(0)">Sản Phẩm <i class="fas fa-chevron-down dropdown-arrow"></i></a>
-                    <ul class="sub-menu four-column">
-                      <li class="cus-col-25">
-                        <h3 class="menu-title"><a href="javascript:void(0)">Shop Grid </a></h3>
-                        <ul class="mega-single-block">
-                          <li><a href="shop-grid.html">Fullwidth</a></li>
-                          <li><a href="shop-grid-left-sidebar.html">left Sidebar</a></li>
-                          <li><a href="shop-grid-right-sidebar.html">Right Sidebar</a></li>
-                        </ul>
-                      </li>
-                      <li class="cus-col-25">
-                        <h3 class="menu-title"> <a href="javascript:void(0)">Shop List</a></h3>
-                        <ul class="mega-single-block">
-                          <li><a href="shop-list.html">Fullwidth</a></li>
-                          <li><a href="shop-list-left-sidebar.html">left Sidebar</a></li>
-                          <li><a href="shop-list-right-sidebar.html">Right Sidebar</a></li>
-                        </ul>
-                      </li>
-                      <li class="cus-col-25">
-                        <h3 class="menu-title"> <a href="javascript:void(0)">Product Details
-                            1</a></h3>
-                        <ul class="mega-single-block">
-                          <li><a href="product-details.html">Product Details Page</a></li>
-                          <li><a href="product-details-affiliate.html">Product Details
-                              Affiliate</a></li>
-                          <li><a href="product-details-group.html">Product Details Group</a>
-                          </li>
-                          <li><a href="product-details-variable.html">Product Details
-                              Variables</a></li>
-                        </ul>
-                      </li>
-                      <li class="cus-col-25">
-                        <h3 class="menu-title"><a href="javascript:void(0)">Product Details
-                            2</a></h3>
-                        <ul class="mega-single-block">
-                          <li><a href="product-details-left-thumbnail.html">left Thumbnail</a>
-                          </li>
-                          <li><a href="product-details-right-thumbnail.html">Right
-                              Thumbnail</a></li>
-                          <li><a href="product-details-left-gallery.html">Left Gallery</a>
-                          </li>
-                          <li><a href="product-details-right-gallery.html">Right Gallery</a>
-                          </li>
-                        </ul>
-                      </li>
+                    <ul class="sub-menu four-column ">
+                      <div class="top-bar-category-container-left">
+                        <h1>Danh mục sản phẩm</h1>
+                        <h2 id="sach-menu">Sách trong nước</h2>
+                        <h2 >Sách nước ngoài</h2>
+                        <h2 id="dungcu-menu">Dụng cụ học sinh</h2>
+                        <h2>Hành trang đến trường</h2>
+
+                      </div>
+                      <!-- Menu sách -->
+                      <div class="top-bar-category-container-right" id="top-bar-category-container-right">
+                       
+                      </div>
+                      <!-- Menu Dụng cụ học sinh -->
+                      <div class="top-bar-category-container-right" id="top-bar-category-container-right">
+                       
+                      </div>
                     </ul>
                   </li>
 
@@ -804,7 +832,7 @@
                     <li><a href="checkout.html">Checkout</a></li>
                     <li><a href="compare.html">Compare</a></li>
                     <li><a href="wishlist.html">Wishlist</a></li>
-                    <li><a href="login-register.html" >Login Register</a></li>
+                    <li><a href="login-register.html">Login Register</a></li>
                     <li><a href="my-account.html">My Account</a></li>
                     <li><a href="order-complete.html">Order Complete</a></li>
                     <li><a href="faq.html">Faq</a></li>
@@ -1675,10 +1703,10 @@
     <!--=================================
       Brands Slider
       ===================================== -->
-      <section class="section-margin">
-        <h2 class="sr-only">Brand Slider</h2>
-        <div class="container">
-          <div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
+    <section class="section-margin">
+      <h2 class="sr-only">Brand Slider</h2>
+      <div class="container">
+        <div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
                                               "autoplay": true,
                                               "autoplaySpeed": 8000,
                                               "slidesToShow": 6
@@ -1689,34 +1717,34 @@
                   {"breakpoint":480, "settings": {"slidesToShow": 2} },
                   {"breakpoint":320, "settings": {"slidesToShow": 1} }
               ]'>
-            <div class="single-slide">
-              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-1.jpg" alt="">
-            </div>
-            <div class="single-slide">
-              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-2.jpg" alt="">
-            </div>
-            <div class="single-slide">
-              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-3.jpg" alt="">
-            </div>
-            <div class="single-slide">
-              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-4.jpg" alt="">
-            </div>
-            <div class="single-slide">
-              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-5.jpg" alt="">
-            </div>
-            <div class="single-slide">
-              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
-            </div>
-            <div class="single-slide">
-              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
-            </div>
-            <div class="single-slide">
-              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
-            </div>
+          <div class="single-slide">
+            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-1.jpg" alt="">
+          </div>
+          <div class="single-slide">
+            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-2.jpg" alt="">
+          </div>
+          <div class="single-slide">
+            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-3.jpg" alt="">
+          </div>
+          <div class="single-slide">
+            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-4.jpg" alt="">
+          </div>
+          <div class="single-slide">
+            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-5.jpg" alt="">
+          </div>
+          <div class="single-slide">
+            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
+          </div>
+          <div class="single-slide">
+            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
+          </div>
+          <div class="single-slide">
+            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
           </div>
         </div>
       </div>
-    </section>
+  </div>
+  </section>
 
   </div>
 
@@ -1792,11 +1820,6 @@
       </div>
     </div>
   </footer>
-
-
-
-
-
 
   <!-- Use Minified Plugins Version For Fast Page Load -->
   <script src="js/plugins.js"></script>
