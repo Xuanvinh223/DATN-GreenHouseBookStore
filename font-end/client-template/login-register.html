@@ -280,8 +280,10 @@
 							<div class="main-navigation flex-lg-right">
 								<div class="cart-widget">
 									<div class="login-block">
-										<a href="login-register.html" class="font-weight-bold">Login</a> <br>
-										<span>or</span><a href="login-register.html">Register</a>
+										<a href="login-register.html" class="font-weight-bold" data-bs-toggle="modal"
+											data-bs-target="#authModal">Login</a> <br>
+										<span>or</span><a href="login-register.html" data-bs-toggle="modal"
+											data-bs-target="#authModal">Register</a>
 									</div>
 									<div class="cart-block">
 										<div class="cart-total">
@@ -773,60 +775,178 @@
     =            Login Register page content         =
     =============================================-->
 		<main class="page-section inner-page-sec-padding-bottom">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb--30 mb-lg--0">
-						<!-- Login Form s-->
-						<form action="#">
-							<div class="login-form">
-								<h4 class="login-title">New Customer</h4>
-								<p><span class="font-weight-bold">I am a new customer</span></p>
-								<div class="row">
-									<div class="col-md-12 col-12 mb--15">
-										<label for="email">Full Name</label>
-										<input class="mb-0 form-control" type="text" id="name"
-											placeholder="Enter your full name">
-									</div>
-									<div class="col-12 mb--20">
-										<label for="email">Email</label>
-										<input class="mb-0 form-control" type="email" id="email" placeholder="Enter Your Email Address Here..">
-									</div>
-									<div class="col-lg-6 mb--20">
-										<label for="password">Password</label>
-										<input class="mb-0 form-control" type="password" id="password" placeholder="Enter your password">
-									</div>
-									<div class="col-lg-6 mb--20">
-										<label for="password">Repeat Password</label>
-										<input class="mb-0 form-control" type="password" id="repeat-password" placeholder="Repeat your password">
-									</div>
-									<div class="col-md-12">
-										<a href="#" class="btn btn-outlined">Register</a>
-									</div>
+			<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<!-- Pills navs -->
+							<ul class="nav nav-pills nav-justified mb-3 custom-tab" id="ex1" role="tablist">
+								<li class="nav-item custom-active-tab " role="presentation">
+									<a class="nav-link custom-active-tab-link active" id="tab-login"
+										data-bs-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login"
+										aria-selected="true">Đăng nhập</a>
+								</li>
+								<li class="nav-item" role="presentation">
+									<a class="nav-link custom-tab-link" id="tab-register" data-bs-toggle="pill"
+										href="#pills-register" role="tab" aria-controls="pills-register"
+										aria-selected="false">Đăng ký</a>
+								</li>
+							</ul>
+							<!-- Pills navs -->
+
+							<!-- Pills content -->
+							<div class="tab-content">
+								<div class="tab-pane fade show active" id="pills-login" role="tabpanel"
+									aria-labelledby="tab-login">
+									<form>
+										<div class="text-center mb-3">
+											<a href="#" class="btn btn-primary btn-floating mx-1">
+												<i class="fab fa-facebook-f"></i>
+											</a>
+
+											<a href="#" class="btn btn-danger btn-floating mx-1">
+												<i class="fab fa-google"></i>
+											</a>
+										</div>
+
+										<!-- Email input -->
+										<div class="form-outline mb-4">
+											<label class="form-label" for="loginName">Tài khoản hoặc Email</label>
+											<input type="email" id="loginName" class="form-control" />
+										</div>
+
+										<!-- Password input -->
+										<div class="form-outline mb-4">
+											<label class="form-label" for="loginPassword">Mật khẩu</label>
+											<input type="password" id="loginPassword" class="form-control" />
+										</div>
+
+										<!-- 2 column grid layout -->
+										<div class="row mb-4">
+											<div class="col-md-6 d-flex justify-content-center">
+												<!-- Checkbox -->
+												<div class="form-check mb-3 mb-md-0">
+													<input class="form-check-input" type="checkbox" value=""
+														id="loginCheck" checked />
+													<label class="form-check-label" for="loginCheck"> Ghi nhớ </label>
+												</div>
+											</div>
+											<div class="col-md-6 d-flex justify-content-center">
+												<!-- Simple link -->
+												<a href="#" class="text-red forgot-password-link" data-bs-toggle="modal"
+													data-bs-target="#forgotPasswordModal"
+													onclick="openForgotPasswordModal()">Quên mật khẩu?</a>
+											</div>
+										</div>
+
+										<!-- Submit button -->
+										<button type="submit" class="btn btn-primary d-block w-100 mb-4 custom-btn">Đăng
+											nhập</button>
+									</form>
+								</div>
+								<div class="tab-pane fade" id="pills-register" role="tabpanel"
+									aria-labelledby="tab-register">
+									<form>
+										<div class="text-center mb-3">
+											<a href="#" class="btn btn-primary btn-floating mx-1">
+												<i class="fab fa-facebook-f"></i>
+											</a>
+
+											<a href="#" class="btn btn-danger btn-floating mx-1">
+												<i class="fab fa-google"></i>
+											</a>
+										</div>
+
+										<!-- Name input -->
+										<div class="form-outline mb-4">
+											<label class="form-label" for="registerName">Họ và tên</label>
+											<input type="text" id="registerName" class="form-control" />
+										</div>
+
+										<!-- Username input -->
+										<div class="form-outline mb-4">
+											<label class="form-label" for="registerUsername">Tên tài khoản</label>
+											<input type="text" id="registerUsername" class="form-control" />
+										</div>
+
+										<!-- Email input -->
+										<div class="form-outline mb-4">
+											<label class="form-label" for="registerEmail">Email</label>
+											<input type="email" id="registerEmail" class="form-control" />
+										</div>
+
+										<!-- Password input -->
+										<div class="form-outline mb-4">
+											<label class="form-label" for="registerPassword">Mật khẩu</label>
+											<input type="password" id="registerPassword" class="form-control" />
+										</div>
+
+										<!-- Repeat Password input -->
+										<div class="form-outline mb-4">
+											<label class="form-label" for="registerRepeatPassword">Nhập lại mật
+												khẩu</label>
+											<input type="password" id="registerRepeatPassword" class="form-control" />
+										</div>
+
+										<!-- Checkbox -->
+										<div class="form-check d-flex justify-content-center mb-4">
+											<input class="form-check-input me-2" type="checkbox" value=""
+												id="registerCheck" checked aria-describedby="registerCheckHelpText" />
+											<label class="form-check-label" for="registerCheck">
+												Tôi đã đọc và đồng ý với các điều khoản.
+											</label>
+										</div>
+
+										<!-- Submit button -->
+										<button type="submit" class="btn btn-primary d-block w-100 mb-4 custom-btn">Đăng
+											ký</button>
+									</form>
 								</div>
 							</div>
-						</form>
+							<!-- Pills content -->
+						</div>
 					</div>
-					<div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
-						<form action="./">
-							<div class="login-form">
-								<h4 class="login-title">Returning Customer</h4>
-								<p><span class="font-weight-bold">I am a returning customer</span></p>
-								<div class="row">
-									<div class="col-md-12 col-12 mb--15">
-										<label for="email">Enter your email address here...</label>
-										<input class="mb-0 form-control" type="email" id="email1"
-											placeholder="Enter you email address here...">
-									</div>
-									<div class="col-12 mb--20">
-										<label for="password">Password</label>
-										<input class="mb-0 form-control" type="password" id="login-password" placeholder="Enter your password">
-									</div>
-									<div class="col-md-12">
-										<a href="#" class="btn btn-outlined">Login</a>
+				</div>
+			</div>
+			<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="text-center mt-4">
+							<h3><strong>Khôi phục mật khẩu</strong></h3>
+						</div>
+						<div class="modal-body">
+							<form>
+								<!-- Trường Email hoặc Số điện thoại -->
+								<div class="mb-3 position-relative">
+									<label for="resetIdentifier" class="form-label">Email hoặc Số điện thoại:</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="resetIdentifier" required>
+										<a class="btn btn-primary send-otp-button" href="#">Gửi mã OTP</a>
 									</div>
 								</div>
-							</div>
-						</form>
+								<!-- Trường nhập mã xác nhận -->
+								<div class="mb-3">
+									<label for="resetCode" class="form-label">Mã xác nhận:</label>
+									<input type="text" class="form-control" id="resetCode" required>
+								</div>
+
+								<!-- Trường mật khẩu mới -->
+								<div class="mb-3">
+									<label for="newPassword" class="form-label">Mật khẩu mới:</label>
+									<input type="password" class="form-control" id="newPassword" required>
+								</div>
+
+								<!-- Trường xác nhận mật khẩu mới -->
+								<div class="mb-3">
+									<label for="confirmPassword" class="form-label">Xác nhận mật khẩu mới:</label>
+									<input type="password" class="form-control" id="confirmPassword" required>
+								</div>
+
+								<!-- Nút gửi form -->
+								<button type="submit" class="btn btn-primary d-block w-100 mb-4 custom-btn">Xác nhận</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -956,7 +1076,8 @@
 				</a>
 				<p class="copyright-text">Copyright © 2021 <a href="#" class="author">Pustok</a>. All Right Reserved.
 					<br>
-					Design By Pustok</p>
+					Design By Pustok
+				</p>
 			</div>
 		</div>
 	</footer>
@@ -964,6 +1085,19 @@
 	<script src="js/plugins.js"></script>
 	<script src="js/ajax-mail.js"></script>
 	<script src="js/custom.js"></script>
+	<script>
+		// Gán sự kiện khi modal quên mật khẩu hiện thị
+		$('#forgotPasswordModal').on('show.bs.modal', function () {
+			// Ẩn modal đăng nhập/đăng ký
+			$('#authModal').modal('hide');
+		});
+
+		// Mở modal quên mật khẩu và ẩn modal đăng nhập/đăng ký
+		function openForgotPasswordModal() {
+			$('#forgotPasswordModal').modal('show');
+			$('#authModal').modal('hide');
+		}
+	</script>
 </body>
 
 </html>

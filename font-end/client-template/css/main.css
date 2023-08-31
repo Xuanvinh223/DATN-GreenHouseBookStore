@@ -84,7 +84,7 @@ body {
   font-size: 14px;
   line-height: 1.75;
   width: 100%;
-  background: #fff;
+ 
 }
 
 .site-wrapper {
@@ -21488,10 +21488,7 @@ input[type=number] {
   opacity: 0.8;
 }
 .brand-slider .single-slide img {
-  /* width: 100%; */
-  height: 120px;
-  width: 180px;
-
+  width: 100%;
 }
 .brand-slider .single-slide:hover {
   opacity: 1;
@@ -22094,7 +22091,7 @@ input[type=number] {
   position: fixed;
   padding: 0;
   width: 100%;
-  z-index: 99999;
+  z-index: 999;
   background: #fff;
   -webkit-box-shadow: 0px 1px 13px 1px rgba(204, 204, 204, 0.384);
           box-shadow: 0px 1px 13px 1px rgba(204, 204, 204, 0.384);
@@ -22909,6 +22906,12 @@ input[type=number] {
 }
 .category-menu .has-children > .sub-menu > li:hover > a {
   color: #62ab00;
+}
+.category-menu .has-children >.sub-menu .single-block ul li:hover a {
+  color: #62ab00;
+}
+.category-menu .has-children >.sub-menu .single-block ul li a.title-last{
+  color: #14983a;
 }
 @media (min-width: 992px) {
   .category-menu .has-children:hover > .sub-menu {
@@ -28507,3 +28510,50 @@ p.form-messege.error {
 .accordion .card .card-body {
   padding: 0 30px 30px;
 }
+/* Popup đăng nhập, đăng ký */
+.custom-tab .nav-link {
+  position: relative;
+  color: #333; /* Màu chữ mặc định */
+  background-color: transparent; /* Loại bỏ background của tab */
+  border: none; /* Loại bỏ viền */
+}
+
+.custom-tab .nav-link::before {
+  content: "";
+  display: block;
+  width: 100%; /* Chiều rộng của đường dưới */
+  height: 2px;
+  background-color: transparent; /* Màu mặc định là trong suốt */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: scaleX(0); /* Đặt chiều dài ban đầu là 0 */
+  transform-origin: center bottom;
+  transition: transform 1s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.custom-tab .nav-item:hover .nav-link::before,
+.custom-tab .nav-item.active .nav-link::before {
+  transform: scaleX(1); /* Kéo dài đường dưới khi hover hoặc tab được chọn */
+  background-color: #0d6efd; /* Màu của đường dưới khi hover hoặc tab được chọn */
+}
+/* Button đăng nhập, đăng ký */
+.custom-btn {
+  background-color: #62ab00; /* Màu nền của nút */
+  border-color: #62ab00; /* Màu viền của nút */
+  color: white; /* Màu chữ của nút */
+}
+.custom-btn:hover {
+  background-color: #519900; /* Màu nền của nút khi hover */
+  border-color: #519900; /* Màu viền của nút khi hover */
+  color: white; /* Màu chữ của nút khi hover */
+}
+/* Button Gửi OTP */
+.send-otp-button {
+  border: 1px solid #ced4da; /* Màu border tương tự như input */
+  border-radius: 0.25rem; /* Bo góc tương tự như input */
+  padding: 0.375rem 0.75rem; /* Khoảng cách giữa nội dung và border */
+}
+
+
+
