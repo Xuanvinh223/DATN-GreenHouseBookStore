@@ -67,3 +67,7 @@
 .form-control:focus {
     border-bottom-color: #007bff;
 }
+
+.remove-bg{
+  background-color: transparent;
+}
