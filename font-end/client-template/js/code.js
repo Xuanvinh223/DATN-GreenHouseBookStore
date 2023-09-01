@@ -109,7 +109,7 @@ $("#sach-menu").mouseenter(function () {
     `);
     $("#top-bar-category-container-right").attr("style", "visibility: visible;");
 }).mouseleave(function () {
-    $("#top-bar-category-container-right").attr("style", "visibility: hidden;");
+    $("#top-bar-category-container-right-sach").attr("style", "visibility: hidden;");
 });
   // Hover mặc định vào tab có id sach-menu
   $("#sach-menu").trigger("mouseenter");
@@ -175,6 +175,20 @@ $("#top-bar-category-container-right").mouseenter(function () {
     $("#top-bar-category-container-right").attr("style", "visibility: visible;");
     console.log("hello");
 }).mouseleave(function () {
-    $("#top-bar-category-container-right").attr("style", "visibility: hidden;");
+    $("#top-bar-category-container-right-sach").attr("style", "visibility: hidden;");
     console.log("hellddo");
 });
+// // Menu DỤNG CỤ HỌC SINH
+// $("#dungcu-menu").mouseenter(function () {
+//     $("#top-bar-category-container-right-dungcu").attr("style", "visibility: visible;");
+// }).mouseleave(function () {
+//     $("#top-bar-category-container-right-dungcu").attr("style", "visibility: hidden;");
+// });
+
+// $("#top-bar-category-container-right-dungcu").mouseenter(function () {
+//     $("#top-bar-category-container-right-dungcu").attr("style", "visibility: visible;");
+//     console.log("hello");
+// }).mouseleave(function () {
+//     $("#top-bar-category-container-right-dungcu").attr("style", "visibility: hidden;");
+//     console.log("hellddo");
+// });
