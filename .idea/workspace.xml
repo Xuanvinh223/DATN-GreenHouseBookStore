@@ -4,68 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Project] - Fix font-end">
+    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Font-end] - My-account(account detail, order, address, voucher, Notification)">
+      <change afterPath="$PROJECT_DIR$/font-end/client-template/chat_2023_08_31_20_54_07.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/.project" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/.project" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/com/greenhouse/GreenHouseBookstoreApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/GreenHouseBookstoreApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Accounts.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Address.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Age.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/AuthenticPhotos.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Authorities.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Authors.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/BookAuthors.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Brand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Carts.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Categories.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/CategoryTypes.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Colors.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Conversation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/CoverTypes.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Discounts.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ImportInvoice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ImportInvoiceDetail.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Inventory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/InvoiceDetails.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Invoices.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Materials.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Message.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Orders.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Pages.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/PaymentStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductCategory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductDetail.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductDiscount.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductImages.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductPriceHistories.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ProductReviews.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Products.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Publishers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Roles.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Sizes.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Status.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/StatusOrder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Suppliers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/UserVoucher.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Vouchers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Weight.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/test/java/com/greenhouse/GreenHouseBookstoreApplicationTests.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/GreenHouseBookstoreApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/GreenHouseBookstoreApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ImportInvoiceDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ImportInvoiceDetail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Publishers.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Publishers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/META-INF/maven/com.greenhouse/GreenHouse-Bookstore/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/META-INF/maven/com.greenhouse/GreenHouse-Bookstore/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/META-INF/maven/com.greenhouse/GreenHouse-Bookstore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/META-INF/maven/com.greenhouse/GreenHouse-Bookstore/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +19,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev/vinh" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -132,6 +76,19 @@
       <workItem from="1692845716504" duration="295000" />
       <workItem from="1692846443558" duration="576000" />
       <workItem from="1692853838676" duration="3283000" />
+      <workItem from="1692867789509" duration="861000" />
+      <workItem from="1692884286676" duration="1511000" />
+      <workItem from="1692887537741" duration="95000" />
+      <workItem from="1692890217796" duration="97000" />
+      <workItem from="1692928924644" duration="46000" />
+      <workItem from="1692968374712" duration="686000" />
+      <workItem from="1693055207452" duration="2771000" />
+      <workItem from="1693062934436" duration="2332000" />
+      <workItem from="1693136216697" duration="2490000" />
+      <workItem from="1693279337737" duration="4434000" />
+      <workItem from="1693372646310" duration="648000" />
+      <workItem from="1693465515238" duration="398000" />
+      <workItem from="1693500465286" duration="396000" />
     </task>
     <task id="LOCAL-00001" summary="[Project] - Create packages">
       <created>1692841448096</created>
@@ -161,7 +118,28 @@
       <option name="project" value="LOCAL" />
       <updated>1692846473220</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="[Back-end] - Database connection">
+      <created>1692867933316</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1692867933316</updated>
+    </task>
+    <task id="LOCAL-00006" summary="[Font-end] - Login, register, forgot password">
+      <created>1693063249048</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1693063249048</updated>
+    </task>
+    <task id="LOCAL-00007" summary="[Font-end] - My-account(account detail, order, address, voucher, Notification)">
+      <created>1693500724070</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1693500724070</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -182,6 +160,11 @@
     <MESSAGE value="[Project] - Create packages" />
     <MESSAGE value="[Project] - Fix source" />
     <MESSAGE value="[Project] - Fix font-end" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Project] - Fix font-end" />
+    <MESSAGE value="[Back-end] - Create entities" />
+    <MESSAGE value="[Back-end] - Create entities_v1" />
+    <MESSAGE value="[Back-end] - Database connection" />
+    <MESSAGE value="[Font-end] - Login, register, forgot password" />
+    <MESSAGE value="[Font-end] - My-account(account detail, order, address, voucher, Notification)" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Font-end] - My-account(account detail, order, address, voucher, Notification)" />
   </component>
 </project>
