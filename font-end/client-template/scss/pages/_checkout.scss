@@ -377,15 +377,6 @@
     list-style: none outside;
     width: auto;
     word-wrap: break-word;
-    &:before {
-        font-family: 'Font Awesome 5 Free';
-        content: '\f249';
-        display: inline-block;
-        position: absolute;
-        top: 1em;
-        color: $primary-color;
-        left: 1.5em;
-    }
 }
 
 .order-note-block {
