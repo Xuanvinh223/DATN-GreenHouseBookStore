@@ -49,6 +49,22 @@ $("#top-bar-category-container-right-sach").mouseenter(function () {
     $("#top-bar-category-container-right-sach").attr("style", "visibility: hidden;");
     console.log("hellddo");
 });
+
+//Menu Sách Nước ngoài
+$("#sachnuocngoai-menu").mouseenter(function () {
+    $("#top-bar-category-container-right-nuocngoai").attr("style", "visibility: visible;");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-nuocngoai").attr("style", "visibility: hidden;");
+});
+
+$("#top-bar-category-container-right-nuocngoai").mouseenter(function () {
+    $("#top-bar-category-container-right-nuocngoai").attr("style", "visibility: visible;");
+    console.log("hello");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-nuocngoai").attr("style", "visibility: hidden;");
+    console.log("hellddo");
+});
+
 // Menu DỤNG CỤ HỌC SINH
 $("#dungcu-menu").mouseenter(function () {
     $("#top-bar-category-container-right-dungcu").attr("style", "visibility: visible;");
@@ -61,5 +77,69 @@ $("#top-bar-category-container-right-dungcu").mouseenter(function () {
     console.log("hello");
 }).mouseleave(function () {
     $("#top-bar-category-container-right-dungcu").attr("style", "visibility: hidden;");
+    console.log("hellddo");
+});
+
+//Menu Hành trang đến trường
+$("#hanhtrang-menu").mouseenter(function () {
+    $("#top-bar-category-container-right-hanhtrang").attr("style", "visibility: visible;");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-hanhtrang").attr("style", "visibility: hidden;");
+});
+
+$("#top-bar-category-container-right-hanhtrang").mouseenter(function () {
+    $("#top-bar-category-container-right-hanhtrang").attr("style", "visibility: visible;");
+    console.log("hello");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-hanhtrang").attr("style", "visibility: hidden;");
+    console.log("hellddo");
+});
+
+
+
+
+//Menu Sách mobile
+$("#sach-menu1").mouseenter(function () {
+    $("#top-bar-category-container-right-sach1").attr("style", "visibility: visible;");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-sach1").attr("style", "visibility: hidden;");
+});
+
+$("#top-bar-category-container-right-sach1").mouseenter(function () {
+    $("#top-bar-category-container-right-sach1").attr("style", "visibility: visible;");
+    console.log("hello");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-sach1").attr("style", "visibility: hidden;");
+    console.log("hellddo");
+});
+
+
+//Menu Sách nước ngoài mobile
+$("#sachnuocngoai-menu1").mouseenter(function () {
+    $("#top-bar-category-container-right-nuocngoai1").attr("style", "visibility: visible;");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-nuocngoai1").attr("style", "visibility: hidden;");
+});
+
+$("#top-bar-category-container-right-nuocngoai1").mouseenter(function () {
+    $("#top-bar-category-container-right-nuocngoai1").attr("style", "visibility: visible;");
+    console.log("hello");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-nuocngoai1").attr("style", "visibility: hidden;");
+    console.log("hellddo");
+});
+
+// Menu DỤNG CỤ HỌC SINH mobile
+$("#dungcu-menu1").mouseenter(function () {
+    $("#top-bar-category-container-right-dungcu1").attr("style", "visibility: visible;");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-dungcu1").attr("style", "visibility: hidden;");
+});
+
+$("#top-bar-category-container-right-dungcu1").mouseenter(function () {
+    $("#top-bar-category-container-right-dungcu1").attr("style", "visibility: visible;");
+    console.log("hello");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-dungcu1").attr("style", "visibility: hidden;");
     console.log("hellddo");
 });
