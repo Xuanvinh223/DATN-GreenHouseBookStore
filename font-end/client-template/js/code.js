@@ -129,3 +129,16 @@ $("#top-bar-category-container-right-dungcu1").mouseenter(function () {
 }).mouseleave(function () {
     $("#top-bar-category-container-right-dungcu1").css("display", "none");
 });
+
+// Menu Hành trang đến trường mobile
+$("#hanhtrang-menu1").mouseenter(function () {
+    $("#top-bar-category-container-right-hanhtrang1").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-hanhtrang1").css("display", "none");
+});
+
+$("#top-bar-category-container-right-hanhtrang1").mouseenter(function () {
+    $("#top-bar-category-container-right-hanhtrang1").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-hanhtrang1").css("display", "none");
+});
