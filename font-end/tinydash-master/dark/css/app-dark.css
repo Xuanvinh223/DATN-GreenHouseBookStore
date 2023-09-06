@@ -149,7 +149,7 @@ a {
   background-color: transparent; }
   a:hover {
     color: #0045ce;
-    text-decoration: underline; }
+    text-decoration: none; }
 
 a:not([href]) {
   color: inherit;
@@ -1224,7 +1224,13 @@ pre {
 .table-hover tbody tr:hover {
   color: #ced4da;
   background-color: rgba(0, 0, 0, 0.075); }
-
+.table-striped tbody tr td a i{
+  color: #ced4da;
+  padding-right: 5px;
+}
+.table-striped tbody tr td a i:hover{
+  color: #4eaa4f;
+}
 .table-primary,
 .table-primary > th,
 .table-primary > td {
