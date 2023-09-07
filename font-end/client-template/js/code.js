@@ -57,138 +57,108 @@ for (let i = 0; i < allElement.length; i++) {
 
 // Xử lý sự kiện cho menu sách
 $("#sach-menu").mouseenter(function () {
-    // Thay đổi nội dung của menu sách tại đây
-    $("#top-bar-category-container-right").html(`
-        <!-- Thay đổi nội dung của menu sách -->
-      <div class="top-bar-category-container-right-title">
-        <i class="ico_lamdepsuckhoe"></i>
-        <span>Sách Truyện</span>
-      </div>
-      <div class="top-bar-category-container-right-menu">
-
-        <div class="row">
-          <div class="col-lg-4">
-            <ul>
-              <h3 class="title">Truyện</h3>
-
-              <li><a href="#">Tiểu Thuyết</a></li>
-              <li><a href="#">Ngôn Tình</a></li>
-              <li><a href="#">Khoa Học Viễn Tưởng</a></li>
-              <li><a href="#">Kinh Dị</a></li>
-              <li><a href="#">Đam Mỹ</a></li>
-              <li><a href="#" class="title-last">Xem tất cả</a></li>
-
-            </ul>
-          </div>
-          <div class="col-lg-4">
-            <ul>
-              <h3 class="title">Sách Ngoại Ngữ</h3>
-
-              <li><a href="#">Tiếng Anh</a></li>
-              <li><a href="#">Tiếng Nhật</a></li>
-              <li><a href="#">Tiếng Hoa</a></li>
-              <li><a href="#">Tiếng Hàn</a></li>
-              <li><a href="#" class="title-last">Xem tất cả</a></li>
-
-            </ul>
-          </div>
-          <div class="col-lg-4">
-            <ul>
-              <h3 class="title">Sách Giáo Khoa - Tham Khảo</h3>
-              <li><a href="#">Sách Giáo Khoa</a></li>
-              <li><a href="#">Sách Tham Khảo</a></li>
-              <li><a href="#">Luyện Thi THPT Quốc Gia</a></li>
-              <li><a href="#">Mẫu Giáo</a></li>
-              <li><a href="#" class="title-last">Xem tất cả</a></li>
-            </ul>
-          </div>
-
-        </div>
-
-      </div> 
-    `);
-    $("#top-bar-category-container-right").attr("style", "visibility: visible;");
+    $("#top-bar-category-container-right-sach").css("display", "block");
 }).mouseleave(function () {
-    $("#top-bar-category-container-right-sach").attr("style", "visibility: hidden;");
+    $("#top-bar-category-container-right-sach").css("display", "none");
 });
-  // Hover mặc định vào tab có id sach-menu
-  $("#sach-menu").trigger("mouseenter");
 
+$("#top-bar-category-container-right-sach").mouseenter(function () {
+    $("#top-bar-category-container-right-sach").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-sach").css("display", "none");
+});
 
-// Xử lý sự kiện cho menu dụng cụ học sinh
+//Menu Sách Nước ngoài
+$("#sachnuocngoai-menu").mouseenter(function () {
+    $("#top-bar-category-container-right-nuocngoai").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-nuocngoai").css("display", "none");
+});
+
+$("#top-bar-category-container-right-nuocngoai").mouseenter(function () {
+    $("#top-bar-category-container-right-nuocngoai").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-nuocngoai").css("display", "none");
+});
+
+// Menu DỤNG CỤ HỌC SINH
 $("#dungcu-menu").mouseenter(function () {
-    // Thay đổi nội dung của menu dụng cụ học sinh tại đây
-    $("#top-bar-category-container-right").html(`
-        <!-- Thay đổi nội dung của menu dụng cụ học sinh -->
-      <div class="top-bar-category-container-right-title">
-        <i class="ico_lamdepsuckhoe"></i>
-        <span>Dụng Cụ Học Sinh</span>
-      </div>
-      <div class="top-bar-category-container-right-menu">
-
-        <div class="row">
-          <div class="col-lg-4">
-            <ul>
-              <h3 class="title">Truyện</h3>
-
-              <li><a href="#">Tiểu Thuyết</a></li>
-              <li><a href="#">Ngôn Tình</a></li>
-              <li><a href="#">Khoa Học Viễn Tưởng</a></li>
-              <li><a href="#">Kinh Dị</a></li>
-              <li><a href="#">Đam Mỹ</a></li>
-              <li><a href="#" class="title-last">Xem tất cả</a></li>
-
-            </ul>
-          </div>
-          <div class="col-lg-4">
-            <ul>
-              <h3 class="title">Sách Ngoại Ngữ</h3>
-
-              <li><a href="#">Tiếng Anh</a></li>
-              <li><a href="#">Tiếng Nhật</a></li>
-              <li><a href="#">Tiếng Hoa</a></li>
-              <li><a href="#">Tiếng Hàn</a></li>
-              <li><a href="#" class="title-last">Xem tất cả</a></li>
-
-            </ul>
-          </div>
-          <div class="col-lg-4">
-            <ul>
-              <h3 class="title">Sách Giáo Khoa - Tham Khảo</h3>
-              <li><a href="#">Sách Giáo Khoa</a></li>
-              <li><a href="#">Sách Tham Khảo</a></li>
-              <li><a href="#">Luyện Thi THPT Quốc Gia</a></li>
-              <li><a href="#">Mẫu Giáo</a></li>
-              <li><a href="#" class="title-last">Xem tất cả</a></li>
-            </ul>
-          </div>
-        </div>
-
-      </div> 
-    `);
-    $("#top-bar-category-container-right").attr("style", "visibility: visible;");
+    $("#top-bar-category-container-right-dungcu").css("display", "block");
 }).mouseleave(function () {
-    $("#top-bar-category-container-right").attr("style", "visibility: hidden;");
+    $("#top-bar-category-container-right-dungcu").css("display", "none");
 });
-//   Hover bên phải
-$("#top-bar-category-container-right").mouseenter(function () {
-    $("#top-bar-category-container-right").attr("style", "visibility: visible;");
-    console.log("hello");
-}).mouseleave(function () {
-    $("#top-bar-category-container-right-sach").attr("style", "visibility: hidden;");
-    console.log("hellddo");
-});
-// // Menu DỤNG CỤ HỌC SINH
-// $("#dungcu-menu").mouseenter(function () {
-//     $("#top-bar-category-container-right-dungcu").attr("style", "visibility: visible;");
-// }).mouseleave(function () {
-//     $("#top-bar-category-container-right-dungcu").attr("style", "visibility: hidden;");
-// });
 
-// $("#top-bar-category-container-right-dungcu").mouseenter(function () {
-//     $("#top-bar-category-container-right-dungcu").attr("style", "visibility: visible;");
-//     console.log("hello");
-// }).mouseleave(function () {
-//     $("#top-bar-category-container-right-dungcu").attr("style", "visibility: hidden;");
-//     console.log("hellddo");
-// });
+$("#top-bar-category-container-right-dungcu").mouseenter(function () {
+    $("#top-bar-category-container-right-dungcu").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-dungcu").css("display", "none");
+});
+
+//Menu Hành trang đến trường
+$("#hanhtrang-menu").mouseenter(function () {
+    $("#top-bar-category-container-right-hanhtrang").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-hanhtrang").css("display", "none");
+});
+
+$("#top-bar-category-container-right-hanhtrang").mouseenter(function () {
+    $("#top-bar-category-container-right-hanhtrang").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-hanhtrang").css("display", "none");
+});
+
+
+
+
+//Menu Sách mobile
+$("#sach-menu1").mouseenter(function () {
+    $("#top-bar-category-container-right-sach1").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-sach1").css("display", "none");
+});
+
+$("#top-bar-category-container-right-sach1").mouseenter(function () {
+    $("#top-bar-category-container-right-sach1").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-sach1").css("display", "none");
+});
+
+
+//Menu Sách nước ngoài mobile
+$("#sachnuocngoai-menu1").mouseenter(function () {
+    $("#top-bar-category-container-right-nuocngoai1").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-nuocngoai1").css("display", "none");
+});
+
+$("#top-bar-category-container-right-nuocngoai1").mouseenter(function () {
+    $("#top-bar-category-container-right-nuocngoai1").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-nuocngoai1").css("display", "none");
+});
+
+// Menu DỤNG CỤ HỌC SINH mobile
+$("#dungcu-menu1").mouseenter(function () {
+    $("#top-bar-category-container-right-dungcu1").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-dungcu1").css("display", "none");
+});
+
+$("#top-bar-category-container-right-dungcu1").mouseenter(function () {
+    $("#top-bar-category-container-right-dungcu1").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-dungcu1").css("display", "none");
+});
+
+// Menu Hành trang đến trường mobile
+$("#hanhtrang-menu1").mouseenter(function () {
+    $("#top-bar-category-container-right-hanhtrang1").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-hanhtrang1").css("display", "none");
+});
+
+$("#top-bar-category-container-right-hanhtrang1").mouseenter(function () {
+    $("#top-bar-category-container-right-hanhtrang1").css("display", "block");
+}).mouseleave(function () {
+    $("#top-bar-category-container-right-hanhtrang1").css("display", "none");
+});

@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Font-end] - My-account(account detail, order, address, voucher, Notification)">
-      <change afterPath="$PROJECT_DIR$/font-end/client-template/chat_2023_08_31_20_54_07.md" afterDir="false" />
+    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Font-end] - Fix menu &quot;Sản phẩm&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/META-INF/maven/com.greenhouse/GreenHouse-Bookstore/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/META-INF/maven/com.greenhouse/GreenHouse-Bookstore/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/META-INF/maven/com.greenhouse/GreenHouse-Bookstore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/target/classes/META-INF/maven/com.greenhouse/GreenHouse-Bookstore/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +85,10 @@
       <workItem from="1693372646310" duration="648000" />
       <workItem from="1693465515238" duration="398000" />
       <workItem from="1693500465286" duration="396000" />
+      <workItem from="1693652889645" duration="3454000" />
+      <workItem from="1693662449930" duration="946000" />
+      <workItem from="1693665097303" duration="1930000" />
+      <workItem from="1693741905720" duration="1791000" />
     </task>
     <task id="LOCAL-00001" summary="[Project] - Create packages">
       <created>1692841448096</created>
@@ -139,7 +139,21 @@
       <option name="project" value="LOCAL" />
       <updated>1693500724070</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="[Font-end] - Change input date in my-account.html">
+      <created>1693655392279</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1693655392279</updated>
+    </task>
+    <task id="LOCAL-00009" summary="[Font-end] - Fix menu &quot;Sản phẩm&quot;">
+      <created>1693662575755</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1693662575755</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,6 +179,8 @@
     <MESSAGE value="[Back-end] - Database connection" />
     <MESSAGE value="[Font-end] - Login, register, forgot password" />
     <MESSAGE value="[Font-end] - My-account(account detail, order, address, voucher, Notification)" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Font-end] - My-account(account detail, order, address, voucher, Notification)" />
+    <MESSAGE value="[Font-end] - Change input date in my-account.html" />
+    <MESSAGE value="[Font-end] - Fix menu &quot;Sản phẩm&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Font-end] - Fix menu &quot;Sản phẩm&quot;" />
   </component>
 </project>
