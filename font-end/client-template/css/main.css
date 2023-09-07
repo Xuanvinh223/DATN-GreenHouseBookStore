@@ -20352,7 +20352,12 @@ input[type=number] {
     margin-top:30px;
   }
 }
-
+@media (min-width: 320px) {
+  .section-margin {
+    margin-bottom: 30px;
+    margin-top:30px;
+  }
+}
 .section-margin-top {
   margin-top: 60px;
 }
@@ -20894,7 +20899,7 @@ input[type=number] {
 }
 .section-title--bordered {
   position: relative;
-  border-bottom: 1px solid #4cb127;
+  border-bottom: 1px solid #d4d5d3;
 }
 .section-title--bordered h2 {
   position: relative;
@@ -24248,7 +24253,7 @@ font-size:0.9rem;
 }
 
 .footer-bottom {
-  padding: 55px 0;
+  padding: 30px 0;
   text-align: center;
   background: #333;
 }
