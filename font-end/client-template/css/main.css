@@ -84,12 +84,11 @@ body {
   font-size: 14px;
   line-height: 1.75;
   width: 100%;
- 
+  background: #F8F8FF;
 }
 
 .site-wrapper {
   position: relative;
-  background: #f0f0f0;
 }
 
 h1,
@@ -20339,13 +20338,18 @@ input[type=number] {
   }
 }
 
-/*Theme Spacing*/
-.section-margin {
+/*Theme SẢN PHẨM BÁN CH*/
+/* .section-margin {
   margin-bottom: 60px;
+} */
+
+.section-margin .container{
+  background-color: #ffffff;
 }
 @media (min-width: 768px) {
   .section-margin {
-    margin-bottom: 80px;
+    margin-bottom: 30px;
+    margin-top:30px;
   }
 }
 
@@ -20890,7 +20894,7 @@ input[type=number] {
 }
 .section-title--bordered {
   position: relative;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #4cb127;
 }
 .section-title--bordered h2 {
   position: relative;
@@ -21212,6 +21216,9 @@ input[type=number] {
 }
 .product-card .card-image {
   position: relative;
+}
+ .card-image1 {
+  width:100%;
 }
 .product-card .hover-contents {
   position: absolute;
@@ -23224,6 +23231,16 @@ input[type=number] {
   padding-bottom: 13px;
   margin-bottom: 13px;
   border-bottom: 1px solid #ececec;
+}
+.mobile-navigation .mobile-menu > li > a
+{
+font-size:0.9rem;
+}
+/* .mobile-navigation .mobile-menu > li > ul >li>a{
+  font-size:0.8rem;
+} */
+.mobile-navigation .mobile-menu > li .sub-menu > li >a{
+  font-size:0.85rem;
 }
 .mobile-navigation .mobile-menu > li .sub-menu > li {
   padding-top: 13px;
