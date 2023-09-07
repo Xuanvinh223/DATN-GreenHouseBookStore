@@ -32,7 +32,6 @@
 
 .top-banner {
     text-align: center;
-
     background-color: #0F60A1;
 }
 
@@ -755,18 +754,16 @@
 
 
 .container-category {
-    margin-top: 10px;
     display: flex;
     justify-content: space-evenly;
     padding-top: 15px;
     padding-bottom: 15px;
-    background-color: #efebeb;
-    border-radius: 10px;
+    background-color: #ffffff;
     flex-wrap: wrap;
     align-items: center;
     text-align: center;
     align-content: center;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .container-category-child {
@@ -876,13 +873,11 @@
 /* Flash Sale */
 
 .flashsale-header {
-    background-color: #a3e44d;
+    background-color: #ffffff;
     height: 50px;
     width: 100%;
-    margin-top: 20px;
     display: flex;
     align-items: center;
-
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
 
@@ -903,7 +898,6 @@
 }
 
 .flashsale-header-countdown-item {
-
     padding: 4px 8px;
     background-color: #ffffff;
     color: #000000;
@@ -914,8 +908,7 @@
 }
 
 .flashsale-section {
-    background-color: white;
-
+    background-color: #ffffff;
 }
 
 .flashsale-container {
