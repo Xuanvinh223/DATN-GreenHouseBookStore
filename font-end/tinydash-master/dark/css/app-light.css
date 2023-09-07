@@ -182,7 +182,7 @@ a {
 }
 a:hover {
   color: #0045ce;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a:not([href]) {
@@ -1713,7 +1713,13 @@ pre code {
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: #ffffff;
 }
-
+.table-striped tbody tr td a i{
+  color: #6c757d;
+  padding-right: 5px;
+}
+.table-striped tbody tr td a i:hover{
+  color: #4eaa4f;
+}
 .table-hover tbody tr:hover {
   color: #6c757d;
   background-color: #dee2e6;
@@ -10318,7 +10324,9 @@ select {
 .table tbody tr th {
   font-weight: 400;
 }
+.table tbody tr td a i{
 
+} 
 .table tr.collapse {
   border-top: 1px solid #e9ecef;
   border-bottom: 1px solid #e9ecef;
