@@ -32,7 +32,6 @@
 
 .top-banner {
     text-align: center;
-
     background-color: #0F60A1;
 }
 
@@ -755,18 +754,16 @@
 
 
 .container-category {
-    margin-top: 10px;
     display: flex;
     justify-content: space-evenly;
     padding-top: 15px;
     padding-bottom: 15px;
-    background-color: #efebeb;
-    border-radius: 10px;
+    background-color: #ffffff;
     flex-wrap: wrap;
     align-items: center;
     text-align: center;
     align-content: center;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .container-category-child {
@@ -874,15 +871,12 @@
 
 /* eND DANH MỤC SẢN PHẨM */
 /* Flash Sale */
-
 .flashsale-header {
-    background-color: #a3e44d;
+    background-color: #ffffff;
     height: 50px;
     width: 100%;
-    margin-top: 20px;
     display: flex;
     align-items: center;
-
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
 
@@ -895,6 +889,7 @@
     color: #1F1D1D;
 }
 
+
 .flashsale-page-countdown-label {
     font-size: 1.1em;
     font-weight: 300;
@@ -903,9 +898,8 @@
 }
 
 .flashsale-header-countdown-item {
-
     padding: 4px 8px;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     color: #000000;
     font-size: 14px;
     font-weight: 600;
@@ -914,8 +908,7 @@
 }
 
 .flashsale-section {
-    background-color: white;
-
+    background-color: #ffffff;
 }
 
 .flashsale-container {
@@ -962,7 +955,26 @@
     width: 90%;
     height: 90%;
 }
-
+@media screen and (max-width: 320px) {
+    .flashsale-header {
+        margin-top: 30px;
+        background-color: #ffffff;
+        height: 50px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    
+    }
+    
+    .flashsale-header-title {
+        font-weight: 550;
+        margin-left: 10px;
+        font-size: 1rem;
+        color: #1F1D1D;
+    }
+}
 .best-sale span {
     font-size: 20px;
     font-weight: 700;
@@ -1099,6 +1111,49 @@
 }
 
 /* End Flash Sale */
+/* Thương hiệu nổi bật */
+.nav-pills .nav-link{
+    background-color: #fff;
+    margin-left: 8px;
+    margin-right: 8px;
+    color: #222;
+    border-radius: 10px;
+    border: 1px solid #9aa19c;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+.nav-pills .nav-link.active{
+    background-color: #fff;
+    color: #26d94a;
+    border:1px solid #26d94a;
+}
+.nav-pills .nav-link:hover{
+    color: #26d94a;
+    border:1px solid #26d94a;
+}
+@media screen and (max-width: 320px) {
+    .nav-pills .nav-link{
+        /* display: inline-block; */
+        background-color: #fff;
+        margin-left: 8px;
+        margin-right: 8px;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        color: #222;
+        width: 100px;
+        height: 30px;
+        border-radius: 10px;
+        border: 1px solid #9aa19c;
+    }
+}
+/* End Thương hiệu nổi bật */
+/* Footer */
+.site-footer{
+    background-color: #fff;
+}
+/* End Footer */
 /* Mobile */
 @media screen and (max-width: 992px) {
     .top-bar-desktop {
