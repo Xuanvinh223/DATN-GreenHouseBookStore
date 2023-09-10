@@ -1754,10 +1754,10 @@
     <!--=================================
       Brands Slider
       ===================================== -->
-    <section class="section-margin">
-      <h2 class="sr-only">Brand Slider</h2>
-      <div class="container">
-        <div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
+      <section class="section-margin">
+        <h2 class="sr-only">Brand Slider</h2>
+        <div class="container">
+          <div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
                                               "autoplay": true,
                                               "autoplaySpeed": 8000,
                                               "slidesToShow": 6
@@ -1768,33 +1768,33 @@
                   {"breakpoint":480, "settings": {"slidesToShow": 2} },
                   {"breakpoint":320, "settings": {"slidesToShow": 1} }
               ]'>
-          <div class="single-slide">
-            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-1.jpg" alt="">
-          </div>
-          <div class="single-slide">
-            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-2.jpg" alt="">
-          </div>
-          <div class="single-slide">
-            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-3.jpg" alt="">
-          </div>
-          <div class="single-slide">
-            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-4.jpg" alt="">
-          </div>
-          <div class="single-slide">
-            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-5.jpg" alt="">
-          </div>
-          <div class="single-slide">
-            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
-          </div>
-          <div class="single-slide">
-            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
-          </div>
-          <div class="single-slide">
-            <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
+            <div class="single-slide">
+              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-1.jpg" alt="">
+            </div>
+            <div class="single-slide">
+              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-2.jpg" alt="">
+            </div>
+            <div class="single-slide">
+              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-3.jpg" alt="">
+            </div>
+            <div class="single-slide">
+              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-4.jpg" alt="">
+            </div>
+            <div class="single-slide">
+              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-5.jpg" alt="">
+            </div>
+            <div class="single-slide">
+              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
+            </div>
+            <div class="single-slide">
+              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
+            </div>
+            <div class="single-slide">
+              <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
   </div>
   <footer class="site-footer">
     <div class="container">
@@ -1983,94 +1983,6 @@
                       <a class="btn btn-info send-otp-button" href="#">Gửi mã OTP</a>
                     </div>
 
-
-                    <!-- Trường Mật khẩu -->
-                    <div class="form-floating mb-3">
-                      <input type="password" class="form-control" id="registerPassword" placeholder="Mật khẩu">
-                      <label for="registerPassword">Mật khẩu<span class="text-danger">*</span></label>
-                    </div>
-
-                    <!-- Trường Nhập lại mật khẩu -->
-                    <div class="form-floating mb-3">
-                      <input type="password" class="form-control" id="registerRepeatPassword"
-                        placeholder="Nhập lại mật khẩu">
-                      <label for="registerRepeatPassword">Nhập lại mật khẩu<span class="text-danger">*</span></label>
-                    </div>
-
-                    <!-- Checkbox -->
-                    <div class="form-check d-flex justify-content-center mb-4">
-                      <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked>
-                      <label class="form-check-label" for="registerCheck">
-                        Tôi đã đọc và đồng ý với các điều khoản.
-                      </label>
-                    </div>
-
-                    <div class="mb-3">
-                      <button class="btn btn-lg btn-success w-100 fs-6">Đăng ký</button>
-                    </div>
-                    <div class="row">
-                      <small>Bạn đã có tài khoản? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng
-                          nhập</a></small>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Modal signin END -->
-
-  <!-- Modal forgot password START -->
-  <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="text-center mt-4">
-          <h3 class="text-uppercase">Khôi phục mật khẩu</h3>
-        </div>
-        <div class="modal-body">
-          <form>
-            <!-- Trường Email hoặc Số điện thoại -->
-            <div class="form-floating mb-3 form-floating-row">
-              <input type="text" class="form-control" id="resetIdentifier" required
-                placeholder="Email hoặc Số điện thoại">
-              <label for="resetIdentifier">Email hoặc Số điện thoại<span class="text-danger">(*)</span></label>
-              <a class="btn btn-info send-otp-button" href="#">Gửi mã OTP</a>
-            </div>
-
-            <!-- Trường nhập mã xác nhận -->
-            <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="resetCode" required placeholder="Mã xác nhận">
-              <label for="resetCode">Mã xác nhận<span class="text-danger">(*)</span></label>
-            </div>
-
-            <!-- Trường mật khẩu mới -->
-            <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="newPassword" required placeholder="Mật khẩu mới">
-              <label for="newPassword">Mật khẩu mới<span class="text-danger">(*)</span></label>
-            </div>
-
-            <!-- Trường xác nhận mật khẩu mới -->
-            <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="confirmPassword" required
-                placeholder="Xác nhận mật khẩu mới">
-              <label for="confirmPassword">Xác nhận mật khẩu mới<span class="text-danger">(*)</span></label>
-            </div>
-
-            <!-- Nút gửi form -->
-            <button type="submit" class="btn btn-success d-block w-100 mb-4">Xác nhận</button>
-          </form>
-        </div>
-        <button type="button" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn btn-link text-danger">
-          <i class="fa fa-arrow-left"></i> Trở về đăng nhập
-        </button>
-      </div>
-    </div>
-  </div>
-  <!-- Modal forgot password END -->
 
   <!-- Use Minified Plugins Version For Fast Page Load -->
   <script src="js/plugins.js"></script>
