@@ -26067,6 +26067,25 @@ input[type=number] {
   letter-spacing: 0.025em;
 }
 
+  .review-article {
+        background-color: #f7f7f7;
+        padding: 20px;
+        border: 1px solid #ddd;
+        margin: 10px;
+    }
+
+    .product-info p {
+        margin: 10px 0;
+    }
+
+    .product-info strong {
+        font-weight: bold;
+        /* margin-right: 200px; */
+    }
+
+    
+ 
+
 .tab-product-details .brand {
   margin-bottom: 30px;
 }
