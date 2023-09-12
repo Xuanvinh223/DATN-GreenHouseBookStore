@@ -10965,7 +10965,7 @@ img.brand-img {
   color: #6c757d;
 }
 .table thead th {
-  color: #ced4da;
+  color: #000;
 }
 .table tbody tr th {
   color: #001a4e;
@@ -15778,5 +15778,9 @@ a.uppy-Dashboard-poweredBy {
     font-size: 35px;
     top: -10px;
     right: -35px;
+  }
+
+  .Upload{
+    padding-top:100px;
   }
 }
