@@ -78,7 +78,7 @@ body {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #6c757d;
+  color: black;
   text-align: left;
   background-color: #f8f9fa;
 }
@@ -2005,7 +2005,7 @@ pre code {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #495057;
+  color: black;
   background-color: #ffffff;
   background-clip: padding-box;
   border: 1px solid #dee2e6;
@@ -10965,7 +10965,7 @@ img.brand-img {
   color: #6c757d;
 }
 .table thead th {
-  color: #ced4da;
+  color: #000;
 }
 .table tbody tr th {
   color: #001a4e;
@@ -15778,5 +15778,9 @@ a.uppy-Dashboard-poweredBy {
     font-size: 35px;
     top: -10px;
     right: -35px;
+  }
+
+  .Upload{
+    padding-top:100px;
   }
 }
