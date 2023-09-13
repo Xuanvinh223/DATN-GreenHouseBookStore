@@ -483,6 +483,7 @@ jQuery(document).ready(function($) {
 				document.getElementById('google-map'), {zoom: 12, center: uluru});
 			// The marker, positioned at Uluru
 			var marker = new google.maps.Marker({position: uluru, map: map});
+            console.log("GG Map");
 		}
 		initMap();
 	}

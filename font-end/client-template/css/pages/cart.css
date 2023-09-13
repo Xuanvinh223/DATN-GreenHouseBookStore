@@ -1033,7 +1033,7 @@ hr {
     color: white !important;
 }
 
-button.button>span {
+button.btn-checkout>span {
     color: white;
     background: #C92127;
     border: none;
@@ -1047,18 +1047,18 @@ button.btn-checkout span span {
     padding: 0 15px;
 }
 
-button.button span span {
+button.btn-checkout span span {
     border: 0;
     padding: 0 !important;
     background: none !important;
 }
 
 .form-list label,
-button.button span {
+button.btn-checkout span {
     font-family: sans-serif;
 }
 
-button.button {
+button.btn-checkout {
     overflow: visible;
     width: auto;
     border: 0;
