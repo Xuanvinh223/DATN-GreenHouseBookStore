@@ -14,6 +14,7 @@
   <link rel="stylesheet" type="text/css" media="screen" href="css/index.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="css/login-register.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="css/my-account.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="css/voucher.css">
 	<link rel="stylesheet" href="css/pages/cart.css">
   <link rel="shortcut icon" type="image/x-icon" href="image/favicon.ico">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -30,7 +31,7 @@
 
       <div class="top-bar mouse-hover">
         <div class="top-bar-left" style=" margin-right: 10px;">
-          <a href="/">
+          <a href="#">
             <div class="top-bar-logo" alt="logo">
               <img src="image/GreenHouse_Logo.png" alt="">
             </div>
@@ -396,7 +397,7 @@
               <div class="main-navigation flex-lg-right">
                 <ul class="main-menu menu-right main-menu--white  li-last-0">
                   <li class="menu-item has-children">
-                    <a href="/">Trang Chủ </a>
+                    <a href="#">Trang Chủ </a>
                   </li>
                   <!-- Shop -->
                   <li class="menu-item has-children mega-menu">
@@ -595,7 +596,7 @@
                     <a href="#!flash-sale">Flash Sale</a>
                   </li>
                   <li class="menu-item">
-                    <a href="">Mã Khuyến Mãi</a>
+                    <a href="#!voucher">Mã Khuyến Mãi</a>
                   </li>
                   <li class="menu-item">
                     <a href="#!lienhe">Liên Hệ</a>
@@ -734,7 +735,7 @@
                   <a href="#!flash-sale">Flash Sale</a>
                 </li>
                 <li class="menu-item">
-                  <a href="">Mã Khuyến Mãi</a>
+                  <a href="#!voucher">Mã Khuyến Mãi</a>
                 </li>
                 <li class="menu-item">
                   <a href="#!lienhe">Liên Hệ</a>
@@ -959,7 +960,7 @@
                   <a href="#!flash-sale">Flash Sale</a>
                 </li>
                 <li class="menu-item">
-                  <a href="">Mã Khuyến Mãi</a>
+                  <a href="#!voucher">Mã Khuyến Mãi</a>
                 </li>
                 <li class="menu-item">
                   <a href="#!lienhe">Liên Hệ</a>
@@ -1251,12 +1252,14 @@
   <!-- Modal forgot password END -->
 
   <!-- Use Minified Plugins Version For Fast Page Load -->
-  <script src="js/app.js"></script>
+  <script src="controller/app.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/ajax-mail.js"></script>
   <script src="js/custom.js"></script>
   <script src="js/code.js"></script>
   <script src="js/login-register.js"></script>
+  <!-- Controller -->
+  <script src="controller/account-controller.js"></script>
 </body>
 
 </html>
