@@ -6,15 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Font-end] - Fix menu &quot;Sản phẩm&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/client-template/contact-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/contact-2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/client-template/css/pages/cart.css" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/css/pages/cart.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/client-template/flash-sale.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/flash-sale.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/font-end/client-template/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/client-template/index1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/client-template/js/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/js/code.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/client-template/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/js/custom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/client-template/js/my-account.js" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/js/my-account.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/client-template/order-complete.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/order-complete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/js/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/page/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/page/account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/php/mail.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/voucher.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/voucher.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
