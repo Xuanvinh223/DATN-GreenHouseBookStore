@@ -6,6 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Font-end] - Fix menu &quot;Sản phẩm&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/contact-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/contact-2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/css/pages/cart.css" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/css/pages/cart.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/flash-sale.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/flash-sale.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/index1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/js/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/js/code.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/js/custom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/js/my-account.js" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/js/my-account.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/order-complete.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/order-complete.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +98,15 @@
       <workItem from="1693662449930" duration="946000" />
       <workItem from="1693665097303" duration="1930000" />
       <workItem from="1693741905720" duration="1791000" />
+      <workItem from="1694044924949" duration="1741000" />
+      <workItem from="1694090220612" duration="1780000" />
+      <workItem from="1694098050841" duration="1388000" />
+      <workItem from="1694146096486" duration="20000" />
+      <workItem from="1694329511703" duration="268000" />
+      <workItem from="1694355007273" duration="36000" />
+      <workItem from="1694355263099" duration="1583000" />
+      <workItem from="1694520815154" duration="969000" />
+      <workItem from="1694568170686" duration="1267000" />
     </task>
     <task id="LOCAL-00001" summary="[Project] - Create packages">
       <created>1692841448096</created>
