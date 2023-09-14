@@ -9,7 +9,7 @@ statusButtons.forEach(button => {
 });
 // Order End
 
-// Account-detail Start
+// changePassword Start
 const changePasswordCheckbox = document.getElementById("change_password_checkbox");
 const passwordFields = document.getElementById("password_fields");
 
@@ -20,4 +20,4 @@ changePasswordCheckbox.addEventListener("change", function () {
         passwordFields.style.display = "none";
     }
 });
-// Account-detail end
+// changePassword end

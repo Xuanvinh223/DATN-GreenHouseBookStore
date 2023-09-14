@@ -47,7 +47,8 @@ $("#top-bar-category-container-right-sach").mouseenter(function () {
 }).mouseleave(function () {
     $("#top-bar-category-container-right-sach").css("display", "none");
 });
-
+// Hover mặc định vào tab có id sach-menu
+$("#sach-menu").trigger("mouseenter");
 //Menu Sách Nước ngoài
 $("#sachnuocngoai-menu").mouseenter(function () {
     $("#top-bar-category-container-right-nuocngoai").css("display", "block");
