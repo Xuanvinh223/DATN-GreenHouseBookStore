@@ -15826,3 +15826,18 @@ a.uppy-Dashboard-poweredBy {
 .select2 {
   margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
 }
+
+.navbar .navbar-brand {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: transparent;
+}
+
+.navbar .navbar-brand svg{
+  width: 100%;
+  height: 100%;
+}
