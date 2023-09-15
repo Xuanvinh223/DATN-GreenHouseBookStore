@@ -79,9 +79,31 @@
         <div class="w-100 mb-4 d-flex">
 
           <a class="navbar-brand mx-auto mt-2 flex-fill text-center " href="./index.html">
-            <img src="assets/images/logo.png" class="brand-img" alt="">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.5 47.5" id="book">
+              <defs>
+                <clipPath id="a">
+                  <path d="M0 38h38V0H0v38Z"></path>
+                </clipPath>
+              </defs>
+              <g clip-path="url(#a)" transform="matrix(1.25 0 0 -1.25 0 47.5)">
+                <path fill="#3e721d"
+                  d="M36 11a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v19.687C2 32.896 7.791 37 10 37h20.625C33.719 37 36 34.687 36 31.625V11Z">
+                </path>
+                <path fill="#ccd6dd" d="M34 7a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v24c0 4.119-.021 4 5 4h21a4 4 0 0 0 4-4V7Z">
+                </path>
+                <path fill="#e1e8ed" d="M32 6a3 3 0 0 0-3-3H5a3 3 0 0 0-3 3v24a3 3 0 0 0 3 3h24a3 3 0 0 0 3-3V6Z">
+                </path>
+                <path fill="#5c913b" d="M32 5a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v22a4 4 0 0 0 4 4h21a4 4 0 0 0 4-4V5Z">
+                </path>
+                <path fill="#77b255"
+                  d="M30 5a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v20a4 4 0 0 0 4 4h19.335C28.544 29 30 27.544 30 25.335V5Z">
+                </path>
+                <path fill="#3e721d"
+                  d="M7 31c-1.687 0-1.731 1.922-1 2.75.832.941 2.125 1.25 4.438 1.25H12v2H9.281C5.313 37 2 34.5 2 31.625V5a4 4 0 0 1 4-4h2v30H7z">
+                </path>
+              </g>
+            </svg>
           </a>
-
         </div>
         <p class="text-muted nav-heading mt-4 mb-1">
           <span>Apps</span>
@@ -101,10 +123,10 @@
             </a>
             <ul class="collapse list-unstyled pl-4 w-100" id="quanli-taikhoan">
               <li class="nav-item">
-                <a class="nav-link pl-3" href=""><span class="ml-1 item-text">Form Cập Nhật</span></a>
+                <a class="nav-link pl-3" href="form_Account.html"><span class="ml-1 item-text">Cập Nhật</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pl-3" href=""><span class="ml-1 item-text">Danh Sách</span></a>
+                <a class="nav-link pl-3" href="table_Account.html"><span class="ml-1 item-text">Danh Sách</span></a>
               </li>
             </ul>
           </li>
@@ -122,10 +144,10 @@
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100" id="quanli-loaidanhmuc">
                   <li class="nav-item">
-                    <a class="nav-link pl-3" href="category-type.html"><span class="ml-1 item-text">Form Cập Nhật</span></a>
+                    <a class="nav-link pl-3" href="form_CategoryType.html"><span class="ml-1 item-text">Cập Nhật</span></a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link pl-3" href="category-type.html"><span class="ml-1 item-text">Danh Sách</span></a>
+                    <a class="nav-link pl-3" href="table_CategoryType.html"><span class="ml-1 item-text">Danh Sách</span></a>
                   </li>
                 </ul>
               </li>
@@ -136,30 +158,48 @@
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100" id="quanli-danhmuc">
                   <li class="nav-item">
-                    <a class="nav-link pl-3" href="category.html"><span class="ml-1 item-text">Form Cập Nhật</span></a>
+                    <a class="nav-link pl-3" href="form_Categories.html"><span class="ml-1 item-text">Cập Nhật</span></a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link pl-3" href="category.html"><span class="ml-1 item-text">Danh Sách</span></a>
+                    <a class="nav-link pl-3" href="table_Categories.html"><span class="ml-1 item-text">Danh Sách</span></a>
                   </li>
                 </ul>
               </li>
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a href="#discount" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
-              <i class="fe fe-book fe-18"></i>
-              <span class="ml-3 item-text">Quản Lý Mã Giảm Giá</span>
+            <a href="#uudai" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+              <i class="fe fe-git-branch fe-18 "></i>
+              <span class="ml-3 item-text">Quản Lý Ưu Đãi</span>
             </a>
-            <ul class="collapse list-unstyled pl-4 w-100" id="discount">
-              <li class="nav-item">
-                <a href="" class="nav-link  pl-3">
-                  <span class="ml-1 item-text">Form Cập Nhật</span>
+            <ul class="collapse list-unstyled pl-4 w-100" id="uudai">
+              <li class="nav-item dropdown">
+                <a href="#quanli-giamgia" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle nav-link pl-3" href="">
+                  <span class="ml-1 item-text">Giảm Giá</span>
                 </a>
+                <ul class="collapse list-unstyled pl-4 w-100" id="quanli-giamgia">
+                  <li class="nav-item">
+                    <a class="nav-link pl-3" href="form_Discount.html"><span class="ml-1 item-text">Cập Nhật</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link pl-3" href="table_Discount.html"><span class="ml-1 item-text">Danh Sách</span></a>
+                  </li>
+                </ul>
               </li>
-              <li class="nav-item">
-                <a href="" class="nav-link  pl-3">
-                  <span class="ml-1 item-text">Danh Sách</span>
+              <li class="nav-item dropdown">
+                <a href="#quanli-khuyenmai" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle nav-link pl-3" href="">
+                  <span class="ml-1 item-text">Khuyến Mãi</span>
                 </a>
+                <ul class="collapse list-unstyled pl-4 w-100" id="quanli-khuyenmai">
+                  <li class="nav-item">
+                    <a class="nav-link pl-3" href="form_Voucher.html"><span class="ml-1 item-text">Cập Nhật</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link pl-3" href="table_Voucher.html"><span class="ml-1 item-text">Danh Sách</span></a>
+                  </li>
+                </ul>
               </li>
             </ul>
           </li>
@@ -176,6 +216,42 @@
               </li>
               <li class="nav-item">
                 <a href="" class="nav-link  pl-3">
+                  <span class="ml-1 item-text">Danh Sách</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#quanli-tacgia" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+              <i class="fe fe-book-open fe-18"></i>
+              <span class="ml-3 item-text">Quản Lý Tác Giả</span>
+            </a>
+            <ul class="collapse list-unstyled pl-4 w-100" id="quanli-tacgia">
+              <li class="nav-item">
+                <a href="form_Author.html" class="nav-link  pl-3">
+                  <span class="ml-1 item-text">Cập Nhật</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="table_Author.html" class="nav-link  pl-3">
+                  <span class="ml-1 item-text">Danh Sách</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#quanli-ncc" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+              <i class="fe fe-book-open fe-18"></i>
+              <span class="ml-3 item-text">Quản Lý Nhà Cung Cấp</span>
+            </a>
+            <ul class="collapse list-unstyled pl-4 w-100" id="quanli-ncc">
+              <li class="nav-item">
+                <a href="form_Supplier.html" class="nav-link  pl-3">
+                  <span class="ml-1 item-text">Cập Nhật</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="table_Suppplier.html" class="nav-link  pl-3">
                   <span class="ml-1 item-text">Danh Sách</span>
                 </a>
               </li>
@@ -225,16 +301,16 @@
               <span class="ml-3 item-text">Quản Lý Đơn Hàng</span>
             </a>
             <ul class="collapse list-unstyled pl-4 w-100" id="quanli-donhang">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link pl-3" href="">
                   <span class="ml-1 item-text">Chờ Xác Nhận</span>
                   <span class="badge badge-pill badge-primary">New</span>
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
-                <a class="nav-link pl-3" href=""><span class="ml-1 item-text">Chờ Lấy Hàng</span></a>
+                <a class="nav-link pl-3" href="table_order.html"><span class="ml-1 item-text">Danh sách đơn hàng</span></a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link pl-3" href=""><span class="ml-1 item-text">Đang Giao Hàng</span></a>
               </li>
               <li class="nav-item">
@@ -242,7 +318,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link pl-3" href=""><span class="ml-1 item-text">Đã Hủy</span></a>
-              </li>
+              </li> -->
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -278,15 +354,15 @@
             </a>
             <ul class="collapse list-unstyled pl-4 w-100" id="charts">
               <li class="nav-item">
-                <a class="nav-link pl-3" href="inventory-statics.html"><span class="ml-1 item-text">Thống Kê Hàng Tồn Kho
+                <a class="nav-link pl-3" href=""><span class="ml-1 item-text">Thống Kê Hàng Tồn Kho
                   </span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pl-3" href="revenue-static-overtime.html"><span class="ml-1 item-text">Thống Kê Doanh Thu Theo Thời Gian
+                <a class="nav-link pl-3" href=""><span class="ml-1 item-text">Thống Kê Doanh Thu Theo Thời Gian
                   </span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pl-3" href="static-best-seller.html"><span class="ml-1 item-text">Thống Kê Sản Phẩm Bán Chạy</span></a>
+                <a class="nav-link pl-3" href=""><span class="ml-1 item-text">Thống Kê Sản Phẩm Bán Chạy</span></a>
               </li>
             </ul>
           </li>
@@ -520,7 +596,7 @@
                     </div>
                     <div class="pb-3 timeline-item item-success">
                       <div class="pl-5">
-                        <div class="mb-3"><strong>@Bertha Ball</strong><span class="text-muted small mx-2">has cozmmented
+                        <div class="mb-3"><strong>@Bertha Ball</strong><span class="text-muted small mx-2">has commented
                             on</span><strong>Advanced table</strong></div>
                         <div class="card d-inline-flex mb-2">
                           <div class="card-body bg-light py-2 px-3"> Lorem ipsum dolor sit amet, consectetur adipiscing
