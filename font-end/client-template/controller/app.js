@@ -1,6 +1,6 @@
 const app = angular.module("myApp", ["ngRoute"]);
-    
-app.config(function($routeProvider, $locationProvider) {
+
+app.config(function ($routeProvider) {
   $routeProvider
     .when("/index.html", {
       templateUrl: "page/home.html",
@@ -38,22 +38,36 @@ app.config(function($routeProvider, $locationProvider) {
     });
 });
 
-app.run(function ($rootScope, $http, $templateCache) {
-    var jsFiles = ['js/custom.js', 'js/code.js']; // Danh sách các tệp JavaScript
-  
-    function loadAndAppendScript(jsFile) {
-      return $http.get(jsFile)
-        .then(function (response) {
-          $templateCache.put(jsFile, response.data);
-          var scriptElement = document.createElement('script');
-          scriptElement.innerHTML = $templateCache.get(jsFile);
-          document.body.appendChild(scriptElement);
-          return Promise.resolve();
-        });
-    }
-  
-    $rootScope.$on('$viewContentLoaded', function () {
-      Promise.all(jsFiles.map(loadAndAppendScript));
-    });
+// app.run(function ($rootScope, $http, $templateCache) {
+//   var jsFiles = ['js/custom.js', 'js/code.js', 'js/login-register.js', 'js/plugins.js', 'ajax-mail.js']; // Danh sách các tệp JavaScript
+
+//   function loadAndAppendScript(jsFile) {
+//     return $http.get(jsFile)
+//       .then(function (response) {
+//         $templateCache.put(jsFile, response.data);
+//         var scriptElement = document.createElement('script');
+//         scriptElement.innerHTML = $templateCache.get(jsFile);
+//         document.body.appendChild(scriptElement);
+//         return Promise.resolve();
+//       });
+//   }
+
+//   $rootScope.$on('$viewContentLoaded', function () {
+//     Promise.all(jsFiles.map(loadAndAppendScript));
+//   });
+// });
+
+app.run(['$rootScope', function ($rootScope) {
+  $rootScope.page = {
+      setTitle: function (title) {
+          this.title = 'GreenHouse' + title;
+
+      }
+  }
+
+  $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+      $rootScope.page.setTitle(current.$$route.title || ' Trang quản trị');
+
   });
-  
+}]);
+
