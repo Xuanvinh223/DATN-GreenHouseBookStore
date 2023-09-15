@@ -348,185 +348,78 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12">
-                        <h2 class="page-title">menu con</h2>
+                        <h3 class="page-title">Danh Sách Tác Giả</h3>
 
                         <div class="card shadow mb-4">
                             <div class="card-header">
-                                <h4 class="card-title">Thông Tin Dụng Cụ Học Tập</h4>
+                                <h4 class="card-title">Thông Tin Tác Giả</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-8">
 
                                       <div class="form-row">
-                                        <div class="col-md-4 mb-3">
-                                            <label for="PublishersID">Mã Sản Phẩm(*)</label>
-                                            <input type="text" class="form-control" placeholder="Nhập mã sản phẩm">
+                                        <div class="col-md-5 mb-3">
+                                            <label for="PublishersID">ID Tác Giả(*)</label>
+                                            <input type="text" class="form-control" placeholder="Nhập mã tác giả">
                                         </div>
-                                        <div class="col-md-8 mb-3">
-                                          <label for="PublishersName">Tên Sản Phẩm(*)</label>
+                                        <div class="col-md-5 mb-3">
+                                          <label for="PublishersName">Tên Tác Giả(*)</label>
                                           <input type="text" name="brandname" class="form-control"
-                                              placeholder="Nhập tên sản phẩm">
+                                              placeholder="Nhập tên tác giả">
+                                      </div>                                 
                                       </div>
-                                      </div>
-                                      <div class="form-row">
-                                        <div class="col-md-4 mb-3">
-                                          <label for="simple-select2">Loại Sản Phẩm(*)</label>
-                                          <select class="form-control select2" id="simple-select2">
-                                            <optgroup label="Sản phẩm sách">
-                                              <option value="AK">Chọn loại sản phẩm</option>
-                                              <option value="AK">SáchMoi</option>
-                                              <option value="HI">Sách khác</option>
-                                            </optgroup>
-                                            <optgroup label="Dụng cụ học tập">
-                                              <option value="CA">Balo</option>
-                                              <option value="NV" disabled="disabled">Nevada (disabled)</option>
-                                              <option value="OR">Bút</option>
-                                              <option value="WA">Tập</option>
-                                            </optgroup>
-                                          </select>
-                                        </div> 
-                                      <div class="col-md-4 mb-3">
-                                        <label for="email">Thương Hiệu(*)</label>
-                                        <select class="form-control select2" id="simple-select2">
-                                          <optgroup label="Thương hiệu">
-                                            <option value="CA">Chọn thương hiệu</option>
-                                            <option value="CA">Balo</option>
-                                            <option value="NV" disabled="disabled">Nevada (disabled)</option>
-                                            <option value="OR">Bút</option>
-                                            <option value="WA">Tập</option>
-                                          </optgroup>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                      <label for="address">Ngày Sản Xuất(*)</label>
-                                      <input class="form-control" id="example-date" type="date" name="date">
-                                    </div>
-                                       </div>
-
-                                        <div class="form-row">
-                                          <div class="col-md-4 mb-3">
-                                            <label for="address">Nhà Sản Xuất(*)</label>
-                                            <select class="form-control select2" id="simple-select2">
-                                                <option value="CA">Chọn nhà xuất bản</option>
-                                                <option value="CA">NXB Moi</option>
-                                                <option value="NV" disabled="disabled">Nevada (disabled)</option>
-                                                <option value="OR">NXB cũ</option>
-                                            
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                          <p class="mb-2">Trạng Thái(*)</p>    
+                                      <div class="form-row">  
+                                        <div class="col-md-5 mb-3">
+                                          <label for="PublishersName">Quốc Tịch(*)</label>
+                                          <input type="text" name="brandname" class="form-control"
+                                              placeholder="Nhập quốc tịch">
+                                      </div>                                      
+                                        <div class="col-md-5 mb-3">
+                                          <p class="mb-2">Giới Tính(*)</p>    
                                           <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="active" value="option3">
-                                            <label class="form-check-label" for="active">Kinh doanh</label>
+                                            <input class="form-check-input" type="radio" name="role" id="male" value="option1">
+                                            <label class="form-check-label" for="male">Nam</label>
                                           </div>
                                           <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="unactive" value="option4">
-                                            <label class="form-check-label" for="unactive">Ngừng kinh doanh</label>
+                                            <input class="form-check-input" type="radio" name="role" id="female" value="option2">
+                                            <label class="form-check-label" for="female">Nữ</label>
                                           </div>
                                               </div>
-                                              </div>
-                                        <div class="form-group mb-3">
-                                            <label for="example-textarea">Mô tả</label>
-                                            <textarea class="form-control"   placeholder="Viết mô tả...." id="example-textarea" rows="4"></textarea>
-                                        </div>
-                                      
-                                          <p class="mb-3">Chi Tiết Sản Phẩm(*)</p>
-                                         
-                                                                              
-                                           <label for="address">Màu Sắc(*)</label>
-                                              <div class="col-md-12 mb-3">
-                                          <div class="custom-control custom-checkbox">
-                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                          <label class="custom-control-label" for="customCheck1">Màu 1</label>
-                                          <div class="form-row">
-                                            <div class="col-md-3 mb-3">
-                                              <label for="example-number">Số Trang(*)</label>
-                                              <input class="form-control" id="example-number" type="number" name="number"   placeholder="Nhập số trang">
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                              <label for="example-number">Trọng Lượng(*)</label>
-                                              <input class="form-control" id="example-number" type="number" name="number"   placeholder="Nhập trọng lượng ">
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                              <label for="example-number">Số lượng(*)</label>
-                                              <input class="form-control" id="example-number" type="number" name="number"   placeholder="Nhập số lượng ">
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                              <label for="example-number">Giá Tiền(*)</label>
-                                              <input class="form-control" id="example-number" type="number" name="number"   placeholder="Nhập giá sản phẩm">
-                                            </div>
-                                           </div> 
-                                          
-                                         </div>
-                                         <div class="custom-control custom-checkbox">
-                                          <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                          <label class="custom-control-label" for="customCheck2">Màu 2</label>
-                                          <div class="form-row">
-                                            <div class="col-md-3 mb-3">
-                                              <label for="example-number">Số Trang(*)</label>
-                                              <input class="form-control" id="example-number" type="number" name="number"   placeholder="Nhập số trang">
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                              <label for="example-number">Trọng Lượng(*)</label>
-                                              <input class="form-control" id="example-number" type="number" name="number"   placeholder="Nhập trọng lượng ">
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                              <label for="example-number">Số lượng(*)</label>
-                                              <input class="form-control" id="example-number" type="number" name="number"   placeholder="Nhập số lượng ">
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                              <label for="example-number">Giá Tiền(*)</label>
-                                              <input class="form-control" id="example-number" type="number" name="number"   placeholder="Nhập giá sản phẩm">
-                                            </div>
-                                           </div> 
-                                          
-                                         </div>
-                                         <div class="custom-control custom-checkbox">
-                                          <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                          <label class="custom-control-label" for="customCheck3">Màu 3</label>
-                                          <div class="form-row">
-                                            <div class="col-md-3 mb-3">
-                                              <label for="example-number">Số Trang(*)</label>
-                                              <input class="form-control" id="example-number" type="number" name="number"   placeholder="Nhập số trang">
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                              <label for="example-number">Trọng Lượng(*)</label>
-                                              <input class="form-control" id="example-number" type="number" name="number"   placeholder="Nhập trọng lượng ">
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                              <label for="example-number">Số lượng(*)</label>
-                                              <input class="form-control" id="example-number" type="number" name="number"   placeholder="Nhập số lượng ">
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                              <label for="example-number">Giá Tiền(*)</label>
-                                              <input class="form-control" id="example-number" type="number" name="number"   placeholder="Nhập giá sản phẩm">
-                                            </div>
-                                           </div> 
-                                          
-                                         </div>
-                                         </div>
-                                        
 
-                                     
+
+                                              
+                                             
+                                              </div>
                                         <button type="submit" class="btn btn-primary">Lưu Sản Phẩm</button>
                                         <button type="submit" class="btn btn-primary">Làm Mới</button>
                                     </div>
                                     <!-- /.col -->
-                                    <div class="col-md-4 Upload">
+                                    <div class="col-md-2 Upload">
                                     
-                                        <div class="card shadow mb-4">
-                                            <div class="card-header">
-                                                <strong>Chọn nhiều ảnh</strong>
-                                            </div>
-                                            <div class="card-body">
-                                                <div id="drag-drop-area"></div>
-                                            </div> 
-                                        </div>
-                                     
-                                        
+                                      <div class="form-label h5 text-center">
+                                        <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại diện(*)</label>
                                     </div>
+                                    <div class="row d-flex justify-content-center">
+                                        <div>
+                                          <img src="./assets/avatars/face-3.jpg" class="img-fluid w-100 h-100">
+                                        </div> 
+                                    </div>
+                                    <div class="row d-flex justify-content-center">
+                                        <label class="text-center mt-2 btn btn-dark w-100">
+                                          <i class="fa fa-upload"></i>
+                                          Tải ảnh đại diện
+                                          <input type="file" th:field="*{file}" onchange="uploadImg()" hidden
+                                              accept=".png,.jpg,.jpge">
+                                        </label>
+                                    </div>
+                                    <div class="card-header">
+                                      <strong>menu dọc</strong>
+                                  </div>
+                                  
+                                   
+                                      
+                                  </div>
                                 </div>
                             </div>
                             
