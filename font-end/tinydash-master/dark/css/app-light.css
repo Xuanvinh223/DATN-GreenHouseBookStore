@@ -78,7 +78,7 @@ body {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #6c757d;
+  color: black;
   text-align: left;
   background-color: #f8f9fa;
 }
@@ -2005,7 +2005,7 @@ pre code {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #495057;
+  color: black;
   background-color: #ffffff;
   background-clip: padding-box;
   border: 1px solid #dee2e6;
@@ -10965,7 +10965,7 @@ img.brand-img {
   color: #6c757d;
 }
 .table thead th {
-  color: #ced4da;
+  color: #000;
 }
 .table tbody tr th {
   color: #001a4e;
@@ -15779,6 +15779,52 @@ a.uppy-Dashboard-poweredBy {
     top: -10px;
     right: -35px;
   }
+
+  .Upload{
+    padding-top:100px;
+  }
+}
+
+/* Định dạng của container chứa icon và input */
+.input-container {
+ width:60%;
+}
+@media (min-width: 992px) {
+  .input-container {
+    width: 70%;
+  }
+}
+
+.icon{
+  padding-left: 10px;
+}
+
+/* Định dạng của phần tử bao quanh cả icon và input */
+.input-wrapper {
+  border: 1px solid #ccc; /* Border cho phần tử bao quanh */
+  border-radius: 5px; /* Bo tròn viền */
+  display: flex;
+  align-items: center;
+  padding: 3px; /* Khoảng cách bên trong phần tử bao quanh */
+}
+
+
+/* Định dạng của input */
+.input {
+  border: none; /* Loại bỏ border của input */
+  outline: none; /* Loại bỏ border khi focus */
+  width: 100% !important; /* Độ rộng của input */
+}
+
+/* Đảm bảo icon và combobox nằm cùng một hàng ngang */
+.input-group-prepend .input-group-text {
+  border-right: none !important;
+  padding: 0; /* Loại bỏ khoảng trống xung quanh icon */
+}
+
+/* Điều chỉnh khoảng cách giữa icon và combobox */
+.select2 {
+  margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
 }
 
 /* Định dạng của container chứa icon và input */

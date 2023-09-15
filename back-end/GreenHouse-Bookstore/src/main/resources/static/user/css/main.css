@@ -24355,7 +24355,7 @@ input[type=number] {
   text-align: left;
   font-weight: 700;
   display: block;
-  line-height: 52px;
+  line-height: 42px;
   background: #62ab00;
   text-align: center;
   color: #fff;
@@ -24529,54 +24529,67 @@ input[type=number] {
   height: 15px;
 }
 
-.sb-range-slider {
-  height: 7px;
-  background: #e8e8e8;
-}
-.sb-range-slider .ui-slider-handle {
-  width: 21px;
-  height: 21px;
-  top: -7px;
-  background: #fff;
-  border: 3px solid #62ab00;
-  border-radius: 100%;
-}
-.sb-range-slider .ui-slider-handle:focus {
-  outline: none;
-}
-.sb-range-slider .ui-widget-header {
-  background: #62ab00;
-  top: 0;
-  height: 100%;
+
+
+.filter-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #E5E5E5;
 }
 
-.slider-price {
-  margin-top: 25px;
-  text-align: center;
+.filter-box h2 {
+  font-size: 14px;
+  padding: 6px;
 }
-.slider-price p {
-  display: -webkit-box;
-  display: -ms-flexbox;
+
+.option-checkbox {
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: flex-start;
+  padding: 5px;
+
 }
-.slider-price p .btn {
-  width: 100px;
+
+.option-checkbox input::before {
+  background: transparent url(https://cdn0.fahasa.com/skin/frontend/base/default/images/manapro_filtercheckboxes/ico_uncheck.png) 0 50% no-repeat;
+  content: "";
+  visibility: visible;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
 }
-.slider-price input#amount {
-  background: transparent;
-  border: transparent;
-  color: #333;
-  text-align: left;
-  font-weight: 700;
-  word-spacing: 15px;
+
+.option-checkbox input {
+  margin-right: 10px;
+  margin-left: 20px;
+  visibility: hidden;
+  
 }
-.slider-price input#amount:focus {
-  outline: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+
+.option-checkbox input:checked {
+  visibility: hidden;
+}
+.option-checkbox input:checked::before {
+  display: inline-block;
+  background: transparent url(https://cdn0.fahasa.com/skin/frontend/base/default/images/manapro_filtercheckboxes/ico_checked.png) 0 50% no-repeat;
+  content: "";
+  visibility: visible;
+  width: 16px;
+  height: 16px;
+}
+
+.option-checkbox label {
+  font-size: 14px;
+  color: gray;
+
+}
+
+.option-checkbox label:hover {
+  color: #C92127;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  transform: translate(5px, 0px);
 }
 
 /*>>>>>>>> Comment <<<<<<<<<*/
@@ -26053,6 +26066,25 @@ input[type=number] {
   line-height: 30px;
   letter-spacing: 0.025em;
 }
+
+  .review-article {
+        background-color: #f7f7f7;
+        padding: 20px;
+        border: 1px solid #ddd;
+        margin: 10px;
+    }
+
+    .product-info p {
+        margin: 10px 0;
+    }
+
+    .product-info strong {
+        font-weight: bold;
+        /* margin-right: 200px; */
+    }
+
+    
+ 
 
 .tab-product-details .brand {
   margin-bottom: 30px;
