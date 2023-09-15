@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Font-end] - Fix menu &quot;Sản phẩm&quot;">
+    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Font-end] - add vourcher.html, product, product detail">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/font-end/client-template/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/client-template/js/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/client-template/page/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/page/account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/client-template/php/mail.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/client-template/voucher.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/voucher.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +16,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="jwt" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -103,6 +99,13 @@
       <workItem from="1694355263099" duration="1583000" />
       <workItem from="1694520815154" duration="969000" />
       <workItem from="1694568170686" duration="1267000" />
+      <workItem from="1694658169285" duration="616000" />
+      <workItem from="1694660848809" duration="95000" />
+      <workItem from="1694673804559" duration="607000" />
+      <workItem from="1694674961493" duration="44000" />
+      <workItem from="1694675050876" duration="5000" />
+      <workItem from="1694748177829" duration="953000" />
+      <workItem from="1694750666635" duration="614000" />
     </task>
     <task id="LOCAL-00001" summary="[Project] - Create packages">
       <created>1692841448096</created>
@@ -167,7 +170,14 @@
       <option name="project" value="LOCAL" />
       <updated>1693662575755</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="[Font-end] - add vourcher.html, product, product detail">
+      <created>1694616664670</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1694616664670</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -178,7 +188,15 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ID_WIDTH">
+                <map>
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="70" />
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="72" />
+                  <entry key="Table.Space.CommitStatus.ColumnIdWidth" value="72" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -195,6 +213,7 @@
     <MESSAGE value="[Font-end] - My-account(account detail, order, address, voucher, Notification)" />
     <MESSAGE value="[Font-end] - Change input date in my-account.html" />
     <MESSAGE value="[Font-end] - Fix menu &quot;Sản phẩm&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Font-end] - Fix menu &quot;Sản phẩm&quot;" />
+    <MESSAGE value="[Font-end] - add vourcher.html, product, product detail" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Font-end] - add vourcher.html, product, product detail" />
   </component>
 </project>

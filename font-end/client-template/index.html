@@ -1049,23 +1049,16 @@
 
   <!-- Modal login START -->
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog ">
       <div class="modal-content custom-modal">
         <div class="modal-body">
           <!----------------------- Main Container -------------------------->
           <div class="container d-flex justify-content-center align-items-center min-vh-100">
             <!----------------------- Login Container -------------------------->
             <div class="row border rounded-5 p-3 bg-white shadow box-area">
-              <!--------------------------- Left Box ----------------------------->
-              <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-                style="background: local;">
-                <div class="featured-image mb-3">
-                  <img src="image/logo.png" class="img-fluid" style="width: 250px;">
-                </div>
-              </div>
-              <!-------------------- ------ Right Box ---------------------------->
-
-              <div class="col-md-6 right-box">
+                <!-- Add the Close Button -->
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="position: relative; left: 95%;"></button>
+              <div class="col-md-12 right-box">
                 <div class="row align-items-center">
                   <div class="header-text mb-4 text-center">
                     <h2>Đăng nhập</h2>
@@ -1101,9 +1094,9 @@
                     </div>
                     <div class="input-group mb-3">
                       <a href="#" class="btn btn-lg btn-light w-100 fs-6"><img src="image/logoGoogle.png"
-                          style="width:20px" class="me-2"><small>Đăng nhập với Google</small></a>
+                          style="width:20px" class="me-2"><small>Google</small></a>
                       <a href="#" class="btn btn-lg btn-light w-100 fs-6 mt--10"><img src="image/logoFacebook.png"
-                          style="width:20px" class="me-2"><small>Đăng nhập với Facebook</small></a>
+                          style="width:20px" class="me-2"><small>Facebook</small></a>
                     </div>
                     <div class="row">
                       <small>Bạn chưa có tài khoản?<a href="#" data-bs-toggle="modal" data-bs-target="#siginModal">Đăng
@@ -1122,21 +1115,14 @@
 
   <!-- Modal signin START -->
   <div class="modal fade" id="siginModal" tabindex="-1" aria-labelledby="siginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog">
       <div class="modal-content custom-modal">
         <div class="modal-body">
           <div class="container d-flex justify-content-center align-items-center min-vh-100">
             <!-- Register Container -->
             <div class="row border rounded-5 p-3 bg-white shadow box-area">
-              <!-- Left Box -->
-              <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-                style="background: transparent;">
-                <div class="featured-image mb-3">
-                  <img src="image/logo.png" class="img-fluid" style="width: 250px;">
-                </div>
-              </div>
-              <!-- Right Box -->
-              <div class="col-md-6 right-box">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="position: relative; left: 95%;"></button>
+              <div class="col-md-12 right-box">
                 <div class="row align-items-center">
                   <div class="header-text mb-4 text-center">
                     <h2>Đăng ký</h2>
@@ -1207,10 +1193,13 @@
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="position: relative; left: 95%;"></button>
+
         <div class="text-center mt-4">
           <h3 class="text-uppercase">Khôi phục mật khẩu</h3>
         </div>
         <div class="modal-body">
+          
           <form>
             <!-- Trường Email hoặc Số điện thoại -->
             <div class="form-floating mb-3 form-floating-row">
