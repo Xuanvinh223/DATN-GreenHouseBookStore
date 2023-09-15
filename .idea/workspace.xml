@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Font-end] - add vourcher.html, product, product detail">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/client-template/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
