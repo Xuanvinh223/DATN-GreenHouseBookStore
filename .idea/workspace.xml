@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Font-end] - add vourcher.html, product, product detail">
+    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Font-end] - mobie cart.html">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/login-register.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/login-register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,9 +14,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Lâm Diễm Thuý &lt;110088530+thuylam1210@users.noreply.github.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="jwt" />
+        <entry key="$PROJECT_DIR$" value="dev/vinh" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -105,6 +111,7 @@
       <workItem from="1694675050876" duration="5000" />
       <workItem from="1694748177829" duration="953000" />
       <workItem from="1694750666635" duration="614000" />
+      <workItem from="1694838103649" duration="677000" />
     </task>
     <task id="LOCAL-00001" summary="[Project] - Create packages">
       <created>1692841448096</created>
@@ -176,7 +183,21 @@
       <option name="project" value="LOCAL" />
       <updated>1694616664670</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="[FE] - Fix bug index.html for User">
+      <created>1694832488418</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1694832488418</updated>
+    </task>
+    <task id="LOCAL-00012" summary="[Font-end] - mobie cart.html">
+      <created>1694838186533</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1694838186533</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,6 +234,8 @@
     <MESSAGE value="[Font-end] - Change input date in my-account.html" />
     <MESSAGE value="[Font-end] - Fix menu &quot;Sản phẩm&quot;" />
     <MESSAGE value="[Font-end] - add vourcher.html, product, product detail" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Font-end] - add vourcher.html, product, product detail" />
+    <MESSAGE value="[FE] - Fix bug index.html for User" />
+    <MESSAGE value="[Font-end] - mobie cart.html" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Font-end] - mobie cart.html" />
   </component>
 </project>

@@ -66,6 +66,14 @@ app.config(function ($routeProvider) {
             templateUrl: "page/coupon-manager/table_voucher.html",
             controller: ""
         })
+        .when("/flashsale-form", {
+            templateUrl: "page/coupon-manager/form_flashsale.html",
+            controller: ""
+        })
+        .when("/flashsale-table", {
+            templateUrl: "page/coupon-manager/table_flashsale.html",
+            controller: ""
+        })
         .when("/inventory-form", {
             templateUrl: "page/inventory-manager/inventory_form.html",
             controller: ""
