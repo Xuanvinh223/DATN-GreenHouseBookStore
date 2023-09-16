@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="todoApp">
+
+<head>
+    <title>Todo App</title>
+</head>
+
+<body ng-controller="MainController">
+
+    <h1>Todo App</h1>
+
+    <a href="#!tasks">View Tasks</a>
+    <a href="#!task/1">View Task 1</a>
+
+    <div ng-view></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.2/angular-route.min.js"></script>
+    <script src="/client/app.js"></script>
+</body>
+
+</html>
