@@ -1,0 +1,84 @@
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <h3 class="page-title">Danh Sách Nhà Cung Cấp</h3>
+
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <h4 class="card-title">Thông Tin Nhà Cung Cấp</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-9">
+
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="PublishersID">ID Nhà Cung Cấp(*)</label>
+                  <input type="text" class="form-control" placeholder="Nhập mã nhà cung cấp">
+                </div>
+                <div class="col-md-8 mb-3">
+                  <label for="PublishersName">Tên Nhà Cung Cấp(*)</label>
+                  <input type="text" name="brandname" class="form-control" placeholder="Nhập tên nhà cung cấp">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="PublishersName">Địa Chỉ(*)</label>
+                  <input type="text" name="brandname" class="form-control" placeholder="Nhập địa chỉ">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="example-email">Email</label>
+                  <input type="email" id="example-email" name="example-email" class="form-control" placeholder="Email">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="custom-phone">Số Điện Thoại(*)</label>
+                  <input class="form-control input-phoneus" id="custom-phone" placeholder="0352123456">
+
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <label for="example-textarea">Mô tả</label>
+                <textarea class="form-control" placeholder="Viết mô tả...." id="example-textarea" rows="4"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Lưu Sản Phẩm</button>
+              <button type="submit" class="btn btn-primary">Làm Mới</button>
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3">
+              <div class="form-label h5 text-center">
+                <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại diện(*)</label>
+              </div>
+              <div class="row d-flex justify-content-center">
+                <div>
+                  <img src="./assets/avatars/face-3.jpg" class="img-fluid w-100 h-100">
+                </div>
+              </div>
+              <div class="row d-flex justify-content-center">
+                <label class="text-center mt-2 btn btn-dark w-100">
+                  <i class="fa fa-upload"></i>
+                  Tải ảnh đại diện
+                  <input type="file" th:field="*{file}" onchange="uploadImg()" hidden accept=".png,.jpg,.jpge">
+                </label>
+              </div>
+              <div class="card shadow mb-4">
+                <div class="card-header">
+                  <strong>Menu dọc</strong>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- / .card -->
+
+    </div> <!-- .col-12 -->
+  </div> <!-- .row -->
+
+
+
+
+
+</div> <!-- .container-fluid -->

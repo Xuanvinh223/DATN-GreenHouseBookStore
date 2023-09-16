@@ -21501,14 +21501,35 @@ input[type=number] {
   opacity: 0.8;
 }
 .brand-slider .single-slide img {
-  width: 250px;
-  height: 120px;
+  width: 100%;
+ 
 }
 .brand-slider .single-slide:hover {
   opacity: 1;
 }
 
 .hero-product-slider .single-slide {
+  margin: 0 0px;
+}
+
+/* Contact */
+.brand-slider {
+  position: relative;
+  padding: 10px 0;
+}
+.brand-slider .single-slide1 {
+  opacity: 0.8;
+}
+.brand-slider .single-slide1 img {
+  width: 250px;
+  height: 120px;
+ 
+}
+.brand-slider .single-slide1:hover {
+  opacity: 1;
+}
+
+.hero-product-slider .single-slide1 {
   margin: 0 0px;
 }
 

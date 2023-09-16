@@ -17348,3 +17348,44 @@ a.uppy-Dashboard-poweredBy {
 .order-page .note-container .note-item span.dot {
   margin: 0px !important;
 }
+/* Định dạng của container chứa icon và input */
+.input-container {
+  width:60%;
+ }
+ @media (min-width: 992px) {
+   .input-container {
+     width: 70%;
+   }
+ }
+ 
+ .icon{
+   padding-left: 10px;
+ }
+ 
+ /* Định dạng của phần tử bao quanh cả icon và input */
+ .input-wrapper {
+   border: 1px solid #ccc; /* Border cho phần tử bao quanh */
+   border-radius: 5px; /* Bo tròn viền */
+   display: flex;
+   align-items: center;
+   padding: 3px; /* Khoảng cách bên trong phần tử bao quanh */
+ }
+ 
+ 
+ /* Định dạng của input */
+ .input {
+   border: none; /* Loại bỏ border của input */
+   outline: none; /* Loại bỏ border khi focus */
+   width: 100% !important; /* Độ rộng của input */
+ }
+ 
+ /* Đảm bảo icon và combobox nằm cùng một hàng ngang */
+ .input-group-prepend .input-group-text {
+   border-right: none !important;
+   padding: 0; /* Loại bỏ khoảng trống xung quanh icon */
+ }
+ 
+ /* Điều chỉnh khoảng cách giữa icon và combobox */
+ .select2 {
+   margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
+ }
