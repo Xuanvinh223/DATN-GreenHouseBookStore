@@ -7,13 +7,16 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "Discounts")
-public class Discounts implements Serializable {
+@Table(name = "FlashSales")
+public class FlashSales implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DiscountId")
-    private int discountId;
+    @Column(name = "FlashSaleId")
+    private int flashSaleId;
+
+    @Column(name = "Name")
+    private String name;
 
     @Column(name = "Value")
     private int value;
@@ -24,11 +27,8 @@ public class Discounts implements Serializable {
     @Column(name = "EndDate")
     private Date endDate;
 
-    @Column(name = "Quantity")
-    private int quantity;
-
-    @Column(name = "UsedQuantity")
-    private int usedQuantity;
+    @Column(name = "DiscountPercentage")
+    private int discountPercentage;
 
     @Column(name = "Active")
     private boolean active;

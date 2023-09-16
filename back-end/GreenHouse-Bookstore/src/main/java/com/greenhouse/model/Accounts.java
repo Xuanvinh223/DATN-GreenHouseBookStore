@@ -5,10 +5,11 @@ import java.util.Date;
 import jakarta.persistence.*;
 import lombok.Data;
 
+
 @Entity
-@Table(name = "Accounts")
 @Data
-public class Accounts implements Serializable {
+@Table(name = "Accounts")
+public class Accounts  implements Serializable {
 
 	@Id
     @Column(name = "Username")
@@ -24,7 +25,7 @@ public class Accounts implements Serializable {
     private String email;
 
     @Column(name = "Gender")
-    private boolean gender;
+    private Boolean gender;
 
     @Column(name = "Birthday")
     private Date birthday;
@@ -45,5 +46,10 @@ public class Accounts implements Serializable {
     private String deletedBy;
 
     @Column(name = "Active")
-    private boolean active;
+    private Boolean active;
+
+    @Column(name = "Notification_Id")
+    private Integer notificationId;
+
+    // Getters and setters
 }

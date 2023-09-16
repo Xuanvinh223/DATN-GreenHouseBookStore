@@ -1,33 +1,36 @@
 package com.greenhouse.model;
 
-import lombok.Data;
-import jakarta.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
-@Data
+import jakarta.persistence.*;
+import lombok.Data;
+
 @Entity
+@Data
 @Table(name = "ProductPriceHistories")
 public class ProductPriceHistories implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PriceHistoriesId")
     private int priceHistoriesId;
 
-    @Column(name = "Username")
+    @Column(name = "Username", length = 50)
     private String username;
 
     @ManyToOne
-    @JoinColumn(name = "ProductId")
-    private Products product;
+    @JoinColumn(name = "ProductDetailId")
+    private Product_Detail productDetail;
 
     @Column(name = "PriceOld")
-    private BigDecimal priceOld;
+    private double priceOld;
 
     @Column(name = "PriceNew")
-    private BigDecimal priceNew;
+    private double priceNew;
 
     @Column(name = "TimeChange")
-    private Date timeChange;
+   private Date  timeChange;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

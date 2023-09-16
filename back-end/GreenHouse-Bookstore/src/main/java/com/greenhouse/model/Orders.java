@@ -1,15 +1,15 @@
 package com.greenhouse.model;
 
-import lombok.Data;
-import jakarta.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
+import jakarta.persistence.*;
+import lombok.Data;
 
-@Data
 @Entity
+@Data
 @Table(name = "Orders")
 public class Orders implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "OrderId")
@@ -19,8 +19,9 @@ public class Orders implements Serializable {
     @JoinColumn(name = "InvoiceId")
     private Invoices invoice;
 
-    @Column(name = "Username")
-    private String username;
+    @ManyToOne
+    @JoinColumn(name = "Username")
+    private Accounts username;
 
     @Column(name = "OrderDate")
     private Date orderDate;
@@ -29,16 +30,18 @@ public class Orders implements Serializable {
     private Date deliveryDate;
 
     @Column(name = "Amount")
-    private BigDecimal amount;
+    private double amount;
 
     @ManyToOne
     @JoinColumn(name = "VoucherId")
     private Vouchers voucher;
 
     @Column(name = "AmountAppliedVoucher")
-    private BigDecimal amountAppliedVoucher;
+    private double amountAppliedVoucher;
 
     @ManyToOne
     @JoinColumn(name = "StatusId")
-    private Status status;
+    private OrderStatus status;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }
