@@ -1,25 +1,21 @@
 package com.greenhouse.model;
 
-import lombok.Data;
-import jakarta.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+import jakarta.persistence.*;
+import lombok.Data;
 
-@Data
 @Entity
+@Data
 @Table(name = "Products")
 public class Products implements Serializable {
+
     @Id
-    @Column(name = "ProductId")
-    private int productId;
+    @Column(name = "ProductId", length = 30)
+    private String productId;
 
-    @Column(name = "ProductName")
+    @Column(name = "ProductName", columnDefinition = "nvarchar(100)", nullable = false)
     private String productName;
-
-    @Column(name = "Price")
-    private BigDecimal price;
 
     @Column(name = "Description", columnDefinition = "nvarchar(200)")
     private String description;
@@ -27,11 +23,11 @@ public class Products implements Serializable {
     @Column(name = "Image", columnDefinition = "nvarchar(200)")
     private String image;
 
-    @Column(name = "ManufactureDate")
+    @Column(name = "ManufactureDate", nullable = false)
     private Date manufactureDate;
 
-    @Column(name = "ExpiryDate")
-    private Date expiryDate;
+    @Column(name = "status", nullable = false)
+    private boolean status;
 
     @Column(name = "CreateAt")
     private Date createAt;
@@ -39,16 +35,25 @@ public class Products implements Serializable {
     @Column(name = "DeleteAt")
     private Date deleteAt;
 
-    @Column(name = "DeleteBy", columnDefinition = "varchar(200)")
+    @Column(name = "DeleteBy", length = 200)
     private String deleteBy;
 
     @Column(name = "UpdateAt")
     private Date updateAt;
 
+    @Column(name = "BrandId", length = 30, nullable = false)
+    private String brandId;
+
+    @Column(name = "PushlisherId", length = 30, nullable = false)
+    private String publisherId;
+
     @ManyToOne
-    @JoinColumn(name = "BrandId")
+    @JoinColumn(name = "BrandId", insertable = false, updatable = false)
     private Brand brand;
 
-    @OneToMany(mappedBy = "product")
-    private List<ProductImages> images;
+    @ManyToOne
+    @JoinColumn(name = "PushlisherId", insertable = false, updatable = false)
+    private Publishers publisher;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

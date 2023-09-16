@@ -1,13 +1,14 @@
 package com.greenhouse.model;
 
-import lombok.Data;
-import jakarta.persistence.*;
 import java.io.Serializable;
+import jakarta.persistence.*;
+import lombok.Data;
 
-@Data
 @Entity
+@Data
 @Table(name = "Product_Discount")
-public class ProductDiscount implements Serializable {
+public class Product_Discount implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -18,6 +19,8 @@ public class ProductDiscount implements Serializable {
     private Discounts discount;
 
     @ManyToOne
-    @JoinColumn(name = "ProductId")
-    private Products product;
+    @JoinColumn(name = "ProductDetailId")
+    private Product_Detail productDetail;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

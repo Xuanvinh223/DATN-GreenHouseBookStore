@@ -7,16 +7,21 @@ import lombok.Data;
 @Entity
 @Table(name = "Authentic_Photos")
 @Data
-public class AuthenticPhotos implements Serializable {
+public class Authentic_Photos implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AuthenticPhotoId")
     private int authenticPhotoId;
 
     @Column(name = "PhotoName")
     private String photoName;
 
+    @Column(name = "ProductReviewId")
+    private int productReviewId;
+
     @ManyToOne
-    @JoinColumn(name = "ProductReviewId")
-    private ProductReviews productReview;
+    @JoinColumn(name = "ProductReviewId", referencedColumnName = "ReviewId", insertable = false, updatable = false)
+    private Product_Reviews productReview;
+
+    // Getters and setters
 }

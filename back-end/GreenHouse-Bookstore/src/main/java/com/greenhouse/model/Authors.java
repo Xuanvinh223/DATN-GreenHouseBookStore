@@ -5,20 +5,25 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "Authors")
 @Data
+@Table(name = "Authors")
 public class Authors implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AuthorId")
-    private int authorId;
+    private String authorId;
 
     @Column(name = "AuthorName")
     private String authorName;
 
     @Column(name = "Gender")
-    private boolean gender;
+    private Boolean gender;
 
     @Column(name = "Nation")
     private String nation;
+
+    @Column(name = "image")
+    private String image;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

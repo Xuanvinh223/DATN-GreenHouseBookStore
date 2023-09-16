@@ -1,20 +1,20 @@
 package com.greenhouse.model;
 
-import lombok.Data;
-import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import jakarta.persistence.*;
+import lombok.Data;
 
-@Data
 @Entity
+@Data
 @Table(name = "Product_Reviews")
-public class ProductReviews implements Serializable {
+public class Product_Reviews implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ReviewId")
     private int reviewId;
 
-    @Column(name = "Username")
+    @Column(name = "Username", length = 50)
     private String username;
 
     @ManyToOne
@@ -25,8 +25,10 @@ public class ProductReviews implements Serializable {
     private String comment;
 
     @Column(name = "Date")
-    private Date date;
+    private java.sql.Timestamp date;
 
     @Column(name = "Star")
     private int star;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

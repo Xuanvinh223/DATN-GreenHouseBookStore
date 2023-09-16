@@ -4,19 +4,22 @@ import lombok.Data;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
-@Data
 @Entity
+@Data
 @Table(name = "UserVoucher")
 public class UserVoucher implements Serializable {
-    @Id
-    @Column(name = "Username")
-    private String username;
 
     @Id
-    @Column(name = "VoucherId")
-    private int voucherId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private int id;
+
+    @Column(name = "Username", length = 50)
+    private String username;
 
     @ManyToOne
     @JoinColumn(name = "VoucherId")
     private Vouchers voucher;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

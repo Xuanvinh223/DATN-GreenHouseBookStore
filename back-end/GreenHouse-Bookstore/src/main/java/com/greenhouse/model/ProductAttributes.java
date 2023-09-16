@@ -6,13 +6,13 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "PaymentStatus")
-public class PaymentStatus implements Serializable {
+@Table(name = "ProductAttributes")
+public class ProductAttributes implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "StatusId")
-    private int statusId;
+    @Column(name = "ID")
+    private int id;
 
     @Column(name = "Name", columnDefinition = "nvarchar(50)")
     private String name;

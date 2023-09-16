@@ -1,14 +1,15 @@
 package com.greenhouse.model;
 
-import lombok.Data;
-import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import jakarta.persistence.*;
+import lombok.Data;
 
-@Data
 @Entity
-@Table(name = "StatusOrder")
-public class StatusOrder implements Serializable {
+@Data
+@Table(name = "OrderMappingStatus")
+public class OrderMappingStatus implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "StatusOrderId")
@@ -20,8 +21,10 @@ public class StatusOrder implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "StatusId")
-    private Status status;
+    private OrderStatus status;
 
     @Column(name = "UpdateAt")
     private Date updateAt;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }
