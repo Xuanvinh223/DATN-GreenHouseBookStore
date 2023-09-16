@@ -15849,22 +15849,3 @@ a.uppy-Dashboard-poweredBy {
   align-items: center;
   padding: 3px; /* Khoảng cách bên trong phần tử bao quanh */
 }
-
-
-/* Định dạng của input */
-.input {
-  border: none; /* Loại bỏ border của input */
-  outline: none; /* Loại bỏ border khi focus */
-  width: 100% !important; /* Độ rộng của input */
-}
-
-/* Đảm bảo icon và combobox nằm cùng một hàng ngang */
-.input-group-prepend .input-group-text {
-  border-right: none !important;
-  padding: 0; /* Loại bỏ khoảng trống xung quanh icon */
-}
-
-/* Điều chỉnh khoảng cách giữa icon và combobox */
-.select2 {
-  margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
-}

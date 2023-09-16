@@ -60,13 +60,13 @@ app.config(function ($routeProvider) {
 app.run(['$rootScope', function ($rootScope) {
   $rootScope.page = {
       setTitle: function (title) {
-          this.title = 'GreenHouse' + title;
+          this.title = 'GreenHouse |' + title;
 
       }
   }
 
   $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-      $rootScope.page.setTitle(current.$$route.title || ' Trang quản trị');
+      $rootScope.page.setTitle(current.$$route.title || ' Trang chủ');
 
   });
 }]);

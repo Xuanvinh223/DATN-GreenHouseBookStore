@@ -4,7 +4,6 @@ app.config(function ($routeProvider) {
     $routeProvider
         .when("/", {
             templateUrl: "page/home/index.html"
-
         })
         .when("/account-form", {
             templateUrl: "page/account-manager/form_account.html",
@@ -24,15 +23,11 @@ app.config(function ($routeProvider) {
         })
         .when("/brand-form", {
             templateUrl: "page/brand-manager/form_brand.html",
-            controller: ""
+            controller:"brandController"
         })
         .when("/brand-table", {
             templateUrl: "page/brand-manager/table_brand.html",
-            controller: ""
-        })
-        .when("/brand-table", {
-            templateUrl: "page/brand-manager/table_brand.html",
-            controller: ""
+            controller:"brandController"
         })
         .when("/category-form", {
             templateUrl: "page/category-manager/form_category.html",
@@ -112,15 +107,15 @@ app.config(function ($routeProvider) {
 })
 
 app.run(['$rootScope', function ($rootScope) {
-    // $rootScope.page = {
-    //     setTitle: function (title) {
-    //         this.title = 'GreenHouse |' + title;
+    $rootScope.page = {
+        setTitle: function (title) {
+            this.title = 'GreenHouse |' + title;
 
-    //     }
-    // }
+        }
+    }
 
-    // $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-    //     $rootScope.page.setTitle(current.$$route.title || ' Trang quản trị');
+    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+        $rootScope.page.setTitle(current.$$route.title || ' Trang quản trị');
 
-    // });
+    });
 }]);
