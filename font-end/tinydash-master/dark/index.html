@@ -6,20 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="favicon.ico">
-  <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+  <link rel="icon" href="assets/images/logo-book.png">
+  <title data-ng-bind="page.title"></title>
   <!-- Simple bar CSS -->
   <link rel="stylesheet" href="css/simplebar.css">
   <!-- Fonts CSS -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
   <!-- Icons CSS -->
   <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="css/feather.css">
- <link rel="stylesheet" href="css/dataTables.bootstrap4.css">
-    <!-- Date Range Picker CSS -->
+  <link rel="stylesheet" href="css/dataTables.bootstrap4.css">
+  <!-- Date Range Picker CSS -->
   <link rel="stylesheet" href="css/select2.css">
   <link rel="stylesheet" href="css/dropzone.css">
   <link rel="stylesheet" href="css/uppy.min.css">
@@ -43,23 +42,23 @@
   <div class="wrapper">
     <nav class="topnav navbar navbar-light">
       <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
-        <i class="fe fe-menu navbar-toggler-icon"></i>
+        <i class="fe fe-menu navbar-toggler-icon fe-22"></i>
       </button>
-     
+
       <ul class="nav">
         <li class="nav-item">
           <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="dark">
-            <i class="fe fe-sun fe-18 "></i>
+            <i class="fe fe-sun fe-22 "></i>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-shortcut">
-            <span class="fe fe-grid fe-18 "></span>
+            <span class="fe fe-grid fe-22 "></span>
           </a>
         </li>
         <li class="nav-item nav-notif">
           <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-notif">
-            <span class="fe fe-bell fe-18 "></span>
+            <span class="fe fe-bell fe-22"></span>
             <span class="dot dot-md bg-success"></span>
           </a>
         </li>
@@ -71,8 +70,9 @@
             </span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="http://127.0.0.1:5500/font-end/client-template/index.html#!/index.html">Về
+              Trang Chủ</a>
             <a class="dropdown-item" href="#">Đăng Xuất</a>
-          
           </div>
         </li>
       </ul>
@@ -84,6 +84,9 @@
       <nav class="vertnav navbar navbar-light">
         <!-- nav bar -->
         <div class="w-100 mb-4 d-flex">
+          <!-- <a class="navbar-brand mx-auto mt-2 flex-fill text-center " href="./index.html">
+            <img src="assets/images/logo-removebg-preview.png" alt="">
+          </a> -->
 
           <a class="navbar-brand mx-auto mt-2 flex-fill text-center " href="./index.html">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.5 47.5" id="book">
@@ -124,7 +127,8 @@
 
           </li>
           <li class="nav-item dropdown">
-            <a data-target="#quanli-taikhoan" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a data-target="#quanli-taikhoan" data-toggle="collapse" aria-expanded="false"
+              class="dropdown-toggle nav-link">
               <i class="fe fe-user fe-18 "></i>
               <span class="ml-3 item-text">Quản Lý Tài Khoản</span>
             </a>
@@ -151,10 +155,12 @@
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100" id="quanli-loaidanhmuc">
                   <li class="nav-item">
-                    <a class="nav-link pl-3" href="#!/categorytype-form"><span class="ml-1 item-text">Form Cập Nhật</span></a>
+                    <a class="nav-link pl-3" href="#!/categorytype-form"><span class="ml-1 item-text">Form Cập
+                        Nhật</span></a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link pl-3" href="#!/categorytype-table"><span class="ml-1 item-text">Danh Sách</span></a>
+                    <a class="nav-link pl-3" href="#!/categorytype-table"><span class="ml-1 item-text">Danh
+                        Sách</span></a>
                   </li>
                 </ul>
               </li>
@@ -165,7 +171,8 @@
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100" id="quanli-danhmuc">
                   <li class="nav-item">
-                    <a class="nav-link pl-3" href="#!/category-form"><span class="ml-1 item-text">Form Cập Nhật</span></a>
+                    <a class="nav-link pl-3" href="#!/category-form"><span class="ml-1 item-text">Form Cập
+                        Nhật</span></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link pl-3" href="#!/category-table"><span class="ml-1 item-text">Danh Sách</span></a>
@@ -224,9 +231,10 @@
               </li>
             </ul>
           </li>
-        
+
           <li class="nav-item dropdown">
-            <a data-target="#quanli-thuonghieu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a data-target="#quanli-thuonghieu" data-toggle="collapse" aria-expanded="false"
+              class="dropdown-toggle nav-link">
               <i class="fe fe-award fe-18"></i>
               <span class="ml-3 item-text">Quản Lý Thương Hiệu</span>
             </a>
@@ -244,7 +252,8 @@
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a data-target="#quanli-nhaxuatban" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a data-target="#quanli-nhaxuatban" data-toggle="collapse" aria-expanded="false"
+              class="dropdown-toggle nav-link">
               <i class="fe fe-layers fe-16"></i>
               <span class="ml-3 item-text">Quản Lý Nhà Xuất Bản</span>
             </a>
@@ -262,7 +271,8 @@
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a data-target="#quanli-tacgia" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a data-target="#quanli-tacgia" data-toggle="collapse" aria-expanded="false"
+              class="dropdown-toggle nav-link">
               <i class="fe fe-book-open fe-18"></i>
               <span class="ml-3 item-text">Quản Lý Tác Giả</span>
             </a>
@@ -280,7 +290,8 @@
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a data-target="#quanli_sanpham" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a data-target="#quanli_sanpham" data-toggle="collapse" aria-expanded="false"
+              class="dropdown-toggle nav-link">
               <i class="fe fe-box fe-18 "></i>
               <span class="ml-3 item-text">Quản Lý Sản Phẩm</span>
             </a>
@@ -290,17 +301,20 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pl-3" href="#!/product-learning-table"><span class="ml-1 item-text">Thêm Dụng Cụ Học Tập</span>
+                <a class="nav-link pl-3" href="#!/product-learning-table"><span class="ml-1 item-text">Thêm Dụng Cụ Học
+                    Tập</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pl-3" href="#!/product-table"><span class="ml-1 item-text">Danh Sách Sản Phẩm</span></a>
+                <a class="nav-link pl-3" href="#!/product-table"><span class="ml-1 item-text">Danh Sách Sản
+                    Phẩm</span></a>
               </li>
-             
+
             </ul>
           </li>
           <li class="nav-item w-100">
-            <a data-target="#quanli-donhang" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a data-target="#quanli-donhang" data-toggle="collapse" aria-expanded="false"
+              class="dropdown-toggle nav-link">
               <i class="fe fe-truck fe-18 "></i>
               <span class="ml-3 item-text">Quản Lý Đơn Hàng</span>
             </a>
@@ -338,13 +352,14 @@
                 <a class="nav-link pl-3" href="#!/inventory-form"><span class="ml-1 item-text">Nhập Kho</span></a>
               </li>
               <li class="nav-item dropdown">
-                <a data-target="#forms-nhapkho"  data-toggle="collapse" aria-expanded="false"
+                <a data-target="#forms-nhapkho" data-toggle="collapse" aria-expanded="false"
                   class="dropdown-toggle nav-link pl-3">
                   <span class="ml-1 item-text">Quản lý Nhà Cung Cấp</span>
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100" id="forms-nhapkho">
                   <li class="nav-item">
-                    <a class="nav-link pl-3" href="#!/supplier-form"><span class="ml-1 item-text">Form Cập Nhật</span></a>
+                    <a class="nav-link pl-3" href="#!/supplier-form"><span class="ml-1 item-text">Form Cập
+                        Nhật</span></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link pl-3" href="#!/supplier-table"><span class="ml-1 item-text">Danh Sách</span></a>
@@ -379,131 +394,131 @@
     <main role="main" class=" main-content">
       <ng-view></ng-view>
       <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="defaultModalLabel">Notifications</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="list-group list-group-flush my-n3">
-              <div class="list-group-item bg-transparent">
-                <div class="row align-items-center">
-                  <div class="col-auto">
-                    <span class="fe fe-box fe-24"></span>
-                  </div>
-                  <div class="col">
-                    <small><strong>Package has uploaded successfull</strong></small>
-                    <div class="my-0 text-muted small">Package is zipped and uploaded</div>
-                    <small class="badge badge-pill badge-light text-muted">1m ago</small>
-                  </div>
-                </div>
-              </div>
-              <div class="list-group-item bg-transparent">
-                <div class="row align-items-center">
-                  <div class="col-auto">
-                    <span class="fe fe-download fe-24"></span>
-                  </div>
-                  <div class="col">
-                    <small><strong>Widgets are updated successfull</strong></small>
-                    <div class="my-0 text-muted small">Just create new layout Index, form, table</div>
-                    <small class="badge badge-pill badge-light text-muted">2m ago</small>
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="defaultModalLabel">Notifications</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="list-group list-group-flush my-n3">
+                <div class="list-group-item bg-transparent">
+                  <div class="row align-items-center">
+                    <div class="col-auto">
+                      <span class="fe fe-box fe-24"></span>
+                    </div>
+                    <div class="col">
+                      <small><strong>Package has uploaded successfull</strong></small>
+                      <div class="my-0 text-muted small">Package is zipped and uploaded</div>
+                      <small class="badge badge-pill badge-light text-muted">1m ago</small>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="list-group-item bg-transparent">
-                <div class="row align-items-center">
-                  <div class="col-auto">
-                    <span class="fe fe-inbox fe-24"></span>
+                <div class="list-group-item bg-transparent">
+                  <div class="row align-items-center">
+                    <div class="col-auto">
+                      <span class="fe fe-download fe-24"></span>
+                    </div>
+                    <div class="col">
+                      <small><strong>Widgets are updated successfull</strong></small>
+                      <div class="my-0 text-muted small">Just create new layout Index, form, table</div>
+                      <small class="badge badge-pill badge-light text-muted">2m ago</small>
+                    </div>
                   </div>
-                  <div class="col">
-                    <small><strong>Notifications have been sent</strong></small>
-                    <div class="my-0 text-muted small">Fusce dapibus, tellus ac cursus commodo</div>
-                    <small class="badge badge-pill badge-light text-muted">30m ago</small>
+                </div>
+                <div class="list-group-item bg-transparent">
+                  <div class="row align-items-center">
+                    <div class="col-auto">
+                      <span class="fe fe-inbox fe-24"></span>
+                    </div>
+                    <div class="col">
+                      <small><strong>Notifications have been sent</strong></small>
+                      <div class="my-0 text-muted small">Fusce dapibus, tellus ac cursus commodo</div>
+                      <small class="badge badge-pill badge-light text-muted">30m ago</small>
+                    </div>
+                  </div> <!-- / .row -->
+                </div>
+                <div class="list-group-item bg-transparent">
+                  <div class="row align-items-center">
+                    <div class="col-auto">
+                      <span class="fe fe-link fe-24"></span>
+                    </div>
+                    <div class="col">
+                      <small><strong>Link was attached to menu</strong></small>
+                      <div class="my-0 text-muted small">New layout has been attached to the menu</div>
+                      <small class="badge badge-pill badge-light text-muted">1h ago</small>
+                    </div>
                   </div>
                 </div> <!-- / .row -->
-              </div>
-              <div class="list-group-item bg-transparent">
-                <div class="row align-items-center">
-                  <div class="col-auto">
-                    <span class="fe fe-link fe-24"></span>
-                  </div>
-                  <div class="col">
-                    <small><strong>Link was attached to menu</strong></small>
-                    <div class="my-0 text-muted small">New layout has been attached to the menu</div>
-                    <small class="badge badge-pill badge-light text-muted">1h ago</small>
-                  </div>
-                </div>
-              </div> <!-- / .row -->
-            </div> <!-- / .list-group -->
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear All</button>
+              </div> <!-- / .list-group -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear All</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="defaultModalLabel">Shortcuts</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body px-5">
-            <div class="row align-items-center">
-              <div class="col-6 text-center">
-                <div class="squircle bg-success justify-content-center">
-                  <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
-                </div>
-                <p>Control area</p>
-              </div>
-              <div class="col-6 text-center">
-                <div class="squircle bg-primary justify-content-center">
-                  <i class="fe fe-activity fe-32 align-self-center text-white"></i>
-                </div>
-                <p>Activity</p>
-              </div>
+      <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="defaultModalLabel">Shortcuts</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            <div class="row align-items-center">
-              <div class="col-6 text-center">
-                <div class="squircle bg-primary justify-content-center">
-                  <i class="fe fe-droplet fe-32 align-self-center text-white"></i>
+            <div class="modal-body px-5">
+              <div class="row align-items-center">
+                <div class="col-6 text-center">
+                  <div class="squircle bg-success justify-content-center">
+                    <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
+                  </div>
+                  <p>Control area</p>
                 </div>
-                <p>Droplet</p>
+                <div class="col-6 text-center">
+                  <div class="squircle bg-primary justify-content-center">
+                    <i class="fe fe-activity fe-32 align-self-center text-white"></i>
+                  </div>
+                  <p>Activity</p>
+                </div>
               </div>
-              <div class="col-6 text-center">
-                <div class="squircle bg-primary justify-content-center">
-                  <i class="fe fe-upload-cloud fe-32 align-self-center text-white"></i>
+              <div class="row align-items-center">
+                <div class="col-6 text-center">
+                  <div class="squircle bg-primary justify-content-center">
+                    <i class="fe fe-droplet fe-32 align-self-center text-white"></i>
+                  </div>
+                  <p>Droplet</p>
                 </div>
-                <p>Upload</p>
+                <div class="col-6 text-center">
+                  <div class="squircle bg-primary justify-content-center">
+                    <i class="fe fe-upload-cloud fe-32 align-self-center text-white"></i>
+                  </div>
+                  <p>Upload</p>
+                </div>
               </div>
-            </div>
-            <div class="row align-items-center">
-              <div class="col-6 text-center">
-                <div class="squircle bg-primary justify-content-center">
-                  <i class="fe fe-users fe-32 align-self-center text-white"></i>
+              <div class="row align-items-center">
+                <div class="col-6 text-center">
+                  <div class="squircle bg-primary justify-content-center">
+                    <i class="fe fe-users fe-32 align-self-center text-white"></i>
+                  </div>
+                  <p>Users</p>
                 </div>
-                <p>Users</p>
-              </div>
-              <div class="col-6 text-center">
-                <div class="squircle bg-primary justify-content-center">
-                  <i class="fe fe-settings fe-32 align-self-center text-white"></i>
+                <div class="col-6 text-center">
+                  <div class="squircle bg-primary justify-content-center">
+                    <i class="fe fe-settings fe-32 align-self-center text-white"></i>
+                  </div>
+                  <p>Settings</p>
                 </div>
-                <p>Settings</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  
+
     </main> <!-- main -->
   </div> <!-- .wrapper -->
   <script src="js/jquery.min.js"></script>
@@ -774,6 +789,9 @@
     gtag('js', new Date());
     gtag('config', 'UA-56159088-1');
   </script>
+    <!-- Khai báo js tại đây -->
+    <script src='angularjs/brand.js'></script>
+    <!-- End -->
 </body>
 
 </html>

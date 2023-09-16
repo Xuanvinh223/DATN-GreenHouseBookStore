@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class Accounts implements Serializable {
 
-    @Id
+	@Id
     @Column(name = "Username")
     private String username;
 
@@ -35,13 +35,13 @@ public class Accounts implements Serializable {
     @Column(name = "Image")
     private String image;
 
-    @Column(name = "CreateAt")
+    @Column(name = "createat")
     private Date createAt;
 
-    @Column(name = "DeletedAt")
+    @Column(name = "deletedat")
     private Date deletedAt;
 
-    @Column(name = "DeletedBy")
+    @Column(name = "deletedby")
     private String deletedBy;
 
     @Column(name = "Active")

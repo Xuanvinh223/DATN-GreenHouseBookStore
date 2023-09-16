@@ -17,7 +17,7 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		<!-- Thư viện cho ứng dụng web Spring Boot -->
+	    <!-- Thư viện cho ứng dụng web Spring Boot -->
 	    <dependency>
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-starter-web</artifactId>
@@ -57,11 +57,49 @@
 	        <artifactId>spring-boot-starter-data-jpa</artifactId>
 	    </dependency>
 	    
+	    <!-- Thư viện Spring Security cho xác thực và bảo mật -->
 	    <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-security</artifactId>
+	    </dependency>
+	    
+	    <!-- Thư viện Spring Security Test cho việc kiểm tra bảo mật trong các test unit -->
+	    <dependency>
+	        <groupId>org.springframework.security</groupId>
+	        <artifactId>spring-security-test</artifactId>
+	        <scope>test</scope>
+	    </dependency>
+	    
+	    <!-- Thư viện JSON Web Token (JWT) cho xác thực dựa trên token -->
+	    <dependency>
+	        <groupId>io.jsonwebtoken</groupId>
+	        <artifactId>jjwt-api</artifactId>
+	        <version>0.11.5</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>io.jsonwebtoken</groupId>
+	        <artifactId>jjwt-impl</artifactId>
+	        <version>0.11.5</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>io.jsonwebtoken</groupId>
+	        <artifactId>jjwt-jackson</artifactId>
+	        <version>0.11.5</version>
+	    </dependency>
+	    
+	    <!-- Thư viện cho việc xử lý JSON -->
+	    <dependency>
+	        <groupId>com.vaadin.external.google</groupId>
+	        <artifactId>android-json</artifactId>
+	        <version>0.0.20131108.vaadin1</version>
+	        <scope>compile</scope>
+	    </dependency>
+	    
+	    <!-- Thư viện Spring Boot Starter Thymeleaf cho xử lý template Thymeleaf -->
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+	    </dependency>
 	</dependencies>
 
 	<build>
@@ -69,6 +107,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
