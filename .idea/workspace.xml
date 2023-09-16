@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Font-end] - add vourcher.html, product, product detail">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/client-template/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/client-template/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="jwt" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="ab3ac02d-ca4e-4b25-8aab-41881f5bfc92" />
+        <option name="url" value="https://github.com/Xuanvinh223/GreenHouse-Bookstore.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2UNlPeeSsARM8tVHYaNYdHCPFQm" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/DuAnTotNghiep/DATN-GreenHouseBookStore&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="" />
+      <created>1692787897942</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1692787897942</updated>
+      <workItem from="1692787900152" duration="269000" />
+      <workItem from="1692841369245" duration="480000" />
+      <workItem from="1692841899561" duration="820000" />
+      <workItem from="1692845716504" duration="295000" />
+      <workItem from="1692846443558" duration="576000" />
+      <workItem from="1692853838676" duration="3283000" />
+      <workItem from="1692867789509" duration="861000" />
+      <workItem from="1692884286676" duration="1511000" />
+      <workItem from="1692887537741" duration="95000" />
+      <workItem from="1692890217796" duration="97000" />
+      <workItem from="1692928924644" duration="46000" />
+      <workItem from="1692968374712" duration="686000" />
+      <workItem from="1693055207452" duration="2771000" />
+      <workItem from="1693062934436" duration="2332000" />
+      <workItem from="1693136216697" duration="2490000" />
+      <workItem from="1693279337737" duration="4434000" />
+      <workItem from="1693372646310" duration="648000" />
+      <workItem from="1693465515238" duration="398000" />
+      <workItem from="1693500465286" duration="396000" />
+      <workItem from="1693652889645" duration="3454000" />
+      <workItem from="1693662449930" duration="946000" />
+      <workItem from="1693665097303" duration="1930000" />
+      <workItem from="1693741905720" duration="1791000" />
+      <workItem from="1694044924949" duration="1741000" />
+      <workItem from="1694090220612" duration="1780000" />
+      <workItem from="1694098050841" duration="1388000" />
+      <workItem from="1694146096486" duration="20000" />
+      <workItem from="1694329511703" duration="268000" />
+      <workItem from="1694355007273" duration="36000" />
+      <workItem from="1694355263099" duration="1583000" />
+      <workItem from="1694520815154" duration="969000" />
+      <workItem from="1694568170686" duration="1267000" />
+      <workItem from="1694658169285" duration="616000" />
+      <workItem from="1694660848809" duration="95000" />
+      <workItem from="1694673804559" duration="607000" />
+      <workItem from="1694674961493" duration="44000" />
+      <workItem from="1694675050876" duration="5000" />
+      <workItem from="1694748177829" duration="953000" />
+      <workItem from="1694750666635" duration="614000" />
+    </task>
+    <task id="LOCAL-00001" summary="[Project] - Create packages">
+      <created>1692841448096</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1692841448096</updated>
+    </task>
+    <task id="LOCAL-00002" summary="[Project] - Create packages">
+      <created>1692842231961</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1692842231961</updated>
+    </task>
+    <task id="LOCAL-00003" summary="[Project] - Fix source">
+      <created>1692845993241</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1692845993251</updated>
+    </task>
+    <task id="LOCAL-00004" summary="[Project] - Fix font-end">
+      <created>1692846473220</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1692846473220</updated>
+    </task>
+    <task id="LOCAL-00005" summary="[Back-end] - Database connection">
+      <created>1692867933316</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1692867933316</updated>
+    </task>
+    <task id="LOCAL-00006" summary="[Font-end] - Login, register, forgot password">
+      <created>1693063249048</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1693063249048</updated>
+    </task>
+    <task id="LOCAL-00007" summary="[Font-end] - My-account(account detail, order, address, voucher, Notification)">
+      <created>1693500724070</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1693500724070</updated>
+    </task>
+    <task id="LOCAL-00008" summary="[Font-end] - Change input date in my-account.html">
+      <created>1693655392279</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1693655392279</updated>
+    </task>
+    <task id="LOCAL-00009" summary="[Font-end] - Fix menu &quot;Sản phẩm&quot;">
+      <created>1693662575755</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1693662575755</updated>
+    </task>
+    <task id="LOCAL-00010" summary="[Font-end] - add vourcher.html, product, product detail">
+      <created>1694616664670</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1694616664670</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ID_WIDTH">
+                <map>
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="70" />
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="72" />
+                  <entry key="Table.Space.CommitStatus.ColumnIdWidth" value="72" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[Project] - Create packages" />
+    <MESSAGE value="[Project] - Fix source" />
+    <MESSAGE value="[Project] - Fix font-end" />
+    <MESSAGE value="[Back-end] - Create entities" />
+    <MESSAGE value="[Back-end] - Create entities_v1" />
+    <MESSAGE value="[Back-end] - Database connection" />
+    <MESSAGE value="[Font-end] - Login, register, forgot password" />
+    <MESSAGE value="[Font-end] - My-account(account detail, order, address, voucher, Notification)" />
+    <MESSAGE value="[Font-end] - Change input date in my-account.html" />
+    <MESSAGE value="[Font-end] - Fix menu &quot;Sản phẩm&quot;" />
+    <MESSAGE value="[Font-end] - add vourcher.html, product, product detail" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Font-end] - add vourcher.html, product, product detail" />
+  </component>
+</project>
