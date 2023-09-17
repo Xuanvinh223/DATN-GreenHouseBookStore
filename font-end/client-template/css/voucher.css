@@ -211,13 +211,13 @@
     border: 1px solid #fff;
 }
 
-.top-bar-logo {
+/* .top-bar-logo {
     background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/logo/fahasa_logo.png") no-repeat center center;
     background-size: contain;
     width: 220px;
     height: 36px;
 
-}
+} */
 
 .top-bar-category {
     display: flex;
@@ -1029,7 +1029,7 @@
 
 /* eND DANH MỤC SẢN PHẨM */
 /* Flash Sale */
-
+/* 
 .flashsale-header {
     background-color: #a3e44d;
     height: 50px;
@@ -1121,7 +1121,7 @@
 .best-sale span {
     font-size: 20px;
     font-weight: 700;
-}
+} */
 
 .brand-slider1 {
     position: relative;
