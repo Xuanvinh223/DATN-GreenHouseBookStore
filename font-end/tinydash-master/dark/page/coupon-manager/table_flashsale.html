@@ -1,34 +1,65 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-12">
-      <h2 class="mb-2 page-title">Thêm Ưu Đãi</h2>
-      <div class="row my-4">
+
+      <div class="row ">
         <!-- Small table -->
+
         <div class="col-md-12">
+          <div class="card mb-2">
+            <h5 class="mb-3 mt-3 ml-3 ">Danh Sách Chiến Dịch Flash Sale</h5>
+          </div>
           <div class="card shadow">
-            <div class="card-header">
-              <h4 class="card-title">Danh Sách Ưu Đãi</h4>
-            </div>
             <div class="card-body">
+              <div class="toolbar row mb-3">
+                <div class="col">
+                  <!-- Tim kiem -->
+                  <div class="form-inline mb-2">
+                    <div class="input-container">
+                      <div class="input-wrapper">
+                        <i class="fe fe-search fe-18 icon"></i>
+                        <input class="form-control input" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <!-- Chuc nang right -->
+                <div class="col ml-auto">
+                  <div class="dropdown float-right">
+                    <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle" type="button"
+                      id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Tất cả trạng thái</button>
+                    <div class="dropdown-menu" aria-labelledby="btnnhaphang">
+                      <a class="dropdown-item" href="#">Nhập File Excel</a>
+                      <a class="dropdown-item" href="#">Nhập Mới</a>
+
+                    </div>
+                    <a class="btn btn-info " href="" type="button"> <i class='bx bx-plus-medical mr-1'></i> Tạo Chiến Dịch
+                    </a>
+
+                  </div>
+                </div>
+
+              </div>
+
               <!-- table -->
-              <table class="table datatables" id="dataTable-1">
+              <table class="table table-striped table-hover">
                 <thead>
                   <tr>
-                    <th>STT</th>
-                    <th>Mã Ưu Đãi</th>
-                    <th>Ngày Bắt Đầu</th>
-                    <th>Ngày Kết Thúc</th>
-                    <th>Tên Ưu Đãi</th>
-                    <th>Chiếc Khấu Ưu Đãi</th>
+                    <th>#</th>
+                    <th>Tên Flash Sale</th>
+                    <th>Bắt Đầu</th>
+                    <th>Kết Thúc</th>
+                    <th>Ngày Tháng</th>
+                    <th>(%)Chiếc Khấu</th>
+                    <th>Số Lượng Sản Phẩm</th>
                     <th>Số Lượng Sử Dụng</th>
-                    <th>Tổng Số Lượng</th>
                     <th>Trạng Thái</th>
-                    <th>Sửa</th>
-
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-
                   <tr>
                     <td>1</td>
                     <td>PROMO10</td>
@@ -38,8 +69,10 @@
                     <td>10.00</td>
                     <td>23</td>
                     <td>100</td>
-                    <td>Còn Thời Gian</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
+                    <td><span class="badge badge-pill badge-warning">Đã lên lịch</span></td>
+                    <td> <a href="#">
+                        <i class="fe fe-edit fe-16 "></i></a>
+                      <a href="#"> <i class="fe fe-trash-2 fe-16 "></i></a>
                     </td>
                   </tr>
                   <tr>
@@ -51,8 +84,10 @@
                     <td>10.00</td>
                     <td>23</td>
                     <td>100</td>
-                    <td>Còn Thời Gian</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
+                    <td><span class="badge badge-pill badge-success">Đang sử dụng</span></td>
+                    <td> <a href="#">
+                        <i class="fe fe-edit fe-16 "></i></a>
+                      <a href="#"> <i class="fe fe-trash-2 fe-16 "></i></a>
                     </td>
                   </tr>
                   <tr>
@@ -64,32 +99,22 @@
                     <td>10.00</td>
                     <td>23</td>
                     <td>100</td>
-                    <td>Còn Thời Gian</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
+                    <td><span class="badge badge-pill badge-danger">Hết Hạn</span></td>
+                    <td> <a href="#">
+                        <i class="fe fe-edit fe-16 "></i></a>
+                      <a href="#"> <i class="fe fe-trash-2 fe-16 "></i></a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>PROMO10</td>
-                    <td>2023-09-15 00:00:00</td>
-                    <td>2023-09-30 23:59:59</td>
-                    <td>Lễ Trung Thu 15/8 tặng ...</td>
-                    <td>10.00</td>
-                    <td>23</td>
-                    <td>100</td>
-                    <td>Còn Thời Gian</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-
-
 
                 </tbody>
               </table>
             </div>
+
           </div>
-        </div> <!-- simple table -->
-      </div> <!-- end section -->
-    </div> <!-- .col-12 -->
-  </div> <!-- .row -->
+        </div>
+
+      </div> <!-- simple table -->
+    </div> <!-- end section -->
+  </div> <!-- .col-12 -->
+</div> <!-- .row -->
 </div> <!-- .container-fluid -->

@@ -4517,7 +4517,7 @@ input[type="button"].btn-block {
   word-wrap: break-word;
   background-color: #ffffff;
   background-clip: border-box;
-  border: 1px solid #e9ecef;
+      border: 1px solid #e9ecef;
   border-radius: 0.25rem;
 }
 .card > hr {
@@ -6438,7 +6438,9 @@ button.bg-dark:focus {
 .border-0 {
   border: 0 !important;
 }
-
+.border-1 {
+  border: 1px solid gray !important;
+}
 .border-top-0 {
   border-top: 0 !important;
 }
@@ -9572,7 +9574,9 @@ a.text-dark:focus {
 .text-body {
   color: #6c757d !important;
 }
-
+.card-title1{
+  color: blue !important;
+}
 .text-muted {
   color: #6c757d !important;
 }
@@ -15850,21 +15854,3 @@ a.uppy-Dashboard-poweredBy {
   padding: 3px; /* Khoảng cách bên trong phần tử bao quanh */
 }
 
-
-/* Định dạng của input */
-.input {
-  border: none; /* Loại bỏ border của input */
-  outline: none; /* Loại bỏ border khi focus */
-  width: 100% !important; /* Độ rộng của input */
-}
-
-/* Đảm bảo icon và combobox nằm cùng một hàng ngang */
-.input-group-prepend .input-group-text {
-  border-right: none !important;
-  padding: 0; /* Loại bỏ khoảng trống xung quanh icon */
-}
-
-/* Điều chỉnh khoảng cách giữa icon và combobox */
-.select2 {
-  margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
-}

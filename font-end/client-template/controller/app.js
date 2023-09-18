@@ -55,19 +55,20 @@ app.run(function ($rootScope, $http, $templateCache) {
   $rootScope.$on('$viewContentLoaded', function () {
     Promise.all(jsFiles.map(loadAndAppendScript));
   });
+  $rootScope.page = {
+    setTitle: function (title) {
+        this.title = 'GreenHouse |' + title;
+
+    }
+}
+
+$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+    $rootScope.page.setTitle(current.$$route.title || ' Trang chủ');
+
+});
 });
 
-app.run(['$rootScope', function ($rootScope) {
-  $rootScope.page = {
-      setTitle: function (title) {
-          this.title = 'GreenHouse' + title;
-
-      }
-  }
-
-  $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-      $rootScope.page.setTitle(current.$$route.title || ' Trang quản trị');
-
-  });
-}]);
+// app.run(['$rootScope', function ($rootScope) {
+ 
+// }]);
 

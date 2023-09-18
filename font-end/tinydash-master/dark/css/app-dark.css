@@ -4968,7 +4968,8 @@ input[type="button"].btn-block {
   word-wrap: break-word;
   background-color: #343a40;
   background-clip: border-box;
-  border: 1px solid transparent;
+  /* border: 1px solid transparent; */
+  border: 1px solid #e9ecef;
   border-radius: 0.25rem;
 }
 
@@ -5003,7 +5004,9 @@ input[type="button"].btn-block {
 .card-title {
   margin-bottom: 0.75rem;
 }
-
+.card-title1{
+  color: rgb(123, 223, 214) !important;
+}
 .card-subtitle {
   margin-top: -0.375rem;
   margin-bottom: 0;
@@ -7054,7 +7057,7 @@ button.bg-dark:focus {
 }
 
 .border-bottom {
-  border-bottom: 1px solid #212529 !important;
+  border-bottom: 1px solid #ced4da !important;
 }
 
 .border-left {
@@ -7064,7 +7067,9 @@ button.bg-dark:focus {
 .border-0 {
   border: 0 !important;
 }
-
+.border-1 {
+  border: 1px solid gray !important;
+}
 .border-top-0 {
   border-top: 0 !important;
 }
