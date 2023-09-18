@@ -1,34 +1,37 @@
 package com.greenhouse.model;
 
-import lombok.Data;
-import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Data
+import jakarta.persistence.*;
+import lombok.Data;
+
 @Entity
+@Data
 @Table(name = "Publishers")
 public class Publishers implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PublisherId")
-    private int publisherId;
 
-    @Column(name = "PublisherName")
+    @Id
+    @Column(name = "PublisherId", length = 30)
+    private String publisherId;
+
+    @Column(name = "PublisherName", columnDefinition = "nvarchar(100)", nullable = false)
     private String publisherName;
 
     @Column(name = "Description", columnDefinition = "nvarchar(200)")
     private String description;
 
-    @Column(name = "Address", columnDefinition = "nvarchar(200)")
+    @Column(name = "Address", columnDefinition = "nvarchar(200)", nullable = false)
     private String address;
 
-    @Column(name = "Email")
+    @Column(name = "Email", length = 50, nullable = false)
     private String email;
 
     @Column(name = "Image", columnDefinition = "nvarchar(200)")
     private String image;
 
-    @OneToMany(mappedBy = "productId")
+    @OneToMany(mappedBy = "publisher")
     private List<Products> products;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

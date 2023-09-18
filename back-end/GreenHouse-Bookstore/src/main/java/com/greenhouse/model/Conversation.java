@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import jakarta.persistence.*;
 import lombok.Data;
-@Data
+
 @Entity
+@Data
 @Table(name = "Conversation")
 public class Conversation implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ConversationId")
@@ -18,4 +20,6 @@ public class Conversation implements Serializable {
 
     @Column(name = "Username")
     private String username;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

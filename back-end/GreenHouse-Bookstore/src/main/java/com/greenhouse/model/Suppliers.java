@@ -5,33 +5,35 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Data
 @Entity
+@Data
 @Table(name = "Suppliers")
 public class Suppliers implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SupplierId")
-    private int supplierId;
 
-    @Column(name = "SupplierName")
+    @Id
+    @Column(name = "SupplierId", length = 30)
+    private String supplierId;
+
+    @Column(name = "SupplierName", columnDefinition = "nvarchar(100)", nullable = false)
     private String supplierName;
 
     @Column(name = "Description", columnDefinition = "nvarchar(300)")
     private String description;
 
-    @Column(name = "Address", columnDefinition = "nvarchar(200)")
+    @Column(name = "Address", columnDefinition = "nvarchar(200)", nullable = false)
     private String address;
 
-    @Column(name = "Email")
+    @Column(name = "Email", length = 50, nullable = false)
     private String email;
 
-    @Column(name = "Phone")
+    @Column(name = "Phone", length = 10, nullable = false)
     private String phone;
 
     @Column(name = "Image", columnDefinition = "nvarchar(200)")
     private String image;
 
-    @OneToMany(mappedBy = "supplier")
-    private List<ImportInvoice> importInvoices;
+    // @OneToMany(mappedBy = "supplier")
+    // private List<Products> products;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

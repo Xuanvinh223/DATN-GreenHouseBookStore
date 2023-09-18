@@ -1,16 +1,17 @@
 package com.greenhouse.model;
+
 import java.io.Serializable;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "Brand")
-@Data   
 public class Brand implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BrandId")
-    private int brandId;
+    private String brandId;
 
     @Column(name = "BrandName")
     private String brandName;
@@ -20,4 +21,8 @@ public class Brand implements Serializable {
 
     @Column(name = "Logo")
     private String logo;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
+
+    // Mối quan hệ nếu cần
 }
