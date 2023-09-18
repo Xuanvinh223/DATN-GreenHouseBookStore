@@ -13,10 +13,10 @@ public class AttributeValue implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Integer id;
 
     @Column(name = "AttributeId")
-    private int attributeId;
+    private Integer attributeId;
 
     @Column(name = "Value")
     private String value;

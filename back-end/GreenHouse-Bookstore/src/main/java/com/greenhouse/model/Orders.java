@@ -13,7 +13,7 @@ public class Orders implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "OrderId")
-    private int orderId;
+    private Integer orderId;
 
     @ManyToOne
     @JoinColumn(name = "InvoiceId")

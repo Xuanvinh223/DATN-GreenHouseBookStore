@@ -12,7 +12,7 @@ public class OrderStatus implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "StatusId")
-    private int statusId;
+    private Integer statusId;
 
     @Column(name = "Name", columnDefinition = "nvarchar(50)")
     private String name;

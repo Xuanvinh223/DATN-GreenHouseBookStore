@@ -13,10 +13,10 @@ public class Discounts implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DiscountId")
-    private int discountId;
+    private Integer discountId;
 
     @Column(name = "Value")
-    private int value;
+    private Integer value;
 
     @Column(name = "StartDate")
     private Date startDate;
@@ -25,10 +25,10 @@ public class Discounts implements Serializable {
     private Date endDate;
 
     @Column(name = "Quantity")
-    private int quantity;
+    private Integer quantity;
 
     @Column(name = "UsedQuantity")
-    private int usedQuantity;
+    private Integer usedQuantity;
 
     @Column(name = "Active")
     private boolean active;

@@ -12,7 +12,7 @@ public class ProductAttributeValueMapping implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "ProductDetailId")

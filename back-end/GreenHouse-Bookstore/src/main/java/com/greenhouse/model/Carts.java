@@ -12,16 +12,16 @@ public class Carts implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CartId")
-    private int cartId;
+    private Integer cartId;
 
     @Column(name = "Username")
     private String username;
 
     @Column(name = "ProductDetailId")
-    private int productDetailId;
+    private Integer productDetailId;
 
     @Column(name = "Quantity")
-    private int quantity;
+    private Integer quantity;
 
     @Column(name = "Price")
     private double price;
@@ -30,7 +30,7 @@ public class Carts implements Serializable {
     private double amount;
 
     @Column(name = "Discount_Id")
-    private int discountId;
+    private Integer discountId;
 
     @Column(name = "AmountAppliedDiscount")
     private double amountAppliedDiscount;

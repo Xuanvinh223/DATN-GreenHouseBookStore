@@ -12,7 +12,7 @@ public class CategoryTypes implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TypeId")
-    private int typeId;
+    private Integer typeId;
 
     @Column(name = "TypeName")
     private String typeName;

@@ -13,7 +13,7 @@ public class Conversation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ConversationId")
-    private int conversationId;
+    private Integer conversationId;
 
     @Column(name = "ConversationDate")
     private Date conversationDate;

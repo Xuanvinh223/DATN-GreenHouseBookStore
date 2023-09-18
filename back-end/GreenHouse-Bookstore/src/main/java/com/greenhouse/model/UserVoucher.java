@@ -12,7 +12,7 @@ public class UserVoucher implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private int id;
+    private Integer id;
 
     @Column(name = "Username", length = 50)
     private String username;
