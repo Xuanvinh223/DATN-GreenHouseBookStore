@@ -76,7 +76,28 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+/* Thanh cuộn */
+::-webkit-scrollbar {
+  width: 10px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:  #30cf30;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #62ab00;
+}
+
+/* End Thanh cuộn */
 body {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
