@@ -12,7 +12,7 @@ public class Product_Discount implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Integer id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "DiscountId")

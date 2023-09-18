@@ -11,13 +11,13 @@ public class Authentic_Photos implements Serializable {
 
     @Id
     @Column(name = "AuthenticPhotoId")
-    private Integer authenticPhotoId;
+    private int authenticPhotoId;
 
     @Column(name = "PhotoName")
     private String photoName;
 
     @Column(name = "ProductReviewId")
-    private Integer productReviewId;
+    private int productReviewId;
 
     @ManyToOne
     @JoinColumn(name = "ProductReviewId", referencedColumnName = "ReviewId", insertable = false, updatable = false)

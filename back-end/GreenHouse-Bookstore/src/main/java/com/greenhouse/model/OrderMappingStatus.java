@@ -13,7 +13,7 @@ public class OrderMappingStatus implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "StatusOrderId")
-    private Integer statusOrderId;
+    private int statusOrderId;
 
     @ManyToOne
     @JoinColumn(name = "OrderId")

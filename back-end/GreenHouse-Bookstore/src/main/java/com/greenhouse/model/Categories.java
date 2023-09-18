@@ -12,13 +12,13 @@ public class Categories implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CategoryId")
-    private Integer categoryId;
+    private int categoryId;
 
     @Column(name = "CategoryName")
     private String categoryName;
 
     @Column(name = "TypeId")
-    private Integer typeId;
+    private int typeId;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 
