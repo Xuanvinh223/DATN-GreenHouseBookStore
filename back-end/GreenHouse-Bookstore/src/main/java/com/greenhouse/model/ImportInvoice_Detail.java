@@ -12,14 +12,14 @@ public class ImportInvoice_Detail implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "ImportInvoiceId")
     private ImportInvoice importInvoice;
 
     @Column(name = "Quantity")
-    private int quantity;
+    private Integer quantity;
 
     @Column(name = "Price")
     private double price;

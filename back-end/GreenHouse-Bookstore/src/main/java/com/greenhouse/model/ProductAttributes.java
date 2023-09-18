@@ -12,7 +12,7 @@ public class ProductAttributes implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Integer id;
 
     @Column(name = "Name", columnDefinition = "nvarchar(50)")
     private String name;

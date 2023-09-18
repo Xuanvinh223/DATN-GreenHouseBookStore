@@ -13,7 +13,7 @@ public class OTP implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "Username")
@@ -29,7 +29,7 @@ public class OTP implements Serializable {
     private Date expiredTime;
 
     @Column(name = "Status")
-    private int status;
+    private Integer status;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

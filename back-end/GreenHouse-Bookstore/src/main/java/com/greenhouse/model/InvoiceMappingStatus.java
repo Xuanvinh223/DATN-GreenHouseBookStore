@@ -13,7 +13,7 @@ public class InvoiceMappingStatus implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "InvoiceOrderStatusId")
-    private int invoiceOrderStatusId;
+    private Integer invoiceOrderStatusId;
 
     @ManyToOne
     @JoinColumn(name = "InvoiceId")

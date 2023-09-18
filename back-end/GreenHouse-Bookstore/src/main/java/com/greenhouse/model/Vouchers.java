@@ -13,7 +13,7 @@ public class Vouchers implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "VoucherId")
-    private int voucherId;
+    private Integer voucherId;
 
     @Column(name = "Code", length = 100, nullable = false)
     private String code;
@@ -33,9 +33,6 @@ public class Vouchers implements Serializable {
     @Column(name = "ProductCategoryId")
     private Integer productCategoryId;
 
-    @Column(name = "ApplicableOrderAmount")
-    private Double applicableOrderAmount;
-
     @Column(name = "StartDate", nullable = false)
     private Date startDate;
 
@@ -43,10 +40,10 @@ public class Vouchers implements Serializable {
     private Date endDate;
 
     @Column(name = "TotalQuantity", nullable = false)
-    private int totalQuantity;
+    private Integer totalQuantity;
 
     @Column(name = "UsedQuantity", nullable = false)
-    private int usedQuantity;
+    private Integer usedQuantity;
 
     @Column(name = "Status", nullable = false)
     private boolean status;

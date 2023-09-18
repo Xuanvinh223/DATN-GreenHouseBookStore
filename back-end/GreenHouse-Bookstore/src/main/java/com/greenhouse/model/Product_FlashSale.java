@@ -12,7 +12,7 @@ public class Product_FlashSale implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "FlashSaleId")
@@ -23,10 +23,10 @@ public class Product_FlashSale implements Serializable {
     private Product_Detail productDetail;
 
     @Column(name = "Quantity")
-    private int quantity;
+    private Integer quantity;
 
     @Column(name = "UsedQuantity")
-    private int usedQuantity;
+    private Integer usedQuantity;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

@@ -12,7 +12,7 @@ public class Book_Authors implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private int id;
+    private Integer id;
 
     @Column(name = "AuthorId")
     private String authorId;

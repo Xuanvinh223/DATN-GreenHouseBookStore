@@ -11,13 +11,13 @@ public class Authorities implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AuthoritiesId")
-    private int authoritiesId;
+    private Integer authoritiesId;
 
     @Column(name = "Username")
     private String username;
 
     @Column(name = "RoleId")
-    private int roleId;
+    private Integer roleId;
 
     @ManyToOne
     @JoinColumn(name = "Username", referencedColumnName = "Username", insertable = false, updatable = false)
