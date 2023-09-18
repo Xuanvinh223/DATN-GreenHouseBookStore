@@ -13,7 +13,7 @@ public class Notification implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NotificationId")
-    private Integer notificationId;
+    private int notificationId;
 
     @ManyToOne
     @JoinColumn(name = "Username")

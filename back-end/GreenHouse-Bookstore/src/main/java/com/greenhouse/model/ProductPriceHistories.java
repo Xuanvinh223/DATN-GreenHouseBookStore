@@ -14,7 +14,7 @@ public class ProductPriceHistories implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PriceHistoriesId")
-    private Integer priceHistoriesId;
+    private int priceHistoriesId;
 
     @Column(name = "Username", length = 50)
     private String username;

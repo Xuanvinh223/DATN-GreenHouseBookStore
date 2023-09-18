@@ -12,7 +12,7 @@ public class Product_Detail implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ProductDetailId")
-    private Integer productDetailId;
+    private int productDetailId;
 
     @ManyToOne
     @JoinColumn(name = "ProductId")
@@ -22,13 +22,13 @@ public class Product_Detail implements Serializable {
     private double price;
 
     @Column(name = "QuantityInStock")
-    private Integer quantityInStock;
+    private int quantityInStock;
 
     @Column(name = "Image", columnDefinition = "nvarchar(200)")
     private String image;
 
     @Column(name = "ProductImageId")
-    private Integer productImageId;
+    private int productImageId;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

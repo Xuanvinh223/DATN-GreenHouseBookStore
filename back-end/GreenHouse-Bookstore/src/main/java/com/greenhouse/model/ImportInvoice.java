@@ -13,7 +13,7 @@ public class ImportInvoice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ImportInvoiceId")
-    private Integer importInvoiceId;
+    private int importInvoiceId;
 
     @Column(name = "Username")
     private String username;

@@ -32,8 +32,8 @@ public class Suppliers implements Serializable {
     @Column(name = "Image", columnDefinition = "nvarchar(200)")
     private String image;
 
-    @OneToMany(mappedBy = "supplier")
-    private List<Products> products;
+    // @OneToMany(mappedBy = "supplier")
+    // private List<Products> products;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

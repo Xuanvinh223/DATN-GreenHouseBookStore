@@ -12,7 +12,7 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Integer id;
+    private int id;
 
     @Column(name = "Address")
     private String address;

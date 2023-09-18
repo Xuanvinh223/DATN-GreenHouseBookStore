@@ -11,7 +11,7 @@ import lombok.Data;
 @Table(name = "Accounts")
 public class Accounts  implements Serializable {
 
-    @Id
+	@Id
     @Column(name = "Username")
     private String username;
 
@@ -36,19 +36,19 @@ public class Accounts  implements Serializable {
     @Column(name = "Image")
     private String image;
 
-    @Column(name = "CreateAt")
+    @Column(name = "createat")
     private Date createAt;
 
-    @Column(name = "DeletedAt")
+    @Column(name = "deletedat")
     private Date deletedAt;
 
-    @Column(name = "DeletedBy")
+    @Column(name = "deletedby")
     private String deletedBy;
 
     @Column(name = "Active")
     private Boolean active;
 
-    @Column(name = "Notification_Id")
+    @Column(name = "notification_id")
     private Integer notificationId;
 
     // Getters and setters

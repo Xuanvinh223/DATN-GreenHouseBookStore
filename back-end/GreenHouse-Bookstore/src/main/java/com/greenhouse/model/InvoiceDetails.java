@@ -12,7 +12,7 @@ public class InvoiceDetails implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "InvoiceDetailId")
-    private Integer invoiceDetailId;
+    private int invoiceDetailId;
 
     @ManyToOne
     @JoinColumn(name = "InvoiceId")
@@ -27,7 +27,7 @@ public class InvoiceDetails implements Serializable {
     private Product_Detail productDetail;
 
     @Column(name = "Quantity")
-    private Integer quantity;
+    private int quantity;
 
     @Column(name = "Price")
     private double price;

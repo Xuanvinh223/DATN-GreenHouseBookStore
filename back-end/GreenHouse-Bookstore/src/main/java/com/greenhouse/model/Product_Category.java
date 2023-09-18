@@ -12,7 +12,7 @@ public class Product_Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Integer id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "ProductId")

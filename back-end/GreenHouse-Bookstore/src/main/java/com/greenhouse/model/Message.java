@@ -12,7 +12,7 @@ public class Message implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MessageId")
-    private Integer messageId;
+    private int messageId;
 
     @ManyToOne
     @JoinColumn(name = "ConversationId")
