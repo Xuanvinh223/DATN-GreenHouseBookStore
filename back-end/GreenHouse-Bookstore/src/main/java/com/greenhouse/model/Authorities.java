@@ -7,6 +7,7 @@ import lombok.Data;
 @Table(name = "Authorities")
 @Data
 public class Authorities implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AuthoritiesId")
@@ -15,9 +16,16 @@ public class Authorities implements Serializable {
     @Column(name = "Username")
     private String username;
 
+    @Column(name = "RoleId")
+    private int roleId;
+
     @ManyToOne
-    @JoinColumn(name = "RoleId")
+    @JoinColumn(name = "Username", referencedColumnName = "Username", insertable = false, updatable = false)
+    private Accounts account;
+
+    @ManyToOne
+    @JoinColumn(name = "RoleId", referencedColumnName = "RoleId", insertable = false, updatable = false)
     private Roles role;
 
-    // Constructors, getters, setters...
+    // Getters and setters
 }

@@ -1,14 +1,14 @@
 package com.greenhouse.model;
 
-import lombok.Data;
-import jakarta.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
+import jakarta.persistence.*;
+import lombok.Data;
 
-@Data
 @Entity
+@Data
 @Table(name = "InvoiceDetails")
 public class InvoiceDetails implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "InvoiceDetailId")
@@ -19,22 +19,24 @@ public class InvoiceDetails implements Serializable {
     private Invoices invoice;
 
     @ManyToOne
+    @JoinColumn(name = "Discount_Id")
+    private Discounts discount;
+
+    @ManyToOne
     @JoinColumn(name = "ProductDetailId")
-    private ProductDetail productDetail;
+    private Product_Detail productDetail;
 
     @Column(name = "Quantity")
     private int quantity;
 
     @Column(name = "Price")
-    private BigDecimal price;
+    private double price;
 
     @Column(name = "Amount")
-    private BigDecimal amount;
-
-    @ManyToOne
-    @JoinColumn(name = "Discount_Id")
-    private Discounts discount;
+    private double amount;
 
     @Column(name = "AmountAppliedDiscount")
-    private BigDecimal amountAppliedDiscount;
+    private double amountAppliedDiscount;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

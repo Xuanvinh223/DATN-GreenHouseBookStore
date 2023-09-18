@@ -1,14 +1,12 @@
 package com.greenhouse.model;
 
 
+
 import java.io.Serializable;
 
 import jakarta.persistence.*;
-import lombok.Data;
-
 @Entity
 @Table(name = "Address")
-@Data
 public class Address implements Serializable {
 
     @Id
@@ -19,7 +17,12 @@ public class Address implements Serializable {
     @Column(name = "Address")
     private String address;
 
+    @Column(name = "Username")
+    private String username;
+
     @ManyToOne
-    @JoinColumn(name = "Username")
-    private Accounts accounts;
+    @JoinColumn(name = "Username", referencedColumnName = "Username", insertable = false, updatable = false)
+    private Accounts account;
+
+    // Getters and setters
 }

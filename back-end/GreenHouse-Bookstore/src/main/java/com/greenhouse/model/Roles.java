@@ -4,14 +4,18 @@ import lombok.Data;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
-@Data
 @Entity
+@Data
 @Table(name = "Roles")
 public class Roles implements Serializable {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RoleId")
     private int roleId;
 
     @Column(name = "Role", columnDefinition = "nvarchar(50)")
     private String role;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }
