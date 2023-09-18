@@ -8,7 +8,6 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 <main id="layout">
    <div class="site-wrapper" id="top" ng-controller="accountController">
 	<section class="breadcrumb-section">
-		<h2 class="sr-only">Site Breadcrumb</h2>
 		<div class="container">
 			<div class="breadcrumb-contents">
 				<nav aria-label="breadcrumb">
@@ -213,12 +212,12 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 												<div>
 													<strong class="font-weight-bold text-danger fs-3">Alex
 														Tuntuni</strong> <br>
-													<Strong>Quốc gia : </Strong> <label for="">Việt nam</label> <br>
-													<Strong>Tỉnh/Thành phố : </Strong> <label for="">Cần thơ</label>
+													<Strong>Quốc gia : </Strong> <label>Việt nam</label> <br>
+													<Strong>Tỉnh/Thành phố : </Strong> <label>Cần thơ</label>
 													<br>
-													<Strong>Quận/Huyện : </Strong> <label for="">Cái răng</label> <br>
-													<Strong>Xã/Phường : </Strong> <label for="">Hưng phú</label> <br>
-													<Strong>Số điện thoại: </Strong> <label for="">0926546260</label>
+													<Strong>Quận/Huyện : </Strong> <label>Cái răng</label> <br>
+													<Strong>Xã/Phường : </Strong> <label>Hưng phú</label> <br>
+													<Strong>Số điện thoại: </Strong> <label>0926546260</label>
 													<br>
 													<label>Địa chỉ thanh toán: 724 Tổ 9 Khu vực 1 Hưng phú Cái Răng Cần
 														Thơ</label>
@@ -229,12 +228,12 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 												<div>
 													<strong class="font-weight-bold text-danger fs-3 text-center">Alex
 														Tuntuni</strong> <br>
-													<Strong>Quốc gia : </Strong> <label for="">Việt nam</label> <br>
-													<Strong>Tỉnh/Thành phố : </Strong> <label for="">Cần thơ</label>
+													<Strong>Quốc gia : </Strong> <label>Việt nam</label> <br>
+													<Strong>Tỉnh/Thành phố : </Strong> <label>Cần thơ</label>
 													<br>
-													<Strong>Quận/Huyện : </Strong> <label for="">Cái răng</label> <br>
-													<Strong>Xã/Phường : </Strong> <label for="">Hưng phú</label> <br>
-													<Strong>Số điện thoại: </Strong> <label for="">0926546260</label>
+													<Strong>Quận/Huyện : </Strong> <label>Cái răng</label> <br>
+													<Strong>Xã/Phường : </Strong> <label>Hưng phú</label> <br>
+													<Strong>Số điện thoại: </Strong> <label>0926546260</label>
 													<br>
 													<label>Địa chỉ thanh toán: 724 Tổ 9 Khu vực 1 Hưng phú Cái Răng Cần
 														Thơ</label>
@@ -253,19 +252,19 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 												<input type="text" class="form-control bg-transparent" id="lastname"
 													name="lastname" required placeholder=" ">
 												<label for="lastname" class="form-label">Họ và tên <label
-														class="text-danger" for="">(*)</label></label>
+														class="text-danger" >(*)</label></label>
 											</div>
 											<div class="mb-3 form-floating">
 												<input type="tel" class="form-control bg-transparent" id="telephone"
 													name="telephone" placeholder=" ">
 												<label for="telephone" class="form-label">Số điện thoại <label
-														class="text-danger" for="">(*)</label></label>
+														class="text-danger" >(*)</label></label>
 											</div>
 											<div class="mb-3 form-floating">
 												<input type="email" class="form-control bg-transparent" id="email"
 													name="email" placeholder=" ">
 												<label for="email" class="form-label">Email <label class="text-danger"
-														for="">(*)</label></label>
+														>(*)</label></label>
 											</div>
 											<div class="mb-3">
 												<label class="form-label">Giới tính</label>
@@ -299,19 +298,19 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 													<input type="password" class="form-control bg-transparent"
 														id="current_password" name="current_password" placeholder=" ">
 													<label for="current_password" class="form-label">Mật khẩu hiện tại
-														<label class="text-danger" for="">(*)</label></label>
+														<label class="text-danger" >(*)</label></label>
 												</div>
 												<div class="mb-3 form-floating">
 													<input type="password" class="form-control bg-transparent"
 														id="new_password" name="new_password" placeholder=" ">
 													<label for="new_password" class="form-label">Mật khẩu mới <label
-															class="text-danger" for="">(*)</label></label>
+															class="text-danger" >(*)</label></label>
 												</div>
 												<div class="mb-3 form-floating">
 													<input type="password" class="form-control bg-transparent"
 														id="confirm_password" name="confirm_password" placeholder=" ">
 													<label for="confirm_password" class="form-label">Nhập lại mật khẩu
-														mới <label class="text-danger" for="">(*)</label></label>
+														mới <label class="text-danger" >(*)</label></label>
 												</div>
 											</div>
 											<div class="text-center">
@@ -345,12 +344,12 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 								<h4>Thông tin liên hệ</h4>
 								<div class="mb-3">
 									<strong for="contactName" class="form-label">Họ và tên<label class="text-danger"
-											for="">(*)</label></strong>
+											>(*)</label></strong>
 									<input type="text" class="form-control" id="contactName" name="contactName">
 								</div>
 								<div class="mb-3">
 									<strong for="contactPhone" class="form-label">Điện thoại<label class="text-danger"
-											for="">(*)</label></strong>
+											>(*)</label></strong>
 									<input type="tel" class="form-control" id="contactPhone" name="contactPhone">
 								</div>
 								<!-- Thêm các trường nhập liệu khác tại đây -->
@@ -360,12 +359,12 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 								<h4>Địa chỉ</h4>
 								<div class="mb-3">
 									<strong for="addressStreet" class="form-label">Địa chỉ<label class="text-danger"
-											for="">(*)</label></strong>
+											>(*)</label></strong>
 									<input type="text" class="form-control" id="addressStreet" name="addressStreet">
 								</div>
 								<div class="mb-3">
 									<strong for="addressCountry" class="form-label">Quốc gia<label class="text-danger"
-											for="">(*)</label></strong>
+											>(*)</label></strong>
 									<select class="form-select" id="addressCountry" name="addressCountry">
 										<option value="vietnam">Việt Nam</option>
 										<option value="usa">Mỹ</option>
@@ -374,7 +373,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 								</div>
 								<div class="mb-3">
 									<strong for="addressCity" class="form-label">Tỉnh/Thành phố<label
-											class="text-danger" for="">(*)</label></strong>
+											class="text-danger" >(*)</label></strong>
 									<select class="form-select" id="addressCity" name="addressCity">
 										<option value="tphcm">TP. Hồ Chí Minh</option>
 										<option value="hanoi">Hà Nội</option>
@@ -383,7 +382,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 								</div>
 								<div class="mb-3">
 									<strong for="addressDistrict" class="form-label">Quận/Huyện<label
-											class="text-danger" for="">(*)</label></strong>
+											class="text-danger" >(*)</label></strong>
 									<select class="form-select" id="addressDistrict" name="addressDistrict">
 										<option value="quan1">Quận 1</option>
 										<option value="quan2">Quận 2</option>
@@ -392,7 +391,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 								</div>
 								<div class="mb-3">
 									<strong for="addressWard" class="form-label">Xã/Phường<label class="text-danger"
-											for="">(*)</label></strong>
+											>(*)</label></strong>
 									<select class="form-select" id="addressWard" name="addressWard">
 										<option value="phuong1">Phường 1</option>
 										<option value="phuong2">Phường 2</option>
@@ -414,5 +413,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 	</div>
 	<!-- Modal Address End -->
 </div>
+
+<script th:src="@{/client/js/my-account.js}"></script>
 </main>
 </html>

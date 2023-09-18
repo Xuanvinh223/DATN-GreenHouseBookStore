@@ -139,14 +139,12 @@
               </div>
               <div class="center_center" style="color: #0D0E0F; padding-bottom:24px; font-size: 1.23em;">xem
                 thông báo</div>
-              <button style="margin-top: 5px;" type="submit" class="button-default active" data-bs-toggle="modal"
-                data-bs-target="#loginModal">
+              <a href="/login" style="margin-top: 5px;" class="button-default active">
                 <span>Đăng nhập</span>
-              </button>
-              <button style="margin-top: 10px;" type="submit" class="button-default" data-bs-toggle="modal"
-                data-bs-target="#siginModal">
+              </a>
+              <a href="/signin" style="margin-top: 10px;" class="button-default">
                 <span>Đăng ký</span>
-              </button>
+              </a>
             </div>
           </div>
           <div class="center_center mouse-hover cart-dropdown">
@@ -194,14 +192,12 @@
               </div>
             </a>
             <div class="top-dropdown" style="padding: 5px 10px 15px 10px;width: 16%">
-              <button style="margin-top: 5px;" type="button" class="button-default active" data-bs-toggle="modal"
-                data-bs-target="#loginModal">
+              <a href="/login" style="margin-top: 5px;" type="button" class="button-default active">
                 <span>Đăng nhập</span>
-              </button>
-              <button style="margin-top: 5px;" type="button" class="button-default" data-bs-toggle="modal"
-                data-bs-target="#siginModal">
+              </a>
+              <a href="/signin" style="margin-top: 5px;" type="button" class="button-default">
                 <span>Đăng ký</span>
-              </button>
+              </a>
               <button style="margin-top: 5px;" type="button" class="button-facebook center_center">
                 <span class="icon_facebook"></span>
                 <span>Đăng nhập bằng Facebook</span>
@@ -387,8 +383,8 @@
                     </ul>
                   </div>
                 </nav>
-                
-              </div>
+
+             </div>
 
               <!-- Menu chính -->
 
@@ -694,8 +690,6 @@
     <script th:src="@{/client/js/ajax-mail.js}"></script>
     <script th:src="@{/client/js/custom.js}"></script>
     <script th:src="@{/client/js/code.js}"></script>
-    <script th:src="@{/client/js/login-register.js}"></script>
-    <script th:src="@{/client/js/my-account.js}"></script>
     <!-- Controller -->
     <script th:src="@{/client/controller/account-controller.js}"></script>
   </th-block>
