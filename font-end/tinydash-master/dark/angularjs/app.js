@@ -112,6 +112,19 @@ app.config(function ($routeProvider) {
             templateUrl: "page/supplier-manager/table_supplier.html",
             controller: ""
         })
+        //thống kê
+        .when("/inventory-statics", {
+            templateUrl: "page/statistical-manager/inventory-statics.html",
+            controller: ""
+        })
+        .when("/revenue-static-overtime", {
+            templateUrl: "page/statistical-manager/revenue-static-overtime.html",
+            controller: ""
+        })
+        .when("/static-best-seller", {
+            templateUrl: "page/statistical-manager/static-best-seller.html",
+            controller: ""
+        })
 })
 
 app.run(['$rootScope', function ($rootScope) {

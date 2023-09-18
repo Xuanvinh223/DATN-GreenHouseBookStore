@@ -4517,7 +4517,7 @@ input[type="button"].btn-block {
   word-wrap: break-word;
   background-color: #ffffff;
   background-clip: border-box;
-  border: 1px solid #e9ecef;
+      border: 1px solid #e9ecef;
   border-radius: 0.25rem;
 }
 .card > hr {
@@ -6438,7 +6438,9 @@ button.bg-dark:focus {
 .border-0 {
   border: 0 !important;
 }
-
+.border-1 {
+  border: 1px solid gray !important;
+}
 .border-top-0 {
   border-top: 0 !important;
 }
@@ -9572,7 +9574,9 @@ a.text-dark:focus {
 .text-body {
   color: #6c757d !important;
 }
-
+.card-title1{
+  color: blue !important;
+}
 .text-muted {
   color: #6c757d !important;
 }
@@ -15827,17 +15831,26 @@ a.uppy-Dashboard-poweredBy {
   margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
 }
 
-.navbar .navbar-brand {
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  background: transparent;
+/* Định dạng của container chứa icon và input */
+.input-container {
+ width:60%;
+}
+@media (min-width: 992px) {
+  .input-container {
+    width: 70%;
+  }
 }
 
-.navbar .navbar-brand svg{
-  width: 100%;
-  height: 100%;
+.icon{
+  padding-left: 10px;
 }
+
+/* Định dạng của phần tử bao quanh cả icon và input */
+.input-wrapper {
+  border: 1px solid #ccc; /* Border cho phần tử bao quanh */
+  border-radius: 5px; /* Bo tròn viền */
+  display: flex;
+  align-items: center;
+  padding: 3px; /* Khoảng cách bên trong phần tử bao quanh */
+}
+
