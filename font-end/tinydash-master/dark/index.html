@@ -218,7 +218,7 @@
               <li class="nav-item dropdown">
                 <a data-target="#quanli-uudai" data-toggle="collapse" aria-expanded="false"
                   class="dropdown-toggle nav-link pl-3" href="">
-                  <span class="ml-1 item-text">Ưu Đãi Sản Phẩm</span>
+                  <span class="ml-1 item-text">Flash Sale</span>
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100" id="quanli-uudai">
                   <li class="nav-item">
@@ -376,15 +376,15 @@
             </a>
             <ul class="collapse list-unstyled pl-4 w-100" id="charts">
               <li class="nav-item">
-                <a class="nav-link pl-3" href=""><span class="ml-1 item-text">Thống Kê Hàng Tồn Kho
+                <a class="nav-link pl-3" href="#!/inventory-statics"><span class="ml-1 item-text">Hàng Tồn Kho
                   </span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pl-3" href=""><span class="ml-1 item-text">Thống Kê Doanh Thu Theo Thời Gian
+                <a class="nav-link pl-3" href="#!/revenue-static-overtime"><span class="ml-1 item-text">Doanh Thu Theo Thời Gian
                   </span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pl-3" href=""><span class="ml-1 item-text">Thống Kê Sản Phẩm Bán Chạy</span></a>
+                <a class="nav-link pl-3" href="#!/static-best-seller"><span class="ml-1 item-text">Sản Phẩm Bán Chạy</span></a>
               </li>
             </ul>
           </li>
@@ -746,16 +746,20 @@
       });
     }
   </script>
-  <!-- <script>
-    $('#dataTable-1').DataTable(
-      {
-        autoWidth: true,
-        "lengthMenu": [
-          [16, 32, 64, -1],
-          [16, 32, 64, "All"]
-        ]
-      });
-  </script> -->
+  <script>
+    // JavaScript để ẩn các dòng con khi trang được tải lại hoặc chạy lần đầu
+    $(document).ready(function () {
+        $(".nested-row").hide();
+    });
+
+    // JavaScript để hiển thị và ẩn bảng con khi nhấn vào dòng
+    $(document).ready(function () {
+        $(".table-row").click(function () {
+            var nestedRow = $(this).next(".nested-row");
+            nestedRow.toggle();
+        });
+    });
+</script>
   <script>
     var uptarg = document.getElementById('drag-drop-area');
     if (uptarg) {
