@@ -30,10 +30,11 @@ public class WebSecurityConfiguration {
         return http.csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/authenticate","/sign-up","/index",
-                "/client/css/**","/client/image/**","/client/layouts/**","/client/js/**","/client/controller/**","/**").permitAll()
+                "/client/**","/**").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/api/**")
                 .authenticated().and()
+                .exceptionHandling().accessDeniedPage("/403").and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
