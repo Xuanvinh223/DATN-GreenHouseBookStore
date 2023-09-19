@@ -1027,97 +1027,6 @@
 
 }
 
-/* eND DANH MỤC SẢN PHẨM */
-/* Flash Sale */
-
-.flashsale-header {
-    background-color: #a3e44d;
-    height: 50px;
-    width: 100%;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-
-}
-
-.flashsale-header-title {
-    font-weight: 550;
-    margin-left: 10px;
-    font-size: 1.31em;
-    color: #1F1D1D;
-}
-
-.flashsale-page-countdown-label {
-    font-size: 1.1em;
-    font-weight: 300;
-    color: #000;
-    margin-right: 10px;
-}
-
-.flashsale-header-countdown-item {
-
-    padding: 4px 8px;
-    background-color: #ffffff;
-    color: #000000;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 5px;
-
-}
-
-.flashsale-section {
-    background-color: white;
-
-}
-
-.flashsale-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    background-color: white;
-    flex-wrap: wrap;
-    border-radius: 10px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-}
-
-.flashsale-container-item {
-    margin-left: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-    width: 19%;
-    margin-top: 10px;
-}
-
-.flashsale-container-item:hover {
-    box-shadow: 0 0 5px #ccc;
-}
-
-.flashsale-container-item:hover .flashsale-container-item-image {
-    box-shadow: 0 -5px 5px -5px #ccc, -5px 0 5px -5px #ccc, 5px 0 5px -5px #ccc;
-}
-
-
-.flashsale-container-item-image {
-    height: 40%;
-    width: 100%;
-    background-color: white;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.flashsale-container-item-image img {
-    width: 90%;
-    height: 90%;
-}
-
 .best-sale span {
     font-size: 20px;
     font-weight: 700;
@@ -1173,37 +1082,25 @@
     margin-bottom: 10px;
 }
 
-.flashsale-price-special {
-    font-size: 1.35em;
-    color: #F7941E;
-    font-weight: 600;
-}
-
-.flashsale-price-old {
-    color: #888888;
-    text-decoration: line-through;
-    font-size: 1.1em;
-}
-
-.progress {
+.progress-voucher {
     position: relative;
     height: 10px;
     border-radius: 15px;
     background-color: rgba(190, 58, 40, 0.4);
-    /* margin-left: 2%;
-    margin-right: 2%; */
+    margin-left: 2%;
+    margin-right: 2%;
     width: 96%;
     text-align: center;
 }
 
-.progress-bar {
+.progress-voucher-bar {
     position: absolute;
     background-color: rgb(98, 171, 0);
     border-radius: 15px;
     height: 100%;
 }
 
-.progress span {
+.progress-voucher span {
     position: absolute;
     top: 0;
     left: 0;
@@ -1215,25 +1112,7 @@
 }
 
 
-.flashsale-xemthem {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    box-shadow: 2px 3px 5px #ccc;
-    font-size: 14px;
-    color: #fff !important;
-    font-weight: bold;
-    text-align: center;
-    padding: 10px;
-    border-radius: 25px;
-    width: 220px;
-    display: inline-block;
-    background-image: linear-gradient(to right, #b0fa90, #26d94a);
-    transition: all 0.3s ease-in-out 0s;
-}
 
-.flashsale-xemthem:hover {
-    transform: scale(1.1);
-}
 
 .single-slide1 a {
     color: #040404;
@@ -1520,8 +1399,9 @@
 .provider-card .card-image {
     position: relative;
     width: 100%;
-    padding-bottom: 60%; /* Tạo tỷ lệ khung 4:3 (75%) */
- 
+    padding-bottom: 60%;
+    /* Tạo tỷ lệ khung 4:3 (75%) */
+
 }
 
 .provider-card .card-image img {
@@ -1529,8 +1409,10 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%; /* Đảm bảo rộng của hình ảnh bằng 100% */
-    height: 100%; /* Đảm bảo cao của hình ảnh bằng 100% */
+    width: 100%;
+    /* Đảm bảo rộng của hình ảnh bằng 100% */
+    height: 100%;
+    /* Đảm bảo cao của hình ảnh bằng 100% */
 }
 
 
