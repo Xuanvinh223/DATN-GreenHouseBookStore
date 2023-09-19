@@ -1,4 +1,4 @@
-package com.greenhouse.controller;
+package com.greenhouse.restcontroller;
 
 import com.greenhouse.dto.AuthenticationDTO;
 import com.greenhouse.dto.AuthenticationResponse;
@@ -42,7 +42,7 @@ public class AuthenticationController {
         }
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDTO.getUsername());
-
+        System.out.println(userDetails);
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
 
         return new AuthenticationResponse(jwt);
