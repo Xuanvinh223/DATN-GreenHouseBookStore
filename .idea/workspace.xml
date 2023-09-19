@@ -4,14 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Font-end] - thymeleaf GUI">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/account-manager/form_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/account-manager/form_account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/author-manager/form_author.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/author-manager/form_author.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/author-manager/table_author.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/author-manager/table_author.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/brand-manager/form_brand.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/brand-manager/form_brand.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/brand-manager/table_brand.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/brand-manager/table_brand.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/category-manager/form_categorytype.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/category-manager/form_categorytype.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/category-manager/table_categorytype.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/category-manager/table_categorytype.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/form_discount.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/form_discount.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/form_voucher.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/form_voucher.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/table_discount.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/table_discount.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/table_voucher.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/table_voucher.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/product-manager/form_product.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/product-manager/form_product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/product-manager/table_product.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/product-manager/table_product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/supplier-manager/form_supplier.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/supplier-manager/form_supplier.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -21,7 +36,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="GUI" />
+        <entry key="$PROJECT_DIR$" value="dev/vinh" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -114,6 +129,7 @@
       <workItem from="1694838103649" duration="677000" />
       <workItem from="1694886828761" duration="210000" />
       <workItem from="1694926127259" duration="722000" />
+      <workItem from="1695058587429" duration="521000" />
     </task>
     <task id="LOCAL-00001" summary="[Project] - Create packages">
       <created>1692841448096</created>

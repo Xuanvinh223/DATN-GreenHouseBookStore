@@ -1,0 +1,243 @@
+<style>
+    .truncate-cell {
+        max-width: 100px;
+        /* Độ rộng tối đa của cột */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-2">
+                        <h5 class="mb-3 mt-3 ml-3 ">Danh Sách Sản Phẩm Trong Kho</h5>
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="toolbar row mb-3">
+                                <div class="col">
+                                    <form class="form-inline mr-auto  text-muted">
+                                        <input class="form-control mr-sm-2 bg-transparent border-1 pl-4 text-muted"
+                                            type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                                    </form>
+                                </div>
+                                <div class="col ml-auto">
+                                    <div class="dropdown float-right">
+                                        <button class="btn btn-secondary" type="button"><i
+                                                class='bx bxs-file-export mr-1'></i> Xuất File </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" toolbar row mb-3">
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="categoryFilter" class="form-label">Danh mục:</label>
+                                        <select class="form-control rounded" id="categoryFilter">
+                                            <option value="all">Tất cả</option>
+                                            <option value="category1">Danh mục 1</option>
+                                            <option value="category2">Danh mục 2</option>
+                                            <!-- Thêm các tùy chọn danh mục khác -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="brandFilter" class="form-label">Thương hiệu:</label>
+                                        <select class="form-control  rounded" id="brandFilter">
+                                            <option value="all">Tất cả</option>
+                                            <option value="brand1">Thương hiệu 1</option>
+                                            <option value="brand2">Thương hiệu 2</option>
+                                            <!-- Thêm các tùy chọn thương hiệu khác -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- table -->
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 4%;" class="text-center">ID</th>
+                                        <th style="width: 18%;" class="text-center">Tên sản phẩm</th>
+                                        <th style="width: 9%;" class="text-center">Giá nhập</th>
+                                        <th style="width: 9%;" class="text-center">Giá bán</th>
+                                        <th style="width: 12%;" class="text-center">Ngày sản xuất</th>
+                                        <th style="width: 6%;" class="text-center">Ngày thêm</th>
+                                        <th style="width: 6%;" class="text-center">Ngày sửa</th>
+                                        <th style="width: 9%;" class="text-center">Ngày xóa</th>
+                                        <th style="width: 14%;" class="text-center">Số lượng tồn</th>
+                                        <th style="width: 13%;" class="text-center">Thương Hiệu</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2474</td>
+                                        <td class="truncate-cell">
+                                            Ap #331-7123 Lobortis Avenue #331-7123 Lobortis Avenu #331-7123 Lobortis
+                                            Avenu
+                                        </td>
+                                        <td>1.200.000</td>
+                                        <td>1.200.000</td>
+                                        <td>13/09/2020</td>
+                                        <td>13/09/2020</td>
+                                        <td>13/09/2020</td>
+                                        <td>13/09/2020</td>
+                                        <td>(958)</td>
+                                        <td>13/09/2020</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="toolbar">
+                                <form class="form">
+                                    <div class="form-row">
+                                        <div class="form-inline col-auto mr-auto">
+                                            <label class="my-1 mr-2 " for="inlineFormCustomSelectPref1">Show</label>
+                                            <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1">
+                                                <option value="">...</option>
+                                                <option value="1">12</option>
+                                                <option value="2" selected>32</option>
+                                                <option value="3">64</option>
+                                                <option value="3">128</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-auto">
+                                            <span>Đang xem 1 trên tổng số 5 mục</span>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <nav aria-label="Table Paging" class="mb-0 text-muted">
+                                <ul class="pagination justify-content-center mb-0">
+                                    <li class="page-item"><a class="page-link" href="#">Previous</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">2</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div> <!-- simple table -->
+                <div class="col-md-12">
+                    <div class="card mb-2 mt-4">
+                        <h5 class="mb-3 mt-3 ml-3 ">Danh Sách Sản Phẩm Sắp Hết Hàng</h5>
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="toolbar row mb-3">
+                                <div class="col">
+                                    <form class="form-inline mr-auto  text-muted">
+                                        <input class="form-control mr-sm-2 bg-transparent border-1 pl-4 text-muted"
+                                            type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                                    </form>
+
+                                </div>
+                                <div class="col ml-auto">
+                                    <div class="dropdown float-right">
+                                        <button class="btn btn-secondary" type="button"><i
+                                                class='bx bxs-file-export mr-1'></i> Xuất File </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" toolbar row mb-3">
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="categoryFilter" class="form-label">Danh mục:</label>
+                                        <select class="form-control" id="categoryFilter">
+                                            <option value="all">Tất cả</option>
+                                            <option value="category1">Danh mục 1</option>
+                                            <option value="category2">Danh mục 2</option>
+                                            <!-- Thêm các tùy chọn danh mục khác -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="brandFilter" class="form-label">Thương hiệu:</label>
+                                        <select class="form-control" id="brandFilter">
+                                            <option value="all">Tất cả</option>
+                                            <option value="brand1">Thương hiệu 1</option>
+                                            <option value="brand2">Thương hiệu 2</option>
+                                            <!-- Thêm các tùy chọn thương hiệu khác -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- table -->
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 4%;" class="text-center">ID</th>
+                                        <th style="width: 18%;" class="text-center">Tên sản phẩm</th>
+                                        <th style="width: 9%;" class="text-center">Giá nhập</th>
+                                        <th style="width: 9%;" class="text-center">Giá bán</th>
+                                        <th style="width: 12%;" class="text-center">Ngày sản xuất</th>
+                                        <th style="width: 6%;" class="text-center">Ngày thêm</th>
+                                        <th style="width: 6%;" class="text-center">Ngày sửa</th>
+                                        <th style="width: 9%;" class="text-center">Ngày xóa</th>
+                                        <th style="width: 14%;" class="text-center">Số lượng tồn</th>
+                                        <th style="width: 13%;" class="text-center">Thương Hiệu</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2474</td>
+                                        <td class="truncate-cell">
+                                            Ap #331-7123 Lobortis Avenue #331-7123 Lobortis Avenu #331-7123 Lobortis
+                                            Avenu
+                                        </td>
+                                        <td>1.200.000</td>
+                                        <td>1.200.000</td>
+                                        <td>13/09/2020</td>
+                                        <td>13/09/2020</td>
+                                        <td>13/09/2020</td>
+                                        <td>13/09/2020</td>
+                                        <td>(958)</td>
+                                        <td>13/09/2020</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="toolbar">
+                                <form class="form">
+                                    <div class="form-row">
+                                        <div class="form-inline col-auto mr-auto">
+                                            <label class="my-1 mr-2 " for="inlineFormCustomSelectPref1">Show</label>
+                                            <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1">
+                                                <option value="">...</option>
+                                                <option value="1">12</option>
+                                                <option value="2" selected>32</option>
+                                                <option value="3">64</option>
+                                                <option value="3">128</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-auto">
+                                            <span>Đang xem 1 trên tổng số 5 mục</span>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <nav aria-label="Table Paging" class="mb-0 text-muted">
+                                <ul class="pagination justify-content-center mb-0">
+                                    <li class="page-item"><a class="page-link" href="#">Previous</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">2</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div> <!-- simple table -->
+            </div> <!-- end section -->
+        </div> <!-- .col-12 -->
+    </div> <!-- .row -->
+</div> <!-- .container-fluid -->

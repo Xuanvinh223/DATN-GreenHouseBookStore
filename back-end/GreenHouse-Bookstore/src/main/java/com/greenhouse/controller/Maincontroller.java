@@ -54,6 +54,21 @@ public class Maincontroller {
 	public String checkoutComplete() {
 		return "client/layouts/checkout-complete";
 	}
+	
+	@GetMapping(value = "/login")
+	public String login() {
+		return "client/layouts/login";
+	}
+	
+	@GetMapping(value = "/signin")
+	public String signin() {
+		return "client/layouts/signin";
+	}
+	
+	@GetMapping(value = "/forgot-password")
+	public String forgotPasswrod() {
+		return "client/layouts/forgot-password";
+	}
 
 	@GetMapping("/403")
 	public String accessDenied() {
