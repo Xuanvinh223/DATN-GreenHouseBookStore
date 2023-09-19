@@ -16,21 +16,26 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtUtil {
 
+    // Khóa bí mật được sử dụng để ký và giải mã JWT
     public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
 
+    // Trích xuất tên người dùng từ JWT
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
+    // Trích xuất thời hạn hết hạn của JWT
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+    // Trích xuất thông tin từ JWT sử dụng một hàm số xử lý đặc biệt
+    private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
+    // Trích xuất tất cả thông tin từ JWT
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
@@ -40,20 +45,25 @@ public class JwtUtil {
                 .getBody();
     }
 
+    // Kiểm tra xem JWT có hết hạn chưa
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
+    // Xác minh tính hợp lệ của JWT so với người dùng
     public Boolean validateToken(String token, UserDetails userDetails) {
+    	
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
+    // Tạo JWT dựa trên tên người dùng
     public String generateToken(String userName){
         Map<String,Object> claims=new HashMap<>();
         return createToken(claims,userName);
     }
 
+    // Tạo JWT từ các thông tin được cung cấp
     private String createToken(Map<String, Object> claims, String userName) {
         return Jwts.builder()
                 .setClaims(claims)
@@ -63,9 +73,9 @@ public class JwtUtil {
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
+    // Lấy khóa ký và giải mã từ chuỗi bí mật
     private Key getSignKey() {
         byte[] keyBytes= Decoders.BASE64.decode(SECRET);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-
 }
