@@ -1,7 +1,7 @@
 package com.greenhouse.service.impl;
 
 import com.greenhouse.model.Accounts;
-import com.greenhouse.repository.AccountsRepository;
+import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.service.AccountsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.util.List;
 public class AccountsServiceImpl implements AccountsService {
 
    @Autowired
-    AccountsRepository accountsRepository;
+    AccountRepository accountsRepository;
     
 
     @Override
