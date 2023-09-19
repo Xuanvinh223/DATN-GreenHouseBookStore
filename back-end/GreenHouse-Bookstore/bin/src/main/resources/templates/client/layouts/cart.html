@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
+<head>
+    <title>Giỏ hàng</title>
+</head>
+<main id="layout">
+   <div class="site-wrapper" id="top">
+	<section class="breadcrumb-section">
+		<div class="container">
+			<div class="breadcrumb-contents">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+						<li class="breadcrumb-item active">Giỏ hàng</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</section>
+	<!-- Cart Page Start -->
+	<main class="cart-page-main-block inner-page-sec-padding-bottom container">
+		<div class="cart">
+			<div class="page-title">
+				<div class="page-title-container">
+					<h1 style="display: inline-block;width: auto;">
+						Giỏ hàng
+					</h1>
+					<span class="cart-title-num-items">
+						( 5 sản phẩm )
+					</span>
+				</div>
+			</div>
+			<form action="" method="post" id="form-cart">
+				<div class="cart-ui-content row">
+					<div class="col-sm-8 col-xs-12">
+						<div>
+							<div class="header-cart-item">
+								<div class="check-all-product">
+									<div class="checkbox-wrapper-12">
+										<div class="cbx">
+											<input id="cbx-12" type="checkbox">
+											<label for="cbx-12"></label>
+											<svg width="15" height="14" viewBox="0 0 15 14" fill="none">
+												<path d="M2 8.36364L6.23077 12L13 2"></path>
+											</svg>
+										</div>
+
+										<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+											<defs>
+												<filter id="goo-12">
+													<feGaussianBlur in="SourceGraphic" stdDeviation="4"
+														result="blur"></feGaussianBlur>
+													<feColorMatrix in="blur" mode="matrix"
+														values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7"
+														result="goo-12"></feColorMatrix>
+													<feBlend in="SourceGraphic" in2="goo-12"></feBlend>
+												</filter>
+											</defs>
+										</svg>
+									</div>
+									<div>
+										Chọn tất cả
+									</div>
+								</div>
+
+								<div>
+									<a class="btn">
+										<svg viewBox="0 0 24 24" height="24" width="24"
+											xmlns="http://www.w3.org/2000/svg" class="icon">
+											<path
+												d="M19.4 7.34 16.66 4.6A2 2 0 0 0 14 4.53l-9 9a2 2 0 0 0-.57 1.21L4 18.91a1 1 0 0 0 .29.8A1 1 0 0 0 5 20h.09l4.17-.38a2 2 0 0 0 1.21-.57l9-9a1.92 1.92 0 0 0-.07-2.71zM9.08 17.62l-3 .28.27-3L12 9.32l2.7 2.7zM16 10.68 13.32 8l1.95-2L18 8.73z"
+												id="Fill"></path>
+										</svg>
+									</a>
+								</div>
+							</div>
+							<div class="product-cart-left">
+								<div class="item-product-cart">
+									<div class="checked-product-cart">
+										<div class="checkbox-wrapper-12">
+											<div class="cbx">
+												<input id="cbx-12" type="checkbox">
+												<label for="cbx-12"></label>
+												<svg width="15" height="14" viewBox="0 0 15 14" fill="none">
+													<path d="M2 8.36364L6.23077 12L13 2"></path>
+												</svg>
+											</div>
+											<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+												<defs>
+													<filter id="goo-12">
+														<feGaussianBlur in="SourceGraphic" stdDeviation="4"
+															result="blur"></feGaussianBlur>
+														<feColorMatrix in="blur" mode="matrix"
+															values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7"
+															result="goo-12"></feColorMatrix>
+														<feBlend in="SourceGraphic" in2="goo-12"></feBlend>
+													</filter>
+												</defs>
+											</svg>
+										</div>
+									</div>
+									<div class="img-product-cart">
+										<a href="#"><img src="image/products/cart-product-1.jpg" alt=""></a>
+									</div>
+									<div class="group-product-info">
+										<div class="info-product-cart">
+											<h2 class="product-name-full-text">Tên sản phẩm ở đây</h2>
+											<div class="price-original">
+												<div class="cart-price">
+													<div class="cart-item-price">
+														<div>
+															<span class="price">686.868 <span
+																	class="currency">đ</span></span>
+														</div>
+														<div class="price-old">
+															<span class="price">
+																800.000 <span class="currency">đ</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="number-product-cart">
+											<div class="product-view-quantity-box">
+												<div class="product-view-quantity-box-block">
+													<a class="btn-subtract-qty"><img
+															style="width: 12px; height: auto;vertical-align: middle;"
+															src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/ico_minus2x.png"></a>
+													<input type="text" class="qty-carts" value="1">
+													<a class="btn-add-qty"><img
+															style="width: 12px; height: auto;vertical-align: middle;"
+															src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_plus2x.png"></a>
+												</div>
+												<div class="product-view-icon-remove-mobile" style="display:none;">
+													<a title="Remove item" class="btn-remove-mobile-cart"><i
+															class="fa fa-trash-o" style="font-size:22px"></i></a>
+												</div>
+											</div>
+											<div class="cart-price-total"><span class="cart-price"><span
+														class="price">686.868 đ</span></span></div>
+										</div>
+									</div>
+									<div class="div-of-btn-remove-cart">
+										<!-- <button class="BtnDelete" ng-click="addCartIdToArrays(cart[0])"
+											ng-if="editCart && !isCartItemDeleted(cart[0])">Xóa
+											<svg class="svg" viewBox="0 0 32 32">
+												<path
+													d="M24.2,12.193,23.8,24.3a3.988,3.988,0,0,1-4,3.857H12.2a3.988,3.988,0,0,1-4-3.853L7.8,12.193a1,1,0,0,1,2-.066l.4,12.11a2,2,0,0,0,2,1.923h7.6a2,2,0,0,0,2-1.927l.4-12.106a1,1,0,0,1,2,.066Zm1.323-4.029a1,1,0,0,1-1,1H7.478a1,1,0,0,1,0-2h3.1a1.276,1.276,0,0,0,1.273-1.148,2.991,2.991,0,0,1,2.984-2.694h2.33a2.991,2.991,0,0,1,2.984,2.694,1.276,1.276,0,0,0,1.273,1.148h3.1A1,1,0,0,1,25.522,8.164Zm-11.936-1h4.828a3.3,3.3,0,0,1-.255-.944,1,1,0,0,0-.994-.9h-2.33a1,1,0,0,0-.994.9A3.3,3.3,0,0,1,13.586,7.164Zm1.007,15.151V13.8a1,1,0,0,0-2,0v8.519a1,1,0,0,0,2,0Zm4.814,0V13.8a1,1,0,0,0-2,0v8.519a1,1,0,0,0,2,0Z">
+												</path>
+											</svg>
+										</button>
+										<button class="BtnUndo" ng-click="removeCartIdInArrays(cart[0])"
+											ng-if="editCart && isCartItemDeleted(cart[0])">Huỷ
+											<svg class="svg" viewBox="0 0 32 32">
+												<path
+													d="M20.22 21a1 1 0 0 1-1-.76 8.91 8.91 0 0 0-7.8-6.69v1.12a1.78 1.78 0 0 1-1.09 1.64A2 2 0 0 1 8.18 16l-5.06-4.41a1.76 1.76 0 0 1 0-2.68l5.06-4.42a2 2 0 0 1 2.18-.3 1.78 1.78 0 0 1 1.09 1.64V7A10.89 10.89 0 0 1 21.5 17.75a10.29 10.29 0 0 1-.31 2.49 1 1 0 0 1-1 .76z">
+												</path>
+											</svg>
+										</button> -->
+									</div>
+								</div>
+								<div class="border-product"></div>
+								<div class="item-product-cart">
+									<div class="checked-product-cart">
+										<div class="checkbox-wrapper-12">
+											<div class="cbx">
+												<input id="cbx-12" type="checkbox">
+												<label for="cbx-12"></label>
+												<svg width="15" height="14" viewBox="0 0 15 14" fill="none">
+													<path d="M2 8.36364L6.23077 12L13 2"></path>
+												</svg>
+											</div>
+
+											<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+												<defs>
+													<filter id="goo-12">
+														<feGaussianBlur in="SourceGraphic" stdDeviation="4"
+															result="blur"></feGaussianBlur>
+														<feColorMatrix in="blur" mode="matrix"
+															values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7"
+															result="goo-12"></feColorMatrix>
+														<feBlend in="SourceGraphic" in2="goo-12"></feBlend>
+													</filter>
+												</defs>
+											</svg>
+										</div>
+									</div>
+									<div class="img-product-cart">
+										<a href="#"><img src="image/products/cart-product-1.jpg" alt=""></a>
+									</div>
+									<div class="group-product-info">
+										<div class="info-product-cart">
+											<h2 class="product-name-full-text">Tên sản phẩm ở đây</h2>
+											<div class="price-original">
+												<div class="cart-price">
+													<div class="cart-item-price">
+														<div>
+															<span class="price">686.868 đ</span>
+														</div>
+														<div class="price-old">
+															<span class="price">
+																800.000 đ
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="number-product-cart">
+											<div class="product-view-quantity-box">
+												<div class="product-view-quantity-box-block">
+													<a class="btn-subtract-qty"><img
+															style="width: 12px; height: auto;vertical-align: middle;"
+															src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/ico_minus2x.png"></a>
+													<input type="text" class="qty-carts" value="1">
+													<a class="btn-add-qty"><img
+															style="width: 12px; height: auto;vertical-align: middle;"
+															src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_plus2x.png"></a>
+												</div>
+												<div class="product-view-icon-remove-mobile" style="display:none;">
+													<a title="Remove item" class="btn-remove-mobile-cart"><i
+															class="fa fa-trash-o" style="font-size:22px"></i></a>
+												</div>
+											</div>
+											<div class="cart-price-total"><span class="cart-price"><span
+														class="price">686.868 đ</span></span></div>
+										</div>
+									</div>
+									<div class="div-of-btn-remove-cart"><a title="Remove Item"
+											class="btn-remove-desktop-cart"><i class="fa fa-trash-o"
+												style="font-size:22px"></i></a></div>
+								</div>
+								<div class="border-product"></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 hidden-max-width-992 position-relative">
+						<div class="total-cart-right">
+							<div class="effect-scroll-cart-right">
+								<div class="cart-event-promo-outer">
+									<div class="col-xs-12 col-sm-12 block event-promotion-block" id="block-totals"
+										style="display: block;">
+										<div class="totals">
+											<div class="gh_checkout_event_promotion">
+												<div class="gh-event-promo">
+													<div class="gh-event-promo-title">
+														<div class="gh-event-promo-title-left"><span><img
+																	src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/promotion/ico_coupon.svg"></span><span>Khuyến
+																mãi</span>
+														</div>
+														<div class="gh-event-promo-title-viewmore"><span>Xem
+																thêm</span><span><img
+																	src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/ico_seemore_blue.svg"></span>
+														</div>
+													</div>
+													<div class="gh-event-promo-item gh-event-promo-item-line ">
+														<div>
+															<div class="gh-event-promo-list-item-content">
+																<div>
+																	<div
+																		class="gh-event-promo-list-item-content-title">
+																		MÃ GIẢM 100K - ĐƠN HÀNG TỪ 1TR</div>
+																	<div
+																		class="gh-event-promo-list-item-detail gh_blue_link">
+																		Chi tiết</div>
+																</div>
+																<div
+																	class="gh-event-promo-list-item-content-description">
+																	Không Áp Dụng Cho Phiếu Quà Tặng và Sách Giáo
+																	Khoa</div>
+															</div>
+														</div>
+														<div>
+															<div class="gh-event-promo-item-progress-bar">
+																<div class="gh-event-promo-item-progress">
+																	<hr style="width: 85%;"><img
+																		class="progress-cheat"
+																		src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico-cheatprogresss.svg?q=102479">
+																</div>
+																<div class="gh-event-promo-item-minmax"><span>Mua
+																		thêm 145.640 đ để nhận
+																		mã</span><span>1.000.000 đ</span></div>
+															</div>
+															<div><a
+																	href="/deal-hot-pages?gh_campaign=GIO_HANG_GAN_DAT"><button
+																		type="button" title="Mua Thêm"
+																		class="gh-btn-view-promo"><span>Mua
+																			Thêm</span></button></a></div>
+														</div>
+													</div>
+													<div class="gh-event-promo-item gh-event-promo-item-line ">
+														<div>
+															<div class="gh-event-promo-list-item-content">
+																<div>
+																	<div
+																		class="gh-event-promo-list-item-content-title">
+																		MÃ GIẢM 20K - ĐƠN TỪ 180K</div>
+																	<div
+																		class="gh-event-promo-list-item-detail gh_blue_link">
+																		Chi tiết</div>
+																</div>
+																<div
+																	class="gh-event-promo-list-item-content-description">
+																	Áp Dụng Cho Sản Phẩm Trong Chương Trình Brand
+																	Day, Không Áp Dụng Cho Phiếu Quà Tặng</div>
+															</div>
+														</div>
+														<div>
+															<div class="gh-event-promo-item-progress-bar">
+																<div class="gh-event-promo-item-progress">
+																	<hr style="width: 44%;"><img
+																		class="progress-cheat"
+																		src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico-cheatprogresss.svg?q=102479">
+																</div>
+																<div class="gh-event-promo-item-minmax"><span>Mua
+																		thêm 100.640 đ để nhận
+																		mã</span><span>180.000 đ</span></div>
+															</div>
+															<div><a href="/sale-thu-3?gh_campaign=GIO_HANG_GAN_DAT"><button
+																		type="button" title="Mua Thêm"
+																		class="gh-btn-view-promo"><span>Mua
+																			Thêm</span></button></a></div>
+														</div>
+													</div>
+												</div>
+												<div class="gh-event-promo-sumary">
+													<div class="gh-event-promo-sumary-matched"><span>8 khuyến mãi
+															đủ điều kiện</span><span><img
+																src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_seemore_blue.svg"></span>
+													</div>
+													<div class="gh_label_note">
+														<div class="gh_label_coupon_label_info">
+															<div>Có thể áp dụng đồng thời nhiều mã </div>
+															<div class="gh_tooltip" style="margin-left: 0.25em;">
+																<img
+																	src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico-alert-grey.svg?q=102479"><span>Áp
+																	dụng tối đa 1 mã giảm giá <br>và 1 mã
+																	freeship</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div style="clear:both;"></div>
+								<div class="block-total-cart" style="">
+									<div class="block-totals-cart-page">
+										<div class="total-cart-page ">
+											<div class="title-cart-page-left">Thành tiền</div>
+											<div class="number-cart-page-right"><span class="price">854.360 đ</span>
+											</div>
+										</div>
+										<div class="border-product"></div>
+										<div class="total-cart-page title-final-total">
+											<div class="title-cart-page-left">Tổng Số Tiền</div>
+											<div class="number-cart-page-right"><span class="price">854.360 đ</span>
+											</div>
+										</div>
+									</div>
+									<div class="checkout-type-button-cart" style="text-align: center;">
+										<div class="method-button-cart">
+											<a href="/checkout">
+												<button type="button" title="Thanh toán"
+													class="btn-proceed-checkout btn-checkout"><span><span>Thanh
+															toán</span></span>
+												</button>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div id="gh_error_message_cart"
+									style="margin-top:10px;background: white;padding:10px;display:none;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div id="popup-loading-event-cart">
+			<div class="popup-loading-event-cart-info">
+				<div class="popup-loading-event-cart-title">
+					<div class="gh-event-promo-title">
+						<div class="gh-event-promo-title-left">
+							<span><img
+									src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico_coupon.svg?q=102519" /></span>
+							<span>Chọn mã khuyến mãi</span>
+							<span class="gh_label_note" style="margin-left: 8px;">
+								<div class="gh_label_note">
+									<div class="gh_label_coupon_label_info">
+										<div>Có thể áp dụng đồng thời nhiều mã </div>
+										<div class="gh_tooltip" style="margin-left: 0.25em;"><img
+												src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico-alert-grey.svg?q=102519" /><span>Áp
+												dụng tối đa 1 mã giảm giá <br />và 1 mã freeship</span></div>
+									</div>
+								</div>
+							</span>
+						</div>
+						<div class="gh-event-promo-title-right">
+							<div class="gh_event_promo_btn_close lg-close"
+								onclick="gh_promotion.closeEventCart();"><img
+									src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_delete_gray.svg?q=102519" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div
+					class="gh-input-box gh-input-btn gh-input-group-horizontal-coupon popup-loading-event-cart-coupon">
+					<div class="gh_checkout_block_content">
+						<div class="gh_checkout_block_address_block">
+							<div class="gh-input-box gh-input-btn gh-input-group-horizontal-coupon">
+								<div class="gh-input-item">
+									<div class="gh-input-group">
+										<input class="gh-textbox gh_checkout_coupon" type="text"
+											validate_type="text" placeholder="Nhập mã khuyến mãi/Quà tặng"
+											id="gh_checkout_coupon" name="coupon" value="" maxlength="200" />
+										<span id="gh_checkout_btn_coupon"
+											onclick="gh_promotion.btn_coupon_click(this);"
+											class="gh-input-icon">Áp dụng</span>
+										<div class="gh_checkout_block_coupon_search" onclick="showEventCart();">
+											<span>Chọn mã khuyến mãi</span> <span class="gh_label_note">can choose
+												2</span></div>
+									</div>
+								</div>
+								<div class="gh_label_note">
+									<div class="gh_label_coupon_label_info">
+										<div>Có thể áp dụng đồng thời nhiều mã </div>
+										<div class="gh_tooltip" style="margin-left: 0.25em;"><img
+												src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico-alert-grey.svg?q=102519" /><span>Áp
+												dụng tối đa 1 mã giảm giá <br />và 1 mã freeship</span></div>
+									</div>
+								</div>
+								<div class="gh-input-alert"></div>
+							</div>
+						</div>
+						<div class="gh_checkout_block_loading">
+							<div>
+								<div id="default-icon-loading"
+									style="height: 40px; width: 40px; background: url('https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/fpointstore/loading.png') no-repeat center center transparent; background-size: 40px;">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="popup-loading-event-cart-content">
+					<!--	<ul id="popup-loading-event-cart-content-tab" class="gh-tabs gh-tabs-no-couponbox"  >
+	<li class="gh-tabs-item gh-tabs-item-promotion active"><a></a><hr></li>
+	<li class="gh-tabs-item gh-tabs-item-walletvoucher"><a></a><hr></li>
+</ul>-->
+					<div id="popup-loading-event-cart-content-tabs" class="loading">
+
+						<!-- promotion voucher -->
+						<div class="popup-loading-event-cart-content-promotion">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="popup-loading-event-cart-detail">
+				<div class="popup-loading-event-cart-title">
+					<div class="gh-event-promo-title">
+						<div class="gh-event-promo-title-left" onclick="gh_promotion.closeEventCartDetail();">
+							<div><img
+									src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_back_blue.svg?q=102519" />
+							</div>
+						</div>
+						<div class="gh-event-promo-title-center">Điều kiện áp dụng</div>
+						<div class="gh-event-promo-title-right lg-close" onclick="gh_promotion.closeEventCart();">
+							<div><img
+									src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_delete_gray.svg?q=102519" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="popup-loading-event-cart-content">
+					<div class="gh-event-promo-list">
+						<div id="gh-event-promo-list-detail" class="gh-event-promo-list-item">
+						</div>
+					</div>
+					<div id="gh-event-promo-list-detail-content" class="gh-event-promo-list-detail-content">
+					</div>
+				</div>
+			</div>
+			<div class="popup-loading-event-cart-bottom">
+				<div id="popup_event_cart_info_close" class="close-popup-event">
+					<button type="button" title="Đóng" class="btn-close-popup-event"><span>Đóng</span></button>
+				</div>
+				<div id="popup_event_cart_detail_close" class="close-popup-event">
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
+</main>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, layout)">
+
+<th:block th:replace="~{client/layouts/template.html :: head (${title})}"></th:block>
+
+<body>
+  <th-block th:replace="~{client/layouts/template.html :: 'menu-fahasha'}"></th-block>
+  
+  <div class="site-wrapper" id="top">
+    
+    <th-block th:replace="~{client/layouts/template.html :: 'menu'}"></th-block>
+
+    <th-block th:replace="~{client/layouts/template.html :: 'menu-mobie'}"></th-block>
+   
+    <th-block th:replace="~{client/layouts/template.html :: 'menu-rolls'}"></th-block>
+    
+    <main th:replace="${layout}"></main>
+  </div>
+
+  <th-block th:replace="~{client/layouts/template.html :: footer}"></th-block>
+
+  <th-block th:replace="~{client/layouts/template.html :: lib}"></th-block>
+</body>
+
+</html>

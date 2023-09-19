@@ -1,42 +1,56 @@
 package com.greenhouse.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Data
 @Entity
+@Data
 @Table(name = "Carts")
 public class Carts implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "OrderId")
-    private int orderId;
+    @Column(name = "CartId")
+    private int cartId;
 
     @Column(name = "Username")
     private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "ProductDetailId")
-    private ProductDetail productDetail;
+    @Column(name = "ProductDetailId")
+    private int productDetailId;
 
     @Column(name = "Quantity")
     private int quantity;
 
     @Column(name = "Price")
-    private BigDecimal price;
+    private double price;
 
     @Column(name = "Amount")
-    private BigDecimal amount;
+    private double amount;
 
-    @ManyToOne
-    @JoinColumn(name = "Discount_Id")
-    private Discounts discount;
+    @Column(name = "Discount_Id")
+    private int discountId;
 
     @Column(name = "AmountAppliedDiscount")
-    private BigDecimal amountAppliedDiscount;
+    private double amountAppliedDiscount;
 
     @Column(name = "Status")
     private boolean status;
+
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
+
+    @ManyToOne
+    @JoinColumn(name = "Username", referencedColumnName = "Username", insertable = false, updatable = false)
+    private Accounts account;
+
+    @ManyToOne
+    @JoinColumn(name = "Discount_Id", referencedColumnName = "DiscountId", insertable = false, updatable = false)
+    private Discounts discount;
+
+    @ManyToOne
+    @JoinColumn(name = "ProductDetailId", referencedColumnName = "ProductDetailId", insertable = false, updatable = false)
+    private Product_Detail productDetail;
+
+    // Mối quan hệ nếu cần
 }
