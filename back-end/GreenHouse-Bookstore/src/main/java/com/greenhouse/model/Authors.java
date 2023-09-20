@@ -10,10 +10,10 @@ import lombok.Data;
 public class Authors implements Serializable {
 
     @Id
-    @Column(name = "AuthorId")
+    @Column(name = "author_id")
     private String authorId;
 
-    @Column(name = "AuthorName")
+    @Column(name = "author_name")
     private String authorName;
 
     @Column(name = "Gender")

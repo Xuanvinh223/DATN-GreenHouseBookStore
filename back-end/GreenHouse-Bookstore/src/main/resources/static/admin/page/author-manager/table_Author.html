@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="AuthorController">
   <div class="row justify-content-center">
     <div class="col-12">
       <h2 class="mb-2 page-title">Thêm Tác Giả</h2>
@@ -10,7 +10,7 @@
               <h4 class="card-title">Danh Sách Tác Giả</h4>
             </div>
             <div class="card-body">
-              <!-- table -->
+              <!-- Đây là bảng hiển thị danh sách tác giả -->
               <table class="table datatables" id="dataTable-1">
                 <thead>
                   <tr>
@@ -21,87 +21,41 @@
                     <th>Quốc Tịch</th>
                     <th>Hình Ảnh</th>
                     <th>Sửa</th>
-
                   </tr>
                 </thead>
                 <tbody>
-
-                  <tr>
-                    <td>1</td>
-                    <td>AU001</td>
-                    <td>Nguyễn Ngọc Ngạn</td>
-                    <td>Nam</td>
-                    <td>Việt Nam</td>
+                  <tr ng-repeat="author in authors">
+                    <td>{{$index + 1}}</td>
+                    <td>{{author.authorId}}</td>
+                    <td>{{author.authorName}}</td>
+                    <td>{{author.gender ? 'Nam' : 'Nữ'}}</td>
+                    <td>{{author.nation}}</td>
+                    <td>{{author.image}}</td>
                     <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
+                      <button type="submit" class="btn btn-primary" ng-click="editAuthor(author)">Sửa</button>
                     </td>
                   </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>AU001</td>
-                    <td>Nguyễn Ngọc Ngạn</td>
-                    <td>Nam</td>
-                    <td>Việt Nam</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>AU001</td>
-                    <td>Nguyễn Ngọc Ngạn</td>
-                    <td>Nam</td>
-                    <td>Việt Nam</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>AU001</td>
-                    <td>Nguyễn Ngọc Ngạn</td>
-                    <td>Nam</td>
-                    <td>Việt Nam</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-
-
-
                 </tbody>
               </table>
             </div>
           </div>
-        </div> <!-- simple table -->
-      </div> <!-- end section -->
-    </div> <!-- .col-12 -->
-  </div> <!-- .row -->
-</div> <!-- .container-fluid -->
+        </div>
+        <!-- simple table -->
+      </div>
+      <!-- end section -->
+    </div>
+    <!-- .col-12 -->
+  </div>
+  <!-- .row -->
+</div>
+<!-- .container-fluid -->
 
 <script>
-  $('#dataTable-1').DataTable(
-    {
-      autoWidth: true,
-      "lengthMenu": [
-        [16, 32, 64, -1],
-        [16, 32, 64, "All"]
-      ]
-    });
+  $("#dataTable-1").DataTable({
+    autoWidth: true,
+    lengthMenu: [
+      [16, 32, 64, -1],
+      [16, 32, 64, "All"],
+    ],
+  });
 </script>
