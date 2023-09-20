@@ -11684,7 +11684,7 @@ form.was-validated
  * The MIT License
  * Copyright (c) 2012 Matias Meno <m@tias.me>
  */
-@-webkit-keyframes "passing-through" {
+@-webkit-keyframes passing-through {
   0% {
     opacity: 0;
     -webkit-transform: translateY(40px);
@@ -11712,7 +11712,7 @@ form.was-validated
   }
 }
 
-@-moz-keyframes "passing-through" {
+@-moz-keyframes passing-through {
   0% {
     opacity: 0;
     -webkit-transform: translateY(40px);
@@ -11740,7 +11740,7 @@ form.was-validated
   }
 }
 
-@keyframes "passing-through" {
+@keyframes passing-through {
   0% {
     opacity: 0;
     -webkit-transform: translateY(40px);
@@ -11768,7 +11768,7 @@ form.was-validated
   }
 }
 
-@-webkit-keyframes "slide-in" {
+@-webkit-keyframes slide-in {
   0% {
     opacity: 0;
     -webkit-transform: translateY(40px);
@@ -11787,7 +11787,7 @@ form.was-validated
   }
 }
 
-@-moz-keyframes "slide-in" {
+@-moz-keyframes slide-in {
   0% {
     opacity: 0;
     -webkit-transform: translateY(40px);
@@ -11806,7 +11806,7 @@ form.was-validated
   }
 }
 
-@keyframes "slide-in" {
+@keyframes slide-in {
   0% {
     opacity: 0;
     -webkit-transform: translateY(40px);
@@ -11825,7 +11825,7 @@ form.was-validated
   }
 }
 
-@-webkit-keyframes "pulse" {
+@-webkit-keyframes pulse {
   0% {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -11849,7 +11849,7 @@ form.was-validated
   }
 }
 
-@-moz-keyframes "pulse" {
+@-moz-keyframes pulse {
   0% {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -11873,7 +11873,7 @@ form.was-validated
   }
 }
 
-@keyframes "pulse" {
+@keyframes pulse {
   0% {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -12237,7 +12237,7 @@ form.was-validated
 /* ------------------------------------------------
   [3] Size
 -------------------------------------------------*/
-@keyframes "uppy-StatusBar-ProgressStripes" {
+@keyframes uppy-StatusBar-ProgressStripes {
   from {
     background-position: 0 0;
   }
@@ -12246,7 +12246,7 @@ form.was-validated
   }
 }
 
-@keyframes "uppy-StatusBar-spinnerAnimation" {
+@keyframes uppy-StatusBar-spinnerAnimation {
   0% {
     transform: rotate(0deg);
   }
@@ -12255,7 +12255,7 @@ form.was-validated
   }
 }
 
-@keyframes "uppy-Dashboard-fadeIn" {
+@keyframes uppy-Dashboard-fadeIn {
   from {
     opacity: 0;
   }
@@ -12264,7 +12264,7 @@ form.was-validated
   }
 }
 
-@keyframes "uppy-Dashboard-fadeOut" {
+@keyframes uppy-Dashboard-fadeOut {
   from {
     opacity: 1;
   }
@@ -12273,7 +12273,7 @@ form.was-validated
   }
 }
 
-@keyframes "uppy-Dashboard-slideDownAndFadeIn" {
+@keyframes uppy-Dashboard-slideDownAndFadeIn {
   from {
     transform: translate3d(-50%, -70%, 0);
     opacity: 0;
@@ -12284,7 +12284,7 @@ form.was-validated
   }
 }
 
-@keyframes "uppy-Dashboard-slideDownAndFadeIn--small" {
+@keyframes uppy-Dashboard-slideDownAndFadeIn--small {
   from {
     transform: translate3d(0, -20%, 0);
     opacity: 0;
@@ -12295,7 +12295,7 @@ form.was-validated
   }
 }
 
-@keyframes "uppy-Dashboard-slideUpFadeOut" {
+@keyframes uppy-Dashboard-slideUpFadeOut {
   from {
     transform: translate3d(-50%, -50%, 0);
     opacity: 1;
@@ -12306,7 +12306,7 @@ form.was-validated
   }
 }
 
-@keyframes "uppy-Dashboard-slideUpFadeOut--small" {
+@keyframes uppy-Dashboard-slideUpFadeOut--small {
   from {
     transform: translate3d(0, 0, 0);
     opacity: 1;
@@ -12317,7 +12317,7 @@ form.was-validated
   }
 }
 
-@keyframes "uppy-ScreenCapture-icon--blink" {
+@keyframes uppy-ScreenCapture-icon--blink {
   0% {
     fill: #2275d7;
   }
@@ -15785,14 +15785,10 @@ a.uppy-Dashboard-poweredBy {
   }
 
   .Upload{
-    /* padding-top:100px; */
-    max-width: 18%;
+    padding-top:100px;
   }
+}
 
-}
-.Upload-publisher{
-  max-width: 25%;
-}
 /* Định dạng của container chứa icon và input */
 .input-container {
  width:60%;
