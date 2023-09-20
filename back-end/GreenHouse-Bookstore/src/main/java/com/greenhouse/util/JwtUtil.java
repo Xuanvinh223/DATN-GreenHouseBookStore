@@ -3,12 +3,16 @@ package com.greenhouse.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.io.Decoders;
 import java.security.Key;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import io.jsonwebtoken.security.Keys;
@@ -46,7 +50,7 @@ public class JwtUtil {
     }
 
     // Kiểm tra xem JWT có hết hạn chưa
-    private Boolean isTokenExpired(String token) {
+    public Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
@@ -58,9 +62,10 @@ public class JwtUtil {
     }
 
     // Tạo JWT dựa trên tên người dùng
-    public String generateToken(String userName){
-        Map<String,Object> claims=new HashMap<>();
-        return createToken(claims,userName);
+    public String generateToken(String userName, Collection<? extends GrantedAuthority> collection) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", collection);
+        return createToken(claims, userName);
     }
 
     // Tạo JWT từ các thông tin được cung cấp
@@ -69,7 +74,7 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+1000*60*30))
+                .setExpiration(new Date(System.currentTimeMillis()+20000))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
