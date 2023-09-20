@@ -15785,10 +15785,14 @@ a.uppy-Dashboard-poweredBy {
   }
 
   .Upload{
-    padding-top:100px;
+    /* padding-top:100px; */
+    max-width: 18%;
   }
-}
 
+}
+.Upload-publisher{
+  max-width: 25%;
+}
 /* Định dạng của container chứa icon và input */
 .input-container {
  width:60%;
