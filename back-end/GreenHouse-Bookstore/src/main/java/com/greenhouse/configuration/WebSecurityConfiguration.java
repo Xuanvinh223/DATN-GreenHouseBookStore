@@ -25,14 +25,17 @@ public class WebSecurityConfiguration {
     @Autowired
     private JwtRequestFilter requestFilter;
 
+    private final String[] apiEndpoints = { "/api/admin/**", "/api/user/**","/api/**" }; // Danh sách các API
+    
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/authenticate","/sign-up","/index",
                 "/client/**","/**").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/api/**")
+                .authorizeHttpRequests()
+                .requestMatchers(apiEndpoints)
                 .authenticated().and()
                 .exceptionHandling().accessDeniedPage("/403").and()
                 .sessionManagement()
@@ -43,12 +46,12 @@ public class WebSecurityConfiguration {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 

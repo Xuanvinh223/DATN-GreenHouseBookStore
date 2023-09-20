@@ -1,10 +1,7 @@
 app.controller('accountController', accountController);
 
 function accountController($scope) {
-    $scope.$on('$routeChangeSuccess', function (event, current, previous) {
-        $scope.page.setTitle(current.$$route.title || ' Tài Khoản');
-    });
-    // ... Các mã xử lý khác trong controller
+  
     initJavascript();
 }
 
