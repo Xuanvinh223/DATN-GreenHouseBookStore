@@ -1,70 +1,131 @@
-app.controller('brandController', brandController);
-
-function brandController($scope, $http) {
-    $scope.brand = [];
-    $scope.newBrand = {};
-    $scope.editingBrand = null;
+app.controller("brandController", function ($scope, $location, $http) {
+    let host = "http://localhost:8081/rest/brand"; // Thay đổi địa chỉ URL nếu cần
+    $scope.editingBrand = {};
     $scope.isEditing = false;
-
-    // Hàm để lấy danh sách thuongw hieu
-    $scope.getBrand = function () {
-        $http
-            .get("/api/brand")
-            .then(function (response) {
-                $scope.brand = response.data;
-            })
-            .catch(function (error) {
-                console.error("Lỗi khi lấy danh sách thương hiệu:", error);
-            });
+  
+    $scope.brand = [];
+  
+    $scope.loadBrand = function () {
+      var url = `${host}`;
+      $http
+        .get(url)
+        .then((resp) => {
+          $scope.brand = resp.data;
+        })
+        .catch((Error) => {
+          console.log("Error", Error);
+        });
     };
-
-    // Hàm để sao chép thông tin thuong hieu vào biến editingBrand và bật chế độ chỉnh sửa
-    $scope.editBrand = function (brand) {
-        $scope.editingBrand = angular.copy(brand);
-        $scope.isEditing = true;
-    };
-
-    // Hàm để lưu thuongw hieu (thêm mới hoặc cập nhật)
+  
     $scope.saveBrand = function () {
-        if ($scope.editingBrand) {
-            // Nếu đang chỉnh sửa, gọi hàm cập nhật thương hiệu ở đây
-            $http
-                .put("/api/brand/" + $scope.editingBrand.brandId, $scope.editingBrand)
-                .then(function () {
-                    // Sau khi cập nhật thành công, làm mới danh sách thương hiệu và đặt lại form
-                    $scope.getBrand();
-                    $scope.resetForm();
-                })
-                .catch(function (error) {
-                    console.error("Lỗi khi cập nhật thương hiệu:", error);
-                });
-        } else {
-            // Nếu thêm mới, gọi hàm thêm tác giả mới ở đây
-            $http
-                .post("/api/brand", $scope.newBrand)
-                .then(function () {
-                    // Sau khi thêm thành công, làm mới danh sách tác giả và đặt lại form
-                    $scope.getBrand();
-                    $scope.resetForm();
-                })
-                .catch(function (error) {
-                    console.error("Lỗi khi thêm thương hiệu:", error);
-                });
-        }
+      var brand = {
+        brandId: $scope.editingBrand.brandId || "",
+        brandName: $scope.editingBrand.brandName || "",
+        countryOfOrigin: $scope.editingBrand.countryOfOrigin || "",
+        logo: $scope.editingBrand.logo || "",
+      };
+  
+      if ($scope.isEditing) {
+        var url = `${host}/${brand.brandId}`;
+        $http
+          .put(url, brand)
+          .then((resp) => {
+            $scope.loadBrand();
+            $scope.resetForm();
+            Swal.fire({
+              icon: "success",
+              title: "Thành công",
+              text: `Cập nhật thương hiệu ${brand.brandName}`,
+            });
+          })
+          .catch((Error) => {
+            Swal.fire({
+              icon: "error",
+              title: "Thất bại",
+              text: `Cập nhật tác giả ${brand.brandName} thất bại`,
+            });
+          });
+      } else {
+        var url = `${host}`;
+        $http
+          .post(url, brand)
+          .then((resp) => {
+            $scope.loadBrand();
+            $scope.resetForm();
+            Swal.fire({
+              icon: "success",
+              title: "Thành công",
+              text: `Thêm thương hiệu ` + brand.brandName,
+            });
+          })
+          .catch((Error) => {
+            console.log(Error.data);
+            if (Error.data) {
+              Swal.fire({
+                icon: "error",
+                title: "Thất bại",
+                text: `Thêm thương hiệu thất bại`,
+              });
+            }
+          });
+      }
     };
-
-    // Hàm để hủy bỏ chế độ chỉnh sửa và đặt lại form
+  
+    $scope.editBrand = function (brandId, index) {
+      var url = `${host}/${brandId}`;
+      $http
+        .get(url)
+        .then(function (resp) {
+          $scope.editingBrand = angular.copy(resp.data);
+          $scope.isEditing = true;
+    
+           })
+        .catch(function (error) {
+          console.log("Error", error);
+        });
+    };
+    
+    $scope.deleteBrand = function (brandId) {
+      var url = `${host}/${brandId}`;
+      
+      // Sử dụng $http để gửi yêu cầu DELETE đến API
+      $http
+        .delete(url)
+        .then((resp) => {
+          $scope.loadBrand(); // Nạp lại danh sách thương hiệu sau khi xóa
+          Swal.fire({
+            icon: "success",
+            title: "Thành công",
+            text: `Xóa thương hiệu ${brandId} thành công`,
+          });
+        })
+        .catch((Error) => {
+          if (Error.status === 409) {
+            // Kiểm tra mã trạng thái lỗi
+            Swal.fire({
+              icon: "error",
+              title: "Thất bại",
+              text: `Thương hiệu mã ${key} đang được sử dụng và không thể xóa.`,
+            });
+          } else
+          Swal.fire({
+            icon: "error",
+            title: "Thất bại",
+            text: `Xóa thương hiệu ${brandId} thất bại`,
+          });
+        });
+    };
+    
+  
     $scope.cancelEdit = function () {
-        $scope.isEditing = false;
-        $scope.editingBrand = null;
+      $scope.resetForm();
     };
-
-    // Hàm để đặt lại form
+  
     $scope.resetForm = function () {
-        $scope.isEditing = false;
-        $scope.editingBrand = null;
-        $scope.newBrand = {};
+      $scope.editingBrand = {};
+      $scope.isEditing = false;
     };
-
-    $scope.getBrand();
-}
+  
+    $scope.loadBrand();
+  });
+  

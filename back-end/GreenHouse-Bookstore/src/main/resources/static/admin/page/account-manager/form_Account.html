@@ -15,30 +15,30 @@
               <div class="form-row">
                 <div class="col-md-4 mb-3">
                   <label for="PublishersID">Tên Tài Khoản(*)</label>
-                  <input type="text" class="form-control" placeholder="Nhập tên tài khoản">
+                  <input type="text" class="form-control" placeholder="Nhập tên tài khoản" ng-model="editingAccounts.username" ng-disabled="isEditing">
                 </div>
                 <div class="col-md-4 mb-3">
                   <label for="PublishersName">Họ và Tên(*)</label>
-                  <input type="text" name="brandname" class="form-control" placeholder="Nhập họ và tên">
+                  <input type="text" name="brandname" class="form-control" placeholder="Nhập họ và tên" ng-model="editingAccounts.fullname">
                 </div>
                 <div class="col-md-4 mb-3">
                   <label for="example-password">Mật Khẩu(*)</label>
-                  <input type="password" id="example-password" class="form-control" value="password">
+                  <input type="password" id="example-password" class="form-control" value="password" ng-model="editingAccounts.password">
                 </div>
               </div>
               <div class="form-row">
                 <div class="col-md-4 mb-3">
                   <label for="example-email">Email(*)</label>
-                  <input type="email" id="example-email" name="example-email" class="form-control" placeholder="Nhập email">
+                  <input type="email" id="example-email" name="example-email" class="form-control" placeholder="Nhập email" ng-model="editingAccounts.email">
                 </div>
                 <div class="col-md-4 mb-3">
                   <label for="custom-phone">Số Điện Thoại(*)</label>
-                  <input class="form-control input-phoneus" id="custom-phone" placeholder="Nhập số điện thoại">
+                  <input class="form-control input-phoneus" id="custom-phone" placeholder="Nhập số điện thoại" ng-model="editingAccounts.phone">
 
                 </div>
                 <div class="col-md-4 mb-3">
                   <label for="address">Ngày Sinh(*)</label>
-                  <input class="form-control" id="example-date" type="date" name="date">
+                  <input class="form-control" id="example-date" type="date" name="date" ng-model="editingAccounts.birthday" ng-value="formatDate(editingAccounts.birthday)">
                 </div>
               </div>
 
@@ -46,42 +46,33 @@
                 <div class="col-md-4 mb-3">
                   <p class="mb-2">Giới Tính(*)</p>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="role" id="male" value="option1">
+                    <input class="form-check-input" type="radio" name="role" id="male" value="option1" ng-model="editingAccounts.gender" ng-value="true">
                     <label class="form-check-label" for="male">Nam</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="role" id="female" value="option2">
+                    <input class="form-check-input" type="radio" name="role" id="female" value="option2" ng-model="editingAccounts.gender" ng-value="false">
                     <label class="form-check-label" for="female">Nữ</label>
                   </div>
                 </div>
                 <div class="col-md-4 mb-3">
                   <p class="mb-2">Trạng Thái(*)</p>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="active" value="option3">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="active" value="option3" ng-model="editingAccounts.active" ng-value="true">
                     <label class="form-check-label" for="active">Hoạt động</label>
                   </div>
                   <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="unactive"
-                      value="option4">
+                      value="option4" ng-model="editingAccounts.active" ng-value="false">
                     <label class="form-check-label" for="unactive">Ngừng hoạt động</label>
                   </div>
                 </div>
               </div>
-              <div class="form-row">
-                <div class="col-md-4 mb-3">
-                  <label for="address">Địa Chỉ(*)</label>
-                  <select class="form-control select2" id="simple-select2">
-                    <option value="CA">Chọn địa chỉ</option>
-                    <option value="CA">Sóc Trăng</option>
-                    <option value="OR">Cần Thơ</option>
-                  </select>
-                </div>
-                
-              </div>
 
 
-              <button type="submit" class="btn btn-primary">Lưu tài khoản</button>
-              <button type="submit" class="btn btn-primary">Làm mới</button>
+              <button type="button" class="btn btn-primary" ng-click="saveAccounts()">
+                {{ isEditing ? 'Lưu sửa đổi' : 'Thêm mới' }}</button>
+              <button type="submit" class="btn btn-primary" ng-click="resetForm()">Làm mới</button>
+              
             </div>
             <!-- /.col -->
             <div class="col-md-3 Upload">

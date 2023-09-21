@@ -8,21 +8,27 @@
         <!-- Small table -->
         <div class="col-md-12">
           <div class="card shadow">
-            
+
             <div class="card-body">
-              <div class="form-inline mb-2">
-                <div class="input-container">
-                  <div class="input-wrapper">
+              <div class="form-inline mb-2 form-group">
+                <div class="input-container ">
+                  <div class="input-wrapper col-lg-9">
                     <i class="fe fe-search fe-18 icon"></i>
                     <input class="form-control input" type="search" placeholder="Tìm kiếm..." aria-label="Search">
                   </div>
+                  
                 </div>
-
+                <div class="button-add col-lg-3">
+                  <button type="button" class="btn btn-success ml-auto" data-toggle="modal"
+                    data-target="#addAuthorModal">
+                    Thêm tài khoản
+                  </button>
+                </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <!-- table -->
-                  <table class="table datatables" id="dataTable-1">
+                  <table class="table table-striped table-hover" id="dataTable-1">
                     <thead>
                       <tr>
                         <th>#</th>
@@ -48,21 +54,27 @@
                         <td>{{accounts.birthday | date:'MM/dd/yyyy'}}</td>
                         <td>{{accounts.gender ? 'Nam' : 'Nữ'}}</td>
                         <td>{{accounts.active ? 'Hoạt động' : 'Chưa hoạt động'}}</td>
-                       
+
                         <td>
                           {{accounts.image}}
                           <!-- <div class="avatar avatar-md">
                             <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
                           </div> -->
                         </td>
-                        <td> <button type="submit" class="btn btn-primary">Sửa</button>
+                        <td>
+                          <a ng-click="editAccounts(accounts.username, $index)"
+                            th:href="@{/accounts-form/(id=${accounts.username})}">
+                            <i class="fe fe-edit fe-16"></i>
+                          </a>
+
+                          <a ng-click="deleteAccounts(accounts.username)"><i class="fe fe-trash-2 fe-16"></i></a>
                         </td>
                       </tr>
 
                     </tbody>
                   </table>
                 </div>
-               
+
               </div>
             </div>
           </div>

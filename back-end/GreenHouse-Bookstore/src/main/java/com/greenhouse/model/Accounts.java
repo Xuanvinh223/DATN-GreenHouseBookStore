@@ -50,6 +50,10 @@ public class Accounts  implements Serializable {
 
     @Column(name = "Notification_Id")
     private Integer notificationId;
+
+    public Accounts add(Accounts accounts) {
+        return null;
+    }
    
     // Getters and setters
 }
