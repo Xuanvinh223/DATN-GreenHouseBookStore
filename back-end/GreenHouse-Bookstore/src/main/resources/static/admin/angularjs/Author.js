@@ -1,70 +1,131 @@
-app.controller('AuthorController', AuthorController);
+app.controller("AuthorController", function ($scope, $location, $http) {
+  let host = "http://localhost:8081/rest/authors"; // Thay đổi địa chỉ URL nếu cần
+  $scope.editingAuthor = {};
+  $scope.isEditing = false;
 
-function AuthorController($scope, $http) {
-    $scope.authors = [];
-    $scope.newAuthor = {};
-    $scope.editingAuthor = null;
-    $scope.isEditing = false;
+  $scope.authors = [];
 
-    // Hàm để lấy danh sách tác giả
-    $scope.getAuthors = function () {
-        $http
-            .get("/api/authors")
-            .then(function (response) {
-                $scope.authors = response.data;
-            })
-            .catch(function (error) {
-                console.error("Lỗi khi lấy danh sách tác giả:", error);
+  $scope.loadAuthors = function () {
+    var url = `${host}`;
+    $http
+      .get(url)
+      .then((resp) => {
+        $scope.authors = resp.data;
+      })
+      .catch((Error) => {
+        console.log("Error", Error);
+      });
+  };
+
+  $scope.saveAuthor = function () {
+    var author = {
+      authorId: $scope.editingAuthor.authorId || "",
+      authorName: $scope.editingAuthor.authorName || "",
+      gender: $scope.editingAuthor.gender || false,
+      nation: $scope.editingAuthor.nation || "",
+      image: $scope.editingAuthor.image || "",
+    };
+
+    if ($scope.isEditing) {
+      var url = `${host}/${author.authorId}`;
+      $http
+        .put(url, author)
+        .then((resp) => {
+          $scope.loadAuthors();
+          $scope.resetForm();
+          Swal.fire({
+            icon: "success",
+            title: "Thành công",
+            text: `Cập nhật tác giả ${author.authorId}`,
+          });
+        })
+        .catch((Error) => {
+          Swal.fire({
+            icon: "error",
+            title: "Thất bại",
+            text: `Cập nhật tác giả ${author.authorId} thất bại`,
+          });
+        });
+    } else {
+      var url = `${host}`;
+      $http
+        .post(url, author)
+        .then((resp) => {
+          $scope.loadAuthors();
+          $scope.resetForm();
+          Swal.fire({
+            icon: "success",
+            title: "Thành công",
+            text: `Thêm tác giả ` + author.authorName,
+          });
+        })
+        .catch((Error) => {
+          console.log(Error.data);
+          if (Error.data) {
+            Swal.fire({
+              icon: "error",
+              title: "Thất bại",
+              text: `Thêm tác giả thất bại`,
             });
-    };
+          }
+        });
+    }
+  };
 
-    // Hàm để sao chép thông tin tác giả vào biến editingAuthor và bật chế độ chỉnh sửa
-    $scope.editAuthor = function (author) {
-        $scope.editingAuthor = angular.copy(author);
+  $scope.editAuthor = function (authorId, index) {
+    var url = `${host}/${authorId}`;
+    $http
+      .get(url)
+      .then(function (resp) {
+        $scope.editingAuthor = angular.copy(resp.data);
         $scope.isEditing = true;
-    };
+  
+         })
+      .catch(function (error) {
+        console.log("Error", error);
+      });
+  };
+  
+  $scope.deleteAuthor = function (authorId) {
+    var url = `${host}/${authorId}`;
+    
+    // Sử dụng $http để gửi yêu cầu DELETE đến API
+    $http
+      .delete(url)
+      .then((resp) => {
+        $scope.loadAuthors(); // Nạp lại danh sách tác giả sau khi xóa
+        Swal.fire({
+          icon: "success",
+          title: "Thành công",
+          text: `Xóa tác giả ${authorId} thành công`,
+        });
+      })
+      .catch((Error) => {
+        if (Error.status === 409) {
+          // Kiểm tra mã trạng thái lỗi
+          Swal.fire({
+            icon: "error",
+            title: "Thất bại",
+            text: `Sản phẩm mã ${key} đang được sử dụng và không thể xóa.`,
+          });
+        } else
+        Swal.fire({
+          icon: "error",
+          title: "Thất bại",
+          text: `Xóa tác giả ${authorId} thất bại`,
+        });
+      });
+  };
+  
 
-    // Hàm để lưu tác giả (thêm mới hoặc cập nhật)
-    $scope.saveAuthor = function () {
-        if ($scope.editingAuthor) {
-            // Nếu đang chỉnh sửa, gọi hàm cập nhật tác giả ở đây
-            $http
-                .put("/api/authors/" + $scope.editingAuthor.authorId, $scope.editingAuthor)
-                .then(function () {
-                    // Sau khi cập nhật thành công, làm mới danh sách tác giả và đặt lại form
-                    $scope.getAuthors();
-                    $scope.resetForm();
-                })
-                .catch(function (error) {
-                    console.error("Lỗi khi cập nhật tác giả:", error);
-                });
-        } else {
-            // Nếu thêm mới, gọi hàm thêm tác giả mới ở đây
-            $http
-                .post("/api/authors", $scope.newAuthor)
-                .then(function () {
-                    // Sau khi thêm thành công, làm mới danh sách tác giả và đặt lại form
-                    $scope.getAuthors();
-                    $scope.resetForm();
-                })
-                .catch(function (error) {
-                    console.error("Lỗi khi thêm tác giả:", error);
-                });
-        }
-    };
+  $scope.cancelEdit = function () {
+    $scope.resetForm();
+  };
 
-    // Hàm để hủy bỏ chế độ chỉnh sửa và đặt lại form
-    $scope.cancelEdit = function () {
-        $scope.isEditing = false;
-        $scope.editingAuthor = null;
-    };
+  $scope.resetForm = function () {
+    $scope.editingAuthor = {};
+    $scope.isEditing = false;
+  };
 
-    // Hàm để đặt lại form
-    $scope.resetForm = function () {
-        $scope.isEditing = false;
-        $scope.editingAuthor = null;
-        $scope.newAuthor = {};
-    };
-
-    $scope.getAuthors();
-}
+  $scope.loadAuthors();
+});

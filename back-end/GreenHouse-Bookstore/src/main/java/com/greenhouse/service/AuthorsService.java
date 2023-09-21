@@ -10,7 +10,7 @@ public interface AuthorsService {
 
     Authors findById(String id);
 
-    void add(Authors entity);
+    Authors add(Authors entity);
 
     void update(Authors entity);
 
