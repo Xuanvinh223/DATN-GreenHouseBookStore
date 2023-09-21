@@ -122,18 +122,19 @@
                 <td>{{author.authorName}}</td>
                 <td>{{author.gender ? 'Nam' : 'Nữ'}}</td>
                 <td>{{author.nation}}</td>
-                <td><img ng-src="/images/{{author.image}}"
-                  name="image" style="width: 50px; height: 50px; border-radius: 10%;">
+                <td>
+                  <img ng-src="/images/{{author.image}}" name="image" style="width: 50px; height: 50px; border-radius: 10%;">
                 </td>
                 <td>
-                  <a ng-click="editAuthor(author.authorId, $index)" th:href="@{/author-form/(id=${author.authorId})}">
-                    <i class="fe fe-edit fe-16"></i>
-                </a>
-                
-                  <a ng-click="deleteAuthor(author.authorId)"><i class="fe fe-trash-2 fe-16 "></i></a>
+                  <a ng-click="editAuthorAndRedirect(author.authorId)"><i class="fe fe-edit fe-16"></i></a>    
+                  <a ng-click="deleteAuthor(author.authorId)">
+                    <i class="fe fe-trash-2 fe-16"></i>
+                  </a>
                 </td>
               </tr>
             </tbody>
+            
+            
           </table>
         </div>
       </div>

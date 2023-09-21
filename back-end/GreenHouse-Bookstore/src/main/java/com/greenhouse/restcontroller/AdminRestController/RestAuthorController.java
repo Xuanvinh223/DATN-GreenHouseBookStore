@@ -3,6 +3,7 @@ package com.greenhouse.restcontroller.AdminRestController;
 import com.greenhouse.model.Authors;
 import com.greenhouse.service.AuthorsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,54 +17,53 @@ public class RestAuthorController {
     private AuthorsService authorsService;
 
     @GetMapping
-    private ResponseEntity<List<Authors>> getAllAuthors() {
-        return ResponseEntity.ok(authorsService.findAll());
+    public ResponseEntity<List<Authors>> getAllAuthors() {
+        List<Authors> authors = authorsService.findAll();
+        return new ResponseEntity<>(authors, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    private ResponseEntity<Authors> getOne(@PathVariable("id") String id) {
+    public ResponseEntity<Authors> getOne(@PathVariable("id") String id) {
         Authors author = authorsService.findById(id);
         if (author == null) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.ok(author);
+        return new ResponseEntity<>(author, HttpStatus.OK);
     }
 
     @PostMapping
-    private ResponseEntity<?> create(@RequestBody Authors author) {
-        // Kiểm tra nếu authorId là null hoặc rỗng thì trả về lỗi
+    public ResponseEntity<Object> create(@RequestBody Authors author) {
         if (author.getAuthorId() == null || author.getAuthorId().isEmpty()) {
-            return ResponseEntity.badRequest().body("Mã tác giả không hợp lệ.");
+            return new ResponseEntity<>("Mã tác giả không hợp lệ.", HttpStatus.BAD_REQUEST);
         }
-    
+
         Authors existingAuthor = authorsService.findById(author.getAuthorId());
         if (existingAuthor != null) {
-            return ResponseEntity.badRequest().body("Tác giả đã tồn tại.");
+            return new ResponseEntity<>("Tác giả đã tồn tại.", HttpStatus.BAD_REQUEST);
         }
-        
+
         Authors createdAuthor = authorsService.add(author);
-        return ResponseEntity.ok(createdAuthor);
+        return new ResponseEntity<>(createdAuthor, HttpStatus.OK);
     }
-    
-    
+
     @PutMapping(value = "/{id}")
-    private ResponseEntity<Authors> update(@PathVariable("id") String id, @RequestBody Authors author) {
+    public ResponseEntity<Authors> update(@PathVariable("id") String id, @RequestBody Authors author) {
         Authors existingAuthor = authorsService.findById(id);
         if (existingAuthor == null) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        author.setAuthorId(id); // Ensure ID consistency
+        author.setAuthorId(id); // Đảm bảo tính nhất quán về ID
         authorsService.update(author);
-        return ResponseEntity.ok(author);
+        return new ResponseEntity<>(author, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
-    private ResponseEntity<Void> delete(@PathVariable("id") String id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") String id) {
         Authors existingAuthor = authorsService.findById(id);
         if (existingAuthor == null) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         authorsService.delete(id);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

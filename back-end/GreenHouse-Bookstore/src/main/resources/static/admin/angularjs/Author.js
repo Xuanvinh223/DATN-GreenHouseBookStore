@@ -1,5 +1,5 @@
-app.controller("AuthorController", function ($scope, $location, $http) {
-  let host = "http://localhost:8081/rest/authors"; // Thay đổi địa chỉ URL nếu cần
+app.controller("AuthorController", function ($scope, $location, $routeParams, $http) {
+  let host = "http://localhost:8081/rest/authors";
   $scope.editingAuthor = {};
   $scope.isEditing = false;
 
@@ -72,28 +72,36 @@ app.controller("AuthorController", function ($scope, $location, $http) {
     }
   };
 
-  $scope.editAuthor = function (authorId, index) {
+  $scope.editAuthorAndRedirect = function (authorId) {
     var url = `${host}/${authorId}`;
     $http
       .get(url)
       .then(function (resp) {
         $scope.editingAuthor = angular.copy(resp.data);
         $scope.isEditing = true;
-  
-         })
+
+        // Chuyển hướng đến trang chỉnh sửa thông tin tác giả và truyền dữ liệu tác giả.
+        // Sử dụng $location.search để thiết lập tham số trong URL.
+        $location.path("/author-form").search({ id: authorId, data: angular.toJson(resp.data) });
+      })
       .catch(function (error) {
         console.log("Error", error);
       });
   };
-  
+
+  // Kiểm tra xem có tham số data trong URL không.
+  if ($routeParams.data) {
+    // Parse dữ liệu từ tham số data và gán vào editingAuthor.
+    $scope.editingAuthor = angular.fromJson($routeParams.data);
+    $scope.isEditing = true;
+  }
   $scope.deleteAuthor = function (authorId) {
     var url = `${host}/${authorId}`;
-    
-    // Sử dụng $http để gửi yêu cầu DELETE đến API
+
     $http
       .delete(url)
       .then((resp) => {
-        $scope.loadAuthors(); // Nạp lại danh sách tác giả sau khi xóa
+        $scope.loadAuthors();
         Swal.fire({
           icon: "success",
           title: "Thành công",
@@ -102,21 +110,20 @@ app.controller("AuthorController", function ($scope, $location, $http) {
       })
       .catch((Error) => {
         if (Error.status === 409) {
-          // Kiểm tra mã trạng thái lỗi
           Swal.fire({
             icon: "error",
             title: "Thất bại",
             text: `Sản phẩm mã ${key} đang được sử dụng và không thể xóa.`,
           });
-        } else
-        Swal.fire({
-          icon: "error",
-          title: "Thất bại",
-          text: `Xóa tác giả ${authorId} thất bại`,
-        });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Thất bại",
+            text: `Xóa tác giả ${authorId} thất bại`,
+          });
+        }
       });
   };
-  
 
   $scope.cancelEdit = function () {
     $scope.resetForm();
