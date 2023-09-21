@@ -6,6 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Back-end] - authenticate">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/configuration/WebSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/configuration/WebSecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/controller/AdminController/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/controller/AdminController/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/filters/JwtRequestFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/filters/JwtRequestFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Authorities.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Authorities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Authors.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Authors.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/restcontroller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/restcontroller/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/service/impl/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/service/impl/UserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/util/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/util/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/controller/authenticate.js" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/controller/authenticate.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +129,9 @@
       <workItem from="1694926127259" duration="722000" />
       <workItem from="1695058587429" duration="521000" />
       <workItem from="1695263910125" duration="6540000" />
+      <workItem from="1695290983659" duration="4741000" />
+      <workItem from="1695396667011" duration="1942000" />
+      <workItem from="1695454654115" duration="475000" />
     </task>
     <task id="LOCAL-00001" summary="[Project] - Create packages">
       <created>1692841448096</created>
