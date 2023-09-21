@@ -64,11 +64,11 @@ app.config(function ($routeProvider) {
         })
         .when("/flashsale-form", {
             templateUrl: "page/coupon-manager/form_flashsale.html",
-            controller: ""
+            controller: "flashsaleController"
         })
         .when("/flashsale-table", {
             templateUrl: "page/coupon-manager/table_flashsale.html",
-            controller: ""
+            controller: "flashsaleController"
         })
         .when("/inventory-form", {
             templateUrl: "page/inventory-manager/inventory_form.html",

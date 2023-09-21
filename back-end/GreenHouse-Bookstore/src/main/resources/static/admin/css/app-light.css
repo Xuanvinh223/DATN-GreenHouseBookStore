@@ -1713,6 +1713,12 @@ pre code {
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: #ffffff;
 }
+.table-striped thead tr th a {
+  color: #6c757d;
+}
+.table-striped thead tr th a:hover {
+  color: #4eaa4f;
+}
 .table-striped tbody tr td a i{
   color: #6c757d;
   padding-right: 5px;
@@ -4769,10 +4775,11 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #adb5bd;
+  color: #6c757d ;
   background-color: transparent;
   border: 1px solid transparent;
 }
+
 .page-link:hover {
   z-index: 2;
   color: #f8f9fa;
@@ -4805,7 +4812,7 @@ input[type="button"].btn-block {
 }
 
 .page-item.disabled .page-link {
-  color: #6c757d;
+  color: #adb5bd;
   pointer-events: none;
   cursor: auto;
   background-color: #ffffff;
