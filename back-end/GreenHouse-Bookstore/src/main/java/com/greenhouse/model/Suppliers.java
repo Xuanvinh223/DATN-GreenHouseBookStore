@@ -11,10 +11,10 @@ import java.util.List;
 public class Suppliers implements Serializable {
 
     @Id
-    @Column(name = "SupplierId", length = 30)
+    @Column(name = "supplier_id", length = 30)
     private String supplierId;
 
-    @Column(name = "SupplierName", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "supplier_name", columnDefinition = "nvarchar(100)", nullable = false)
     private String supplierName;
 
     @Column(name = "Description", columnDefinition = "nvarchar(300)")

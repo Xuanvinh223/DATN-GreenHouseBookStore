@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="PublishersController">
     <div class="row justify-content-center">
         <div class="col-12">
             <h2 class="page-title">Quản lý nhà xuất bản</h2>
@@ -9,63 +9,56 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group mb-3">
-                                <label for="PublishersID">ID nhà xuất bản(*)</label>
-                                <input type="text" class="form-control" placeholder="Nhập ID nhà xuất bản">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="PublishersName">Tên nhà xuất bản(*)</label>
-                                <input type="text" name="brandname" class="form-control"
-                                    placeholder="Nhập tên nhà xuất bản">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="email">Email(*)</label>
-                                <input type="email" class="form-control" placeholder="Nhập email nhà xuất bản">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="address">Địa chỉ(*)</label>
-                                <input type="text" name="address" class="form-control"
-                                    placeholder="Nhập địa chỉ nhà xuất bản">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="example-textarea">Mô tả</label>
-                                <textarea class="form-control" id="example-textarea" rows="4"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Thêm mới</button>
-                            <button type="submit" class="btn btn-primary">Cập nhật</button>
-                            <button type="submit" class="btn btn-danger">Xóa</button>
-                            <button type="submit" class="btn btn-primary">Làm mới</button>
+                        <div class="col-md-6">
+                            <form>
+                                <div class="form-group mb-3">
+                                    <label for="PublishersID">ID nhà xuất bản(*)</label>
+                                    <input type="text" class="form-control" ng-model="newPublisher.PublishersID"
+                                        placeholder="Nhập ID nhà xuất bản">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="PublishersName">Tên nhà xuất bản(*)</label>
+                                    <input type="text" name="brandname" class="form-control"
+                                        ng-model="newPublisher.PublishersName" placeholder="Nhập tên nhà xuất bản">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="email">Email(*)</label>
+                                    <input type="email" class="form-control" ng-model="newPublisher.email"
+                                        placeholder="Nhập email nhà xuất bản">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="address">Địa chỉ(*)</label>
+                                    <input type="text" name="address" class="form-control"
+                                        ng-model="newPublisher.address" placeholder="Nhập địa chỉ nhà xuất bản">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="example-textarea">Mô tả</label>
+                                    <textarea class="form-control" id="example-textarea"
+                                        ng-model="newPublisher.description" rows="4"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Thêm mới</button>
+                                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                <button type="submit" class="btn btn-danger">Xóa</button>
+                                <button type="button" class="btn btn-primary" ng-click="clearForm()">Làm mới</button>
+                            </form>
                         </div>
                         <!-- /.col -->
-                        <div class="col-md-4 Upload-publisher">
-
-                            <div class="form-label h5 text-center">
-                              <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh nhà xuất bản(*)</label>
-                            </div>
-                            <div class="row d-flex justify-content-center">
-                              <div>
-                                <img src="./assets/avatars/face-3.jpg" class="img-fluid w-100 h-100">
-                              </div>
-                            </div>
-                            <div class="row d-flex justify-content-center">
-                              <label class="text-center mt-2 btn btn-dark w-100">
-                                <i class="fa fa-upload"></i>
-                                Tải ảnh lên
-                                <input type="file" th:field="*{file}" onchange="uploadImg()" hidden accept=".png,.jpg,.jpge">
-                              </label>
-                            </div>
-              
-                          </div>
+                        <div class="col-md-6 Upload">
+                            <div class="card shadow mb-4">
+                                <div class="card-header">
+                                    <strong>Hình ảnh</strong>
+                                </div>
+                                <div class="card-body">
+                                        <label class="form-label" for="customFile">Default file
+                                            input example</label>
+                                        <input type="file" class="form-control" id="customFile" />
+                                    </div>
+                                </div> <!-- .card-body -->
+                            </div> <!-- .card -->
+                        </div>
                     </div>
                 </div>
             </div> <!-- / .card -->
-
         </div> <!-- .col-12 -->
     </div> <!-- .row -->
-
-
-
-
-
 </div> <!-- .container-fluid -->

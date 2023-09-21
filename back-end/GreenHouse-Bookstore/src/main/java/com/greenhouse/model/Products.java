@@ -44,7 +44,7 @@ public class Products implements Serializable {
     @Column(name = "BrandId", length = 30, nullable = false)
     private String brandId;
 
-    @Column(name = "PushlisherId", length = 30, nullable = false)
+    @Column(name = "publisher_id", length = 30, nullable = false)
     private String publisherId;
 
     @ManyToOne
@@ -52,7 +52,7 @@ public class Products implements Serializable {
     private Brand brand;
 
     @ManyToOne
-    @JoinColumn(name = "PushlisherId", insertable = false, updatable = false)
+    @JoinColumn(name = "publisher_id", insertable = false, updatable = false)
     private Publishers publisher;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
