@@ -1,41 +1,51 @@
 <div ng-controller="brandController" class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-12">
-      <h2 class="page-title">Quản lý thương hiệu</h2>
-
+      <div class="card mb-2">
+        <h3 class="mb-3 mt-3 ml-3">Thông tin thương hiệu</h3>
+      </div>
       <div class="card shadow mb-4">
         <div class="card-header">
-          <strong class="card-title">Thông tin thương hiệu</strong>
+
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-9">
               <div class="form-group mb-3">
                 <label for="BrandID">ID thương hiệu(*)</label>
-                <input type="text" class="form-control" placeholder="Nhập ID thương hiệu">
+                <input type="text" class="form-control" placeholder="Nhập ID thương hiệu" ng-model="editingBrand.brandId" ng-disabled="isEditing">
               </div>
               <div class="form-group mb-3">
                 <label for="brandname">Tên thương hiệu(*)</label>
-                <input type="text" name="brandname" class="form-control" placeholder="Nhập tên thương hiệu">
+                <input type="text" name="brandname" class="form-control" placeholder="Nhập tên thương hiệu" ng-model="editingBrand.brandName" ng-disabled="isEditing">
               </div>
               <div class="form-group mb-3">
                 <label for="CountryOfOrigin">Nơi xuất xứ(*)</label>
-                <input type="text" class="form-control" placeholder="Nhập nơi xuất xứ">
+                <input type="text" class="form-control" placeholder="Nhập nơi xuất xứ" ng-model="editingBrand.countryOfOrigin" ng-disabled="isEditing">
               </div>
               <button type="submit" class="btn btn-primary">Thêm mới</button>
               <button type="submit" class="btn btn-primary">Cập nhật</button>
               <button type="submit" class="btn btn-danger">Xóa</button>
-              <button type="submit" class="btn btn-primary">Làm mới</button>
+              <button type="submit" class="btn btn-primary" ng-click="resetForm()">Làm mới</button>
             </div> <!-- /.col -->
-            <div class="col-md-6">
-              <div class="card shadow mb-4">
-                <div class="card-header">
-                  <strong>Hình ảnh</strong>
+            <div class="col-md-3 Upload">
+
+              <div class="form-label h5 text-center">
+                <label for="price" class="form-label h6"><span class="text-danger"></span> Logo thương hiệu(*)</label>
+              </div>
+              <div class="row d-flex justify-content-center">
+                <div>
+                  <img src="./assets/avatars/face-3.jpg" class="img-fluid w-100 h-100">
                 </div>
-                <div class="card-body">
-                  <div id="drag-drop-area"></div>
-                </div> <!-- .card-body -->
-              </div> <!-- .card -->
+              </div>
+              <div class="row d-flex justify-content-center">
+                <label class="text-center mt-2 btn btn-dark w-100">
+                  <i class="fa fa-upload"></i>
+                  Tải ảnh Logo
+                  <input type="file" th:field="*{file}" onchange="uploadImg()" hidden accept=".png,.jpg,.jpge">
+                </label>
+              </div>
+
             </div>
           </div>
         </div>

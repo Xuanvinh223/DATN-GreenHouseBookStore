@@ -21,8 +21,8 @@ public class AccountsServiceImpl implements AccountsService {
     }
 
     @Override
-    public Accounts findById(String id) {
-        return accountsRepository.findById(id).orElse(null);
+    public Accounts findById(String username) {
+        return accountsRepository.findById(username).orElse(null);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class AccountsServiceImpl implements AccountsService {
     }
 
     @Override
-    public void delete(String id) {
-        accountsRepository.deleteById(id);
+    public void delete(String username) {
+        accountsRepository.deleteById(username);
     }
 }

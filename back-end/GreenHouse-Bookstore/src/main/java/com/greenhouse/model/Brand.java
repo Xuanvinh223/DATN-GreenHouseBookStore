@@ -10,19 +10,17 @@ import lombok.Data;
 public class Brand implements Serializable {
 
     @Id
-    @Column(name = "BrandId")
+    @Column(name = "brandid")
     private String brandId;
 
-    @Column(name = "BrandName")
+    @Column(name = "brand_name")
     private String brandName;
 
-    @Column(name = "CountryOfOrigin")
+    @Column(name = "country_of_origin")
     private String countryOfOrigin;
 
     @Column(name = "Logo")
     private String logo;
-
-    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 
     // Mối quan hệ nếu cần
 }

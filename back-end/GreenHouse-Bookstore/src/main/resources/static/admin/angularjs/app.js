@@ -7,19 +7,20 @@ app.config(function ($routeProvider) {
         })
         .when("/account-form", {
             templateUrl: "page/account-manager/form_account.html",
-
+            controller: "AccountController"
         })
         .when("/account-table", {
             templateUrl: "page/account-manager/table_account.html",
-            controller: ""
+            controller: "AccountController"
         })
         .when("/author-form", {
             templateUrl: "page/author-manager/form_author.html",
+            controller: "AuthorController"
 
         })
         .when("/author-table", {
             templateUrl: "page/author-manager/table_author.html",
-            controller: ""
+            controller: "AuthorController"
         })
         .when("/brand-form", {
             templateUrl: "page/brand-manager/form_brand.html",
