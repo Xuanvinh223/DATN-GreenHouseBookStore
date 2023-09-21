@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="AccountController">
   <div class="row justify-content-center">
     <div class="col-12">
       <div class="card mb-2">
@@ -25,99 +25,40 @@
                   <table class="table datatables" id="dataTable-1">
                     <thead>
                       <tr>
-                        <th>STT</th>
-                        <th>Tên Đăng Nhập</th>
+                        <th>#</th>
+                        <th>Tên tài khoản</th>
                         <th>Họ và Tên</th>
                         <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Ngày sinh</th>
                         <th>Giới Tính</th>
                         <th>Trạng Thái</th>
-                        <th>Vai Trò</th>
                         <th>Ảnh</th>
-                        <th>Sửa</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
 
-                      <tr>
-                        <td>1</td>
-                        <td>Datmvpc02991</td>
-                        <td>Mai Văn Đạt</td>
-                        <td>datmvpc02991@fpt.edu.vn</td>
-                        <th>Nam</th>
-                        <th>Hoạt động</th>
-                        <th>Quản trị viên</th>
+                      <tr ng-repeat="accounts in accounts">
+                        <td>{{$index + 1}}</td>
+                        <td>{{accounts.username}}</td>
+                        <td>{{accounts.fullname}}</td>
+                        <td>{{accounts.email}}</td>
+                        <td>{{accounts.phone}}</td>
+                        <td>{{accounts.birthday | date:'MM/dd/yyyy'}}</td>
+                        <td>{{accounts.gender ? 'Nam' : 'Nữ'}}</td>
+                        <td>{{accounts.active ? 'Hoạt động' : 'Chưa hoạt động'}}</td>
+                       
                         <td>
-                          <div class="avatar avatar-md">
+                          {{accounts.image}}
+                          <!-- <div class="avatar avatar-md">
                             <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                          </div>
+                          </div> -->
                         </td>
                         <td> <button type="submit" class="btn btn-primary">Sửa</button>
                         </td>
                       </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>Datmvpc02991</td>
-                        <td>Mai Văn Đạt</td>
-                        <td>datmvpc02991@fpt.edu.vn</td>
-                        <th>Nam</th>
-                        <th>Hoạt động</th>
-                        <th>Quản trị viên</th>
-                        <td>
-                          <div class="avatar avatar-md">
-                            <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                          </div>
-                        </td>
-                        <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>Datmvpc02991</td>
-                        <td>Mai Văn Đạt</td>
-                        <td>datmvpc02991@fpt.edu.vn</td>
-                        <th>Nam</th>
-                        <th>Hoạt động</th>
-                        <th>Quản trị viên</th>
-                        <td>
-                          <div class="avatar avatar-md">
-                            <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                          </div>
-                        </td>
-                        <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>Datmvpc02991</td>
-                        <td>Mai Văn Đạt</td>
-                        <td>datmvpc02991@fpt.edu.vn</td>
-                        <th>Nam</th>
-                        <th>Hoạt động</th>
-                        <th>Quản trị viên</th>
-                        <td>
-                          <div class="avatar avatar-md">
-                            <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                          </div>
-                        </td>
-                        <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>Datmvpc02991</td>
-                        <td>Mai Văn Đạt</td>
-                        <td>datmvpc02991@fpt.edu.vn</td>
-                        <th>Nam</th>
-                        <th>Hoạt động</th>
-                        <th>Quản trị viên</th>
-                        <td>
-                          <div class="avatar avatar-md">
-                            <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                          </div>
-                        </td>
-                        <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                        </td>
-                      </tr>
+
                     </tbody>
                   </table>
                 </div>

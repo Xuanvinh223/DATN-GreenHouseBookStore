@@ -48,8 +48,8 @@ public class Accounts  implements Serializable {
     @Column(name = "Active")
     private Boolean active;
 
-    @Column(name = "notification_id")
+    @Column(name = "Notification_Id")
     private Integer notificationId;
-
+   
     // Getters and setters
 }
