@@ -18,43 +18,38 @@
                 <div class="col-md-5 mb-3">
                   <label for="authorName">Tên Tác Giả(*)</label>
                   <input type="text" class="form-control" placeholder="Nhập tên tác giả" id="authorName"
-                    name="authorName" ng-model="editingAuthor.authorName" ng-disabled="isEditing" />
+                    name="authorName" ng-model="editingAuthor.authorName"  />
                 </div>
               </div>
               <div class="form-row">
                 <div class="col-md-5 mb-3">
                   <label for="nation">Quốc Tịch(*)</label>
                   <input type="text" class="form-control" placeholder="Nhập quốc tịch" id="nation" name="nation"
-                    ng-model="editingAuthor.nation" ng-disabled="isEditing" />
+                    ng-model="editingAuthor.nation" />
                 </div>
                 <div class="col-md-5 mb-3">
-                  <label for="nation">Ảnh(*)</label>
-                  <input type="text" class="form-control" placeholder="Nhập quốc tịch" id="image" name="image"
-                    ng-model="editingAuthor.image" ng-disabled="isEditing" />
+                  <label for="image">Ảnh(*)</label>
+                  <input type="text" class="form-control" placeholder="Nhập URL hình ảnh" id="image" name="image"
+                    ng-model="editingAuthor.image"  />
                 </div>
                 <div class="col-md-5 mb-3">
                   <p class="mb-2">Giới Tính(*)</p>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="male" value="true"
-                      ng-model="editingAuthor.gender" ng-disabled="isEditing" />
+                    <input class="form-check-input" type="radio" name="gender" id="male" ng-value="true"
+                      ng-model="editingAuthor.gender" />
                     <label class="form-check-label" for="male">Nam</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="female" value="false"
-                      ng-model="editingAuthor.gender" ng-disabled="isEditing" />
+                    <input class="form-check-input" type="radio" name="gender" id="female" ng-value="false"
+                      ng-model="editingAuthor.gender"  />
                     <label class="form-check-label" for="female">Nữ</label>
                   </div>
                 </div>
               </div>
-              <!-- Thêm nút "Hủy" -->
-              <button type="button" class="btn btn-secondary" ng-click="cancelEdit()">Hủy</button>
-
-              <!-- Cập nhật nút "Lưu Sửa Đổi" và "Làm Mới" -->
               <button type="button" class="btn btn-primary" ng-click="saveAuthor()">
                 {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Tác Giả' }}
               </button>
               <button type="button" class="btn btn-primary" ng-click="resetForm()">Làm Mới</button>
-
             </div>
             <!-- /.col -->
             <div class="col-md-2 Upload">
@@ -63,27 +58,21 @@
               </div>
               <div class="row d-flex justify-content-center">
                 <div>
-                  <img src="./assets/avatars/face-3.jpg" class="img-fluid w-100 h-100" />
+                  <img ng-src="/images/{{editingAuthor.image}}"
+                  name="image" style="width: 50px; height: 50px; border-radius: 10%;">
                 </div>
               </div>
               <div class="row d-flex justify-content-center">
                 <label class="text-center mt-2 btn btn-dark w-100">
                   <i class="fa fa-upload"></i>
                   Tải ảnh đại diện
-                  <input type="file" th:field="*{file}" onchange="uploadImg()" hidden accept=".png,.jpg,.jpge" />
+                  <input type="file" th:field="*{file}" onchange="uploadImg()" hidden accept=".png,.jpg,.jpeg" />
                 </label>
-              </div>
-              <div class="card-header">
-                <strong>menu dọc</strong>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- / .card -->
     </div>
-    <!-- .col-12 -->
   </div>
-  <!-- .row -->
 </div>
-<!-- .container-fluid -->

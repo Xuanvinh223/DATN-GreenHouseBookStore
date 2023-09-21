@@ -15,7 +15,7 @@ public class Book_Authors implements Serializable {
     private int id;
 
     @Column(name = "author_id")
-    private String author_id;
+    private String authorId;
 
     @Column(name = "ProductId")
     private String productId;
