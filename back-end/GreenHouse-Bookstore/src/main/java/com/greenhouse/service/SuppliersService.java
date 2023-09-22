@@ -10,7 +10,7 @@ public interface SuppliersService {
 
     Suppliers findById(String supplierId);
 
-    void add(Suppliers entity);
+    Suppliers add(Suppliers entity);
 
     void update(Suppliers entity);
 

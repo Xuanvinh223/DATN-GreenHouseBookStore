@@ -17,7 +17,8 @@
                     <th>STT</th>
                     <th>ID Nhà Cung Cấp</th>
                     <th>Tên Nhà Cung Cấp</th>
-                    <th>Địa Chỉ</th>
+                    <th>Mô tả</th>
+                    <th>Địa chỉ</th>
                     <th>Email</th>
                     <th>Số Điện Thoại</th>
                     <th>Hình Ảnh</th>
@@ -38,7 +39,11 @@
                         {{supplier.image}}
                       </div>
                     </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
+                    <td>
+                      <a ng-click="editSupplierAndRedirect(supplier.supplierId)"><i class="fe fe-edit fe-16"></i></a>    
+                      <a ng-click="deleteSupplier(supplier.supplierId)">
+                        <i class="fe fe-trash-2 fe-16"></i>
+                      </a>
                     </td>
                   </tr>
                 </tbody>
