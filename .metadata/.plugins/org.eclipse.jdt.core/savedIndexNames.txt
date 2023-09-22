@@ -1,0 +1,2 @@
+INDEX VERSION 1.131+D:\HocTap\2023\2023_Fall\DATN\DATN-GreenHouseBookStore\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
