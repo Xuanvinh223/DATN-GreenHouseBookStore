@@ -31,7 +31,11 @@
                     <td>{{publisher.address}}</td>
                     <td>{{publisher.email}}</td>
                     <td>{{publisher.image}}</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
+                    <td>
+                      <a ng-click="editPublisherAndRedirect(publisher.publisherId)"><i class="fe fe-edit fe-16"></i></a>    
+                      <a ng-click="deletePublisher(publisher.publisherId)">
+                        <i class="fe fe-trash-2 fe-16"></i>
+                      </a>
                     </td>
                   </tr>
                 </tbody>
