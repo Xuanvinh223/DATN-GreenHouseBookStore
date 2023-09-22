@@ -12,7 +12,7 @@ public interface AuthorsService {
 
     Authors add(Authors entity);
 
-    void update(Authors entity);
+    Authors update(Authors entity);
 
     void delete(String id);
 }
