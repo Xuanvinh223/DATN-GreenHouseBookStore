@@ -17,8 +17,9 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <div class="card-body">
+      <div class="modal-body" >
+        <div class="card-body" >
+          <form enctype="multipart/form-data">
           <div class="row">
             <div class="col-md-8">
               <div class="form-row">
@@ -37,11 +38,6 @@
                   <label for="nation">Quốc Tịch(*)</label>
                   <input type="text" class="form-control" placeholder="Nhập quốc tịch" id="nation" name="nation"
                     ng-model="editingAuthor.nation" />
-                </div>
-                <div class="col-md-5 mb-3">
-                  <label for="image">Ảnh(*)</label>
-                  <input type="text" class="form-control" placeholder="Nhập URL hình ảnh" id="image" name="image"
-                    ng-model="editingAuthor.image"  />
                 </div>
                 <div class="col-md-5 mb-3">
                   <p class="mb-2">Giới Tính(*)</p>
@@ -63,25 +59,24 @@
               <button type="button" class="btn btn-primary" ng-click="resetForm()">Làm Mới</button>
             </div>
             <!-- /.col -->
-            <div class="col-md-2 Upload">
+            <div class="col-md-2 Upload ">
+              <div class="row d-flex justify-content-center">       
+                <img class="object-fit" ng-src="/images/{{editingAuthor.image}}" alt="Uploaded Image" id="uploadedImage" name="image" style="max-height: 250px; width: 100%; border-radius: 10%;" >
+             </div>
               <div class="form-label h5 text-center">
                 <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại diện(*)</label>
               </div>
-              <div class="row d-flex justify-content-center">
-                <div>
-                  <img ng-src="/images/{{editingAuthor.image}}"
-                  name="image" style="width: 50px; height: 50px; border-radius: 10%;">
-                </div>
-              </div>
+             
               <div class="row d-flex justify-content-center">
                 <label class="text-center mt-2 btn btn-dark w-100">
                   <i class="fa fa-upload"></i>
                   Tải ảnh đại diện
-                  <input type="file" th:field="*{file}" onchange="uploadImg()" hidden accept=".png,.jpg,.jpeg" />
+                  <input type="file" name="file" style="object-fit: contain;" id="fileInput" ng-model="editingAuthor.image" onchange="displayImage(event)" hidden accept=".png,.jpg,.jpeg" />
                 </label>
               </div>
             </div>
           </div>
+        </form>
         </div>
       </div>
       <div class="modal-footer">
@@ -123,8 +118,9 @@
                 <td>{{author.gender ? 'Nam' : 'Nữ'}}</td>
                 <td>{{author.nation}}</td>
                 <td>
-                  <img ng-src="/images/{{author.image}}" name="image" style="width: 50px; height: 50px; border-radius: 10%;">
+                  <img ng-src="/images/{{author.image}}" style="width: 50px; height: 50px; border-radius: 10%;">
                 </td>
+                
                 <td>
                   <a ng-click="editAuthorAndRedirect(author.authorId)"><i class="fe fe-edit fe-16"></i></a>    
                   <a ng-click="deleteAuthor(author.authorId)">
