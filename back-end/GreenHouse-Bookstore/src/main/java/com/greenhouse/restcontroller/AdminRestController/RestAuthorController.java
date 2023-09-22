@@ -1,12 +1,19 @@
 package com.greenhouse.restcontroller.AdminRestController;
 
+import com.google.gson.Gson;
 import com.greenhouse.model.Authors;
 import com.greenhouse.service.AuthorsService;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.util.StringUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -15,6 +22,8 @@ public class RestAuthorController {
 
     @Autowired
     private AuthorsService authorsService;
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @GetMapping
     public ResponseEntity<List<Authors>> getAllAuthors() {
@@ -32,10 +41,28 @@ public class RestAuthorController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestBody Authors author) {
-        if (author.getAuthorId() == null || author.getAuthorId().isEmpty()) {
-            return new ResponseEntity<>("Mã tác giả không hợp lệ.", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Object> create(@RequestParam("image") MultipartFile file, @RequestParam("authorJson") String authorJson) {
+        if (StringUtils.isEmpty(authorJson)) {
+            return new ResponseEntity<>("Thông tin tác giả không hợp lệ.", HttpStatus.BAD_REQUEST);
         }
+
+        // Xử lý tải lên ảnh
+        String uploadedFileName = null;
+        if (!file.isEmpty()) {
+            try {
+                String originalFileName = file.getOriginalFilename();
+                String fileExtension = FilenameUtils.getExtension(originalFileName);
+                uploadedFileName = "author_" + System.currentTimeMillis() + "." + fileExtension;
+                File uploadedFile = new File(uploadPath + File.separator + uploadedFileName);
+                FileUtils.writeByteArrayToFile(uploadedFile, file.getBytes());
+            } catch (IOException e) {
+                return new ResponseEntity<>("Lỗi khi tải ảnh lên.", HttpStatus.BAD_REQUEST);
+            }
+        }
+
+        // Xử lý thông tin tác giả
+        Authors author = new Gson().fromJson(authorJson, Authors.class);
+        author.setImage(uploadedFileName);
 
         Authors existingAuthor = authorsService.findById(author.getAuthorId());
         if (existingAuthor != null) {
@@ -47,14 +74,38 @@ public class RestAuthorController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Authors> update(@PathVariable("id") String id, @RequestBody Authors author) {
-        Authors existingAuthor = authorsService.findById(id);
-        if (existingAuthor == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Authors> update(@PathVariable("id") String id,
+                                          @RequestParam(value = "image", required = false) MultipartFile file,
+                                          @RequestParam("authorJson") String authorJson) {
+
+        // Xử lý tải lên ảnh (nếu có)
+        String uploadedFileName = null;
+        if (file != null && !file.isEmpty()) {
+            try {
+                String originalFileName = file.getOriginalFilename();
+                String fileExtension = FilenameUtils.getExtension(originalFileName);
+                uploadedFileName = "author_" + System.currentTimeMillis() + "." + fileExtension;
+                File uploadedFile = new File(uploadPath + File.separator + uploadedFileName);
+                FileUtils.writeByteArrayToFile(uploadedFile, file.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+                return ResponseEntity.badRequest().build();
+            }
         }
-        author.setAuthorId(id); // Đảm bảo tính nhất quán về ID
-        authorsService.update(author);
-        return new ResponseEntity<>(author, HttpStatus.OK);
+
+        // Chuyển đổi dữ liệu tác giả từ JSON thành đối tượng Authors
+        Authors author = new Gson().fromJson(authorJson, Authors.class);
+
+        // Kiểm tra xem ảnh đã tải lên mới chưa
+        if (uploadedFileName != null) {
+            author.setImage(uploadedFileName);
+        }
+
+        // Cập nhật thông tin tác giả
+        author.setAuthorId(id);
+
+        Authors updatedAuthor = authorsService.update(author);
+        return ResponseEntity.ok(updatedAuthor);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -66,4 +117,6 @@ public class RestAuthorController {
         authorsService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+   
 }

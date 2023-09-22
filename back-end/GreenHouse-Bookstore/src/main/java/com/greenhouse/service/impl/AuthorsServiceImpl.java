@@ -28,13 +28,13 @@ public class AuthorsServiceImpl implements AuthorsService {
     }
 
     @Override
-    public Authors add(Authors bookAuthors) {
-        return authorsRepository.save(bookAuthors);
+    public Authors add(Authors authors) {
+        return authorsRepository.save(authors);
     }
 
     @Override
-    public void update(Authors bookAuthors) {
-        authorsRepository.save(bookAuthors);
+    public Authors update(Authors authors) {
+        return authorsRepository.save(authors);
     }
 
     @Override
