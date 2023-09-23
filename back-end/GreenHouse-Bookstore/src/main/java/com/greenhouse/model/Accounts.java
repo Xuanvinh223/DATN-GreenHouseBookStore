@@ -36,13 +36,13 @@ public class Accounts  implements Serializable {
     @Column(name = "Image")
     private String image;
 
-    @Column(name = "createat")
+    @Column(name = "create_at")
     private Date createAt;
 
-    @Column(name = "deletedat")
+    @Column(name = "deleted_at")
     private Date deletedAt;
 
-    @Column(name = "deletedby")
+    @Column(name = "deleted_by")
     private String deletedBy;
 
     @Column(name = "Active")
