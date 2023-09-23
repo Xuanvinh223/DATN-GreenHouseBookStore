@@ -4,6 +4,7 @@ import com.greenhouse.model.Accounts;
 import com.greenhouse.service.AccountsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,19 +20,18 @@ public class RestAccountController {
 
     @GetMapping
     public ResponseEntity<List<Accounts>> getAllAccount() {
-        List<Accounts> accountList = accountsService.findAll();
-        return ResponseEntity.ok(accountList);
+        List<Accounts> accounts = accountsService.findAll();
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
-    
     @GetMapping("/{username}")
-    public ResponseEntity<Accounts> getAccountsById(@PathVariable String username) {
+    public ResponseEntity<Accounts> getAccountsById(@PathVariable("username") String username) {
         Accounts accounts = accountsService.findById(username);
-        if (accounts != null) {
-            return ResponseEntity.notFound().build();
+        if (accounts == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            
-            return ResponseEntity.ok(accounts);
+
+            return new ResponseEntity<>(accounts, HttpStatus.OK);
         }
     }
 
@@ -41,28 +41,25 @@ public class RestAccountController {
         if (accounts.getUsername() == null || accounts.getUsername().isEmpty()) {
             return ResponseEntity.badRequest().body("Mã thương hiệu không hợp lệ.");
         }
-    
+
         Accounts existingAccounts = accountsService.findById(accounts.getUsername());
         if (existingAccounts != null) {
             return ResponseEntity.badRequest().body("Thương hiệu đã tồn tại.");
         }
-
-        System.out.println(accounts);
         Accounts createdAccounts = accountsService.add(accounts);
 
         return ResponseEntity.ok(createdAccounts);
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<Void> updateAccounts(@PathVariable String username, @RequestBody Accounts updateAccounts) {
+    public ResponseEntity<Accounts> update(@PathVariable String username, @RequestBody Accounts accounts) {
         Accounts existingAccounts = accountsService.findById(username);
-        if (existingAccounts != null) {
-            updateAccounts.setUsername(existingAccounts.getUsername());
-            accountsService.update(updateAccounts);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        if (existingAccounts == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } 
+        accounts.setUsername(username); // Đảm bảo tính nhất quán về ID
+        accountsService.update(accounts);
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{username}")

@@ -1,4 +1,4 @@
-app.controller("AccountController", function ($scope, $location, $http) {
+app.controller("AccountController", function ($scope, $location, $routeParams, $http) {
   let host = "http://localhost:8081/rest/accounts"; // Thay đổi địa chỉ URL nếu cần
   $scope.editingAccounts = {};
   $scope.isEditing = false;
@@ -17,7 +17,7 @@ app.controller("AccountController", function ($scope, $location, $http) {
   };
 
   $scope.saveAccounts = function () {
-    var accounts = {
+    var account= {
       username: $scope.editingAccounts.username || "",
       password: $scope.editingAccounts.password || "",
       fullname: $scope.editingAccounts.fullname || "",
@@ -30,23 +30,23 @@ app.controller("AccountController", function ($scope, $location, $http) {
     };
 
     if ($scope.isEditing) {
-      var url = `${host}/${accounts.username}`;
+      var url = `${host}/${account.username}`;
       $http
-        .put(url, accounts)
+        .put(url, account)
         .then((resp) => {
           $scope.loadAccounts();
           $scope.resetForm();
           Swal.fire({
             icon: "success",
             title: "Thành công",
-            text: `Cập nhật tài khoản ${accounts.username}`,
+            text: `Cập nhật tài khoản ${account.username}`,
           });
         })
         .catch((Error) => {
           Swal.fire({
             icon: "error",
             title: "Thất bại",
-            text: `Cập nhật tài khoản ${accounts.username} thất bại`,
+            text: `Cập nhật tài khoản ${account.username} thất bại`,
           });
           console.log(Error)
         });
@@ -54,14 +54,14 @@ app.controller("AccountController", function ($scope, $location, $http) {
       console.log("thanhf cong");
       var url = `${host}`;
       $http
-        .post(url, accounts)
+        .post(url, account)
         .then((resp) => {
           $scope.loadAccounts();
           $scope.resetForm();
           Swal.fire({
             icon: "success",
             title: "Thành công",
-            text: `Thêm tài khoản ` + accounts.username,
+            text: `Thêm tài khoản ` + account.username,
           });
         })
         .catch((Error) => {
@@ -77,19 +77,26 @@ app.controller("AccountController", function ($scope, $location, $http) {
     }
   };
 
-  $scope.editAccounts = function (username, index) {
+  $scope.editAccountsAndRedirect = function (username) {
     var url = `${host}/${username}`;
     $http
       .get(url)
       .then(function (resp) {
         $scope.editingAccounts = angular.copy(resp.data);
         $scope.isEditing = true;
-
+        // Sử dụng $location.search để thiết lập tham số trong URL.
+        $location.path("/account-form").search({ id: username, data: angular.toJson(resp.data) });
+        console.log("Error", error)
       })
       .catch(function (error) {
         console.log("Error", error);
       });
   };
+  if ($routeParams.data) {
+    // Parse dữ liệu từ tham số data và gán vào editingAuthor.
+    $scope.editingAccounts = angular.fromJson($routeParams.data);
+    $scope.isEditing = true;
+  }
 
   $scope.deleteAccounts = function (username) {
     var url = `${host}/${username}`;

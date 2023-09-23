@@ -23,7 +23,7 @@
                 <div class="button-add col-lg-3">
                   <button type="button" class="btn btn-success ml-auto" data-toggle="modal"
                     data-target="#addAuthorModal">
-                    Thêm Tác Giả
+                    Thêm thương hiệu
                   </button>
                 </div>
               </div>
@@ -40,7 +40,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="brand in brand">
+                  <tr ng-repeat="brand in brands">
                     <td>{{$index + 1}}</td>
                     <td>{{brand.brandId}}</td>
                     <td>{{brand.brandName}}</td>
@@ -52,14 +52,9 @@
                       </div>
                     </td> -->
                     <td>
-                      <a ng-click="editBrand(brand.brandId, $index)"
-                        th:href="@{/brand-form/(id=${brand.brandId})}">
-                        <i class="fe fe-edit fe-16"></i>
-                      </a>
-
+                      <a ng-click="editBrandAndRedirect(brand.brandId)"><i class="fe fe-edit fe-16"></i></a>    
                       <a ng-click="deleteBrand(brand.brandId)">
                         <i class="fe fe-trash-2 fe-16"></i>
-                      </a>
                     </td>
                   </tr>
                 </tbody>

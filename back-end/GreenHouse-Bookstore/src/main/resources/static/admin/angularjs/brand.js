@@ -1,16 +1,16 @@
-app.controller("brandController", function ($scope, $location, $http) {
+app.controller("brandController", function ($scope, $location, $routeParams, $http) {
     let host = "http://localhost:8081/rest/brand"; // Thay đổi địa chỉ URL nếu cần
     $scope.editingBrand = {};
     $scope.isEditing = false;
   
-    $scope.brand = [];
+    $scope.brands = [];
   
     $scope.loadBrand = function () {
       var url = `${host}`;
       $http
         .get(url)
         .then((resp) => {
-          $scope.brand = resp.data;
+          $scope.brands = resp.data;
         })
         .catch((Error) => {
           console.log("Error", Error);
@@ -71,20 +71,28 @@ app.controller("brandController", function ($scope, $location, $http) {
       }
     };
   
-    $scope.editBrand = function (brandId, index) {
+    $scope.editBrandAndRedirect = function (brandId) {
       var url = `${host}/${brandId}`;
       $http
         .get(url)
         .then(function (resp) {
           $scope.editingBrand = angular.copy(resp.data);
           $scope.isEditing = true;
-    
-           })
+          // Sử dụng $location.search để thiết lập tham số trong URL.
+          $location.path("/brand-form").search({ id: brandId, data: angular.toJson(resp.data) });
+        })
         .catch(function (error) {
           console.log("Error", error);
         });
     };
-    
+  
+    // Kiểm tra xem có tham số data trong URL không.
+    if ($routeParams.data) {
+      // Parse dữ liệu từ tham số data và gán vào editingAuthor.
+      $scope.editingBrand = angular.fromJson($routeParams.data);
+      $scope.isEditing = true;
+    }
+
     $scope.deleteBrand = function (brandId) {
       var url = `${host}/${brandId}`;
       

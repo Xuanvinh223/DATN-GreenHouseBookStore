@@ -21,18 +21,18 @@ public class RestBrandController {
 
     @GetMapping
     public ResponseEntity<List<Brand>> getAllBrand() {
-        List<Brand> brandList = brandService.findAll();
-        return ResponseEntity.ok(brandList);
+        List<Brand> brand = brandService.findAll();
+        return new ResponseEntity<>(brand, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Brand> getBrandById(@PathVariable String id) {
+    public ResponseEntity<Brand> getOne(@PathVariable("id") String id) {
         Brand brand = brandService.findById(id);
-        if (brand != null) {
-            return ResponseEntity.notFound().build();
+        if (brand == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             
-            return ResponseEntity.ok(brand);
+            return new ResponseEntity<>(brand, HttpStatus.OK);
         }
     }
 
@@ -53,19 +53,18 @@ public class RestBrandController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateBrand(@PathVariable String id, @RequestBody Brand updateBrand) {
+    public ResponseEntity<Brand> update(@PathVariable String id, @RequestBody Brand brand) {
         Brand existingBrand = brandService.findById(id);
-        if (existingBrand != null) {
-            updateBrand.setBrandId(existingBrand.getBrandId());
-            brandService.update(updateBrand);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        if (existingBrand == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } 
+        brand.setBrandId(id); // Đảm bảo tính nhất quán về ID
+        brandService.update(brand);
+        return new ResponseEntity<>(brand, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
-    private ResponseEntity<Void> delete(@PathVariable("id") String id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") String id) {
         Brand existingBrand = brandService.findById(id);
         if (existingBrand == null) {
             return ResponseEntity.notFound().build();

@@ -45,29 +45,26 @@
                     </thead>
                     <tbody>
 
-                      <tr ng-repeat="accounts in accounts">
+                      <tr ng-repeat="account in accounts">
                         <td>{{$index + 1}}</td>
-                        <td>{{accounts.username}}</td>
-                        <td>{{accounts.fullname}}</td>
-                        <td>{{accounts.email}}</td>
-                        <td>{{accounts.phone}}</td>
-                        <td>{{accounts.birthday | date:'MM/dd/yyyy'}}</td>
-                        <td>{{accounts.gender ? 'Nam' : 'Nữ'}}</td>
-                        <td>{{accounts.active ? 'Hoạt động' : 'Chưa hoạt động'}}</td>
+                        <td>{{account.username}}</td>
+                        <td>{{account.fullname}}</td>
+                        <td>{{account.email}}</td>
+                        <td>{{account.phone}}</td>
+                        <td>{{account.birthday | date:'MM/dd/yyyy'}}</td>
+                        <td>{{account.gender ? 'Nam' : 'Nữ'}}</td>
+                        <td>{{account.active ? 'Hoạt động' : 'Chưa hoạt động'}}</td>
 
                         <td>
-                          {{accounts.image}}
+                          {{account.image}}
                           <!-- <div class="avatar avatar-md">
                             <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
                           </div> -->
                         </td>
                         <td>
-                          <a ng-click="editAccounts(accounts.username, $index)"
-                            th:href="@{/accounts-form/(id=${accounts.username})}">
-                            <i class="fe fe-edit fe-16"></i>
-                          </a>
-
-                          <a ng-click="deleteAccounts(accounts.username)"><i class="fe fe-trash-2 fe-16"></i></a>
+                          <a ng-click="editAccountsAndRedirect(account.username)"><i class="fe fe-edit fe-16"></i></a>    
+                          <a ng-click="deleteAccounts(account.username)">
+                            <i class="fe fe-trash-2 fe-16"></i>
                         </td>
                       </tr>
 
