@@ -40,6 +40,17 @@ public class AuthenticationController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationDTO authenticationDTO,
             HttpServletResponse response) throws BadCredentialsException, DisabledException, IOException {
 
+        if (authenticationDTO.getUsername() == null) {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(new ErrorResponse("Vui lòng nhập tên đăng nhập!", 401));
+        }
+        if (authenticationDTO.getPassword() == null) {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(new ErrorResponse("Vui lòng nhập mật khẩu!", 401));
+        }
+
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationDTO.getUsername(),
                     authenticationDTO.getPassword()));
@@ -50,15 +61,14 @@ public class AuthenticationController {
         } catch (DisabledException disabledException) {
             return ResponseEntity.status(HttpStatus.OK)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(new ErrorResponse("Người dùng chưa được kích hoạt",403));
+                    .body(new ErrorResponse("Người dùng chưa được kích hoạt", 403));
         } catch (UsernameNotFoundException notFoundException) {
             return ResponseEntity.status(HttpStatus.OK)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(new ErrorResponse("Tài khoản không tồn tại!",404));
+                    .body(new ErrorResponse("Tài khoản không tồn tại!", 404));
         }
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDTO.getUsername());
-
         final String jwt = jwtUtil.generateToken(userDetails.getUsername(), userDetails.getAuthorities());
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }

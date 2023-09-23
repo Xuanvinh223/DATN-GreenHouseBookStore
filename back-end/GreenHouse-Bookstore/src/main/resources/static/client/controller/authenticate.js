@@ -4,13 +4,9 @@ app.controller('loginController', function ($scope, $http, jwtHelper, authentica
     $scope.login = function () {
 
         // Tạo dữ liệu từ ng-model của bạn
-        // var data = {
-        //     username: $scope.userData.username,
-        //     password: $scope.userData.password
-        // };
         var data = {
-            username: "",
-            password: ""
+            username: $scope.userData?.username,
+            password: $scope.userData?.password
         };
 
         // Gửi POST request đến API
@@ -20,10 +16,6 @@ app.controller('loginController', function ($scope, $http, jwtHelper, authentica
                 var message = resp.data.message;
                 if (status == 401) {
                     $scope.loginError = message;
-                } else if (status == 403) {
-                    $scope.loginError = message;
-                } else if (status == 404) {
-                    $scope.loginError = message;
                 } else {
                     // Xử lý khi gọi API thành công
                     localStorage.setItem('token', resp.data.token);
@@ -32,4 +24,6 @@ app.controller('loginController', function ($scope, $http, jwtHelper, authentica
                 }
             })
     };
+    
+      
 })

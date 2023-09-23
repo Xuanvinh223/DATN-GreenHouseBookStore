@@ -10,7 +10,7 @@ public class Authorities implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "authorities_id")
+    @Column(name = "authoritiesid")
     private int authoritiesId;
 
     @Column(name = "Username")
