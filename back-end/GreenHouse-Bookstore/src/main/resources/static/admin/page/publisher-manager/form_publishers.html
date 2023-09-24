@@ -1,13 +1,21 @@
 <div class="container-fluid" ng-controller="PublishersController">
-    <div class="row justify-content-center">
-      <div class="col-12">
-        <h3 class="page-title">Danh Sách Nhà Xuất Bản</h3>
-  
-        <div class="card shadow mb-4">
-          <div class="card-header">
-            <h4 class="card-title">Thông Tin Nhà Xuất Bản</h4>
-          </div>
-          <div class="card-body">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <a type="button" class="btn btn-success" href="#!/publisher-table">
+            Danh Sách Nhà Xuất Bản
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <h4 class="card-title">Thông Tin Nhà Xuất Bản</h4>
+        </div>
+        <div class="card-body">
+          <form enctype="multipart/form-data">
             <div class="row">
               <div class="col-md-8">
                 <div class="form-row">
@@ -17,55 +25,54 @@
                   </div>
                   <div class="col-md-5 mb-3">
                     <label for="publisherName">Tên Nhà Xuất Bản(*)</label>
-                    <input type="text" class="form-control" placeholder="Nhập tên nhà xuất bản" id="publisherName" name="publisherName" ng-model="editingPublisher.publisherName"  />
+                    <input type="text" class="form-control" placeholder="Nhập tên nhà xuất bản" id="publisherName"
+                      name="publisherName" ng-model="editingPublisher.publisherName" />
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="col-md-5 mb-3">
-                    <label for="email">Email(*)</label>
-                    <input type="email" class="form-control" placeholder="Nhập email nhà xuất bản" id="email" name="email" ng-model="editingPublisher.email" />
+                    <label for="description">Mô Tả(*)</label>
+                    <input type="text" class="form-control" placeholder="Nhập mô tả" id="description" name="description"
+                      ng-model="editingPublisher.description" />
                   </div>
                   <div class="col-md-5 mb-3">
                     <label for="address">Địa Chỉ(*)</label>
-                    <input type="text" class="form-control" placeholder="Nhập địa chỉ nhà xuất bản" id="address" name="address" ng-model="editingPublisher.address"  />
+                    <input type="text" class="form-control" placeholder="Nhập địa chỉ" id="address" name="address"
+                      ng-model="editingPublisher.address" />
                   </div>
                   <div class="col-md-5 mb-3">
-                    <label for="image">Ảnh(*)</label>
-                    <input type="text" class="form-control" placeholder="Nhập URL hình ảnh" id="image" name="image" ng-model="editingPublisher.image"  />
+                    <label for="email">Email(*)</label>
+                    <input type="text" class="form-control" placeholder="Nhập email" id="email" name="email"
+                      ng-model="editingPublisher.email" />
                   </div>
                 </div>
-                <div class="form-group mb-3">
-                    <label for="example-textarea">Mô tả</label>
-                    <textarea class="form-control" placeholder="Viết mô tả...."  id="description" name="description" ng-model="editingPublisher.description" rows="4"></textarea>
-                  </div>
-                <button type="button" class="btn btn-primary" ng-click="savePublisher()">
+                <button type="button" class="btn btn-primary" ng-click="savePublisher(editingPublisher.publisherName)">
                   {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Nhà Xuất Bản' }}
                 </button>
                 <button type="button" class="btn btn-primary" ng-click="resetForm()">Làm Mới</button>
               </div>
               <!-- /.col -->
               <div class="col-md-2 Upload">
-                <div class="form-label h5 text-center">
-                  <label for="customFile"><span class="text-danger"></span> Ảnh đại diện(*)</label>
-                </div>
                 <div class="row d-flex justify-content-center">
-                  <div>
-                    <img ng-src="/images/{{editingPublisher.image}}"
-                    name="image" style="width: 50px; height: 50px; border-radius: 10%;">
-                  </div>
+                  <img class="object-fit" ng-src="/images/{{editingPublisher.image}}" alt="Uploaded Image" id="uploadedImage"
+                    name="image" style="max-height: 250px; width: 100%; border-radius: 10%;" />
+                </div>
+                <div class="form-label h5 text-center">
+                  <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại diện(*)</label>
                 </div>
                 <div class="row d-flex justify-content-center">
                   <label class="text-center mt-2 btn btn-dark w-100">
                     <i class="fa fa-upload"></i>
                     Tải ảnh đại diện
-                    <input type="file" class="form-control" id="customFile" ng-model="imageFile" onchange="uploadImg()" accept=".png, .jpg, .jpeg" />
+                    <input type="file" name="file" style="object-fit: contain;" id="fileInput" ng-model="editingPublisher.image"
+                      onchange="displayImage(event)" hidden accept=".png,.jpg,.jpeg" />
                   </label>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
