@@ -22,11 +22,7 @@
           <form enctype="multipart/form-data">
           <div class="row">
             <div class="col-md-8">
-              <div class="form-row">
-                <div class="col-md-5 mb-3">
-                  <label for="authorId">ID Tác Giả(*)</label>
-                  <input type="text" class="form-control" placeholder="Nhập mã tác giả" id="authorId" name="authorId" ng-model="editingAuthor.authorId" ng-disabled="isEditing" />
-                </div>
+              <div class="form-row">             
                 <div class="col-md-5 mb-3">
                   <label for="authorName">Tên Tác Giả(*)</label>
                   <input type="text" class="form-control" placeholder="Nhập tên tác giả" id="authorName"
@@ -36,8 +32,12 @@
               <div class="form-row">
                 <div class="col-md-5 mb-3">
                   <label for="nation">Quốc Tịch(*)</label>
-                  <input type="text" class="form-control" placeholder="Nhập quốc tịch" id="nation" name="nation"
-                    ng-model="editingAuthor.nation" />
+                  <select class="form-control select2" id="nationSelect" name="nation" ng-model="editingAuthor.nation">
+                    <option value="" disabled>Chọn quốc tịch</option>
+                    <option ng-repeat="nationality in nationalities" value="{{nationality}}">
+                      {{nationality}}
+                    </option>
+                  </select>
                 </div>
                 <div class="col-md-5 mb-3">
                   <p class="mb-2">Giới Tính(*)</p>
@@ -53,7 +53,7 @@
                   </div>
                 </div>
               </div>
-              <button type="button" class="btn btn-primary" ng-click="saveAuthor()">
+              <button type="button" class="btn btn-primary" ng-click="saveAuthor(editingAuthor.authorName)">
                 {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Tác Giả' }}
               </button>
               <button type="button" class="btn btn-primary" ng-click="resetForm()">Làm Mới</button>
@@ -62,7 +62,7 @@
             <div class="col-md-2 Upload ">
               <div class="row d-flex justify-content-center">       
                 <img class="object-fit" ng-src="/images/{{editingAuthor.image}}" alt="Uploaded Image" id="uploadedImage" name="image" style="max-height: 250px; width: 100%; border-radius: 10%;" >
-             </div>
+              </div>
               <div class="form-label h5 text-center">
                 <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại diện(*)</label>
               </div>
@@ -81,7 +81,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-        <button type="button" class="btn btn-primary" ng-click="saveAuthor()">Lưu</button>
+        <button type="button" class="btn btn-primary" ng-click="loadAuthors()">Lưu</button>
       </div>
     </div>
   </div>

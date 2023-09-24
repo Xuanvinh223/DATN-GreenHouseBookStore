@@ -8,11 +8,11 @@ public interface CategoriesService {
 
     List<Categories> findAll();
 
-    Categories findById(Integer categoryId);
+    Categories findById(String categoryId);
 
-    void add(Categories entity);
+    Categories add(Categories entity);
 
-    void update(Categories entity);
+    Categories update(Categories entity);
 
-    void delete(Integer categoryId);
+    void delete(String categoryId);
 }

@@ -6,15 +6,14 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "CategoryTypes")
+@Table(name = "Category_Types")
 public class CategoryTypes implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TypeId")
-    private int typeId;
+    @Column(name = "Type_Id")
+    private String typeId;
 
-    @Column(name = "TypeName")
+    @Column(name = "Type_Name")
     private String typeName;
 
     @Column(name = "Description")

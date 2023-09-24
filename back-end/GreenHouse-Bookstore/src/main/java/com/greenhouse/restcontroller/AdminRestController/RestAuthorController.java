@@ -41,14 +41,13 @@ public class RestAuthorController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestParam("image") MultipartFile file, @RequestParam("authorJson") String authorJson) {
+    public ResponseEntity<Object> create(@RequestParam(value = "image", required = false) MultipartFile file, @RequestParam("authorJson") String authorJson) {
         if (StringUtils.isEmpty(authorJson)) {
             return new ResponseEntity<>("Thông tin tác giả không hợp lệ.", HttpStatus.BAD_REQUEST);
         }
-
-        // Xử lý tải lên ảnh
+    
         String uploadedFileName = null;
-        if (!file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {
             try {
                 String originalFileName = file.getOriginalFilename();
                 String fileExtension = FilenameUtils.getExtension(originalFileName);
@@ -59,54 +58,51 @@ public class RestAuthorController {
                 return new ResponseEntity<>("Lỗi khi tải ảnh lên.", HttpStatus.BAD_REQUEST);
             }
         }
-
-        // Xử lý thông tin tác giả
+    
         Authors author = new Gson().fromJson(authorJson, Authors.class);
         author.setImage(uploadedFileName);
-
+    
         Authors existingAuthor = authorsService.findById(author.getAuthorId());
         if (existingAuthor != null) {
             return new ResponseEntity<>("Tác giả đã tồn tại.", HttpStatus.BAD_REQUEST);
         }
-
+    
         Authors createdAuthor = authorsService.add(author);
         return new ResponseEntity<>(createdAuthor, HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Authors> update(@PathVariable("id") String id,
-                                          @RequestParam(value = "image", required = false) MultipartFile file,
-                                          @RequestParam("authorJson") String authorJson) {
+public ResponseEntity<Authors> update(@PathVariable("id") String id,
+                                      @RequestParam(value = "image", required = false) MultipartFile file,
+                                      @RequestParam("authorJson") String authorJson) {
 
-        // Xử lý tải lên ảnh (nếu có)
-        String uploadedFileName = null;
-        if (file != null && !file.isEmpty()) {
-            try {
-                String originalFileName = file.getOriginalFilename();
-                String fileExtension = FilenameUtils.getExtension(originalFileName);
-                uploadedFileName = "author_" + System.currentTimeMillis() + "." + fileExtension;
-                File uploadedFile = new File(uploadPath + File.separator + uploadedFileName);
-                FileUtils.writeByteArrayToFile(uploadedFile, file.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-                return ResponseEntity.badRequest().build();
-            }
+    String uploadedFileName = null;
+    if (file != null && !file.isEmpty()) {
+        try {
+            String originalFileName = file.getOriginalFilename();
+            String fileExtension = FilenameUtils.getExtension(originalFileName);
+            uploadedFileName = "author_" + System.currentTimeMillis() + "." + fileExtension;
+            File uploadedFile = new File(uploadPath + File.separator + uploadedFileName);
+            FileUtils.writeByteArrayToFile(uploadedFile, file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
         }
-
-        // Chuyển đổi dữ liệu tác giả từ JSON thành đối tượng Authors
-        Authors author = new Gson().fromJson(authorJson, Authors.class);
-
-        // Kiểm tra xem ảnh đã tải lên mới chưa
-        if (uploadedFileName != null) {
-            author.setImage(uploadedFileName);
-        }
-
-        // Cập nhật thông tin tác giả
-        author.setAuthorId(id);
-
-        Authors updatedAuthor = authorsService.update(author);
-        return ResponseEntity.ok(updatedAuthor);
     }
+
+    Authors author = new Gson().fromJson(authorJson, Authors.class);
+
+    // Kiểm tra xem ảnh đã tải lên mới chưa
+    if (uploadedFileName != null) {
+        author.setImage(uploadedFileName);
+    }
+
+    author.setAuthorId(id);
+
+    Authors updatedAuthor = authorsService.update(author);
+    return ResponseEntity.ok(updatedAuthor);
+}
+
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") String id) {
