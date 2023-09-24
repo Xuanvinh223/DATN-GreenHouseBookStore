@@ -1,8 +1,12 @@
 package com.greenhouse.service;
 
 import com.greenhouse.model.Publishers;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
+
+import org.springframework.data.domain.Page;
 
 public interface PublishersService {
 
@@ -12,7 +16,9 @@ public interface PublishersService {
 
     Publishers add(Publishers entity);
 
-    void update(Publishers entity);
+    Publishers update(Publishers entity);
 
     void delete(String publisherId);
+    Page<Publishers> searchPublishers(String keyword, Pageable pageable);
+
 }

@@ -12,10 +12,10 @@ import lombok.Data;
 public class Publishers implements Serializable {
 
     @Id
-    @Column(name = "publisher_id", length = 30, nullable = false)
+    @Column(name = "Publisher_Id", length = 30, nullable = false)
     private String publisherId;
 
-    @Column(name = "publisher_name", length = 100, nullable = false)
+    @Column(name = "Publisher_Name", length = 100, nullable = false)
     private String publisherName;
 
     @Column(name = "Description", length = 200)

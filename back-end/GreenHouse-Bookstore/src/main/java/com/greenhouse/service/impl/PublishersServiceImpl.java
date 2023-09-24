@@ -4,6 +4,9 @@ import com.greenhouse.model.Publishers;
 import com.greenhouse.repository.PublishersRepository;
 import com.greenhouse.service.PublishersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,12 +35,19 @@ public class PublishersServiceImpl implements PublishersService {
     }
 
     @Override
-    public void update(Publishers publisher) {
-        publishersRepository.save(publisher);
+    public Publishers update(Publishers publisher) {
+        return publishersRepository.save(publisher);
     }
 
     @Override
     public void delete(String publisherId) {
         publishersRepository.deleteById(publisherId);
     }
+
+    @Override
+    public Page<Publishers> searchPublishers(String keyword, Pageable pageable) {
+        // Sử dụng publishersRepository để thực hiện tìm kiếm và phân trang
+        return publishersRepository.searchPublishers(keyword, pageable);
+    }
+
 }
