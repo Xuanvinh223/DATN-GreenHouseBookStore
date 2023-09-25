@@ -1713,6 +1713,12 @@ pre code {
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: #ffffff;
 }
+.table-striped thead tr th a {
+  color: #6c757d;
+}
+.table-striped thead tr th a:hover {
+  color: #4eaa4f;
+}
 .table-striped tbody tr td a i{
   color: #6c757d;
   padding-right: 5px;
@@ -4769,10 +4775,11 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #adb5bd;
+  color: #6c757d ;
   background-color: transparent;
   border: 1px solid transparent;
 }
+
 .page-link:hover {
   z-index: 2;
   color: #f8f9fa;
@@ -4805,7 +4812,7 @@ input[type="button"].btn-block {
 }
 
 .page-item.disabled .page-link {
-  color: #6c757d;
+  color: #adb5bd;
   pointer-events: none;
   cursor: auto;
   background-color: #ffffff;
@@ -15789,21 +15796,6 @@ a.uppy-Dashboard-poweredBy {
   }
 }
 
-.navbar .navbar-brand {
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  background: transparent;
-}
-
-.navbar .navbar-brand svg {
-  width: 100%;
-  height: 100%;
-}
-
 /* Định dạng của container chứa icon và input */
 .input-container {
  width:60%;
@@ -15869,75 +15861,6 @@ a.uppy-Dashboard-poweredBy {
   padding: 3px; /* Khoảng cách bên trong phần tử bao quanh */
 }
 
-/* CSS OF ORDER TABLE */
-.order-page #order-status {
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding: 10px;
+.button-add{
+ /* padding-left: 100px; */
 }
-
-.order-page .nav-item a {
-  color: #62ab00;
-  cursor: pointer;
-}
-
-.order-page #order-status .nav-item .nav-link{
-  font-size: 1rem !important;
-  padding: 0.5rem 1rem;
-  display: block;
-}
-
-.order-page #order-status .nav-item {
-  position: relative;
-  max-width: max-content;
-}
-
-.order-page #order-status .nav-item .nav-link:hover~.notification p {
-  color: #fff;
-}
-
-.order-page #order-status .notification {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.4rem;
-  height: 1.4rem;
-  position: absolute;
-  top: -10px;
-  right: 10px;
-  font-size: 10px;
-  border-radius: 50%;
-  margin: 0px;
-  background-color: #62ab62;
-  transition: 0.15s ease-in;
-}
-
-.order-page #order-status .notification p {
-  margin: auto;
-  font-size: 0.8rem;
-  font-weight: bold;
-  color: #fff;
-}
-
-.order-page .note-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px;
-  font-size: larger;
-  overflow-x: auto;
-  max-width: 100%;
-}
-
-.order-page .note-container .note-item {
-  border-radius: 99px;
-  padding: 8px;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.order-page .note-container .note-item span.dot {
-  margin: 0px !important;
-}
-
-/* END CSS ORDER PAGE */
-

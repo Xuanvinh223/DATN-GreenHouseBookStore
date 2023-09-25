@@ -5,9 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title th:replace="${title}"></title>
-  
+
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+  <script src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.1/dist/sweetalert2.min.css">
+
   <link rel="stylesheet" type="text/css" media="screen" href="/client/css/plugins.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="/client/css/main.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="/client/css/index.css" />
@@ -249,7 +251,7 @@
           </div>
 
         </div>
-      
+
     </nav>
   </th-block>
 
@@ -384,7 +386,7 @@
                   </div>
                 </nav>
 
-             </div>
+              </div>
 
               <!-- Menu chính -->
 
@@ -418,7 +420,7 @@
         </div>
       </div>
     </th-block>
-    
+
     <!-- Menu cuộn -->
     <th-block th:fragment="menu-mobie">
       <div class="site-mobile-menu">
@@ -685,13 +687,15 @@
 
 
   <th-block th:fragment="lib">
-    <script th:src="@{/client/controller/app.js}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.1/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.1/dist/sweetalert2.min.js"></script>
     <script th:src="@{/client/js/plugins.js}"></script>
-    <script th:src="@{/client/js/ajax-mail.js}"></script>
     <script th:src="@{/client/js/custom.js}"></script>
     <script th:src="@{/client/js/code.js}"></script>
     <!-- Controller -->
+    <script th:src="@{/client/controller/app.js}"></script>
     <script th:src="@{/client/controller/account-controller.js}"></script>
+    <script th:src="@{/client/controller/authenticate.js}"></script>
   </th-block>
 </body>
 

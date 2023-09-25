@@ -27,8 +27,8 @@ public class SuppliersServiceImpl implements SuppliersService {
     }
 
     @Override
-    public void add(Suppliers supplier) {
-        suppliersRepository.save(supplier);
+    public Suppliers add(Suppliers supplier) {
+        return suppliersRepository.save(supplier);
     }
 
     @Override

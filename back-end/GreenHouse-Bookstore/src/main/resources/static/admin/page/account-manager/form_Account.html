@@ -1,12 +1,12 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="AccountController">
   <div class="row justify-content-center">
     <div class="col-12">
       <div class="card mb-2">
-      <h3 class="mb-3 mt-3 ml-3">Danh Sách Tài Khoản</h3>
+      <h3 class="mb-3 mt-3 ml-3">Thông tin tài khoản</h3>
     </div>
       <div class="card shadow mb-4">
         <div class="card-header">
-          <h4 class="card-title">Thông Tin Tài Khoản</h4>
+          
         </div>
         <div class="card-body">
           <div class="row">
@@ -15,30 +15,30 @@
               <div class="form-row">
                 <div class="col-md-4 mb-3">
                   <label for="PublishersID">Tên Tài Khoản(*)</label>
-                  <input type="text" class="form-control" placeholder="Nhập tên tài khoản">
+                  <input type="text" class="form-control" placeholder="Nhập tên tài khoản" ng-model="editingAccounts.username" ng-disabled="isEditing">
                 </div>
                 <div class="col-md-4 mb-3">
                   <label for="PublishersName">Họ và Tên(*)</label>
-                  <input type="text" name="brandname" class="form-control" placeholder="Nhập họ và tên">
+                  <input type="text" name="username" class="form-control" placeholder="Nhập họ và tên" ng-model="editingAccounts.fullname">
                 </div>
                 <div class="col-md-4 mb-3">
                   <label for="example-password">Mật Khẩu(*)</label>
-                  <input type="password" id="example-password" class="form-control" value="password">
+                  <input type="password" id="example-password" class="form-control" value="password" ng-model="editingAccounts.password">
                 </div>
               </div>
               <div class="form-row">
                 <div class="col-md-4 mb-3">
-                  <label for="example-email">Email</label>
-                  <input type="email" id="example-email" name="example-email" class="form-control" placeholder="Email">
+                  <label for="example-email">Email(*)</label>
+                  <input type="email" id="example-email" name="example-email" class="form-control" placeholder="Nhập email" ng-model="editingAccounts.email">
                 </div>
                 <div class="col-md-4 mb-3">
                   <label for="custom-phone">Số Điện Thoại(*)</label>
-                  <input class="form-control input-phoneus" id="custom-phone" placeholder="0352123456">
+                  <input class="form-control input-phoneus" id="custom-phone" placeholder="Nhập số điện thoại" ng-model="editingAccounts.phone">
 
                 </div>
                 <div class="col-md-4 mb-3">
                   <label for="address">Ngày Sinh(*)</label>
-                  <input class="form-control" id="example-date" type="date" name="date">
+                  <input class="form-control" id="example-date" type="date" name="date" ng-model="editingAccounts.birthday" ng-value="formatDate(editingAccounts.birthday)">
                 </div>
               </div>
 
@@ -46,57 +46,33 @@
                 <div class="col-md-4 mb-3">
                   <p class="mb-2">Giới Tính(*)</p>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="role" id="male" value="option1">
+                    <input class="form-check-input" type="radio" name="role" id="male" value="option1" ng-model="editingAccounts.gender" ng-value="true">
                     <label class="form-check-label" for="male">Nam</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="role" id="female" value="option2">
+                    <input class="form-check-input" type="radio" name="role" id="female" value="option2" ng-model="editingAccounts.gender" ng-value="false">
                     <label class="form-check-label" for="female">Nữ</label>
                   </div>
                 </div>
                 <div class="col-md-4 mb-3">
                   <p class="mb-2">Trạng Thái(*)</p>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="active" value="option3">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="active" value="option3" ng-model="editingAccounts.active" ng-value="true">
                     <label class="form-check-label" for="active">Hoạt động</label>
                   </div>
                   <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="unactive"
-                      value="option4">
+                      value="option4" ng-model="editingAccounts.active" ng-value="false">
                     <label class="form-check-label" for="unactive">Ngừng hoạt động</label>
                   </div>
                 </div>
               </div>
-              <div class="form-row">
-                <div class="col-md-4 mb-3">
-                  <label for="address">Địa Chỉ(*)</label>
-                  <select class="form-control select2" id="simple-select2">
-                    <option value="CA">Chọn địa chỉ</option>
-                    <option value="CA">Sóc Trăng</option>
-                    <option value="OR">Cần Thơ</option>
-                  </select>
-                </div>
-                <div class="col-md-8 mb-3">
-                  <p class="mb-2">Vai Trò(*)</p>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                    <label class="form-check-label" for="inlineCheckbox1">Admin (Quản trị viên)</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                    <label class="form-check-label" for="inlineCheckbox2">Staff (Nhân viên)</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                    <label class="form-check-label" for="inlineCheckbox3">Customer (Khách hàng)</label>
-
-                  </div>
-                </div>
-              </div>
 
 
-              <button type="submit" class="btn btn-primary">Lưu Sản Phẩm</button>
-              <button type="submit" class="btn btn-primary">Làm Mới</button>
+              <button type="button" class="btn btn-primary" ng-click="saveAccounts()">
+                {{ isEditing ? 'Lưu sửa đổi' : 'Thêm mới' }}</button>
+              <button type="submit" class="btn btn-primary" ng-click="resetForm()">Làm mới</button>
+              
             </div>
             <!-- /.col -->
             <div class="col-md-3 Upload">
@@ -116,11 +92,6 @@
                   <input type="file" th:field="*{file}" onchange="uploadImg()" hidden accept=".png,.jpg,.jpge">
                 </label>
               </div>
-              <div class="card-header">
-                <strong>menu dọc</strong>
-              </div>
-
-
 
             </div>
           </div>
@@ -130,9 +101,5 @@
 
     </div> <!-- .col-12 -->
   </div> <!-- .row -->
-
-
-
-
 
 </div> <!-- .container-fluid -->

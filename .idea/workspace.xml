@@ -4,21 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/account-manager/form_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/account-manager/form_account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/author-manager/form_author.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/author-manager/form_author.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/author-manager/table_author.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/author-manager/table_author.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/brand-manager/form_brand.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/brand-manager/form_brand.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/brand-manager/table_brand.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/brand-manager/table_brand.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/category-manager/form_categorytype.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/category-manager/form_categorytype.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/category-manager/table_categorytype.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/category-manager/table_categorytype.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/form_discount.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/form_discount.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/form_voucher.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/form_voucher.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/table_discount.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/table_discount.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/table_voucher.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/coupon-manager/table_voucher.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/product-manager/form_product.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/product-manager/form_product.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/product-manager/table_product.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/product-manager/table_product.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/supplier-manager/form_supplier.html" beforeDir="false" afterPath="$PROJECT_DIR$/font-end/tinydash-master/dark/page/supplier-manager/form_supplier.html" afterDir="false" />
+    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Back-end] - authenticate">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/configuration/WebSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/configuration/WebSecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/controller/AdminController/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/controller/AdminController/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/filters/JwtRequestFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/filters/JwtRequestFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Authorities.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Authorities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Authors.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/Authors.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/restcontroller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/restcontroller/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/service/impl/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/service/impl/UserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/util/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/util/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/controller/authenticate.js" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/controller/authenticate.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +27,8 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="MinThuc1505 &lt;minhthuc7a1@gmail.com&gt;" />
+        <option value="ZonNull &lt;110268408+zonnull@users.noreply.github.com&gt;" />
         <option value="Lâm Diễm Thuý &lt;110088530+thuylam1210@users.noreply.github.com&gt;" />
       </list>
     </option>
@@ -130,6 +128,10 @@
       <workItem from="1694886828761" duration="210000" />
       <workItem from="1694926127259" duration="722000" />
       <workItem from="1695058587429" duration="521000" />
+      <workItem from="1695263910125" duration="6540000" />
+      <workItem from="1695290983659" duration="4741000" />
+      <workItem from="1695396667011" duration="1942000" />
+      <workItem from="1695454654115" duration="475000" />
     </task>
     <task id="LOCAL-00001" summary="[Project] - Create packages">
       <created>1692841448096</created>
@@ -229,7 +231,14 @@
       <option name="project" value="LOCAL" />
       <updated>1694926153833</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="[Front-End] Admin - Update UI Cart-page">
+      <created>1695264653943</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1695264653943</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,6 +279,7 @@
     <MESSAGE value="[Font-end] - mobie cart.html" />
     <MESSAGE value="[FE] - Update title" />
     <MESSAGE value="[Font-end] - thymeleaf GUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Font-end] - thymeleaf GUI" />
+    <MESSAGE value="[Front-End] Admin - Update UI Cart-page" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Front-End] Admin - Update UI Cart-page" />
   </component>
 </project>

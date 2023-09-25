@@ -94,6 +94,24 @@
 	        <version>0.0.20131108.vaadin1</version>
 	        <scope>compile</scope>
 	    </dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.5</version> <!-- Thay thế 1.4 bằng phiên bản muốn sử dụng -->
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.10.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+		<!-- Commons FileUpload -->
 	    
 	    <!-- Thư viện Spring Boot Starter Thymeleaf cho xử lý template Thymeleaf -->
 	    <dependency>

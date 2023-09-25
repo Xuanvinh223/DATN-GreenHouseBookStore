@@ -10,7 +10,7 @@ public interface PublishersService {
 
     Publishers findById(String publisherId);
 
-    void add(Publishers entity);
+    Publishers add(Publishers entity);
 
     void update(Publishers entity);
 

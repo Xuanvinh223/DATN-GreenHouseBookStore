@@ -27,8 +27,8 @@ public class PublishersServiceImpl implements PublishersService {
     }
 
     @Override
-    public void add(Publishers publisher) {
-        publishersRepository.save(publisher);
+    public Publishers add(Publishers publisher) {
+        return publishersRepository.save(publisher);
     }
 
     @Override
