@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, layout)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, layout)" >
 
 <th:block th:replace="~{client/layouts/template.html :: head (${title})}"></th:block>
 
-<body>
+<body ng-app="myApp">
   <th-block th:replace="~{client/layouts/template.html :: 'menu-fahasha'}"></th-block>
   
   <div class="site-wrapper" id="top">

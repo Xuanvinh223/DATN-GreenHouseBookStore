@@ -11,9 +11,11 @@
   <!-- Simple bar CSS -->
   <link rel="stylesheet" href="css/simplebar.css">
   <!-- Fonts CSS -->
-  <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
   <!-- Icons CSS -->
+  <link rel="stylesheet" href="css/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="css/feather.css">
@@ -380,11 +382,13 @@
                   </span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pl-3" href="#!/revenue-static-overtime"><span class="ml-1 item-text">Doanh Thu Theo Thời Gian
+                <a class="nav-link pl-3" href="#!/revenue-static-overtime"><span class="ml-1 item-text">Doanh Thu Theo
+                    Thời Gian
                   </span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pl-3" href="#!/static-best-seller"><span class="ml-1 item-text">Sản Phẩm Bán Chạy</span></a>
+                <a class="nav-link pl-3" href="#!/static-best-seller"><span class="ml-1 item-text">Sản Phẩm Bán
+                    Chạy</span></a>
               </li>
             </ul>
           </li>
@@ -749,17 +753,17 @@
   <script>
     // JavaScript để ẩn các dòng con khi trang được tải lại hoặc chạy lần đầu
     $(document).ready(function () {
-        $(".nested-row").hide();
+      $(".nested-row").hide();
     });
 
     // JavaScript để hiển thị và ẩn bảng con khi nhấn vào dòng
     $(document).ready(function () {
-        $(".table-row").click(function () {
-            var nestedRow = $(this).next(".nested-row");
-            nestedRow.toggle();
-        });
+      $(".table-row").click(function () {
+        var nestedRow = $(this).next(".nested-row");
+        nestedRow.toggle();
+      });
     });
-</script>
+  </script>
   <script>
     var uptarg = document.getElementById('drag-drop-area');
     if (uptarg) {
@@ -799,6 +803,11 @@
     <script src='angularjs/Publishers.js'></script>
     <script src='angularjs/Suppliers.js'></script>
     <!-- End -->
+    <script src='angularjs/account.js'></script>
+    <script src='angularjs/Publishers.js'></script>
+    <script src='angularjs/Suppliers.js'></script>
+    <script src='angularjs/flashsale.js'></script>
+  <!-- End -->
 </body>
 
 </html>

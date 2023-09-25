@@ -4,31 +4,30 @@
       <h2 class="mb-2 page-title">Danh Sách Đơn Hàng</h2>
       <ul class="nav nav-pills nav-fill mb-3" id="order-status" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" id="order-status-1" data-toggle="pill" href="#pills-home" role="tab"
-            aria-controls="order-status-1" aria-selected="true">Trạng thái đơn hàng</a>
+          <a class="nav-link active" id="order-status-1" data-toggle="pill">Trạng thái đơn hàng</a>
           <span class="notification">
             <p>2</p>
           </span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="order-status-2" data-toggle="pill" href="#pills-home1" role="tab"
-            aria-controls="pills-home1" aria-selected="true">Trạng thái đơn hàng</a>
+          <a class="nav-link" id="order-status-2" data-toggle="pill">Trạng thái đơn
+            hàng</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " id="order-status-3" data-toggle="pill" href="#pills-home2" role="tab"
-            aria-controls="pills2-home" aria-selected="true">Trạng thái đơn hàng</a>
+          <a class="nav-link " id="order-status-3" data-toggle="pill">Trạng thái đơn
+            hàng</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " id="order-status-4" data-toggle="pill" href="#pills-3home" role="tab"
-            aria-controls="pills-hom3e" aria-selected="true">Trạng thái đơn hàng</a>
+          <a class="nav-link " id="order-status-4" data-toggle="pill">Trạng thái đơn
+            hàng</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " id="order-status-5" data-toggle="pill" href="#pills-ho4me" role="tab"
-            aria-controls="pills-hom5e" aria-selected="true">Trạng thái đơn hàng</a>
+          <a class="nav-link " id="order-status-5" data-toggle="pill">Trạng thái đơn
+            hàng</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " id="order-status-6" data-toggle="pill" href="#pills-h6ome" role="tab"
-            aria-controls="pills-ho6me" aria-selected="true">Trạng thái đơn hàng</a>
+          <a class="nav-link " id="order-status-6" data-toggle="pill">Trạng thái đơn
+            hàng</a>
         </li>
       </ul>
       <div class="row my-4">
@@ -36,9 +35,8 @@
         <div class="col-md-12">
           <div class="card shadow">
             <div class="card-body">
-              <!-- table -->
-              <table class="table datatables" id="dataTable-1">
-                <div class="note-container mb-3">
+              <div class="d-flex align-items-center justify-content-between mb-4">
+                <div class="note-container">
                   Trạng thái:
                   <div class="note-item">
                     <span class="dot dot-lg bg-primary mr-2"></span>
@@ -57,6 +55,13 @@
                     <span>Thất bại</span>
                   </div>
                 </div>
+                <div class="order-table-button">
+                  <button type="button" class="btn btn-success"><i class="fas fa-plus pr-2"></i>Tạo đơn hàng</button>
+                </div>
+              </div>
+
+              <!-- table -->
+              <table class="table datatables" id="dataTable-1">
                 <thead>
                   <tr>
                     <th>
@@ -72,11 +77,11 @@
                     <th>Tổng giá trị</th>
                     <th>Phương thức thanh toán</th>
                     <th>Trạng thái</th>
-                    <th>Hành Động</th>
+                    <th>Hành động</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr class="order-item" data-toggle="collapse" data-target="#id-1">
                     <td class="align-center">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="DH000001">
@@ -103,569 +108,129 @@
                       </div>
                     </td>
                   </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-primary mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-warning mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-danger mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
+                  <tr id="id-1" class="collapse">
+                    <td colspan="10">
+                      <div class="order-info">
+                        <ul class="nav nav-pills nav-fill" id="order-info" role="tablist">
+                          <li class="nav-item">
+                            <a class="nav-link active" id="order-info-1" data-toggle="pill" href="#tab1">Thông tin đơn hàng</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" id="order-info-2" data-toggle="pill" href="#tab2">Tab Mới</a>
+                          </li>
+                        </ul>
+
+                        <div class="tab-content mt-4">
+                          <div class="tab-pane active" id="tab1">
+                            <!-- Nội dung cho tab "Thông tin" -->
+                            <form>
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <div class="mb-3">
+                                    <label for="order-id" class="form-label">Mã đơn hàng:</label>
+                                    <input type="text" class="form-control" id="order-id" name="order-id">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="order-by" class="form-label">Người đặt hàng:</label>
+                                    <input type="text" class="form-control" id="order-by" name="order-by">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="order-date" class="form-label">Ngày đặt hàng:</label>
+                                    <input type="datetime" class="form-control" id="order-date" name="order-date">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="delivery-date" class="form-label">Ngày giao hàng:</label>
+                                    <input type="datetime" class="form-control" id="delivery-date" name="delivery-date">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="mb-3">
+                                    <label for="order-create-by" class="form-label">Người tạo:</label>
+                                    <input type="text" class="form-control" id="order-create-by" name="order-create-by">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="order-reciver-name" class="form-label">Người nhận:</label>
+                                    <input type="text" class="form-control" id="order-reciver-name" name="order-reciver-name">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="order-reciver-phone" class="form-label">Số điện thoại người nhận:</label>
+                                    <input type="text" class="form-control" id="order-reciver-phone" name="order-reciver-phone">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="order-reciver-address" class="form-label">Địa chỉ giao hàng:</label>
+                                    <input type="text" class="form-control" id="order-reciver-address" name="order-reciver-address">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="mb-3">
+                                    <label for="order-payment-method" class="form-label">Phương thức thanh toán:</label>
+                                    <input type="text" class="form-control" id="order-payment-method" name="order-payment-method">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="order-payment-status" class="form-label">Thanh toán:</label>
+                                    <input type="text" class="form-control" id="order-payment-status" name="order-payment-status">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <p>Hình ảnh người đặt hàng:</p>
+                                  <div class="order-by-img-box mb-3">
+                                    <img src="https://www.hollywoodreporter.com/wp-content/uploads/2015/06/johnny_depp_dior.jpg?w=2000&h=1126&crop=1" class="order-by-img" alt="">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- Thêm các trường thông tin khác -->
+
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>STT</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Đơn giá</th>
+                                    <th>Tổng giá trị</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>Sản phẩm 1</td>
+                                    <td>2</td>
+                                    <td>50,000 đ</td>
+                                    <td>100,000 đ</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <div class="order-summary">
+                                <div class="order-summary-total-quantity sub-order-summary">
+                                  <p>Số lượng sản phẩm:</p> <b>2</b>
+                                </div>
+                                <div class="order-summary-total-amount sub-order-summary">
+                                  <p>Tổng tiền sản phẩm:</p> <b>100,000 đ</b>
+                                </div>
+                                <div class="order-summary-voucher-discount sub-order-summary">
+                                  <p>Voucher hóa đơn giảm:</p> <b>0 đ</b>
+                                </div>
+                                <div class="order-summary-fee-ship sub-order-summary">
+                                  <p>Phí ship:</p> <b>0 đ</b>
+                                </div>
+                                <div class="order-summary-payment-amount sub-order-summary">
+                                  <p>Tổng tiền cần thanh toán:</p> <b>100,000 đ</b>
+                                </div>
+                              </div>
+                              <div class="form-action">
+                                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                <button type="submit" class="btn btn-danger">Hủy đơn</button>
+                                
+                              </div>
+                            </form>
+                          </div>
+
+                          <div class="tab-pane" id="tab2">
+                            <!-- Nội dung cho tab "Tab Mới" -->
+                            <p>Nội dung tab mới: ...</p>
+                          </div>
                         </div>
                       </div>
                     </td>

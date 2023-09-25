@@ -7,11 +7,8 @@ public interface AccountsService {
 
     List<Accounts> findAll();
 
-    Accounts findById(String id);
-
-    void add(Accounts entity);
-
+    Accounts findById(String username);
+    Accounts add(Accounts entity);
     void update(Accounts entity);
-
-    void delete(String id);
+    void delete(String username);
 }
