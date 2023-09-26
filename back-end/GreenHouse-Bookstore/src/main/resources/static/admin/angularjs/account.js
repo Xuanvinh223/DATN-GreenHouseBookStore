@@ -9,7 +9,7 @@ function AccountController($scope, $http) {
     // Hàm để lấy danh sách thuongw hieu
     $scope.getAccount = function () {
         $http
-            .get("/api/account")
+            .get("/rest/account")
             .then(function (response) {
                 $scope.accounts = response.data;
             })

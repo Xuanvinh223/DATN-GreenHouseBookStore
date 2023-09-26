@@ -141,3 +141,23 @@ app.run(['$rootScope', function ($rootScope) {
 
     });
 }]);
+
+// Tạo một interceptor
+app.factory('tokenInterceptor', ['$window', function ($window) {
+    return {
+      request: function (config) {
+        var token = $window.localStorage.getItem('token');
+        // Kiểm tra nếu URL của request bắt đầu bằng "/api/"
+        if (token && config.url.includes('/rest/')) {
+          config.headers['Authorization'] = 'Bearer ' + token;
+        }
+        return config;
+      }
+    };
+  }]);
+  
+  // Đăng ký interceptor vào ứng dụng
+  app.config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push('tokenInterceptor');
+  }]);
+  
