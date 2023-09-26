@@ -17,7 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.greenhouse.filters.JwtRequestFilter;
 
-import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -27,14 +26,14 @@ public class WebSecurityConfiguration {
 	@Autowired
 	private JwtRequestFilter requestFilter;
 
-	private final String[] apiEndpoints = { "/api/admin/**", "/api/user/**", "/api/**", "/admin/**" }; // Danh sách các
+	private final String[] apiEndpoints = { "/api/admin/**", "/api/user/**", "/api/**" }; // Danh sách các
 																										// API
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf().disable() // Vô hiệu hóa CSRF protection, có thể cần bật trong môi trường thực tế
 				.authorizeHttpRequests() // Bắt đầu cấu hình xác thực và phân quyền cho các yêu cầu HTTP
-				.requestMatchers("/api/client/authenticate", "/sign-up", "/index", "/client/**","/login") // Các URL không cần xác thực
+				.requestMatchers("/api/client/authenticate", "/sign-up", "/index", "/client/**","/login", "/403", "/admin/**") // Các URL không cần xác thực
 				.permitAll() // Cho phép tất cả mọi người truy cập các URL trên mà không cần xác thực
 				.and().authorizeHttpRequests() // Cấu hình phân quyền cho các yêu cầu khác
 				.requestMatchers(apiEndpoints) // Các URL trong danh sách `apiEndpoints` cần xác thực

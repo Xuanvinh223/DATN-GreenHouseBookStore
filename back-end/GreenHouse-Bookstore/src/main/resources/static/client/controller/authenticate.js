@@ -19,11 +19,27 @@ app.controller('loginController', function ($scope, $http, jwtHelper, authentica
                 } else {
                     // Xử lý khi gọi API thành công
                     localStorage.setItem('token', resp.data.token);
-                    // ... xử lý khác ...
-                    window.location.href = '/index';
+                    var token = localStorage.getItem('token');
+                    var decodedToken = jwtHelper.decodeToken(token);
+                    // Duyệt qua danh sách quyền (authorities)
+                    decodedToken.roles.forEach(function (authority) {
+                        if (authority.authority === 'ROLE_ADMIN') {
+                            var username = decodedToken.sub;
+                            // Người dùng có vai trò "ROLE_ADMIN", thực hiện các hành động tương ứng
+                            console.log("Người dùng có vai trò ROLE_ADMIN");
+                            window.location.href = "/admin/index?token=" + token + "&username=" + username;
+                        } else if (authority.authority === 'ROLE_STAFF') {
+                            // Người dùng có vai trò "ROLE_STAFF", thực hiện các hành động tương ứng
+                            console.log("Người dùng có vai trò ROLE_STAFF");
+                        } else {
+                            // Xử lý các vai trò khác (nếu cần)
+                            console.log("Người dùng có vai trò khác: " + authority.authority);
+                            window.location.href = "/index";
+                        }
+                    });
                 }
             })
     };
-    
-      
+
+
 })
