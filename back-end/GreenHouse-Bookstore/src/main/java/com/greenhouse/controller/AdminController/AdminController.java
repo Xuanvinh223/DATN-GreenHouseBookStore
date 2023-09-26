@@ -41,16 +41,17 @@ public class AdminController {
                 }
             }
             } catch (Exception e) {
-                return "redirect:/403";
+                return "redirect:/login";
             }
         } catch (ExpiredJwtException ex) {
             // Xử lý lỗi khi token hết hạn
             System.out.println("token đã hết hạn");
+            return "redirect:/login";
         }
 
         // Người dùng không có token hợp lệ hoặc không có quyền, có thể xử lý theo cách
         // khác hoặc trả về trang lỗi
-        return "redirect:/403";
+        return "redirect:/login";
     }
 
 }

@@ -33,9 +33,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
         String token = null;
         String username = null;
-        System.out.println();
-        System.out.println(authHeader);
-        System.out.println();
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
 
@@ -45,13 +42,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 // Xử lý lỗi khi token hết hạn
             	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             	response.setContentType("application/json");
-            	response.getWriter().write("{\"error\": \"Token has expired. Please log in again.\"}");
+            	response.getWriter().write("{\"error\": \"Token has expired. Please login again.\"}");
                 return; // Ngăn chặn việc tiếp tục xử lý yêu cầu
             }
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
                 if (jwtUtil.validateToken(token, userDetails)) {
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());

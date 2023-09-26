@@ -30,7 +30,7 @@ app.controller('loginController', function ($scope, $http, jwtHelper, authentica
                             window.location.href = "/admin/index?token=" + token + "&username=" + username;
                         } else if (authority.authority === 'ROLE_STAFF') {
                             // Người dùng có vai trò "ROLE_STAFF", thực hiện các hành động tương ứng
-                            console.log("Người dùng có vai trò ROLE_STAFF");
+                            console.log("Người dùng có vai trò STAFF");
                         } else {
                             // Xử lý các vai trò khác (nếu cần)
                             console.log("Người dùng có vai trò khác: " + authority.authority);
