@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/rest/accounts")
+@RequestMapping("/rest/account")
 public class RestAccountController {
 
     @Autowired
@@ -20,55 +20,47 @@ public class RestAccountController {
 
     @GetMapping
     public ResponseEntity<List<Accounts>> getAllAccount() {
-        List<Accounts> accounts = accountsService.findAll();
-        return new ResponseEntity<>(accounts, HttpStatus.OK);
+        List<Accounts> accountList = accountsService.findAll();
+        return ResponseEntity.ok(accountList);
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<Accounts> getAccountsById(@PathVariable("username") String username) {
+    public ResponseEntity<Accounts> getAccountById(@PathVariable String username) {
         Accounts accounts = accountsService.findById(username);
-        if (accounts == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (accounts != null) {
+            return ResponseEntity.ok(accounts);
         } else {
-
-            return new ResponseEntity<>(accounts, HttpStatus.OK);
+            return ResponseEntity.notFound().build();
         }
     }
 
     @PostMapping
-    private ResponseEntity<?> create(@RequestBody Accounts accounts) {
-        // Kiểm tra nếu authorId là null hoặc rỗng thì trả về lỗi
-        if (accounts.getUsername() == null || accounts.getUsername().isEmpty()) {
-            return ResponseEntity.badRequest().body("Mã thương hiệu không hợp lệ.");
-        }
-
-        Accounts existingAccounts = accountsService.findById(accounts.getUsername());
-        if (existingAccounts != null) {
-            return ResponseEntity.badRequest().body("Thương hiệu đã tồn tại.");
-        }
-        Accounts createdAccounts = accountsService.add(accounts);
-
-        return ResponseEntity.ok(createdAccounts);
+    public ResponseEntity<Accounts> addAccount(@RequestBody Accounts accounts) {
+        ((AccountsService) accounts).add(accounts);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<Accounts> update(@PathVariable String username, @RequestBody Accounts accounts) {
-        Accounts existingAccounts = accountsService.findById(username);
-        if (existingAccounts == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } 
-        accounts.setUsername(username); // Đảm bảo tính nhất quán về ID
-        accountsService.update(accounts);
-        return new ResponseEntity<>(accounts, HttpStatus.OK);
-    }
-
-    @DeleteMapping(value = "/{username}")
-    private ResponseEntity<Void> delete(@PathVariable("username") String username) {
-        Accounts existingAccounts = accountsService.findById(username);
-        if (existingAccounts == null) {
+    public ResponseEntity<Void> updateAccount(@PathVariable String username, @RequestBody Accounts updateAccount) {
+        Accounts existingAccount = accountsService.findById(username);
+        if (existingAccount != null) {
+            updateAccount.setUsername(existingAccount.getUsername());
+            accountsService.update(updateAccount);
+            accountsService.update(updateAccount);
+            return ResponseEntity.ok().build();
+        } else {
             return ResponseEntity.notFound().build();
         }
-        accountsService.delete(username);
-        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Void> deleteAcount(@PathVariable String username) {
+        Accounts accounts = accountsService.findById(username);
+        if (accounts != null) {
+            accountsService.delete(username);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

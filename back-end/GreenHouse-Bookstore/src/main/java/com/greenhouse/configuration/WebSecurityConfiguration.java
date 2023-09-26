@@ -26,7 +26,7 @@ public class WebSecurityConfiguration {
     @Autowired
     private JwtRequestFilter requestFilter;
 
-	private final String[] apiEndpoints = { "/api/admin/**", "/api/user/**", "/api/**" }; // Danh sách các
+	private final String[] apiEndpoints = { "/rest/**" }; // Danh sách các
 																										// API
 
 	@Bean

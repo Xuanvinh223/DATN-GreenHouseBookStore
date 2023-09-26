@@ -1,143 +1,70 @@
-app.controller("AccountController", function ($scope, $location, $routeParams, $http) {
-  let host = "http://localhost:8081/rest/accounts"; // Thay đổi địa chỉ URL nếu cần
-  $scope.editingAccounts = {};
-  $scope.isEditing = false;
+app.controller('AccountController', AccountController);
 
-  $scope.accounts = [];
-  $scope.loadAccounts = function () {
-    var url = `${host}`;
-    $http
-      .get(url)
-      .then((resp) => {
-        $scope.accounts = resp.data;
-      })
-      .catch((Error) => {
-        console.log("Error", Error);
-      });
-  };
+function AccountController($scope, $http) {
+    $scope.accounts = [];
+    $scope.newAccount = {};
+    $scope.editingAccount = null;
+    $scope.isEditing = false;
 
-  $scope.saveAccounts = function () {
-    var account= {
-      username: $scope.editingAccounts.username || "",
-      password: $scope.editingAccounts.password || "",
-      fullname: $scope.editingAccounts.fullname || "",
-      email: $scope.editingAccounts.email || "",
-      gender: $scope.editingAccounts.gender || false,
-      birthday: $scope.editingAccounts.birthday || "",
-      phone: $scope.editingAccounts.phone || "",
-      image: $scope.editingAccounts.image || "",
-      active: $scope.editingAccounts.active || false,
+    // Hàm để lấy danh sách thuongw hieu
+    $scope.getAccount = function () {
+        $http
+            .get("/rest/account")
+            .then(function (response) {
+                $scope.accounts = response.data;
+            })
+            .catch(function (error) {
+                console.error("Lỗi khi lấy danh sách tài khoản:", error);
+            });
     };
 
-    if ($scope.isEditing) {
-      var url = `${host}/${account.username}`;
-      $http
-        .put(url, account)
-        .then((resp) => {
-          $scope.loadAccounts();
-          $scope.resetForm();
-          Swal.fire({
-            icon: "success",
-            title: "Thành công",
-            text: `Cập nhật tài khoản ${account.username}`,
-          });
-        })
-        .catch((Error) => {
-          Swal.fire({
-            icon: "error",
-            title: "Thất bại",
-            text: `Cập nhật tài khoản ${account.username} thất bại`,
-          });
-          console.log(Error)
-        });
-    } else {
-      console.log("thanhf cong");
-      var url = `${host}`;
-      $http
-        .post(url, account)
-        .then((resp) => {
-          $scope.loadAccounts();
-          $scope.resetForm();
-          Swal.fire({
-            icon: "success",
-            title: "Thành công",
-            text: `Thêm tài khoản ` + account.username,
-          });
-        })
-        .catch((Error) => {
-          console.log("iiiiiii");
-          if (Error.data) {
-            Swal.fire({
-              icon: "error",
-              title: "Thất bại",
-              text: `Thêm tài khoản thất bại`,
-            });
-          }
-        });
-    }
-  };
-
-  $scope.editAccountsAndRedirect = function (username) {
-    var url = `${host}/${username}`;
-    $http
-      .get(url)
-      .then(function (resp) {
-        $scope.editingAccounts = angular.copy(resp.data);
+    // Hàm để sao chép thông tin thuong hieu vào biến editingBrand và bật chế độ chỉnh sửa
+    $scope.editAccount = function (accounts) {
+        $scope.editingAccount = angular.copy(accounts);
         $scope.isEditing = true;
-        // Sử dụng $location.search để thiết lập tham số trong URL.
-        $location.path("/account-form").search({ id: username, data: angular.toJson(resp.data) });
-        console.log("Error", error)
-      })
-      .catch(function (error) {
-        console.log("Error", error);
-      });
-  };
-  if ($routeParams.data) {
-    // Parse dữ liệu từ tham số data và gán vào editingAuthor.
-    $scope.editingAccounts = angular.fromJson($routeParams.data);
-    $scope.isEditing = true;
-  }
+    };
 
-  $scope.deleteAccounts = function (username) {
-    var url = `${host}/${username}`;
+    // Hàm để lưu thuongw hieu (thêm mới hoặc cập nhật)
+    $scope.saveAccount = function () {
+        if ($scope.editingAccount) {
+            // Nếu đang chỉnh sửa, gọi hàm cập nhật thương hiệu ở đây
+            $http
+                .put("/api/account/" + $scope.editingAccount.username, $scope.editingAccount)
+                .then(function () {
+                    // Sau khi cập nhật thành công, làm mới danh sách thương hiệu và đặt lại form
+                    $scope.getAccount();
+                    $scope.resetForm();
+                })
+                .catch(function (error) {
+                    console.error("Lỗi khi cập nhật tài khoản:", error);
+                });
+        } else {
+            // Nếu thêm mới, gọi hàm thêm tác giả mới ở đây
+            $http
+                .post("/api/account", $scope.newAccount)
+                .then(function () {
+                    // Sau khi thêm thành công, làm mới danh sách tác giả và đặt lại form
+                    $scope.getAccount();
+                    $scope.resetForm();
+                })
+                .catch(function (error) {
+                    console.error("Lỗi khi thêm tài khoản:", error);
+                });
+        }
+    };
 
-    // Sử dụng $http để gửi yêu cầu DELETE đến API
-    $http
-      .delete(url)
-      .then((resp) => {
-        $scope.loadAccounts(); // Nạp lại danh sách thương hiệu sau khi xóa
-        Swal.fire({
-          icon: "success",
-          title: "Thành công",
-          text: `Xóa tài khoản ${username} thành công`,
-        });
-      })
-      .catch((Error) => {
-        if (Error.status === 409) {
-          // Kiểm tra mã trạng thái lỗi
-          Swal.fire({
-            icon: "error",
-            title: "Thất bại",
-            text: `Tài khoản mã ${key} đang hoạt động và không thể xóa.`,
-          });
-        } else
-          Swal.fire({
-            icon: "error",
-            title: "Thất bại",
-            text: `Xóa tài khoản ${username} thất bại`,
-          });
-      });
-  };
+    // Hàm để hủy bỏ chế độ chỉnh sửa và đặt lại form
+    $scope.cancelEdit = function () {
+        $scope.isEditing = false;
+        $scope.editingAccount = null;
+    };
 
+    // Hàm để đặt lại form
+    $scope.resetForm = function () {
+        $scope.isEditing = false;
+        $scope.editingAccount = null;
+        $scope.newAccount = {};
+    };
 
-  $scope.cancelEdit = function () {
-    $scope.resetForm();
-  };
-
-  $scope.resetForm = function () {
-    $scope.editAccounts = {};
-    $scope.isEditing = false;
-  };
-
-  $scope.loadAccounts();
-});
+    $scope.getAccount();
+}
