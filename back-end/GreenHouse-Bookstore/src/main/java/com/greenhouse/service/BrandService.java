@@ -10,7 +10,7 @@ public interface BrandService {
 
     Brand findById(String brandId);
 
-    void add(Brand entity);
+    Brand add(Brand entity);
 
     void update(Brand entity);
 

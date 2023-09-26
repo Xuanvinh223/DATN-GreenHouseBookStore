@@ -1,96 +1,95 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="SuppliersController">
   <div class="row justify-content-center">
     <div class="col-12">
-      <h4 class="mb-2 page-title">Thêm Nhà Cung Cấp</h4>
+      <h2 class="mb-2 page-title">Danh sách nhà cung cấp</h2>
       <div class="row my-4">
         <!-- Small table -->
         <div class="col-md-12">
           <div class="card shadow">
-            <div class="card-header">
-              <h4 class="card-title">Danh Sách Nhà Cung Cấp</h4>
-            </div>
             <div class="card-body">
+              <div class="toolbar row mb-3">
+                <div class="col">
+                  <form class="form-inline mr-auto  text-muted">
+                    <input class="form-control mr-sm-2 bg-transparent border-1 pl-4 text-muted" type="search"
+                      placeholder="Tìm kiếm..." aria-label="Search">
+                  </form>
+
+                </div>
+                <div class="col ml-auto">
+                  <div class="dropdown float-right">
+                    <button class="btn btn-secondary" type="button"><i class='bx bxs-file-export mr-1'></i> Xuất File
+                    </button>
+                  </div>
+                </div>
+              </div>
               <!-- table -->
-              <table class="table datatables" id="dataTable-1">
+              <table id="myTable" class="table table-hover">
                 <thead>
                   <tr>
                     <th>STT</th>
                     <th>ID Nhà Cung Cấp</th>
                     <th>Tên Nhà Cung Cấp</th>
-                    <th>Địa Chỉ</th>
+                    <th>Mô tả</th>
+                    <th>Địa chỉ</th>
                     <th>Email</th>
                     <th>Số Điện Thoại</th>
                     <th>Hình Ảnh</th>
                     <th>Sửa</th>
-
                   </tr>
                 </thead>
                 <tbody>
-
-                  <tr>
-                    <td>1</td>
-                    <td>NCC001</td>
-                    <td>Nhà cung cấp mới</td>
-                    <td>Thạnh Trị, Sóc Trăng</td>
-                    <td>Datmvpc02991</td>
-                    <td>0352057809</td>
+                  <tr ng-repeat="supplier in suppliers">
+                    <td>{{$index + 1}}</td>
+                    <td>{{supplier.supplierId}}</td>
+                    <td>{{supplier.supplierName}}</td>
+                    <td>{{supplier.description}}</td>
+                    <td>{{supplier.address}}</td>
+                    <td>{{supplier.email}}</td>
+                    <td>{{supplier.phone}}</td>
                     <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
+                      <img ng-src="/images/{{supplier.image}}" alt="Chưa có ảnh"
+                        style="width: 50px; height: 50px; border-radius: 10%;">
                     </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
+                    <td>
+                      <a ng-click="editSupplierAndRedirect(supplier.supplierId)"><i class="fe fe-edit fe-16"></i></a>
+                      <a ng-click="deleteSupplier(supplier.supplierId)">
+                        <i class="fe fe-trash-2 fe-16"></i>
+                      </a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>NCC001</td>
-                    <td>Nhà cung cấp mới</td>
-                    <td>Thạnh Trị, Sóc Trăng</td>
-                    <td>Datmvpc02991</td>
-                    <td>0352057809</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>NCC001</td>
-                    <td>Nhà cung cấp mới</td>
-                    <td>Thạnh Trị, Sóc Trăng</td>
-                    <td>Datmvpc02991</td>
-                    <td>0352057809</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>NCC001</td>
-                    <td>Nhà cung cấp mới</td>
-                    <td>Thạnh Trị, Sóc Trăng</td>
-                    <td>Datmvpc02991</td>
-                    <td>0352057809</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-
-
                 </tbody>
               </table>
+              <div class="toolbar">
+                <form class="form">
+                  <div class="form-row">
+                    <div class="form-inline col-auto mr-auto">
+                      <label class="my-1 mr-2 " for="inlineFormCustomSelectPref1">Show</label>
+                      <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1">
+                        <option value="">...</option>
+                        <option value="1">12</option>
+                        <option value="2" selected>32</option>
+                        <option value="3">64</option>
+                        <option value="3">128</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-auto">
+                      <span>Đang xem 1 trên tổng số 5 mục</span>
+
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <nav aria-label="Table Paging" class="mb-0 text-muted">
+                <ul class="pagination justify-content-center mb-0">
+                  <li class="page-item"><a class="page-link" href="#">Previous</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item active"><a class="page-link" href="#">2</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div> <!-- simple table -->

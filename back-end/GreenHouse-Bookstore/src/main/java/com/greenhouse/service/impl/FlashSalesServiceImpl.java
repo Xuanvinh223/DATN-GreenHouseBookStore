@@ -40,4 +40,9 @@ public class FlashSalesServiceImpl implements FlashSalesService {
     public void delete(Integer flashSaleId) {
         flashSalesRepository.deleteById(flashSaleId);
     }
+
+    @Override
+    public List<Object[]> findAllFlashSale() {
+        return flashSalesRepository.findAllFlashSale();
+    }
 }

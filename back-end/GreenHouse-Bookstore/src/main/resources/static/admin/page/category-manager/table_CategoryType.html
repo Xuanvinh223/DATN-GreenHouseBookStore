@@ -1,68 +1,94 @@
-<div class="container-fluid">
+<!-- Cập nhật trang danh mục loại danh mục -->
+<div class="container-fluid" ng-controller="CategoryTypeController">
   <div class="row justify-content-center">
     <div class="col-12">
-      <h2 class="mb-2 page-title">Danh Sách Loại Danh Mục</h2>
-      <div class="row my-4">
-        <!-- Small table -->
-        <div class="col-md-12">
-          <div class="card shadow">
-            <div class="card-body">
-              <!-- table -->
-              <table class="table datatables" id="dataTable-1">
-                <thead>
-                  <tr>
-                    <th>STT</th>
-                    <th>ID Loại Danh Mục</th>
-                    <th>Tên Loại Danh Mục</th>
-                    <th>Mô tả</th>
-                    <th>Sửa</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-
-                  <tr>
-                    <td>
-                      1
+      <div class="card-header">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCategoryTypeModal">
+          Thêm Loại Danh Mục
+        </button>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="addCategoryTypeModal" tabindex="-1" role="dialog"
+        aria-labelledby="addCategoryTypeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addCategoryTypeModalLabel">
+                Thêm Loại Danh Mục
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            </td>
-            <td>CA001</td>
-            <td>Sách</td>
-            <td>Sách hay lắm đó nha!</td>
-            <td> <button type="submit" class="btn btn-primary">Sửa</button>
-            </td>
-            </tr>
-            <tr>
-              <td>
-                2
+            <div class="modal-body">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="form-row">
+                      <div class="col-md-8 mb-3">
+                        <label for="typeName">Tên Loại Danh Mục(*)</label>
+                        <input type="text" class="form-control" placeholder="Nhập tên loại danh mục" id="typeName"
+                          name="typeName" ng-model="editingCategoryType.typeName" />
+                      </div>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label for="description">Mô tả</label>
+                      <textarea class="form-control" placeholder="Viết mô tả...." rows="8" id="description" name="description"
+                        ng-model="editingCategoryType.description"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary"
+                      ng-click="saveCategoryType()">{{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Loại Danh Mục' }}</button>
+                    <button type="button" class="btn btn-primary" ng-click="resetForm()">Làm Mới</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
           </div>
-          </td>
-          <td>CA002</td>
-          <td>Dụng cụ học tập</td>
-          <td>Sách hay lắm đó nha!</td>
-          <td> <button type="submit" class="btn btn-primary">Sửa</button>
-          </td>
-          </tr>
-          <tr>
-            <td>
-              3
         </div>
-        </td>
-        <td>CA004</td>
-        <td>Danh mục khác</td>
-        <td>Sách hay lắm đó nha!</td>
-        <td> <button type="submit" class="btn btn-primary">Sửa</button>
-        </td>
-        </tr>
-
-
-        </tbody>
-        </table>
       </div>
     </div>
-  </div> <!-- simple table -->
-</div> <!-- end section -->
-</div> <!-- .col-12 -->
-</div> <!-- .row -->
-</div> <!-- .container-fluid -->
+    <!-- .col-12 -->
+  </div>
+  <!-- .row -->
 
+  <!-- Danh sách loại danh mục -->
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="card shadow">
+        <div class="card-header">
+          <h4 class="card-title">Danh Sách Loại Danh Mục</h4>
+        </div>
+        <div class="card-body">
+          <!-- Bảng hiển thị danh sách loại danh mục -->
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã Loại Danh Mục</th>
+                <th>Tên Loại Danh Mục</th>
+                <th>Mô tả</th>
+                <th>Sửa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="categoryType in categoryTypes">
+                <td>{{$index + 1}}</td>
+                <td>{{categoryType.typeId}}</td>
+                <td>{{categoryType.typeName}}</td>
+                <td>{{categoryType.description}}</td>
+                <td>
+                  <a ng-click="editCategoryTypeAndRedirect(categoryType.typeId)"><i
+                      class="fe fe-edit fe-16"></i></a>
+                  <a ng-click="deleteCategoryType(categoryType.typeId)"><i class="fe fe-trash-2 fe-16"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

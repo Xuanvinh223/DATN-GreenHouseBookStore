@@ -10,7 +10,7 @@ import lombok.Data;
 public class Brand implements Serializable {
 
     @Id
-    @Column(name = "brandid")
+    @Column(name = "brand_id")
     private String brandId;
 
     @Column(name = "brand_name")

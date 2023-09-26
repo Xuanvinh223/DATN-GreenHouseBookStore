@@ -12,26 +12,22 @@ import lombok.Data;
 public class Publishers implements Serializable {
 
     @Id
-    @Column(name = "PublisherId", length = 30)
+    @Column(name = "Publisher_Id", length = 30, nullable = false)
     private String publisherId;
 
-    @Column(name = "PublisherName", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "Publisher_Name", length = 100, nullable = false)
     private String publisherName;
 
-    @Column(name = "Description", columnDefinition = "nvarchar(200)")
+    @Column(name = "Description", length = 200)
     private String description;
 
-    @Column(name = "Address", columnDefinition = "nvarchar(200)", nullable = false)
+    @Column(name = "Address", length = 200, nullable = false)
     private String address;
 
     @Column(name = "Email", length = 50, nullable = false)
     private String email;
 
-    @Column(name = "Image", columnDefinition = "nvarchar(200)")
-    private String image;
-
-    @OneToMany(mappedBy = "publisher")
-    private List<Products> products;
-
+    @Column(name = "Image", length = 200)
+      private String image;
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

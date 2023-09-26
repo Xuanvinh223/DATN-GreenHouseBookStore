@@ -17,15 +17,14 @@
               </div>
               <div class="form-group mb-3">
                 <label for="brandname">Tên thương hiệu(*)</label>
-                <input type="text" name="brandname" class="form-control" placeholder="Nhập tên thương hiệu" ng-model="editingBrand.brandName" ng-disabled="isEditing">
+                <input type="text" name="brandname" class="form-control" placeholder="Nhập tên thương hiệu" ng-model="editingBrand.brandName">
               </div>
               <div class="form-group mb-3">
                 <label for="CountryOfOrigin">Nơi xuất xứ(*)</label>
-                <input type="text" class="form-control" placeholder="Nhập nơi xuất xứ" ng-model="editingBrand.countryOfOrigin" ng-disabled="isEditing">
+                <input type="text" class="form-control" placeholder="Nhập nơi xuất xứ" ng-model="editingBrand.countryOfOrigin">
               </div>
-              <button type="submit" class="btn btn-primary">Thêm mới</button>
-              <button type="submit" class="btn btn-primary">Cập nhật</button>
-              <button type="submit" class="btn btn-danger">Xóa</button>
+              <button type="button" class="btn btn-primary" ng-click="saveBrand()">
+                {{ isEditing ? 'Lưu sửa đổi' : 'Thêm mới' }}</button>
               <button type="submit" class="btn btn-primary" ng-click="resetForm()">Làm mới</button>
             </div> <!-- /.col -->
             <div class="col-md-3 Upload">

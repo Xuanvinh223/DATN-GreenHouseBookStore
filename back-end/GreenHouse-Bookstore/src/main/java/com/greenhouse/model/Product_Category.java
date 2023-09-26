@@ -12,14 +12,14 @@ public class Product_Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private int id;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "ProductId")
+    @JoinColumn(name = "Product_Id")
     private Products product;
 
     @ManyToOne
-    @JoinColumn(name = "CategoryId")
+    @JoinColumn(name = "Category_Id")
     private Categories category;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.

@@ -1,5 +1,6 @@
 package com.greenhouse.restcontroller.AdminRestController;
 
+import com.greenhouse.model.Authors;
 import com.greenhouse.model.Brand;
 import com.greenhouse.service.BrandService;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/brand")
+@RequestMapping(value = "/rest/brand")
 public class RestBrandController {
 
     @Autowired
@@ -20,46 +21,55 @@ public class RestBrandController {
 
     @GetMapping
     public ResponseEntity<List<Brand>> getAllBrand() {
-        List<Brand> brandList = brandService.findAll();
-        return ResponseEntity.ok(brandList);
+        List<Brand> brand = brandService.findAll();
+        return new ResponseEntity<>(brand, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Brand> getBrandById(@PathVariable String id) {
+    public ResponseEntity<Brand> getOne(@PathVariable("id") String id) {
         Brand brand = brandService.findById(id);
-        if (brand != null) {
-            return ResponseEntity.ok(brand);
+        if (brand == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            return ResponseEntity.notFound().build();
+            
+            return new ResponseEntity<>(brand, HttpStatus.OK);
         }
     }
 
     @PostMapping
-    public ResponseEntity<Brand> addBrand(@RequestBody Brand brand) {
-        brandService.add(brand);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    private ResponseEntity<?> create(@RequestBody Brand brand) {
+        // Kiểm tra nếu authorId là null hoặc rỗng thì trả về lỗi
+        if (brand.getBrandId() == null || brand.getBrandId().isEmpty()) {
+            return ResponseEntity.badRequest().body("Mã thương hiệu không hợp lệ.");
+        }
+    
+        Brand existingBrand = brandService.findById(brand.getBrandId());
+        if (existingBrand != null) {
+            return ResponseEntity.badRequest().body("Thương hiệu đã tồn tại.");
+        }
+        
+        Brand createdBrand = brandService.add(brand);
+        return ResponseEntity.ok(createdBrand);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateBrand(@PathVariable String id, @RequestBody Brand updateBrand) {
+    public ResponseEntity<Brand> update(@PathVariable String id, @RequestBody Brand brand) {
         Brand existingBrand = brandService.findById(id);
-        if (existingBrand != null) {
-            updateBrand.setBrandId(existingBrand.getBrandId());
-            brandService.update(updateBrand);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        if (existingBrand == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } 
+        brand.setBrandId(id); // Đảm bảo tính nhất quán về ID
+        brandService.update(brand);
+        return new ResponseEntity<>(brand, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBrand(@PathVariable String id) {
-        Brand brand = brandService.findById(id);
-        if (brand != null) {
-            brandService.delete(id);
-            return ResponseEntity.noContent().build();
-        } else {
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") String id) {
+        Brand existingBrand = brandService.findById(id);
+        if (existingBrand == null) {
             return ResponseEntity.notFound().build();
         }
+        brandService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

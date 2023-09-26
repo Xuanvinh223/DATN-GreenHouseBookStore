@@ -1,8 +1,8 @@
 package com.greenhouse.service;
 
 import com.greenhouse.model.Publishers;
-
 import java.util.List;
+
 
 public interface PublishersService {
 
@@ -10,9 +10,10 @@ public interface PublishersService {
 
     Publishers findById(String publisherId);
 
-    void add(Publishers entity);
+    Publishers add(Publishers entity);
 
-    void update(Publishers entity);
+    Publishers update(Publishers entity);
 
     void delete(String publisherId);
+
 }

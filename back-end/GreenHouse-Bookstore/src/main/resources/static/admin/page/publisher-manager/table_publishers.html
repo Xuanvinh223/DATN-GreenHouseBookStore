@@ -1,175 +1,101 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="PublishersController">
   <div class="row justify-content-center">
     <div class="col-12">
-      <h2 class="mb-2 page-title">Danh sách thương hiệu</h2>
+      <h2 class="mb-2 page-title">Danh sách nhà xuất bản</h2>
       <div class="row my-4">
         <!-- Small table -->
         <div class="col-md-12">
+
           <div class="card shadow">
             <div class="card-body">
+              <div class="toolbar row mb-3">
+                <div class="col">
+                  <form class="form-inline mr-auto  text-muted">
+                    <input class="form-control mr-sm-2 bg-transparent border-1 pl-4 text-muted"
+                      type="search" placeholder="Tìm kiếm..." aria-label="Search"
+                      ng-model="searchKeyword">
+                    <button class="btn btn-secondary" type="button" ng-click="searchPublishers()">
+                      <i class='bx bxs-search'></i>
+                    </button>
+                  </form>
+
+                </div>
+                <div class="col ml-auto">
+                  <div class="dropdown float-right">
+                    <button class="btn btn-secondary" type="button"><i class='bx bxs-file-export mr-1'></i> Xuất File
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               <!-- table -->
-              <table class="table datatables" id="dataTable-1">
+              <table id="myTable" class="table table-hover">
                 <thead>
                   <tr>
                     <th></th>
                     <th>ID</th>
                     <th>Tên nhà xuất bản</th>
-                    <th>Email</th>
-                    <th>Địa chỉ</th>
                     <th>Mô tả</th>
+                    <th>Địa chỉ</th>
+                    <th>Email</th>
                     <th>Hình ảnh Logo</th>
                     <th></th>
 
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr ng-repeat="publisher in publishers">
+                    <td>{{$index + 1}}</td>
+                    <td>{{publisher.publisherId}}</td>
+                    <td>{{publisher.publisherName}}</td>
+                    <td>{{publisher.description}}</td>
+                    <td>{{publisher.address}}</td>
+                    <td>{{publisher.email}}</td>
                     <td>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input">
-
-                      </div>
+                      <img ng-src="/images/{{publisher.image}}"  alt="Chưa có ảnh" style="width: 50px; height: 50px; border-radius: 10%;">
                     </td>
-                    <td>368</td>
-                    <td>Imani Lara</td>
-                    <td>(478) 446-9234</td>
-                    <td>Asset Management</td>
-                    <td>Imani Lara</td>
-                    <td>(478) 446-9234</td>
-
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
                     <td>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input">
-
-                      </div>
-                    </td>
-                    <td>323</td>
-                    <td>Walter Sawyer</td>
-                    <td>(671) 969-1704</td>
-                    <td>Tech Support</td>
-                    <td>Imani Lara</td>
-                    <td>(478) 446-9234</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input">
-
-                      </div>
-                    </td>
-                    <td>371</td>
-                    <td>Noelle Ray</td>
-                    <td>(803) 792-2559</td>
-                    <td>Human Resources</td>
-                    <td>Imani Lara</td>
-                    <td>(478) 446-9234</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input">
-
-                      </div>
-                    </td>
-                    <td>302</td>
-                    <td>Portia Nolan</td>
-                    <td>(216) 946-1119</td>
-                    <td>Payroll</td>
-                    <td>Imani Lara</td>
-                    <td>(478) 446-9234</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input">
-
-                      </div>
-                    </td>
-                    <td>443</td>
-                    <td>Scarlett Anderson</td>
-                    <td>(486) 309-3564</td>
-                    <td>Tech Support</td>
-                    <td>Imani Lara</td>
-                    <td>(478) 446-9234</td>
-                    <td><button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input">
-
-                      </div>
-                    </td>
-                    <td>345</td>
-                    <td>Kevyn Mills</td>
-                    <td>(976) 873-4833</td>
-                    <td>Tech Support</td>
-                    <td>Imani Lara</td>
-                    <td>(478) 446-9234</td>
-                    <td><button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input">
-
-                      </div>
-                    </td>
-                    <td>356</td>
-                    <td>Sharon Buckley</td>
-                    <td>(429) 517-6784</td>
-                    <td>Tech Support</td>
-                    <td>Imani Lara</td>
-                    <td>(478) 446-9234</td>
-                    <td><button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input">
-
-                      </div>
-                    </td>
-                    <td>263</td>
-                    <td>Fletcher Everett</td>
-                    <td>(735) 632-1255</td>
-                    <td>Customer Service</td>
-                    <td>Imani Lara</td>
-                    <td>(478) 446-9234</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input">
-
-                      </div>
-                    </td>
-                    <td>227</td>
-                    <td>Bertha Ball</td>
-                    <td>(656) 680-1553</td>
-                    <td>Sales and Marketing</td>
-                    <td>Imani Lara</td>
-                    <td>(478) 446-9234</td>
-                    <td><button type="submit" class="btn btn-primary">Sửa</button>
+                      <a ng-click="editPublisherAndRedirect(publisher.publisherId)"><i class="fe fe-edit fe-16"></i></a>    
+                      <a ng-click="deletePublisher(publisher.publisherId)">
+                        <i class="fe fe-trash-2 fe-16"></i>
+                      </a>
                     </td>
                   </tr>
                 </tbody>
               </table>
+              <div class="toolbar">
+                <form class="form">
+                  <div class="form-row">
+                    <div class="form-inline col-auto mr-auto">
+                      <label class="my-1 mr-2 " for="inlineFormCustomSelectPref1">Show</label>
+                      <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1">
+                        <option value="">...</option>
+                        <option value="1">12</option>
+                        <option value="2" selected>32</option>
+                        <option value="3">64</option>
+                        <option value="3">128</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-auto">
+                      <span>Đang xem 1 trên tổng số 5 mục</span>
+
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <nav aria-label="Table Paging" class="mb-0 text-muted">
+                <ul class="pagination justify-content-center mb-0">
+                  <li class="page-item" ng-class="{disabled: currentPage === 1}">
+                    <a class="page-link" href="#" ng-click="changePage(currentPage - 1)">Previous</a>
+                  </li>
+                  <li class="page-item" ng-repeat="page in [].constructor(totalPages) track by $index" ng-class="{active: currentPage === page + 1}">
+                    <a class="page-link" href="#" ng-click="changePage(page + 1)">{{$index + 1}}</a>
+                  </li>
+                  <li class="page-item" ng-class="{disabled: currentPage === totalPages}">
+                    <a class="page-link" href="#" ng-click="changePage(currentPage + 1)">Next</a>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div> <!-- simple table -->

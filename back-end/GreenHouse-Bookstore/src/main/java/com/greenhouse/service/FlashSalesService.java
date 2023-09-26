@@ -15,4 +15,6 @@ public interface FlashSalesService {
     void update(FlashSales entity);
 
     void delete(Integer flashSaleId);
+
+    List<Object[]> findAllFlashSale();
 }

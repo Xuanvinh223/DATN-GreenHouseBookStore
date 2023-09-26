@@ -32,19 +32,19 @@ app.config(function ($routeProvider) {
         })
         .when("/category-form", {
             templateUrl: "page/category-manager/form_category.html",
-            controller: ""
+            controller: "CategoryController"
         })
         .when("/category-table", {
             templateUrl: "page/category-manager/table_category.html",
-            controller: ""
+            controller: "CategoryController"
         })
         .when("/categorytype-form", {
             templateUrl: "page/category-manager/form_categorytype.html",
-            controller: ""
+            controller: "CategoryTypeController"
         })
         .when("/categorytype-table", {
             templateUrl: "page/category-manager/table_categorytype.html",
-            controller: ""
+            controller: "CategoryTypeController"
         })
         .when("/discount-form", {
             templateUrl: "page/coupon-manager/form_discount.html",
@@ -64,11 +64,11 @@ app.config(function ($routeProvider) {
         })
         .when("/flashsale-form", {
             templateUrl: "page/coupon-manager/form_flashsale.html",
-            controller: ""
+            controller: "flashsaleController"
         })
         .when("/flashsale-table", {
             templateUrl: "page/coupon-manager/table_flashsale.html",
-            controller: ""
+            controller: "flashsaleController"
         })
         .when("/inventory-form", {
             templateUrl: "page/inventory-manager/inventory_form.html",
