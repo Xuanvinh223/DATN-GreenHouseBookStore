@@ -17431,11 +17431,11 @@ a.uppy-Dashboard-poweredBy {
   justify-content: center;
 }
 
-.order-info .tab-content .order-summary .sub-order-summary{
+.order-info .tab-content .order-summary .sub-order-summary {
   display: flex;
 }
 
-.order-info .tab-content .order-summary .sub-order-summary b{
+.order-info .tab-content .order-summary .sub-order-summary b {
   display: flex;
   justify-content: flex-end;
   width: 150px;
@@ -17505,4 +17505,61 @@ a.uppy-Dashboard-poweredBy {
 .select2 {
   margin-left: 5px;
   /* Điều chỉnh khoảng cách bên trái của combobox */
+}
+
+.truncate-cell {
+  max-width: 100px;
+  /* Độ rộng tối đa của cột */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-find {
+  border: none;
+  border-radius: 3px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.btn-find:hover {
+  background-color: #62ab00;
+}
+
+.total-profit {
+  float: right;
+  margin-right: 50px;
+}
+
+.body-profit {
+  padding: 0 10px 10px 10px;
+  /* Padding top = 0px, Padding right = 10px, Padding bottom = 10px, Padding left = 10px */
+}
+
+.total {
+  float: right;
+  color: orangered;
+  margin-left: 20px;
+}
+
+.expense {
+  float: right;
+  color: #ff1a1a;
+  margin-left: 20px;
+}
+
+.profit {
+  float: right;
+  color: #62ab00;
+  margin-left: 20px;
+}
+
+.table-hr {
+  border: 1px solid #000;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.static-table {
+  margin-bottom: 0px;
 }

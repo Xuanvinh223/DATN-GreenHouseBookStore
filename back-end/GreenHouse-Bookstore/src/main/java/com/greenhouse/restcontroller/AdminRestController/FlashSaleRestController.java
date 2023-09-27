@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.model.Accounts;
-import com.greenhouse.model.FlashSales;
+import com.greenhouse.model.Flash_Sales;
 import com.greenhouse.service.FlashSalesService;
 
 @RestController

@@ -19,6 +19,4 @@ public interface PublishersService {
     Publishers update(Publishers entity);
 
     void delete(String publisherId);
-    Page<Publishers> searchPublishers(String keyword, Pageable pageable);
-
 }

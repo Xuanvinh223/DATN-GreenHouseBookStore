@@ -1,0 +1,68 @@
+<div ng-controller="brandController" class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="card mb-2">
+        <h3 class="mb-3 mt-3 ml-3">Danh sách thương hiệu</h3>
+      </div>
+      <div class="row my-4">
+
+        <!-- Small table -->
+        <div class="col-md-12">
+
+          <div class="card shadow">
+
+            <div class="card-body">
+              <div class="form-inline mb-2 form-group">
+                <div class="input-container ">
+                  <div class="input-wrapper col-lg-9">
+                    <i class="fe fe-search fe-18 icon"></i>
+                    <input class="form-control input" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                  </div>
+                  
+                </div>
+                <div class="button-add col-lg-3">
+                  <button type="button" class="btn btn-success ml-auto" data-toggle="modal"
+                    data-target="#addAuthorModal">
+                    Thêm thương hiệu
+                  </button>
+                </div>
+              </div>
+              <!-- table -->
+              <table class="table table-striped table-hover" id="dataTable-1">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Tên thương hiệu</th>
+                    <th>Nơi xuất xứ</th>
+                    <th>Hình ảnh Logo</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="brand in brands">
+                    <td>{{$index + 1}}</td>
+                    <td>{{brand.brandId}}</td>
+                    <td>{{brand.brandName}}</td>
+                    <td>{{brand.countryOfOrigin}}</td>
+                    <td>{{brand.logo}}</td>
+                    <!-- <td>
+                      <div class="avatar avatar-md">
+                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
+                      </div>
+                    </td> -->
+                    <td>
+                      <a ng-click="editBrandAndRedirect(brand.brandId)"><i class="fe fe-edit fe-16"></i></a>    
+                      <a ng-click="deleteBrand(brand.brandId)">
+                        <i class="fe fe-trash-2 fe-16"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div> <!-- simple table -->
+      </div> <!-- end section -->
+    </div> <!-- .col-12 -->
+  </div> <!-- .row -->
+</div> <!-- .container-fluid -->

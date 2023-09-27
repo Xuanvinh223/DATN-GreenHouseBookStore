@@ -44,10 +44,4 @@ public class PublishersServiceImpl implements PublishersService {
         publishersRepository.deleteById(publisherId);
     }
 
-    @Override
-    public Page<Publishers> searchPublishers(String keyword, Pageable pageable) {
-        // Sử dụng publishersRepository để thực hiện tìm kiếm và phân trang
-        return publishersRepository.searchPublishers(keyword, pageable);
-    }
-
 }

@@ -22,7 +22,7 @@ public class RestPublishersController {
 
     @Autowired
     private PublishersService publishersService;
-    
+
     @Value("${upload.path}")
     private String uploadPath;
 
@@ -42,11 +42,12 @@ public class RestPublishersController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestParam(value = "image", required = false) MultipartFile file, @RequestParam("publisherJson") String publisherJson) {
+    public ResponseEntity<Object> create(@RequestParam(value = "image", required = false) MultipartFile file,
+            @RequestParam("publisherJson") String publisherJson) {
         if (StringUtils.isEmpty(publisherJson)) {
             return new ResponseEntity<>("Thông tin nhà xuất bản không hợp lệ.", HttpStatus.BAD_REQUEST);
         }
-    
+
         // Xử lý tải lên ảnh nếu có
         String uploadedFileName = null;
         if (file != null && !file.isEmpty()) {
@@ -60,31 +61,31 @@ public class RestPublishersController {
                 return new ResponseEntity<>("Lỗi khi tải ảnh lên.", HttpStatus.BAD_REQUEST);
             }
         }
-    
+
         // Xử lý thông tin nhà xuất bản
         Publishers publisher = new Gson().fromJson(publisherJson, Publishers.class);
-    
+
         // Kiểm tra xem ảnh đã tải lên mới chưa và ảnh không null
         if (uploadedFileName != null) {
             publisher.setImage(uploadedFileName);
         } else {
             publisher.setImage(null); // Đặt ảnh thành null nếu không có ảnh
         }
-    
+
         Publishers existingPublisher = publishersService.findById(publisher.getPublisherId());
         if (existingPublisher != null) {
             return new ResponseEntity<>("Nhà xuất bản đã tồn tại.", HttpStatus.BAD_REQUEST);
         }
-    
+
         Publishers createdPublisher = publishersService.add(publisher);
         return new ResponseEntity<>(createdPublisher, HttpStatus.OK);
     }
-    
+
     @PutMapping(value = "/{id}")
     public ResponseEntity<Publishers> update(@PathVariable("id") String id,
-                                            @RequestParam(value = "image", required = false) MultipartFile file,
-                                            @RequestParam("publisherJson") String publisherJson) {
-    
+            @RequestParam(value = "image", required = false) MultipartFile file,
+            @RequestParam("publisherJson") String publisherJson) {
+
         // Xử lý tải lên ảnh (nếu có)
         String uploadedFileName = null;
         if (file != null && !file.isEmpty()) {
@@ -99,24 +100,24 @@ public class RestPublishersController {
                 return ResponseEntity.badRequest().build();
             }
         }
-    
+
         // Chuyển đổi dữ liệu nhà xuất bản từ JSON thành đối tượng Publishers
         Publishers publisher = new Gson().fromJson(publisherJson, Publishers.class);
-    
+
         // Kiểm tra xem ảnh đã tải lên mới chưa và ảnh không null
         if (uploadedFileName != null) {
             publisher.setImage(uploadedFileName);
         } else {
             publisher.setImage(null); // Đặt ảnh thành null nếu không có ảnh
         }
-    
+
         // Cập nhật thông tin nhà xuất bản
         publisher.setPublisherId(id);
-    
+
         Publishers updatedPublisher = publishersService.update(publisher);
         return ResponseEntity.ok(updatedPublisher);
     }
-    
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") String id) {
         Publishers existingPublisher = publishersService.findById(id);
@@ -126,4 +127,6 @@ public class RestPublishersController {
         publishersService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+
 }
