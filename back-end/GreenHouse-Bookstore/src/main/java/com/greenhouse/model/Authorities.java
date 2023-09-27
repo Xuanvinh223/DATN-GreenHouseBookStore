@@ -16,7 +16,7 @@ public class Authorities implements Serializable {
     @Column(name = "Username")
     private String username;
 
-    @Column(name = "roleid")
+    @Column(name = "role_id")
     private int roleId;
 
     @ManyToOne
@@ -24,7 +24,7 @@ public class Authorities implements Serializable {
     private Accounts account;
 
     @ManyToOne
-    @JoinColumn(name = "roleid", referencedColumnName = "RoleId", insertable = false, updatable = false)
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id", insertable = false, updatable = false)
     private Roles role;
 
     // Getters and setters

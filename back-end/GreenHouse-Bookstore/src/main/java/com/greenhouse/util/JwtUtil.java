@@ -12,7 +12,6 @@ import java.security.Key;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import io.jsonwebtoken.security.Keys;
@@ -51,14 +50,16 @@ public class JwtUtil {
 
     // Kiểm tra xem JWT có hết hạn chưa
     public Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        Date expirationDate = extractExpiration(token);
+        Date currentDate = new Date();
+        return expirationDate == null || !expirationDate.before(currentDate);
     }
 
     // Xác minh tính hợp lệ của JWT so với người dùng
     public Boolean validateToken(String token, UserDetails userDetails) {
-    	
+
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (username.equals(userDetails.getUsername()) && isTokenExpired(token));
     }
 
     // Tạo JWT dựa trên tên người dùng
@@ -74,13 +75,13 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+1000*60*30))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
     // Lấy khóa ký và giải mã từ chuỗi bí mật
     private Key getSignKey() {
-        byte[] keyBytes= Decoders.BASE64.decode(SECRET);
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }
