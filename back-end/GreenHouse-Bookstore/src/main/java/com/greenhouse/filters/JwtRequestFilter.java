@@ -35,26 +35,28 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-
             try {
-                username = jwtUtil.extractUsername(token);
+                if (jwtUtil.isTokenExpired(token)) {
+                    username = jwtUtil.extractUsername(token);
+                    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                        if (jwtUtil.validateToken(token, userDetails)) {
+                            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                                    userDetails, null, userDetails.getAuthorities());
+                            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                        }
+                    }
+                }
             } catch (ExpiredJwtException ex) {
                 // Xử lý lỗi khi token hết hạn
-            	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            	response.setContentType("application/json");
-            	response.getWriter().write("{\"error\": \"Token has expired. Please login again.\"}");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType("application/json;charset=UTF-8");
+                String errorMessage = "{\"error\": \"Token hết hạn. Vui lòng đăng nhập lại.\"}";
+                response.getWriter().write(errorMessage);
                 return; // Ngăn chặn việc tiếp tục xử lý yêu cầu
             }
 
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                if (jwtUtil.validateToken(token, userDetails)) {
-                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                            userDetails, null, userDetails.getAuthorities());
-                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                }
-            }
         }
 
         filterChain.doFilter(request, response);
