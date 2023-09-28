@@ -1,4 +1,4 @@
-package com.greenhouse.controller;
+package com.greenhouse.controller.client;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,7 +60,7 @@ public class Maincontroller {
 		return "client/layouts/login";
 	}
 	
-	@GetMapping(value = "/signin")
+	@GetMapping(value = "/resgister")
 	public String signin() {
 		return "client/layouts/signin";
 	}

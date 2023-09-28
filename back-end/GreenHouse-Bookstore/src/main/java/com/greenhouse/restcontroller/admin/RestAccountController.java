@@ -1,4 +1,4 @@
-package com.greenhouse.restcontroller.AdminRestController;
+package com.greenhouse.restcontroller.admin;
 
 import com.greenhouse.model.Accounts;
 import com.greenhouse.service.AccountsService;

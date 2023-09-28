@@ -1,6 +1,7 @@
 const app = angular.module("myApp", ['angular-jwt']);
 
-app.constant('authenticateAPI', 'http://localhost:8081/api/client/authenticate');
+app.constant('authenticateAPI', 'http://localhost:8081/authenticate');
+app.constant('signupAPI', 'http://localhost:8081/sign-up');
 
 app.run(function ($rootScope, $http, $templateCache) {
   var jsFiles = ['js/custom.js', 'js/code.js', 'js/login-register.js', 'js/plugins.js']; // Danh sách các tệp JavaScript
