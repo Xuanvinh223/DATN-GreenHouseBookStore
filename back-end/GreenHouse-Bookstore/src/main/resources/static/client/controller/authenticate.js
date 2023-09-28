@@ -1,5 +1,5 @@
 app.controller('loginController', function ($scope, $http, jwtHelper, authenticateAPI) {
-    var authenticateAPI = 'http://localhost:8081/api/client/authenticate'; // Thay thế bằng URL của API của bạn
+    var host = authenticateAPI; // Thay thế bằng URL của API của bạn
 
     $scope.login = function () {
 
@@ -10,7 +10,7 @@ app.controller('loginController', function ($scope, $http, jwtHelper, authentica
         };
 
         // Gửi POST request đến API
-        $http.post(authenticateAPI, data)
+        $http.post(host, data)
             .then(function (resp) {
                 var status = resp.data.status;
                 var message = resp.data.message;

@@ -1,4 +1,4 @@
-package com.greenhouse.restcontroller.AdminRestController;
+package com.greenhouse.restcontroller.admin;
 
 import com.google.gson.Gson;
 import com.greenhouse.model.Suppliers; // Import Suppliers thay vì Publishers

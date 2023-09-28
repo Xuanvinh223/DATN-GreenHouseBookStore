@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import com.greenhouse.dto.SignupDTO;
 import com.greenhouse.dto.UserDTO;
 import com.greenhouse.model.Accounts;
+import com.greenhouse.model.Authorities;
 import com.greenhouse.repository.AccountRepository;
+import com.greenhouse.repository.AuthoritiesRepository;
 import com.greenhouse.service.AuthService;
 
 @Service
@@ -16,16 +18,25 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private AuthoritiesRepository authoritiesRepository;
+
     @Override
-    public UserDTO createUser(SignupDTO signupDTO) {
+    public UserDTO signup(SignupDTO signupDTO) {
         Accounts accounts = new Accounts();
-        accounts.setUsername(signupDTO.getUsername());
-        accounts.setFullname(signupDTO.getFullname());
-        accounts.setEmail(signupDTO.getEmail());
-        accounts.setPassword(new BCryptPasswordEncoder().encode(signupDTO.getPassword()));
-        
-        Accounts createdUser = accountRepository.save(accounts);
+        Authorities authorities = new Authorities();
         UserDTO accountsDTO = new UserDTO();
+
+        accounts.setUsername(signupDTO.getUsername());
+        accounts.setEmail(signupDTO.getPhone());
+        accounts.setPhone(signupDTO.getPhone());
+
+        Accounts createdUser = accountRepository.save(accounts); // lưu vào db bảng account
+        
+        authorities.setUsername(accounts.getUsername());
+        authorities.setRoleId(3);
+        authoritiesRepository.save(authorities); // lưu vào db bảng authorities
+
         accountsDTO.setUsername(createdUser.getUsername());
         accountsDTO.setEmail(createdUser.getEmail());
         accountsDTO.setFullname(createdUser.getFullname());

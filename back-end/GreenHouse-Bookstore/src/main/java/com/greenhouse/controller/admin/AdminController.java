@@ -1,4 +1,4 @@
-package com.greenhouse.controller.AdminController;
+package com.greenhouse.controller.admin;
 
 import java.util.Collection;
 

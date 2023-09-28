@@ -9,7 +9,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   <script src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.1/dist/sweetalert2.min.css">
-
   <link rel="stylesheet" type="text/css" media="screen" href="/client/css/plugins.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="/client/css/main.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="/client/css/index.css" />
@@ -144,7 +143,7 @@
               <a href="/login" style="margin-top: 5px;" class="button-default active">
                 <span>Đăng nhập</span>
               </a>
-              <a href="/signin" style="margin-top: 10px;" class="button-default">
+              <a href="/resgister" style="margin-top: 10px;" class="button-default">
                 <span>Đăng ký</span>
               </a>
             </div>
@@ -197,7 +196,7 @@
               <a href="/login" style="margin-top: 5px;" type="button" class="button-default active">
                 <span>Đăng nhập</span>
               </a>
-              <a href="/signin" style="margin-top: 5px;" type="button" class="button-default">
+              <a href="/resgister" style="margin-top: 5px;" type="button" class="button-default">
                 <span>Đăng ký</span>
               </a>
               <button style="margin-top: 5px;" type="button" class="button-facebook center_center">
@@ -696,6 +695,7 @@
     <script th:src="@{/client/controller/app.js}"></script>
     <script th:src="@{/client/controller/account-controller.js}"></script>
     <script th:src="@{/client/controller/authenticate.js}"></script>
+    <script th:src="@{/client/controller/signin.js}"></script>
   </th-block>
 </body>
 
