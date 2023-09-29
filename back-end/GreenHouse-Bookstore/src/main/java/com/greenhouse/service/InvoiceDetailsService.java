@@ -15,4 +15,5 @@ public interface InvoiceDetailsService {
     void update(InvoiceDetails entity);
 
     void delete(Integer invoiceDetailId);
+
 }

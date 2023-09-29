@@ -12,7 +12,7 @@ public class Notification implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "NotificationId")
+    @Column(name = "Notification_Id")
     private int notificationId;
 
     @ManyToOne
@@ -22,7 +22,7 @@ public class Notification implements Serializable {
     @Column(name = "Message", columnDefinition = "nvarchar(50)")
     private String message;
 
-    @Column(name = "CreateAt")
+    @Column(name = "Create_At")
     private Date createAt;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.

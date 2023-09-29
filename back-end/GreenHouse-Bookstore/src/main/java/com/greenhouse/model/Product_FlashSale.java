@@ -15,17 +15,17 @@ public class Product_FlashSale implements Serializable {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "FlashSaleId")
+    @JoinColumn(name = "Flash_Sale_Id")
     private FlashSales flashSale;
 
     @ManyToOne
-    @JoinColumn(name = "ProductDetailId")
+    @JoinColumn(name = "Product_Detail_Id")
     private Product_Detail productDetail;
 
     @Column(name = "Quantity")
     private int quantity;
 
-    @Column(name = "UsedQuantity")
+    @Column(name = "Used_Quantity")
     private int usedQuantity;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.

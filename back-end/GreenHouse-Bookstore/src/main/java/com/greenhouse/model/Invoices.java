@@ -2,6 +2,8 @@ package com.greenhouse.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,33 +14,41 @@ public class Invoices implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "InvoiceId")
+    @Column(name = "Invoice_Id")
     private int invoiceId;
 
     @ManyToOne
     @JoinColumn(name = "Username")
     private Accounts username;
 
-    @Column(name = "CreateDate")
+    @Column(name = "Create_Date")
     private Date createDate;
+
+    @Column(name = "Create_By")
+    private String createBy;
 
     @Column(name = "Quantity")
     private int quantity;
 
-    @Column(name = "Amount")
-    private double amount;
+    @Column(name = "Total_Amount")
+    private double totalAmount;
 
-    @ManyToOne
-    @JoinColumn(name = "VoucherId")
-    private Vouchers voucher;
+    @Column(name = "Shipping_Method")
+    private String Shipping_Method;
 
-    @Column(name = "AmountAppliedVoucher")
-    private double amountAppliedVoucher;
+    @Column(name = "Shipping_Fee")
+    private double shippingFee;
 
-    @Column(name = "PaymentMethod")
+    @Column(name = "Payment_Amount")
+    private double paymentAmount;
+
+    @Column(name = "Payment_Method")
     private String paymentMethod;
 
-    @Column(name = "PaymentDate")
+    @Column(name = "Bank_Code")
+    private String bankCode;
+
+    @Column(name = "Payment_Date")
     private Date paymentDate;
 
     @Column(name = "ReceiverName")
@@ -49,10 +59,6 @@ public class Invoices implements Serializable {
 
     @Column(name = "ReceiverAddress")
     private String receiverAddress;
-
-    @ManyToOne
-    @JoinColumn(name = "PaymentStatusId")
-    private PaymentStatus paymentStatus;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

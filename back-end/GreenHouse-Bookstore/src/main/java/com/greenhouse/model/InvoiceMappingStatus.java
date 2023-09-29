@@ -12,18 +12,18 @@ public class InvoiceMappingStatus implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "InvoiceOrderStatusId")
+    @Column(name = "Invoice_Order_Status_Id")
     private int invoiceOrderStatusId;
 
     @ManyToOne
-    @JoinColumn(name = "InvoiceId")
+    @JoinColumn(name = "Invoice_Id")
     private Invoices invoice;
 
     @ManyToOne
-    @JoinColumn(name = "PaymentStatusId")
+    @JoinColumn(name = "Payment_Status_Id")
     private PaymentStatus paymentStatus;
 
-    @Column(name = "UpdateAt")
+    @Column(name = "Update_At")
     private Date updateAt;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.

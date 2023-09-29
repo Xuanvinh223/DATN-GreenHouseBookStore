@@ -17356,26 +17356,6 @@ a.uppy-Dashboard-poweredBy {
   color: #fff;
 }
 
-.order-page .note-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px;
-  font-size: larger;
-  overflow-x: auto;
-  max-width: 100%;
-}
-
-.order-page .note-container .note-item {
-  border-radius: 99px;
-  padding: 8px;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.order-page .note-container .note-item span.dot {
-  margin: 0px !important;
-}
-
 .order-page table tr.order-item {
   cursor: pointer;
 }
@@ -17431,34 +17411,454 @@ a.uppy-Dashboard-poweredBy {
   justify-content: center;
 }
 
-.order-info .tab-content .order-summary .sub-order-summary{
-  display: flex;
+.order-info .tab-content .order-summary .sub-order-summary {
+    display: flex;
 }
 
-.order-info .tab-content .order-summary .sub-order-summary b{
-  display: flex;
-  justify-content: flex-end;
-  width: 150px;
+.order-info .tab-content .order-summary .sub-order-summary b {
+    display: flex;
+    justify-content: flex-end;
+    width: 150px;
 }
 
 .order-info .tab-content .order-by-img {
   max-width: 100%;
-  max-height: 300px;
+    max-height: 300px;
 }
 
 .order-info .tab-content .form-action {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
 }
+
+.order-info .tab-content .form-info {
+    width: 100%;
+    line-height: 28px;
+    border: 2px solid transparent;
+    border-bottom-color: #777;
+    padding: .2rem 0;
+    outline: none;
+    background-color: transparent;
+    color: #e8e8e8;
+    transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.order-info .tab-content .form-info:not(:disabled) {
+    border-bottom-color: #50872f;
+}
+
+.order-info .tab-content .form-info:focus,
+.form-info:hover {
+    outline: none;
+    padding: .2rem 1rem;
+    border-radius: 1rem;
+    border-color: #79c44d;
+}
+
+.order-info .tab-content .form-info::placeholder {
+    color: #bdbdbd;
+}
+
+.order-info .tab-content .form-info:focus::placeholder {
+    opacity: 0;
+    transition: opacity .3s;
+}
+
+.order-info .tab-content label {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* CSS MODAL ORDER */
+
+.order-page #orderModal .modal-body .search-box .form-modal-search button {
+    border: none;
+    background: none;
+    color: #8b8ba7;
+}
+
+.order-page #orderModal .modal-body .search-box .form-modal-search {
+    --timing: 0.3s;
+    --width-of-input: 80%;
+    --height-of-input: 40px;
+    --border-height: 2px;
+    --input-bg: #fff;
+    --border-color: #2f2ee9;
+    --border-radius: 30px;
+    --after-border-radius: 1px;
+    position: relative;
+    width: var(--width-of-input);
+    height: var(--height-of-input);
+    display: flex;
+    align-items: center;
+    padding-inline: 0.8em;
+    border-radius: var(--border-radius);
+    transition: border-radius 0.5s ease;
+    background: var(--input-bg, #fff);
+}
+
+.order-page #orderModal .modal-body .search-box .input {
+    font-size: 0.9rem;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    padding-inline: 0.5em;
+    padding-block: 0.7em;
+    border: none;
+}
+
+.order-page #orderModal .modal-body .search-box .form-modal-search:before {
+    content: "";
+    position: absolute;
+    background: var(--border-color);
+    transform: scaleX(0);
+    transform-origin: center;
+    width: 100%;
+    height: var(--border-height);
+    left: 0;
+    bottom: 0;
+    border-radius: 1px;
+    transition: transform var(--timing) ease;
+}
+
+.order-page #orderModal .modal-body .search-box .form-modal-search:focus-within {
+    border-radius: var(--after-border-radius);
+}
+
+.order-page #orderModal .modal-body .search-box input:focus {
+    outline: none;
+}
+
+.order-page #orderModal .modal-body .search-box .form-modal-search:focus-within:before {
+    transform: scale(1);
+}
+
+.order-page #orderModal .modal-body .search-box .reset {
+    border: none;
+    background: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.order-page #orderModal .modal-body .search-box input:not(:placeholder-shown) ~ .reset {
+    opacity: 1;
+    visibility: visible;
+}
+
+.order-page #orderModal .modal-body .search-box .form-modal-search svg {
+    width: 17px;
+    margin-top: 3px;
+}
+
+/* MODAL - CART PRODUCT LEFT - START*/
+.order-page #orderModal .modal-body .selected-products {
+    position: relative;
+    max-height: 50vh;
+    overflow: auto;
+}
+
+.order-page #orderModal .modal-body .product-cart-left {
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+
+.order-page #orderModal .modal-body .item-product-cart {
+    margin: 1rem 0.8rem;
+}
+
+.order-page #orderModal .modal-body .item-product-cart .img-product-cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0;
+}
+
+.order-page #orderModal .modal-body .item-product-cart .img-product-cart img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.order-page #orderModal .modal-body .group-product-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.order-page #orderModal .modal-body .product-name-full-text {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.order-page #orderModal .modal-body .product-name-full-text {
+    margin: 0;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 18px;
+    display: inline-block;
+    color: #595959;
+}
+
+.order-page #orderModal .modal-body .info-product-cart {
+    width: 50%;
+}
+
+.order-page #orderModal .modal-body .info-product-cart .cart-item-price {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.order-page #orderModal .modal-body .info-product-cart .cart-price .price-old .price {
+    font-size: 1em;
+}
+
+.order-page #orderModal .modal-body .info-product-cart .cart-price .price {
+    font-size: 1.2em;
+    line-height: 1.2em;
+}
+
+.order-page #orderModal .modal-body .price-original .cart-price .price {
+    color: #333;
+    font-weight: 650;
+}
+
+.order-page #orderModal .modal-body .price-old .price {
+    color: #7A7E7F !important;
+    text-decoration: line-through;
+    font-size: 0.95em;
+    font-weight: normal !important;
+}
+
+.order-page #orderModal .modal-body .group-product-info .number-product-cart {
+    width: 50%;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    gap: 20px;
+}
+
+.order-page #orderModal .modal-body .product-view-quantity-box {
+    padding: 0px 10px 0px 10px;
+    width: 100px;
+}
+
+.order-page #orderModal .modal-body .product-view-quantity-box-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #E0E0E0E0;
+    border-radius: 5px;
+    height: 30px;
+}
+
+.order-page #orderModal .modal-body .product-view-quantity-box-block a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s;
+}
+
+.order-page #orderModal .modal-body .product-view-quantity-box-block .qty-carts {
+    border: none !important;
+    flex: 1;
+    width: 2em !important;
+    font-weight: 650;
+    font-size: 1em;
+    text-align: center;
+}
+
+.order-page #orderModal .modal-body input.qty-carts {
+    width: 100%;
+    height: unset !important;
+}
+
+.order-page #orderModal .modal-body .qty-carts {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.order-page #orderModal .modal-body .btn-add-qty,
+.order-page #orderModal .modal-body .btn-subtract-qty {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.order-page #orderModal .modal-body .cart-price-total .cart-price .price {
+    color: #C92127;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.order-page #orderModal .modal-body .cart-ui-content .price {
+    font-family: sans-serif !important;
+}
+
+.order-page #orderModal .modal-body .item-product-cart .btn-remove-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-page #orderModal .modal-body .item-product-cart .btn-remove-box .btn-remove {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+}
+
+.order-page #orderModal .modal-body .border-product {
+    width: 95%;
+    margin: auto;
+    border-bottom-width: 1px;
+    border-bottom-color: #ededed;
+    border-bottom-style: solid;
+}
+
+/* SEARCH - BOX - START */
+/* PRODUCT - START */
+.order-page #orderModal .modal-body .search-box .product-cart-left {
+    z-index: 10;
+    max-height: 100%;
+    width: 80%;
+    overflow: auto;
+    position: absolute !important;
+    top: 12%;
+}
+
+.order-page #orderModal .modal-body .search-box .product-cart-left .item-product-cart {
+    background: #e8ffe9;
+    cursor: pointer;
+    margin: 0 0.8rem;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.order-page #orderModal .modal-body .search-box .product-cart-left .item-product-cart .img-product-cart {
+    padding: 0;
+}
+
+.order-page #orderModal .modal-body .search-box .product-cart-left .item-product-cart:hover {
+    background: #d5f5d6;
+}
+
+.order-page #orderModal .modal-body .search-box .product-cart-left .group-product-info .info-product-cart {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* PRODUCT - END */
+/* SEARCH - BOX - END */
+/* MODAL - CART PRODUCT LEFT - END */
+
+/* MODAL - USER-CUSTOMER-INFO (RIGHT) - START */
+/* SEARCH - BOX - START */
+/* USER - START */
+.order-page #orderModal .modal-body .search-box .search-user-result {
+    background-color: #fff;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 110%;
+    max-height: 250px;
+    overflow: auto;
+    border-radius: 10px;
+    z-index: 999;
+}
+
+.order-page #orderModal .modal-body .search-box .selected-user {
+    position: absolute;
+    top: 0;
+    width: 80%;
+}
+
+.order-page #orderModal .modal-body .search-box .selected-user .user-box {
+    padding: 0.5rem;
+    background: #e8ffe9;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.order-page #orderModal .modal-body .search-box .selected-user .user-box .user-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #009e00;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.order-page #orderModal .modal-body .search-box .selected-user .user-box .user-info .reset {
+    opacity: 1;
+    visibility: visible;
+}
+
+.order-page #orderModal .modal-body .search-box .selected-user .user-box .user-info .reset svg {
+    width: 24px;
+}
+
+.order-page #orderModal .modal-body .search-box .search-user-result .user-box {
+    padding: 0.5rem;
+    background: #e8ffe9;
+    cursor: pointer;
+    margin: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.order-page #orderModal .modal-body .search-box .search-user-result .user-box:hover {
+    background: #cffad1;
+}
+
+.order-page #orderModal .modal-body .search-box .search-user-result .user-box .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.order-page #orderModal .modal-body .search-box .search-user-result .user-box .user-info span {
+    color: #009e00;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* SEARCH - BOX - END */
+.order-page #orderModal .modal-body .form-info-invoice .invoice-fees h6 {
+    width: 100%;
+    text-align: end;
+}
+
+.order-page #orderModal .modal-body .form-info-invoice .invoice-fees .sub-invoice-fees {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+.order-page #orderModal .modal-body .form-info-invoice .invoice-fees .sub-invoice-fees > b {
+    display: flex;
+    justify-content: flex-end;
+    width: 25%;
+}
+
+
+/* USER - END */
+/* MODAL - USER-CUSTOMER-INFO (RIGHT) - START */
 
 
 /* END CSS ORDER PAGE */
 
 /* Định dạng của container chứa icon và input */
 .input-container {
-  width: 60%;
+    width: 60%;
 }
 
 @media (min-width: 992px) {
@@ -17496,13 +17896,19 @@ a.uppy-Dashboard-poweredBy {
 
 /* Đảm bảo icon và combobox nằm cùng một hàng ngang */
 .input-group-prepend .input-group-text {
-  border-right: none !important;
-  padding: 0;
-  /* Loại bỏ khoảng trống xung quanh icon */
+    border-right: none !important;
+    padding: 0;
+    /* Loại bỏ khoảng trống xung quanh icon */
 }
 
 /* Điều chỉnh khoảng cách giữa icon và combobox */
 .select2 {
-  margin-left: 5px;
-  /* Điều chỉnh khoảng cách bên trái của combobox */
+    margin-left: 5px;
+    /* Điều chỉnh khoảng cách bên trái của combobox */
+}
+
+
+/* CUSTOM CSS FOR GREENHOUSE */
+.modal-supper-lg {
+    min-width: 90%;
 }

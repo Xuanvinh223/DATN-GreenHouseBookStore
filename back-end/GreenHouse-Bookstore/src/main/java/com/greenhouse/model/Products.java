@@ -11,44 +11,41 @@ import lombok.Data;
 public class Products implements Serializable {
 
     @Id
-    @Column(name = "ProductId", length = 30)
+    @Column(name = "Product_Id", length = 30)
     private String productId;
 
-    @Column(name = "ProductName", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "Product_Name", columnDefinition = "nvarchar(100)", nullable = false)
     private String productName;
 
     @Column(name = "Description", columnDefinition = "nvarchar(200)")
     private String description;
 
-    @Column(name = "Image", columnDefinition = "nvarchar(200)")
-    private String image;
-
-    @Column(name = "ManufactureDate", nullable = false)
+    @Column(name = "Manufacture_Date", nullable = false)
     private Date manufactureDate;
 
     @Column(name = "status", nullable = false)
     private boolean status;
 
-    @Column(name = "CreateAt")
+    @Column(name = "Create_At")
     private Date createAt;
 
-    @Column(name = "DeleteAt")
+    @Column(name = "Delete_At")
     private Date deleteAt;
 
-    @Column(name = "DeleteBy", length = 200)
+    @Column(name = "Delete_By", length = 200)
     private String deleteBy;
 
-    @Column(name = "UpdateAt")
+    @Column(name = "Update_At")
     private Date updateAt;
 
-    @Column(name = "BrandId", length = 30, nullable = false)
+    @Column(name = "Brand_Id", length = 30, nullable = false)
     private String brandId;
 
     @Column(name = "publisher_id", length = 30, nullable = false)
     private String publisherId;
 
     @ManyToOne
-    @JoinColumn(name = "BrandId", insertable = false, updatable = false)
+    @JoinColumn(name = "Brand_Id", insertable = false, updatable = false)
     private Brand brand;
 
     @ManyToOne
