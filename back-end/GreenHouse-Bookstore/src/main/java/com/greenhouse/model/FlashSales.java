@@ -12,7 +12,7 @@ public class FlashSales implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FlashSaleId")
+    @Column(name = "Flash_Sale_Id")
     private int flashSaleId;
 
     @Column(name = "Name")
@@ -21,13 +21,13 @@ public class FlashSales implements Serializable {
     @Column(name = "Value")
     private int value;
 
-    @Column(name = "StartDate")
+    @Column(name = "Start_Date")
     private Date startDate;
 
-    @Column(name = "EndDate")
+    @Column(name = "End_Date")
     private Date endDate;
 
-    @Column(name = "DiscountPercentage")
+    @Column(name = "Discount_Percentage")
     private int discountPercentage;
 
     @Column(name = "Active")

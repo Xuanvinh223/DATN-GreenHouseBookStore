@@ -17,7 +17,7 @@ public class Book_Authors implements Serializable {
     @Column(name = "author_id")
     private String authorId;
 
-    @Column(name = "ProductId")
+    @Column(name = "Product_Id")
     private String productId;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
@@ -27,7 +27,7 @@ public class Book_Authors implements Serializable {
     private Authors author;
 
     @ManyToOne
-    @JoinColumn(name = "ProductId", referencedColumnName = "ProductId", insertable = false, updatable = false)
+    @JoinColumn(name = "Product_Id", referencedColumnName = "Product_Id", insertable = false, updatable = false)
     private Products product;
 
     // Mối quan hệ nếu cần

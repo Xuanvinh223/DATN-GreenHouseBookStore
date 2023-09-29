@@ -1,33 +1,16 @@
-<div class="container-fluid order-page">
+<div class="container-fluid order-page" ng-controller="OrderController">
   <div class="row justify-content-center">
     <div class="col-12">
       <h2 class="mb-2 page-title">Danh Sách Đơn Hàng</h2>
       <ul class="nav nav-pills nav-fill mb-3" id="order-status" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" id="order-status-1" data-toggle="pill">Trạng thái đơn hàng</a>
-          <span class="notification">
-            <p>2</p>
+        <li class="nav-item" ng-repeat="item in listOrderStatus track by $index">
+          <a class="nav-link" ng-class="{active: item.statusId === selectedStatus}" data-toggle="pill"
+            ng-click="setListOrderByStatus(item.statusId)">
+            {{item.name}}
+          </a>
+          <span class="notification" ng-if="countOrderByStatusId(item.statusId) > 0">
+            <p>{{ countOrderByStatusId(item.statusId) }}</p>
           </span>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="order-status-2" data-toggle="pill">Trạng thái đơn
-            hàng</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " id="order-status-3" data-toggle="pill">Trạng thái đơn
-            hàng</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " id="order-status-4" data-toggle="pill">Trạng thái đơn
-            hàng</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " id="order-status-5" data-toggle="pill">Trạng thái đơn
-            hàng</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " id="order-status-6" data-toggle="pill">Trạng thái đơn
-            hàng</a>
         </li>
       </ul>
       <div class="row my-4">
@@ -35,28 +18,11 @@
         <div class="col-md-12">
           <div class="card shadow">
             <div class="card-body">
-              <div class="d-flex align-items-center justify-content-between mb-4">
-                <div class="note-container">
-                  Trạng thái:
-                  <div class="note-item">
-                    <span class="dot dot-lg bg-primary mr-2"></span>
-                    <span>Thành công</span>
-                  </div>
-                  <div class="note-item">
-                    <span class="dot dot-lg bg-warning mr-2"></span>
-                    <span>Chờ thanh toán</span>
-                  </div>
-                  <div class="note-item">
-                    <span class="dot dot-lg bg-success mr-2"></span>
-                    <span>Đang xử lí</span>
-                  </div>
-                  <div class="note-item">
-                    <span class="dot dot-lg bg-danger mr-2"></span>
-                    <span>Thất bại</span>
-                  </div>
-                </div>
+              <div class="d-flex align-items-end mb-4" ng-if="selectedStatus == 1">
                 <div class="order-table-button">
-                  <button type="button" class="btn btn-success"><i class="fas fa-plus pr-2"></i>Tạo đơn hàng</button>
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#orderModal">
+                    <i class="fas fa-plus pr-2"></i>Tạo đơn hàng
+                  </button>
                 </div>
               </div>
 
@@ -64,59 +30,32 @@
               <table class="table datatables" id="dataTable-1">
                 <thead>
                   <tr>
-                    <th>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="all">
-                        <label class="custom-control-label" for="all"></label>
-                      </div>
-                    </th>
+                    <th>STT</th>
                     <th>Mã đơn hàng</th>
                     <th>Ngày đặt hàng</th>
                     <th>Người đặt hàng</th>
                     <th>Địa chỉ giao hàng</th>
                     <th>Tổng giá trị</th>
                     <th>Phương thức thanh toán</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr class="order-item" data-toggle="collapse" data-target="#id-1">
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="DH000001">
-                        <label class="custom-control-label" for="DH000001"></label>
-                      </div>
-                    </td>
-                    <td>DH000001</td>
-                    <td>15/05/2023</td>
-                    <td>NGUYỄN MINH THỨC</td>
-                    <td>Số 15-16-17, Đường số 5, KDC Tràng An, Phường 7, TP.Bạc Liêu</td>
-                    <td>100,000 đ</td>
-                    <td>SACOMBANK</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Hành động</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Sửa</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                        </div>
-                      </div>
-                    </td>
+                <tbody ng-repeat="order in listOrders track by $index">
+                  <tr class="order-item" data-toggle="collapse" data-target="#DH{{order.orderId}}">
+                    <td>{{$index + 1}}</td>
+                    <td>{{'DH' + order.orderId.toString().padStart(6, '0')}} </td>
+                    <td>{{order.orderDate | date:'dd-MM-yyyy'}}</td>
+                    <td>{{order.invoice.username.fullname}}</td>
+                    <td>{{order.invoice.receiverAddress}}</td>
+                    <td>{{order.invoice.paymentAmount | number:'0'}} đ</td>
+                    <td>{{order.invoice.paymentMethod}}</td>
                   </tr>
-                  <tr id="id-1" class="collapse">
+                  <tr id="DH{{order.orderId}}" class="collapse">
                     <td colspan="10">
                       <div class="order-info">
                         <ul class="nav nav-pills nav-fill" id="order-info" role="tablist">
                           <li class="nav-item">
-                            <a class="nav-link active" id="order-info-1" data-toggle="pill" href="#tab1">Thông tin đơn hàng</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" id="order-info-2" data-toggle="pill" href="#tab2">Tab Mới</a>
+                            <a class="nav-link active" id="order-info-1" data-toggle="pil">Thông tin đơn
+                              hàng</a>
                           </li>
                         </ul>
 
@@ -128,53 +67,72 @@
                                 <div class="col-md-3">
                                   <div class="mb-3">
                                     <label for="order-id" class="form-label">Mã đơn hàng:</label>
-                                    <input type="text" class="form-control" id="order-id" name="order-id">
+                                    <input type="text" class="form-info" id="order-id" name="order-id"
+                                      ng-model="orderId" ng-value="'DH' + order.orderId.toString().padStart(6, '0')"
+                                      ng-disabled="true">
                                   </div>
                                   <div class="mb-3">
                                     <label for="order-by" class="form-label">Người đặt hàng:</label>
-                                    <input type="text" class="form-control" id="order-by" name="order-by">
+                                    <input type="text" class="form-info" id="order-by" name="order-by"
+                                      ng-model="orderBy" ng-value="order.invoice.username.fullname" ng-disabled="true">
                                   </div>
                                   <div class="mb-3">
                                     <label for="order-date" class="form-label">Ngày đặt hàng:</label>
-                                    <input type="datetime" class="form-control" id="order-date" name="order-date">
+                                    <input type="date" class="form-info" id="order-date" name="order-date"
+                                      ng-model="orderDate" ng-value="formatDate(order.orderDate)" ng-disabled="true">
                                   </div>
                                   <div class="mb-3">
                                     <label for="delivery-date" class="form-label">Ngày giao hàng:</label>
-                                    <input type="datetime" class="form-control" id="delivery-date" name="delivery-date">
+                                    <input type="date" class="form-info" id="delivery-date" name="delivery-date"
+                                      ng-model="deliveryDate" ng-value="formatDate(order.deliveryDate)"
+                                      ng-disabled="true">
                                   </div>
                                 </div>
                                 <div class="col-md-3">
                                   <div class="mb-3">
                                     <label for="order-create-by" class="form-label">Người tạo:</label>
-                                    <input type="text" class="form-control" id="order-create-by" name="order-create-by">
+                                    <input type="text" class="form-info" id="order-create-by" name="order-create-by"
+                                      ng-model="orderCreateBy" ng-value="order.username.fullname">
                                   </div>
                                   <div class="mb-3">
                                     <label for="order-reciver-name" class="form-label">Người nhận:</label>
-                                    <input type="text" class="form-control" id="order-reciver-name" name="order-reciver-name">
+                                    <input type="text" class="form-info" id="order-reciver-name"
+                                      name="order-reciver-name" ng-model="orderReceiverName"
+                                      ng-value="order.invoice.receiverName">
                                   </div>
                                   <div class="mb-3">
-                                    <label for="order-reciver-phone" class="form-label">Số điện thoại người nhận:</label>
-                                    <input type="text" class="form-control" id="order-reciver-phone" name="order-reciver-phone">
+                                    <label for="order-reciver-phone" class="form-label">Số điện thoại người
+                                      nhận:</label>
+                                    <input type="text" class="form-info" id="order-reciver-phone"
+                                      name="order-reciver-phone" ng-model="orderReceiverPhone"
+                                      ng-value="order.invoice.receiverPhone">
                                   </div>
                                   <div class="mb-3">
                                     <label for="order-reciver-address" class="form-label">Địa chỉ giao hàng:</label>
-                                    <input type="text" class="form-control" id="order-reciver-address" name="order-reciver-address">
+                                    <input type="text" class="form-info" id="order-reciver-address"
+                                      name="order-reciver-address" ng-model="orderReceiverAddress"
+                                      ng-value="order.invoice.receiverAddress">
                                   </div>
                                 </div>
                                 <div class="col-md-3">
                                   <div class="mb-3">
                                     <label for="order-payment-method" class="form-label">Phương thức thanh toán:</label>
-                                    <input type="text" class="form-control" id="order-payment-method" name="order-payment-method">
+                                    <input type="text" class="form-info" id="order-payment-method"
+                                      name="order-payment-method" ng-model="orderPaymentMethod"
+                                      ng-value="order.invoice.paymentMethod" ng-disabled="true">
                                   </div>
                                   <div class="mb-3">
-                                    <label for="order-payment-status" class="form-label">Thanh toán:</label>
-                                    <input type="text" class="form-control" id="order-payment-status" name="order-payment-status">
+                                    <label for="order-status" class="form-label">Trạng thái đơn hàng:</label>
+                                    <input type="text" class="form-info" id="order-status" name="order-status"
+                                      ng-model="orderStatus" ng-value="getOrderStatusByOrderId(order.orderId)">
                                   </div>
                                 </div>
                                 <div class="col-md-3">
                                   <p>Hình ảnh người đặt hàng:</p>
                                   <div class="order-by-img-box mb-3">
-                                    <img src="https://www.hollywoodreporter.com/wp-content/uploads/2015/06/johnny_depp_dior.jpg?w=2000&h=1126&crop=1" class="order-by-img" alt="">
+                                    <img
+                                      src="https://www.hollywoodreporter.com/wp-content/uploads/2015/06/johnny_depp_dior.jpg?w=2000&h=1126&crop=1"
+                                      class="order-by-img" alt="">
                                   </div>
                                 </div>
                               </div>
@@ -192,37 +150,40 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>Sản phẩm 1</td>
-                                    <td>2</td>
-                                    <td>50,000 đ</td>
-                                    <td>100,000 đ</td>
+                                  <tr
+                                    ng-repeat="item in getListInvoiceDetails(order.invoice.invoiceId) track by $index">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{item.productDetail.product.productName}}</td>
+                                    <td>{{item.quantity}}</td>
+                                    <td>{{item.price}} đ</td>
+                                    <td>{{item.amount}} đ</td>
                                   </tr>
                                 </tbody>
                               </table>
                               <div class="order-summary">
                                 <div class="order-summary-total-quantity sub-order-summary">
-                                  <p>Số lượng sản phẩm:</p> <b>2</b>
+                                  <p>Số lượng sản phẩm:</p> <b>{{order.invoice.quantity}}</b>
                                 </div>
                                 <div class="order-summary-total-amount sub-order-summary">
-                                  <p>Tổng tiền sản phẩm:</p> <b>100,000 đ</b>
+                                  <p>Tổng tiền sản phẩm:</p> <b>{{order.invoice.totalAmount | number:'0'}} đ</b>
                                 </div>
                                 <div class="order-summary-voucher-discount sub-order-summary">
-                                  <p>Voucher hóa đơn giảm:</p> <b>0 đ</b>
+                                  <p>Voucher hóa đơn giảm:</p> <b>{{
+                                    getDiscountAmountByInvoiceID(order.invoice.invoiceId) | number:'0'}} đ</b>
+                                  </b>
                                 </div>
                                 <div class="order-summary-fee-ship sub-order-summary">
-                                  <p>Phí ship:</p> <b>0 đ</b>
+                                  <p>Phí ship:</p> <b>{{order.invoice.shippingFee | number:'0'}} đ</b>
                                 </div>
                                 <div class="order-summary-payment-amount sub-order-summary">
-                                  <p>Tổng tiền cần thanh toán:</p> <b>100,000 đ</b>
+                                  <p>Tổng tiền cần thanh toán:</p> <b>{{order.invoice.totalAmount | number:'0'}} đ</b>
                                 </div>
                               </div>
                               <div class="form-action">
                                 <button type="submit" class="btn btn-primary">Cập nhật</button>
                                 <button type="submit" class="btn btn-primary">Lưu</button>
                                 <button type="submit" class="btn btn-danger">Hủy đơn</button>
-                                
+
                               </div>
                             </form>
                           </div>
@@ -243,4 +204,246 @@
       </div> <!-- end section -->
     </div> <!-- .col-12 -->
   </div> <!-- .row -->
+  <!-- Modal -->
+  <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-supper-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Tạo đơn hàng</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+
+            <!-- Bên trái -->
+            <div class="col-md-7 left-side">
+              <div class="search-box mb-3">
+                <form class="form-modal-search">
+                  <button>
+                    <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" role="img"
+                      aria-labelledby="search">
+                      <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+                        stroke="currentColor" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round">
+                      </path>
+                    </svg>
+                  </button>
+                  <input class="input" placeholder="Tìm kiếm sản phẩm" required="" type="text"
+                    ng-model="searchProductKeyword" ng-change="searchProduct(searchProductKeyword)">
+                  <button class="reset" type="reset" ng-click="searchProduct()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </form>
+                <div class="product-cart-left" ng-if="searchProductKeyword">
+                  <div class="item-product-cart d-flex my-2" ng-repeat="item in searchProductResults track by $index"
+                    ng-click="selectedProduct(item)">
+                    <div class="img-product-cart col-md-1">
+                      <img src="https://bloganchoi.com/wp-content/uploads/2020/11/truyen-cuoi-hai-huoc-nhat-2.jpg"
+                        alt="">
+                    </div>
+                    <div class="group-product-info col-md-11">
+                      <div class="info-product-cart">
+                        <h2 class="product-name-full-text">{{item.product.productName}}
+                          <br>
+                          <span>Còn: {{item.quantityInStock}}</span>
+                        </h2>
+                        <div class="price-original">
+                          <div class="cart-price">
+                            <div class="cart-item-price">
+                              <div>
+                                <span class="price">{{item.newPrice != null ? item.newPrice : item.price | number:'0'}}
+                                  <span class="currency">đ</span></span>
+                              </div>
+                              <div class="price-old" ng-if="item.newPrice != null">
+                                <span class="price">
+                                  {{item.price | number:'0'}} <span class="currency">đ</span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h6>Sản phẩm đã chọn</h6>
+              <div class="selected-products">
+                <div class="product-cart-left">
+                  <div class="item-product-cart row" ng-repeat="item in selectedProducts track by $index">
+                    <div class="img-product-cart col-md-1">
+                      <img src="https://bloganchoi.com/wp-content/uploads/2020/11/truyen-cuoi-hai-huoc-nhat-2.jpg"
+                        alt="">
+                    </div>
+                    <div class="group-product-info col-md-10">
+                      <div class="info-product-cart">
+                        <h2 class="product-name-full-text">{{item.productDetailId.product.productName}}
+                          <br>
+                          <span>Còn: {{item.productDetailId.quantityInStock}}</span>
+                        </h2>
+                        <div class="price-original">
+                          <div class="cart-price">
+                            <div class="cart-item-price">
+                              <div>
+                                <span class="price">{{item.newPrice != null ? item.newPrice : item.price | number:'0'}}
+                                  <span class="currency">đ</span></span>
+                              </div>
+                              <div class="price-old" ng-if="item.newPrice != null">
+                                <span class="price">
+                                  {{item.price | number:'0'}} <span class="currency">đ</span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="number-product-cart">
+                        <div class="product-view-quantity-box">
+                          <div class="product-view-quantity-box-block">
+                            <a class="btn-subtract-qty" ng-click="decreaseQuantityProduct(item)"><img
+                                style="width: 12px; height: auto;vertical-align: middle;"
+                                src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/ico_minus2x.png"></a>
+                            <input type="text" class="qty-carts" ng-model="item.quantity"
+                              ng-change="validateQuantity(item)">
+                            <a class="btn-add-qty" ng-click="increaseQuantityProduct(item)"><img
+                                style="width: 12px; height: auto;vertical-align: middle;"
+                                src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_plus2x.png"></a>
+                          </div>
+                          <div class="product-view-icon-remove-mobile" style="display:none;">
+                            <a title="Remove item" class="btn-remove-mobile-cart"><i class="fa fa-trash-o"
+                                style="font-size:22px"></i></a>
+                          </div>
+                        </div>
+                        <div class="cart-price-total"><span class="cart-price"><span class="price">{{item.amount |
+                              number:'0'}}
+                              đ</span></span></div>
+                      </div>
+                    </div>
+                    <div class="btn-remove-box col-md-1">
+                      <button class="btn-remove" ng-click="deleteCartItem(item)">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </div>
+                    <div class="border-product"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bên phải -->
+            <div class="col-md-5 right-side">
+              <div class="form-group search-box">
+                <form class="form-modal-search">
+                  <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                      <path
+                        d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                    </svg>
+                  </button>
+                  <input class="input" placeholder="Khách hàng" required="" type="text" ng-model="searchUserKeyword"
+                    ng-change="searchUser(searchUserKeyword)">
+                  <button class="reset" type="reset" ng-click="searchUser()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                  <div class="search-user-result">
+                    <div class="user-box" ng-repeat="item in searchUserResults track by $index"
+                      ng-click="selectedUser(item)">
+                      <div class="user-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                          <path
+                            d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                        </svg>
+                        <span>{{ item.username + ' - ' + item.fullname}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+                <div class="selected-user" ng-if="selectedUsers">
+                  <div class="user-box">
+                    <div class="user-info">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                        <path
+                          d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                      </svg>
+                      <span>{{ selectedUsers.username + ' - ' + selectedUsers.fullname}}</span>
+                      <button class="reset" type="reset" ng-click="resetSelectedUser()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row form-info-invoice">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="recipientName">Người nhận hàng:</label>
+                    <input type="text" class="form-control" id="recipientName" name="recipientName">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="recipientPhone">Số điện thoại người nhận:</label>
+                    <input type="text" class="form-control" id="recipientPhone" name="recipientPhone">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="recipientAddress">Địa chỉ giao hàng:</label>
+                    <input type="text" class="form-control" id="recipientAddress" name="recipientAddress">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label>Phương thức vận chuyển</label>
+                  <select class="form-control" id="paymentMethodSelect" name="paymentMethodSelect">
+
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>Phương thức thanh toán</label>
+                  <select class="form-control" id="paymentMethodSelect" name="paymentMethodSelect">
+
+                  </select>
+                </div>
+                <div class="col-md-12">
+                  <div class="invoice-fees">
+                    <h6>Chi phí hóa đơn</h6>
+                    <div class="totalQuantity sub-invoice-fees">
+                      <span>Số lượng sản phẩm: </span><b>{{invoice.quantity | number:'0'}}</b>
+                    </div>
+                    <div class="totalAmount sub-invoice-fees">
+                      <span>Tổng tiền sản phẩm: </span><b>{{invoice.totalAmount | number:'0'}} đ</b>
+                    </div>
+                    <div class="shippingFee sub-invoice-fees">
+                      <span>Phí ship: </span><b>100,000 đ</b>
+                    </div>
+                    <div class="totalAmountPayment sub-invoice-fees">
+                      <span>Tổng tiền thanh toán: </span><b>{{invoice.paymentAmount | number:'0'}} đ</b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+          <button type="button" class="btn btn-primary">Lưu thay đổi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div> <!-- .container-fluid -->

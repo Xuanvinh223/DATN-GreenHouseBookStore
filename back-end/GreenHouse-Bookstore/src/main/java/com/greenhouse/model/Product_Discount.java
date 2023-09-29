@@ -15,11 +15,11 @@ public class Product_Discount implements Serializable {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "DiscountId")
+    @JoinColumn(name = "Discount_Id")
     private Discounts discount;
 
     @ManyToOne
-    @JoinColumn(name = "ProductDetailId")
+    @JoinColumn(name = "Product_Detail_Id")
     private Product_Detail productDetail;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.

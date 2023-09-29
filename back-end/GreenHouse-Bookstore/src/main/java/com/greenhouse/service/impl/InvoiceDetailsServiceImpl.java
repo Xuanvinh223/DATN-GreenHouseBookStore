@@ -40,4 +40,5 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
     public void delete(Integer invoiceDetailId) {
         invoiceDetailsRepository.deleteById(invoiceDetailId);
     }
+
 }

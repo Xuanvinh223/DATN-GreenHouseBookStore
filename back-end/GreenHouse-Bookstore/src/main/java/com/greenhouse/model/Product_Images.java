@@ -15,7 +15,7 @@ public class Product_Images implements Serializable {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "ProductDetailId")
+    @JoinColumn(name = "Product_Detail_Id")
     private Product_Detail productDetail;
 
     @Column(name = "Image", columnDefinition = "nvarchar(200)")

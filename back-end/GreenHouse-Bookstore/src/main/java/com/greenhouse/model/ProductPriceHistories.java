@@ -20,7 +20,7 @@ public class ProductPriceHistories implements Serializable {
     private String username;
 
     @ManyToOne
-    @JoinColumn(name = "ProductDetailId")
+    @JoinColumn(name = "Product_Detail_Id")
     private Product_Detail productDetail;
 
     @Column(name = "PriceOld")

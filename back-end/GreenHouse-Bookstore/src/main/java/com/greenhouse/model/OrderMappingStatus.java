@@ -6,24 +6,24 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Data
+@Data 
 @Table(name = "OrderMappingStatus")
 public class OrderMappingStatus implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "StatusOrderId")
+    @Column(name = "Status_Order_Id")
     private int statusOrderId;
 
     @ManyToOne
-    @JoinColumn(name = "OrderId")
+    @JoinColumn(name = "Order_Id")
     private Orders order;
 
     @ManyToOne
-    @JoinColumn(name = "StatusId")
+    @JoinColumn(name = "Status_Id")
     private OrderStatus status;
 
-    @Column(name = "UpdateAt")
+    @Column(name = "Update_At")
     private Date updateAt;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.

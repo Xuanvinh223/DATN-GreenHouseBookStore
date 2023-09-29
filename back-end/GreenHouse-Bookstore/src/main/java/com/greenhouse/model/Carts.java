@@ -17,7 +17,7 @@ public class Carts implements Serializable {
     @Column(name = "Username")
     private String username;
 
-    @Column(name = "ProductDetailId")
+    @Column(name = "Product_Detail_Id")
     private int productDetailId;
 
     @Column(name = "Quantity")
@@ -28,7 +28,7 @@ public class Carts implements Serializable {
 
     @Column(name = "Amount")
     private double amount;
-
+ 
     @Column(name = "Discount_Id")
     private int discountId;
 
@@ -49,7 +49,7 @@ public class Carts implements Serializable {
     private Discounts discount;
 
     @ManyToOne
-    @JoinColumn(name = "ProductDetailId", referencedColumnName = "ProductDetailId", insertable = false, updatable = false)
+    @JoinColumn(name = "Product_Detail_Id", referencedColumnName = "Product_Detail_Id", insertable = false, updatable = false)
     private Product_Detail productDetail;
 
     // Mối quan hệ nếu cần

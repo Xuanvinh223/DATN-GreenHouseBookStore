@@ -6,12 +6,12 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "PaymentStatus")
+@Table(name = "Payment_Status")
 public class PaymentStatus implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "StatusId")
+    @Column(name = "Status_Id")
     private int statusId;
 
     @Column(name = "Name", columnDefinition = "nvarchar(50)")

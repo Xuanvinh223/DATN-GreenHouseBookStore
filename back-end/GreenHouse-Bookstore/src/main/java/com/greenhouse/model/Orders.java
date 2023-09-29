@@ -12,36 +12,22 @@ public class Orders implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "OrderId")
+    @Column(name = "Order_Id")
     private int orderId;
 
     @ManyToOne
-    @JoinColumn(name = "InvoiceId")
+    @JoinColumn(name = "Invoice_Id")
     private Invoices invoice;
 
     @ManyToOne
-    @JoinColumn(name = "Username")
+    @JoinColumn(name = "Username") 
     private Accounts username;
-
-    @Column(name = "OrderDate")
+ 
+    @Column(name = "Order_Date")
     private Date orderDate;
-
-    @Column(name = "DeliveryDate")
+ 
+    @Column(name = "Delivery_Date") 
     private Date deliveryDate;
-
-    @Column(name = "Amount")
-    private double amount;
-
-    @ManyToOne
-    @JoinColumn(name = "VoucherId")
-    private Vouchers voucher;
-
-    @Column(name = "AmountAppliedVoucher")
-    private double amountAppliedVoucher;
-
-    @ManyToOne
-    @JoinColumn(name = "StatusId")
-    private OrderStatus status;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

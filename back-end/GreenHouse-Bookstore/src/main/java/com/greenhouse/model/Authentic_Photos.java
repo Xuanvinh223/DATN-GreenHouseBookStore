@@ -16,11 +16,11 @@ public class Authentic_Photos implements Serializable {
     @Column(name = "PhotoName")
     private String photoName;
 
-    @Column(name = "ProductReviewId")
+    @Column(name = "Product_Review_Id")
     private int productReviewId;
 
     @ManyToOne
-    @JoinColumn(name = "ProductReviewId", referencedColumnName = "ReviewId", insertable = false, updatable = false)
+    @JoinColumn(name = "Product_Review_Id", referencedColumnName = "Review_Id", insertable = false, updatable = false)
     private Product_Reviews productReview;
 
     // Getters and setters
