@@ -27,29 +27,37 @@
                     <label for="publisherId">ID Nhà Xuất Bản(*)</label>
                     <input type="text" class="form-control" placeholder="Nhập mã nhà xuất bản" id="publisherId"
                       name="publisherId" ng-model="editingPublisher.publisherId" ng-disabled="isEditing" />
+                    <small class="error-label text-danger"
+                      ng-show="errorMessages.publisherId">{{errorMessages.publisherId}}</small>
                   </div>
                   <div class="col-md-5 mb-3">
                     <label for="publisherName">Tên Nhà Xuất Bản(*)</label>
                     <input type="text" class="form-control" placeholder="Nhập tên nhà xuất bản" id="publisherName"
                       name="publisherName" ng-model="editingPublisher.publisherName" />
+                    <small class="error-label text-danger"
+                      ng-show="errorMessages.publisherName">{{errorMessages.publisherName}}</small>
                   </div>
                   <div class="col-md-5 mb-3">
                     <label for="address">Địa Chỉ(*)</label>
                     <input type="text" class="form-control" placeholder="Nhập địa chỉ" id="address" name="address"
                       ng-model="editingPublisher.address" />
+                    <small class="error-label text-danger"
+                      ng-show="errorMessages.address">{{errorMessages.address}}</small>
                   </div>
                   <div class="col-md-5 mb-3">
                     <label for="email">Email(*)</label>
                     <input type="text" class="form-control" placeholder="Nhập email" id="email" name="email"
                       ng-model="editingPublisher.email" />
+                    <small class="error-label text-danger" ng-show="errorMessages.email">{{errorMessages.email}}</small>
                   </div>
-                  <div class="col-md-10 mb-3">
-                    <label for="description">Mô Tả(*)</label>
-                    <input type="text-area" class="form-control" placeholder="Nhập mô tả" id="description" name="description"
-                      ng-model="editingPublisher.description" />
+                  <div class="col-md-5 mb-3">
+                    <label for="description">Mô Tả</label>
+                    <textarea class="form-control" placeholder="Nhập mô tả" id="description" name="description"
+                      ng-model="editingPublisher.description"></textarea>
                   </div>
                 </div>
-                <button type="button" class="btn btn-primary mr-sm-2" ng-click="savePublisher(editingPublisher.publisherName)">
+                <button type="button" class="btn btn-primary mr-sm-2"
+                  ng-click="savePublisher(editingPublisher.publisherName)">
                   {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Nhà Xuất Bản' }}
                 </button>
                 <button type="button" class="btn btn-primary" ng-click="resetForm()">Làm Mới</button>
@@ -61,7 +69,7 @@
                     id="uploadedImage" name="image" style="max-height: 250px; width: 100%; border-radius: 10%;" />
                 </div>
                 <div class="form-label h5 text-center">
-                  <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại diện(*)</label>
+                  <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại diện</label>
                 </div>
                 <div class="row d-flex justify-content-center">
                   <label class="text-center mt-2 btn btn-dark w-100">
