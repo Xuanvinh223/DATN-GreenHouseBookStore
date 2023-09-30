@@ -218,7 +218,6 @@ function SuppliersController($scope, $location, $routeParams, $http) {
             var emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
             return emailRegex.test(email);
         }
-
         if (!isGmail($scope.editingSupplier.email)) {
             // Hiển thị thông báo lỗi nếu email không đúng định dạng Gmail
             $scope.errorMessages.email = `Email "${$scope.editingSupplier.email}" không đúng định dạng Gmail. Vui lòng kiểm tra lại.`;
