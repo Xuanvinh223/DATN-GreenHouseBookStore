@@ -1,5 +1,7 @@
 package com.greenhouse.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,11 +30,13 @@ public class AuthServiceImpl implements AuthService {
         UserDTO accountsDTO = new UserDTO();
 
         accounts.setUsername(signupDTO.getUsername());
-        accounts.setEmail(signupDTO.getPhone());
+        accounts.setPassword(new BCryptPasswordEncoder().encode(signupDTO.getPassword()));
+        accounts.setEmail(signupDTO.getEmail());
         accounts.setPhone(signupDTO.getPhone());
+        accounts.setCreateAt(new Date());
 
         Accounts createdUser = accountRepository.save(accounts); // lưu vào db bảng account
-        
+
         authorities.setUsername(accounts.getUsername());
         authorities.setRoleId(3);
         authoritiesRepository.save(authorities); // lưu vào db bảng authorities

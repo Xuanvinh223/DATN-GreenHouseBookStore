@@ -33,9 +33,14 @@ public class SignupController {
             response.setStatus(400);
             response.setMessage("Thông tin bắt buộc chưa được điền đầy đủ.");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }else if (!signupDTO.getPassword().equals(signupDTO.getRepassword())){
+        } else if (!signupDTO.getPassword().equals(signupDTO.getRepassword())) {
             response.setStatus(400);
             response.setMessage("Mật khẩu không trùng khớp!");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        } else if (!isValidPhoneNumber(signupDTO.getPhone())) {
+            // Kiểm tra số điện thoại
+            response.setStatus(400);
+            response.setMessage("Số điện thoại không hợp lệ.");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
@@ -44,8 +49,7 @@ public class SignupController {
             response.setStatus(400);
             response.setMessage("Tên đăng nhập đã tồn tại.");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-        else if (accountRepository.existsByPhone(signupDTO.getPhone())) {
+        } else if (accountRepository.existsByPhone(signupDTO.getPhone())) {
             // Xử lý lỗi SDT đã tồn tại
             response.setStatus(400);
             response.setMessage("Số điện thoại đã tồn tại.");
@@ -56,7 +60,12 @@ public class SignupController {
             response.setMessage("Đăng ký tài khoản thành công!");
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }
+    }
 
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        // Sử dụng biểu thức chính quy để kiểm tra số điện thoại Việt Nam
+        String regex = "^0[0-9]{9}$"; // Định dạng số điện thoại Việt Nam
+        return phoneNumber.matches(regex);
     }
 
 }
