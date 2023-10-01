@@ -42,4 +42,22 @@ public class AccountsServiceImpl implements AccountsService {
     public void delete(String username) {
         accountsRepository.deleteById(username);
     }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'existsByEmail'");
+    }
+
+    @Override
+    public boolean existsByPhone(String phone) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'existsByPhone'");
+    }
+
+    @Override
+    public boolean existsById(String username) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'existsById'");
+    }
 }
