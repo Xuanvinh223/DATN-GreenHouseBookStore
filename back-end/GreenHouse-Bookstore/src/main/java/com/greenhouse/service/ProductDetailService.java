@@ -10,9 +10,9 @@ public interface ProductDetailService {
 
     Product_Detail findById(Integer productDetailId);
 
-    void add(Product_Detail entity);
+    Product_Detail add(Product_Detail entity);
 
-    void update(Product_Detail entity);
+    Product_Detail update(Product_Detail entity);
 
     void delete(Integer productDetailId);
 }

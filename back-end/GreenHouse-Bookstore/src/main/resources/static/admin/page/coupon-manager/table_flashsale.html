@@ -104,11 +104,10 @@
                     <td>{{item[3] | date:'dd/MM/yyyy' }}</td>
                     <td>{{item[4]}}</td>
                     <td>{{item[5]}}</td>
-                    <td>{{item[6]}}</td>
                     <td>
-                      <span ng-if="item[7] === 1" class="badge badge-pill badge-warning">Đã lên lịch</span>
-                      <span ng-if="item[7] === 2" class="badge badge-pill badge-success">Đang sử dụng</span>
-                      <span ng-if="item[7] === 3" class="badge badge-pill badge-danger">Hết Hạn</span>
+                        <span ng-if="item[6] === 1" class="badge badge-pill badge-warning">Đã lên lịch</span>
+                        <span ng-if="item[6] === 2" class="badge badge-pill badge-success">Đang sử dụng</span>
+                        <span ng-if="item[6] === 3" class="badge badge-pill badge-danger">Hết Hạn</span>
                     </td>
 
                     <td>

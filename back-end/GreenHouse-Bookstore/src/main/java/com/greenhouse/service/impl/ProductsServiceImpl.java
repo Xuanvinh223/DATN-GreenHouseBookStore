@@ -27,13 +27,13 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
-    public void add(Products product) {
-        productsRepository.save(product);
+    public Products add(Products product) {
+        return productsRepository.save(product);
     }
 
     @Override
-    public void update(Products product) {
-        productsRepository.save(product);
+    public Products update(Products product) {
+        return productsRepository.save(product);
     }
 
     @Override

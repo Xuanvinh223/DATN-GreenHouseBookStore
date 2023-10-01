@@ -48,11 +48,11 @@ app.config(function ($routeProvider) {
         })
         .when("/discount-form", {
             templateUrl: "page/coupon-manager/form_discount.html",
-            controller: ""
+            controller: "DiscountController"
         })
         .when("/discount-table", {
             templateUrl: "page/coupon-manager/table_discount.html",
-            controller: ""
+            controller: "DiscountController"
         })
         .when("/voucher-form", {
             templateUrl: "page/coupon-manager/form_voucher.html",
@@ -85,11 +85,11 @@ app.config(function ($routeProvider) {
         })
         .when("/product-table", {
             templateUrl: "page/product-manager/table_product.html",
-            controller: ""
+            controller: "ProductController"
         })
         .when("/product-form", {
             templateUrl: "page/product-manager/form_product.html",
-            controller: ""
+            controller: "ProductController"
         })
         .when("/product-learning-table", {
             templateUrl: "page/product-manager/form_product_learning.html",
@@ -98,20 +98,20 @@ app.config(function ($routeProvider) {
         //nhà xuất bản
         .when("/publisher-form", {
             templateUrl: "page/publisher-manager/form_publishers.html",
-            controller: ""
+            controller: "PublishersController"
         })
         .when("/publisher-table", {
             templateUrl: "page/publisher-manager/table_publishers.html",
-            controller: ""
+            controller: "PublishersController"
         })
         //nhà cung cấp
         .when("/supplier-form", {
             templateUrl: "page/supplier-manager/form_supplier.html",
-            controller: ""
+            controller: "SuppliersController"
         })
         .when("/supplier-table", {
             templateUrl: "page/supplier-manager/table_supplier.html",
-            controller: ""
+            controller: "SuppliersController"
         })
         //thống kê
         .when("/inventory-statics", {
@@ -155,9 +155,8 @@ app.factory('tokenInterceptor', ['$window', function ($window) {
       }
     };
   }]);
-  
-  // Đăng ký interceptor vào ứng dụng
+
+// Đăng ký interceptor vào ứng dụng
   app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('tokenInterceptor');
   }]);
-  

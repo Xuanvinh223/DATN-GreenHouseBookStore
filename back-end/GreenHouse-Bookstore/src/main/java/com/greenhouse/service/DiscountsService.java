@@ -10,9 +10,9 @@ public interface DiscountsService {
 
     Discounts findById(Integer discountId);
 
-    void add(Discounts entity);
+    Discounts add(Discounts entity);
 
-    void update(Discounts entity);
+    Discounts update(Discounts entity);
 
     void delete(Integer discountId);
 }
