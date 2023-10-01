@@ -15,4 +15,7 @@ public interface ProductFlashSaleService {
     void update(Product_FlashSale entity);
 
     void delete(Integer id);
+
+    List<Product_Flash_Sale> findByProductFSId(Integer flashSale);
+
 }

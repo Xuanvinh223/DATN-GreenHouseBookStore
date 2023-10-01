@@ -21,6 +21,11 @@ public class ProductFlashSaleServiceImpl implements ProductFlashSaleService {
     }
 
     @Override
+    public List<Product_Flash_Sale> findByProductFSId(Integer flashSaleId) {
+        return productFlashSaleRepository.findByProductFSId(flashSaleId);
+    }
+
+    @Override
     public Product_FlashSale findById(Integer id) {
         Optional<Product_FlashSale> result = productFlashSaleRepository.findById(id);
         return result.orElse(null);

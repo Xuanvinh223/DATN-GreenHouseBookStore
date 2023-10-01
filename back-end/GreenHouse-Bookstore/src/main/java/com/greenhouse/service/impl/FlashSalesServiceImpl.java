@@ -1,6 +1,7 @@
 package com.greenhouse.service.impl;
 
-import com.greenhouse.model.FlashSales;
+import com.greenhouse.model.Flash_Sales;
+import com.greenhouse.model.Product_Flash_Sale;
 import com.greenhouse.repository.FlashSalesRepository;
 import com.greenhouse.service.FlashSalesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +17,23 @@ public class FlashSalesServiceImpl implements FlashSalesService {
     private FlashSalesRepository flashSalesRepository;
 
     @Override
-    public List<FlashSales> findAll() {
+    public List<Flash_Sales> findAll() {
         return flashSalesRepository.findAll();
     }
 
     @Override
-    public FlashSales findById(Integer flashSaleId) {
-        Optional<FlashSales> result = flashSalesRepository.findById(flashSaleId);
+    public Flash_Sales findById(Integer flashSaleId) {
+        Optional<Flash_Sales> result = flashSalesRepository.findById(flashSaleId);
         return result.orElse(null);
     }
 
     @Override
-    public void add(FlashSales flashSales) {
+    public void add(Flash_Sales flashSales) {
         flashSalesRepository.save(flashSales);
     }
 
     @Override
-    public void update(FlashSales flashSales) {
+    public void update(Flash_Sales flashSales) {
         flashSalesRepository.save(flashSales);
     }
 
@@ -45,4 +46,10 @@ public class FlashSalesServiceImpl implements FlashSalesService {
     public List<Object[]> findAllFlashSale() {
         return flashSalesRepository.findAllFlashSale();
     }
+
+    @Override
+    public List<Object[]> findProductsByStatus() {
+        return flashSalesRepository.findProductsByStatus();
+    }
+
 }

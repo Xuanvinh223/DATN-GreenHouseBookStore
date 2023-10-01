@@ -40,4 +40,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     public void delete(Integer productDetailId) {
         productDetailRepository.deleteById(productDetailId);
     }
+
+    @Override
+    public List<Product_Detail> findProductsByStatus() {
+        return productDetailRepository.findProductsByStatus();
+    }
 }
