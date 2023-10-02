@@ -221,17 +221,8 @@
 
 .product-view-quantity-box-block {
     display: flex;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     flex-direction: row;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-align-items: center;
-    -webkit-justify-content: center;
     justify-content: center;
     border: 1px solid #E0E0E0E0;
     border-radius: 5px;
@@ -240,17 +231,8 @@
 
 .product-view-quantity-box-block a {
     display: flex;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     flex-direction: row;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-align-items: center;
-    -webkit-justify-content: center;
     justify-content: center;
     cursor: pointer;
     user-select: none;
@@ -326,10 +308,7 @@ input.qty-carts {
 }
 
 .cart .cart-ui-content .checkbox-wrapper-12 input[type="checkbox"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
-    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     margin: 0;
 }

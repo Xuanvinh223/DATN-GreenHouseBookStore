@@ -5,9 +5,6 @@
         <div class="card-header">
           <a type="button" class="btn btn-success" href="#!/category-table" >
             Danh Sách Danh Mục
-          </a>  
-          <a type="button" class="btn btn-success" href="#!/categorytype-table" >
-            Danh Sách Loại Danh Mục
           </a>           
         </div>
       </div>
@@ -19,19 +16,24 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-8">
-              <div class="form-row">
-               
-                <div class="col-md-6 mb-3">
-                  <label for="typeId">Tên Loại Danh Mục(*)</label>
-                  <select class="form-control " id="typeId"
-                  ng-model="editingCategory.typeId"
-                  ng-options="typeId as typeId.typeName for typeId in categoryTypes track by typeId.typeName">
-                  <option value="">Chọn loại danh mục</option>
-                </select>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="categoryName">ID Danh Mục(*)</label>
+                        <input type="text" class="form-control" placeholder="Mã danh mục tự động" id="categoryId"
+                               ng-disabled="isEditing"
+                               name="categoryId" ng-model="editingCategory.categoryId"/>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="typeId">Tên Loại Danh Mục(*)</label>
+                        <select class="form-control " id="typeId"
+                                ng-model="editingCategory.typeId"
+                                ng-options="typeId as typeId.typeName for typeId in categoryTypes track by typeId.typeName">
+                            <option value="">Chọn loại danh mục</option>
+                        </select>
+                    </div>
                 </div>
-              </div>
-              <div class="form-group mb-3">
-                <label for="categoryName">Tên Danh Mục(*)</label>
+                <div class="form-group mb-3">
+                    <label for="categoryName">Tên Danh Mục(*)</label>
                 <input type="text" class="form-control" placeholder="Nhập tên danh mục" id="categoryName"
                   name="categoryName" ng-model="editingCategory.categoryName" />
               </div>

@@ -12,19 +12,19 @@ public class ImportInvoice implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ImportInvoiceId")
+    @Column(name = "Import_Invoice_Id")
     private int importInvoiceId;
 
     @Column(name = "Username")
     private String username;
 
-    @Column(name = "CreateDate")
+    @Column(name = "Create_Date")
     private Date createDate;
 
     @Column(name = "Amount")
     private double amount;
 
-    @Column(name = "SupplierId")
+    @Column(name = "Supplier_Id")
     private String supplierId;
 
     @Column(name = "Status")

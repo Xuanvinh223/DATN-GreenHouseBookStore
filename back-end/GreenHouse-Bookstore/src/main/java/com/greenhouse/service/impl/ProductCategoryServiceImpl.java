@@ -26,14 +26,15 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         return result.orElse(null);
     }
 
+
     @Override
-    public void add(Product_Category productCategory) {
-        productCategoryRepository.save(productCategory);
+    public Product_Category add(Product_Category productCategory) {
+        return productCategoryRepository.save(productCategory);
     }
 
     @Override
-    public void update(Product_Category productCategory) {
-        productCategoryRepository.save(productCategory);
+    public Product_Category update(Product_Category productCategory) {
+        return productCategoryRepository.save(productCategory);
     }
 
     @Override

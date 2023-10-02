@@ -1,396 +1,235 @@
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col-12">
-      <h2 class="mb-2 page-title">Danh Sách Sản Phẩm</h2>
-      <div class="row my-4">
-        <!-- Small table -->
-        <div class="col-md-12">
-          <div class="card shadow">
-            <div class="card-body">
-              <!-- table -->
-              <table class="table datatables" id="dataTable-1">
-                <thead>
-                  <tr>
-                    <th>STT</th>
-                    <th>ID Sản Phẩm</th>
-                    <th>Tên Sản Phẩm</th>
-                    <th>Danh Mục</th>
-                    <th>Thương Hiệu</th>
-                    <th>Nhà Xuất Bản</th>
-                    <th>Hình Ảnh</th>
-                    <th>Hành Động</th>
+<div class="container-fluid" ng-controller="ProductController">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addProductModal">
+                        Thêm Sản Phẩm
+                    </button>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog"
+                     aria-labelledby="addProductModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addProductModalLabel">Thêm Sản Phẩm</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="card-body">
+                                    <form enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="productName">Tên Sản Phẩm(*)</label>
+                                                        <input type="text" class="form-control"
+                                                               ng-model="editingProduct.productName"
+                                                               placeholder="Nhập tên sản phẩm">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="brand">Thương Hiệu(*)</label>
+                                                        <select class="form-control " id="brand" name="brand"
+                                                                ng-model="editingProduct.brand"
+                                                                ng-options="brand as brand.brandName for brand in brands track by brand.brandName">
+                                                            <option value="">Chọn thương hiệu</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="category">Tên Danh Mục(*)</label>
+                                                        <select class="form-control" id="category"
+                                                                ng-model="editingProduct.category"
+                                                                ng-options="category as category.categoryName for category in categories track by category.categoryId">
+                                                            <option value="">Chọn tên danh mục</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="author">Tên Tác Giả(*)</label>
+                                                        <select class="form-control" id="author"
+                                                                ng-model="editingProduct.author"
+                                                                ng-options="author as author.authorName for author in authors track by author.authorId">
+                                                            <option value="">Chọn tên tác giả</option>
+                                                        </select>
+                                                    </div>
 
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      1
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="manufactureDate">Ngày Sản Xuất(*)</label>
+                                                        <input class="form-control" id="manufactureDate" type="date"
+                                                               ng-model="editingProduct.manufactureDate">
+                                                    </div>
 
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="publisher">Nhà Xuất Bản(*)</label>
+                                                        <select class="form-control " id="publisher"
+                                                                ng-model="editingProduct.publisher"
+                                                                ng-options="publisher as publisher.publisherName for publisher in publishers track by publisher.publisherName">
+                                                            <option value="">Chọn nhà xuất bản</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <p class="mb-2">Trạng Thái(*)</p>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio"
+                                                                   ng-model="editingProduct.status"
+                                                                   name="status" id="active" ng-value="true">
+                                                            <label class="form-check-label" for="active">Kinh
+                                                                doanh</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio"
+                                                                   ng-model="editingProduct.status"
+                                                                   name="status" id="unactive" ng-value="false">
+                                                            <label class="form-check-label" for="unactive">Ngừng kinh
+                                                                doanh</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label for="description">Mô tả</label>
+                                                    <textarea class="form-control" ng-model="editingProduct.description"
+                                                              placeholder="Viết mô tả...." rows="4"></textarea>
+                                                </div>
+                                            </div>
+                                            <!-- /.col -->
+                                            <div class="col-md-4 ">
+                                                <div class="form-row">
+                                                    <div class="col-md-8 mb-3">
+                                                        <label for="createAt">Ngày Tạo Sản phẩm(*)</label>
+                                                        <input class="form-control" id="createAt" type="date"
+                                                               name="createAt"
+                                                               ng-model="editingProduct.createAt">
+                                                    </div>
 
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      1
-
-                    </td>
-                    <td>PR001</td>
-                    <td>Sách hay lắm đó nha!</td>
-                    <td>Sách Hay</td>
-                    <td>SachMoi</td>
-                    <td>NXB Mới</td>
-                    <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-
-
-                </tbody>
-              </table>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <button type="button" class="btn btn-primary" ng-click="saveProduct()">
+                                                    {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Sản Phẩm' }}
+                                                </button>
+                                                <button type="button" class="btn btn-primary" ng-click="resetForm()">Làm
+                                                    Mới
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                <button type="button" class="btn btn-primary" ng-click="loadProducts()">Lưu</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div> <!-- simple table -->
-      </div> <!-- end section -->
-    </div> <!-- .col-12 -->
-  </div> <!-- .row -->
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h2 class="mb-2 page-title">Danh Sách Sản Phẩm</h2>
+            <div class="row my-4">
+                <!-- Small table -->
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <!-- table -->
+                            <table class="table table-striped table-hover ">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>ID Sản Phẩm</th>
+                                    <th>Tên Sản Phẩm</th>
+                                    <th>Ngày Sản Xuất</th>
+                                    <th>Thương Hiệu</th>
+                                    <th>Nhà Xuất Bản</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Mô Tả</th>
+                                    <th>Hành Động</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="product in products">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{product.productId}}</td>
+                                    <td>{{product.productName}}</td>
+                                    <td>{{product.manufactureDate | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{product.brand.brandName}}</td>
+                                    <td>{{product.publisher.publisherName}}</td>
+                                    <td>{{product.status ? 'Kinh doanh' : 'Ngừng kinh doanh'}}</td>
+                                    <td>{{product.description}}</td>
+                                    <td>
+                                        <a ng-click="editProductAndRedirect(product.productId)"><i
+                                                class="fe fe-edit fe-16"></i></a>
+                                        <a ng-click="deleteProduct(product.productId)"><i
+                                                class="fe fe-trash-2 fe-16"></i></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> <!-- simple table -->
+            </div> <!-- end section -->
+        </div> <!-- .col-12 -->
+        <div class="col-4">
+            <h2 class="mb-2 page-title">Danh Sách Danh Mục</h2>
+            <div class="row my-4">
+                <!-- Small table -->
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+
+                                    <div class="form-row">
+
+                                        <div class="col-md-8 mb-3">
+                                            <label for="productId">Tên Tác Giả(*)</label>
+                                            <select class="form-control" id="productId" ng-model="productId"
+                                                    ng-options="bookAu.author.authorName for bookAu in bookAuthors track by bookAu.id">
+                                                <option value="">Chọn tên tác giả</option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-md-8 mb-3">
+                                            <label for="productId">Tên Danh Mục(*)</label>
+                                            <select class="form-control" id="productId" ng-model="productId"
+                                                    ng-options="proCat.category.categoryName for proCat in productCategories track by proCat.id">
+                                                <option value="">Chọn tên danh mục</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-8 mb-3">
+                                            <label for="productId">Tên Sản Phẩm(*)</label>
+                                            <select class="form-control" id="productId" ng-model="productId"
+                                                    ng-options="proCat.product.productName for proCat in productCategories track by proCat.id">
+                                                <option value="">Chọn tên sản phẩm</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-8 mb-3">
+                                            <label for="productId">Tên Sản Phẩm(*)</label>
+                                            <select class="form-control" id="productId" ng-model="productId"
+                                                    ng-options="proCat.product.productName for proCat in bookAuthors track by proCat.id">
+                                                <option value="">Chọn tên sản phẩm</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- simple table -->
+            </div> <!-- end section -->
+        </div> <!-- .col-12 -->
+    </div> <!-- .row -->
 </div> <!-- .container-fluid -->

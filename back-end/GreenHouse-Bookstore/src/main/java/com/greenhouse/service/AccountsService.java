@@ -8,7 +8,16 @@ public interface AccountsService {
     List<Accounts> findAll();
 
     Accounts findById(String username);
+
     Accounts add(Accounts entity);
-    void update(Accounts entity);
+
+    Accounts update(Accounts entity);
+
     void delete(String username);
+
+    int countByCustomer();
+
+    int countByBrand();
+
+    int countOrdersWithStatus();
 }

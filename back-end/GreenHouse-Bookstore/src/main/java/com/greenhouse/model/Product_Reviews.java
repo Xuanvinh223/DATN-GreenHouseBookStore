@@ -11,14 +11,14 @@ public class Product_Reviews implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ReviewId")
+    @Column(name = "Review_Id")
     private int reviewId;
 
     @Column(name = "Username", length = 50)
     private String username;
 
     @ManyToOne
-    @JoinColumn(name = "ProductId")
+    @JoinColumn(name = "Product_Id")
     private Products product;
 
     @Column(name = "Comment", columnDefinition = "nvarchar(500)")

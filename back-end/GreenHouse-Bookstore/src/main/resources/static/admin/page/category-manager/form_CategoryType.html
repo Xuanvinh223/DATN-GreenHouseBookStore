@@ -3,12 +3,9 @@
     <div class="col-12">
       <div class="card shadow mb-4">
         <div class="card-header">
-          <a type="button" class="btn btn-success" href="#!/categorytype-table" >
-            Danh Sách Loại Danh Mục
-          </a>      
-          <a type="button" class="btn btn-success" href="#!/category-table" >
-            Danh Sách Danh Mục
-          </a>         
+            <a type="button" class="btn btn-success" href="#!/categorytype-table">
+                Danh Sách Loại Danh Mục
+            </a>
         </div>
         
       </div>
@@ -20,12 +17,19 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-8">
-              <div class="form-row">
-                <div class="col-md-8 mb-3">
-                  <label for="typeName">Tên Loại Danh Mục(*)</label>
-                  <input type="text" class="form-control" placeholder="Nhập tên loại danh mục" id="typeName" name="typeName" ng-model="editingCategoryType.typeName" />
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="categoryName">ID Loại Danh Mục(*)</label>
+                        <input type="text" class="form-control" placeholder="Mã loại danh mục tự động" id="typeId"
+                               ng-disabled="isEditing"
+                               name="typeId" ng-model="editingCategoryType.typeId"/>
+                    </div>
+                    <div class="col-md-8 mb-3">
+                        <label for="typeName">Tên Loại Danh Mục(*)</label>
+                        <input type="text" class="form-control" placeholder="Nhập tên loại danh mục" id="typeName"
+                               name="typeName" ng-model="editingCategoryType.typeName"/>
+                    </div>
                 </div>
-              </div>
               <div class="form-group mb-3">
                 <label for="description">Mô tả</label>
                 <textarea class="form-control" placeholder="Viết mô tả...." id="description" rows="8" name="description" ng-model="editingCategoryType.description"></textarea>

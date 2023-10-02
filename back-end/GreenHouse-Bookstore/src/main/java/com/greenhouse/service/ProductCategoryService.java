@@ -10,9 +10,9 @@ public interface ProductCategoryService {
 
     Product_Category findById(Integer id);
 
-    void add(Product_Category entity);
+    Product_Category add(Product_Category entity);
 
-    void update(Product_Category entity);
+    Product_Category update(Product_Category entity);
 
     void delete(Integer id);
 }

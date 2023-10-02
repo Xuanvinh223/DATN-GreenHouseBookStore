@@ -1,4 +1,7 @@
 app.controller("CategoryController", function ($scope, $location, $routeParams, $http) {
+    $scope.$on('$routeChangeSuccess', function (event, current, previous) {
+        $scope.page.setTitle(current.$$route.title || ' Quản Lý Danh Mục');
+    });
     let host = "http://localhost:8081/rest/categories";
     $scope.editingCategory = {};
     $scope.isEditing = false;

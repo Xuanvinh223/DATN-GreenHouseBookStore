@@ -15,11 +15,11 @@ public class ProductAttributeValueMapping implements Serializable {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "ProductDetailId")
+    @JoinColumn(name = "Product_Detail_Id")
     private Product_Detail productDetail;
 
     @ManyToOne
-    @JoinColumn(name = "AttributeValueId")
+    @JoinColumn(name = "Attribute_Value_Id")
     private AttributeValue attributeValue;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.

@@ -1,14 +1,17 @@
 app.controller("CategoryTypeController", function ($scope, $location, $routeParams, $http) {
+    $scope.$on('$routeChangeSuccess', function (event, current, previous) {
+        $scope.page.setTitle(current.$$route.title || ' Quản Lý Loại Danh Mục');
+    });
     let host = "http://localhost:8081/rest/categoryTypes";
     $scope.editingCategoryType = {};
     $scope.isEditing = false;
-  
+
     $scope.categoryTypes = [];
-  
+
     $scope.loadCategoryTypes = function () {
-      var url = `${host}`;
-      $http
-        .get(url)
+        var url = `${host}`;
+        $http
+            .get(url)
         .then((resp) => {
           $scope.categoryTypes = resp.data;
         })

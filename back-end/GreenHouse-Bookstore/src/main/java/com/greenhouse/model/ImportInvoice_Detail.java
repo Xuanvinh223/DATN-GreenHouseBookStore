@@ -1,7 +1,15 @@
 package com.greenhouse.model;
 
 import java.io.Serializable;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
@@ -15,7 +23,7 @@ public class ImportInvoice_Detail implements Serializable {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "ImportInvoiceId")
+    @JoinColumn(name = "Import_Invoice_Id")
     private ImportInvoice importInvoice;
 
     @Column(name = "Quantity")
@@ -25,7 +33,7 @@ public class ImportInvoice_Detail implements Serializable {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "ProductDetailId")
+    @JoinColumn(name = "Product_Detail_Id")
     private Product_Detail productDetail;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.

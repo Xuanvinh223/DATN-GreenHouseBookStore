@@ -11,19 +11,15 @@ public class InvoiceDetails implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "InvoiceDetailId")
+    @Column(name = "Invoice_Detail_Id")
     private int invoiceDetailId;
 
     @ManyToOne
-    @JoinColumn(name = "InvoiceId")
+    @JoinColumn(name = "Invoice_Id")
     private Invoices invoice;
 
     @ManyToOne
-    @JoinColumn(name = "Discount_Id")
-    private Discounts discount;
-
-    @ManyToOne
-    @JoinColumn(name = "ProductDetailId")
+    @JoinColumn(name = "Product_Detail_Id")
     private Product_Detail productDetail;
 
     @Column(name = "Quantity")
@@ -34,9 +30,6 @@ public class InvoiceDetails implements Serializable {
 
     @Column(name = "Amount")
     private double amount;
-
-    @Column(name = "AmountAppliedDiscount")
-    private double amountAppliedDiscount;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

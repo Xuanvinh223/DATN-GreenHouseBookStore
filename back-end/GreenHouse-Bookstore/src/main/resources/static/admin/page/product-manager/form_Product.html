@@ -1,236 +1,148 @@
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col-12">
-      <h2 class="page-title">menu con</h2>
-
-      <div class="card shadow mb-4">
-        <div class="card-header">
-          <h4 class="card-title">Thông Tin Sách</h4>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-8">
-
-              <div class="form-row">
-                <div class="col-md-4 mb-3">
-                  <label for="PublishersID">Mã Sản Phẩm(*)</label>
-                  <input type="text" class="form-control" placeholder="Nhập mã sản phẩm">
-                </div>
-                <div class="col-md-8 mb-3">
-                  <label for="PublishersName">Tên Sản Phẩm(*)</label>
-                  <input type="text" name="brandname" class="form-control" placeholder="Nhập tên sản phẩm">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="col-md-4 mb-3">
-                  <label for="simple-select2">Loại Sản Phẩm(*)</label>
-                  <select class="form-control select2" id="simple-select2">
-                    <optgroup label="Sản phẩm sách">
-                      <option value="AK">Chọn loại sản phẩm</option>
-                      <option value="AK">SáchMoi</option>
-                      <option value="HI">Sách khác</option>
-                    </optgroup>
-                    <optgroup label="Dụng cụ học tập">
-                      <option value="CA">Balo</option>
-                      <option value="NV" disabled="disabled">Nevada (disabled)</option>
-                      <option value="OR">Bút</option>
-                      <option value="WA">Tập</option>
-                    </optgroup>
-                  </select>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <label for="email">Thương Hiệu(*)</label>
-                  <select class="form-control select2" id="simple-select2">
-                    <optgroup label="Thương hiệu">
-                      <option value="CA">Chọn thương hiệu</option>
-                      <option value="CA">Balo</option>
-                      <option value="NV" disabled="disabled">Nevada (disabled)</option>
-                      <option value="OR">Bút</option>
-                      <option value="WA">Tập</option>
-                    </optgroup>
-                  </select>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <label for="address">Ngày Sản Xuất(*)</label>
-                  <input class="form-control" id="example-date" type="date" name="date">
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="col-md-4 mb-3">
-                  <label for="address">Nhà Xuất Bản(*)</label>
-                  <select class="form-control select2" id="simple-select2">
-                    <optgroup label="Nhà xuất bản">
-                      <option value="CA">Chọn nhà xuất bản</option>
-                      <option value="CA">NXB Moi</option>
-                      <option value="NV" disabled="disabled">Nevada (disabled)</option>
-                      <option value="OR">NXB cũ</option>
-                    </optgroup>
-                  </select>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <p class="mb-2">Trạng Thái(*)</p>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="active" value="option3">
-                    <label class="form-check-label" for="active">Kinh doanh</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="unactive"
-                      value="option4">
-                    <label class="form-check-label" for="unactive">Ngừng kinh doanh</label>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group mb-3">
-                <label for="example-textarea">Mô tả</label>
-                <textarea class="form-control" placeholder="Viết mô tả...." id="example-textarea" rows="4"></textarea>
-              </div>
-
-              <p class="mb-3">Chi Tiết Sản Phẩm(*)</p>
-              <div class="form-row">
-                <div class="col-md-4 mb-3">
-                  <label for="simple-select2">Tác Giả(*)</label>
-                  <select class="form-control select2" id="simple-select2">
-
-                    <option value="AK">Chọn tác giả</option>
-                    <option value="AK">SáchMoi</option>
-                    <option value="HI">Sách khác</option>
-
-                  </select>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <label for="simple-select2">Hình thức(*)</label>
-                  <select class="form-control select2" id="simple-select2">
-                    <option value="AK">Chọn hình thức</option>
-                    <option value="AK">SáchMoi</option>
-                    <option value="HI">Sách khác</option>
-
-
-                  </select>
-                </div>
-
-              </div>
-
-              <label for="address">Kích Thước(*)</label>
-              <div class="col-md-12 mb-3">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="customCheck1">
-                  <label class="custom-control-label" for="customCheck1">Size 1</label>
-                  <div class="form-row">
-                    <div class="col-md-3 mb-3">
-                      <label for="example-number">Số Trang(*)</label>
-                      <input class="form-control" id="example-number" type="number" name="number"
-                        placeholder="Nhập số trang">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="example-number">Trọng Lượng(*)</label>
-                      <input class="form-control" id="example-number" type="number" name="number"
-                        placeholder="Nhập trọng lượng ">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="example-number">Số lượng(*)</label>
-                      <input class="form-control" id="example-number" type="number" name="number"
-                        placeholder="Nhập số lượng ">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="example-number">Giá Tiền(*)</label>
-                      <input class="form-control" id="example-number" type="number" name="number"
-                        placeholder="Nhập giá sản phẩm">
-                    </div>
-                  </div>
-
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="customCheck2">
-                  <label class="custom-control-label" for="customCheck2">Size 2</label>
-                  <div class="form-row">
-                    <div class="col-md-3 mb-3">
-                      <label for="example-number">Số Trang(*)</label>
-                      <input class="form-control" id="example-number" type="number" name="number"
-                        placeholder="Nhập số trang">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="example-number">Trọng Lượng(*)</label>
-                      <input class="form-control" id="example-number" type="number" name="number"
-                        placeholder="Nhập trọng lượng ">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="example-number">Số lượng(*)</label>
-                      <input class="form-control" id="example-number" type="number" name="number"
-                        placeholder="Nhập số lượng ">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="example-number">Giá Tiền(*)</label>
-                      <input class="form-control" id="example-number" type="number" name="number"
-                        placeholder="Nhập giá sản phẩm">
-                    </div>
-                  </div>
-
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="customCheck3">
-                  <label class="custom-control-label" for="customCheck3">Size 3</label>
-                  <div class="form-row">
-                    <div class="col-md-3 mb-3">
-                      <label for="example-number">Số Trang(*)</label>
-                      <input class="form-control" id="example-number" type="number" name="number"
-                        placeholder="Nhập số trang">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="example-number">Trọng Lượng(*)</label>
-                      <input class="form-control" id="example-number" type="number" name="number"
-                        placeholder="Nhập trọng lượng ">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="example-number">Số lượng(*)</label>
-                      <input class="form-control" id="example-number" type="number" name="number"
-                        placeholder="Nhập số lượng ">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="example-number">Giá Tiền(*)</label>
-                      <input class="form-control" id="example-number" type="number" name="number"
-                        placeholder="Nhập giá sản phẩm">
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-
-
-              <button type="submit" class="btn btn-primary">Lưu Sản Phẩm</button>
-              <button type="submit" class="btn btn-primary">Làm Mới</button>
-            </div>
-            <!-- /.col -->
-            <div class="col-md-4 Upload">
-              <!-- <div class="form-label h5 text-center">
-                                        <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại diện sản phẩm(*)</label>
-                                     </div>
-                                     <div class="row d-flex justify-content-center">
-                                        <div>
-                                           <img src="./assets/avatars/face-3.jpg" class="img-fluid w-100 h-100">
-                                        </div> 
-                                     </div>
-                                     <div class="row d-flex justify-content-center">
-                                        <label class="text-center mt-2 btn btn-dark w-100">
-                                           <i class="fa fa-upload"></i>
-                                           Tải ảnh đại diện chính
-                                           <input type="file" th:field="*{file}" onchange="uploadImg()" hidden
-                                              accept=".png,.jpg,.jpge">
-                                        </label>
-                                     </div> -->
-              <div class="card shadow mb-4">
+<div class="container-fluid" ng-controller="ProductController">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow mb-4">
                 <div class="card-header">
-                  <strong>Chọn nhiều ảnh</strong>
+                    <a type="button" class="btn btn-success" href="#!/product-table">
+                        Danh Sách Sản Phẩm
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <h4 class="card-title">Thông Tin Sách</h4>
                 </div>
                 <div class="card-body">
-                  <div id="drag-drop-area"></div>
-                </div>
-              </div>
+                    <form enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="productId">Mã Sản Phẩm(*)</label>
+                                        <input type="text" class="form-control" ng-model="editingProduct.productId"
+                                               placeholder="Mã sản phẩm tự động" ng-disabled="isEditing">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="productName">Tên Sản Phẩm(*)</label>
+                                        <input type="text" class="form-control" ng-model="editingProduct.productName"
+                                               placeholder="Nhập tên sản phẩm">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="brand">Thương Hiệu(*)</label>
+                                        <select class="form-control " id="brand" name="brand"
+                                                ng-model="editingProduct.brand"
+                                                ng-options="brand as brand.brandName for brand in brands track by brand.brandName">
+                                            <option value="">Chọn thương hiệu</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="category">Tên Danh Mục(*)</label>
+                                        <select class="form-control" id="category" ng-model="editingProduct.category"
+                                                ng-options="category as category.categoryName for category in categories track by category.categoryId">
+                                            <option value="">Chọn tên danh mục</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="author">Tên Tác Giả(*)</label>
+                                        <select class="form-control" id="author" ng-model="editingProduct.author"
+                                                ng-options="author as author.authorName for author in authors track by author.authorId">
+                                            <option value="">Chọn tên tác giả</option>
+                                        </select>
+                                    </div>
 
 
-            </div>
-          </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="manufactureDate">Ngày Sản Xuất(*)</label>
+                                        <input class="form-control" id="manufactureDate" type="date"
+                                               ng-model="editingProduct.manufactureDate">
+                                    </div>
+
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="publisher">Nhà Xuất Bản(*)</label>
+                                        <select class="form-control " id="publisher" name="publisher"
+                                                ng-model="editingProduct.publisher"
+                                                ng-options="publisher as publisher.publisherName for publisher in publishers track by publisher.publisherName">
+                                            <option value="">Chọn nhà xuất bản</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <p class="mb-2">Trạng Thái(*)</p>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio"
+                                                   ng-model="editingProduct.status" name="status" id="active"
+                                                   ng-value="true">
+                                            <label class="form-check-label" for="active">Kinh doanh</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio"
+                                                   ng-model="editingProduct.status" name="status" id="unactive"
+                                                   ng-value="false">
+                                            <label class="form-check-label" for="unactive">Ngừng kinh doanh</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="description">Mô tả</label>
+                                    <textarea class="form-control" ng-model="editingProduct.description"
+                                              placeholder="Viết mô tả...." rows="4"></textarea>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-4 ">
+                                <div class="form-row">
+                                    <div class="col-md-8 mb-3">
+                                        <label for="createAt">Ngày Tạo Sản phẩm(*)</label>
+                                        <input class="form-control" id="createAt" type="date" name="createAt"
+                                               ng-model="editingProduct.createAt">
+                                    </div>
+                                    <span ng-show="editingProduct.priceDiscount">Số giá giảm: {{ editingProduct.priceDiscount }}</span>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="price">Giá Sản Phẩm(*)</label>
+                                        <input type="number" class="form-control" ng-model="editingProduct.price"
+                                               name="price" placeholder="Nhập giá sản phẩm">
+                                    </div>
+
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="discount">Phần Trăm Giảm(*)</label>
+                                        <select class="form-control" id="discount" ng-model="editingProduct.discount"
+                                                ng-options="discount as discount.value for discount in discounts track by discount.discountId"
+                                                ng-change="calculateDiscount()">
+                                            <option value="">Chọn phần trăm giảm</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="image">Tên Ảnh Sản Phẩm(*)</label>
+                                        <input type="text" class="form-control" ng-model="editingProduct.image"
+                                               name="image" placeholder="Nhập tên sản phẩm">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="quantityInStock">Số lượng Sản Phẩm(*)</label>
+                                        <input type="number" class="form-control"
+                                               ng-model="editingProduct.quantityInStock" name="quantityInStock"
+                                               placeholder="Nhập tên sản phẩm">
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <button type="button" class="btn btn-primary" ng-click="saveProduct()">
+                                    {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Sản Phẩm' }}
+                                </button>
+                                <button type="button" class="btn btn-primary" ng-click="resetForm()">Làm Mới</button>
+                            </div>
+                        </div>
+                    </form>
         </div>
 
       </div> <!-- / .card -->

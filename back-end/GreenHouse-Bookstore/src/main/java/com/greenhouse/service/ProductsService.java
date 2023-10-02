@@ -10,9 +10,9 @@ public interface ProductsService {
 
     Products findById(String productId);
 
-    void add(Products entity);
+    Products add(Products entity);
 
-    void update(Products entity);
+    Products update(Products entity);
 
     void delete(String productId);
 }

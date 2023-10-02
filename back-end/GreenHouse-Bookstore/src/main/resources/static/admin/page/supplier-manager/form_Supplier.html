@@ -1,84 +1,108 @@
 <div class="container-fluid" ng-controller="SuppliersController">
     <div class="row justify-content-center">
-      <div class="col-12">
-        <div class="card shadow mb-4">
-          <div class="card-header">
-            <a type="button" class="btn btn-success" href="#!/supplier-table">
-              Danh Sách Nhà Cung Cấp
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="card shadow mb-4">
-          <div class="card-header">
-            <h4 class="card-title">Thông Tin Nhà Cung Cấp</h4>
-          </div>
-          <div class="card-body">
-            <form enctype="multipart/form-data">
-              <div class="row">
-                <div class="col-md-8">
-                  <div class="form-row">
-                    <div class="col-md-5 mb-3">
-                      <label for="supplierId">ID Nhà Cung Cấp(*)</label>
-                      <input type="text" class="form-control" placeholder="Nhập mã nhà cung cấp" id="supplierId" name="supplierId" ng-model="editingSupplier.supplierId" ng-disabled="isEditing" />
+        <div class="col-12">
+            <div class="toolbar row mb-2">
+                <div class="col ml-auto">
+                    <div class="float-right">
+                        <form class="form-inline mr-auto  text-muted ">
+                            <a type="button" class="btn btn-success " href="#!/supplier-table">
+                                Danh Sách Nhà Cung Cấp
+                            </a>
+                        </form>
                     </div>
-                    <div class="col-md-5 mb-3">
-                      <label for="supplierName">Tên Nhà Cung Cấp(*)</label>
-                      <input type="text" class="form-control" placeholder="Nhập tên nhà cung cấp" id="supplierName"
-                        name="supplierName" ng-model="editingSupplier.supplierName" />
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="col-md-5 mb-3">
-                      <label for="description">Mô Tả(*)</label>
-                      <input type="text" class="form-control" placeholder="Nhập mô tả" id="description" name="description"
-                        ng-model="editingSupplier.description" />
-                    </div>
-                    <div class="col-md-5 mb-3">
-                      <label for="address">Địa Chỉ(*)</label>
-                      <input type="text" class="form-control" placeholder="Nhập địa chỉ" id="address" name="address"
-                        ng-model="editingSupplier.address" />
-                    </div>
-                    <div class="col-md-5 mb-3">
-                      <label for="email">Email(*)</label>
-                      <input type="text" class="form-control" placeholder="Nhập email" id="email" name="email"
-                        ng-model="editingSupplier.email" />
-                    </div>
-                    <div class="col-md-5 mb-3">
-                      <label for="phone">Số Điện Thoại(*)</label>
-                      <input type="text" class="form-control" placeholder="Nhập số điện thoại" id="phone" name="phone"
-                        ng-model="editingSupplier.phone" />
-                    </div>
-                  </div>
-                  <button type="button" class="btn btn-primary" ng-click="saveSupplier(editingSupplier.supplierName)">
-                    {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Nhà Cung Cấp' }}
-                  </button>
-                  <button type="button" class="btn btn-primary" ng-click="resetForm()">Làm Mới</button>
                 </div>
-                <!-- /.col -->
-                <div class="col-md-2 Upload">
-                  <div class="row d-flex justify-content-center">
-                    <img class="object-fit" ng-src="/images/{{editingSupplier.image}}" alt="Uploaded Image" id="uploadedImage"
-                      name="image" style="max-height: 250px; width: 100%; border-radius: 10%;" />
-                  </div>
-                  <div class="form-label h5 text-center">
-                    <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại diện(*)</label>
-                  </div>
-                  <div class="row d-flex justify-content-center">
-                    <label class="text-center mt-2 btn btn-dark w-100">
-                      <i class="fa fa-upload"></i>
-                      Tải ảnh đại diện
-                      <input type="file" name="file" style="object-fit: contain;" id="fileInput" ng-model="editingSupplier.image"
-                        onchange="displayImage(event)" hidden accept=".png,.jpg,.jpeg" />
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
+            </div>
         </div>
-      </div>
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <h4 class="card-title">Thông Tin Nhà Cung Cấp</h4>
+                </div>
+                <div class="card-body">
+                    <form enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-row">
+                                    <div class="col-md-5 mb-3">
+                                        <label for="supplierId">ID Nhà Cung Cấp(*)</label>
+                                        <input type="text" class="form-control" placeholder="Nhập mã nhà cung cấp"
+                                               id="supplierId"
+                                               name="supplierId" ng-model="editingSupplier.supplierId"
+                                               ng-disabled="isEditing"/>
+                                        <small class="error-label text-danger"
+                                               ng-show="errorMessages.supplierId">{{errorMessages.supplierId}}</small>
+                                    </div>
+                                    <div class="col-md-5 mb-3">
+                                        <label for="supplierName">Tên Nhà Cung Cấp(*)</label>
+                                        <input type="text" class="form-control" placeholder="Nhập tên nhà cung cấp"
+                                               id="supplierName"
+                                               name="supplierName" ng-model="editingSupplier.supplierName"/>
+                                        <small class="error-label text-danger"
+                                               ng-show="errorMessages.supplierName">{{errorMessages.supplierName}}</small>
+                                    </div>
+                                    <div class="col-md-5 mb-3">
+                                        <label for="address">Địa Chỉ(*)</label>
+                                        <input type="text" class="form-control" placeholder="Nhập địa chỉ" id="address"
+                                               name="address"
+                                               ng-model="editingSupplier.address"/>
+                                        <small class="error-label text-danger"
+                                               ng-show="errorMessages.address">{{errorMessages.address}}</small>
+                                    </div>
+                                    <div class="col-md-5 mb-3">
+                                        <label for="email">Email(*)</label>
+                                        <input type="text" class="form-control" placeholder="Nhập email" id="email"
+                                               name="email"
+                                               ng-model="editingSupplier.email"/>
+                                        <small class="error-label text-danger"
+                                               ng-show="errorMessages.email">{{errorMessages.email}}</small>
+                                    </div>
+                                    <div class="col-md-5 mb-3">
+                                        <label for="description">Mô Tả</label>
+                                        <textarea class="form-control" placeholder="Nhập mô tả" id="description"
+                                                  name="description"
+                                                  ng-model="editingSupplier.description"></textarea>
+                                    </div>
+                                    <div class="col-md-5 mb-3">
+                                        <label for="phone">Số Điện Thoại(*)</label>
+                                        <input type="text" class="form-control" placeholder="Nhập số điện thoại"
+                                               id="phone" name="phone"
+                                               ng-model="editingSupplier.phone"/>
+                                        <small class="error-label text-danger"
+                                               ng-show="errorMessages.phone">{{errorMessages.phone}}</small>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary"
+                                        ng-click="saveSupplier(editingSupplier.supplierName)">
+                                    {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Nhà Cung Cấp' }}
+                                </button>
+                                <button type="button" class="btn btn-primary" ng-click="resetForm()">Làm Mới</button>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-2 Upload">
+                                <div class="row d-flex justify-content-center">
+                                    <img class="object-fit" ng-src="/images/{{editingSupplier.image}}"
+                                         alt="Chưa có ảnh nào được tải"
+                                         id="uploadedImage" name="image"
+                                         style="max-height: 250px; width: 100%; border-radius: 10%;"/>
+                                </div>
+                                <div class="form-label h5 text-center">
+                                    <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại
+                                        diện</label>
+                                </div>
+                                <div class="row d-flex justify-content-center">
+                                    <label class="text-center mt-2 btn btn-dark w-100">
+                                        <i class="fa fa-upload"></i>
+                                        Tải ảnh đại diện
+                                        <input type="file" name="file" style="object-fit: contain;" id="fileInput"
+                                               ng-model="editingSupplier.image" onchange="displayImage(event)" hidden
+                                               accept=".png,.jpg,.jpeg"/>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  
+</div>

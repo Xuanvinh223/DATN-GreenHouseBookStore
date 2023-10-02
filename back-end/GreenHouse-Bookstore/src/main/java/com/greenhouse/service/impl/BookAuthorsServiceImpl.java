@@ -27,13 +27,13 @@ public class BookAuthorsServiceImpl implements BookAuthorsService {
     }
 
     @Override
-    public void add(Book_Authors bookAuthors) {
-        bookAuthorsRepository.save(bookAuthors);
+    public Book_Authors add(Book_Authors bookAuthors) {
+        return bookAuthorsRepository.save(bookAuthors);
     }
 
     @Override
-    public void update(Book_Authors bookAuthors) {
-        bookAuthorsRepository.save(bookAuthors);
+    public Book_Authors update(Book_Authors bookAuthors) {
+        return bookAuthorsRepository.save(bookAuthors);
     }
 
     @Override

@@ -11,23 +11,26 @@ public class Product_Detail implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ProductDetailId")
+    @Column(name = "Product_Detail_Id")
     private int productDetailId;
 
     @ManyToOne
-    @JoinColumn(name = "ProductId")
+    @JoinColumn(name = "Product_Id")
     private Products product;
 
     @Column(name = "Price")
     private double price;
 
-    @Column(name = "QuantityInStock")
+    @Column(name = "Price_discount")
+    private double priceDiscount;
+
+    @Column(name = "Quantity_In_Stock")
     private int quantityInStock;
 
     @Column(name = "Image", columnDefinition = "nvarchar(200)")
     private String image;
 
-    @Column(name = "ProductImageId")
+    @Column(name = "Product_Image_Id")
     private int productImageId;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.

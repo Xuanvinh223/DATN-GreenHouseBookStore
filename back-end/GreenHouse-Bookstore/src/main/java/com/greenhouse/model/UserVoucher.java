@@ -18,7 +18,7 @@ public class UserVoucher implements Serializable {
     private String username;
 
     @ManyToOne
-    @JoinColumn(name = "VoucherId")
+    @JoinColumn(name = "Voucher_Id")
     private Vouchers voucher;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
