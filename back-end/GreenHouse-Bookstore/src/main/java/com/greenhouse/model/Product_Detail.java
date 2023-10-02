@@ -14,12 +14,15 @@ public class Product_Detail implements Serializable {
     @Column(name = "Product_Detail_Id")
     private int productDetailId;
 
-    @ManyToOne 
+    @ManyToOne
     @JoinColumn(name = "Product_Id")
     private Products product;
 
     @Column(name = "Price")
     private double price;
+
+    @Column(name = "Price_discount")
+    private double priceDiscount;
 
     @Column(name = "Quantity_In_Stock")
     private int quantityInStock;

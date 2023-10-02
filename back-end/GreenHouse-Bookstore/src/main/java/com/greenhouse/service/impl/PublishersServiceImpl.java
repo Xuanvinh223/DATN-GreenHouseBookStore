@@ -32,12 +32,13 @@ public class PublishersServiceImpl implements PublishersService {
     }
 
     @Override
-    public void update(Publishers publisher) {
-        publishersRepository.save(publisher);
+    public Publishers update(Publishers publisher) {
+        return publishersRepository.save(publisher);
     }
 
     @Override
     public void delete(String publisherId) {
         publishersRepository.deleteById(publisherId);
     }
+
 }

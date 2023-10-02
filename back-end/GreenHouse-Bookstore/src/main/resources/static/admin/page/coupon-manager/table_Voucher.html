@@ -1,34 +1,50 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-12">
-      <h2 class="mb-2 page-title">Thêm Khuyến Mãi</h2>
-      <div class="row my-4">
-        <!-- Small table -->
-        <div class="col-md-12">
-          <div class="card shadow">
-            <div class="card-header">
-              <h4 class="card-title">Danh Sách Khuyến Mãi</h4>
-            </div>
-            <div class="card-body">
-              <!-- table -->
-              <table class="table datatables" id="dataTable-1">
-                <thead>
-                  <tr>
-                    <th>STT</th>
-                    <th>Mã Khuyến Mãi</th>
-                    <th>Ngày Bắt Đầu</th>
-                    <th>Ngày Kết Thúc</th>
-                    <th>Giá Tiền Chiếc Khấu</th>
-                    <th>Số Lượng Sử Dụng</th>
-                    <th>Trạng Thái</th>
-                    <th>Tổng Số Lượng</th>
-                    <th>Sửa</th>
+        <div class="card mb-2">
+            <h3 class="mb-3 mt-3 ml-3">Danh sách khuyến mãi</h3>
+        </div>
+        <div class="row my-4">
+            <!-- Small table -->
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="form-inline mb-2 form-group">
+                            <div class="input-container ">
+                                <div class="input-wrapper col-lg-9">
+                                    <i class="fe fe-search fe-18 icon"></i>
+                                    <input class="form-control input" type="search" placeholder="Tìm kiếm..."
+                                           aria-label="Search">
+                                </div>
 
-                  </tr>
+                            </div>
+                            <div class="button-add col-lg-3">
+                                <a type="button" class="btn btn-success" href="#!/voucher-form">
+                                    Thêm khuyến mãi
+                                </a>
+                            </div>
+                        </div>
+                        <!-- table -->
+                        <table class="table datatables" id="dataTable-1">
+                            <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã Khuyến Mãi</th>
+                                <th>Ngày Bắt Đầu</th>
+                                <th>Ngày Kết Thúc</th>
+                                <th>Loại sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Ngày Kết Thúc</th>
+                                <th>Giá Tiền Chiếc Khấu</th>
+                                <th>Số Lượng Sử Dụng</th>
+                                <th>Trạng Thái</th>
+                                <th>Tổng Số Lượng</th>
+                                <th>Sửa</th>
+
+                            </tr>
                 </thead>
                 <tbody>
-
-                  <tr>
+                <tr>
                     <td>1</td>
                     <td>PROMO10</td>
                     <td>2023-09-15 00:00:00</td>
@@ -37,57 +53,12 @@
                     <td>23</td>
                     <td>100</td>
                     <td>Chưa sử dụng</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
+                    <td>
+                        <a ng-click="editAccountsAndRedirect(account.username)"><i class="fe fe-edit fe-16"></i></a>
+                        <a ng-click="deleteAccounts(account.username)">
+                            <i class="fe fe-trash-2 fe-16"></i>
                     </td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>PROMO10</td>
-                    <td>2023-09-15 00:00:00</td>
-                    <td>2023-09-30 23:59:59</td>
-                    <td>10.00</td>
-                    <td>23</td>
-                    <td>100</td>
-                    <td>Chưa sử dụng</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>PROMO10</td>
-                    <td>2023-09-15 00:00:00</td>
-                    <td>2023-09-30 23:59:59</td>
-                    <td>10.00</td>
-                    <td>23</td>
-                    <td>100</td>
-                    <td>Chưa sử dụng</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>PROMO10</td>
-                    <td>2023-09-15 00:00:00</td>
-                    <td>2023-09-30 23:59:59</td>
-                    <td>10.00</td>
-                    <td>23</td>
-                    <td>100</td>
-                    <td>Chưa sử dụng</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>PROMO10</td>
-                    <td>2023-09-15 00:00:00</td>
-                    <td>2023-09-30 23:59:59</td>
-                    <td>10.00</td>
-                    <td>23</td>
-                    <td>100</td>
-                    <td>Chưa sử dụng</td>
-                    <td> <button type="submit" class="btn btn-primary">Sửa</button>
-                    </td>
-                  </tr>
+                </tr>
 
 
 

@@ -45,8 +45,8 @@ public class Products implements Serializable {
     private String publisherId;
 
     @ManyToOne
-    @JoinColumn(name = "Brand_Id", insertable = false, updatable = false) 
-    private Brand brand;
+    @JoinColumn(name = "Brand_Id", insertable = false, updatable = false)
+    private Brands brand;
 
     @ManyToOne
     @JoinColumn(name = "publisher_id", insertable = false, updatable = false)

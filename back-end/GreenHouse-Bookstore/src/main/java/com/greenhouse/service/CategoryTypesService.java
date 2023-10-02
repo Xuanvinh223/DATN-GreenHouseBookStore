@@ -8,11 +8,11 @@ public interface CategoryTypesService {
 
     List<CategoryTypes> findAll();
 
-    CategoryTypes findById(Integer typeId);
+    CategoryTypes findById(String typeId);
 
-    void add(CategoryTypes entity);
+    CategoryTypes add(CategoryTypes entity);
 
-    void update(CategoryTypes entity);
+    CategoryTypes update(CategoryTypes entity);
 
-    void delete(Integer typeId);
+    void delete(String typeId);
 }

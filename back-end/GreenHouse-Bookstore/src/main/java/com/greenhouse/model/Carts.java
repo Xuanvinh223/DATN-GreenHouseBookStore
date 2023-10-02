@@ -14,12 +14,6 @@ public class Carts implements Serializable {
     @Column(name = "CartId")
     private int cartId;
 
-    @Column(name = "Username")
-    private String username;
-
-    @Column(name = "Product_Detail_Id")
-    private int productDetailId;
-
     @Column(name = "Quantity")
     private int quantity;
 
@@ -28,9 +22,6 @@ public class Carts implements Serializable {
 
     @Column(name = "Amount")
     private double amount;
- 
-    @Column(name = "Discount_Id")
-    private int discountId;
 
     @Column(name = "AmountAppliedDiscount")
     private double amountAppliedDiscount;
@@ -41,15 +32,14 @@ public class Carts implements Serializable {
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 
     @ManyToOne
-    @JoinColumn(name = "Username", referencedColumnName = "Username", insertable = false, updatable = false)
+    @JoinColumn(name = "Username", referencedColumnName = "Username")
     private Accounts account;
 
     @ManyToOne
-    @JoinColumn(name = "Discount_Id", referencedColumnName = "DiscountId", insertable = false, updatable = false)
+    @JoinColumn(name = "Discount_Id", referencedColumnName = "Discount_Id")
     private Discounts discount;
 
     @ManyToOne
-    @JoinColumn(name = "Product_Detail_Id", referencedColumnName = "Product_Detail_Id", insertable = false, updatable = false)
     private Product_Detail productDetail;
 
     // Mối quan hệ nếu cần

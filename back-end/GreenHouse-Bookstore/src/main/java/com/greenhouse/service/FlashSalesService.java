@@ -1,20 +1,22 @@
 package com.greenhouse.service;
 
-import com.greenhouse.model.FlashSales;
+import com.greenhouse.model.Flash_Sales;
 
 import java.util.List;
 
 public interface FlashSalesService {
 
-    List<FlashSales> findAll();
+    List<Flash_Sales> findAll();
 
-    FlashSales findById(Integer flashSaleId);
+    Flash_Sales findById(Integer flashSaleId);
 
-    void add(FlashSales entity);
+    void add(Flash_Sales entity);
 
-    void update(FlashSales entity);
+    void update(Flash_Sales entity);
 
     void delete(Integer flashSaleId);
 
     List<Object[]> findAllFlashSale();
+
+    List<Object[]> findProductsByStatus();
 }

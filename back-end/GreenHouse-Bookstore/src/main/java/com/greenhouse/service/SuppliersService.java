@@ -12,7 +12,7 @@ public interface SuppliersService {
 
     Suppliers add(Suppliers entity);
 
-    void update(Suppliers entity);
+    Suppliers update(Suppliers entity);
 
     void delete(String supplierId);
 }

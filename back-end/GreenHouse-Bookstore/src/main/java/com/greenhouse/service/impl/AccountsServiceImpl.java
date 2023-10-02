@@ -1,7 +1,6 @@
 package com.greenhouse.service.impl;
 
 import com.greenhouse.model.Accounts;
-import com.greenhouse.model.Brand;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.service.AccountsService;
 
@@ -13,9 +12,8 @@ import java.util.Optional;
 @Service
 public class AccountsServiceImpl implements AccountsService {
 
-   @Autowired
+    @Autowired
     AccountRepository accountsRepository;
-    
 
     @Override
     public List<Accounts> findAll() {
@@ -24,22 +22,37 @@ public class AccountsServiceImpl implements AccountsService {
 
     @Override
     public Accounts findById(String username) {
-       Optional<Accounts> result = accountsRepository.findById(username);
+        Optional<Accounts> result = accountsRepository.findById(username);
         return result.orElse(null);
     }
 
     @Override
     public Accounts add(Accounts accounts) {
-       return accountsRepository.save(accounts);
+        return accountsRepository.save(accounts);
     }
 
     @Override
-    public void update(Accounts accounts) {
-        accountsRepository.save(accounts);
+    public Accounts update(Accounts accounts) {
+        return accountsRepository.save(accounts);
     }
 
     @Override
     public void delete(String username) {
         accountsRepository.deleteById(username);
+    }
+
+    @Override
+    public int countOrdersWithStatus() {
+        return accountsRepository.countOrdersWithStatus();
+    }
+
+    @Override
+    public int countByBrand() {
+        return accountsRepository.countByBrand();
+    }
+
+    @Override
+    public int countByCustomer() {
+        return accountsRepository.countByCustomer();
     }
 }

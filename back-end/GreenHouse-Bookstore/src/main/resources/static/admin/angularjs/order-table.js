@@ -50,11 +50,6 @@ app.controller("OrderController", function ($scope, $http, $interval) {
     // Đây là biến invoice đã được khởi tạo và có thể sử dụng trong AngularJS
 
 
-
-
-
-
-
     $scope.getData = function () {
         var url = `${host}/getData`;
 

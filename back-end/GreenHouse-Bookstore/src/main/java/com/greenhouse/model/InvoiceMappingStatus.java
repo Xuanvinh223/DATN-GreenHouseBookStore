@@ -20,7 +20,7 @@ public class InvoiceMappingStatus implements Serializable {
     private Invoices invoice;
 
     @ManyToOne
-    @JoinColumn(name = "Payment_Status_Id") 
+    @JoinColumn(name = "Payment_Status_Id")
     private PaymentStatus paymentStatus;
 
     @Column(name = "Update_At")

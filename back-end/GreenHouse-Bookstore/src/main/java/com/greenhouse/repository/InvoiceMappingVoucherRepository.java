@@ -7,5 +7,5 @@ import com.greenhouse.model.InvoiceMappingVoucher;
 
 @Repository
 public interface InvoiceMappingVoucherRepository extends JpaRepository<InvoiceMappingVoucher, Integer> {
-    
+
 }

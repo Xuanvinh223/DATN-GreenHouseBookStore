@@ -39,7 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         // Tạo danh sách các quyền từ danh sách Authorities
         List<GrantedAuthority> authoritiesList = authorities.stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getRole().getRole()))
+                .map(authority -> new SimpleGrantedAuthority( "ROLE_" + authority.getRole().getRole()))
                 .collect(Collectors.toList());
         return new User(accounts.getUsername(), accounts.getPassword(), authoritiesList);
     }

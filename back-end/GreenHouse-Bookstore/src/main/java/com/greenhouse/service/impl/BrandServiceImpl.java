@@ -1,6 +1,6 @@
 package com.greenhouse.service.impl;
 
-import com.greenhouse.model.Brand;
+import com.greenhouse.model.Brands;
 import com.greenhouse.repository.BrandRepository;
 import com.greenhouse.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +16,23 @@ public class BrandServiceImpl implements BrandService {
     private BrandRepository brandRepository;
 
     @Override
-    public List<Brand> findAll() {
+    public List<Brands> findAll() {
         return brandRepository.findAll();
     }
 
     @Override
-    public Brand findById(String brandId) {
-        Optional<Brand> result = brandRepository.findById(brandId);
+    public Brands findById(String brandId) {
+        Optional<Brands> result = brandRepository.findById(brandId);
         return result.orElse(null);
     }
 
     @Override
-    public Brand add(Brand brand) {
-       return brandRepository.save(brand);
+    public Brands add(Brands brand) {
+        return brandRepository.save(brand);
     }
 
     @Override
-    public void update(Brand brand) {
+    public void update(Brands brand) {
         brandRepository.save(brand);
     }
 

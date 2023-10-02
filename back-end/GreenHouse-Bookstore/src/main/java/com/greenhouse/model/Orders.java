@@ -20,13 +20,13 @@ public class Orders implements Serializable {
     private Invoices invoice;
 
     @ManyToOne
-    @JoinColumn(name = "Username") 
+    @JoinColumn(name = "Username")
     private Accounts username;
- 
+
     @Column(name = "Order_Date")
     private Date orderDate;
- 
-    @Column(name = "Delivery_Date") 
+
+    @Column(name = "Delivery_Date")
     private Date deliveryDate;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
