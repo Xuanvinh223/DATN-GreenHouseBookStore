@@ -82,7 +82,7 @@ app.config(function ($routeProvider) {
         //đơn hàng
         .when("/order-manager", {
             templateUrl: "page/order-manager/table_order.html",
-            controller: ""
+            controller: "OrderController"
         })
         .when("/product-table", {
             templateUrl: "page/product-manager/table_product.html",
