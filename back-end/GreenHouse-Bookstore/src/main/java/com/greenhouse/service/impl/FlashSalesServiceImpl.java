@@ -1,7 +1,6 @@
 package com.greenhouse.service.impl;
 
 import com.greenhouse.model.Flash_Sales;
-import com.greenhouse.model.Product_Flash_Sale;
 import com.greenhouse.repository.FlashSalesRepository;
 import com.greenhouse.service.FlashSalesService;
 import org.springframework.beans.factory.annotation.Autowired;

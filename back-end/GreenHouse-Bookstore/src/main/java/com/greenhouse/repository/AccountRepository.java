@@ -1,10 +1,11 @@
 package com.greenhouse.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.greenhouse.model.Accounts;
 
-public interface AccountRepository extends JpaRepository<Accounts,String> {
+public interface AccountRepository extends JpaRepository<Accounts, String> {
     Accounts findByUsername(String username);
 
     boolean existsByUsername(String username);
@@ -12,4 +13,16 @@ public interface AccountRepository extends JpaRepository<Accounts,String> {
     boolean existsByEmail(String username);
 
     boolean existsByPhone(String username);
+
+    @Query(value = "select count(*) from Accounts", nativeQuery = true)
+    int countByCustomer();
+
+    @Query(value = "select count(*) from Brands", nativeQuery = true)
+    int countByBrand();
+
+    @Query(value = "SELECT COUNT(o.Order_Id) FROM Orders o " +
+            "JOIN Order_Mapping_Status m ON o.Order_Id = m.Order_Id " +
+            "JOIN Order_Status s ON s.Status_Id = m.Status_Id " +
+            "WHERE s.Status_Id = 3", nativeQuery = true)
+    int countOrdersWithStatus();
 }

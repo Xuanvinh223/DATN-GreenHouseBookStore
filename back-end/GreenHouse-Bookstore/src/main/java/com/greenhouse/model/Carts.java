@@ -40,7 +40,6 @@ public class Carts implements Serializable {
     private Discounts discount;
 
     @ManyToOne
-    @JoinColumn(name = "Product_Detail_Id", referencedColumnName = "Product_Detail_Id")
     private Product_Detail productDetail;
 
     // Mối quan hệ nếu cần

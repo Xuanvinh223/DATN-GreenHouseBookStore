@@ -89,6 +89,7 @@ function flashsaleController($scope, $http, $location, $routeParams,) {
             $scope.reverseSort = false;
         }
     };
+
     //Save tạm trên model xuống bảng
     $scope.saveTam = function () {
         $scope.tempSelectedProducts = [];
@@ -108,6 +109,7 @@ function flashsaleController($scope, $http, $location, $routeParams,) {
         // Thông báo cho người dùng biết rằng sản phẩm đã được thêm thành công
         alert('Sản phẩm đã được thêm vào danh sách tạm thời.');
     };
+
     //Tính số tiền giảm
     $scope.calculateDiscountedPrice = function (product) {
         if (product.discountPercentage !== undefined && product.discountPercentage !== null) {
@@ -131,17 +133,17 @@ function flashsaleController($scope, $http, $location, $routeParams,) {
     //hàm Save 
     $scope.create = function () {
         var url = `${host}/flashsales`;
-        var formattedTime = moment($scope.item.startTime, 'hh:mm A').format('HH:mm:ss');
-        var formattedEndTime = moment($scope.item.endTime, 'hh:mm A').format('HH:mm:ss');
-        var formatUserDate = moment($scope.item.userDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
+        var formattedTime = moment($scope.item.flashSale.startTime, 'hh:mm A').format('HH:mm:ss');
+        var formattedEndTime = moment($scope.item.flashSale.endTime, 'hh:mm A').format('HH:mm:ss');
+        var formatUserDate = moment($scope.item.flashSale.userDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
         // Tạo dữ liệu yêu cầu POST từ các trường trong form HTML
         var requestData = {
             flashSale: {
-                name: $scope.item.name,
+                name: $scope.item.flashSale.name,
                 startTime: formattedTime,
                 endTime: formattedEndTime,
                 userDate: formatUserDate,
-                status: $scope.item.status
+                status: $scope.item.flashSale.status
             },
             productFlashSales: $scope.listProductShow
         };
@@ -192,9 +194,12 @@ function flashsaleController($scope, $http, $location, $routeParams,) {
 
                 $scope.item = angular.extend({}, resp.data, {listProductShow: resp.data.productFlashSale});
 
+                console.log(resp.data);
+
                 $location
                     .path("/flashsale-form")
                     .search({id: flashSaleId, data: angular.toJson(resp.data)});
+
             }).catch(function (error) {
             console.log("Error", error);
         });

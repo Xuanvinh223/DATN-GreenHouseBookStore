@@ -1,7 +1,6 @@
 package com.greenhouse.repository;
 
 import com.greenhouse.model.Product_Detail;
-import com.greenhouse.model.Products;
 
 import java.util.List;
 

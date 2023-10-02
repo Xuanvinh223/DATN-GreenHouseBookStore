@@ -1,7 +1,6 @@
 package com.greenhouse.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.Data;

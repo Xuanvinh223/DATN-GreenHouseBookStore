@@ -1,8 +1,6 @@
 package com.greenhouse.model;
 
 import java.io.Serializable;
-import java.util.List;
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,6 +20,9 @@ public class Product_Detail implements Serializable {
 
     @Column(name = "Price")
     private double price;
+
+    @Column(name = "Price_discount")
+    private double priceDiscount;
 
     @Column(name = "Quantity_In_Stock")
     private int quantityInStock;

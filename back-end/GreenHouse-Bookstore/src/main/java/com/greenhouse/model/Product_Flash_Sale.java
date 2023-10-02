@@ -19,6 +19,7 @@ import lombok.Data;
 @Data
 @Table(name = "Product_Flash_Sale")
 public class Product_Flash_Sale implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id

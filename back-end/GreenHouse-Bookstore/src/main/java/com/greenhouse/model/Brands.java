@@ -7,7 +7,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "Brands")
-public class Brand implements Serializable {
+public class Brands implements Serializable {
 
     @Id
     @Column(name = "brand_id")

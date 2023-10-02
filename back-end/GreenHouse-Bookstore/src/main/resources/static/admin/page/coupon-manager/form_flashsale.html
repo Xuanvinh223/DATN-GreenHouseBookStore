@@ -13,12 +13,11 @@
                             <!-- <a class="float-right small text-muted" href="#!">View all</a> -->
                         </div>
                         <div class="card-body">
-                            <a href="">Tui nè-{{item.productFlashSales.quantity}}</a>
                             <form>
                                 <div class="form-row">
                                     <div class="col-md-12 col-sm-12 mb-3">
                                         <label for="PublishersName">Tên Ưu Đãi(*)</label>
-                                        <input type="text" ng-model="item.name" class="form-control"
+                                        <input type="text" ng-model="item.flashSale.name" class="form-control"
                                                placeholder="Nhập Tên Flash Sale">
                                     </div>
                                 </div>
@@ -26,17 +25,15 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="address">Giờ bắt đầu(*)</label>
                                         <div class="input-group">
-                                            <input type="time" ng-model="item.startTime" class="form-control"
-                                                   placeholder="" aria-describedby="button-addon2"
-                                                   ng-value="item.startTime">
+                                            <input type="time" ng-value="item.flashSale.startTime" class="form-control"
+                                                   placeholder="" aria-describedby="button-addon2">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="address">Giờ kết thúc(*)</label>
                                         <div class="input-group">
-                                            <input type="time" ng-model="item.endTime" class="form-control "
-                                                   placeholder="" aria-describedby="button-addon2"
-                                                   ng-value="item.endTime ">
+                                            <input type="time" ng-value="item.flashSale.endTime" class="form-control "
+                                                   placeholder="" aria-describedby="button-addon2">
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
@@ -44,7 +41,7 @@
                                         <div class="input-group">
                                             <input class="form-control" id="example-date" type="date"
                                                    name="item.userDate" ng-model="item.userDate"
-                                                   ng-value="formatDate(item.userDate)">
+                                                   ng-value="formatDate(item.flashSale.userDate)">
                                         </div>
                                     </div>
                                 </div>
@@ -53,17 +50,20 @@
                                     <div class="col-md-12 mb-3">
                                         <p class="mb-2">Trạng Thái(*)</p>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" ng-model="item.status"
+                                            <input class="form-check-input" type="radio"
+                                                   ng-model="item.flashSale.status"
                                                    ng-value="1" id="active">
                                             <label class="form-check-label" for="active">Đã lên lịch</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" ng-model="item.status"
+                                            <input class="form-check-input" type="radio"
+                                                   ng-model="item.flashSale.status"
                                                    ng-value="2" id="unactive">
                                             <label class="form-check-label" for="unactive">Đang sử dụng</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" ng-model="item.status"
+                                            <input class="form-check-input" type="radio"
+                                                   ng-model="item.flashSale.status"
                                                    ng-value="3" id="expired">
                                             <label class="form-check-label" for="expired">Hết hạn</label>
                                         </div>

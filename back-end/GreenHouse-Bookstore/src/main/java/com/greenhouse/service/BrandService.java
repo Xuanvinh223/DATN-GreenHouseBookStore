@@ -1,18 +1,18 @@
 package com.greenhouse.service;
 
-import com.greenhouse.model.Brand;
+import com.greenhouse.model.Brands;
 
 import java.util.List;
 
 public interface BrandService {
 
-    List<Brand> findAll();
+    List<Brands> findAll();
 
-    Brand findById(String brandId);
+    Brands findById(String brandId);
 
-    Brand add(Brand entity);
+    Brands add(Brands entity);
 
-    void update(Brand entity);
+    void update(Brands entity);
 
     void delete(String brandId);
 }

@@ -11,7 +11,7 @@ public interface AccountsService {
 
     Accounts add(Accounts entity);
 
-    void update(Accounts entity);
+    Accounts update(Accounts entity);
 
     void delete(String username);
 

@@ -1,7 +1,6 @@
 package com.greenhouse.service.impl;
 
 import com.greenhouse.model.Accounts;
-import com.greenhouse.model.Brand;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.service.AccountsService;
 
@@ -33,8 +32,8 @@ public class AccountsServiceImpl implements AccountsService {
     }
 
     @Override
-    public void update(Accounts accounts) {
-        accountsRepository.save(accounts);
+    public Accounts update(Accounts accounts) {
+        return accountsRepository.save(accounts);
     }
 
     @Override

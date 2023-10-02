@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.greenhouse.model.Flash_Sales;
-import com.greenhouse.model.Product_Flash_Sale;
 
 public interface FlashSalesRepository extends JpaRepository<Flash_Sales, Integer> {
     // Các phương thức truy vấn tùy chỉnh có thể được thêm vào đây nếu cần.

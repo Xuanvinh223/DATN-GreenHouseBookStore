@@ -1,4 +1,4 @@
-package com.greenhouse.restcontroller.AdminRestController;
+package com.greenhouse.restcontroller.admin;
 
 import com.greenhouse.model.Product_Category;
 import com.greenhouse.service.ProductCategoryService;

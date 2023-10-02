@@ -46,7 +46,7 @@ public class Products implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "Brand_Id", insertable = false, updatable = false)
-    private Brand brand;
+    private Brands brand;
 
     @ManyToOne
     @JoinColumn(name = "publisher_id", insertable = false, updatable = false)
