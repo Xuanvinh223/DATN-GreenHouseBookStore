@@ -15,9 +15,9 @@ public interface AccountsService {
 
     void delete(String username);
 
-    boolean existsByEmail(String email);
+    int countByCustomer();
 
-    boolean existsByPhone(String phone);
+    int countByBrand();
 
-    boolean existsById(String username);
+    int countOrdersWithStatus();
 }

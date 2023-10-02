@@ -13,9 +13,8 @@ import java.util.Optional;
 @Service
 public class AccountsServiceImpl implements AccountsService {
 
-   @Autowired
+    @Autowired
     AccountRepository accountsRepository;
-    
 
     @Override
     public List<Accounts> findAll() {
@@ -24,13 +23,13 @@ public class AccountsServiceImpl implements AccountsService {
 
     @Override
     public Accounts findById(String username) {
-       Optional<Accounts> result = accountsRepository.findById(username);
+        Optional<Accounts> result = accountsRepository.findById(username);
         return result.orElse(null);
     }
 
     @Override
     public Accounts add(Accounts accounts) {
-       return accountsRepository.save(accounts);
+        return accountsRepository.save(accounts);
     }
 
     @Override
@@ -44,20 +43,17 @@ public class AccountsServiceImpl implements AccountsService {
     }
 
     @Override
-    public boolean existsByEmail(String email) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsByEmail'");
+    public int countOrdersWithStatus() {
+        return accountsRepository.countOrdersWithStatus();
     }
 
     @Override
-    public boolean existsByPhone(String phone) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsByPhone'");
+    public int countByBrand() {
+        return accountsRepository.countByBrand();
     }
 
     @Override
-    public boolean existsById(String username) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsById'");
+    public int countByCustomer() {
+        return accountsRepository.countByCustomer();
     }
 }

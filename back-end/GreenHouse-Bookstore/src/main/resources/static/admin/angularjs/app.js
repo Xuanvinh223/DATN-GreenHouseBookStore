@@ -3,7 +3,8 @@ var app = angular.module('admin-app', ['ngRoute']);
 app.config(function ($routeProvider) {
     $routeProvider
         .when("/", {
-            templateUrl: "page/home/index.html"
+            templateUrl: "page/home/index.html",
+            controller: "IndexController"
         })
         .when("/account-form", {
             templateUrl: "page/account-manager/form_account.html",
@@ -32,27 +33,27 @@ app.config(function ($routeProvider) {
         })
         .when("/category-form", {
             templateUrl: "page/category-manager/form_category.html",
-            controller: "CategoryController"
+            controller: ""
         })
         .when("/category-table", {
             templateUrl: "page/category-manager/table_category.html",
-            controller: "CategoryController"
+            controller: ""
         })
         .when("/categorytype-form", {
             templateUrl: "page/category-manager/form_categorytype.html",
-            controller: "CategoryTypeController"
+            controller: ""
         })
         .when("/categorytype-table", {
             templateUrl: "page/category-manager/table_categorytype.html",
-            controller: "CategoryTypeController"
+            controller: ""
         })
         .when("/discount-form", {
             templateUrl: "page/coupon-manager/form_discount.html",
-            controller: "DiscountController"
+            controller: ""
         })
         .when("/discount-table", {
             templateUrl: "page/coupon-manager/table_discount.html",
-            controller: "DiscountController"
+            controller: ""
         })
         .when("/voucher-form", {
             templateUrl: "page/coupon-manager/form_voucher.html",
@@ -85,11 +86,11 @@ app.config(function ($routeProvider) {
         })
         .when("/product-table", {
             templateUrl: "page/product-manager/table_product.html",
-            controller: "ProductController"
+            controller: ""
         })
         .when("/product-form", {
             templateUrl: "page/product-manager/form_product.html",
-            controller: "ProductController"
+            controller: ""
         })
         .when("/product-learning-table", {
             templateUrl: "page/product-manager/form_product_learning.html",
@@ -98,20 +99,20 @@ app.config(function ($routeProvider) {
         //nhà xuất bản
         .when("/publisher-form", {
             templateUrl: "page/publisher-manager/form_publishers.html",
-            controller: "PublishersController"
+            controller: ""
         })
         .when("/publisher-table", {
             templateUrl: "page/publisher-manager/table_publishers.html",
-            controller: "PublishersController"
+            controller: ""
         })
         //nhà cung cấp
         .when("/supplier-form", {
             templateUrl: "page/supplier-manager/form_supplier.html",
-            controller: "SuppliersController"
+            controller: ""
         })
         .when("/supplier-table", {
             templateUrl: "page/supplier-manager/table_supplier.html",
-            controller: "SuppliersController"
+            controller: ""
         })
         //thống kê
         .when("/inventory-statics", {
@@ -136,27 +137,8 @@ app.run(['$rootScope', function ($rootScope) {
         }
     }
 
-    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-        $rootScope.page.setTitle(current.$$route.title || ' Trang quản trị');
+    // $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+    //     $rootScope.page.setTitle(current.$$route.title || ' Trang quản trị');
 
-    });
+    // });
 }]);
-
-// Tạo một interceptor
-app.factory('tokenInterceptor', ['$window', function ($window) {
-    return {
-      request: function (config) {
-        var token = $window.localStorage.getItem('token');
-        // Kiểm tra nếu URL của request bắt đầu bằng "/api/"
-        if (token && config.url.includes('/rest/')) {
-          config.headers['Authorization'] = 'Bearer ' + token;
-        }
-        return config;
-      }
-    };
-  }]);
-
-// Đăng ký interceptor vào ứng dụng
-  app.config(['$httpProvider', function ($httpProvider) {
-    $httpProvider.interceptors.push('tokenInterceptor');
-  }]);
