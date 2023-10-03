@@ -9,9 +9,14 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "Accounts")
-public class Accounts  implements Serializable {
+public class Accounts implements Serializable {
 
-	@Id
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    @Id
     @Column(name = "Username")
     private String username;
 

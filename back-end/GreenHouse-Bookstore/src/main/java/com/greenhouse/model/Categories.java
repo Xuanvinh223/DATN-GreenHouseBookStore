@@ -10,21 +10,13 @@ import lombok.Data;
 public class Categories implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CategoryId")
-    private int categoryId;
+    @Column(name = "Category_Id")
+    private String categoryId;
 
-    @Column(name = "CategoryName")
+    @Column(name = "Category_Name")
     private String categoryName;
 
-    @Column(name = "TypeId")
-    private int typeId;
-
-    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
-
     @ManyToOne
-    @JoinColumn(name = "TypeId", referencedColumnName = "TypeId", insertable = false, updatable = false)
-    private CategoryTypes categoryType;
-
-    // Mối quan hệ nếu cần
+    @JoinColumn(name = "Type_Id")
+    private CategoryTypes typeId;
 }

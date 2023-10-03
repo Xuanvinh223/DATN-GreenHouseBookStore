@@ -27,13 +27,13 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public void add(Product_Detail productDetail) {
-        productDetailRepository.save(productDetail);
+    public Product_Detail add(Product_Detail productDetail) {
+        return productDetailRepository.save(productDetail);
     }
 
     @Override
-    public void update(Product_Detail productDetail) {
-        productDetailRepository.save(productDetail);
+    public Product_Detail update(Product_Detail productDetail) {
+        return productDetailRepository.save(productDetail);
     }
 
     @Override
@@ -44,5 +44,7 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     @Override
     public List<Object[]> findAllInventoryList() {
         return productDetailRepository.findAllInventoryList();
+    public List<Product_Detail> findProductsByStatus() {
+        return productDetailRepository.findProductsByStatus();
     }
 }

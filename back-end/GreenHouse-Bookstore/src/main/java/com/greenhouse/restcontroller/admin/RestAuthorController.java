@@ -1,4 +1,4 @@
-package com.greenhouse.restcontroller.AdminRestController;
+package com.greenhouse.restcontroller.admin;
 
 import com.google.gson.Gson;
 import com.greenhouse.model.Authors;
@@ -41,14 +41,14 @@ public class RestAuthorController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestParam("image") MultipartFile file, @RequestParam("authorJson") String authorJson) {
+    public ResponseEntity<Object> create(@RequestParam(value = "image", required = false) MultipartFile file,
+                                         @RequestParam("authorJson") String authorJson) {
         if (StringUtils.isEmpty(authorJson)) {
             return new ResponseEntity<>("Thông tin tác giả không hợp lệ.", HttpStatus.BAD_REQUEST);
         }
 
-        // Xử lý tải lên ảnh
         String uploadedFileName = null;
-        if (!file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {
             try {
                 String originalFileName = file.getOriginalFilename();
                 String fileExtension = FilenameUtils.getExtension(originalFileName);
@@ -60,7 +60,6 @@ public class RestAuthorController {
             }
         }
 
-        // Xử lý thông tin tác giả
         Authors author = new Gson().fromJson(authorJson, Authors.class);
         author.setImage(uploadedFileName);
 
@@ -78,7 +77,6 @@ public class RestAuthorController {
                                           @RequestParam(value = "image", required = false) MultipartFile file,
                                           @RequestParam("authorJson") String authorJson) {
 
-        // Xử lý tải lên ảnh (nếu có)
         String uploadedFileName = null;
         if (file != null && !file.isEmpty()) {
             try {
@@ -93,7 +91,6 @@ public class RestAuthorController {
             }
         }
 
-        // Chuyển đổi dữ liệu tác giả từ JSON thành đối tượng Authors
         Authors author = new Gson().fromJson(authorJson, Authors.class);
 
         // Kiểm tra xem ảnh đã tải lên mới chưa
@@ -101,7 +98,6 @@ public class RestAuthorController {
             author.setImage(uploadedFileName);
         }
 
-        // Cập nhật thông tin tác giả
         author.setAuthorId(id);
 
         Authors updatedAuthor = authorsService.update(author);
@@ -118,5 +114,4 @@ public class RestAuthorController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-   
 }

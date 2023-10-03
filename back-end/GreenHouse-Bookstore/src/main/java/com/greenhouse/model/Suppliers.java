@@ -3,7 +3,6 @@ package com.greenhouse.model;
 import lombok.Data;
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Data

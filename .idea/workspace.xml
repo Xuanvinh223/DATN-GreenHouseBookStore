@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Back-end] - authenticate">
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/dto/AuthenticationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/dto/AuthenticationDTO.java" afterDir="false" />
-    </list>
+    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Back-end] - authenticate" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -272,6 +270,7 @@
     <MESSAGE value="[FE] - Update title" />
     <MESSAGE value="[Font-end] - thymeleaf GUI" />
     <MESSAGE value="[Front-End] Admin - Update UI Cart-page" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Front-End] Admin - Update UI Cart-page" />
+    <MESSAGE value="[BE-FE] - fix bug authorization." />
+    <option name="LAST_COMMIT_MESSAGE" value="[BE-FE] - fix bug authorization." />
   </component>
 </project>

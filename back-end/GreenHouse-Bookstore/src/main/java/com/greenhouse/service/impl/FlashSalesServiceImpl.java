@@ -45,4 +45,10 @@ public class FlashSalesServiceImpl implements FlashSalesService {
     public List<Object[]> findAllFlashSale() {
         return flashSalesRepository.findAllFlashSale();
     }
+
+    @Override
+    public List<Object[]> findProductsByStatus() {
+        return flashSalesRepository.findProductsByStatus();
+    }
+
 }

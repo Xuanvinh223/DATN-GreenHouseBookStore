@@ -1,4 +1,4 @@
-package com.greenhouse.controller;
+package com.greenhouse.controller.client;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,23 +54,23 @@ public class Maincontroller {
 	public String checkoutComplete() {
 		return "client/layouts/checkout-complete";
 	}
-	
+
 	@GetMapping(value = "/login")
 	public String login() {
 		return "client/layouts/login";
 	}
-	
-	@GetMapping(value = "/signin")
+
+	@GetMapping(value = "/resgister")
 	public String signin() {
 		return "client/layouts/signin";
 	}
-	
+
 	@GetMapping(value = "/forgot-password")
 	public String forgotPasswrod() {
 		return "client/layouts/forgot-password";
 	}
 
-	@GetMapping("/403")
+	@GetMapping("/404")
 	public String accessDenied() {
 		System.out.println("Access Denied Controller Called");
 		return "client/layouts/home"; // Chuyển hướng đến trang 403

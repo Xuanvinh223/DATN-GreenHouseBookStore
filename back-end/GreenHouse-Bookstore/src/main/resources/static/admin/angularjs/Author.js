@@ -1,9 +1,13 @@
 app.controller("AuthorController", function ($scope, $location, $routeParams, $http) {
+  $scope.$on('$routeChangeSuccess', function (event, current, previous) {
+    $scope.page.setTitle(current.$$route.title || ' Quản Lý Tác Giả');
+  });
   let host = "http://localhost:8081/rest/authors";
   $scope.editingAuthor = {};
   $scope.isEditing = false;
 
   $scope.authors = [];
+
 
   $scope.loadAuthors = function () {
     var url = `${host}`;
@@ -16,8 +20,16 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
         console.log("Error", error);
       });
   };
+  // Hàm tạo id ngẫu nhiên với "AU00" và 3 số ngẫu nhiên
+  function generateRandomId() {
+    let result = "AU00";
+    for (let i = 0; i < 3; i++) {
+      result += Math.floor(Math.random() * 10); // Số ngẫu nhiên từ 0 đến 9
+    }
+    return result;
+  }
 
-  $scope.saveAuthor = function () {
+  $scope.saveAuthor = function (authorId) {
     var formData = new FormData();
     var fileInput = document.getElementById("fileInput");
 
@@ -25,41 +37,45 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
       formData.append("image", fileInput.files[0]);
     }
 
+    // Tạo id ngẫu nhiên nếu đang thêm tác giả mới
+    if (!$scope.isEditing) {
+      $scope.editingAuthor.authorId = generateRandomId();
+    }
+
     formData.append(
-      "authorJson",
-      JSON.stringify({
-        authorId: $scope.editingAuthor.authorId || "",
-        authorName: $scope.editingAuthor.authorName || "",
-        gender: $scope.editingAuthor.gender || false,
-        nation: $scope.editingAuthor.nation || "",
-        image: $scope.editingAuthor.image || "",
-      })
+        "authorJson",
+        JSON.stringify({
+          authorId: $scope.editingAuthor.authorId || "",
+          authorName: $scope.editingAuthor.authorName || "",
+          gender: $scope.editingAuthor.gender || false,
+          nation: $scope.editingAuthor.nation || "",
+        })
     );
 
     if ($scope.isEditing) {
       var url = `${host}/${$scope.editingAuthor.authorId}`;
       $http
-        .put(url, formData, {
-          transformRequest: angular.identity,
-          headers: { "Content-Type": undefined },
-        })
-        .then((resp) => {
-          $scope.loadAuthors();
-          $scope.resetForm();
-          Swal.fire({
-            icon: "success",
-            title: "Thành công",
-            text: `Cập nhật tác giả ${$scope.editingAuthor.authorId}`,
+          .put(url, formData, {
+            transformRequest: angular.identity,
+            headers: {"Content-Type": undefined},
+          })
+          .then((resp) => {
+            $scope.loadAuthors();
+            $scope.resetForm();
+            Swal.fire({
+              icon: "success",
+              title: "Thành công",
+              text: `Cập nhật tác giả ${authorId} thành công`,
+            });
+            $scope.clearImage(); // Xóa ảnh đại diện sau khi cập nhật
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: "error",
+              title: "Thất bại",
+              text: `Cập nhật tác giả ${authorId} thất bại`,
+            });
           });
-          $scope.clearImage(); // Xóa ảnh đại diện sau khi cập nhật
-        })
-        .catch((error) => {
-          Swal.fire({
-            icon: "error",
-            title: "Thất bại",
-            text: `Cập nhật tác giả ${$scope.editingAuthor.authorId} thất bại`,
-          });
-        });
     } else {
       var url = `${host}`;
       $http.post(url, formData, {
@@ -68,28 +84,62 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
           "Content-Type": undefined,
         },
       })
-        .then((resp) => {
-          $scope.loadAuthors();
-          $scope.resetForm();
-          Swal.fire({
-            icon: "success",
-            title: "Thành công",
-            text: `Thêm tác giả ` + $scope.editingAuthor.authorName,
-          });
-          $scope.clearImage(); // Xóa ảnh đại diện sau khi thêm
-        })
-        .catch((error) => {
-          console.log(error.data);
-          if (error.data) {
+          .then((resp) => {
+            $scope.loadAuthors();
+            $scope.resetForm();
             Swal.fire({
-              icon: "error",
-              title: "Thất bại",
-              text: `Thêm tác giả thất bại`,
+              icon: "success",
+              title: "Thành công",
+              text: `Thêm tác giả  ${authorId} thành công `,
             });
-          }
-        });
+            $scope.clearImage(); // Xóa ảnh đại diện sau khi thêm
+          })
+          .catch((error) => {
+            console.log(error.data);
+            if (error.data) {
+              Swal.fire({
+                icon: "error",
+                title: "Thất bại",
+                text: `Thêm tác giả ${authorId} thất bại `,
+              });
+            }
+          });
     }
   };
+  $scope.$watch('nationalities', function () {
+    // Chọn thẻ select và thêm tính năng tìm kiếm bằng jQuery
+    $('#nationSelect').select2({
+      placeholder: 'Tìm kiếm quốc tịch',
+      allowClear: true // Cho phép xóa lựa chọn
+    });
+
+    // Lắng nghe sự kiện thay đổi của Select2 để cập snhật giá trị trong biến $scope.editingAuthor.nation
+    $('#nationSelect').on('change', function () {
+      $scope.editingAuthor.nation = $(this).val();
+    });
+  });
+  
+
+  // Cập nhật service để lấy danh sách quốc tịch từ API
+  function getNationalities() {
+    var url = 'https://restcountries.com/v3.1/all?fields=name'; // Đường dẫn API quốc tịch
+    return $http.get(url);
+  }
+  $scope.nationalities = [];
+
+  getNationalities()
+  .then(function (resp) {
+    $scope.nationalities = resp.data.map
+    (function (nationality) {
+      return nationality.name.common; // Lấy tên quốc tịch
+    });
+    console.log($scope.nationalities); // In danh sách quốc gia ra để kiểm tra
+  })
+  .catch(function (error) {
+    console.log('Error', error);
+  });
+
+
 
   $scope.editAuthorAndRedirect = function (authorId) {
     var url = `${host}/${authorId}`;
@@ -102,8 +152,8 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
         // Chuyển hướng đến trang chỉnh sửa thông tin tác giả và truyền dữ liệu tác giả.
         // Sử dụng $location.search để thiết lập tham số trong URL.
         $location
-          .path("/author-form")
-          .search({ id: authorId, data: angular.toJson(resp.data) });
+            .path("/author-form")
+            .search({id: authorId, data: angular.toJson(resp.data)});
       })
       .catch(function (error) {
         console.log("Error", error);
@@ -149,6 +199,8 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
 
   $scope.clearImage = function () {
     $scope.editingAuthor.image = ""; // Xóa đường dẫn ảnh đại diện
+    $scope.editingAuthor.nation = ""; // Xóa giá trị quốc tịch
+    $('#nationSelect').val('').trigger('change'); // Xóa giá trị đã chọn trong Select2  
     var imageElement = document.getElementById("uploadedImage");
     imageElement.src = ""; // Xóa hiển thị ảnh đại diện
     var fileInput = document.getElementById("fileInput");

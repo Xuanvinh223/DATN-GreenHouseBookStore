@@ -17,4 +17,6 @@ public interface FlashSalesService {
     void delete(Integer flashSaleId);
 
     List<Object[]> findAllFlashSale();
+
+    List<Object[]> findProductsByStatus();
 }

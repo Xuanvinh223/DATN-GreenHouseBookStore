@@ -21,23 +21,23 @@ public class CategoryTypesServiceImpl implements CategoryTypesService {
     }
 
     @Override
-    public CategoryTypes findById(Integer typeId) {
+    public CategoryTypes findById(String typeId) {
         Optional<CategoryTypes> result = categoryTypesRepository.findById(typeId);
         return result.orElse(null);
     }
 
     @Override
-    public void add(CategoryTypes categoryType) {
-        categoryTypesRepository.save(categoryType);
+    public CategoryTypes add(CategoryTypes categoryType) {
+        return categoryTypesRepository.save(categoryType);
     }
 
     @Override
-    public void update(CategoryTypes categoryType) {
-        categoryTypesRepository.save(categoryType);
+    public CategoryTypes update(CategoryTypes categoryType) {
+        return categoryTypesRepository.save(categoryType);
     }
 
     @Override
-    public void delete(Integer typeId) {
+    public void delete(String typeId) {
         categoryTypesRepository.deleteById(typeId);
     }
 }

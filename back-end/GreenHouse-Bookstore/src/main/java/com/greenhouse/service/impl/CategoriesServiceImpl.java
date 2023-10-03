@@ -21,23 +21,23 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public Categories findById(Integer categoryId) {
+    public Categories findById(String categoryId) {
         Optional<Categories> result = categoriesRepository.findById(categoryId);
         return result.orElse(null);
     }
 
     @Override
-    public void add(Categories categories) {
-        categoriesRepository.save(categories);
+    public Categories add(Categories categories) {
+        return categoriesRepository.save(categories);
     }
 
     @Override
-    public void update(Categories categories) {
-        categoriesRepository.save(categories);
+    public Categories update(Categories categories) {
+        return categoriesRepository.save(categories);
     }
 
     @Override
-    public void delete(Integer categoryId) {
+    public void delete(String categoryId) {
         categoriesRepository.deleteById(categoryId);
     }
 }

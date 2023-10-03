@@ -8,7 +8,6 @@
         <!-- Small table -->
         <div class="col-md-12">
           <div class="card shadow">
-
             <div class="card-body">
               <div class="form-inline mb-2 form-group">
                 <div class="input-container ">
@@ -16,13 +15,12 @@
                     <i class="fe fe-search fe-18 icon"></i>
                     <input class="form-control input" type="search" placeholder="Tìm kiếm..." aria-label="Search">
                   </div>
-                  
+
                 </div>
                 <div class="button-add col-lg-3">
-                  <button type="button" class="btn btn-success ml-auto" data-toggle="modal"
-                    data-target="#addAuthorModal">
+                  <a type="button" class="btn btn-success" href="#!/account-form">
                     Thêm tài khoản
-                  </button>
+                  </a>
                 </div>
               </div>
               <div class="row">
@@ -54,15 +52,12 @@
                         <td>{{account.birthday | date:'MM/dd/yyyy'}}</td>
                         <td>{{account.gender ? 'Nam' : 'Nữ'}}</td>
                         <td>{{account.active ? 'Hoạt động' : 'Chưa hoạt động'}}</td>
-
                         <td>
-                          {{account.image}}
-                          <!-- <div class="avatar avatar-md">
-                            <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                          </div> -->
+                          <img ng-src="/images/{{account.image}}"
+                               style="width: 50px; height: 50px; border-radius: 10%;">
                         </td>
                         <td>
-                          <a ng-click="editAccountsAndRedirect(account.username)"><i class="fe fe-edit fe-16"></i></a>    
+                          <a ng-click="editAccountsAndRedirect(account.username)"><i class="fe fe-edit fe-16"></i></a>
                           <a ng-click="deleteAccounts(account.username)">
                             <i class="fe fe-trash-2 fe-16"></i>
                         </td>

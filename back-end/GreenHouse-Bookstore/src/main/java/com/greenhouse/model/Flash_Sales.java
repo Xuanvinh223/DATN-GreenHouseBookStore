@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,28 +22,27 @@ import lombok.Data;
 @Table(name = "Flash_Sales")
 public class Flash_Sales implements Serializable {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "Flash_Sale_Id")
-  private int flashSaleId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Flash_Sale_Id")
+    private int flashSaleId;
 
-  @Column(name = "Name")
-  private String name;
+    @Column(name = "Name")
+    private String name;
 
-  @Column(name = "Start_Date")
-  private Time startDate;
+    @Column(name = "Start_Time")
+    private Time startTime;
 
-  @Column(name = "End_Date")
-  private Time endDate;
+    @Column(name = "End_Time")
+    private Time endTime;
 
-  @Column(name = "User_Date")
-  private Date userDate;
+    @Column(name = "User_Date")
+    private Date userDate;
 
-  @Column(name = "Status")
-  private int status;
+    @Column(name = "Status")
+    private int status;
 
-  @JsonIgnore
-  @OneToMany(mappedBy = "flashSaleId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  List<Product_Flash_Sale> productFlashSales;
-  
+    @JsonIgnore
+    @OneToMany(mappedBy = "flashSaleId", fetch = FetchType.EAGER)
+    List<Product_Flash_Sale> productFlashSales;
 }

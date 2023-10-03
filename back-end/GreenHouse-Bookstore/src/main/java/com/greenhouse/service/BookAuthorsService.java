@@ -10,9 +10,9 @@ public interface BookAuthorsService {
 
     Book_Authors findById(Integer id);
 
-    void add(Book_Authors entity);
+    Book_Authors add(Book_Authors entity);
 
-    void update(Book_Authors entity);
+    Book_Authors update(Book_Authors entity);
 
     void delete(Integer id);
 }

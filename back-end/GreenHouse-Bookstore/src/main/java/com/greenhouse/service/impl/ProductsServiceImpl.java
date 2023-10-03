@@ -20,6 +20,7 @@ public class ProductsServiceImpl implements ProductsService {
         return productsRepository.findAll();
     }
 
+
     @Override
     public Products findById(String productId) {
         Optional<Products> result = productsRepository.findById(productId);
@@ -27,13 +28,13 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
-    public void add(Products product) {
-        productsRepository.save(product);
+    public Products add(Products product) {
+        return productsRepository.save(product);
     }
 
     @Override
-    public void update(Products product) {
-        productsRepository.save(product);
+    public Products update(Products product) {
+        return productsRepository.save(product);
     }
 
     @Override
