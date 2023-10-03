@@ -15,4 +15,6 @@ public interface ProductDetailService {
     void update(Product_Detail entity);
 
     void delete(Integer productDetailId);
+    
+    List<Object[]> findAllInventoryList();
 }

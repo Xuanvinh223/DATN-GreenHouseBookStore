@@ -1,0 +1,61 @@
+<table id="myTable" class="table table-hover">
+    <thead>
+        <tr>
+            <th>Mã sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá nhập</th>
+            <th>Giá bán</th>
+            <th>Ngày sản xuất</th>
+            <th>Ngày nhập kho</th>
+            <th>Trạng thái tồn kho</th>
+            <th>Thương hiệu</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table-row" ng-repeat="item in inventorystatics">
+            <td>{{item[0]}}</td>
+            <td class="truncate-cell">{{item[1]}}</td>
+            <td>{{item[2]}}</td>
+            <td>{{item[3]}}</td>
+            <td>{{item[4]}}</td>
+            <td>{{item[5]}}</td>
+            <!-- <td>{{ inventory.DanhMục }}</td> -->
+            <td>{{item[6]}}</td>
+            <td>{{item[7]}}</td>
+            <td>{{item[8]}}</td>
+        </tr>
+        <tr class="nested-row">
+            <td colspan="6" class="nested-content">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Mã Sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Thương hiệu</th>
+                            <th>Giá nhập</th>
+                            <th>Giá bán</th>
+                            <th>Số lượng</th>
+                            <th>Tiền sản phẩm</th>
+                            <th>Giá bán khi có khuyến mãi</th>
+                            <th>Lợi nhuận</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2222</td>
+                            <td>Bút bi đỏ</td>
+                            <td>Thiên Long</td>
+                            <td>4.000</td>
+                            <td>5.000</td>
+                            <td>10</td>
+                            <td>50.000</td>
+                            <td>NULL</td>
+                            <td>1.000</td>
+                        </tr>
+                        <!-- Thêm các dòng khác tùy ý -->
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -21,6 +21,10 @@ public class Product_Detail implements Serializable {
     @Column(name = "Price")
     private double price;
 
+     @Column(name = "Price_Discount")
+    private double priceDiscount;
+
+
     @Column(name = "QuantityInStock")
     private int quantityInStock;
 

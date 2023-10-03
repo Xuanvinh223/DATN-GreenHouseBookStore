@@ -1,129 +1,260 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Table</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin sản phẩm</title>
+    <!-- Thêm link CSS của Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
 
-<!-- Bảng chính -->
-<div class="container mt-5">
-    <table id="myTable" class="table table-hover">
-        <thead>
-            <tr>
-                <th>Mã hóa đơn</th>
-                <th>Ngày</th>
-                <th>Tên khách hàng</th>
-                <th>Mã giảm giá</th>
-                <th>Được giảm từ voucher</th>
-                <th>Tổng tiền</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="table-row">
-                <td>1</td>
-                <td>15/10/2023</td>
-                <td>Nguyễn Vũ Phong</td>
-                <td>100.00</td>
-                <td>0</td>
-                <td>100.00</td>
-            </tr>
-            <tr class="nested-row">
-                <td colspan="6" class="nested-content">
-                    <table class="table table-bordered">
-                        <thead>
+    <div class="container mt-5">
+        <h2>Thông tin sản phẩm</h2>
+        <div class="accordion" id="productAccordion">
+            <!-- Bảng cha (Thông tin cơ bản về sản phẩm) -->
+            <div class="card">
+                <div class="card-header" id="basicInfoHeading">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse"
+                            data-target="#basicInfoCollapse" aria-expanded="true" aria-controls="basicInfoCollapse">
+                            Thông tin cơ bản về sản phẩm
+                        </button>
+                    </h5>
+                </div>
+                <div id="basicInfoCollapse" class="collapse show" aria-labelledby="basicInfoHeading"
+                    data-parent="#productAccordion">
+                    <div class="card-body">
+                        <table class="table">
                             <tr>
-                                <th>Mã Sản phẩm</th>
+                                <th>Mã sản phẩm</th>
+                                <td>SP001</td>
+                            </tr>
+                            <tr>
                                 <th>Tên sản phẩm</th>
-                                <th>Thương hiệu</th>
+                                <td>Sản phẩm 1</td>
+                            </tr>
+                            <tr>
+                                <th>Số lượng tồn kho</th>
+                                <td>100</td>
+                            </tr>
+                            <tr>
                                 <th>Giá nhập</th>
+                                <td>50.00</td>
+                            </tr>
+                            <tr>
                                 <th>Giá bán</th>
-                                <th>Số lượng</th>
-                                <th>Tiền sản phẩm</th>
-                                <th>Giá bán khi có khuyến mãi</th>
-                                <th>Lợi nhuận</th>
+                                <td>100.00</td>
                             </tr>
-                        </thead>
-                        <tbody>
                             <tr>
-                                <td>2222</td>
-                                <td>Bút bi đỏ</td>
-                                <td>Thiên Long</td>
-                                <td>4.000</td>
-                                <td>5.000</td>
-                                <td>10</td>
-                                <td>50.000</td>
-                                <td>NULL</td>
-                                <td>1.000</td>
+                                <th>Trạng thái tồn kho</th>
+                                <td>Còn hàng</td>
                             </tr>
-                            <!-- Thêm các dòng khác tùy ý -->
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr class="table-row">
-                <td>1</td>
-                <td>15/10/2023</td>
-                <td>Nguyễn Vũ Phong</td>
-                <td>100.00</td>
-                <td>0</td>
-                <td>100.00</td>
-            </tr>
-            <tr class="nested-row">
-                <td colspan="6" class="nested-content">
-                    <table class="table table-bordered">
-                        <thead>
                             <tr>
-                                <th>Mã Sản phẩm</th>
-                                <th>Tên sản phẩm</th>
                                 <th>Thương hiệu</th>
-                                <th>Giá nhập</th>
-                                <th>Giá bán</th>
-                                <th>Số lượng</th>
-                                <th>Tiền sản phẩm</th>
-                                <th>Giá bán khi có khuyến mãi</th>
-                                <th>Lợi nhuận</th>
+                                <td>Brand A</td>
                             </tr>
-                        </thead>
-                        <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bảng con (Thông tin chi tiết sản phẩm) -->
+            <div class="card">
+                <div class="card-header" id="detailInfoHeading">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#detailInfoCollapse" aria-expanded="false" aria-controls="detailInfoCollapse">
+                            Thông tin chi tiết sản phẩm
+                        </button>
+                    </h5>
+                </div>
+                <div id="detailInfoCollapse" class="collapse" aria-labelledby="detailInfoHeading"
+                    data-parent="#productAccordion">
+                    <div class="card-body">
+                        <table class="table">
                             <tr>
-                                <td>2222</td>
-                                <td>Bút bi đỏ</td>
-                                <td>Thiên Long</td>
-                                <td>4.000</td>
-                                <td>5.000</td>
-                                <td>10</td>
-                                <td>50.000</td>
-                                <td>NULL</td>
-                                <td>1.000</td>
+                                <th>Ngày sản xuất</th>
+                                <td>2023-01-15</td>
                             </tr>
-                            <!-- Thêm các dòng khác tùy ý -->
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <!-- Thêm các dòng khác tùy ý -->
-        </tbody>
-    </table>
-</div>
+                            <tr>
+                                <th>Ngày hết hạn</th>
+                                <td>2023-12-31</td>
+                            </tr>
+                            <tr>
+                                <th>Ngày nhập kho</th>
+                                <td>2023-01-10</td>
+                            </tr>
+                            <tr>
+                                <th>Thời gian tồn kho</th>
+                                <td>10 tháng</td>
+                            </tr>
+                            <tr>
+                                <th>Danh mục sản phẩm</th>
+                                <td>Danh mục A</td>
+                            </tr>
+                            <tr>
+                                <th>Nhà cung cấp</th>
+                                <td>Nhà cung cấp X</td>
+                            </tr>
+                            <tr>
+                                <th>Lợi nhuận từ sản phẩm</th>
+                                <td>500.00</td>
+                            </tr>
+                            <tr>
+                                <th>Số lần bán ra</th>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <th>Doanh số bán hàng</th>
+                                <td>5000.00</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    // JavaScript để ẩn các dòng con khi trang được tải lại hoặc chạy lần đầu
-    $(document).ready(function () {
-        $(".nested-row").hide();
-    });
-
-    // JavaScript để hiển thị và ẩn bảng con khi nhấn vào dòng
-    $(document).ready(function () {
-        $(".table-row").click(function () {
-            var nestedRow = $(this).next(".nested-row");
-            nestedRow.toggle();
-        });
-    });
-</script>
-
+    <!-- Thêm script của Bootstrap và jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
+<tbody ng-repeat="item in filterItems() | orderBy: orderByField:reverseSort ">
+    <tr data-toggle="collapse" data-target="#{{$index + 1}}" class="tr-title-product" ng-click="Edit(item.id, $index)">
+
+        <td>{{$index + 1}}</td>
+        <td><img class="object-fit" ng-src="/images/{{item.image}}" name="image" style="max-height: 50px; width: 80%;">
+        </td>
+        <td>{{item.name}}</td>
+        <td>{{ item.price | currency : '' : 0 }} VND</td>
+        <td>{{item.quantity}} cái</td>
+        <td>{{item.status ? 'Kinh Doanh' : 'Ngừng Kinh doanh'}}</td>
+        <td>{{item.material.material}}</td>
+        <td>{{item.size.size}}</td>
+        <td>{{item.description}}</td>
+
+    </tr>
+    <tr id="{{$index + 1}}" class="collapse" ng-if="$index === selectedItemIndex">
+        <td colspan="10" class="product-info border-1">
+            <h4>Thông tin sản phẩm</h4>
+            <form enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" style="border: 1px solid rgb(221, 218, 218); height: 250px;">
+                            <div class="nk-int-st image-container">
+                                <img class="object-fit" id="uploadedImages" ng-src="/images/{{form.image}}"
+                                    alt="Uploaded Image" name="image" style="max-height: 250px; width: 100%;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fileInput" class="fw-bold">Chọn Hình</label>
+                            <div class="input-group">
+                                <input style="object-fit: contain;" type="file" class="form-control"
+                                    ng-model="form.image" accept=".png, .jpg, .jpeg, .gif" id="fileInput22"
+                                    onchange="displayImages(event)">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name" class="fw-bold">Mã Sản Phẩm</label>
+                                    <input type="text" class="form-control border-bottom" id="id" ng-model="form.id"
+                                        disabled>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="name" class="fw-bold">Tên Sản Phẩm</label>
+                                    <input type="text" class="form-control border-bottom" id="name"
+                                        ng-model="form.name">
+
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="price" class="fw-bold">Giá Sản Phẩm</label>
+                                    <input type="text" class="form-control border-bottom" id="price"
+                                        ng-model="form.price">
+                                    <small class="text-danger">{{ errorMessages.price }}</small>
+
+                                </div>
+                                <div class="form-group"><label for="quantity" class="fw-bold">Số Lượng</label>
+                                    <input type="number" min="1" value="1"
+                                        class="form-control text-center border-bottom" id="quantity"
+                                        placeholder="Số Lượng" ng-model="form.quantity">
+                                    <small class="text-danger">{{ errorMessages.quantity }}</small>
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mt-3">
+                                    <label class="fw-bold">Trạng thái</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="status" value="true" ng-model="form.status"
+                                                ng-checked="form.status" ng-value="true">
+                                            Kinh doanh
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="status" value="false" ng-model="form.status"
+                                                ng-checked="form.status" ng-value="false">
+                                            Ngừng Kinh doanh
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="size" class="fw-bold">Chọn Kích
+                                        Thước</label>
+                                    <select class="form-control border-bottom" id="size" ng-model="form.size"
+                                        ng-options="size as size.size for size in sizes track by size.id">
+                                        <option value="">Chọn Kích Thước</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mt-3">
+                                    <label for="material" class="fw-bold">Chất Liệu</label>
+                                    <select class="form-control border-bottom" id="material" ng-model="form.material"
+                                        ng-options="material as material.material for material in materials track by material.id">
+                                        <option value="">Chọn Chất Liệu</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group mt-3">
+                                    <label for="description" class="fw-bold">Mô Tả</label>
+                                    <textarea class="form-control border-bottom" rows="1" id="description"
+                                        ng-model="form.description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-right mt-5">
+                        <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+                            <button class="btn btn-primary notika-btn-primary waves-effect" ng-click="Update(form.id)">
+                                <i class="fa fa-save"></i> Lưu
+                            </button>
+                            <button class="btn btn-danger notika-btn-danger waves-effect" ng-click="Delete(form.id)">
+                                <i class="fa fa-trash"></i> Xóa
+                            </button>
+                        </div>
+                    </div>
+                </div>$scope.Edit = function (key, index) {
+                    var url = `${host}/${key}`;
+                    $http
+                      .get(url)
+                      .then((resp) => {
+                        $scope.form = resp.data;
+                        $scope.selectedItemIndex = index; // Lưu chỉ số sản phẩm đang được chỉnh sửa
+                        displayImages(resp.data.image); // Hiển thị ảnh tương ứng cho sản phẩm đang chỉnh sửa
+                      })
+                      .catch((Error) => {
+                        console.log("Error", Error);
+                      });
+                  };

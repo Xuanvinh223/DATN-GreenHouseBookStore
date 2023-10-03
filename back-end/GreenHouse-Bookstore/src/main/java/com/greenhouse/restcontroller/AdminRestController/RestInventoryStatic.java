@@ -9,6 +9,18 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.greenhouse.service.FlashSalesService;
+import com.greenhouse.service.ProductDetailService;
+
+@RestController
+@CrossOrigin("*")
 public class RestInventoryStatic {
 
+    @Autowired
+    ProductDetailService pd;
+
+    @GetMapping("/rest/inventory-static")
+	public ResponseEntity<List<Object[]>> getAll(Model m) {
+		return ResponseEntity.ok(pd.findAllInventoryList());
+	}
 }

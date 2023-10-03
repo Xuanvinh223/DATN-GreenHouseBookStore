@@ -13,5 +13,4 @@ public interface FlashSalesRepository extends JpaRepository<Flash_Sales, Integer
             " FROM Product_Flash_Sale AS PFS INNER JOIN Flash_Sales AS FS " +
             "ON PFS.Flash_Sale_Id = FS.Flash_Sale_Id", nativeQuery = true)
     List<Object[]> findAllFlashSale();
-
 }
