@@ -32,8 +32,8 @@ public class Invoices implements Serializable {
     @Column(name = "Total_Amount")
     private double totalAmount;
 
-    @Column(name = "Shipping_Method")
-    private String Shipping_Method;
+    @Column(name = "Shipping_Partner")
+    private String shippingPartner;
 
     @Column(name = "Shipping_Fee")
     private double shippingFee;

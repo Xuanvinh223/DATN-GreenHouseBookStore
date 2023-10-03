@@ -39,12 +39,10 @@ public class Product_Flash_Sale implements Serializable {
     @Column(name = "Purchase_Limit")
     private int purchaseLimit;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "flashSaleId")
     private Flash_Sales flashSaleId;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "Product_Detail_Id")
     private Product_Detail productDetail;

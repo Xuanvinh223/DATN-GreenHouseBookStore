@@ -9,6 +9,7 @@ var form5 = {};
 function flashsaleController($scope, $http, $location, $routeParams,) {
     $scope.$on('$routeChangeSuccess', function (event, current, previous) {
         $scope.page.setTitle(current.$$route.title || ' Quản lý Flash-Sale');
+        $scope.load_All();
     });
     // ... Các mã xử lý khác trong controller
     //Mảng danh sách chính
@@ -19,7 +20,8 @@ function flashsaleController($scope, $http, $location, $routeParams,) {
     // Tạo một danh sách tạm thời để lưu các sản phẩm đã chọn
     $scope.tempSelectedProducts = [];
     $scope.listModelProduct = [];
-    $scope.listProductShow = [];
+    $scope.listProductFlashSale = [];
+    $scope.listDeletedProductFlashSale = [];
     $scope.searchText = "";
 
     $scope.sortField = null;
@@ -92,72 +94,71 @@ function flashsaleController($scope, $http, $location, $routeParams,) {
 
     //Save tạm trên model xuống bảng
     $scope.saveTam = function () {
-        $scope.tempSelectedProducts = [];
+        var newSelected = [];
+
         // Duyệt qua danh sách sản phẩm và thêm các sản phẩm đã chọn vào danh sách tạm thời
         angular.forEach($scope.listModelProduct, function (item) {
             if (item.selected) {
-                $scope.tempSelectedProducts.push(item); // Sửa ở đây, thêm $scope.
+                var FlashSaleProduct = {
+                    id: null,
+                    quantity: 0,
+                    usedQuantity: 0,
+                    discountPercentage: 0,
+                    purchaseLimit: 0,
+                    flashSaleId: null,
+                    productDetail: item
+                };
+                newSelected.push(FlashSaleProduct);
             }
         });
+        if (!$scope.listProductFlashSale) {
+            $scope.listProductFlashSale = [];
+        } else {
+            $scope.listProductFlashSale = [...$scope.listProductFlashSale, ...newSelected];
+        }
 
-        // Gán danh sách tạm thời vào danh sách chính
-        $scope.listProductShow = $scope.tempSelectedProducts;
-        console.log("Sản phẩm đã chọn: ", $scope.listProductShow);
+        console.log("Sản phẩm đã chọn: ", $scope.listProductFlashSale);
         // Đóng modal
         $('#exampleModal').modal('hide');
 
         // Thông báo cho người dùng biết rằng sản phẩm đã được thêm thành công
-        alert('Sản phẩm đã được thêm vào danh sách tạm thời.');
     };
 
     //Tính số tiền giảm
     $scope.calculateDiscountedPrice = function (product) {
-        if (product.discountPercentage !== undefined && product.discountPercentage !== null) {
-            var discountPercentage = parseFloat(product.discountPercentage);
-            if (!isNaN(discountPercentage)) {
-                var originalPrice = parseFloat(product.price);
-                if (!isNaN(originalPrice)) {
-                    var discountedPrice = originalPrice - (originalPrice * (discountPercentage / 100));
-                    return discountedPrice.toFixed(2); // Làm tròn đến 2 chữ số thập phân
-                }
-            }
+        if(!isNaN(product.discountPercentage)){
+            return product.discountPercentage * product.productDetail.price / 100;
         }
-        return ""; // Trả về chuỗi rỗng nếu dữ liệu không hợp lệ
+        return 0; // Trả về chuỗi rỗng nếu dữ liệu không hợp lệ
     };
 
     //Hàm Xóa Product_FlashSale Tạm
     $scope.removeProduct = function (index) {
         // Sử dụng index để xác định hàng cần xóa và loại bỏ nó khỏi danh sách selectedProducts
-        $scope.listProductShow.splice(index, 1);
+        $scope.listDeletedProductFlashSale.push($scope.listProductFlashSale[index])
+        $scope.listProductFlashSale.splice(index, 1);
     };
     //hàm Save 
     $scope.create = function () {
         var url = `${host}/flashsales`;
-        var formattedTime = moment($scope.item.flashSale.startTime, 'hh:mm A').format('HH:mm:ss');
-        var formattedEndTime = moment($scope.item.flashSale.endTime, 'hh:mm A').format('HH:mm:ss');
-        var formatUserDate = moment($scope.item.flashSale.userDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
+        var formattedTime = moment($scope.item.startTime, 'hh:mm A').format('HH:mm:ss');
+        var formattedEndTime = moment($scope.item.endTime, 'hh:mm A').format('HH:mm:ss');
+        var formatUserDate = moment($scope.item.userDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
         // Tạo dữ liệu yêu cầu POST từ các trường trong form HTML
         var requestData = {
             flashSale: {
-                name: $scope.item.flashSale.name,
+                flashSaleId: $scope.item.flashSaleId | null,
+                name: $scope.item.name,
                 startTime: formattedTime,
                 endTime: formattedEndTime,
                 userDate: formatUserDate,
-                status: $scope.item.flashSale.status
+                status: $scope.item.status
             },
-            productFlashSales: $scope.listProductShow
+            productFlashSales: $scope.listProductFlashSale,
+            listDeletedProductFlashSale: $scope.listDeletedProductFlashSale
         };
         // Duyệt qua danh sách sản phẩm đã chọn và thêm chúng vào danh sách productFlashSales
-        angular.forEach($scope.listProductShow, function (product) {
-            requestData.productFlashSales.push({
-                productDetail: product,
-                quantity: product.quantity,
-                discountPercentage: product.discountPercentage,
-                purchaseLimit: product.purchaseLimit
-            });
-            console.log(requestData.productFlashSales);
-        });
-
+        console.log(requestData);
         $http.post(url, requestData).then(resp => {
             console.log("Thêm Flashsale thành công", resp);
             $scope.clearTable();
@@ -180,7 +181,7 @@ function flashsaleController($scope, $http, $location, $routeParams,) {
     //Hàm Reset
     $scope.clearTable = function () {
         $scope.item = {};
-        $scope.listProductShow = []; // Xóa toàn bộ dữ liệu trong bảng
+        $scope.listProductFlashSale = []; // Xóa toàn bộ dữ liệu trong bảng
     };
 
     //Hàm EDIT
@@ -189,28 +190,34 @@ function flashsaleController($scope, $http, $location, $routeParams,) {
         $http
             .get(url)
             .then(function (resp) {
-                $scope.item = angular.copy(resp.data);
-                $scope.listProductShow = angular.copy(resp.data.productFlashSale);
-
-                $scope.item = angular.extend({}, resp.data, {listProductShow: resp.data.productFlashSale});
-
-                console.log(resp.data);
-
                 $location
                     .path("/flashsale-form")
-                    .search({id: flashSaleId, data: angular.toJson(resp.data)});
-
+                    .search({ id: flashSaleId, data: resp.data });
+                console.log(resp.data);
             }).catch(function (error) {
-            console.log("Error", error);
-        });
+                console.log("Error", error);
+            });
     }
 
     if ($routeParams.data) {
         // Parse dữ liệu từ tham số data và gán vào $scope.item.
-        $scope.item = angular.fromJson($routeParams.data);
+        $scope.item = angular.fromJson($routeParams.data.flashSale);
+        $scope.listProductFlashSale = angular.fromJson($routeParams.data.listProductFlashSale);
+        console.log($scope.listProductFlashSale);
     }
 
-    $scope.load_All();
+
+    $scope.formatDate = function (date) {
+        if (date == null) {
+            return "";
+        }
+        var formattedDate = new Date(date);
+        var year = formattedDate.getFullYear();
+        var month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
+        var day = formattedDate.getDate().toString().padStart(2, '0');
+
+        return `${year}-${month}-${day}`;
+    };
 
 }
 
