@@ -70,25 +70,25 @@
                                         <input type="text" class="form-info" id="order-id" name="order-id"
                                                ng-model="orderId"
                                                ng-value="'DH' + order.orderId.toString().padStart(6, '0')"
-                                               ng-disabled="true">
+                                               >
                                     </div>
                                     <div class="mb-3">
                                         <label for="order-by" class="form-label">Người đặt hàng:</label>
                                         <input type="text" class="form-info" id="order-by" name="order-by"
                                                ng-model="orderBy" ng-value="order.invoice.username.fullname"
-                                               ng-disabled="true">
+                                               >
                                     </div>
                                     <div class="mb-3">
                                         <label for="order-date" class="form-label">Ngày đặt hàng:</label>
                                         <input type="date" class="form-info" id="order-date" name="order-date"
                                                ng-model="orderDate" ng-value="formatDate(order.orderDate)"
-                                               ng-disabled="true">
+                                               >
                                     </div>
                                     <div class="mb-3">
                                         <label for="delivery-date" class="form-label">Ngày giao hàng:</label>
                                         <input type="date" class="form-info" id="delivery-date" name="delivery-date"
                                                ng-model="deliveryDate" ng-value="formatDate(order.deliveryDate)"
-                                               ng-disabled="true">
+                                               >
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -123,7 +123,7 @@
                                             toán:</label>
                                         <input type="text" class="form-info" id="order-payment-method"
                                                name="order-payment-method" ng-model="orderPaymentMethod"
-                                               ng-value="order.invoice.paymentMethod" ng-disabled="true">
+                                               ng-value="order.invoice.paymentMethod" >
                                     </div>
                                     <div class="mb-3">
                                         <label for="order-status" class="form-label">Trạng thái đơn hàng:</label>
@@ -183,12 +183,6 @@
                                       <p>Tổng tiền cần thanh toán:</p> <b>{{order.invoice.totalAmount | number:'0'}}
                                       đ</b>
                                   </div>
-                              </div>
-                              <div class="form-action">
-                                <button type="submit" class="btn btn-primary">Cập nhật</button>
-                                <button type="submit" class="btn btn-primary">Lưu</button>
-                                <button type="submit" class="btn btn-danger">Hủy đơn</button>
-
                               </div>
                             </form>
                           </div>

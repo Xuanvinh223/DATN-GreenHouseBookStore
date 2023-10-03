@@ -17581,13 +17581,6 @@ a.uppy-Dashboard-poweredBy {
     max-height: 300px;
 }
 
-.order-info .tab-content .form-action {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 15px;
-}
-
 .order-info .tab-content .form-info {
     width: 100%;
     line-height: 28px;

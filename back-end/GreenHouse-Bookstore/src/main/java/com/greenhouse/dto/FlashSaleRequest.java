@@ -12,7 +12,6 @@ public class FlashSaleRequest {
 
     private Flash_Sales flashSale;
     private List<Product_Flash_Sale> productFlashSales;
-
+    private List<Product_Flash_Sale> listDeletedProductFlashSale;
     // Constructors, getters, and setters
 }
-

@@ -21,11 +21,6 @@ public class ProductFlashSaleServiceImpl implements ProductFlashSaleService {
     }
 
     @Override
-    public List<Product_Flash_Sale> findByProductFSId(Integer flashSaleId) {
-        return productFlashSaleRepository.findByProductFSId(flashSaleId);
-    }
-
-    @Override
     public Product_Flash_Sale findById(Integer id) {
         Optional<Product_Flash_Sale> result = productFlashSaleRepository.findById(id);
         return result.orElse(null);
@@ -44,6 +39,12 @@ public class ProductFlashSaleServiceImpl implements ProductFlashSaleService {
     @Override
     public void delete(Integer id) {
         productFlashSaleRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Product_Flash_Sale> findByProductFSId(Integer flashSale) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findByProductFSId'");
     }
 
 
