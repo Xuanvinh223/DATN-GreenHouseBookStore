@@ -7,8 +7,8 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "ImportInvoice")
-public class ImportInvoice implements Serializable {
+@Table(name = "Import_Invoice")
+public class Import_Invoice implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,9 @@ public class ImportInvoice implements Serializable {
     @Column(name = "Supplier_Id")
     private String supplierId;
 
+    @Column(name = "Description")
+    private String description;
+    
     @Column(name = "Status")
     private boolean status;
 

@@ -376,7 +376,7 @@ template {
   display: none;
 }
 
-span{
+span {
   font-size: 0.9rem;
 }
 [hidden] {
@@ -1719,11 +1719,11 @@ pre code {
 .table-striped thead tr th a:hover {
   color: #4eaa4f;
 }
-.table-striped tbody tr td a i{
+.table-striped tbody tr td a i {
   color: #6c757d;
   padding-right: 5px;
 }
-.table-striped tbody tr td a i:hover{
+.table-striped tbody tr td a i:hover {
   color: #4eaa4f;
 }
 .table-hover tbody tr:hover {
@@ -4523,7 +4523,7 @@ input[type="button"].btn-block {
   word-wrap: break-word;
   background-color: #ffffff;
   background-clip: border-box;
-      border: 1px solid #e9ecef;
+  border: 1px solid #e9ecef;
   border-radius: 0.25rem;
 }
 .card > hr {
@@ -4775,7 +4775,7 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #6c757d ;
+  color: #6c757d;
   background-color: transparent;
   border: 1px solid transparent;
 }
@@ -9581,7 +9581,7 @@ a.text-dark:focus {
 .text-body {
   color: #6c757d !important;
 }
-.card-title1{
+.card-title1 {
   color: blue !important;
 }
 .text-muted {
@@ -10335,9 +10335,8 @@ select {
 .table tbody tr th {
   font-weight: 400;
 }
-.table tbody tr td a i{
-
-} 
+.table tbody tr td a i {
+}
 .table tr.collapse {
   border-top: 1px solid #e9ecef;
   border-bottom: 1px solid #e9ecef;
@@ -10899,9 +10898,9 @@ strong {
 
 img.brand-img {
   width: 100px;
-  height:auto;
-  fill: #62ab00; }
-
+  height: auto;
+  fill: #62ab00;
+}
 
 .navbar-light .navbar-nav .nav-link {
   color: #001a4e;
@@ -11728,7 +11727,7 @@ form.was-validated
     -o-transform: translateY(40px);
     transform: translateY(40px);
   }
-30%,
+  30%,
   70% {
     opacity: 1;
     -webkit-transform: translateY(0px);
@@ -15791,14 +15790,14 @@ a.uppy-Dashboard-poweredBy {
     right: -35px;
   }
 
-  .Upload{
-    padding-top:100px;
+  .Upload {
+    padding-top: 100px;
   }
 }
 
 /* Định dạng của container chứa icon và input */
 .input-container {
- width:60%;
+  width: 60%;
 }
 @media (min-width: 992px) {
   .input-container {
@@ -15806,7 +15805,7 @@ a.uppy-Dashboard-poweredBy {
   }
 }
 
-.icon{
+.icon {
   padding-left: 10px;
 }
 
@@ -15818,7 +15817,6 @@ a.uppy-Dashboard-poweredBy {
   align-items: center;
   padding: 3px; /* Khoảng cách bên trong phần tử bao quanh */
 }
-
 
 /* Định dạng của input */
 .input {
@@ -15840,7 +15838,7 @@ a.uppy-Dashboard-poweredBy {
 
 /* Định dạng của container chứa icon và input */
 .input-container {
- width:60%;
+  width: 60%;
 }
 @media (min-width: 992px) {
   .input-container {
@@ -15848,7 +15846,7 @@ a.uppy-Dashboard-poweredBy {
   }
 }
 
-.icon{
+.icon {
   padding-left: 10px;
 }
 
@@ -15861,6 +15859,424 @@ a.uppy-Dashboard-poweredBy {
   padding: 3px; /* Khoảng cách bên trong phần tử bao quanh */
 }
 
-.button-add{
- /* padding-left: 100px; */
+/* Định dạng của input */
+.input {
+  border: none;
+  /* Loại bỏ border của input */
+  /* background-color: #495057; */
+  outline: none;
+  /* Loại bỏ border khi focus */
+  width: 100% !important;
+  /* Độ rộng của input */
 }
+
+/* Đảm bảo icon và combobox nằm cùng một hàng ngang */
+.input-group-prepend .input-group-text {
+  border-right: none !important;
+  padding: 0;
+  /* Loại bỏ khoảng trống xung quanh icon */
+}
+
+/* Điều chỉnh khoảng cách giữa icon và combobox */
+.select2 {
+  margin-left: 5px;
+  /* Điều chỉnh khoảng cách bên trái của combobox */
+}
+
+/* CUSTOM CSS FOR GREENHOUSE */
+.modal-supper-lg {
+  min-width: 90%;
+}
+
+/* CSS Invertory  */
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .form-modal-search
+  button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+
+.inventory-table #inventoryModal .modal-body .search-box .form-modal-search {
+  --timing: 0.3s;
+  --width-of-input: 100%;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #2f2ee9;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  border: 1px solid #e9ecef;
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg, #fff);
+}
+
+.inventory-table #inventoryModal .modal-body .search-box .input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .form-modal-search:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .form-modal-search:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+.inventory-table #inventoryModal .modal-body .search-box input:focus {
+  outline: none;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .form-modal-search:focus-within:before {
+  transform: scale(1);
+}
+
+.inventory-table #inventoryModal .modal-body .search-box .reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  input:not(:placeholder-shown)
+  ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .form-modal-search
+  svg {
+  width: 17px;
+  margin-top: 3px;
+}
+
+/* MODAL - CART PRODUCT LEFT - START*/
+.inventory-table #inventoryModal .modal-body .selected-products {
+  position: relative;
+  max-height: 50vh;
+  overflow: auto;
+}
+.inventory-table #inventoryModal .modal-body .search-box .product-cart-left{
+  z-index: 10;
+  max-height: 100%;
+max-width: 100%;
+  overflow: auto;
+  position: absolute !important;
+ 
+}
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart {
+  background: #dff0ef;
+  cursor: pointer;
+  margin: 0 0.8rem;
+  border-radius: 10px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.inventory-table #inventoryModal .modal-body .product-cart-left {
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.inventory-table #inventoryModal .modal-body .item-product-cart {
+  margin: 1rem 0.8rem;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .item-product-cart
+  .img-product-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+  margin-left: 0.5rem;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .item-product-cart
+  .img-product-cart
+  img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.inventory-table #inventoryModal .modal-body .group-product-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inventory-table #inventoryModal .modal-body .product-name-full-text {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+   margin: 0;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 18px;
+  display: inline-block;
+  color: #595959;
+}
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart:hover {
+  background: #a5ead3;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .product-name-full-text
+  .product-name {
+  font-size: 1rem;
+  color: #030404;
+  font-weight: 600;
+}
+.inventory-table #inventoryModal .modal-body .info-product-cart {
+  padding-top: 0.3rem;
+  width: 100%;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .info-product-cart
+  .cart-item-price {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .info-product-cart
+  .cart-price
+  .price-old
+  .price {
+  font-size: 1em;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .info-product-cart
+  .cart-price
+  .price {
+  font-size: 1.2em;
+  line-height: 1.2em;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .price-original
+  .cart-price
+  .price {
+  color: #333;
+  font-weight: 650;
+}
+
+.inventory-table #inventoryModal .modal-body .price-old .price {
+  color: #7a7e7f !important;
+  text-decoration: line-through;
+  font-size: 0.95em;
+  font-weight: normal !important;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .group-product-info
+  .number-product-cart {
+  width: 50%;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  gap: 20px;
+}
+
+.inventory-table #inventoryModal .modal-body .product-view-quantity-box {
+  padding: 0px 10px 0px 10px;
+  width: 100px;
+}
+
+.inventory-table #inventoryModal .modal-body .product-view-quantity-box-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e0e0e0e0;
+  border-radius: 5px;
+  height: 30px;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .product-view-quantity-box-block
+  a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .product-view-quantity-box-block
+  .qty-carts {
+  border: none !important;
+  flex: 1;
+  width: 2em !important;
+  font-weight: 650;
+  font-size: 1em;
+  text-align: center;
+}
+
+.inventory-table #inventoryModal .modal-body input.qty-carts {
+  width: 100%;
+  height: unset !important;
+}
+
+.inventory-table #inventoryModal .modal-body .qty-carts {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.inventory-table #inventoryModal .modal-body .btn-add-qty,
+.inventory-table #inventoryModal.modal-body .btn-subtract-qty {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .cart-price-total
+  .cart-price
+  .price {
+  color: #c92127;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.inventory-table #inventoryModal .modal-body .cart-ui-content .price {
+  font-family: sans-serif !important;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .item-product-cart
+  .btn-remove-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .item-product-cart
+  .btn-remove-box
+  .btn-remove {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+}
+
+.order-page #orderModal .modal-body .border-product {
+  width: 95%;
+  margin: auto;
+  border-bottom-width: 1px;
+  border-bottom-color: #ededed;
+  border-bottom-style: solid;
+}
+.input-group-icon {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #343a40;
+  border: 1px solid #6c757d;
+  border-radius: 0.25rem;
+}
+.bg-success1 {
+  position: absolute;
+  background-color: #3ad29f !important;
+  bottom: 0;
+  right: 0;
+}
+
+/* END */

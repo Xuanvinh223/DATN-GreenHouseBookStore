@@ -121,6 +121,8 @@
       <workItem from="1695290983659" duration="4741000" />
       <workItem from="1695396667011" duration="1942000" />
       <workItem from="1695454654115" duration="475000" />
+      <workItem from="1695483932238" duration="894000" />
+      <workItem from="1696243735115" duration="514000" />
     </task>
     <task id="LOCAL-00001" summary="[Project] - Create packages">
       <created>1692841448096</created>
@@ -241,9 +243,9 @@
             <State>
               <option name="COLUMN_ID_WIDTH">
                 <map>
-                  <entry key="Table.Default.Author.ColumnIdWidth" value="70" />
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="69" />
                   <entry key="Table.Default.Date.ColumnIdWidth" value="72" />
-                  <entry key="Table.Space.CommitStatus.ColumnIdWidth" value="72" />
+                  <entry key="Table.Space.CommitStatus.ColumnIdWidth" value="71" />
                 </map>
               </option>
             </State>
@@ -269,7 +271,6 @@
     <MESSAGE value="[FE] - Update title" />
     <MESSAGE value="[Font-end] - thymeleaf GUI" />
     <MESSAGE value="[Front-End] Admin - Update UI Cart-page" />
-    <MESSAGE value="[BE-FE] - fix bug authorization." />
-    <option name="LAST_COMMIT_MESSAGE" value="[BE-FE] - fix bug authorization." />
+    <option name="LAST_COMMIT_MESSAGE" value="[Front-End] Admin - Update UI Cart-page" />
   </component>
 </project>
