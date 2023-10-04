@@ -2,19 +2,19 @@ package com.greenhouse.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import jakarta.persistence.*;
-import lombok.Data;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "Accounts")
-public class Accounts implements Serializable {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+public class Accounts implements Serializable{
 
     @Id
     @Column(name = "Username")
@@ -33,6 +33,7 @@ public class Accounts implements Serializable {
     private Boolean gender;
 
     @Column(name = "Birthday")
+    @Temporal(TemporalType.DATE)
     private Date birthday;
 
     @Column(name = "Phone")
@@ -41,22 +42,18 @@ public class Accounts implements Serializable {
     @Column(name = "Image")
     private String image;
 
-    @Column(name = "create_at")
-    private Date createAt;
+    @Column(name = "Create_At")
+    private Date createdAt;
 
-    @Column(name = "deleted_at")
+    @Column(name = "Deleted_At")
     private Date deletedAt;
 
-    @Column(name = "deleted_by")
+    @Column(name = "Deleted_By")
     private String deletedBy;
 
     @Column(name = "Active")
     private Boolean active;
 
-    @Column(name = "Notification_Id")
-    private Integer notificationId;
-
-   
-   
-    // Getters and setters
+    // Constructors, getters, setters, and other methods
 }
+

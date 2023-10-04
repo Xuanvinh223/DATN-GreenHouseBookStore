@@ -13,13 +13,6 @@ public interface AccountRepository extends JpaRepository<Accounts, String> {
     boolean existsByEmail(String username);
 
     boolean existsByPhone(String username);
-
-    @Query(value = "select count(*) from Accounts", nativeQuery = true)
-    int countByCustomer();
-
-    @Query(value = "select count(*) from Brands", nativeQuery = true)
-    int countByBrand();
-
     @Query(value = "SELECT COUNT(o.Order_Id) FROM Orders o " +
             "JOIN Order_Mapping_Status m ON o.Order_Id = m.Order_Id " +
             "JOIN Order_Status s ON s.Status_Id = m.Status_Id " +

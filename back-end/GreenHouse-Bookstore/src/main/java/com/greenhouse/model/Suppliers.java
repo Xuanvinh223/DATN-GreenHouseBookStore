@@ -10,10 +10,10 @@ import java.io.Serializable;
 public class Suppliers implements Serializable {
 
     @Id
-    @Column(name = "supplier_id", length = 30)
+    @Column(name = "Supplier_Id", length = 30)
     private String supplierId;
 
-    @Column(name = "supplier_name", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "Supplier_Name", columnDefinition = "nvarchar(100)", nullable = false)
     private String supplierName;
 
     @Column(name = "Description", columnDefinition = "nvarchar(300)")

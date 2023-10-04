@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface AuthoritiesRepository extends JpaRepository<Authorities, Integer> {
     
 	List<Authorities> findByUsername(String username);
+ 
+    Long countByRoleId(Long roleId);
 }

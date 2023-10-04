@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "UserVoucher")
+@Table(name = "User_Voucher")
 public class UserVoucher implements Serializable {
 
     @Id

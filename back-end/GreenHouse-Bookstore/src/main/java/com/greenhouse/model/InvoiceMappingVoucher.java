@@ -1,5 +1,7 @@
 package com.greenhouse.model;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,8 +14,8 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "InvoiceMappingVoucher")
-public class InvoiceMappingVoucher {
+@Table(name = "Invoice_Mapping_Voucher")
+public class InvoiceMappingVoucher implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +31,7 @@ public class InvoiceMappingVoucher {
     private Vouchers voucher;
 
     @Column(name = "Discount_Amount")
-    private int discountAmount;
+    private double discountAmount;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok hoặc bạn có thể tự viết.
 

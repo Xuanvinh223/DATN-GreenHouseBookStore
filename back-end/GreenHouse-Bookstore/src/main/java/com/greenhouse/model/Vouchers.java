@@ -11,14 +11,23 @@ public class Vouchers implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "VoucherId")
+    @Column(name = "Voucher_Id")
     private int voucherId;
 
-    @Column(name = "Code", length = 100, nullable = false)
+    @Column(name = "Code")
     private String code;
+
+    @Column(name = "Voucher_Type")
+    private String voucherType;
 
     @Column(name = "Discount_Type", columnDefinition = "nvarchar(200)", nullable = false)
     private String discountType;
+
+    @Column(name = "Discount_Amount")
+    private Double discountAmount;
+
+    @Column(name = "Discount_Percentage")
+    private int discountPercentage;
 
     @Column(name = "Minimum_Purchase_Amount")
     private Double minimumPurchaseAmount;
@@ -30,21 +39,21 @@ public class Vouchers implements Serializable {
     private String productId;
 
     @Column(name = "Product_Category_Id")
-    private Integer productCategoryId;
+    private String productCategoryId;
 
-    @Column(name = "Start_Date", nullable = false)
+    @Column(name = "Start_Date")
     private Date startDate;
 
-    @Column(name = "End_Date", nullable = false)
+    @Column(name = "End_Date")
     private Date endDate;
 
-    @Column(name = "Total_Quantity", nullable = false)
+    @Column(name = "Total_Quantity")
     private int totalQuantity;
 
-    @Column(name = "Used_Quantity", nullable = false)
+    @Column(name = "Used_Quantity")
     private int usedQuantity;
 
-    @Column(name = "Status", nullable = false)
+    @Column(name = "Status")
     private boolean status;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.

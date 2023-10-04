@@ -1,6 +1,8 @@
 package com.greenhouse.model;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,21 +16,22 @@ public class Product_Reviews implements Serializable {
     @Column(name = "Review_Id")
     private int reviewId;
 
-    @Column(name = "Username", length = 50)
-    private String username;
+    @ManyToOne
+    @JoinColumn(name = "Username")
+    private Accounts account;
 
     @ManyToOne
     @JoinColumn(name = "Product_Id")
     private Products product;
 
-    @Column(name = "Comment", columnDefinition = "nvarchar(500)")
+    @Column(name = "Comment")
     private String comment;
 
     @Column(name = "Date")
-    private java.sql.Timestamp date;
+    private Date date;
 
     @Column(name = "Star")
     private int star;
 
-    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
+    // Constructors, getters, and setters.
 }

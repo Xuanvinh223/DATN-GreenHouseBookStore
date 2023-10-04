@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "ImportInvoice_Detail")
+@Table(name = "Import_Invoice_Detail")
 public class ImportInvoice_Detail implements Serializable {
 
     @Id

@@ -1,5 +1,7 @@
 package com.greenhouse.model;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -7,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Shipping_Partners")
-public class ShippingPartner {
+public class ShippingPartner implements Serializable{
     @Id
     @Column(name = "ID", unique = true, nullable = false)
     private String id;
