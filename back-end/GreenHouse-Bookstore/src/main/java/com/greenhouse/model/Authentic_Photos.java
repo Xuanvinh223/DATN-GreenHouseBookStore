@@ -10,10 +10,10 @@ import lombok.Data;
 public class Authentic_Photos implements Serializable {
 
     @Id
-    @Column(name = "AuthenticPhotoId")
+    @Column(name = "Authentic_Photo_Id")
     private int authenticPhotoId;
 
-    @Column(name = "PhotoName")
+    @Column(name = "Photo_Name")
     private String photoName;
 
     @Column(name = "Product_Review_Id")

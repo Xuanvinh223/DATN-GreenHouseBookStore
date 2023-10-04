@@ -74,7 +74,7 @@
                                                                            id="order-id" name="order-id"
                                                                            ng-model="orderId"
                                                                            ng-value="'DH' + order.orderId.toString().padStart(6, '0')"
-                                                                           ng-disabled="true">
+                                                                           readonly>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="order-by" class="form-label">Người
@@ -83,7 +83,7 @@
                                                                            id="order-by" name="order-by"
                                                                            ng-model="orderBy"
                                                                            ng-value="order.invoice.username.fullname"
-                                                                           ng-disabled="true">
+                                                                           readonly>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="order-date" class="form-label">Ngày
@@ -92,7 +92,7 @@
                                                                            id="order-date" name="order-date"
                                                                            ng-model="orderDate"
                                                                            ng-value="formatDate(order.orderDate)"
-                                                                           ng-disabled="true">
+                                                                           readonly>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="delivery-date"
@@ -101,7 +101,7 @@
                                                                            id="delivery-date" name="delivery-date"
                                                                            ng-model="deliveryDate"
                                                                            ng-value="formatDate(order.deliveryDate)"
-                                                                           ng-disabled="true">
+                                                                           readonly>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
@@ -111,7 +111,7 @@
                                                                     <input type="text" class="form-info"
                                                                            id="order-create-by" name="order-create-by"
                                                                            ng-model="orderCreateBy"
-                                                                           ng-value="order.username.fullname">
+                                                                           ng-value="order.username.fullname" readonly>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="order-reciver-name"
@@ -120,7 +120,8 @@
                                                                            id="order-reciver-name"
                                                                            name="order-reciver-name"
                                                                            ng-model="orderReceiverName"
-                                                                           ng-value="order.invoice.receiverName">
+                                                                           ng-value="order.invoice.receiverName"
+                                                                           readonly>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="order-reciver-phone"
@@ -130,7 +131,8 @@
                                                                            id="order-reciver-phone"
                                                                            name="order-reciver-phone"
                                                                            ng-model="orderReceiverPhone"
-                                                                           ng-value="order.invoice.receiverPhone">
+                                                                           ng-value="order.invoice.receiverPhone"
+                                                                           readonly>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="order-reciver-address"
@@ -140,7 +142,8 @@
                                                                            id="order-reciver-address"
                                                                            name="order-reciver-address"
                                                                            ng-model="orderReceiverAddress"
-                                                                           ng-value="order.invoice.receiverAddress">
+                                                                           ng-value="order.invoice.receiverAddress"
+                                                                           readonly>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
@@ -153,7 +156,7 @@
                                                                            name="order-payment-method"
                                                                            ng-model="orderPaymentMethod"
                                                                            ng-value="order.invoice.paymentMethod"
-                                                                           ng-disabled="true">
+                                                                           readonly>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="order-status"
@@ -162,7 +165,8 @@
                                                                     <input type="text" class="form-info"
                                                                            id="order-status" name="order-status"
                                                                            ng-model="orderStatus"
-                                                                           ng-value="getOrderStatusByOrderId(order.orderId)">
+                                                                           ng-value="getOrderStatusByOrderId(order.orderId)"
+                                                                           readonly>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
@@ -175,8 +179,7 @@
                                                         </div>
 
                                                         <!-- Thêm các trường thông tin khác -->
-
-                                                        <table class="table">
+                                                        <table class="table table-hover table-striped">
                                                             <thead>
                                                             <tr>
                                                                 <th>STT</th>
@@ -227,24 +230,7 @@
                                                                     đ</b>
                                                             </div>
                                                         </div>
-                                                        <div class="form-action">
-                                                            <button type="submit" class="btn btn-primary">Cập
-                                                                nhật
-                                                            </button>
-                                                            <button type="submit"
-                                                                    class="btn btn-primary">Lưu
-                                                            </button>
-                                                            <button type="submit" class="btn btn-danger">Hủy
-                                                                đơn
-                                                            </button>
-
-                                                        </div>
                                                     </form>
-                                                </div>
-
-                                                <div class="tab-pane" id="tab2">
-                                                    <!-- Nội dung cho tab "Tab Mới" -->
-                                                    <p>Nội dung tab mới: ...</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -252,35 +238,6 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <div class="toolbar">
-                                <form class="form">
-                                    <div class="form-row">
-                                        <div class="form-inline col-auto mr-auto">
-                                            <label class="my-1 mr-2 " for="inlineFormCustomSelectPref1">Show</label>
-                                            <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1">
-                                                <option value="">...</option>
-                                                <option value="1">12</option>
-                                                <option value="2" selected>32</option>
-                                                <option value="3">64</option>
-                                                <option value="3">128</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-auto">
-                                            <span>Đang xem 1 trên tổng số 5 mục</span>
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <nav aria-label="Table Paging" class="mb-0 text-muted">
-                                <ul class="pagination justify-content-center mb-0">
-                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                </ul>
-                            </nav>
                         </div>
                     </div>
                 </div> <!-- simple table -->

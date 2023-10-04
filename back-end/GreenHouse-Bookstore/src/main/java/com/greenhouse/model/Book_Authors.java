@@ -15,7 +15,7 @@ public class Book_Authors implements Serializable {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "author_id", referencedColumnName = "author_id")
+    @JoinColumn(name = "Author_Id", referencedColumnName = "Author_Id")
     private Authors author;
 
     @ManyToOne

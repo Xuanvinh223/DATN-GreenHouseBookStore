@@ -15,7 +15,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "Import_Invoice_Detail")
-public class Import_Invoice_Detail implements Serializable {
+public class ImportInvoice_Detail implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class Import_Invoice_Detail implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "Import_Invoice_Id")
-    private Import_Invoice importInvoice;
+    private ImportInvoice importInvoice;
 
     @Column(name = "Quantity")
     private int quantity;

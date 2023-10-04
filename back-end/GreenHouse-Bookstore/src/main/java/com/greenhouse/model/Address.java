@@ -5,7 +5,10 @@ package com.greenhouse.model;
 import java.io.Serializable;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
 @Entity
+@Data
 @Table(name = "Address")
 public class Address implements Serializable {
 

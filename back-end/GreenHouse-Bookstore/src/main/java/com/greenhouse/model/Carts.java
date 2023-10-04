@@ -11,7 +11,7 @@ public class Carts implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CartId")
+    @Column(name = "Cart_Id")
     private int cartId;
 
     @Column(name = "Quantity")
@@ -23,8 +23,8 @@ public class Carts implements Serializable {
     @Column(name = "Amount")
     private double amount;
 
-    @Column(name = "AmountAppliedDiscount")
-    private double amountAppliedDiscount;
+    @Column(name = "Price_discount")
+    private double priceDiscount;
 
     @Column(name = "Status")
     private boolean status;
@@ -36,10 +36,7 @@ public class Carts implements Serializable {
     private Accounts account;
 
     @ManyToOne
-    @JoinColumn(name = "Discount_Id", referencedColumnName = "Discount_Id")
-    private Discounts discount;
-
-    @ManyToOne
+    @JoinColumn(name = "Product_Detail_Id", referencedColumnName = "Product_Detail_Id")
     private Product_Detail productDetail;
 
     // Mối quan hệ nếu cần

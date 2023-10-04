@@ -9,17 +9,17 @@ import lombok.Data;
 @Data
 @Table(name = "Conversation")
 public class Conversation implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ConversationId")
+    @Column(name = "Conversation_Id")
     private int conversationId;
 
-    @Column(name = "ConversationDate")
+    @Column(name = "Conversation_Date")
     private Date conversationDate;
 
-    @Column(name = "Username")
-    private String username;
+    @ManyToOne
+    @JoinColumn(name = "Username")
+    private Accounts account;
 
-    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
+    // Constructors, getters, and setters
 }

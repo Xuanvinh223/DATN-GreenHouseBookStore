@@ -47,12 +47,15 @@ public class AccountsServiceImpl implements AccountsService {
     }
 
     @Override
-    public int countByBrand() {
-        return accountsRepository.countByBrand();
+    public int countByCustomer() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'countByCustomer'");
     }
 
     @Override
-    public int countByCustomer() {
-        return accountsRepository.countByCustomer();
+    public int countByBrand() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'countByBrand'");
     }
+
 }

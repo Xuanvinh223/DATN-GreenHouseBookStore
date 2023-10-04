@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "OrderMappingStatus")
+@Table(name = "Order_Mapping_Status")
 public class OrderMappingStatus implements Serializable {
 
     @Id

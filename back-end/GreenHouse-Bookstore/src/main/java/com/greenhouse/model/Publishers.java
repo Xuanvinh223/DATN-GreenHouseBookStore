@@ -27,6 +27,6 @@ public class Publishers implements Serializable {
     private String email;
 
     @Column(name = "Image", length = 200)
-      private String image;
+    private String image;
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

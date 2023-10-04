@@ -156,41 +156,38 @@ app.controller("OrderController", function ($scope, $http, $interval) {
         $scope.searchProductResults = [];
         if (keyword) {
             keyword = keyword.toLowerCase();
-            $scope.listProductDetails.forEach(function (productD) {
-                if (productD.product.productName.toLowerCase().includes(keyword)) {
-                    $scope.searchProductResults.push(productD);
-                }
+            $scope.searchProductResults = $scope.listProductDetails.filter(function (productD) {
+                return productD.product.productName.toLowerCase().includes(keyword);
             });
         } else {
             $scope.searchProductKeyword = null;
         }
     };
 
-    $scope.selectedProduct = function (product) {
-        var cart = {
-            productDetailId: product,
-            quantity: 1,
-            price: product.price,
-            amount: product.price,
-        };
-        var duplicateProduct = true;
-        $scope.selectedProducts.forEach(function (p) {
-            if (p.productDetailId.productDetailId == product.productDetailId) {
-                p.quantity++;
-                duplicateProduct = false;
-            }
-        })
 
-        if (duplicateProduct) {
+    $scope.selectedProduct = function (product) {
+        var existingProduct = $scope.selectedProducts.find(function (p) {
+            return p.productDetailId.productDetailId === product.productDetailId;
+        });
+
+        if (existingProduct) {
+            existingProduct.quantity++;
+            existingProduct.amount = existingProduct.quantity * existingProduct.price;
+        } else {
+            var cart = {
+                productDetailId: product,
+                quantity: 1,
+                price: product.price,
+                amount: product.price,
+            };
             $scope.selectedProducts.push(cart);
         }
 
         $scope.updateInvoice();
-
-
         console.log("Sản phẩm đã chọn: ", $scope.selectedProducts);
         $scope.searchProduct(null);
-    }
+    };
+
 
     $scope.increaseQuantityProduct = function (item) {
         if (item.quantity < item.productDetailId.quantityInStock) {
