@@ -42,7 +42,4 @@ public class Flash_Sales implements Serializable {
     @Column(name = "Status")
     private int status;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "flashSaleId", fetch = FetchType.EAGER)
-    List<Product_Flash_Sale> productFlashSales;
 }
