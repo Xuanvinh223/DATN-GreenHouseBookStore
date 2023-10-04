@@ -1,4 +1,4 @@
-var app = angular.module('admin-app', ['ngRoute']);
+var app = angular.module('admin-app', ['ngRoute', 'angular-jwt']);
 
 app.config(function ($routeProvider) {
     $routeProvider
@@ -33,27 +33,27 @@ app.config(function ($routeProvider) {
         })
         .when("/category-form", {
             templateUrl: "page/category-manager/form_category.html",
-            controller: ""
+            controller: "CategoryController"
         })
         .when("/category-table", {
             templateUrl: "page/category-manager/table_category.html",
-            controller: ""
+            controller: "CategoryController"
         })
         .when("/categorytype-form", {
             templateUrl: "page/category-manager/form_categorytype.html",
-            controller: ""
+            controller: "CategoryTypeController"
         })
         .when("/categorytype-table", {
             templateUrl: "page/category-manager/table_categorytype.html",
-            controller: ""
+            controller: "CategoryTypeController"
         })
         .when("/discount-form", {
             templateUrl: "page/coupon-manager/form_discount.html",
-            controller: ""
+            controller: "DiscountController"
         })
         .when("/discount-table", {
             templateUrl: "page/coupon-manager/table_discount.html",
-            controller: ""
+            controller: "DiscountController"
         })
         .when("/voucher-form", {
             templateUrl: "page/coupon-manager/form_voucher.html",
@@ -73,11 +73,11 @@ app.config(function ($routeProvider) {
         })
         .when("/inventory-form", {
             templateUrl: "page/inventory-manager/inventory_form.html",
-            controller: ""
+            controller: "inventoryCtrl"
         })
         .when("/inventory-table", {
             templateUrl: "page/inventory-manager/inventory_table.html",
-            controller: ""
+            controller: "inventoryCtrl"
         })
         //đơn hàng
         .when("/order-manager", {

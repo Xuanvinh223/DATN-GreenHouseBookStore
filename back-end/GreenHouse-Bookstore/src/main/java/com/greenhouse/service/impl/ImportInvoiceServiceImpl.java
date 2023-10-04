@@ -1,6 +1,6 @@
 package com.greenhouse.service.impl;
 
-import com.greenhouse.model.ImportInvoice;
+import com.greenhouse.model.Import_Invoice;
 import com.greenhouse.repository.ImportInvoiceRepository;
 import com.greenhouse.service.ImportInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +16,23 @@ public class ImportInvoiceServiceImpl implements ImportInvoiceService {
     private ImportInvoiceRepository importInvoiceRepository;
 
     @Override
-    public List<ImportInvoice> findAll() {
+    public List<Import_Invoice> findAll() {
         return importInvoiceRepository.findAll();
     }
 
     @Override
-    public ImportInvoice findById(Integer importInvoiceId) {
-        Optional<ImportInvoice> result = importInvoiceRepository.findById(importInvoiceId);
+    public Import_Invoice findById(Integer importInvoiceId) {
+        Optional<Import_Invoice> result = importInvoiceRepository.findById(importInvoiceId);
         return result.orElse(null);
     }
 
     @Override
-    public void add(ImportInvoice importInvoice) {
+    public void add(Import_Invoice importInvoice) {
         importInvoiceRepository.save(importInvoice);
     }
 
     @Override
-    public void update(ImportInvoice importInvoice) {
+    public void update(Import_Invoice importInvoice) {
         importInvoiceRepository.save(importInvoice);
     }
 

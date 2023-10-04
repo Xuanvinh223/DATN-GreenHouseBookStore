@@ -6,7 +6,7 @@ var test3 = 0;
 var form5 = {};
 
 //Table
-function flashsaleController($scope, $http, $location, $routeParams,) {
+function flashsaleController($scope, $http, $location, $routeParams) {
     $scope.$on('$routeChangeSuccess', function (event, current, previous) {
         $scope.page.setTitle(current.$$route.title || ' Quản lý Flash-Sale');
         $scope.load_All();
