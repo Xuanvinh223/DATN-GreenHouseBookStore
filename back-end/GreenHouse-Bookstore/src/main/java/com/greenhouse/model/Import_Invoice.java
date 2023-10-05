@@ -2,6 +2,9 @@ package com.greenhouse.model;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,9 +32,13 @@ public class Import_Invoice implements Serializable {
 
     @Column(name = "Description")
     private String description;
-    
+
     @Column(name = "Status")
     private boolean status;
+
+    @ManyToOne
+    @JoinColumn(name = "Supplier_Id", insertable = false, updatable = false)
+    private Suppliers suppliers;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

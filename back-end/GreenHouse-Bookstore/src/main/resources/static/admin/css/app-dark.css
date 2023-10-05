@@ -18187,7 +18187,28 @@ a.uppy-Dashboard-poweredBy {
 .modal-supper-lg {
   min-width: 90%;
 }
+/* Thanh cuộn */
+::-webkit-scrollbar {
+  width: 10px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:  #494E4A;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #79827B;
+}
+
+/* End Thanh cuộn */
 /* CSS Invertory  */
 
 .inventory-table
@@ -18348,9 +18369,9 @@ a.uppy-Dashboard-poweredBy {
   .item-product-cart
   .img-product-cart
   img {
-  width: 90%;
+  width: 100%;
+  max-width: 80px;
   object-fit: contain;
-  padding-left: 10px;
 }
 
 .inventory-table #inventoryModal .modal-body .group-product-info {
@@ -18543,15 +18564,22 @@ a.uppy-Dashboard-poweredBy {
 }
 .inventory-table #inventoryModal .modal-body .search-box .product-cart-left {
   z-index: 10;
-  max-height: 100%;
-  max-width: 100%;
+  height: 400px;
+  width: 95%;
   overflow: auto;
   position: absolute !important;
+
 }
 .bg-success1 {
   position: absolute;
   background-color: #3ad29f !important;
   bottom: 0;
   right: 0;
+}
+.alert-product {
+  color: #fff;
+  background-color: #495057;
+  border-color: #9e9e9e;
+  text-align: center;
 }
 /* END */
