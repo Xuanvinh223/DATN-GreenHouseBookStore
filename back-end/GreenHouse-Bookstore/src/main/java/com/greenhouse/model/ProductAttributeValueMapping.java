@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "ProductAttributeValueMapping")
+@Table(name = "Product_Attribute_Value_Mapping")
 public class ProductAttributeValueMapping implements Serializable {
 
     @Id

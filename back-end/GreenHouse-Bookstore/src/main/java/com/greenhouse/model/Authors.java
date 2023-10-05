@@ -13,7 +13,7 @@ public class Authors implements Serializable {
     @Column(name = "Author_Id")
     private String authorId;
 
-    @Column(name = "AuthorName")
+    @Column(name = "Author_Name")
     private String authorName;
 
     @Column(name = "Gender")

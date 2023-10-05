@@ -94,39 +94,36 @@ function flashsaleController($scope, $http, $location, $routeParams) {
 
     //Save tạm trên model xuống bảng
     $scope.saveTam = function () {
-        var newSelected = [];
-
-        // Duyệt qua danh sách sản phẩm và thêm các sản phẩm đã chọn vào danh sách tạm thời
-        angular.forEach($scope.listModelProduct, function (item) {
+        $scope.listModelProduct.forEach(function (item) {
             if (item.selected) {
-                var FlashSaleProduct = {
-                    id: null,
-                    quantity: 0,
-                    usedQuantity: 0,
-                    discountPercentage: 0,
-                    purchaseLimit: 0,
-                    flashSaleId: null,
-                    productDetail: item
-                };
-                newSelected.push(FlashSaleProduct);
+                var isDuplicate = $scope.listProductFlashSale.some(function (e) {
+                    return e.productDetail.productDetailId === item.productDetailId;
+                });
+
+                if (!isDuplicate) {
+                    var FlashSaleProduct = {
+                        id: null,
+                        quantity: 0,
+                        usedQuantity: 0,
+                        discountPercentage: 0,
+                        purchaseLimit: 0,
+                        flashSaleId: null,
+                        productDetail: item
+                    };
+                    $scope.listProductFlashSale.push(FlashSaleProduct);
+                }
             }
         });
-        if (!$scope.listProductFlashSale) {
-            $scope.listProductFlashSale = [];
-        } else {
-            $scope.listProductFlashSale = [...$scope.listProductFlashSale, ...newSelected];
-        }
 
         console.log("Sản phẩm đã chọn: ", $scope.listProductFlashSale);
-        // Đóng modal
         $('#exampleModal').modal('hide');
-
-        // Thông báo cho người dùng biết rằng sản phẩm đã được thêm thành công
     };
+
+
 
     //Tính số tiền giảm
     $scope.calculateDiscountedPrice = function (product) {
-        if(!isNaN(product.discountPercentage)){
+        if (!isNaN(product.discountPercentage)) {
             return product.discountPercentage * product.productDetail.price / 100;
         }
         return 0; // Trả về chuỗi rỗng nếu dữ liệu không hợp lệ

@@ -2,6 +2,8 @@ package com.greenhouse.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.Flow.Publisher;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,16 +16,16 @@ public class Products implements Serializable {
     @Column(name = "Product_Id", length = 30)
     private String productId;
 
-    @Column(name = "Product_Name", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "Product_Name", length = 100)
     private String productName;
 
-    @Column(name = "Description", columnDefinition = "nvarchar(200)")
+    @Column(name = "Description", length = 200)
     private String description;
 
-    @Column(name = "Manufacture_Date", nullable = false)
+    @Column(name = "Manufacture_Date")
     private Date manufactureDate;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "Status")
     private boolean status;
 
     @Column(name = "Create_At")
@@ -38,19 +40,13 @@ public class Products implements Serializable {
     @Column(name = "Update_At")
     private Date updateAt;
 
-    @Column(name = "Brand_Id", length = 30, nullable = false)
-    private String brandId;
-
-    @Column(name = "publisher_id", length = 30, nullable = false)
-    private String publisherId;
-
     @ManyToOne
-    @JoinColumn(name = "Brand_Id", insertable = false, updatable = false)
+    @JoinColumn(name = "Brand_Id")
     private Brands brand;
 
     @ManyToOne
-    @JoinColumn(name = "publisher_id", insertable = false, updatable = false)
+    @JoinColumn(name = "publisher_id")
     private Publishers publisher;
 
-    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
+    // Constructors, getters, and setters
 }

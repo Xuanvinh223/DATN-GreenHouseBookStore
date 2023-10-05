@@ -36,8 +36,8 @@ public class InventoryRestController {
     @GetMapping("/rest/getInventory")
     public ResponseEntity<Map<String, Object>> getInventory() {
         Map<String, Object> resp = new HashMap<>();
-        List<Import_Invoice> importInvoice = impInvoice_Repository.findAll();
-        List<Import_Invoice_Detail> importInvoiceDetails = impInvoiceDetailRepository.findAll();
+        List<ImportInvoice> importInvoice = impInvoice_Repository.findAll();
+        List<ImportInvoiceDetail> importInvoiceDetails = impInvoiceDetailRepository.findAll();
         List<Product_Detail> productDetails = productDetailRepository.findAll();
         List<Suppliers> suppliers = suppliersRepository.findAll();
 
@@ -50,12 +50,12 @@ public class InventoryRestController {
 
     @PostMapping("/rest/importInvoice")
     public ResponseEntity<String> postMethodName(@RequestBody ImportInvoiceDTO request) {
-        Import_Invoice importInvoice = request.getImportInvoice();
-        List<Import_Invoice_Detail> listImportInvoiceDetails = request.getImportInvoiceDetails();
+        ImportInvoice importInvoice = request.getImportInvoice();
+        List<ImportInvoiceDetail> listImportInvoiceDetails = request.getImportInvoiceDetails();
 
         impInvoice_Repository.save(importInvoice);
 
-        for (Import_Invoice_Detail importInvoiceDetail : listImportInvoiceDetails) {
+        for (ImportInvoiceDetail importInvoiceDetail : listImportInvoiceDetails) {
             importInvoiceDetail.setImportInvoice(importInvoice);
             impInvoiceDetailRepository.save(importInvoiceDetail);
 

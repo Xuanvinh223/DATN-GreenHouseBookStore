@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "InvoiceMappingStatus")
+@Table(name = "Invoice_Mapping_Status")
 public class InvoiceMappingStatus implements Serializable {
 
     @Id

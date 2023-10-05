@@ -40,7 +40,7 @@ public class Product_Flash_Sale implements Serializable {
     private int purchaseLimit;
 
     @ManyToOne
-    @JoinColumn(name = "flashSaleId")
+    @JoinColumn(name = "Flash_Sale_Id")
     private Flash_Sales flashSaleId;
 
     @ManyToOne

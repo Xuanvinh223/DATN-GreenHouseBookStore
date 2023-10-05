@@ -5,207 +5,248 @@
             <ul class="nav nav-pills nav-fill mb-3" id="order-status" role="tablist">
                 <li class="nav-item" ng-repeat="item in listOrderStatus track by $index">
                     <a class="nav-link" ng-class="{active: item.statusId === selectedStatus}" data-toggle="pill"
-                       ng-click="setListOrderByStatus(item.statusId)">
+                        ng-click="setListOrderByStatus(item.statusId)">
                         {{item.name}}
                     </a>
                     <span class="notification" ng-if="countOrderByStatusId(item.statusId) > 0">
-            <p>{{ countOrderByStatusId(item.statusId) }}</p>
-          </span>
+                        <p>{{ countOrderByStatusId(item.statusId) }}</p>
+                    </span>
                 </li>
             </ul>
-      <div class="row my-4">
-        <!-- Small table -->
-        <div class="col-md-12">
-          <div class="card shadow">
-            <div class="card-body">
-                <div class="d-flex align-items-end mb-4" ng-if="selectedStatus == 1">
-                    <div class="order-table-button">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#orderModal">
-                            <i class="fas fa-plus pr-2"></i>Tạo đơn hàng
-                        </button>
-                    </div>
-                </div>
-
-              <!-- table -->
-              <table class="table datatables" id="dataTable-1">
-                <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Mã đơn hàng</th>
-                    <th>Ngày đặt hàng</th>
-                    <th>Người đặt hàng</th>
-                    <th>Địa chỉ giao hàng</th>
-                    <th>Tổng giá trị</th>
-                    <th>Phương thức thanh toán</th>
-                </tr>
-                </thead>
-                  <tbody ng-repeat="order in listOrders track by $index">
-                  <tr class="order-item" data-toggle="collapse" data-target="#DH{{order.orderId}}">
-                      <td>{{$index + 1}}</td>
-                      <td>{{'DH' + order.orderId.toString().padStart(6, '0')}}</td>
-                      <td>{{order.orderDate | date:'dd-MM-yyyy'}}</td>
-                      <td>{{order.invoice.username.fullname}}</td>
-                      <td>{{order.invoice.receiverAddress}}</td>
-                      <td>{{order.invoice.paymentAmount | number:'0'}} đ</td>
-                      <td>{{order.invoice.paymentMethod}}</td>
-                  </tr>
-                  <tr id="DH{{order.orderId}}" class="collapse">
-                      <td colspan="10">
-                          <div class="order-info">
-                              <ul class="nav nav-pills nav-fill" id="order-info" role="tablist">
-                                  <li class="nav-item">
-                                      <a class="nav-link active" id="order-info-1" data-toggle="pil">Thông tin đơn
-                                          hàng</a>
-                                  </li>
-                              </ul>
-
-                              <div class="tab-content mt-4">
-                          <div class="tab-pane active" id="tab1">
-                            <!-- Nội dung cho tab "Thông tin" -->
-                            <form>
-                              <div class="row">
-                                <div class="col-md-3">
-                                    <div class="mb-3">
-                                        <label for="order-id" class="form-label">Mã đơn hàng:</label>
-                                        <input type="text" class="form-info" id="order-id" name="order-id"
-                                               ng-model="orderId"
-                                               ng-value="'DH' + order.orderId.toString().padStart(6, '0')"
-                                               >
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="order-by" class="form-label">Người đặt hàng:</label>
-                                        <input type="text" class="form-info" id="order-by" name="order-by"
-                                               ng-model="orderBy" ng-value="order.invoice.username.fullname"
-                                               >
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="order-date" class="form-label">Ngày đặt hàng:</label>
-                                        <input type="date" class="form-info" id="order-date" name="order-date"
-                                               ng-model="orderDate" ng-value="formatDate(order.orderDate)"
-                                               >
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="delivery-date" class="form-label">Ngày giao hàng:</label>
-                                        <input type="date" class="form-info" id="delivery-date" name="delivery-date"
-                                               ng-model="deliveryDate" ng-value="formatDate(order.deliveryDate)"
-                                               >
-                                    </div>
+            <div class="row my-4">
+                <!-- Small table -->
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="d-flex align-items-end mb-4" ng-if="selectedStatus == 1">
+                                <div class="order-table-button">
+                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="#orderModal">
+                                        <i class="fas fa-plus pr-2"></i>Tạo đơn hàng
+                                    </button>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="mb-3">
-                                        <label for="order-create-by" class="form-label">Người tạo:</label>
-                                        <input type="text" class="form-info" id="order-create-by" name="order-create-by"
-                                               ng-model="orderCreateBy" ng-value="order.username.fullname">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="order-reciver-name" class="form-label">Người nhận:</label>
-                                        <input type="text" class="form-info" id="order-reciver-name"
-                                               name="order-reciver-name" ng-model="orderReceiverName"
-                                               ng-value="order.invoice.receiverName">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="order-reciver-phone" class="form-label">Số điện thoại người
-                                            nhận:</label>
-                                        <input type="text" class="form-info" id="order-reciver-phone"
-                                               name="order-reciver-phone" ng-model="orderReceiverPhone"
-                                               ng-value="order.invoice.receiverPhone">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="order-reciver-address" class="form-label">Địa chỉ giao hàng:</label>
-                                        <input type="text" class="form-info" id="order-reciver-address"
-                                               name="order-reciver-address" ng-model="orderReceiverAddress"
-                                               ng-value="order.invoice.receiverAddress">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="mb-3">
-                                        <label for="order-payment-method" class="form-label">Phương thức thanh
-                                            toán:</label>
-                                        <input type="text" class="form-info" id="order-payment-method"
-                                               name="order-payment-method" ng-model="orderPaymentMethod"
-                                               ng-value="order.invoice.paymentMethod" >
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="order-status" class="form-label">Trạng thái đơn hàng:</label>
-                                        <input type="text" class="form-info" id="order-status" name="order-status"
-                                               ng-model="orderStatus" ng-value="getOrderStatusByOrderId(order.orderId)">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <p>Hình ảnh người đặt hàng:</p>
-                                    <div class="order-by-img-box mb-3">
-                                        <img
-                                                src="https://www.hollywoodreporter.com/wp-content/uploads/2015/06/johnny_depp_dior.jpg?w=2000&h=1126&crop=1"
-                                                class="order-by-img" alt="">
-                                    </div>
-                                </div>
-                              </div>
+                            </div>
 
-                              <!-- Thêm các trường thông tin khác -->
-
-                              <table class="table">
+                            <!-- table -->
+                            <table class="table datatables" id="dataTable-1">
                                 <thead>
-                                  <tr>
-                                    <th>STT</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Số lượng</th>
-                                    <th>Đơn giá</th>
-                                    <th>Tổng giá trị</th>
-                                  </tr>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Ngày đặt hàng</th>
+                                        <th>Người đặt hàng</th>
+                                        <th>Địa chỉ giao hàng</th>
+                                        <th>Tổng giá trị</th>
+                                        <th>Phương thức thanh toán</th>
+                                    </tr>
                                 </thead>
-                                  <tbody>
-                                  <tr
-                                          ng-repeat="item in getListInvoiceDetails(order.invoice.invoiceId) track by $index">
-                                      <td>{{$index + 1}}</td>
-                                      <td>{{item.productDetail.product.productName}}</td>
-                                      <td>{{item.quantity}}</td>
-                                      <td>{{item.price}} đ</td>
-                                      <td>{{item.amount}} đ</td>
-                                  </tr>
-                                  </tbody>
-                              </table>
-                              <div class="order-summary">
-                                  <div class="order-summary-total-quantity sub-order-summary">
-                                      <p>Số lượng sản phẩm:</p> <b>{{order.invoice.quantity}}</b>
-                                  </div>
-                                  <div class="order-summary-total-amount sub-order-summary">
-                                      <p>Tổng tiền sản phẩm:</p> <b>{{order.invoice.totalAmount | number:'0'}} đ</b>
-                                  </div>
-                                  <div class="order-summary-voucher-discount sub-order-summary">
-                                      <p>Voucher hóa đơn giảm:</p> <b>{{
-                                      getDiscountAmountByInvoiceID(order.invoice.invoiceId) | number:'0'}} đ</b>
-                                      </b>
-                                  </div>
-                                  <div class="order-summary-fee-ship sub-order-summary">
-                                      <p>Phí ship:</p> <b>{{order.invoice.shippingFee | number:'0'}} đ</b>
-                                  </div>
-                                  <div class="order-summary-payment-amount sub-order-summary">
-                                      <p>Tổng tiền cần thanh toán:</p> <b>{{order.invoice.totalAmount | number:'0'}}
-                                      đ</b>
-                                  </div>
-                              </div>
-                            </form>
-                          </div>
+                                <tbody ng-repeat="order in listOrders track by $index">
+                                    <tr class="order-item" data-toggle="collapse" data-target="#DH{{order.orderId}}">
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{'DH' + order.orderId.toString().padStart(6, '0')}}</td>
+                                        <td>{{order.orderDate | date:'dd-MM-yyyy'}}</td>
+                                        <td>{{order.invoice.username.fullname}}</td>
+                                        <td>{{order.invoice.receiverAddress}}</td>
+                                        <td>{{order.invoice.paymentAmount | number:'0'}} đ</td>
+                                        <td>{{order.invoice.paymentMethod}}</td>
+                                    </tr>
+                                    <tr id="DH{{order.orderId}}" class="collapse">
+                                        <td colspan="10">
+                                            <div class="order-info">
+                                                <ul class="nav nav-pills nav-fill" id="order-info" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="order-info-1"
+                                                            data-toggle="pil">Thông tin đơn
+                                                            hàng</a>
+                                                    </li>
+                                                </ul>
 
-                          <div class="tab-pane" id="tab2">
-                            <!-- Nội dung cho tab "Tab Mới" -->
-                            <p>Nội dung tab mới: ...</p>
-                          </div>
+                                                <div class="tab-content mt-4">
+                                                    <div class="tab-pane active" id="tab1">
+                                                        <!-- Nội dung cho tab "Thông tin" -->
+                                                        <form>
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <div class="mb-3">
+                                                                        <label for="order-id" class="form-label">Mã đơn
+                                                                            hàng:</label>
+                                                                        <input type="text" class="form-info"
+                                                                            id="order-id" name="order-id"
+                                                                            ng-model="orderId"
+                                                                            ng-value="'DH' + order.orderId.toString().padStart(6, '0')"
+                                                                            readonly>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="order-by" class="form-label">Người
+                                                                            đặt hàng:</label>
+                                                                        <input type="text" class="form-info"
+                                                                            id="order-by" name="order-by"
+                                                                            ng-model="orderBy"
+                                                                            ng-value="order.invoice.username.fullname"
+                                                                            readonly>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="order-date" class="form-label">Ngày
+                                                                            đặt hàng:</label>
+                                                                        <input type="date" class="form-info"
+                                                                            id="order-date" name="order-date"
+                                                                            ng-model="orderDate"
+                                                                            ng-value="formatDate(order.orderDate)"
+                                                                            readonly>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="delivery-date"
+                                                                            class="form-label">Ngày giao hàng:</label>
+                                                                        <input type="date" class="form-info"
+                                                                            id="delivery-date" name="delivery-date"
+                                                                            ng-model="deliveryDate"
+                                                                            ng-value="formatDate(order.deliveryDate)"
+                                                                            readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="mb-3">
+                                                                        <label for="order-create-by"
+                                                                            class="form-label">Người tạo:</label>
+                                                                        <input type="text" class="form-info"
+                                                                            id="order-create-by" name="order-create-by"
+                                                                            ng-model="orderCreateBy"
+                                                                            ng-value="order.username.fullname" readonly>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="order-reciver-name"
+                                                                            class="form-label">Người nhận:</label>
+                                                                        <input type="text" class="form-info"
+                                                                            id="order-reciver-name"
+                                                                            name="order-reciver-name"
+                                                                            ng-model="orderReceiverName"
+                                                                            ng-value="order.invoice.receiverName"
+                                                                            readonly>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="order-reciver-phone"
+                                                                            class="form-label">Số điện thoại người
+                                                                            nhận:</label>
+                                                                        <input type="text" class="form-info"
+                                                                            id="order-reciver-phone"
+                                                                            name="order-reciver-phone"
+                                                                            ng-model="orderReceiverPhone"
+                                                                            ng-value="order.invoice.receiverPhone"
+                                                                            readonly>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="order-reciver-address"
+                                                                            class="form-label">Địa chỉ giao
+                                                                            hàng:</label>
+                                                                        <input type="text" class="form-info"
+                                                                            id="order-reciver-address"
+                                                                            name="order-reciver-address"
+                                                                            ng-model="orderReceiverAddress"
+                                                                            ng-value="order.invoice.receiverAddress"
+                                                                            readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="mb-3">
+                                                                        <label for="order-payment-method"
+                                                                            class="form-label">Phương thức thanh
+                                                                            toán:</label>
+                                                                        <input type="text" class="form-info"
+                                                                            id="order-payment-method"
+                                                                            name="order-payment-method"
+                                                                            ng-model="orderPaymentMethod"
+                                                                            ng-value="order.invoice.paymentMethod"
+                                                                            readonly>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="order-status"
+                                                                            class="form-label">Trạng thái đơn
+                                                                            hàng:</label>
+                                                                        <input type="text" class="form-info"
+                                                                            id="order-status" name="order-status"
+                                                                            ng-model="orderStatus"
+                                                                            ng-value="getOrderStatusByOrderId(order.orderId)"
+                                                                            readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <p>Hình ảnh người đặt hàng:</p>
+                                                                    <div class="order-by-img-box mb-3">
+                                                                        <img src="https://www.hollywoodreporter.com/wp-content/uploads/2015/06/johnny_depp_dior.jpg?w=2000&h=1126&crop=1"
+                                                                            class="order-by-img" alt="">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Thêm các trường thông tin khác -->
+                                                            <table class="table table-hover table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>STT</th>
+                                                                        <th>Tên sản phẩm</th>
+                                                                        <th>Số lượng</th>
+                                                                        <th>Đơn giá</th>
+                                                                        <th>Tổng giá trị</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr
+                                                                        ng-repeat="item in getListInvoiceDetails(order.invoice.invoiceId) track by $index">
+                                                                        <td>{{$index + 1}}</td>
+                                                                        <td>{{item.productDetail.product.productName}}
+                                                                        </td>
+                                                                        <td>{{item.quantity}}</td>
+                                                                        <td>{{item.price}} đ</td>
+                                                                        <td>{{item.amount}} đ</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="order-summary">
+                                                                <div
+                                                                    class="order-summary-total-quantity sub-order-summary">
+                                                                    <p>Số lượng sản phẩm:</p>
+                                                                    <b>{{order.invoice.quantity}}</b>
+                                                                </div>
+                                                                <div
+                                                                    class="order-summary-total-amount sub-order-summary">
+                                                                    <p>Tổng tiền sản phẩm:</p>
+                                                                    <b>{{order.invoice.totalAmount | number:'0'}} đ</b>
+                                                                </div>
+                                                                <div
+                                                                    class="order-summary-voucher-discount sub-order-summary">
+                                                                    <p>Voucher hóa đơn giảm:</p> <b>{{
+                                                                        getDiscountAmountByInvoiceID(order.invoice.invoiceId)
+                                                                        | number:'0'}} đ</b>
+                                                                    </b>
+                                                                </div>
+                                                                <div class="order-summary-fee-ship sub-order-summary">
+                                                                    <p>Phí ship:</p> <b>{{order.invoice.shippingFee |
+                                                                        number:'0'}} đ</b>
+                                                                </div>
+                                                                <div
+                                                                    class="order-summary-payment-amount sub-order-summary">
+                                                                    <p>Tổng tiền cần thanh toán:</p>
+                                                                    <b>{{order.invoice.totalAmount | number:'0'}}
+                                                                        đ</b>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                      </div>
-                      </td>
-                  </tr>
-                  </tbody>
-              </table>
-            </div>
-          </div>
-        </div> <!-- simple table -->
-      </div> <!-- end section -->
+                    </div>
+                </div> <!-- simple table -->
+            </div> <!-- end section -->
         </div> <!-- .col-12 -->
     </div> <!-- .row -->
     <!-- Modal -->
     <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-supper-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -223,33 +264,31 @@
                                 <form class="form-modal-search">
                                     <button>
                                         <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                             role="img"
-                                             aria-labelledby="search">
-                                            <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
-                                                  stroke="currentColor" stroke-width="1.333" stroke-linecap="round"
-                                                  stroke-linejoin="round">
+                                            role="img" aria-labelledby="search">
+                                            <path
+                                                d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+                                                stroke="currentColor" stroke-width="1.333" stroke-linecap="round"
+                                                stroke-linejoin="round">
                                             </path>
                                         </svg>
                                     </button>
                                     <input class="input" placeholder="Tìm kiếm sản phẩm" required="" type="text"
-                                           ng-model="searchProductKeyword"
-                                           ng-change="searchProduct(searchProductKeyword)">
+                                        ng-model="searchProductKeyword" ng-change="searchProduct(searchProductKeyword)">
                                     <button class="reset" type="reset" ng-click="searchProduct()">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                             viewBox="0 0 24 24"
-                                             stroke="currentColor" stroke-width="2">
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round"
-                                                  d="M6 18L18 6M6 6l12 12"></path>
+                                                d="M6 18L18 6M6 6l12 12"></path>
                                         </svg>
                                     </button>
                                 </form>
                                 <div class="product-cart-left" ng-if="searchProductKeyword">
                                     <div class="item-product-cart d-flex my-2"
-                                         ng-repeat="item in searchProductResults track by $index"
-                                         ng-click="selectedProduct(item)">
+                                        ng-repeat="item in searchProductResults track by $index"
+                                        ng-click="selectedProduct(item)">
                                         <div class="img-product-cart col-md-1">
                                             <img src="https://bloganchoi.com/wp-content/uploads/2020/11/truyen-cuoi-hai-huoc-nhat-2.jpg"
-                                                 alt="">
+                                                alt="">
                                         </div>
                                         <div class="group-product-info col-md-11">
                                             <div class="info-product-cart">
@@ -261,13 +300,15 @@
                                                     <div class="cart-price">
                                                         <div class="cart-item-price">
                                                             <div>
-                                <span class="price">{{item.newPrice != null ? item.newPrice : item.price | number:'0'}}
-                                  <span class="currency">đ</span></span>
+                                                                <span class="price">{{item.newPrice != null ?
+                                                                    item.newPrice : item.price | number:'0'}}
+                                                                    <span class="currency">đ</span></span>
                                                             </div>
                                                             <div class="price-old" ng-if="item.newPrice != null">
-                                <span class="price">
-                                  {{item.price | number:'0'}} <span class="currency">đ</span>
-                                </span>
+                                                                <span class="price">
+                                                                    {{item.price | number:'0'}} <span
+                                                                        class="currency">đ</span>
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -282,10 +323,10 @@
                             <div class="selected-products">
                                 <div class="product-cart-left">
                                     <div class="item-product-cart row"
-                                         ng-repeat="item in selectedProducts track by $index">
+                                        ng-repeat="item in selectedProducts track by $index">
                                         <div class="img-product-cart col-md-1">
                                             <img src="https://bloganchoi.com/wp-content/uploads/2020/11/truyen-cuoi-hai-huoc-nhat-2.jpg"
-                                                 alt="">
+                                                alt="">
                                         </div>
                                         <div class="group-product-info col-md-10">
                                             <div class="info-product-cart">
@@ -298,13 +339,15 @@
                                                     <div class="cart-price">
                                                         <div class="cart-item-price">
                                                             <div>
-                                <span class="price">{{item.newPrice != null ? item.newPrice : item.price | number:'0'}}
-                                  <span class="currency">đ</span></span>
+                                                                <span class="price">{{item.newPrice != null ?
+                                                                    item.newPrice : item.price | number:'0'}}
+                                                                    <span class="currency">đ</span></span>
                                                             </div>
                                                             <div class="price-old" ng-if="item.newPrice != null">
-                                <span class="price">
-                                  {{item.price | number:'0'}} <span class="currency">đ</span>
-                                </span>
+                                                                <span class="price">
+                                                                    {{item.price | number:'0'}} <span
+                                                                        class="currency">đ</span>
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -314,25 +357,25 @@
                                                 <div class="product-view-quantity-box">
                                                     <div class="product-view-quantity-box-block">
                                                         <a class="btn-subtract-qty"
-                                                           ng-click="decreaseQuantityProduct(item)"><img
+                                                            ng-click="decreaseQuantityProduct(item)"><img
                                                                 style="width: 12px; height: auto;vertical-align: middle;"
                                                                 src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/ico_minus2x.png"></a>
                                                         <input type="text" class="qty-carts" ng-model="item.quantity"
-                                                               ng-change="validateQuantity(item)">
-                                                        <a class="btn-add-qty" ng-click="increaseQuantityProduct(item)"><img
+                                                            ng-change="validateQuantity(item)">
+                                                        <a class="btn-add-qty"
+                                                            ng-click="increaseQuantityProduct(item)"><img
                                                                 style="width: 12px; height: auto;vertical-align: middle;"
                                                                 src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_plus2x.png"></a>
                                                     </div>
                                                     <div class="product-view-icon-remove-mobile" style="display:none;">
                                                         <a title="Remove item" class="btn-remove-mobile-cart"><i
-                                                                class="fa fa-trash-o"
-                                                                style="font-size:22px"></i></a>
+                                                                class="fa fa-trash-o" style="font-size:22px"></i></a>
                                                     </div>
                                                 </div>
                                                 <div class="cart-price-total"><span class="cart-price"><span
-                                                        class="price">{{item.amount |
-                              number:'0'}}
-                              đ</span></span></div>
+                                                            class="price">{{item.amount |
+                                                            number:'0'}}
+                                                            đ</span></span></div>
                                             </div>
                                         </div>
                                         <div class="btn-remove-box col-md-1">
@@ -353,28 +396,26 @@
                                     <button>
                                         <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
                                             <path
-                                                    d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+                                                d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
                                         </svg>
                                     </button>
                                     <input class="input" placeholder="Khách hàng" required="" type="text"
-                                           ng-model="searchUserKeyword"
-                                           ng-change="searchUser(searchUserKeyword)">
+                                        ng-model="searchUserKeyword" ng-change="searchUser(searchUserKeyword)">
                                     <button class="reset" type="reset" ng-click="searchUser()">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                             viewBox="0 0 24 24"
-                                             stroke="currentColor" stroke-width="2">
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round"
-                                                  d="M6 18L18 6M6 6l12 12"></path>
+                                                d="M6 18L18 6M6 6l12 12"></path>
                                         </svg>
                                     </button>
                                     <div class="search-user-result">
                                         <div class="user-box" ng-repeat="item in searchUserResults track by $index"
-                                             ng-click="selectedUser(item)">
+                                            ng-click="selectedUser(item)">
                                             <div class="user-info">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                                     viewBox="0 0 448 512">
+                                                    viewBox="0 0 448 512">
                                                     <path
-                                                            d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+                                                        d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
                                                 </svg>
                                                 <span>{{ item.username + ' - ' + item.fullname}}</span>
                                             </div>
@@ -387,15 +428,14 @@
                                         <div class="user-info">
                                             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
                                                 <path
-                                                        d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+                                                    d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
                                             </svg>
                                             <span>{{ selectedUsers.username + ' - ' + selectedUsers.fullname}}</span>
                                             <button class="reset" type="reset" ng-click="resetSelectedUser()">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                                     viewBox="0 0 24 24"
-                                                     stroke="currentColor" stroke-width="2">
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
-                                                          d="M6 18L18 6M6 6l12 12"></path>
+                                                        d="M6 18L18 6M6 6l12 12"></path>
                                                 </svg>
                                             </button>
                                         </div>
@@ -414,14 +454,14 @@
                                     <div class="form-group">
                                         <label for="recipientPhone">Số điện thoại người nhận:</label>
                                         <input type="text" class="form-control" id="recipientPhone"
-                                               name="recipientPhone">
+                                            name="recipientPhone">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="recipientAddress">Địa chỉ giao hàng:</label>
                                         <input type="text" class="form-control" id="recipientAddress"
-                                               name="recipientAddress">
+                                            name="recipientAddress">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -444,14 +484,14 @@
                                         </div>
                                         <div class="totalAmount sub-invoice-fees">
                                             <span>Tổng tiền sản phẩm: </span><b>{{invoice.totalAmount | number:'0'}}
-                                            đ</b>
+                                                đ</b>
                                         </div>
                                         <div class="shippingFee sub-invoice-fees">
                                             <span>Phí ship: </span><b>100,000 đ</b>
                                         </div>
                                         <div class="totalAmountPayment sub-invoice-fees">
                                             <span>Tổng tiền thanh toán: </span><b>{{invoice.paymentAmount | number:'0'}}
-                                            đ</b>
+                                                đ</b>
                                         </div>
                                     </div>
                                 </div>

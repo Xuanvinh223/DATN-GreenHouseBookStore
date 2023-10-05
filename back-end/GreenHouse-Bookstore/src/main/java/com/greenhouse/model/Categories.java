@@ -17,6 +17,6 @@ public class Categories implements Serializable {
     private String categoryName;
 
     @ManyToOne
-    @JoinColumn(name = "Type_Id")
+    @JoinColumn(name = "Type_Id", referencedColumnName = "Type_Id")
     private CategoryTypes typeId;
 }

@@ -18163,7 +18163,7 @@ a.uppy-Dashboard-poweredBy {
 .input {
   border: none;
   /* Loại bỏ border của input */
-  /* background-color: #495057; */
+  background-color: #495057;
   outline: none;
   /* Loại bỏ border khi focus */
   width: 100% !important;
