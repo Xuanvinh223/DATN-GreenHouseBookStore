@@ -17,21 +17,25 @@
           </div>
           <form ng-submit="login()">
             <div class="input-group flex-nowrap mb-2">
-              <div class="icon-form">
+              <label for="username" class="icon-form">
                 <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
+              </label>
+              <div class="form-floating">
+                <input type="text" class="form-control" id="username" placeholder="Email hoặc Số Điện Thoại"
+                       ng-model="userData.username" style="padding-right: 200px;">
+                <label for="username">Email hoặc Số Điện Thoại <label for="" class="text-danger">(*)</label></label>
               </div>
-              <input type="text" class="input_frame" placeholder="Email hoặc Số Điện Thoại" aria-label="Username"
-                name="username" ng-model="userData.username"  autofocus>
             </div>
             <div class="input-group flex-nowrap mb-2">
-              <div class="icon-form">
+              <label for="username" class="icon-form">
                 <i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i>
+              </label>
+              <div class="form-floating">
+                <input type="password" class="form-control" id="password" placeholder="Mật khẩu"
+                       ng-model="userData.password" style="padding-right: 200px;">
+                <label for="password">Mật khẩu <label for="" class="text-danger">(*)</label></label>
               </div>
-              <input type="password" class="input_frame" placeholder="Mật Khẩu" aria-label="Password"
-                aria-describedby="addon-wrapping" name="password" ng-model="userData.password" >
             </div>
-
-            <div class="text-danger" ng-show="loginError">{{ loginError }}</div>
 
             <div class="input-group border-0 mb-3 d-flex justify-content-between">
               <div class="form-check d-flex justify-content-between">
@@ -57,8 +61,8 @@
             </div>
 
             <div class="dialog-footer d-flex justify-content-center align-items-center mt-3">
-              <small>Bạn chưa có tài khoản?<a href="#" class="text-green mx-1">Đăng
-                  ký</a></small>
+              <small>Bạn chưa có tài khoản?<a href="/resgister" class="text-green mx-1">Đăng
+                ký</a></small>
             </div>
           </form>
         </div>

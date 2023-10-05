@@ -73,6 +73,6 @@ public class Maincontroller {
 	@GetMapping("/404")
 	public String accessDenied() {
 		System.out.println("Access Denied Controller Called");
-		return "client/layouts/home"; // Chuyển hướng đến trang 403
+		return "client/layouts/404"; // Chuyển hướng đến trang 403
 	}
 }

@@ -133,12 +133,9 @@ app.run(['$rootScope', function ($rootScope) {
     $rootScope.page = {
         setTitle: function (title) {
             this.title = 'GreenHouse |' + title;
-
         }
     }
-
 }]);
-
 
 // Tạo một interceptor
 app.factory('tokenInterceptor', ['$window', function ($window) {
@@ -150,6 +147,16 @@ app.factory('tokenInterceptor', ['$window', function ($window) {
                 config.headers['Authorization'] = 'Bearer ' + token;
             }
             return config;
+        },
+        responseError: function (response) {
+            // Kiểm tra nếu mã trạng thái là 401 Unauthorized (token hết hạn)
+            if (response.status === 401) {
+                // Xoá token khỏi local storage (hoặc nơi bạn lưu trữ token)
+                $window.localStorage.removeItem('token');
+                // Chuyển hướng đến trang /login
+                window.location.href = "/login";
+            }
+            return response;
         }
     };
 }]);
