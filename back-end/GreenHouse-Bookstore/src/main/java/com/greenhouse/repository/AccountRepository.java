@@ -8,6 +8,12 @@ import com.greenhouse.model.Accounts;
 public interface AccountRepository extends JpaRepository<Accounts, String> {
     Accounts findByUsername(String username);
 
+    Accounts findByEmail(String username);
+
+    Accounts findByPhone(String username);
+
+    Accounts findByUsernameOrEmailOrPhone(String username, String email, String phone);
+
     boolean existsByUsername(String username);
 
     boolean existsByEmail(String username);

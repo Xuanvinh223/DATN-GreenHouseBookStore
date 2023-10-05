@@ -1,5 +1,8 @@
 package com.greenhouse.restcontroller.client;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,46 +24,65 @@ public class SignupController {
     @Autowired
     private AccountRepository accountRepository;
 
+    private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+
+    private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+
+    private static final int MIN_USERNAME_LENGTH = 8;
+
     @PostMapping("/sign-up")
     public ResponseEntity<Response> signupUser(@RequestBody SignupDTO signupDTO) {
         Response response = new Response();
-
-        System.out.println(signupDTO);
-
-        if (signupDTO.getUsername() == null || signupDTO.getUsername().isEmpty() ||
-                signupDTO.getPassword() == null || signupDTO.getPassword().isEmpty()) {
-            // Nếu có trường thông tin bắt buộc chưa được điền đầy đủ, trả về lỗi
+        // Kiểm tra tài khoản và mật khẩu bắt buộc
+        if (isEmpty(signupDTO.getUsername()) || isEmpty(signupDTO.getPassword()) || isEmpty(signupDTO.getPhone())) {
             response.setStatus(400);
             response.setMessage("Thông tin bắt buộc chưa được điền đầy đủ.");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        } else if (!signupDTO.getPassword().equals(signupDTO.getRepassword())) {
+        }
+
+        // So sánh mật khẩu và xác nhận mật khẩu
+        if (!signupDTO.getPassword().equals(signupDTO.getRepassword())) {
             response.setStatus(400);
             response.setMessage("Mật khẩu không trùng khớp!");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        } else if (!isValidPhoneNumber(signupDTO.getPhone())) {
-            // Kiểm tra số điện thoại
+        } else if (!validatePassword(signupDTO.getPassword())) {
+            response.setStatus(400);
+            response.setMessage("Mật khẩu không hợp lệ.");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        // Kiểm tra số điện thoại hợp lệ
+        if (!isValidPhoneNumber(signupDTO.getPhone())) {
             response.setStatus(400);
             response.setMessage("Số điện thoại không hợp lệ.");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
+        // Kiểm tra độ dài tên đăng nhập
+        if (signupDTO.getUsername().length() < MIN_USERNAME_LENGTH) {
+            response.setStatus(400);
+            response.setMessage("Tên tài khoản phải nhiều hơn " + MIN_USERNAME_LENGTH + " kí tự.");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        // Kiểm tra tên đăng nhập và số điện thoại đã tồn tại
         if (accountRepository.existsByUsername(signupDTO.getUsername())) {
-            // Xử lý lỗi tên đăng nhập đã tồn tại
             response.setStatus(400);
             response.setMessage("Tên đăng nhập đã tồn tại.");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         } else if (accountRepository.existsByPhone(signupDTO.getPhone())) {
-            // Xử lý lỗi SDT đã tồn tại
             response.setStatus(400);
             response.setMessage("Số điện thoại đã tồn tại.");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        } else {
-            authService.signup(signupDTO);
-            response.setStatus(201);
-            response.setMessage("Đăng ký tài khoản thành công!");
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
         }
+
+        // Đăng ký tài khoản
+        authService.signup(signupDTO);
+        response.setStatus(201);
+        response.setMessage("Đăng ký tài khoản thành công!");
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
 
     private boolean isValidPhoneNumber(String phoneNumber) {
         // Sử dụng biểu thức chính quy để kiểm tra số điện thoại Việt Nam
@@ -68,4 +90,12 @@ public class SignupController {
         return phoneNumber.matches(regex);
     }
 
+    public static boolean validatePassword(String password) {
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
+    public static boolean isEmpty(String str) {
+        return str == null || str.trim().isEmpty();
+    }
 }
