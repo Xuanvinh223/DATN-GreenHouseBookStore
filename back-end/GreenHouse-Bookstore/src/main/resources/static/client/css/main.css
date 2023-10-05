@@ -27345,6 +27345,7 @@ textarea.form-control {
 .checkout-form .nice-select .list {
   width: 100%;
 }
+.checkout-form select,
 .checkout-form input {
   width: 100%;
   background-color: #f4f4f4;

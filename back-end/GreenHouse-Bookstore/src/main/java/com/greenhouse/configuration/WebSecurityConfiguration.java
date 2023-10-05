@@ -24,7 +24,7 @@ public class WebSecurityConfiguration {
 
     private final String[] apiEndpoints = {"/rest/**"}; // Danh sách các API bảo mật
     private final String[] apiEndpointsPermit = {"/authenticate", "/resgister", "/index", "/client/**",
-            "/login", "/404", "/sign-up", "/admin/**"}; // Danh sách các API cho phép truy cập
+            "/login", "/404", "/sign-up", "/admin/**", "/cart", "/checkout"}; // Danh sách các API cho phép truy cập
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
