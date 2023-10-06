@@ -428,6 +428,11 @@ function SuppliersController($scope, $location, $routeParams, $http) {
         $scope.editingSupplier = {};
         $scope.isEditing = false;
         $scope.clearImage(); // Xóa ảnh đại diện khi làm mới form
+        $location.search('id', null);
+        $location.search('data', null);
+      
+        // Sau khi xóa, chuyển hướng lại đến trang /flashsale-form
+        $location.path('/supplier-form');
     };
 
     $scope.loadSuppliers();

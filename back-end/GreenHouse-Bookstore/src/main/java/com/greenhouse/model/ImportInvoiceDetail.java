@@ -14,8 +14,8 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "ImportInvoice_Detail")
-public class ImportInvoice_Detail implements Serializable {
+@Table(name = "Import_Invoice_Detail")
+public class ImportInvoiceDetail implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

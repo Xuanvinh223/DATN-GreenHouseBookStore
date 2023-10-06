@@ -17460,3 +17460,8 @@ a.uppy-Dashboard-poweredBy {
 .static-table {
   margin-bottom: 0px;
 }
+.table-hover-green tbody tr:hover {
+  background-color: #CCFFCC;
+  /* Màu nền hover mong muốn */
+  cursor: pointer; /* Biểu tượng chuột thay đổi thành con trỏ */
+}

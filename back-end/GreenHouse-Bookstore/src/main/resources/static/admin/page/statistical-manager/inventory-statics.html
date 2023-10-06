@@ -36,31 +36,28 @@
                                 <div class="col-md-3">
                                     <div class="mb-3">
                                         <label for="categoryFilter" class="form-label">Danh mục:</label>
-                                        <select class="form-control rounded" id="categoryFilter">
-                                            <option value="all">Tất cả</option>
-                                            <option value="category1">Danh mục 1</option>
-                                            <option value="category2">Danh mục 2</option>
-                                            <!-- Thêm các tùy chọn danh mục khác -->
-                                        </select>
+                                        <select class="form-control" id="category" ng-model="editingProduct.category"
+                                        ng-options="category as category.categoryName for category in categories track by category.categoryId">
+                                    <option value="">Chọn tên danh mục</option>
+                                </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="mb-3">
                                         <label for="brandFilter" class="form-label">Thương hiệu:</label>
-                                        <select class="form-control  rounded" id="brandFilter">
-                                            <option value="all">Tất cả</option>
-                                            <option value="brand1">Thương hiệu 1</option>
-                                            <option value="brand2">Thương hiệu 2</option>
-                                            <!-- Thêm các tùy chọn thương hiệu khác -->
+                                        <select class="form-control " id="brand" name="brand"
+                                                ng-model="editingProduct.brand"
+                                                ng-options="brand as brand.brandName for brand in brands track by brand.brandName">
+                                            <option value="">Chọn thương hiệu</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <!-- table -->
-                            <table class="table table-hover">
+                            <table class="table table-hover table-hover-green">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th class="text-center">#</th>
                                         <th class="text-center">ID</th>
                                         <th class="text-center">Tên sản phẩm</th>
                                         <th class="text-center">Số lượng tồn</th>
@@ -68,39 +65,47 @@
                                         <th class="text-center">Giá bán</th>
                                         <th class="text-center">Trạng thái</th>
                                         <th class="text-center">Thương Hiệu</th>
-                                        <th></th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="table-row" ng-repeat="item in inventorystatics" data-toggle="collapse"
-                                        data-target="#{{$index + 1}}" ng-click="Edit(item.id, $index)">
+                                    <tr ng-repeat-start="item in inventorystatics track by $index" data-toggle="collapse"
+                                        data-target="#{{item[0]}}">
                                         <td>{{$index + 1}}</td>
                                         <td>{{item[0]}}</td>
-                                        <td class="truncate-cell">{{item[1]}}</td>
+                                        <td>{{item[1]}}</td>
                                         <td>{{item[2]}}</td>
                                         <td>{{item[3]}}</td>
                                         <td>{{item[4]}}</td>
                                         <td>{{item[5]}}</td>
-                                        <!-- <td>{{ inventory.DanhMục }}</td> -->
                                         <td>{{item[6]}}</td>
-                                        <!-- <td>{{item[7]}}</td>
-                                        <td>{{item[8]}}</td> -->
                                     </tr>
-                                    <tr id="{{$index + 1}}" class="collapse" ng-if="$index === selectedItemIndex">
-                                        <td colspan="6">
-                                            <table>
-                                                <thead>
+                                    <tr ng-repeat-end id="{{item[0]}}" class="collapse">
+                                        <td colspan="10">
+                                            <table class="table table-bordered">
+                                                <thead style="pointer-events: none;">
                                                     <tr>
-                                                        <th>a</th>
-                                                        <th>b</th>
+                                                        <th class="text-center">Ngày sản xuất</th>
+                                                        <th class="text-center">Ngày nhập kho</th>
+                                                        <th class="text-center">Nhà cung cấp</th>
+                                                        <th class="text-center">Thời gian tồn kho</th>
+                                                        <th class="text-center">Số lượng bán ra</th>
+                                                        <th class="text-center">Tổng giá nhập</th>
+                                                        <th class="text-center">Doanh số bán ra</th>
+                                                        <th class="text-center">Lợi nhuận</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>{{item[7]}}</td>
-                                                        <td>{{item[8]}}</td>
+                                                        <td>{{item[7] | date:'dd/MM/yyyy'}}</td>
+                                                        <td>{{item[8] | date:'dd/MM/yyyy'}}</td>
+                                                        <td>{{item[9]}}</td>
+                                                        <td>{{item[10]}}</td>
+                                                        <td>{{item[11]}}</td>
+                                                        <td>{{item[12]}}</td>
+                                                        <td>{{item[13]}}</td>
+                                                        <td>{{item[14]}}</td>
                                                     </tr>
+                                                    <!-- Thêm các dòng khác tùy ý -->
                                                 </tbody>
                                             </table>
                                         </td>
@@ -187,36 +192,61 @@
                                 </div>
                             </div>
                             <!-- table -->
-                            <table class="table table-hover">
+                            <table class="table table-hover table-hover-green">
                                 <thead>
                                     <tr>
-                                        <th style="width: 4%;" class="text-center">ID</th>
-                                        <th style="width: 18%;" class="text-center">Tên sản phẩm</th>
-                                        <th style="width: 9%;" class="text-center">Giá nhập</th>
-                                        <th style="width: 9%;" class="text-center">Giá bán</th>
-                                        <th style="width: 12%;" class="text-center">Ngày sản xuất</th>
-                                        <th style="width: 6%;" class="text-center">Ngày thêm</th>
-                                        <th style="width: 6%;" class="text-center">Ngày sửa</th>
-                                        <th style="width: 9%;" class="text-center">Ngày xóa</th>
-                                        <th style="width: 14%;" class="text-center">Số lượng tồn</th>
-                                        <th style="width: 13%;" class="text-center">Thương Hiệu</th>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">ID</th>
+                                        <th class="text-center">Tên sản phẩm</th>
+                                        <th class="text-center">Số lượng tồn</th>
+                                        <th class="text-center">Giá nhập</th>
+                                        <th class="text-center">Giá bán</th>
+                                        <th class="text-center">Trạng thái</th>
+                                        <th class="text-center">Thương Hiệu</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>2474</td>
-                                        <td class="truncate-cell">
-                                            Ap #331-7123 Lobortis Avenue #331-7123 Lobortis Avenu #331-7123 Lobortis
-                                            Avenu
+                                    <tr ng-repeat-start="item in inventorystaticsdesc track by $index" data-toggle="collapse"
+                                        data-target="#desc{{item[0]}}">
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{item[0]}}</td>
+                                        <td>{{item[1]}}</td>
+                                        <td>{{item[2]}}</td>
+                                        <td>{{item[3]}}</td>
+                                        <td>{{item[4]}}</td>
+                                        <td>{{item[5]}}</td>
+                                        <td>{{item[6]}}</td>
+                                    </tr>
+                                    <tr ng-repeat-end id="desc{{item[0]}}" class="collapse">
+                                        <td colspan="10">
+                                            <table class="table table-bordered">
+                                                <thead style="pointer-events: none;">
+                                                    <tr>
+                                                        <th class="text-center">Ngày sản xuất</th>
+                                                        <th class="text-center">Ngày nhập kho</th>
+                                                        <th class="text-center">Nhà cung cấp</th>
+                                                        <th class="text-center">Thời gian tồn kho</th>
+                                                        <th class="text-center">Số lượng bán ra</th>
+                                                        <th class="text-center">Tổng giá nhập</th>
+                                                        <th class="text-center">Doanh số bán ra</th>
+                                                        <th class="text-center">Lợi nhuận</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{{item[7] | date:'dd/MM/yyyy'}}</td>
+                                                        <td>{{item[8] | date:'dd/MM/yyyy'}}</td>
+                                                        <td>{{item[9]}}</td>
+                                                        <td>{{item[10]}}</td>
+                                                        <td>{{item[11]}}</td>
+                                                        <td>{{item[12]}}</td>
+                                                        <td>{{item[13]}}</td>
+                                                        <td>{{item[14]}}</td>
+                                                    </tr>
+                                                    <!-- Thêm các dòng khác tùy ý -->
+                                                </tbody>
+                                            </table>
                                         </td>
-                                        <td>1.200.000</td>
-                                        <td>1.200.000</td>
-                                        <td>13/09/2020</td>
-                                        <td>13/09/2020</td>
-                                        <td>13/09/2020</td>
-                                        <td>13/09/2020</td>
-                                        <td>(958)</td>
-                                        <td>13/09/2020</td>
                                     </tr>
                                 </tbody>
                             </table>

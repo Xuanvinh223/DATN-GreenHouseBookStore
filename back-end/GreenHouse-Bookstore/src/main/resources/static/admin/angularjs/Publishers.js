@@ -398,8 +398,15 @@ function PublishersController($scope, $location, $routeParams, $http) {
     $scope.editingPublisher = {};
     $scope.isEditing = false;
     $scope.clearImage(); // Xóa ảnh đại diện khi làm mới form
+    $location.search('id', null);
+    $location.search('data', null);
+  
+    // Sau khi xóa, chuyển hướng lại đến trang /flashsale-form
+    $location.path('/publisher-form');
   };
+  // Sử dụng $location.search() để xóa tham số "id" và "data" khỏi URL
 
+ 
   // Load danh sách nhà xuất bản khi controller được khởi tạo
   $scope.loadPublishers();
 }

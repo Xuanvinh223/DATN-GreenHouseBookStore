@@ -44,6 +44,7 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     @Override
     public List<Object[]> findAllInventoryList() {
         return productDetailRepository.findAllInventoryList();
+    }
     public List<Product_Detail> findProductsByStatus() {
         return productDetailRepository.findProductsByStatus();
     }

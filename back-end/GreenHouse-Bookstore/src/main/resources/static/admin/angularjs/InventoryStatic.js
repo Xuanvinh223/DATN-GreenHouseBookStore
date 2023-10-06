@@ -1,6 +1,6 @@
 app.controller("InventoryStatic", InventoryStatic);
 
-function InventoryStatic($scope, $location, $routeParams, $http) {
+function InventoryStatic($scope, $http) {
     let host = "http://localhost:8081/rest/inventory-static";
     $scope.$on('$routeChangeSuccess', function (event, current, previous) {
         $scope.page.setTitle(current.$$route.title || 'Thống kê hàng tồn kho');
@@ -20,6 +20,9 @@ function InventoryStatic($scope, $location, $routeParams, $http) {
     $scope.editingInventoryStatics = {};
     $scope.isEditing = false;
     $scope.inventorystatics = [];
+    $scope.inventorystaticsdesc = [];
+
+    $scope.categories = [];
 
     $scope.sortField = null;
     $scope.reverseSort = false;
@@ -31,27 +34,47 @@ function InventoryStatic($scope, $location, $routeParams, $http) {
         var url = `${host}`;
         $http.get(url)
             .then(function (resp) {
-                $scope.inventorystatics = resp.data;
+                console.log("Response data:", resp.data);
+                $scope.inventorystatics = resp.data.list1;
+                $scope.inventorystaticsdesc = resp.data.list2;
                 // Rest of your code...
             })
             .catch(error => {
                 console.log("Error", error);
             });
     };
+    // Lấy dữ liệu loại danh mục
+    $http
+        .get("/rest/categories")
+        .then((resp) => {
+            $scope.categories = resp.data;
+        })
+        .catch((Error) => {
+            console.log("Error", Error);
+        });
+
+    // Lấy dữ liệu loại thương hiệu
+    $http
+        .get("/rest/brand")
+        .then((resp) => {
+            $scope.brands = resp.data;
+        })
+        .catch((Error) => {
+            console.log("Error", Error);
+        });
+
     $scope.Edit = function (key, index) {
         var url = `${host}/${key}`;
         $http
-          .get(url)
-          .then((resp) => {
-            $scope.form = resp.data;
-            $scope.selectedItemIndex = index; // Lưu chỉ số sản phẩm đang được chỉnh sửa
-            displayImages(resp.data.image); // Hiển thị ảnh tương ứng cho sản phẩm đang chỉnh sửa
-          })
-          .catch((Error) => {
-            console.log("Error", Error);
-          });
-      };
+            .get(url)
+            .then((resp) => {
+                $scope.form = resp.data;
+                $scope.selectedItemIndex = index; // Lưu chỉ số sản phẩm đang được chỉnh sửa
+                displayImages(resp.data.image); // Hiển thị ảnh tương ứng cho sản phẩm đang chỉnh sửa
+            })
+            .catch((Error) => {
+                console.log("Error", Error);
+            });
+    };
     $scope.loadInventoryStatics();
-
-    
 }
