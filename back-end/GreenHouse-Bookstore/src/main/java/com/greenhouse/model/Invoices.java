@@ -18,13 +18,13 @@ public class Invoices implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "Username")
-    private Accounts username;
-
-    @Column(name = "Create_Date")
-    private Date createDate;
+    private Accounts account;
 
     @Column(name = "Create_By")
     private String createBy;
+
+    @Column(name = "Create_Date")
+    private Date createDate;
 
     @Column(name = "Quantity")
     private int quantity;
@@ -32,8 +32,9 @@ public class Invoices implements Serializable {
     @Column(name = "Total_Amount")
     private double totalAmount;
 
-    @Column(name = "Shipping_Method")
-    private String Shipping_Method;
+    @ManyToOne
+    @JoinColumn(name = "Shipping_Partner")
+    private ShippingPartner shippingPartner;
 
     @Column(name = "Shipping_Fee")
     private double shippingFee;
@@ -50,14 +51,14 @@ public class Invoices implements Serializable {
     @Column(name = "Payment_Date")
     private Date paymentDate;
 
-    @Column(name = "ReceiverName")
+    @Column(name = "Receiver_Name")
     private String receiverName;
 
-    @Column(name = "ReceiverPhone")
+    @Column(name = "Receiver_Phone")
     private String receiverPhone;
 
-    @Column(name = "ReceiverAddress")
+    @Column(name = "Receiver_Address")
     private String receiverAddress;
 
-    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
+    // Constructors, getters, and setters
 }

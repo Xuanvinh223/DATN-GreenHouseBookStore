@@ -14,34 +14,36 @@
                         </div>
                         <div class="card-body">
                             <form>
+                                <input type="hidden" ng-model="item.flashSaleId">
                                 <div class="form-row">
                                     <div class="col-md-12 col-sm-12 mb-3">
                                         <label for="PublishersName">Tên Ưu Đãi(*)</label>
-                                        <input type="text" ng-model="item.flashSale.name" class="form-control"
-                                               placeholder="Nhập Tên Flash Sale">
+                                        <input type="text" ng-model="item.name" class="form-control"
+                                            placeholder="Nhập Tên Flash Sale">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-6 mb-3">
                                         <label for="address">Giờ bắt đầu(*)</label>
                                         <div class="input-group">
-                                            <input type="time" ng-value="item.flashSale.startTime" class="form-control"
-                                                   placeholder="" aria-describedby="button-addon2">
+                                            <input type="time" ng-model="item.startTime" class="form-control"
+                                                ng-value="item.startTime" placeholder=""
+                                                aria-describedby="button-addon2">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="address">Giờ kết thúc(*)</label>
                                         <div class="input-group">
-                                            <input type="time" ng-value="item.flashSale.endTime" class="form-control "
-                                                   placeholder="" aria-describedby="button-addon2">
+                                            <input type="time" ng-model="item.endTime" class="form-control "
+                                                ng-value="item.endTime" placeholder="" aria-describedby="button-addon2">
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <label for="address">Ngày thực hiện(*)</label>
                                         <div class="input-group">
                                             <input class="form-control" id="example-date" type="date"
-                                                   name="item.userDate" ng-model="item.userDate"
-                                                   ng-value="formatDate(item.flashSale.userDate)">
+                                                name="item.userDate" ng-model="item.userDate"
+                                                ng-value="formatDate(item.userDate)">
                                         </div>
                                     </div>
                                 </div>
@@ -50,21 +52,18 @@
                                     <div class="col-md-12 mb-3">
                                         <p class="mb-2">Trạng Thái(*)</p>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio"
-                                                   ng-model="item.flashSale.status"
-                                                   ng-value="1" id="active">
+                                            <input class="form-check-input" type="radio" ng-model="item.status"
+                                                ng-value="1" id="active">
                                             <label class="form-check-label" for="active">Đã lên lịch</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio"
-                                                   ng-model="item.flashSale.status"
-                                                   ng-value="2" id="unactive">
+                                            <input class="form-check-input" type="radio" ng-model="item.status"
+                                                ng-value="2" id="unactive">
                                             <label class="form-check-label" for="unactive">Đang sử dụng</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio"
-                                                   ng-model="item.flashSale.status"
-                                                   ng-value="3" id="expired">
+                                            <input class="form-check-input" type="radio" ng-model="item.status"
+                                                ng-value="3" id="expired">
                                             <label class="form-check-label" for="expired">Hết hạn</label>
                                         </div>
                                     </div>
@@ -84,52 +83,52 @@
                     <div class="card shadow">
                         <div class="card-header">
                             <a class="card-title1 " data-toggle="modal" data-target="#exampleModal">Chọn sản phẩm</a>
-                            <a class="float-right small ">{{ listProductShow.length }} sản phẩm được chọn</a>
+                            <a class="float-right small ">{{ listProductFlashSale.length }} sản phẩm được chọn</a>
                         </div>
                         <!--  -->
-                        <div class="card-body" ng-if="listProductShow.length > 0">
+                        <div class="card-body" ng-if="listProductFlashSale.length > 0">
                             <table class="table table-striped table-hover">
                                 <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Hình ảnh</th>
-                                    <th>Giá thường</th>
-                                    <th>%(Chiếc khấu)</th>
-                                    <th>Giá giảm</th>
-                                    <th>SL giảm</th>
-                                    <th>Giới hạn SL mua</th>
-                                    <th>Active</th>
-                                </tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Hình ảnh</th>
+                                        <th>Giá thường</th>
+                                        <th>%(Chiếc khấu)</th>
+                                        <th>Giá giảm</th>
+                                        <th>SL giảm</th>
+                                        <th>Giới hạn SL mua</th>
+                                        <th>Active</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="product in listProductShow">
-                                    <td>{{ $index + 1 }}</td>
-                                    <td class="row pr-2">
-                                        <div class="col-md-4 " style="margin-right: 10px;">
-                                            <img ng-src="{{product.image}}" alt=""
-                                                 style="width: 50px;height: auto;">
-                                        </div>
-                                        <div class="col-md-8 d-flex justify-content-center flex-column">
-                                            <span class="product-name">{{ product.product.productName }}</span>
-                                            <span class="quantity-ins">Còn: {{ product.quantityInStock }}</span>
-                                        </div>
-                                    </td>
-                                    <td> {{ product.price| number:'0' }}</td>
-                                    <td><input type="number" name="discountPercentage"
-                                               class="form-control form-control-sm"
-                                               ng-model="product.discountPercentage" min="0" max="100" value="0"
-                                               ng-change="calculateDiscountedPrice(product)"></td>
-                                    <td>{{ calculateDiscountedPrice(product)| number:'0' }}</td>
-                                    <td><input type="number" ng-model="product.quantity"
-                                               class="form-control form-control-sm" value="0"></td>
-                                    <td><input type="number" ng-model="product.purchaseLimit"
-                                               class="form-control form-control-sm" value="0"></td>
-                                    <td>
-                                        <a ng-click="removeProduct($index)">
-                                            <i class="fe fe-trash-2 fe-16"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                    <tr ng-repeat="product in listProductFlashSale track by $index">
+                                        <td>{{ $index + 1 }}</td>
+                                        <td class="row pr-2">
+                                            <div class="col-md-4 " style="margin-right: 10px;">
+                                                <img ng-src="{{product.productDetail.image}}" alt=""
+                                                     style="width: 50px;height: auto;">
+                                            </div>
+                                            <div class="col-md-8 d-flex justify-content-center flex-column">
+                                                <span class="product-name">{{ product.productDetail.product.productName
+                                                    }}</span>
+                                                <span class="quantity-ins">Còn: {{ product.productDetail.quantityInStock
+                                                    }}</span>
+                                            </div>
+                                        </td>
+                                        <td> {{ product.productDetail.price| number:'0' }}</td>
+                                        <td><input type="number" ng-model="product.discountPercentage"
+                                                class="form-control form-control-sm"></td>
+                                        <td>{{ calculateDiscountedPrice(product)| number:'0' }}</td>
+                                        <td><input type="number" ng-model="product.quantity"
+                                                class="form-control form-control-sm"></td>
+                                        <td><input type="number" ng-model="product.purchaseLimit"
+                                                class="form-control form-control-sm"></td>
+                                        <td>
+                                            <a ng-click="removeProduct($index)">
+                                                <i class="fe fe-trash-2 fe-16"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -142,7 +141,7 @@
             <!-- .row-->
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
+                aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -165,39 +164,39 @@
                             <table class="table table-striped table-hover">
                                 <!-- HTML Table -->
                                 <thead>
-                                <tr>
-                                    <th>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                   ng-model="selectAllChecked" id="checkAllId" ng-change="checkAll()">
-                                            <label class="custom-control-label" for="checkAllId"></label>
-                                        </div>
-                                    </th>
-                                    <th>SẢN PHẨM</th>
-                                    <th>Giá thường</th>
-                                </tr>
+                                    <tr>
+                                        <th>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    ng-model="selectAllChecked" id="checkAllId" ng-change="checkAll()">
+                                                <label class="custom-control-label" for="checkAllId"></label>
+                                            </div>
+                                        </th>
+                                        <th>SẢN PHẨM</th>
+                                        <th>Giá thường</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="item in listModelProduct">
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox" id="item{{$index}}"
-                                                   ng-model="item.selected" ng-change="updateSelectAll()">
-                                            <label class="custom-control-label" for="item{{$index}}"></label>
-                                        </div>
-                                    </td>
-                                    <th class="row">
-                                        <div class="col-md-4">
-                                            <img ng-src="{{item.image}}" alt="Lỗi ảnh"
-                                                 style="width: 100px;height: auto;">
-                                        </div>
-                                        <div class="col-md-8 d-flex justify-content-center flex-column">
-                                            <span class="product-name">{{item.product.productName}}</span>
-                                            <span class="quantity-ins">Còn: {{item.quantityInStock}}</span>
-                                        </div>
-                                    </th>
-                                    <td>{{item.price | number:'0'}} VNĐ</td>
-                                </tr>
+                                    <tr ng-repeat="item in listModelProduct">
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="item{{$index}}"
+                                                    ng-model="item.selected" ng-change="updateSelectAll()">
+                                                <label class="custom-control-label" for="item{{$index}}"></label>
+                                            </div>
+                                        </td>
+                                        <th class="row">
+                                            <div class="col-md-4">
+                                                <img ng-src="{{item.image}}" alt="Lỗi ảnh"
+                                                    style="width: 100px;height: auto;">
+                                            </div>
+                                            <div class="col-md-8 d-flex justify-content-center flex-column">
+                                                <span class="product-name">{{item.product.productName}}</span>
+                                                <span class="quantity-ins">Còn: {{item.quantityInStock}}</span>
+                                            </div>
+                                        </th>
+                                        <td>{{item.price | number:'0'}} VNĐ</td>
+                                    </tr>
                                 </tbody>
 
                             </table>

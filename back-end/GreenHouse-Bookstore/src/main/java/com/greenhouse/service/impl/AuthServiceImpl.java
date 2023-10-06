@@ -33,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
         accounts.setPassword(new BCryptPasswordEncoder().encode(signupDTO.getPassword()));
         accounts.setEmail(signupDTO.getEmail());
         accounts.setPhone(signupDTO.getPhone());
-        accounts.setCreateAt(new Date());
+        accounts.setCreatedAt(new Date());
 
         Accounts createdUser = accountRepository.save(accounts); // lưu vào db bảng account
 

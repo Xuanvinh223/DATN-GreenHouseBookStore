@@ -21,17 +21,17 @@ public class Product_Detail implements Serializable {
     @Column(name = "Price")
     private double price;
 
-    @Column(name = "Price_discount")
+    @Column(name = "Price_Discount")
     private double priceDiscount;
 
     @Column(name = "Quantity_In_Stock")
     private int quantityInStock;
 
+    @Column(name = "Weight")
+    private int weight;
+
     @Column(name = "Image", columnDefinition = "nvarchar(200)")
     private String image;
-
-    @Column(name = "Product_Image_Id")
-    private int productImageId;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

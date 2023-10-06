@@ -98,7 +98,6 @@ public class RestProductCtrl {
 
         productDetail.setProduct(createdProduct);
         productDetail.setImage(productDetail.getImage());
-        productDetail.setProductImageId(productDetail.getProductImageId());
 
         Product_Detail product_Detail = productDetailService.add(productDetail);
 
