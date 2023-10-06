@@ -15,11 +15,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "Import_Invoice_Detail")
-<<<<<<<< HEAD:back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ImportInvoice_Detail.java
-public class ImportInvoice_Detail implements Serializable {
-========
 public class ImportInvoiceDetail implements Serializable {
->>>>>>>> dev/minthuc:back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/model/ImportInvoiceDetail.java
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
