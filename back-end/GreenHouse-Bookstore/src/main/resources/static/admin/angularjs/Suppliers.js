@@ -130,8 +130,8 @@ function SuppliersController($scope, $location, $routeParams, $http) {
                 };
                 console.log("Success", resp)
             }).catch(error => {
-            console.log("Error", error);
-        });
+                console.log("Error", error);
+            });
     }
 
     // Lưu thông tin nhà cung cấp
@@ -291,7 +291,7 @@ function SuppliersController($scope, $location, $routeParams, $http) {
                     $http
                         .put(url, formData, {
                             transformRequest: angular.identity,
-                            headers: {"Content-Type": undefined},
+                            headers: { "Content-Type": undefined },
                         })
                         .then((resp) => {
                             $scope.loadSuppliers();
@@ -428,6 +428,11 @@ function SuppliersController($scope, $location, $routeParams, $http) {
         $scope.editingSupplier = {};
         $scope.isEditing = false;
         $scope.clearImage(); // Xóa ảnh đại diện khi làm mới form
+        $location.search('id', null);
+        $location.search('data', null);
+      
+        // Sau khi xóa, chuyển hướng lại đến trang /flashsale-form
+        $location.path('/supplier-form');
     };
 
     $scope.loadSuppliers();

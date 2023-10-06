@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Shipping_Partners")
-public class ShippingPartner implements Serializable {
+public class ShippingPartner implements Serializable{
     @Id
     @Column(name = "ID", unique = true, nullable = false)
     private String id;

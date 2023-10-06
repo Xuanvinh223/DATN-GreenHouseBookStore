@@ -1,6 +1,6 @@
 app.controller('IndexController', IndexController);
 
-function IndexController($scope, $http) {
+function IndexController($scope, $http) { 
     $scope.$on('$routeChangeSuccess', function (event, current, previous) {
         $scope.page.setTitle(current.$$route.title || ' Trang quản trị');
     });

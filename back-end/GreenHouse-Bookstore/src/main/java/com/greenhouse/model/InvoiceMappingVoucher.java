@@ -15,7 +15,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "Invoice_Mapping_Voucher")
-public class InvoiceMappingVoucher implements Serializable {
+public class InvoiceMappingVoucher implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

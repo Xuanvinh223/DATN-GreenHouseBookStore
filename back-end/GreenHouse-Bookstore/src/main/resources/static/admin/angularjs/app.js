@@ -1,4 +1,4 @@
-var app = angular.module('admin-app', ['ngRoute', 'angular-jwt']);
+var app = angular.module('admin-app', ['ngRoute', 'ui.bootstrap', 'angular-jwt']);
 
 app.config(function ($routeProvider) {
     $routeProvider
@@ -25,11 +25,11 @@ app.config(function ($routeProvider) {
         })
         .when("/brand-form", {
             templateUrl: "page/brand-manager/form_brand.html",
-            controller:"brandController"
+            controller: "brandController"
         })
         .when("/brand-table", {
             templateUrl: "page/brand-manager/table_brand.html",
-            controller:"brandController"
+            controller: "brandController"
         })
         .when("/category-form", {
             templateUrl: "page/category-manager/form_category.html",
@@ -71,10 +71,6 @@ app.config(function ($routeProvider) {
             templateUrl: "page/coupon-manager/table_flashsale.html",
             controller: "flashsaleController"
         })
-        .when("/inventory-form", {
-            templateUrl: "page/inventory-manager/inventory_form.html",
-            controller: "inventoryCtrl"
-        })
         .when("/inventory-table", {
             templateUrl: "page/inventory-manager/inventory_table.html",
             controller: "inventoryCtrl"
@@ -82,7 +78,7 @@ app.config(function ($routeProvider) {
         //đơn hàng
         .when("/order-manager", {
             templateUrl: "page/order-manager/table_order.html",
-            controller: "OrderController"
+            controller: ""
         })
         .when("/product-table", {
             templateUrl: "page/product-manager/table_product.html",
@@ -161,8 +157,14 @@ app.factory('tokenInterceptor', ['$window', function ($window) {
     };
 }]);
 
+app.filter('startFrom', function () {
+    return function (input, start) {
+        start = +start; // Chuyển đổi start thành số nguyên
+        return input.slice(start); // Trả về mảng con bắt đầu từ start
+    };
+});
+
 // Đăng ký interceptor vào ứng dụng
 app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('tokenInterceptor');
 }]);
-  

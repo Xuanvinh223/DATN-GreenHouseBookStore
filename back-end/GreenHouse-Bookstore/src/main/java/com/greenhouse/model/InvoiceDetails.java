@@ -30,7 +30,7 @@ public class InvoiceDetails implements Serializable {
 
     @Column(name = "Price_Discount")
     private double priceDiscount;
-
+    
     @Column(name = "Amount")
     private double amount;
 

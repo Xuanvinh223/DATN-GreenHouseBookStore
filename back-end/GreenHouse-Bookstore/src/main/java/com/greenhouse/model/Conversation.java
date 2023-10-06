@@ -8,7 +8,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "Conversation")
-public class Conversation implements Serializable {
+public class Conversation implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Conversation_Id")
