@@ -17488,6 +17488,7 @@ a.uppy-Dashboard-poweredBy {
   opacity: 0;
   transition: opacity .3s;
 }
+
 .order-info .tab-content label {
   font-size: 1rem;
   font-weight: 600;
@@ -17545,11 +17546,7 @@ a.uppy-Dashboard-poweredBy {
   transition: transform var(--timing) ease;
 }
 
-.order-page
-#orderModal
-.modal-body
-.search-box
-.form-modal-search:focus-within {
+.order-page #orderModal .modal-body .search-box .form-modal-search:focus-within {
   border-radius: var(--after-border-radius);
 }
 
@@ -17557,11 +17554,7 @@ a.uppy-Dashboard-poweredBy {
   outline: none;
 }
 
-.order-page
-#orderModal
-.modal-body
-.search-box
-.form-modal-search:focus-within:before {
+.order-page #orderModal .modal-body .search-box .form-modal-search:focus-within:before {
   transform: scale(1);
 }
 
@@ -17572,12 +17565,7 @@ a.uppy-Dashboard-poweredBy {
   visibility: hidden;
 }
 
-.order-page
-#orderModal
-.modal-body
-.search-box
-input:not(:placeholder-shown)
-~ .reset {
+.order-page #orderModal .modal-body .search-box input:not(:placeholder-shown)~.reset {
   opacity: 1;
   visibility: visible;
 }
@@ -17775,32 +17763,15 @@ input:not(:placeholder-shown)
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-.order-page
-#orderModal
-.modal-body
-.search-box
-.product-cart-left
-.item-product-cart
-.img-product-cart {
+.order-page #orderModal .modal-body .search-box .product-cart-left .item-product-cart .img-product-cart {
   padding: 0;
 }
 
-.order-page
-#orderModal
-.modal-body
-.search-box
-.product-cart-left
-.item-product-cart:hover {
+.order-page #orderModal .modal-body .search-box .product-cart-left .item-product-cart:hover {
   background: #d5f5d6;
 }
 
-.order-page
-#orderModal
-.modal-body
-.search-box
-.product-cart-left
-.group-product-info
-.info-product-cart {
+.order-page #orderModal .modal-body .search-box .product-cart-left .group-product-info .info-product-cart {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17839,13 +17810,7 @@ input:not(:placeholder-shown)
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-.order-page
-#orderModal
-.modal-body
-.search-box
-.selected-user
-.user-box
-.user-info {
+.order-page #orderModal .modal-body .search-box .selected-user .user-box .user-info {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17854,27 +17819,12 @@ input:not(:placeholder-shown)
   font-weight: 600;
 }
 
-.order-page
-#orderModal
-.modal-body
-.search-box
-.selected-user
-.user-box
-.user-info
-.reset {
+.order-page #orderModal .modal-body .search-box .selected-user .user-box .user-info .reset {
   opacity: 1;
   visibility: visible;
 }
 
-.order-page
-#orderModal
-.modal-body
-.search-box
-.selected-user
-.user-box
-.user-info
-.reset
-svg {
+.order-page #orderModal .modal-body .search-box .selected-user .user-box .user-info .reset svg {
   width: 24px;
 }
 
@@ -17892,35 +17842,17 @@ svg {
 }
 
 
-.order-page
-#orderModal
-.modal-body
-.search-box
-.search-user-result
-.user-box:hover {
+.order-page #orderModal .modal-body .search-box .search-user-result .user-box:hover {
   background: #cffad1;
 }
 
-.order-page
-#orderModal
-.modal-body
-.search-box
-.search-user-result
-.user-box
-.user-info {
+.order-page #orderModal .modal-body .search-box .search-user-result .user-box .user-info {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.order-page
-#orderModal
-.modal-body
-.search-box
-.search-user-result
-.user-box
-.user-info
-span {
+.order-page #orderModal .modal-body .search-box .search-user-result .user-box .user-info span {
   color: #009e00;
   font-size: 1rem;
   font-weight: 600;
@@ -17932,25 +17864,14 @@ span {
   text-align: end;
 }
 
-.order-page
-#orderModal
-.modal-body
-.form-info-invoice
-.invoice-fees
-.sub-invoice-fees {
+.order-page #orderModal .modal-body .form-info-invoice .invoice-fees .sub-invoice-fees {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 20px;
 }
 
-.order-page
-#orderModal
-.modal-body
-.form-info-invoice
-.invoice-fees
-.sub-invoice-fees
-> b {
+.order-page #orderModal .modal-body .form-info-invoice .invoice-fees .sub-invoice-fees>b {
   display: flex;
   justify-content: flex-end;
   width: 25%;
@@ -17966,7 +17887,7 @@ span {
 
 /* CSS FLASH SALE PAGE - START */
 
-/* Định dạng phần phân trang */
+/* Định dạng phần phân trang - start */
 .flash-sale-page .pagination {
   display: flex;
   justify-content: center;
@@ -17977,49 +17898,44 @@ span {
 }
 
 /* Định dạng nút phân trang */
-.flash-sale-page .pagination li {
-  margin: 0 5px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #52ba31;
-  transition: background-color 0.3s;
-  min-width: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.flash-sale-page .pagination .pagination-first a {
+  margin-left: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
 }
 
 .flash-sale-page .pagination li a {
-  color: #fff;
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #adb5bd;
+  background-color: transparent;
+  border: 1px solid transparent;
 }
 
-.flash-sale-page .pagination li:hover {
-  background-color: #8ad55d;
+.flash-sale-page .pagination .pagination-last a {
+  margin-right: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 
-/* Định dạng nút trang trước và sau */
-.flash-sale-page .pagination .pagination-prev,
-.flash-sale-page .pagination .pagination-next {
-  font-weight: bold;
-  background-color: #52ba31;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.flash-sale-page .pagination li:not(.active):hover a {
+  background-color: rgb(237, 237, 237, 0.3);
+  color: #f8f9fa;
 }
 
-.flash-sale-page .pagination .pagination-prev:hover,
-.flash-sale-page .pagination .pagination-next:hover {
-  background-color: #8ad55d;
-}
 
 /* Định dạng nút trang hiện tại */
-.flash-sale-page .pagination .active {
-  background-color: #0a8f0b;
-  color: #fff;
+.flash-sale-page .pagination .active a {
+  background-color: #62ab00;
+  border-color: #62ab00;
+  z-index: 3;
+  color: #f8f9fa;
 }
 
+/* Định dạng phần phân trang - end */
 
 /* CSS FLASH SALE PAGE - END */
 
@@ -18081,12 +17997,7 @@ span {
 
 /* CSS Invertory  */
 
-.inventory-table
-#inventoryModal
-.modal-body
-.search-box
-.form-modal-search
-button {
+.inventory-table #inventoryModal .modal-body .search-box .form-modal-search button {
   border: none;
   background: none;
   color: #8b8ba7;
@@ -18122,11 +18033,7 @@ button {
   border: none;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.search-box
-.form-modal-search:before {
+.inventory-table #inventoryModal .modal-body .search-box .form-modal-search:before {
   content: "";
   position: absolute;
   background: var(--border-color);
@@ -18140,11 +18047,7 @@ button {
   transition: transform var(--timing) ease;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.search-box
-.form-modal-search:focus-within {
+.inventory-table #inventoryModal .modal-body .search-box .form-modal-search:focus-within {
   border-radius: var(--after-border-radius);
 }
 
@@ -18152,11 +18055,7 @@ button {
   outline: none;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.search-box
-.form-modal-search:focus-within:before {
+.inventory-table #inventoryModal .modal-body .search-box .form-modal-search:focus-within:before {
   transform: scale(1);
 }
 
@@ -18167,22 +18066,12 @@ button {
   visibility: hidden;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.search-box
-input:not(:placeholder-shown)
-~ .reset {
+.inventory-table #inventoryModal .modal-body .search-box input:not(:placeholder-shown)~.reset {
   opacity: 1;
   visibility: visible;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.search-box
-.form-modal-search
-svg {
+.inventory-table #inventoryModal .modal-body .search-box .form-modal-search svg {
   width: 17px;
   margin-top: 3px;
 }
@@ -18194,12 +18083,7 @@ svg {
   overflow: auto;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.search-box
-.product-cart-left
-.item-product-cart {
+.inventory-table #inventoryModal .modal-body .search-box .product-cart-left .item-product-cart {
   background: #e8ffe9;
   cursor: pointer;
   margin: 0 0.8rem;
@@ -18214,32 +18098,18 @@ svg {
   overflow: auto;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.search-box
-.product-cart-left
-.item-product-cart:hover {
+.inventory-table #inventoryModal .modal-body .search-box .product-cart-left .item-product-cart:hover {
   background: #d5f5d6;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.item-product-cart
-.img-product-cart {
+.inventory-table #inventoryModal .modal-body .item-product-cart .img-product-cart {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0.5rem 0;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.item-product-cart
-.img-product-cart
-img {
+.inventory-table #inventoryModal .modal-body .item-product-cart .img-product-cart img {
   width: 90%;
   object-fit: contain;
   padding-left: 10px;
@@ -18262,11 +18132,7 @@ img {
   color: #595959;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.product-name-full-text
-.product-name {
+.inventory-table #inventoryModal .modal-body .product-name-full-text .product-name {
   margin-top: 10px;
   font-size: 1rem;
   color: #030404;
@@ -18277,22 +18143,13 @@ img {
   width: 100%;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.info-product-cart
-.cart-item-price {
+.inventory-table #inventoryModal .modal-body .info-product-cart .cart-item-price {
   display: flex;
   align-items: flex-start;
   gap: 10px;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.info-product-cart
-.cart-price
-.price {
+.inventory-table #inventoryModal .modal-body .info-product-cart .cart-price .price {
   font-size: 1rem;
   line-height: 1.2em;
   color: #333;
@@ -18306,11 +18163,7 @@ img {
   font-weight: normal !important;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.group-product-info
-.number-product-cart {
+.inventory-table #inventoryModal .modal-body .group-product-info .number-product-cart {
   width: 50%;
   justify-content: space-between;
   align-items: center;
@@ -18333,11 +18186,7 @@ img {
   height: 30px;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.product-view-quantity-box-block
-a {
+.inventory-table #inventoryModal .modal-body .product-view-quantity-box-block a {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -18347,11 +18196,7 @@ a {
   transition: all 0.3s;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.product-view-quantity-box-block
-.qty-carts {
+.inventory-table #inventoryModal .modal-body .product-view-quantity-box-block .qty-carts {
   border: none !important;
   flex: 1;
   width: 2em !important;
@@ -18377,12 +18222,7 @@ a {
   text-align: center;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.cart-price-total
-.cart-price
-.price {
+.inventory-table #inventoryModal .modal-body .cart-price-total .cart-price .price {
   color: #c92127;
   font-weight: bold;
   font-size: 1.2em;
@@ -18392,22 +18232,13 @@ a {
   font-family: sans-serif !important;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.item-product-cart
-.btn-remove-box {
+.inventory-table #inventoryModal .modal-body .item-product-cart .btn-remove-box {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.inventory-table
-#inventoryModal
-.modal-body
-.item-product-cart
-.btn-remove-box
-.btn-remove {
+.inventory-table #inventoryModal .modal-body .item-product-cart .btn-remove-box .btn-remove {
   background: transparent;
   border: none;
   font-size: 24px;

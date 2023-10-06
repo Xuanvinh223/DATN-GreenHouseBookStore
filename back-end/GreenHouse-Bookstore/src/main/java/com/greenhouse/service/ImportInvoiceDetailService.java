@@ -1,18 +1,18 @@
 package com.greenhouse.service;
 
-import com.greenhouse.model.Import_Invoice_Detail;
+import com.greenhouse.model.ImportInvoiceDetail;
 
 import java.util.List;
 
 public interface ImportInvoiceDetailService {
 
-    List<Import_Invoice_Detail> findAll();
+    List<ImportInvoiceDetail> findAll();
 
-    Import_Invoice_Detail findById(Integer id);
+    ImportInvoiceDetail findById(Integer id);
 
-    void add(Import_Invoice_Detail entity);
+    void add(ImportInvoiceDetail entity);
 
-    void update(Import_Invoice_Detail entity);
+    void update(ImportInvoiceDetail entity);
 
     void delete(Integer id);
 }

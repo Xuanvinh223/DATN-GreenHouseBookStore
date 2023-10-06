@@ -28,13 +28,13 @@ public class InventoryRestController {
     ImportInvoiceRepository impInvoice_Repository;
 
     @Autowired
-    ImportInvoice_DetailRepository impInvoiceDetailRepository;
+    ImportInvoiceDetailRepository impInvoiceDetailRepository;
 
     @GetMapping("/rest/getInventory")
     public ResponseEntity<Map<String, Object>> getInventory() {
         Map<String, Object> resp = new HashMap<>();
-        List<Import_Invoice> importInvoice = impInvoice_Repository.findAll();
-        List<Import_Invoice_Detail> importInvoiceDetails = impInvoiceDetailRepository.findAll();
+        List<ImportInvoice> importInvoice = impInvoice_Repository.findAll();
+        List<ImportInvoiceDetail> importInvoiceDetails = impInvoiceDetailRepository.findAll();
         List<Product_Detail> productDetails = productDetailRepository.findAll();
         List<Suppliers> suppliers = suppliersRepository.findAll();
 
