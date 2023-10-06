@@ -16,37 +16,74 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams) {
     $scope.searchProductKeyword = null;
 
     // Hàm Save
-    $scope.saveImportInvoice = function () {
-        // Tạo một đối tượng ImportInvoiceDTO từ các dữ liệu bạn đã thu thập trong controller
-        $scope.createDateFormat = moment();
-        var createDate = moment($scope.createDateFormat, 'YYYY-MM-DDTHH:mm:ss.SSS').format("YYYY-MM-DD HH:mm:ss.SSS");
-    
-        var importInvoiceDTO = {
-            importInvoice: {
-             //   importInvoiceId: $scope.item.importInvoiceId,
-                username: $scope.username,
-                createDate: new Date(),
-                amount: $scope.TotalAmount,
-                supplierId: $scope.item.supplierId,
-                description: $scope.item.description,
-                status: 1//save Tạm
-            },
-            importInvoiceDetails: $scope.selectedProducts
-        };
+    $scope.saveImportInvoice = function (active) {
+        var check = $scope.checkErrors();
+        if (check) {
+            $scope.createDateFormat = moment();
+            var createDate = moment($scope.createDateFormat, 'YYYY-MM-DDTHH:mm:ss.SSS').format("YYYY-MM-DD HH:mm:ss.SSS");
 
-        // Gửi dữ liệu lên máy chủ
-        $http.post(`${host}/importInvoice`, importInvoiceDTO)
-            .then(function (response) {
-                // Xử lý phản hồi từ máy chủ (nếu cần)
-                console.log('Dữ liệu đã được lưu thành công.', response);
-                // Sau khi lưu thành công, bạn có thể làm các công việc khác như làm mới trang hoặc hiển thị thông báo.
-            })
-            .catch(function (error) {
-                // Xử lý lỗi nếu có
-                console.error('Lỗi khi gửi dữ liệu: ', error);
-                // Hiển thị thông báo hoặc xử lý lỗi khác nếu cần.
-            });
+            var importInvoiceDTO = {
+                importInvoice: {
+                    //   importInvoiceId: $scope.item.importInvoiceId,
+                    username: $scope.username,
+                    createDate: new Date(),
+                    amount: $scope.TotalAmount,
+                    supplierId: $scope.item.supplierId,
+                    description: $scope.item.description,
+                    status: active
+                },
+                importInvoiceDetails: $scope.selectedProducts
+            };
+
+            // Gửi dữ liệu lên máy chủ
+            $http.post(`${host}/importInvoice`, importInvoiceDTO)
+                .then(function (response) {
+                    // Xử lý phản hồi từ máy chủ (nếu cần)
+                    console.log('Dữ liệu đã được lưu thành công.', response);
+                    // Sau khi lưu thành công, bạn có thể làm các công việc khác như làm mới trang hoặc hiển thị thông báo.
+                })
+                .catch(function (error) {
+                    // Xử lý lỗi nếu có
+                    console.error('Lỗi khi gửi dữ liệu: ', error);
+                    // Hiển thị thông báo hoặc xử lý lỗi khác nếu cần.
+                });
+        }else{
+            console.log("Lỗi mẹ ròi");
+        }
+        // Tạo một đối tượng ImportInvoiceDTO từ các dữ liệu bạn đã thu thập trong controller
+
     };
+
+    //checkLoi
+    $scope.reset = function () {
+
+    }
+    // var errors = 0;
+      $scope.item={};
+    $scope.checkErrors = function () {
+        $scope.errors = {};
+      
+        var supplier = $scope.item.supplierId;
+        var description = $scope.item.description;
+    
+        if (!supplier) {
+            $scope.errors.supplierId = 'Vui lòng chọn nhà cung cấp';
+        }
+    
+        if (!description) {
+            $scope.errors.description = 'Vui lòng nhập ghi chú';
+        }
+    
+        if (!$scope.selectedProducts || $scope.selectedProducts.length === 0) {
+            $scope.errors.products = 'Vui lòng chọn ít nhất một sản phẩm';
+        }
+    
+        // Kiểm tra nếu có bất kỳ lỗi nào xuất hiện
+        var hasErrors = Object.keys($scope.errors).length > 0;
+    
+        return !hasErrors;
+    };
+    
 
 
     $scope.getData = function () {

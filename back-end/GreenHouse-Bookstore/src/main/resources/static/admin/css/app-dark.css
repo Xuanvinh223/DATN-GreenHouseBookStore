@@ -18131,18 +18131,74 @@ a.uppy-Dashboard-poweredBy {
 /* END CSS ORDER PAGE */
 
 /* END CSS ORDER PAGE */
+/* CSS FLASH SALE PAGE - START */
 
-/* Định dạng của container chứa icon và input */
-.input-container {
-  width: 60%;
+/* Định dạng phần phân trang */
+.flash-sale-page .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
 }
+
+/* Định dạng nút phân trang */
+.flash-sale-page .pagination li {
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #52ba31;
+  transition: background-color 0.3s;
+  min-width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flash-sale-page .pagination li a {
+  color: #fff;
+  padding: 5px 10px;
+}
+
+.flash-sale-page .pagination li:hover {
+  background-color: #8ad55d;
+}
+
+/* Định dạng nút trang trước và sau */
+.flash-sale-page .pagination .pagination-prev,
+.flash-sale-page .pagination .pagination-next {
+  font-weight: bold;
+  background-color: #52ba31;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.flash-sale-page .pagination .pagination-prev:hover,
+.flash-sale-page .pagination .pagination-next:hover {
+  background-color: #8ad55d;
+}
+
+/* Định dạng nút trang hiện tại */
+.flash-sale-page .pagination .active {
+  background-color: #0a8f0b;
+  color: #fff;
+}
+
+
+/* CSS FLASH SALE PAGE - END */
+/* Định dạng của container chứa icon và input */
+/* .input-container {
+  width: 60%;
+} */
 
 @media (min-width: 992px) {
   .input-container {
     width: 70%;
   }
 }
-
 .icon {
   padding-left: 10px;
 }
@@ -18163,11 +18219,16 @@ a.uppy-Dashboard-poweredBy {
 .input {
   border: none;
   /* Loại bỏ border của input */
-  background-color: #495057;
+  background-color: transparent;
   outline: none;
   /* Loại bỏ border khi focus */
   width: 100% !important;
   /* Độ rộng của input */
+}
+.input:focus{
+  background-color:transparent;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Đảm bảo icon và combobox nằm cùng một hàng ngang */

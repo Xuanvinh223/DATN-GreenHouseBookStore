@@ -1,4 +1,4 @@
-var app = angular.module('admin-app', ['ngRoute', 'angular-jwt']);
+var app = angular.module('admin-app', ['ngRoute', 'ui.bootstrap', 'angular-jwt']);
 
 app.config(function ($routeProvider) {
     $routeProvider
@@ -155,3 +155,10 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('tokenInterceptor');
 }]);
   
+
+app.filter('startFrom', function () {
+    return function (input, start) {
+        start = +start; // Chuyển đổi start thành số nguyên
+        return input.slice(start); // Trả về mảng con bắt đầu từ start
+    };
+});

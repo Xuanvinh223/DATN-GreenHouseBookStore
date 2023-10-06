@@ -210,10 +210,11 @@
                       </tbody>
                     </table>
                   </div>
-                  <div class="alert alert-product" ng-if="selectedProducts.length === 0">
-                    Chưa chọn sản phẩm.
+                  <div class="alert alert-product"
+                    ng-show="(selectedProducts.length === 0 && !errors.products) || (selectedProducts.length === 0 && errors.products)">
+                    <span ng-if="!errors.products">Chưa chọn sản phẩm</span>
+                    <span class="text-danger" ng-if="errors.products">{{ errors.products }}</span>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -223,7 +224,7 @@
                   <strong class="card-title">Tạo phiếu nhập</strong>
                 </div>
                 <div class="card-body">
-                  <form action="">
+                  <form>
                     <div class="form-row row mb-3">
                       <div class="col-lg-6 col-sm-12">
                         <div class="input-group  d-flex align-items-center">
@@ -245,14 +246,16 @@
                           <option value="">Chọn nhà cung cấp</option>
                           <option ng-repeat="supplier in listSuppliers" ng-value="supplier.supplierId">
                             {{supplier.supplierName}}</option>
-                        </select>
+                        </select> 
+                        <small class="text-danger" ng-show="errors.supplierId">{{ errors.supplierId }}</small>
                       </div>
                     </div>
+
                     <div class="form-group mb-3">
                       <label for="validationTextarea1">Ghi chú</label>
                       <textarea class="form-control" placeholder="Ghi chú" ng-model="item.description"
                         rows="3"></textarea>
-                      <div class="invalid-feedback"> Please enter a message in the textarea. </div>
+                      <small class="text-danger">{{ errors.description }}</small>
                     </div>
                     <div class="form-group row">
                       <label for="inputEmail3" class="col-sm-5 col-form-label">Tổng số hàng hóa:</label>
@@ -276,9 +279,10 @@
         </div>
         <div class="modal-footer">
           <div class="form-group text-center">
-            <button type="button" class="btn mb-2 mr-2 btn-success " ng-click="saveImportInvoice()"><span
+            <!-- ng-disabled="itemedit.status==1" -->
+            <button type="button" class="btn mb-2 mr-2 btn-success" ng-click="saveImportInvoice(0)"><span
                 class="fe fe-save arrow-right fe-16 mr-2"></span>Lưu Tạm</button>
-            <button type="button" class="btn mb-2 btn-primary">Hoàn Thành<span
+            <button type="button" class="btn mb-2 btn-primary" ng-click="saveImportInvoice(1)">Hoàn Thành<span
                 class="fe fe-check fe-16 ml-1"></span></button>
 
           </div>
