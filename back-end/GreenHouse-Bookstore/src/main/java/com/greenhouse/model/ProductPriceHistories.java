@@ -8,12 +8,12 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "ProductPriceHistories")
+@Table(name = "Product_Price_Histories")
 public class ProductPriceHistories implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PriceHistoriesId")
+    @Column(name = "Price_Histories_Id")
     private int priceHistoriesId;
 
     @Column(name = "Username", length = 50)
@@ -23,13 +23,13 @@ public class ProductPriceHistories implements Serializable {
     @JoinColumn(name = "Product_Detail_Id")
     private Product_Detail productDetail;
 
-    @Column(name = "PriceOld")
+    @Column(name = "Price_Old")
     private double priceOld;
 
-    @Column(name = "PriceNew")
+    @Column(name = "Price_New")
     private double priceNew;
 
-    @Column(name = "TimeChange")
+    @Column(name = "Time_Change")
    private Date  timeChange;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.

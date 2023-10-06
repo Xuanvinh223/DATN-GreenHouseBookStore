@@ -10,13 +10,13 @@ import lombok.Data;
 public class Brands implements Serializable {
 
     @Id
-    @Column(name = "brand_id")
+    @Column(name = "Brand_Id")
     private String brandId;
 
-    @Column(name = "brand_name")
+    @Column(name = "Brand_Name")
     private String brandName;
 
-    @Column(name = "country_of_origin")
+    @Column(name = "Country_Of_Origin")
     private String countryOfOrigin;
 
     @Column(name = "Logo")

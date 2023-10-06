@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "AttributeValue")
+@Table(name = "Attribute_Value")
 public class AttributeValue implements Serializable {
 
     @Id
@@ -15,14 +15,14 @@ public class AttributeValue implements Serializable {
     @Column(name = "ID")
     private int id;
 
-    @Column(name = "AttributeId")
+    @Column(name = "Attribute_Id")
     private int attributeId;
 
     @Column(name = "Value")
     private String value;
 
     @ManyToOne
-    @JoinColumn(name = "AttributeId", referencedColumnName = "ID", insertable = false, updatable = false)
+    @JoinColumn(name = "Attribute_Id", referencedColumnName = "ID", insertable = false, updatable = false)
     private ProductAttributes productAttribute;
 
     // Getters and setters

@@ -17,16 +17,16 @@ public class Discounts implements Serializable {
     @Column(name = "Value")
     private Integer value;
 
-    @Column(name = "Start_date")
+    @Column(name = "Start_Date")
     private Date startDate;
 
-    @Column(name = "End_date")
+    @Column(name = "End_Date")
     private Date endDate;
 
     @Column(name = "Quantity")
     private Integer quantity;
 
-    @Column(name = "Used_quantity")
+    @Column(name = "Used_Quantity")
     private Integer usedQuantity;
 
     @Column(name = "Active")

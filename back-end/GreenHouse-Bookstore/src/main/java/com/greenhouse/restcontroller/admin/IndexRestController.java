@@ -9,28 +9,39 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.greenhouse.service.AccountsService;
+import com.greenhouse.repository.AccountRepository;
+import com.greenhouse.repository.AuthoritiesRepository;
+import com.greenhouse.repository.BrandRepository;
+import com.greenhouse.repository.OrderMappingStatusRepository;
+import com.greenhouse.repository.OrdersRepository;
 
 @RestController
 @CrossOrigin("*")
 public class IndexRestController {
 
     @Autowired
-    private AccountsService accountsService;
+    private AccountRepository accountRepository;
+    @Autowired
+    private BrandRepository brandRepository;
+    @Autowired
+    private AuthoritiesRepository authoritiesRepository;
+    @Autowired
+    private OrdersRepository ordersRepository;
+    @Autowired
+    private OrderMappingStatusRepository orderMappingStatusRepository;
 
     @GetMapping("/rest/getIndexCount")
     public ResponseEntity<Map<String, Object>> getIndex() {
         Map<String, Object> resp = new HashMap<>();
-        // Lấy dữ liệu từ các hàm trong AccountsService
-        int countOrdersWithStatus = accountsService.countOrdersWithStatus();
-        int countByBrand = accountsService.countByBrand();
-        int countByCustomer = accountsService.countByCustomer();
+    
+        long countBrand = brandRepository.count();
+        long countCustomer = authoritiesRepository.countByRoleId(Long.valueOf(3));
 
-        resp.put("countOrdersWithStatus", countOrdersWithStatus);
-        resp.put("countByBrand", countByBrand);
-        resp.put("countByCustomer", countByCustomer);
+        resp.put("countBrand", countBrand);
+        resp.put("countCustomer", countCustomer);
 
         return ResponseEntity.ok(resp);
     }
 
 }
+ 

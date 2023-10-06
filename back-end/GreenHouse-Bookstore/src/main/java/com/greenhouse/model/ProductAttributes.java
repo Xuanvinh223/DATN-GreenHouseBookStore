@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "ProductAttributes")
+@Table(name = "Product_Attributes")
 public class ProductAttributes implements Serializable {
 
     @Id

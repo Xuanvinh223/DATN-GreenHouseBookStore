@@ -575,7 +575,7 @@
 .top-dropdown {
   display: none;
   position: absolute;
-  transform: translateY(65%) translateX(-38%);
+  transform: translateY(61%) translateX(-38%);
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);

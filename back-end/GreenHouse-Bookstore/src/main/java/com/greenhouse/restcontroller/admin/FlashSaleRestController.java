@@ -1,5 +1,6 @@
 package com.greenhouse.restcontroller.admin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,29 +21,32 @@ import com.greenhouse.model.Flash_Sales;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Product_Flash_Sale;
 import com.greenhouse.model.Products;
-import com.greenhouse.service.FlashSalesService;
-import com.greenhouse.service.ProductDetailService;
-import com.greenhouse.service.ProductFlashSaleService;
+import com.greenhouse.repository.FlashSalesRepository;
+import com.greenhouse.repository.ProductDetailRepository;
+import com.greenhouse.repository.Product_FlashSaleRepository;
+import com.greenhouse.repository.ProductsRepository;
 import com.greenhouse.service.ProductsService;
+
+import jakarta.transaction.Transactional;
 
 @RestController
 @CrossOrigin("*")
 public class FlashSaleRestController {
 
     @Autowired
-    FlashSalesService fs;
+    FlashSalesRepository fs;
 
     @Autowired
-    ProductFlashSaleService profs;
+    Product_FlashSaleRepository profs;
 
     @Autowired
-    ProductDetailService detailService;
+    ProductDetailRepository detailService;
 
     @Autowired
-    ProductsService productsService;
+    ProductsRepository productsRepo;
 
     @Autowired
-    ProductDetailService productDetailService;
+    ProductDetailRepository productDetailService;
 
     @GetMapping("/rest/getData")
     public ResponseEntity<Map<String, Object>> getDataFlashSale() {
@@ -51,7 +55,7 @@ public class FlashSaleRestController {
         List<Flash_Sales> flashsalelist = fs.findAll();
         List<Product_Flash_Sale> productfsList = profs.findAll();
         List<Product_Detail> productDetailList = productDetailService.findAll();
-        List<Products> productList = productsService.findAll();
+        List<Products> productList = productsRepo.findAll();
 
         resp.put("flashsalelist", flashsalelist);
         resp.put("productfsList", productfsList);
@@ -59,26 +63,28 @@ public class FlashSaleRestController {
         resp.put("productList", productList);
 
         return ResponseEntity.ok(resp);
-
     }
 
+    @Transactional
     @GetMapping("/rest/edit/{id}")
     public ResponseEntity<Map<String, Object>> editFlashSale(@PathVariable Integer id) {
         Map<String, Object> resp = new HashMap<>();
 
-        // Tìm Flash Sale cần chỉnh sửa
-        Flash_Sales flashSaleToEdit = fs.findById(id);
-        List<Product_Flash_Sale> productFS = profs.findByProductFSId(id);
+        List<Product_Flash_Sale> productFS = profs.findByFlashSaleId(fs.findById(id).orElse(null));
 
-        if (flashSaleToEdit != null) {
-            resp.put("flashSale", flashSaleToEdit);
-            resp.put("productFlashSale", productFS);
-            return ResponseEntity.ok(resp);
-        } else {
-            return ResponseEntity.notFound().build();
+        if (productFS.isEmpty()) {
+            return ResponseEntity.ok(null);
         }
-    }
 
+        Flash_Sales flashSale = new Flash_Sales();
+
+        flashSale = productFS.get(0).getFlashSaleId();
+
+        resp.put("listProductFlashSale", productFS);
+        resp.put("flashSale", flashSale);
+        return ResponseEntity.ok(resp);
+
+    }
 
     @PostMapping("/rest/flashsales")
     public ResponseEntity<String> createFlashSale(@RequestBody FlashSaleRequest request) {
@@ -86,14 +92,19 @@ public class FlashSaleRestController {
         // productFlashSales.
         Flash_Sales flashSale = request.getFlashSale();
         List<Product_Flash_Sale> product_Flash_Sale = request.getProductFlashSales();
+        List<Product_Flash_Sale> listDeletedProductFlashSale = request.getListDeletedProductFlashSale();
 
-        fs.add(flashSale);
-
-        System.out.println(flashSale);
+        if (!listDeletedProductFlashSale.isEmpty()) {
+            for (Product_Flash_Sale item : listDeletedProductFlashSale) {
+                profs.delete(item);
+            }
+        }
+        
+        fs.save(flashSale);
 
         for (Product_Flash_Sale p : product_Flash_Sale) {
             p.setFlashSaleId(flashSale);
-            profs.add(p);
+            profs.save(p);
         }
         // Trả về FlashSale đã được tạo.
         return ResponseEntity.ok(null);
@@ -107,9 +118,9 @@ public class FlashSaleRestController {
             // Lặp qua danh sách Flash Sales và kiểm tra cập nhật trạng thái
             for (Flash_Sales flashSale : flashSalesList) {
                 flashSale.setStatus(3);
-                fs.update(flashSale); // Cập nhật trạng thái trên máy chủ
+                fs.save(flashSale); // Cập nhật trạng thái trên máy chủ
             } // Gọi hàm cập nhật từ service
-            // Trả về phản hồi thành công nếu không có lỗi
+              // Trả về phản hồi thành công nếu không có lỗi
             return ResponseEntity.ok("Cập nhật trạng thái Flash Sale thành công");
         } catch (Exception e) {
             // Xử lý lỗi và trả về phản hồi lỗi
@@ -118,6 +129,8 @@ public class FlashSaleRestController {
                     .body("Có lỗi xảy ra khi cập nhật trạng thái Flash Sale");
         }
     }
+
+    // FORM FLASH SALE REST API
 
 }
 

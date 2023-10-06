@@ -19,13 +19,13 @@ public class OTP implements Serializable {
     @JoinColumn(name = "Username")
     private Accounts username;
 
-    @Column(name = "OTPCode", columnDefinition = "varchar(8)")
+    @Column(name = "OTP_Code", columnDefinition = "varchar(8)")
     private String otpCode;
 
-    @Column(name = "CreateTime")
+    @Column(name = "Create_Time")
     private Date createTime;
 
-    @Column(name = "ExpiredTime")
+    @Column(name = "Expired_Time")
     private Date expiredTime;
 
     @Column(name = "Status")
