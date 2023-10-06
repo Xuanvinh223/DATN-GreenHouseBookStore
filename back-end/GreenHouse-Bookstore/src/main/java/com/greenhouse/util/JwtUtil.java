@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.io.Decoders;
 import java.security.Key;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -73,13 +71,11 @@ public class JwtUtil {
 
     // Tạo JWT từ các thông tin được cung cấp
     private String createToken(Map<String, Object> claims, String userName) {
-        Instant now = Instant.now();
-        Instant expiration = now.plus(30, ChronoUnit.DAYS);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(Date.from(expiration))
+                .setExpiration(new Date(System.currentTimeMillis() + 10000000 * 60 * 30))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 

@@ -71,10 +71,6 @@ app.config(function ($routeProvider) {
             templateUrl: "page/coupon-manager/table_flashsale.html",
             controller: "flashsaleController"
         })
-        .when("/inventory-form", {
-            templateUrl: "page/inventory-manager/inventory_form.html",
-            controller: "inventoryCtrl"
-        })
         .when("/inventory-table", {
             templateUrl: "page/inventory-manager/inventory_table.html",
             controller: "inventoryCtrl"
@@ -82,7 +78,7 @@ app.config(function ($routeProvider) {
         //đơn hàng
         .when("/order-manager", {
             templateUrl: "page/order-manager/table_order.html",
-            controller: "OrderController"
+            controller: ""
         })
         .when("/product-table", {
             templateUrl: "page/product-manager/table_product.html",

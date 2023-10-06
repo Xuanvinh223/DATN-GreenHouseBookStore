@@ -63,7 +63,6 @@ public class FlashSaleRestController {
         resp.put("productList", productList);
 
         return ResponseEntity.ok(resp);
-
     }
 
     @Transactional

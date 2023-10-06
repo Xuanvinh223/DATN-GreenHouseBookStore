@@ -15,20 +15,83 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams) {
 
     $scope.searchProductKeyword = null;
 
-    $scope.importInvoice = {
-        importInvoiceId: 0,
-        username: null,
-        createDate: new Date(),
-        amount: 0.0,
-        supplierId: null,
-        description: null,
-        status: null
+    // Hàm Save
+    $scope.saveImportInvoice = function (active) {
+        var check = $scope.checkErrors();
+        if (check) {
+            $scope.createDateFormat = moment();
+            var createDate = moment($scope.createDateFormat, 'YYYY-MM-DDTHH:mm:ss.SSS').format("YYYY-MM-DD HH:mm:ss.SSS");
+
+            var importInvoiceDTO = {
+                importInvoice: {
+                    //   importInvoiceId: $scope.item.importInvoiceId,
+                    username: $scope.username,
+                    createDate: new Date(),
+                    amount: $scope.TotalAmount,
+                    supplierId: $scope.item.supplierId,
+                    description: $scope.item.description,
+                    status: active
+                },
+                importInvoiceDetails: $scope.selectedProducts
+            };
+
+            // Gửi dữ liệu lên máy chủ
+            $http.post(`${host}/importInvoice`, importInvoiceDTO)
+                .then(function (response) {
+                    // Xử lý phản hồi từ máy chủ (nếu cần)
+                    console.log('Dữ liệu đã được lưu thành công.', response);
+                    // Sau khi lưu thành công, bạn có thể làm các công việc khác như làm mới trang hoặc hiển thị thông báo.
+                })
+                .catch(function (error) {
+                    // Xử lý lỗi nếu có
+                    console.error('Lỗi khi gửi dữ liệu: ', error);
+                    // Hiển thị thông báo hoặc xử lý lỗi khác nếu cần.
+                });
+        }else{
+            console.log("Lỗi mẹ ròi");
+        }
+        // Tạo một đối tượng ImportInvoiceDTO từ các dữ liệu bạn đã thu thập trong controller
+
     };
+
+    //checkLoi
+    $scope.reset = function () {
+
+    }
+    // var errors = 0;
+      $scope.item={};
+    $scope.checkErrors = function () {
+        $scope.errors = {};
+      
+        var supplier = $scope.item.supplierId;
+        var description = $scope.item.description;
+    
+        if (!supplier) {
+            $scope.errors.supplierId = 'Vui lòng chọn nhà cung cấp';
+        }
+    
+        if (!description) {
+            $scope.errors.description = 'Vui lòng nhập ghi chú';
+        }
+    
+        if (!$scope.selectedProducts || $scope.selectedProducts.length === 0) {
+            $scope.errors.products = 'Vui lòng chọn ít nhất một sản phẩm';
+        }
+    
+        // Kiểm tra nếu có bất kỳ lỗi nào xuất hiện
+        var hasErrors = Object.keys($scope.errors).length > 0;
+    
+        return !hasErrors;
+    };
+    
+
+
     $scope.getData = function () {
 
         var url = `${host}/getInventory`;
         $http.get(url).then((resp) => {
             $scope.listSuppliers = resp.data.suppliers;
+            $scope.listimportInvoice = resp.data.importInvoice;
             $scope.listProductDetails = resp.data.listProductDetails;
             console.log("", resp.data.listProductDetails)
             $scope.loadModelProduct();
@@ -61,14 +124,14 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams) {
     };
     $scope.selectedProduct = function (product) {
         var cart = {
-            productDetailId: product,
+            productDetail: product,
             quantity: 1,
             price: 0,
             amount: 0,
         };
         var duplicateProduct = true;
         $scope.selectedProducts.forEach(function (p) {
-            if (p.productDetailId.productDetailId == product.productDetailId) {
+            if (p.productDetail.productDetailId == product.productDetailId) {
                 p.quantity++;
                 duplicateProduct = false;
             }
@@ -77,10 +140,6 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams) {
         if (duplicateProduct) {
             $scope.selectedProducts.push(cart);
         }
-
-        // $scope.updateInvoice();
-
-
         console.log("Sản phẩm đã chọn: ", $scope.selectedProducts);
         $scope.searchProduct(null);
     }
@@ -91,10 +150,11 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams) {
     };
 
     $scope.updateQuantityItemInInvoices = function () {
-        $scope.totalAmount = 0.0;
+        $scope.TotalAmount = 0.0;
         $scope.selectedProducts.forEach(function (c) {
-            $scope.totalAmount += parseFloat(c.amount);
+            $scope.TotalAmount += parseFloat(c.amount);
         });
+        // alert(  $scope.TotalAmount)
     };
 
     $scope.removeProduct = function (index) {

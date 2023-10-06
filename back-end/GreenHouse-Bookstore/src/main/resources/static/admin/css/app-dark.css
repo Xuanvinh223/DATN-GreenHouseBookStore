@@ -2488,7 +2488,8 @@ textarea.form-control {
 .was-validated textarea.form-control:valid,
 textarea.form-control.is-valid {
   padding-right: calc(1.5em + 0.75rem);
-  background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
+  background-position: top calc(0.375em + 0.1875rem) right
+    calc(0.375em + 0.1875rem);
 }
 
 .was-validated .custom-select:valid,
@@ -2603,7 +2604,8 @@ textarea.form-control.is-valid {
 .was-validated textarea.form-control:invalid,
 textarea.form-control.is-invalid {
   padding-right: calc(1.5em + 0.75rem);
-  background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
+  background-position: top calc(0.375em + 0.1875rem) right
+    calc(0.375em + 0.1875rem);
 }
 
 .was-validated .custom-select:invalid,
@@ -4147,7 +4149,9 @@ input[type="button"].btn-block {
   line-height: 1.5;
   color: #ced4da;
   vertical-align: middle;
-  background: #343a40 url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
+  background: #343a40
+    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e")
+    no-repeat right 0.75rem center/8px 10px;
   border: 1px solid #6c757d;
   border-radius: 0.25rem;
   appearance: none;
@@ -13759,7 +13763,9 @@ form.was-validated select:valid~.select2-container--bootstrap4 .select2-selectio
   will-change: transform;
   opacity: 0;
   pointer-events: none;
-  transition: all var(--microtip-transition-duration, 0.18s) var(--microtip-transition-easing, ease-in-out) var(--microtip-transition-delay, 0s);
+  transition: all var(--microtip-transition-duration, 0.18s)
+    var(--microtip-transition-easing, ease-in-out)
+    var(--microtip-transition-delay, 0s);
   position: absolute;
   box-sizing: border-box;
   z-index: 10;
@@ -13775,7 +13781,9 @@ form.was-validated select:valid~.select2-container--bootstrap4 .select2-selectio
   will-change: transform;
   opacity: 0;
   pointer-events: none;
-  transition: all var(--microtip-transition-duration, 0.18s) var(--microtip-transition-easing, ease-in-out) var(--microtip-transition-delay, 0s);
+  transition: all var(--microtip-transition-duration, 0.18s)
+    var(--microtip-transition-easing, ease-in-out)
+    var(--microtip-transition-delay, 0s);
   position: absolute;
   box-sizing: border-box;
   z-index: 10;
@@ -13813,7 +13821,8 @@ form.was-validated select:valid~.select2-container--bootstrap4 .select2-selectio
 }
 
 .uppy-Root [role~="tooltip"][data-microtip-position|="top"]::before {
-  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%280%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%280%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E")
+    no-repeat;
   height: 6px;
   width: 18px;
   margin-bottom: 5px;
@@ -13856,7 +13865,8 @@ form.was-validated select:valid~.select2-container--bootstrap4 .select2-selectio
 }
 
 .uppy-Root [role~="tooltip"][data-microtip-position|="bottom"]::before {
-  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28180%2018%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28180%2018%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E")
+    no-repeat;
   height: 6px;
   width: 18px;
   margin-top: 5px;
@@ -13906,7 +13916,8 @@ form.was-validated select:valid~.select2-container--bootstrap4 .select2-selectio
   right: 100%;
   top: 50%;
   transform: translate3d(10px, -50%, 0);
-  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28-90%2018%2018%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28-90%2018%2018%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E")
+    no-repeat;
   height: 18px;
   width: 6px;
   margin-right: 5px;
@@ -13935,7 +13946,8 @@ form.was-validated select:valid~.select2-container--bootstrap4 .select2-selectio
   left: 100%;
   top: 50%;
   transform: translate3d(-10px, -50%, 0);
-  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%2890%206%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%2890%206%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E")
+    no-repeat;
   height: 18px;
   width: 6px;
   margin-bottom: 0;
@@ -17280,7 +17292,8 @@ a.uppy-Dashboard-poweredBy {
 }
 
 .uppy-ScreenCapture-icon--streamActive svg {
-  animation: uppy-ScreenCapture-icon--blink 1s cubic-bezier(0.47, 0, 0.75, 0.72) infinite;
+  animation: uppy-ScreenCapture-icon--blink 1s cubic-bezier(0.47, 0, 0.75, 0.72)
+    infinite;
 }
 
 .uppy-ScreenCapture-button--video {
@@ -17359,7 +17372,7 @@ a.uppy-Dashboard-poweredBy {
   max-width: max-content;
 }
 
-.order-page #order-status .nav-item .nav-link:hover~.notification p {
+.order-page #order-status .nav-item .nav-link:hover ~ .notification p {
   color: #fff;
 }
 
@@ -17456,16 +17469,23 @@ a.uppy-Dashboard-poweredBy {
   max-height: 300px;
 }
 
+.order-info .tab-content .form-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
 .order-info .tab-content .form-info {
   width: 100%;
   line-height: 28px;
   border: 2px solid transparent;
   border-bottom-color: #777;
-  padding: .2rem 0;
+  padding: 0.2rem 0;
   outline: none;
   background-color: transparent;
   color: #e8e8e8;
-  transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .order-info .tab-content .form-info:not(:disabled) {
@@ -17475,7 +17495,7 @@ a.uppy-Dashboard-poweredBy {
 .order-info .tab-content .form-info:focus,
 .form-info:hover {
   outline: none;
-  padding: .2rem 1rem;
+  padding: 0.2rem 1rem;
   border-radius: 1rem;
   border-color: #79c44d;
 }
@@ -17486,9 +17506,8 @@ a.uppy-Dashboard-poweredBy {
 
 .order-info .tab-content .form-info:focus::placeholder {
   opacity: 0;
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 }
-
 .order-info .tab-content label {
   font-size: 1rem;
   font-weight: 600;
@@ -17673,7 +17692,7 @@ a.uppy-Dashboard-poweredBy {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  border: 1px solid #E0E0E0E0;
+  border: 1px solid #e0e0e0e0;
   border-radius: 5px;
   height: 30px;
 }
@@ -17883,7 +17902,7 @@ a.uppy-Dashboard-poweredBy {
 /* END CSS ORDER PAGE */
 
 /* END CSS ORDER PAGE */
-
+/* CSS FLASH SALE PAGE - START */
 
 /* CSS FLASH SALE PAGE - START */
 
@@ -17944,12 +17963,62 @@ a.uppy-Dashboard-poweredBy {
   width: 60%;
 }
 
+/* Định dạng nút phân trang */
+.flash-sale-page .pagination li {
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #52ba31;
+  transition: background-color 0.3s;
+  min-width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flash-sale-page .pagination li a {
+  color: #fff;
+  padding: 5px 10px;
+}
+
+.flash-sale-page .pagination li:hover {
+  background-color: #8ad55d;
+}
+
+/* Định dạng nút trang trước và sau */
+.flash-sale-page .pagination .pagination-prev,
+.flash-sale-page .pagination .pagination-next {
+  font-weight: bold;
+  background-color: #52ba31;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.flash-sale-page .pagination .pagination-prev:hover,
+.flash-sale-page .pagination .pagination-next:hover {
+  background-color: #8ad55d;
+}
+
+/* Định dạng nút trang hiện tại */
+.flash-sale-page .pagination .active {
+  background-color: #0a8f0b;
+  color: #fff;
+}
+
+
+/* CSS FLASH SALE PAGE - END */
+/* Định dạng của container chứa icon và input */
+/* .input-container {
+  width: 60%;
+} */
+
 @media (min-width: 992px) {
   .input-container {
     width: 70%;
   }
 }
-
 .icon {
   padding-left: 10px;
 }
@@ -17970,11 +18039,16 @@ a.uppy-Dashboard-poweredBy {
 .input {
   border: none;
   /* Loại bỏ border của input */
-  /* background-color: #495057; */
+  background-color: transparent;
   outline: none;
   /* Loại bỏ border khi focus */
   width: 100% !important;
   /* Độ rộng của input */
+}
+.input:focus{
+  background-color:transparent;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Đảm bảo icon và combobox nằm cùng một hàng ngang */
@@ -17994,10 +18068,36 @@ a.uppy-Dashboard-poweredBy {
 .modal-supper-lg {
   min-width: 90%;
 }
+/* Thanh cuộn */
+::-webkit-scrollbar {
+  width: 10px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:  #494E4A;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #79827B;
+}
+
+/* End Thanh cuộn */
 /* CSS Invertory  */
 
-.inventory-table #inventoryModal .modal-body .search-box .form-modal-search button {
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .form-modal-search
+  button {
   border: none;
   background: none;
   color: #8b8ba7;
@@ -18109,10 +18209,15 @@ a.uppy-Dashboard-poweredBy {
   padding: 0.5rem 0;
 }
 
-.inventory-table #inventoryModal .modal-body .item-product-cart .img-product-cart img {
-  width: 90%;
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .item-product-cart
+  .img-product-cart
+  img {
+  width: 100%;
+  max-width: 80px;
   object-fit: contain;
-  padding-left: 10px;
 }
 
 .inventory-table #inventoryModal .modal-body .group-product-info {
@@ -18251,7 +18356,6 @@ a.uppy-Dashboard-poweredBy {
   border-bottom-color: #ededed;
   border-bottom-style: solid;
 }
-
 .input-group-icon {
   display: flex;
   align-items: flex-start;
@@ -18266,20 +18370,24 @@ a.uppy-Dashboard-poweredBy {
   border: 1px solid #6c757d;
   border-radius: 0.25rem;
 }
-
 .inventory-table #inventoryModal .modal-body .search-box .product-cart-left {
   z-index: 10;
-  max-height: 100%;
-  max-width: 100%;
+  height: 400px;
+  width: 95%;
   overflow: auto;
   position: absolute !important;
-}
 
+}
 .bg-success1 {
   position: absolute;
   background-color: #3ad29f !important;
   bottom: 0;
   right: 0;
 }
-
+.alert-product {
+  color: #fff;
+  background-color: #495057;
+  border-color: #9e9e9e;
+  text-align: center;
+}
 /* END */
