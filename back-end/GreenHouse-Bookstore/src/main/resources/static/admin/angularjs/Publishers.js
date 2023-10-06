@@ -20,117 +20,117 @@ function PublishersController($scope, $location, $routeParams, $http) {
   $scope.loadPublishers = function () {
     var url = `${host}`;
     $http.get(url)
-        .then(function (resp) {
-          $scope.publishers = resp.data;
+      .then(function (resp) {
+        $scope.publishers = resp.data;
 
-          $scope.totalItems = $scope.publishers.length;
+        $scope.totalItems = $scope.publishers.length;
 
-          $scope.data = resp.data;
+        $scope.data = resp.data;
 
-          // Số mục trên mỗi trang
-          $scope.itemsPerPage = 5;
-          // Tính toán tổng số mục
-          $scope.totalItems = $scope.data.length;
-          // Trang hiện tại
-          $scope.currentPage = 1;
+        // Số mục trên mỗi trang
+        $scope.itemsPerPage = 5;
+        // Tính toán tổng số mục
+        $scope.totalItems = $scope.data.length;
+        // Trang hiện tại
+        $scope.currentPage = 1;
 
-          // Tính toán số trang
-          $scope.pageCount = Math.ceil($scope.data.length / $scope.itemsPerPage);
+        // Tính toán số trang
+        $scope.pageCount = Math.ceil($scope.data.length / $scope.itemsPerPage);
 
-          // Cập nhật danh sách mục trang hiện tại khi trang thay đổi
-          $scope.$watch('currentPage + selectedItemsPerPage', function () {
-            var begin = ($scope.currentPage - 1) * $scope.selectedItemsPerPage;
-            var end = begin + $scope.selectedItemsPerPage;
-            $scope.publishers = $scope.data.slice(begin, end);
-          });
+        // Cập nhật danh sách mục trang hiện tại khi trang thay đổi
+        $scope.$watch('currentPage + selectedItemsPerPage', function () {
+          var begin = ($scope.currentPage - 1) * $scope.selectedItemsPerPage;
+          var end = begin + $scope.selectedItemsPerPage;
+          $scope.publishers = $scope.data.slice(begin, end);
+        });
 
-          $scope.showLastDots = true; // Biến trạng thái để kiểm soát hiển thị dấu chấm "..." hoặc nút "Last"
+        $scope.showLastDots = true; // Biến trạng thái để kiểm soát hiển thị dấu chấm "..." hoặc nút "Last"
 
-          $scope.firstPage = function () {
-            if ($scope.currentPage > 1) {
-              $scope.currentPage = 1;
-              $scope.showLastDots = true;
-              updateVisiblePages();
-            }
-          };
-
-          $scope.prevPage = function () {
-            if ($scope.currentPage > 1) {
-              $scope.currentPage--;
-              $scope.showLastDots = true;
-              updateVisiblePages();
-            }
-          };
-
-          $scope.nextPage = function () {
-            if ($scope.currentPage < $scope.pageCount) {
-              $scope.currentPage++;
-              $scope.showLastDots = true;
-              updateVisiblePages();
-            }
-          };
-
-          $scope.lastPage = function () {
-            if ($scope.currentPage < $scope.pageCount) {
-              $scope.currentPage = $scope.pageCount;
-              $scope.showLastDots = false;
-              updateVisiblePages();
-            }
-          };
-
-          // Đặt trang hiện tại
-          $scope.setPage = function (page) {
-            $scope.currentPage = page;
+        $scope.firstPage = function () {
+          if ($scope.currentPage > 1) {
+            $scope.currentPage = 1;
+            $scope.showLastDots = true;
             updateVisiblePages();
-          };
+          }
+        };
 
-          // Cập nhật danh sách trang hiển thị
-          function updateVisiblePages() {
-            var totalPages = $scope.pageCount;
-            var currentPage = $scope.currentPage;
-            var visiblePageCount = 3; // Số trang bạn muốn hiển thị
-            var startPage, endPage;
+        $scope.prevPage = function () {
+          if ($scope.currentPage > 1) {
+            $scope.currentPage--;
+            $scope.showLastDots = true;
+            updateVisiblePages();
+          }
+        };
 
-            if (totalPages <= visiblePageCount) {
+        $scope.nextPage = function () {
+          if ($scope.currentPage < $scope.pageCount) {
+            $scope.currentPage++;
+            $scope.showLastDots = true;
+            updateVisiblePages();
+          }
+        };
+
+        $scope.lastPage = function () {
+          if ($scope.currentPage < $scope.pageCount) {
+            $scope.currentPage = $scope.pageCount;
+            $scope.showLastDots = false;
+            updateVisiblePages();
+          }
+        };
+
+        // Đặt trang hiện tại
+        $scope.setPage = function (page) {
+          $scope.currentPage = page;
+          updateVisiblePages();
+        };
+
+        // Cập nhật danh sách trang hiển thị
+        function updateVisiblePages() {
+          var totalPages = $scope.pageCount;
+          var currentPage = $scope.currentPage;
+          var visiblePageCount = 3; // Số trang bạn muốn hiển thị
+          var startPage, endPage;
+
+          if (totalPages <= visiblePageCount) {
+            startPage = 1;
+            endPage = totalPages;
+          } else {
+            if (currentPage <= Math.ceil(visiblePageCount / 2)) {
               startPage = 1;
+              endPage = visiblePageCount;
+            } else if (currentPage + Math.floor(visiblePageCount / 2) > totalPages) {
+              startPage = totalPages - visiblePageCount + 1;
               endPage = totalPages;
             } else {
-              if (currentPage <= Math.ceil(visiblePageCount / 2)) {
-                startPage = 1;
-                endPage = visiblePageCount;
-              } else if (currentPage + Math.floor(visiblePageCount / 2) > totalPages) {
-                startPage = totalPages - visiblePageCount + 1;
-                endPage = totalPages;
-              } else {
-                startPage = currentPage - Math.floor(visiblePageCount / 2);
-                endPage = currentPage + Math.floor(visiblePageCount / 2);
-              }
-            }
-
-            $scope.visiblePages = [];
-            for (var i = startPage; i <= endPage; i++) {
-              $scope.visiblePages.push(i);
+              startPage = currentPage - Math.floor(visiblePageCount / 2);
+              endPage = currentPage + Math.floor(visiblePageCount / 2);
             }
           }
 
-          // Ban đầu, cập nhật danh sách trang hiển thị
+          $scope.visiblePages = [];
+          for (var i = startPage; i <= endPage; i++) {
+            $scope.visiblePages.push(i);
+          }
+        }
+
+        // Ban đầu, cập nhật danh sách trang hiển thị
+        updateVisiblePages();
+
+        $scope.onItemsPerPageChange = function () {
+          // Cập nhật số lượng phần tử trên mỗi trang
+          $scope.itemsPerPage = $scope.selectedItemsPerPage;
+          // Tính toán lại số trang dựa trên số lượng phần tử mới
+          $scope.pageCount = Math.ceil($scope.data.length / $scope.itemsPerPage);
+          // Đặt lại trang hiện tại về 1
+          $scope.currentPage = 1;
+          // Cập nhật danh sách trang hiển thị
           updateVisiblePages();
 
-          $scope.onItemsPerPageChange = function () {
-            // Cập nhật số lượng phần tử trên mỗi trang
-            $scope.itemsPerPage = $scope.selectedItemsPerPage;
-            // Tính toán lại số trang dựa trên số lượng phần tử mới
-            $scope.pageCount = Math.ceil($scope.data.length / $scope.itemsPerPage);
-            // Đặt lại trang hiện tại về 1
-            $scope.currentPage = 1;
-            // Cập nhật danh sách trang hiển thị
-            updateVisiblePages();
-
-          };
-          console.log("Success", resp)
-        }).catch(error => {
-      console.log("Error", error);
-    });
+        };
+        console.log("Success", resp)
+      }).catch(error => {
+        console.log("Error", error);
+      });
   }
 
 
@@ -197,8 +197,8 @@ function PublishersController($scope, $location, $routeParams, $http) {
     // Kiểm tra trùng lặp publisherName trước khi thêm
     var existingPublisherName = $scope.publishers.find(function (publisher) {
       return (
-          publisher.publisherName === $scope.editingPublisher.publisherName &&
-          publisher.publisherId !== $scope.editingPublisher.publisherId
+        publisher.publisherName === $scope.editingPublisher.publisherName &&
+        publisher.publisherId !== $scope.editingPublisher.publisherId
       );
     });
     if (existingPublisherName) {
@@ -212,7 +212,6 @@ function PublishersController($scope, $location, $routeParams, $http) {
       var emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
       return emailRegex.test(email);
     }
-
     if (!isGmail($scope.editingPublisher.email)) {
       // Hiển thị thông báo lỗi nếu email không đúng định dạng Gmail
       $scope.errorMessages.email = `Email "${$scope.editingPublisher.email}" không đúng định dạng Gmail. Vui lòng kiểm tra lại.`;
@@ -222,8 +221,8 @@ function PublishersController($scope, $location, $routeParams, $http) {
     // Kiểm tra trùng lặp email trước khi thêm
     var existingEmail = $scope.publishers.find(function (publisher) {
       return (
-          publisher.email === $scope.editingPublisher.email &&
-          publisher.publisherId !== $scope.editingPublisher.publisherId
+        publisher.email === $scope.editingPublisher.email &&
+        publisher.publisherId !== $scope.editingPublisher.publisherId
       );
     });
     if (existingEmail) {
@@ -233,16 +232,17 @@ function PublishersController($scope, $location, $routeParams, $http) {
     }
 
 
+
     formData.append(
-        "publisherJson",
-        JSON.stringify({
-          publisherId: $scope.editingPublisher.publisherId || "",
-          publisherName: $scope.editingPublisher.publisherName || "",
-          description: $scope.editingPublisher.description || "",
-          address: $scope.editingPublisher.address || "",
-          email: $scope.editingPublisher.email || "",
-          image: $scope.editingPublisher.image || "",
-        })
+      "publisherJson",
+      JSON.stringify({
+        publisherId: $scope.editingPublisher.publisherId || "",
+        publisherName: $scope.editingPublisher.publisherName || "",
+        description: $scope.editingPublisher.description || "",
+        address: $scope.editingPublisher.address || "",
+        email: $scope.editingPublisher.email || "",
+        image: $scope.editingPublisher.image || "",
+      })
     );
 
     if ($scope.isEditing) {
@@ -258,27 +258,27 @@ function PublishersController($scope, $location, $routeParams, $http) {
         if (result.isConfirmed) {
           var url = `${host}/${$scope.editingPublisher.publisherId}`;
           $http
-              .put(url, formData, {
-                transformRequest: angular.identity,
-                headers: {"Content-Type": undefined},
-              })
-              .then((resp) => {
-                $scope.loadPublishers();
-                $scope.resetForm();
-                Swal.fire({
-                  icon: "success",
-                  title: "Thành công",
-                  text: `Cập nhật nhà xuất bản "${publisherId}" thành công`,
-                });
-                $scope.clearImage(); // Xóa ảnh đại diện sau khi cập nhật
-              })
-              .catch((error) => {
-                Swal.fire({
-                  icon: "error",
-                  title: "Thất bại",
-                  text: `Cập nhật nhà xuất bản "${publisherId}" thất bại`,
-                });
+            .put(url, formData, {
+              transformRequest: angular.identity,
+              headers: { "Content-Type": undefined },
+            })
+            .then((resp) => {
+              $scope.loadPublishers();
+              $scope.resetForm();
+              Swal.fire({
+                icon: "success",
+                title: "Thành công",
+                text: `Cập nhật nhà xuất bản "${publisherId}" thành công`,
               });
+              $scope.clearImage(); // Xóa ảnh đại diện sau khi cập nhật
+            })
+            .catch((error) => {
+              Swal.fire({
+                icon: "error",
+                title: "Thất bại",
+                text: `Cập nhật nhà xuất bản "${publisherId}" thất bại`,
+              });
+            });
         } else {
           // Nếu người dùng chọn Hủy, bạn có thể thực hiện hành động nào đó, hoặc không làm gì cả.
           // Ví dụ: không thực hiện cập nhật và trở lại biểu mẫu.
@@ -355,30 +355,30 @@ function PublishersController($scope, $location, $routeParams, $http) {
       if (result.isConfirmed) {
         var url = `${host}/${publisherId}`;
         $http
-            .delete(url)
-            .then((resp) => {
-              $scope.loadPublishers();
-              Swal.fire({
-                icon: "success",
-                title: "Thành công",
-                text: `Xóa nhà xuất bản "${publisherId}" thành công`,
-              });
-            })
-            .catch((error) => {
-              if (error.status === 409) {
-                Swal.fire({
-                  icon: "error",
-                  title: "Thất bại",
-                  text: `Nhà xuất bản mã "${publisherId}" đang được sử dụng và không thể xóa.`,
-                });
-              } else {
-                Swal.fire({
-                  icon: "error",
-                  title: "Thất bại",
-                  text: `Xóa nhà xuất bản "${publisherId}" thất bại`,
-                });
-              }
+          .delete(url)
+          .then((resp) => {
+            $scope.loadPublishers();
+            Swal.fire({
+              icon: "success",
+              title: "Thành công",
+              text: `Xóa nhà xuất bản "${publisherId}" thành công`,
             });
+          })
+          .catch((error) => {
+            if (error.status === 409) {
+              Swal.fire({
+                icon: "error",
+                title: "Thất bại",
+                text: `Nhà xuất bản mã "${publisherId}" đang được sử dụng và không thể xóa.`,
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Thất bại",
+                text: `Xóa nhà xuất bản "${publisherId}" thất bại`,
+              });
+            }
+          });
       }
     });
   };
@@ -398,8 +398,15 @@ function PublishersController($scope, $location, $routeParams, $http) {
     $scope.editingPublisher = {};
     $scope.isEditing = false;
     $scope.clearImage(); // Xóa ảnh đại diện khi làm mới form
+    $location.search('id', null);
+    $location.search('data', null);
+  
+    // Sau khi xóa, chuyển hướng lại đến trang /flashsale-form
+    $location.path('/publisher-form');
   };
+  // Sử dụng $location.search() để xóa tham số "id" và "data" khỏi URL
 
+ 
   // Load danh sách nhà xuất bản khi controller được khởi tạo
   $scope.loadPublishers();
 }

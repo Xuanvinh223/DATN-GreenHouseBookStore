@@ -11,15 +11,14 @@
                 <div class="col">
                   <form class="form-inline mr-auto  text-muted">
                     <input class="form-control mr-sm-2 bg-transparent border-1 pl-4 text-muted" type="search"
-                           placeholder="Tìm kiếm..." aria-label="Search" ng-model="searchText">
+                      placeholder="Tìm kiếm..." aria-label="Search" ng-model="searchText">
                   </form>
                 </div>
                 <div class="col ml-auto">
                   <div class="dropdown float-right">
                     <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle" type="button"
-                            id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Tất cả trạng thái
-                    </button>
+                      id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Tất cả trạng thái</button>
                     <div class="dropdown-menu" aria-labelledby="btnnhaphang">
                       <a class="dropdown-item" href="#"><i class='bx bxs-file-export mr-1'></i>Nhập File Excel</a>
                       <a class="dropdown-item" href="#"><i class='bx bxs-file-import mr-1'></i>Xuất File Excel</a>
@@ -33,38 +32,38 @@
               <!-- table -->
               <table class="table table-striped table-hover">
                 <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>ID Nhà Cung Cấp</th>
-                  <th>Tên Nhà Cung Cấp</th>
-                  <th>Mô tả</th>
-                  <th>Địa chỉ</th>
-                  <th>Email</th>
-                  <th>Số Điện Thoại</th>
-                  <th>Hình Ảnh</th>
-                  <th></th>
+                  <tr>
+                    <th>STT</th>
+                    <th>ID Nhà Cung Cấp</th>
+                    <th>Tên Nhà Cung Cấp</th>
+                    <th>Mô tả</th>
+                    <th>Địa chỉ</th>
+                    <th>Email</th>
+                    <th>Số Điện Thoại</th>
+                    <th>Hình Ảnh</th>
+                    <th>Thao Tác</th>
                   </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="supplier in suppliers">
-                  <td>{{$index + 1}}</td>
-                  <td>{{supplier.supplierId}}</td>
-                  <td>{{supplier.supplierName}}</td>
-                  <td>{{supplier.description}}</td>
-                  <td>{{supplier.address}}</td>
-                  <td>{{supplier.email}}</td>
-                  <td>{{supplier.phone}}</td>
-                  <td>
-                    <img ng-src="/images/{{supplier.image}}" alt="Chưa có ảnh"
-                         style="width: 50px; height: 50px; border-radius: 10%;">
-                  </td>
-                  <td>
-                    <a ng-click="editSupplierAndRedirect(supplier.supplierId)"><i class="fe fe-edit fe-16"></i></a>
-                    <a ng-click="deleteSupplier(supplier.supplierId)">
-                      <i class="fe fe-trash-2 fe-16"></i>
-                    </a>
-                  </td>
-                </tr>
+                  <tr ng-repeat="supplier in suppliers">
+                    <td>{{$index + 1}}</td>
+                    <td>{{supplier.supplierId}}</td>
+                    <td>{{supplier.supplierName}}</td>
+                    <td>{{supplier.description}}</td>
+                    <td>{{supplier.address}}</td>
+                    <td>{{supplier.email}}</td>
+                    <td>{{supplier.phone}}</td>
+                    <td>
+                      <img ng-src="/images/{{supplier.image}}" alt="Chưa có ảnh"
+                        style="width: 50px; height: 50px; border-radius: 10%;">
+                    </td>
+                    <td>
+                      <a ng-click="editSupplierAndRedirect(supplier.supplierId)"><i class="fe fe-edit fe-16"></i></a>
+                      <a ng-click="deleteSupplier(supplier.supplierId)">
+                        <i class="fe fe-trash-2 fe-16"></i>
+                      </a>
+                    </td>                    
+                  </tr>
                 </tbody>
               </table>
               <div class="toolbar">
@@ -73,8 +72,8 @@
                     <div class="form-inline col-auto mr-auto">
                       <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
                       <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1"
-                              ng-model="selectedItemsPerPage" ng-options="value for value in itemsPerPageOptions"
-                              ng-change="onItemsPerPageChange()">
+                        ng-model="selectedItemsPerPage" ng-options="value for value in itemsPerPageOptions"
+                        ng-change="onItemsPerPageChange()">
                       </select>
                     </div>
                     <div class="form-group col-auto">
@@ -92,8 +91,7 @@
                   </li>
                   <li class="page-item" ng-class="{'disabled': currentPage === 1}">
                     <button class="page-link" type="button" ng-click="prevPage()"
-                            ng-disabled="currentPage === 1">Previous
-                    </button>
+                      ng-disabled="currentPage === 1">Previous</button>
                   </li>
                   <li class="page-item" ng-show="currentPage > 2"><span>...</span></li>
                   <li class="page-item" ng-repeat="page in visiblePages" ng-class="{'active': page === currentPage}">
@@ -107,8 +105,7 @@
                   </li>
                   <li class="page-item" ng-class="{'disabled': currentPage === pageCount}">
                     <button class="page-link" type="button" ng-click="nextPage()"
-                            ng-disabled="currentPage === pageCount">Next
-                    </button>
+                      ng-disabled="currentPage === pageCount">Next</button>
                   </li>
                   <li class="page-item" ng-class="{'disabled': currentPage === pageCount}">
                     <button class="page-link" type="button" ng-click="lastPage()">Last</button>

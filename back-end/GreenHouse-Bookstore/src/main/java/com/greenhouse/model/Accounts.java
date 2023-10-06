@@ -56,4 +56,3 @@ public class Accounts implements Serializable{
    
     // Getters and setters
 }
-
