@@ -33,7 +33,7 @@ public class IndexRestController {
     @GetMapping("/rest/getIndexCount")
     public ResponseEntity<Map<String, Object>> getIndex() {
         Map<String, Object> resp = new HashMap<>();
-
+    
         long countBrand = brandRepository.count();
         long countCustomer = authoritiesRepository.countByRoleId(Long.valueOf(3));
 

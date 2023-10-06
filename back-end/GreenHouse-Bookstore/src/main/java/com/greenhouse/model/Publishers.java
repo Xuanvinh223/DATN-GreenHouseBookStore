@@ -10,23 +10,23 @@ import lombok.Data;
 @Table(name = "Publishers")
 public class Publishers implements Serializable {
 
-    @Id
-    @Column(name = "Publisher_Id", length = 30, nullable = false)
-    private String publisherId;
+  @Id
+  @Column(name = "Publisher_Id", length = 30, nullable = false)
+  private String publisherId;
 
-    @Column(name = "Publisher_Name", length = 100, nullable = false)
-    private String publisherName;
+  @Column(name = "Publisher_Name", length = 100, nullable = false)
+  private String publisherName;
 
-    @Column(name = "Description", length = 200)
-    private String description;
+  @Column(name = "Description", length = 200)
+  private String description;
 
-    @Column(name = "Address", length = 200, nullable = false)
-    private String address;
+  @Column(name = "Address", length = 200, nullable = false)
+  private String address;
 
-    @Column(name = "Email", length = 50, nullable = false)
-    private String email;
+  @Column(name = "Email", length = 50, nullable = false)
+  private String email;
 
-    @Column(name = "Image", length = 200)
-    private String image;
-    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
+  @Column(name = "Image", length = 200)
+  private String image;
+  // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Data
+@Data 
 @Table(name = "Order_Mapping_Status")
 public class OrderMappingStatus implements Serializable {
 

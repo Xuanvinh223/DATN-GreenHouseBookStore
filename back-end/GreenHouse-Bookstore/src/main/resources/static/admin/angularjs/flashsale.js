@@ -24,18 +24,60 @@ function flashsaleController($scope, $http, $location, $routeParams) {
     $scope.listDeletedProductFlashSale = [];
     $scope.searchText = "";
 
-    $scope.sortField = null;
+    //$scope.sortField = null;
     $scope.reverseSort = false;
     // Khai báo danh sách tùy chọn cho số mục trên mỗi trang
     $scope.itemsPerPageOptions = [5, 12, 24, 32, 64, 128];
-    $scope.selectedItemsPerPage = 5; // Khởi tạo giá trị mặc định cho số mục trên mỗi trang
     let host = "http://localhost:8081/rest";
+
+
+    $scope.currentPage = 1; // Trang hiện tại
+    $scope.itemsPerPage = 12; // Số mục hiển thị trên mỗi trang
+    $scope.totalItems = $scope.flashsalelist.length; // Tổng số mục
+    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
+    $scope.reverseSort = false; // Sắp xếp tăng dần
+
+    // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
+    $scope.getNumOfPages = function () {
+        return Math.ceil($scope.totalItems / $scope.itemsPerPage);
+    };
+
+    // Hàm chuyển đổi trang
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
+
+    
+    
+    $scope.calculateRange = function () {
+        var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage + 1;
+        var endIndex = $scope.currentPage * $scope.itemsPerPage;
+
+        if (endIndex > $scope.totalItems) {
+            endIndex = $scope.totalItems;
+        }
+
+        return startIndex + ' đến ' + endIndex + ' trên tổng số ' + $scope.totalItems + ' mục';
+    };
+
+    $scope.searchData = function () {
+        // Lọc danh sách gốc bằng searchText
+        $scope.flashsalelist = $scope.originalFlashSaleList.filter(function (item) {
+            // Thực hiện tìm kiếm trong các thuộc tính cần thiết của item
+            return (
+                item.flashSaleId.toString().includes($scope.searchText) || item.name.toLowerCase().includes($scope.searchText.toLowerCase())
+            );
+        });
+        $scope.totalItems = $scope.searchText ? $scope.flashsalelist.length : $scope.originalFlashSaleList.length; ;
+        $scope.setPage(1);
+    };
 
     //load table
     $scope.load_All = function () {
         var url = `${host}/getData`;
         $http.get(url).then(resp => {
-            $scope.flashsalelist = resp.data.flashsalelist;
+            $scope.originalFlashSaleList = resp.data.flashsalelist;
+            $scope.flashsalelist = $scope.originalFlashSaleList;
             $scope.productfsList = resp.data.productfsList;
             $scope.productDetailList = resp.data.productDetailList;
             $scope.productList = resp.data.productList;
@@ -44,6 +86,7 @@ function flashsaleController($scope, $http, $location, $routeParams) {
             // Cập nhật trạng thái Flash Sale
             // $scope.updateFlashSaleStatus();
             $scope.loadModelProduct();
+            $scope.totalItems = $scope.originalFlashSaleList.length; // Tổng số mục
         }).catch(error => {
             console.log("Error", error);
         });

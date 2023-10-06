@@ -163,7 +163,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             $scope.searchProductKeyword = null;
         }
     };
-
+    
 
     $scope.selectedProduct = function (product) {
         var existingProduct = $scope.selectedProducts.find(function (p) {

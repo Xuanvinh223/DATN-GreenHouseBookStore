@@ -1,7 +1,7 @@
 package com.greenhouse.service.impl;
 
-import com.greenhouse.model.ImportInvoice_Detail;
-import com.greenhouse.repository.ImportInvoice_DetailRepository;
+import com.greenhouse.model.ImportInvoiceDetail;
+import com.greenhouse.repository.ImportInvoiceDetailRepository;
 import com.greenhouse.service.ImportInvoiceDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,26 +13,26 @@ import java.util.Optional;
 public class ImportInvoiceDetailServiceImpl implements ImportInvoiceDetailService {
 
     @Autowired
-    private ImportInvoice_DetailRepository importInvoiceDetailRepository;
+    private ImportInvoiceDetailRepository importInvoiceDetailRepository;
 
     @Override
-    public List<ImportInvoice_Detail> findAll() {
+    public List<ImportInvoiceDetail> findAll() {
         return importInvoiceDetailRepository.findAll();
     }
 
     @Override
-    public ImportInvoice_Detail findById(Integer id) {
-        Optional<ImportInvoice_Detail> result = importInvoiceDetailRepository.findById(id);
+    public ImportInvoiceDetail findById(Integer id) {
+        Optional<ImportInvoiceDetail> result = importInvoiceDetailRepository.findById(id);
         return result.orElse(null);
     }
 
     @Override
-    public void add(ImportInvoice_Detail importInvoiceDetail) {
+    public void add(ImportInvoiceDetail importInvoiceDetail) {
         importInvoiceDetailRepository.save(importInvoiceDetail);
     }
 
     @Override
-    public void update(ImportInvoice_Detail importInvoiceDetail) {
+    public void update(ImportInvoiceDetail importInvoiceDetail) {
         importInvoiceDetailRepository.save(importInvoiceDetail);
     }
 

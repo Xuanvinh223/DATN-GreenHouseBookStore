@@ -14,7 +14,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "Accounts")
-public class Accounts implements Serializable {
+public class Accounts implements Serializable{
 
     @Id
     @Column(name = "Username")
@@ -53,7 +53,7 @@ public class Accounts implements Serializable {
 
     @Column(name = "Active")
     private Boolean active;
-
-    // Constructors, getters, setters, and other methods
+   
+    // Getters and setters
 }
 

@@ -1,7 +1,8 @@
 const app = angular.module("myApp", ["angular-jwt"]);
 
-app.constant("authenticateAPI", "http://localhost:8081/authenticate");
-app.constant("signupAPI", "http://localhost:8081/sign-up");
+app.constant('authenticateAPI', 'http://localhost:8081/authenticate');
+app.constant('signupAPI', 'http://localhost:8081/sign-up');
+app.constant('checkOutAPI', 'http://localhost:8081/customer/rest/check-out');
 
 app.run(function ($rootScope, $http, $templateCache, jwtHelper) {
     var jsFiles = [
