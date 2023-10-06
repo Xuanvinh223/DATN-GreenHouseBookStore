@@ -6,7 +6,7 @@ var test3 = 0;
 var form5 = {};
 
 //Table
-function flashsaleController($scope, $http, $location, $routeParams,) {
+function flashsaleController($scope, $http, $location, $routeParams) {
     $scope.$on('$routeChangeSuccess', function (event, current, previous) {
         $scope.page.setTitle(current.$$route.title || ' Quản lý Flash-Sale');
         $scope.load_All();
@@ -155,6 +155,11 @@ function flashsaleController($scope, $http, $location, $routeParams,) {
                 }
             }
         });
+        if (!$scope.listProductFlashSale) {
+            $scope.listProductFlashSale = [];
+        } else {
+            $scope.listProductFlashSale = [...$scope.listProductFlashSale, ...newSelected];
+        }
 
         console.log("Sản phẩm đã chọn: ", $scope.listProductFlashSale);
         $('#exampleModal').modal('hide');

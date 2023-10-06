@@ -65,12 +65,280 @@
 						aria-expanded="false"> <span class="avatar avatar-sm mt-2"> <img
 								src="./assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle">
 						</span>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item"
-							href="http://127.0.0.1:5500/font-end/client-template/index.html#!/index.html">Về
-							Trang Chủ</a> <a class="dropdown-item" href="#">Đăng Xuất</a>
+			</a>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+					<a class="dropdown-item"
+					   href="http://127.0.0.1:5500/font-end/client-template/index.html#!/index.html">Về
+						Trang Chủ</a> <a class="dropdown-item" href="#">Đăng Xuất</a>
+				</div>
+			</li>
+		</ul>
+	</nav>
+	<aside class="sidebar-left border-right bg-white shadow" id="leftSidebar" data-simplebar>
+		<a href="#" class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3" data-toggle="toggle"> <i
+				class="fe fe-x"><span class="sr-only"></span></i>
+		</a>
+		<nav class="vertnav navbar navbar-light">
+			<!-- nav bar -->
+			<div class="w-100 mb-4 d-flex">
+
+				<div class="d-flex align-items-center ms-4 mt-4">
+					<div class="position-relative">
+						<img class="rounded-circle"
+							 src="https://th.bing.com/th/id/R.59534c6805c43ada1f820a6acf65657c?rik=E1uSXwIrT4Hxzw&riu=http%3a%2f%2f2sao.vietnamnetjsc.vn%2fimages%2f2017%2f09%2f10%2f09%2f04%2fidol-han-quoc-1.jpg&ehk=xh6HctN64ukq8NLuzNeKeCQXHgmkWfHUVgz0crNaTyY%3d&risl=&pid=ImgRaw&r=0"
+							 alt="Profile image" style="width: 60px; height: 60px;">
+						<div
+								class="bg-success1 rounded-circle border border-2 border-white position-absolute bottom-0 end-0 p-1">
+						</div>
 					</div>
+					<div class="ms-3 ml-2">
+						<h6 class="mb-0">Thúy Lâm</h6>
+						<span>Admin</span>
+					</div>
+				</div>
+
+			</div>
+			<p class="text-muted nav-heading mt-4 mb-1">
+				<span>Apps</span>
+			</p>
+			<ul class="navbar-nav flex-fill w-100 mb-2">
+				<li class="nav-item "><a href="#!/" class=" nav-link"> <i class="fe fe-home fe-18 "></i> <span
+						class="ml-3 item-text">Trang
+								chủ</span><span class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item dropdown"><a data-target="#quanli-taikhoan" data-toggle="collapse"
+												 aria-expanded="false" class="dropdown-toggle nav-link"> <i
+						class="fe fe-user fe-18 "></i>
+					<span class="ml-3 item-text">Quản
+								Lý Tài Khoản</span>
+				</a>
+					<ul class="collapse list-unstyled pl-4 w-100" id="quanli-taikhoan">
+						<li class="nav-item"><a class="nav-link pl-3" href="#!/account-form"><span
+								class="ml-1 item-text">Form
+										Cập Nhật</span></a></li>
+						<li class="nav-item"><a class="nav-link pl-3" href="#!/account-table"><span
+								class="ml-1 item-text">Danh
+										Sách</span></a></li>
+					</ul>
+				</li>
+
+				<li class="nav-item dropdown"><a data-target="#danhmuc" data-toggle="collapse" aria-expanded="false"
+												 class="dropdown-toggle nav-link"> <i class="fe fe-grid fe-18 "></i>
+					<span class="ml-3 item-text">Quản Lý Danh Mục</span>
+				</a>
+					<ul class="collapse list-unstyled pl-4 w-100" id="danhmuc">
+						<li class="nav-item dropdown"><a data-target="#quanli-loaidanhmuc" data-toggle="collapse"
+														 aria-expanded="false" class="dropdown-toggle nav-link pl-3"
+														 href=""> <span
+								class="ml-1 item-text">Loại Danh Mục</span>
+						</a>
+							<ul class="collapse list-unstyled pl-4 w-100" id="quanli-loaidanhmuc">
+								<li class="nav-item"><a class="nav-link pl-3" href="#!/categorytype-form"><span
+										class="ml-1 item-text">Form
+												Cập Nhật</span></a></li>
+								<li class="nav-item"><a class="nav-link pl-3" href="#!/categorytype-table"><span
+										class="ml-1 item-text">Danh
+												Sách</span></a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown"><a data-target="#quanli-danhmuc" data-toggle="collapse"
+														 aria-expanded="false" class="dropdown-toggle nav-link pl-3"
+														 href=""> <span
+								class="ml-1 item-text">Danh Mục</span>
+						</a>
+							<ul class="collapse list-unstyled pl-4 w-100" id="quanli-danhmuc">
+								<li class="nav-item"><a class="nav-link pl-3" href="#!/category-form"><span
+										class="ml-1 item-text">Form
+												Cập Nhật</span></a></li>
+								<li class="nav-item"><a class="nav-link pl-3" href="#!/category-table"><span
+										class="ml-1 item-text">Danh
+												Sách</span></a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item dropdown"><a data-target="#uudai" data-toggle="collapse" aria-expanded="false"
+												 class="dropdown-toggle nav-link"> <i class="fe fe-book fe-18 "></i>
+					<span class="ml-3 item-text">Quản Lý Ưu Đãi</span>
+				</a>
+					<ul class="collapse list-unstyled pl-4 w-100" id="uudai">
+						<li class="nav-item dropdown"><a data-target="#quanli-giamgia" data-toggle="collapse"
+														 aria-expanded="false" class="dropdown-toggle nav-link pl-3"
+														 href=""> <span
+								class="ml-1 item-text">Giảm Giá</span>
+						</a>
+							<ul class="collapse list-unstyled pl-4 w-100" id="quanli-giamgia">
+								<li class="nav-item"><a class="nav-link pl-3" href="#!/discount-form"><span
+										class="ml-1 item-text">Cập
+												Nhật</span></a></li>
+								<li class="nav-item"><a class="nav-link pl-3" href="#!/discount-table"><span
+										class="ml-1 item-text">Danh
+												Sách</span></a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown"><a data-target="#quanli-khuyenmai" data-toggle="collapse"
+														 aria-expanded="false" class="dropdown-toggle nav-link pl-3"
+														 href=""> <span
+								class="ml-1 item-text">Khuyến Mãi</span>
+						</a>
+							<ul class="collapse list-unstyled pl-4 w-100" id="quanli-khuyenmai">
+								<li class="nav-item"><a class="nav-link pl-3" href="#!/voucher-form"><span
+										class="ml-1 item-text">Cập
+												Nhật</span></a></li>
+								<li class="nav-item"><a class="nav-link pl-3" href="#!/voucher-table"><span
+										class="ml-1 item-text">Danh
+												Sách</span></a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown"><a data-target="#quanli-uudai" data-toggle="collapse"
+														 aria-expanded="false" class="dropdown-toggle nav-link pl-3"
+														 href=""> <span
+								class="ml-1 item-text">Flash Sale</span>
+						</a>
+							<ul class="collapse list-unstyled pl-4 w-100" id="quanli-uudai">
+								<li class="nav-item"><a class="nav-link pl-3" href="#!/flashsale-form"><span
+										class="ml-1 item-text">Cập
+												Nhật</span></a></li>
+								<li class="nav-item"><a class="nav-link pl-3" href="#!/flashsale-table"><span
+										class="ml-1 item-text">Danh
+												Sách</span></a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+
+				<li class="nav-item dropdown"><a data-target="#quanli-thuonghieu" data-toggle="collapse"
+												 aria-expanded="false" class="dropdown-toggle nav-link"> <i
+						class="fe fe-award fe-18"></i>
+					<span class="ml-3 item-text">Quản
+								Lý Thương Hiệu</span>
+				</a>
+					<ul class="collapse list-unstyled pl-4 w-100" id="quanli-thuonghieu">
+						<li class="nav-item"><a href="#!/brand-form" class="nav-link  pl-3"> <span
+								class="ml-1 item-text">Form
+										Cập Nhật</span>
+						</a></li>
+						<li class="nav-item"><a href="#!/brand-table" class="nav-link  pl-3"> <span
+								class="ml-1 item-text">Danh
+										Sách</span>
+						</a></li>
+					</ul>
+				</li>
+				<li class="nav-item dropdown"><a data-target="#quanli-nhaxuatban" data-toggle="collapse"
+												 aria-expanded="false" class="dropdown-toggle nav-link"> <i
+						class="fe fe-layers fe-16"></i>
+					<span class="ml-3 item-text">Quản
+								Lý Nhà Xuất Bản</span>
+				</a>
+					<ul class="collapse list-unstyled pl-4 w-100" id="quanli-nhaxuatban">
+						<li class="nav-item"><a href="#!/publisher-form" class="nav-link pl-3"> <span
+								class="ml-1 item-text">Form
+										Cập Nhật</span>
+						</a></li>
+						<li class="nav-item"><a href="#!/publisher-table" class="nav-link  pl-3"> <span
+								class="ml-1 item-text">Danh
+										Sách</span>
+						</a></li>
+					</ul>
+				</li>
+				<li class="nav-item dropdown"><a data-target="#quanli-tacgia" data-toggle="collapse"
+												 aria-expanded="false" class="dropdown-toggle nav-link"> <i
+						class="fe fe-book-open fe-18"></i> <span class="ml-3 item-text">Quản
+								Lý Tác Giả</span>
+				</a>
+					<ul class="collapse list-unstyled pl-4 w-100" id="quanli-tacgia">
+						<li class="nav-item"><a href="#!/author-form" class="nav-link  pl-3"> <span
+								class="ml-1 item-text">Cập
+										Nhật</span>
+						</a></li>
+						<li class="nav-item"><a href="#!/author-table" class="nav-link  pl-3"> <span
+								class="ml-1 item-text">Danh
+										Sách</span>
+						</a></li>
+					</ul>
+				</li>
+				<li class="nav-item dropdown"><a data-target="#quanli_sanpham" data-toggle="collapse"
+												 aria-expanded="false" class="dropdown-toggle nav-link"> <i
+						class="fe fe-box fe-18 "></i>
+					<span class="ml-3 item-text">Quản Lý Sản Phẩm</span>
+				</a>
+					<ul class="collapse list-unstyled pl-4 w-100" id="quanli_sanpham">
+						<li class="nav-item"><a class="nav-link pl-3" href="#!/product-form"><span
+								class="ml-1 item-text">Thêm
+										Sách</span> </a></li>
+						<li class="nav-item"><a class="nav-link pl-3" href="#!/product-learning-table"><span
+								class="ml-1 item-text">Thêm Dụng Cụ Học Tập</span> </a></li>
+						<li class="nav-item"><a class="nav-link pl-3" href="#!/product-table"><span
+								class="ml-1 item-text">Danh
+										Sách Sản Phẩm</span></a></li>
+
+					</ul>
+				</li>
+				<li class="nav-item w-100"><a data-target="#quanli-donhang" data-toggle="collapse"
+											  aria-expanded="false" class="dropdown-toggle nav-link"> <i
+						class="fe fe-truck fe-18 "></i>
+					<span class="ml-3 item-text">Quản
+								Lý Đơn Hàng</span>
+				</a>
+					<ul class="collapse list-unstyled pl-4 w-100" id="quanli-donhang">
+						<li class="nav-item"><a class="nav-link pl-3" href="#!/order-manager"> <span
+								class="ml-1 item-text">Chờ
+										Xác Nhận</span> <span class="badge badge-pill badge-primary">New</span>
+						</a></li>
+						<li class="nav-item"><a class="nav-link pl-3" href=""><span class="ml-1 item-text">Chờ Lấy
+										Hàng</span></a></li>
+						<li class="nav-item"><a class="nav-link pl-3" href=""><span class="ml-1 item-text">Đang Giao
+										Hàng</span></a></li>
+						<li class="nav-item"><a class="nav-link pl-3" href=""><span class="ml-1 item-text">Đã
+										Giao</span></a></li>
+						<li class="nav-item"><a class="nav-link pl-3" href=""><span class="ml-1 item-text">Đã
+										Hủy</span></a></li>
+					</ul>
+				</li>
+				<li class="nav-item dropdown"><a data-target="#forms" data-toggle="collapse" aria-expanded="false"
+												 class="dropdown-toggle nav-link"> <i
+						class="fe fe-credit-card fe-18 "></i> <span
+						class="ml-3 item-text">Quản lý Kho</span>
+				</a>
+					<ul class="collapse list-unstyled pl-4 w-100" id="forms">
+						<li class="nav-item "><a class="nav-link pl-3" href="#!/inventory-table"><span
+								class="ml-1 item-text">Kho
+										Hàng</span></a></li>
+						<li class="nav-item "><a class="nav-link pl-3" href="#!/inventory-form"><span
+								class="ml-1 item-text">Nhập
+										Kho</span></a></li>
+						<li class="nav-item dropdown"><a data-target="#forms-nhapkho" data-toggle="collapse"
+														 aria-expanded="false" class="dropdown-toggle nav-link pl-3">
+							<span class="ml-1 item-text">Quản lý Nhà Cung Cấp</span>
+						</a>
+							<ul class="collapse list-unstyled pl-4 w-100" id="forms-nhapkho">
+								<li class="nav-item"><a class="nav-link pl-3" href="#!/supplier-form"><span
+										class="ml-1 item-text">Form
+												Cập Nhật</span></a></li>
+								<li class="nav-item"><a class="nav-link pl-3" href="#!/supplier-table"><span
+										class="ml-1 item-text">Danh
+												Sách</span></a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+
+				<li class="nav-item dropdown"><a data-target="#charts" data-toggle="collapse" aria-expanded="false"
+												 class="dropdown-toggle nav-link"> <i
+						class="fe fe-pie-chart fe-18 "></i> <span
+						class="ml-3 item-text">Thống
+								Kê</span>
+				</a>
+					<ul class="collapse list-unstyled pl-4 w-100" id="charts">
+						<li class="nav-item"><a class="nav-link pl-3" href="#!/inventory-statics"><span
+								class="ml-1 item-text">Hàng
+										Tồn Kho </span></a></li>
+						<li class="nav-item"><a class="nav-link pl-3" href="#!/revenue-static-overtime"><span
+								class="ml-1 item-text">Doanh Thu Theo Thời Gian </span></a></li>
+						<li class="nav-item"><a class="nav-link pl-3" href="#!/static-best-seller"><span
+								class="ml-1 item-text">Sản
+										Phẩm Bán Chạy</span></a></li>
+					</ul>
 				</li>
 			</ul>
 		</nav>
@@ -768,22 +1036,24 @@
 			dataLayer.push(arguments);
 		}
 
-		gtag('js', new Date());
-		gtag('config', 'UA-56159088-1');
-	</script>
-	<!-- Khai báo js tại đây -->
-	<script src='angularjs/flashsale.js'></script>
-	<script src='angularjs/brand.js'></script>
-	<script src='angularjs/Author.js'></script>
-
-	<!-- End -->
-	<script src='angularjs/index.js'></script>
-	<script src='angularjs/account.js'></script>
-	<script src='angularjs/Publishers.js'></script>
-	<script src='angularjs/Suppliers.js'></script>
-	<script src='angularjs/flashsale.js'></script>
-	<script src='angularjs/order-table.js'></script>
-	<!-- End -->
+	gtag('js', new Date());
+	gtag('config', 'UA-56159088-1');
+</script>
+<!-- Khai báo js tại đây -->
+<script src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
+<script src='angularjs/flashsale.js'></script>
+<script src='angularjs/brand.js'></script>
+<script src='angularjs/Author.js'></script>
+<script src='angularjs/Product.js'></script>
+<script src='angularjs/inventory.js'></script>
+<script src='angularjs/index.js'></script>
+<script src='angularjs/account.js'></script>
+<script src='angularjs/Publishers.js'></script>
+<script src='angularjs/Suppliers.js'></script>
+<script src='angularjs/flashsale.js'></script>
+<script src='angularjs/Discount.js'></script>
+<script src='angularjs/order-table.js'></script>
+<!-- End -->
 
 </body>
 
