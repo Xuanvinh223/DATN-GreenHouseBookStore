@@ -1,5 +1,6 @@
 package com.greenhouse.restcontroller.admin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,14 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.dto.ImportInvoiceDTO;
-import com.greenhouse.dto.Response;
-import com.greenhouse.model.*;
-import com.greenhouse.repository.*;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.greenhouse.model.ImportInvoice;
+import com.greenhouse.model.ImportInvoiceDetail;
+import com.greenhouse.model.Product_Detail;
+import com.greenhouse.model.Suppliers;
+import com.greenhouse.repository.ImportInvoiceRepository;
+import com.greenhouse.repository.ImportInvoice_DetailRepository;
+import com.greenhouse.repository.ProductDetailRepository;
+import com.greenhouse.repository.SuppliersRepository;
+
+import jakarta.transaction.Transactional;
 
 @RestController
 @CrossOrigin("*")
@@ -48,11 +57,34 @@ public class InventoryRestController {
         return ResponseEntity.ok(resp);
     }
 
+    @Transactional
+    @GetMapping("/rest/importInvoiceEdit/{id}")
+    public ResponseEntity<Map<String, Object>> editInvEntity(@PathVariable Integer id) {
+        Map<String, Object> resp = new HashMap<>();
+        List<ImportInvoiceDetail> listImportInvoiceDetails = impInvoiceDetailRepository
+                .findAll();
+        ImportInvoice importInvoices = impInvoice_Repository.findById(id).orElse(null);
+
+        if (importInvoices == null) {
+            return ResponseEntity.ok(null);
+        }
+
+        List<ImportInvoiceDetail> list = new ArrayList<>();
+        for (ImportInvoiceDetail item : listImportInvoiceDetails) {
+            if (item.getImportInvoice().getImportInvoiceId() == importInvoices.getImportInvoiceId()) {
+                list.add(item);
+            }
+        }
+
+        resp.put("selectedProducts", list);
+        return ResponseEntity.ok(resp);
+    }
+
     @PostMapping("/rest/importInvoice")
     public ResponseEntity<String> postMethodName(@RequestBody ImportInvoiceDTO request) {
         ImportInvoice importInvoice = request.getImportInvoice();
         List<ImportInvoiceDetail> listImportInvoiceDetails = request.getImportInvoiceDetails();
-
+        System.out.println(importInvoice);
         impInvoice_Repository.save(importInvoice);
 
         for (ImportInvoiceDetail importInvoiceDetail : listImportInvoiceDetails) {

@@ -18133,7 +18133,7 @@ a.uppy-Dashboard-poweredBy {
 /* END CSS ORDER PAGE */
 /* CSS FLASH SALE PAGE - START */
 
-/* Định dạng phần phân trang */
+/* Định dạng phần phân trang - start */
 .flash-sale-page .pagination {
   display: flex;
   justify-content: center;
@@ -18144,50 +18144,44 @@ a.uppy-Dashboard-poweredBy {
 }
 
 /* Định dạng nút phân trang */
-.flash-sale-page .pagination li {
-  margin: 0 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #52ba31;
-  transition: background-color 0.3s;
-  min-width: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.flash-sale-page .pagination .pagination-first a {
+  margin-left: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
 }
 
 .flash-sale-page .pagination li a {
-  color: #fff;
-  padding: 5px 10px;
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #adb5bd;
+  background-color: transparent;
+  border: 1px solid transparent;
 }
 
-.flash-sale-page .pagination li:hover {
-  background-color: #8ad55d;
+.flash-sale-page .pagination .pagination-last a {
+  margin-right: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 
-/* Định dạng nút trang trước và sau */
-.flash-sale-page .pagination .pagination-prev,
-.flash-sale-page .pagination .pagination-next {
-  font-weight: bold;
-  background-color: #52ba31;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.flash-sale-page .pagination li:not(.active):hover a {
+  background-color: rgb(237, 237, 237, 0.3);
+  color: #f8f9fa;
 }
 
-.flash-sale-page .pagination .pagination-prev:hover,
-.flash-sale-page .pagination .pagination-next:hover {
-  background-color: #8ad55d;
-}
 
 /* Định dạng nút trang hiện tại */
-.flash-sale-page .pagination .active {
-  background-color: #0a8f0b;
-  color: #fff;
+.flash-sale-page .pagination .active a {
+  background-color: #62ab00;
+  border-color: #62ab00;
+  z-index: 3;
+  color: #f8f9fa;
 }
 
-
+/* Định dạng phần phân trang - end */
 /* CSS FLASH SALE PAGE - END */
 /* Định dạng của container chứa icon và input */
 /* .input-container {

@@ -55,9 +55,10 @@
                     <td>{{item.suppliers.supplierName}}</td>
                     <td>{{item.description}}</td>
                     <td>
-                      <a href="#">
-                        <i class="fe fe-edit fe-16 "></i></a>
-                      <a href="#"> <i class="fe fe-trash-2 fe-16 "></i></a>
+                      <a data-toggle="modal" data-target="#inventoryModal" ng-click="edit(item.importInvoiceId)">
+                        <i class="fe fe-edit fe-16"></i>
+                      </a>
+                      <a href="#"> <i class="fe fe-trash-2 fe-16"></i></a>
                     </td>
                   </tr>
                 </tbody>
@@ -104,7 +105,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="myModalLabel">Tạo đơn hàng</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="resetInventoryModal()">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -194,14 +195,14 @@
                           <td>{{item.productDetail.product.productId}}</td>
                           <td style="width: 150px;">{{item.productDetail.product.productName}}</td>
                           <td>
-                            <input type="number" class="form-control form-control-sm" min="0" max="100"
+                            <input type="number" class="form-control form-control-sm"
                               ng-model="item.quantity" ng-change="calculateTotal(item)">
                           </td>
                           <td>
-                            <input type="number" class="form-control form-control-sm" min="0" ng-model="item.price"
+                            <input type="number" class="form-control form-control-sm" ng-model="item.price"
                               ng-change="calculateTotal(item)">
                           </td>
-                          <td>{{item.amount| number:'0'}}</td>
+                          <td>{{item.price * item.quantity | number:'0'}}</td>
                           <td>
                             <a ng-click="removeProduct($index)"> <i class="fe fe-trash-2 fe-16 "></i></a>
                           </td>
@@ -225,11 +226,12 @@
                 </div>
                 <div class="card-body">
                   <form>
+                    <input type="hidden" ng-model="item.importInvoiceId">
                     <div class="form-row row mb-3">
                       <div class="col-lg-6 col-sm-12">
                         <div class="input-group  d-flex align-items-center">
                           <span class="input-group-icon bg-transparent border-0"><i class="fe fe-user fe-16"></i></span>
-                          <span class="input-group-text bg-transparent border-0 mt-2">{{username}}</span>
+                          <span class="input-group-text bg-transparent border-0 mt-2">{{formUsername}}</span>
                         </div>
                       </div>
                       <div class="col-lg-6 col-12 ">
@@ -242,18 +244,18 @@
                     <div class="form-group row ">
                       <label for="supplierSelect" class="col-sm-4 mt-2 col-form-label">Nhà cung cấp</label>
                       <div class="col-sm-8">
-                        <select class="form-control" id="supplierSelect" ng-model="item.supplierId">
+                        <select class="form-control" id="supplierSelect" ng-model="item.importInvoice.suppliers.supplierId"
+                          ng-options="supplier.supplierId as supplier.supplierName for supplier in listSuppliers">
                           <option value="">Chọn nhà cung cấp</option>
-                          <option ng-repeat="supplier in listSuppliers" ng-value="supplier.supplierId">
-                            {{supplier.supplierName}}</option>
-                        </select> 
-                        <small class="text-danger" ng-show="errors.supplierId">{{ errors.supplierId }}</small>
+                        </select>
+
+                        <small class="text-danger">{{ errors.supplierId }}</small>
                       </div>
                     </div>
 
                     <div class="form-group mb-3">
                       <label for="validationTextarea1">Ghi chú</label>
-                      <textarea class="form-control" placeholder="Ghi chú" ng-model="item.description"
+                      <textarea class="form-control" placeholder="Ghi chú" ng-model="item.importInvoice.description"
                         rows="3"></textarea>
                       <small class="text-danger">{{ errors.description }}</small>
                     </div>
@@ -267,7 +269,7 @@
                       <label class="col-sm-5 col-form-label">Tổng tiền hàng:<span class="badge badge-pill badge-info">{{
                           selectedProducts.length }}</span></label>
                       <div class="col-sm-7 mt-2">
-                        <span class="float-right">{{ TotalAmount|| 0 | number:'0' }} VND</span>
+                        <span class="float-right">{{ item.importInvoice.amount || 0 | number:'0' }} VND</span>
                       </div>
                     </div>
                   </form>
@@ -279,10 +281,10 @@
         </div>
         <div class="modal-footer">
           <div class="form-group text-center">
-            <!-- ng-disabled="itemedit.status==1" -->
-            <button type="button" class="btn mb-2 mr-2 btn-success" ng-click="saveImportInvoice(0)"><span
+            <button type="button" class="btn mb-2 mr-2 btn-success" ng-click="saveImportInvoice(0)" ng-disabled="item.importInvoice.status"
+            ><span
                 class="fe fe-save arrow-right fe-16 mr-2"></span>Lưu Tạm</button>
-            <button type="button" class="btn mb-2 btn-primary" ng-click="saveImportInvoice(1)">Hoàn Thành<span
+            <button type="button" class="btn mb-2 btn-primary" ng-click="saveImportInvoice(1)" ng-disabled="item.importInvoice.status">Hoàn Thành<span
                 class="fe fe-check fe-16 ml-1"></span></button>
 
           </div>
