@@ -15834,23 +15834,73 @@ a.uppy-Dashboard-poweredBy {
 
 /* Đảm bảo icon và combobox nằm cùng một hàng ngang */
 .input-group-prepend .input-group-text {
-  border-right: none !important;
-  padding: 0; /* Loại bỏ khoảng trống xung quanh icon */
+    border-right: none !important;
+    padding: 0; /* Loại bỏ khoảng trống xung quanh icon */
 }
 
 /* Điều chỉnh khoảng cách giữa icon và combobox */
 .select2 {
-  margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
+    margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
 }
 
+/* Định dạng phần phân trang - start */
+.flash-sale-page .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+/* Định dạng nút phân trang */
+.flash-sale-page .pagination .pagination-first a {
+    margin-left: 0;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.flash-sale-page .pagination li a {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #adb5bd;
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+
+.flash-sale-page .pagination .pagination-last a {
+    margin-right: 0;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.flash-sale-page .pagination li:not(.active):hover a {
+    background-color: rgb(237, 237, 237, 0.3);
+    color: #f8f9fa;
+}
+
+
+/* Định dạng nút trang hiện tại */
+.flash-sale-page .pagination .active a {
+    background-color: #62ab00;
+    border-color: #62ab00;
+    z-index: 3;
+    color: #f8f9fa;
+}
+
+/* Định dạng phần phân trang - end */
 /* Định dạng của container chứa icon và input */
 .input-container {
     width: 60%;
 }
+
 @media (min-width: 992px) {
-  .input-container {
-    width: 70%;
-  }
+    .input-container {
+        width: 70%;
+    }
 }
 
 .icon {
