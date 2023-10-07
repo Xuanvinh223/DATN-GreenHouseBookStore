@@ -11,7 +11,7 @@
           </div>
           <div class="card shadow">
             <div class="card-body">
-              <div class="toolbar row mb-3"> 
+              <div class="toolbar row mb-3">
                 <div class="col">
                   <!-- Tim kiem -->
                   <div class="form-inline mb-2">
@@ -52,44 +52,44 @@
                   <tr>
                     <th><a>#</a></th>
                     <th>
-                      <a ng-click="sortBy('item.flashSaleId')" href="" style="text-decoration: none;">
+                      <a ng-click="sortBy('flashSaleId')" href="" style="text-decoration: none;">
                         Mã Flash Sale
                         <i class="mdi mdi-swap-vertical"></i>
                       </a>
                     </th>
                     <th>
-                      <a ng-click="sortBy('item.name')" href="" style="text-decoration: none;">
+                      <a ng-click="sortBy('name')" href="" style="text-decoration: none;">
                         Tên Flash Sale
                         <i class="mdi mdi-swap-vertical"></i>
                       </a>
                     </th>
                     <th>
-                      <a ng-click="sortBy('item.startTime')" href="" style="text-decoration: none;">
+                      <a ng-click="sortBy('startTime')" href="" style="text-decoration: none;">
                         Bắt Đầu <i class="mdi mdi-swap-vertical"></i>
                       </a>
                     </th>
                     <th>
-                      <a ng-click="sortBy('item.endTime')" href="" style="text-decoration: none;">
+                      <a ng-click="sortBy('endTime')" href="" style="text-decoration: none;">
                         Kết Thúc <i class="mdi mdi-swap-vertical"></i>
                       </a>
                     </th>
                     <th>
-                      <a ng-click="sortBy('item.userDate')" href="" style="text-decoration: none;">
+                      <a ng-click="sortBy('userDate')" href="" style="text-decoration: none;">
                         Ngày Sale <i class="mdi mdi-swap-vertical"></i>
                       </a>
                     </th>
                     <th>
-                      <a ng-click="sortBy('item.status')" href="" style="text-decoration: none;">
+                      <a ng-click="sortBy('status')" href="" style="text-decoration: none;">
                         Trạng Thái <i class="mdi mdi-swap-vertical"></i>
                       </a>
                     </th>
+
                     <th><a>Action</a></th>
                   </tr>
                 </thead>
                 <!--  " -->
                 <tbody>
-                  <tr
-                    ng-repeat="item in flashsalelist | orderBy:sortField:reverseSort | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
+                  <tr ng-repeat="item in flashSaleList | orderBy:sortField:reverseSort">
                     <td>{{($index + 1)}}</td>
                     <td>{{item.flashSaleId}}</td>
                     <td>{{item.name}}</td>
@@ -116,7 +116,7 @@
                 <form class="form">
                   <div class="form-row">
                     <div class="form-inline col-auto mr-auto">
-                      <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
+                      <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Hiển thị:</label>
                       <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1" ng-model="itemsPerPage"
                         ng-options="option for option in itemsPerPageOptions" ng-change="currentPage = 1">
                       </select>
