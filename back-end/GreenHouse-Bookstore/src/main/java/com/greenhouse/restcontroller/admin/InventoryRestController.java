@@ -45,12 +45,12 @@ public class InventoryRestController {
     @GetMapping("/rest/getInventory")
     public ResponseEntity<Map<String, Object>> getInventory() {
         Map<String, Object> resp = new HashMap<>();
-        List<ImportInvoice> importInvoice = impInvoice_Repository.findAll();
+        List<ImportInvoice> importInvoices = impInvoice_Repository.findAll();
         List<ImportInvoiceDetail> importInvoiceDetails = impInvoiceDetailRepository.findAll();
         List<Product_Detail> productDetails = productDetailRepository.findAll();
         List<Suppliers> suppliers = suppliersRepository.findAll();
 
-        resp.put("importInvoice", importInvoice);
+        resp.put("importInvoices", importInvoices);
         resp.put("importInvoiceDetails", importInvoiceDetails);
         resp.put("listProductDetails", productDetails);
         resp.put("suppliers", suppliers);
@@ -77,6 +77,7 @@ public class InventoryRestController {
         }
 
         resp.put("selectedProducts", list);
+        resp.put("importInvoice", importInvoices);
         return ResponseEntity.ok(resp);
     }
 
@@ -84,16 +85,23 @@ public class InventoryRestController {
     public ResponseEntity<String> postMethodName(@RequestBody ImportInvoiceDTO request) {
         ImportInvoice importInvoice = request.getImportInvoice();
         List<ImportInvoiceDetail> listImportInvoiceDetails = request.getImportInvoiceDetails();
-        System.out.println(importInvoice);
+        List<ImportInvoiceDetail> deletedImportInvoiceDetails = request.getDeletedImportInvoiceDetails().orElse(null);
+
         impInvoice_Repository.save(importInvoice);
+
+        if (deletedImportInvoiceDetails.isEmpty()) {
+            System.out.println("Không có sản phẩm bị xóa");
+        } else {
+            for (ImportInvoiceDetail item : deletedImportInvoiceDetails) {
+                System.out.println(item);
+                impInvoiceDetailRepository.delete(item);
+            }
+        }
 
         for (ImportInvoiceDetail importInvoiceDetail : listImportInvoiceDetails) {
             importInvoiceDetail.setImportInvoice(importInvoice);
             impInvoiceDetailRepository.save(importInvoiceDetail);
 
-            // Lặp qua danh sách productDetailIds và cập nhật số lượng tồn kho cho từng sản
-            // phẩm
-            // Lấy thông tin Product_Detail từ importInvoiceDetail
             Product_Detail productDetail = importInvoiceDetail.getProductDetail();
 
             // Cập nhật số lượng tồn kho của Product_Detail
