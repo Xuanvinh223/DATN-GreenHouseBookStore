@@ -1,11 +1,11 @@
 package com.greenhouse.dto;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.greenhouse.model.ImportInvoice;
 import com.greenhouse.model.ImportInvoiceDetail;
-import com.greenhouse.model.Product_Detail;
-import com.greenhouse.model.Product_Discount;
+
 
 import lombok.Data;
 
@@ -13,7 +13,5 @@ import lombok.Data;
 public class ImportInvoiceDTO {
     private ImportInvoice importInvoice;
     private List<ImportInvoiceDetail> importInvoiceDetails;
- 
-    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
+    private Optional<List<ImportInvoiceDetail>> deletedImportInvoiceDetails;
 }
-

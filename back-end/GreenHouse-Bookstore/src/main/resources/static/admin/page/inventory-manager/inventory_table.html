@@ -46,7 +46,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="item in listimportInvoice track by $index">
+                  <tr ng-repeat="item in listImportInvoice track by $index">
                     <td>{{($index + 1)}}</td>
                     <td>{{item.importInvoiceId}}</td>
                     <td>{{item.username}}</td>
@@ -58,7 +58,7 @@
                       <a data-toggle="modal" data-target="#inventoryModal" ng-click="edit(item.importInvoiceId)">
                         <i class="fe fe-edit fe-16"></i>
                       </a>
-                      <a href="#"> <i class="fe fe-trash-2 fe-16"></i></a>
+                      <a  ng-click="remove(item.importInvoiceId)"> <i class="fe fe-trash-2 fe-16"></i></a>
                     </td>
                   </tr>
                 </tbody>
@@ -195,12 +195,12 @@
                           <td>{{item.productDetail.product.productId}}</td>
                           <td style="width: 150px;">{{item.productDetail.product.productName}}</td>
                           <td>
-                            <input type="number" class="form-control form-control-sm"
-                              ng-model="item.quantity" ng-change="calculateTotal(item)">
+                            <input type="number" class="form-control form-control-sm" ng-model="item.quantity"
+                              ng-change="calculateTotal()">
                           </td>
                           <td>
                             <input type="number" class="form-control form-control-sm" ng-model="item.price"
-                              ng-change="calculateTotal(item)">
+                              ng-change="calculateTotal()">
                           </td>
                           <td>{{item.price * item.quantity | number:'0'}}</td>
                           <td>
@@ -231,7 +231,7 @@
                       <div class="col-lg-6 col-sm-12">
                         <div class="input-group  d-flex align-items-center">
                           <span class="input-group-icon bg-transparent border-0"><i class="fe fe-user fe-16"></i></span>
-                          <span class="input-group-text bg-transparent border-0 mt-2">{{formUsername}}</span>
+                          <span class="input-group-text bg-transparent border-0 mt-2">{{form.username}}</span>
                         </div>
                       </div>
                       <div class="col-lg-6 col-12 ">
@@ -244,7 +244,7 @@
                     <div class="form-group row ">
                       <label for="supplierSelect" class="col-sm-4 mt-2 col-form-label">Nhà cung cấp</label>
                       <div class="col-sm-8">
-                        <select class="form-control" id="supplierSelect" ng-model="item.importInvoice.suppliers.supplierId"
+                        <select class="form-control" id="supplierSelect" ng-model="form.suppliers.supplierId"
                           ng-options="supplier.supplierId as supplier.supplierName for supplier in listSuppliers">
                           <option value="">Chọn nhà cung cấp</option>
                         </select>
@@ -255,7 +255,7 @@
 
                     <div class="form-group mb-3">
                       <label for="validationTextarea1">Ghi chú</label>
-                      <textarea class="form-control" placeholder="Ghi chú" ng-model="item.importInvoice.description"
+                      <textarea class="form-control" placeholder="Ghi chú" ng-model="form.description"
                         rows="3"></textarea>
                       <small class="text-danger">{{ errors.description }}</small>
                     </div>
@@ -269,7 +269,7 @@
                       <label class="col-sm-5 col-form-label">Tổng tiền hàng:<span class="badge badge-pill badge-info">{{
                           selectedProducts.length }}</span></label>
                       <div class="col-sm-7 mt-2">
-                        <span class="float-right">{{ item.importInvoice.amount || 0 | number:'0' }} VND</span>
+                        <span class="float-right">{{ form.importInvoiceAmount || 0 | number:'0' }} VND</span>
                       </div>
                     </div>
                   </form>
@@ -281,11 +281,11 @@
         </div>
         <div class="modal-footer">
           <div class="form-group text-center">
-            <button type="button" class="btn mb-2 mr-2 btn-success" ng-click="saveImportInvoice(0)" ng-disabled="item.importInvoice.status"
-            ><span
-                class="fe fe-save arrow-right fe-16 mr-2"></span>Lưu Tạm</button>
-            <button type="button" class="btn mb-2 btn-primary" ng-click="saveImportInvoice(1)" ng-disabled="item.importInvoice.status">Hoàn Thành<span
-                class="fe fe-check fe-16 ml-1"></span></button>
+            <button type="button" class="btn mb-2 mr-2 btn-success" ng-click="saveImportInvoice(0)"
+              ng-disabled="item.importInvoice.status"><span class="fe fe-save arrow-right fe-16 mr-2"></span>Lưu
+              Tạm</button>
+            <button type="button" class="btn mb-2 btn-primary" ng-click="saveImportInvoice(1)"
+              ng-disabled="item.importInvoice.status">Hoàn Thành<span class="fe fe-check fe-16 ml-1"></span></button>
 
           </div>
         </div>
