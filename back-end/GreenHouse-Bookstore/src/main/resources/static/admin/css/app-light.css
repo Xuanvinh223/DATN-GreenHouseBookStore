@@ -15836,7 +15836,7 @@ a.uppy-Dashboard-poweredBy {
   margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
 }
 /* Định dạng phần phân trang - start */
-.flash-sale-page .pagination {
+.pagination {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15846,13 +15846,13 @@ a.uppy-Dashboard-poweredBy {
 }
 
 /* Định dạng nút phân trang */
-.flash-sale-page .pagination .pagination-first a {
+.pagination .pagination-first a {
   margin-left: 0;
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 }
 
-.flash-sale-page .pagination li a {
+.pagination li a {
   position: relative;
   display: block;
   padding: 0.5rem 0.75rem;
@@ -15862,21 +15862,22 @@ a.uppy-Dashboard-poweredBy {
   background-color: transparent;
   border: 1px solid transparent;
 }
-
-.flash-sale-page .pagination .pagination-last a {
+.pagination li:hover{
+  color:#343a40;
+}
+.pagination .pagination-last a {
   margin-right: 0;
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }
 
-.flash-sale-page .pagination li:not(.active):hover a {
+.pagination li:not(.active):hover a {
   background-color: rgb(237, 237, 237, 0.3);
-  color: #f8f9fa;
+  color: #343a40;
 }
 
-
 /* Định dạng nút trang hiện tại */
-.flash-sale-page .pagination .active a {
+.pagination .active a {
   background-color: #62ab00;
   border-color: #62ab00;
   z-index: 3;
@@ -15911,7 +15912,6 @@ a.uppy-Dashboard-poweredBy {
 .input {
   border: none;
   /* Loại bỏ border của input */
-  /* background-color: #495057; */
   outline: none;
   /* Loại bỏ border khi focus */
   width: 100% !important;

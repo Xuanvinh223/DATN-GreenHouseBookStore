@@ -18134,7 +18134,7 @@ a.uppy-Dashboard-poweredBy {
 /* CSS FLASH SALE PAGE - START */
 
 /* Định dạng phần phân trang - start */
-.flash-sale-page .pagination {
+.pagination {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18144,13 +18144,13 @@ a.uppy-Dashboard-poweredBy {
 }
 
 /* Định dạng nút phân trang */
-.flash-sale-page .pagination .pagination-first a {
+.pagination .pagination-first a {
   margin-left: 0;
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 }
 
-.flash-sale-page .pagination li a {
+.pagination li a {
   position: relative;
   display: block;
   padding: 0.5rem 0.75rem;
@@ -18161,20 +18161,20 @@ a.uppy-Dashboard-poweredBy {
   border: 1px solid transparent;
 }
 
-.flash-sale-page .pagination .pagination-last a {
+.pagination .pagination-last a {
   margin-right: 0;
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }
 
-.flash-sale-page .pagination li:not(.active):hover a {
+.pagination li:not(.active):hover a {
   background-color: rgb(237, 237, 237, 0.3);
   color: #f8f9fa;
 }
 
 
 /* Định dạng nút trang hiện tại */
-.flash-sale-page .pagination .active a {
+.pagination .active a {
   background-color: #62ab00;
   border-color: #62ab00;
   z-index: 3;

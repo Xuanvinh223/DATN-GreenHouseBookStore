@@ -66,7 +66,7 @@ function flashsaleController($scope, $http, $location, $routeParams) {
                 item.flashSaleId.toString().includes($scope.searchText) || item.name.toLowerCase().includes($scope.searchText.toLowerCase())
             );
         });
-        $scope.totalItems = $scope.searchText ? $scope.flashsalelist.length : $scope.originalFlashSaleList.length; ;
+        $scope.totalItems = $scope.searchText ? $scope.flashsalelist.length : $scope.originalFlashSaleList.length; 
         $scope.setPage(1);
     };
     //load table

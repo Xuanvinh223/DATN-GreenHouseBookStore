@@ -3,9 +3,12 @@ app.controller('inventoryCtrl', inventoryCtrl);
 function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $interval) {
     $scope.$on('$routeChangeSuccess', function (event, current, previous) {
         $scope.page.setTitle(current.$$route.title || ' Quản lý Kho Hàng');
+        $scope.getData();
     });
     let host = "http://localhost:8081/rest";
+
     //khai báo biến
+    $scope.listImportInvoice = [];
     $scope.listSuppliers = [];
     $scope.currentDateTime = moment();
     $scope.formattedDateTime = $scope.currentDateTime.format('DD/MM/YYYY HH:mm A');
@@ -15,6 +18,16 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
 
     // DECLARE REQUEST DATA - START
     $scope.selectedProducts = [];
+
+    //Khai báo biến phân trang
+    $scope.searchText = "";
+    $scope.itemsPerPageOptions = [5, 12, 24, 32, 64, 128];
+    $scope.currentPage = 1; // Trang hiện tại
+    $scope.itemsPerPage = 12; // Số mục hiển thị trên mỗi trang
+    $scope.totalItems = $scope.listImportInvoice.length; // Tổng số mục
+    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
+    $scope.reverseSort = false; // Sắp xếp tăng dần
+
     $scope.form = {
         importInvoiceId: null,
         username: null,
@@ -22,14 +35,51 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
         description: null,
         importInvoiceAmount: 0,
     }
+
     $scope.deletedImportInvoiceDetails = [];
     // DECLARE REQUEST DATA - END
 
     $scope.searchProductKeyword = null;
+    // Hàm SEARCH CHUNG
+    // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
+    $scope.getNumOfPages = function () {
+        return Math.ceil($scope.totalItems / $scope.itemsPerPage);
+    };
 
+    // Hàm chuyển đổi trang
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
+
+    $scope.calculateRange = function () {
+        var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage + 1;
+        var endIndex = $scope.currentPage * $scope.itemsPerPage;
+
+        if (endIndex > $scope.totalItems) {
+            endIndex = $scope.totalItems;
+        }
+
+        return startIndex + ' đến ' + endIndex + ' trên tổng số ' + $scope.totalItems + ' mục';
+    };
+
+    $scope.searchData = function () {
+        // Lọc danh sách gốc bằng searchText
+        $scope.listImportInvoice = $scope.originalImportInvoiceList.filter(function (item) {
+            // Thực hiện tìm kiếm trong các thuộc tính cần thiết của item
+            return (
+                item.importInvoiceId.toString().includes($scope.searchText) || item.username.toLowerCase().includes($scope.searchText.toLowerCase())
+                || (item.suppliers.supplierName.toLowerCase().includes($scope.searchText.toLowerCase())) ||
+                (item.createDate && item.createDate.toString().includes($scope.searchText.toLowerCase())) ||
+                item.description.toLowerCase().includes($scope.searchText.toLowerCase())
+            );
+        });
+        $scope.totalItems = $scope.searchText ? $scope.listImportInvoice.length : $scope.originalImportInvoiceList.length;
+        $scope.setPage(1);
+    };
+    //End Search
     // Hàm Save
     $scope.saveImportInvoice = function (active) {
-        var check = true;
+        var check = $scope.checkErrors();
         if (check) {
             $scope.createDateFormat = moment();
 
@@ -56,17 +106,23 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
             $http.post(`${host}/importInvoice`, importInvoiceDTO)
                 .then(function (response) {
                     $scope.getData();
+                    Swal.fire({
+                        icon: "success",
+                        title: "Thành công",
+                        text: `Thêm Phiếu Nhập thành công`,
+                    });
                     console.log('Dữ liệu đã được lưu thành công.', response);
                 })
                 .catch(function (error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Thất bại",
+                        text: `Xóa Phiếu Nhập thất bại`,
+                    });
                     console.error('Lỗi khi gửi dữ liệu: ', error);
                 });
         }
     };
-
-    $scope.remove = function () {
-       
-    }
 
     $scope.edit = function (id) {
         var url = `${host}/importInvoiceEdit/${id}`;
@@ -77,6 +133,7 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
 
                 $scope.form = resp.data.importInvoice;
                 console.log($scope.form);
+                $scope.calculateTotal();
             })
             .catch(function (error) {
                 console.log("Error", error);
@@ -110,7 +167,7 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
     $scope.checkErrors = function () {
         $scope.errors = {};
 
-        var supplier = $scope.form.supplierId;
+        var supplier = $scope.form.suppliers.supplierId;
         var description = $scope.form.description;
 
         if (!supplier) {
@@ -124,14 +181,9 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
         if (!$scope.selectedProducts || $scope.selectedProducts.length === 0) {
             $scope.errors.products = 'Vui lòng chọn ít nhất một sản phẩm';
         }
-
         // Kiểm tra nếu có bất kỳ lỗi nào xuất hiện
-        if ($scope.errors) {
-            return false;
-        } else {
-            return true;
-        }
-
+        var hasErrors = Object.keys($scope.errors).length > 0;
+        return !hasErrors
     };
 
 
@@ -141,14 +193,20 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
         var url = `${host}/getInventory`;
         $http.get(url).then((resp) => {
             $scope.listSuppliers = resp.data.suppliers;
-            $scope.listImportInvoice = resp.data.importInvoices;
+            //
+            $scope.originalImportInvoiceList = resp.data.listImportInvoice;
+            $scope.listImportInvoice = $scope.originalImportInvoiceList;
+
             $scope.listProductDetails = resp.data.listProductDetails;
-            console.log("", resp.data.importInvoices)
+            console.log("", resp.data.listImportInvoice)
             $scope.loadModelProduct();
+            $scope.totalItems = $scope.originalImportInvoiceList.length; // Tổng số mục
+
         }).catch((Error) => {
             console.log("Error: ", Error);
         });
     }
+
     $scope.loadModelProduct = function () {
         $scope.listProductDetailsResult = [];
         $scope.listProductDetails.filter(function (item) {
@@ -159,6 +217,7 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
         console.log("Danh sách sản phẩm có status = 1:", $scope.listProductDetailsResult);
 
     }
+
     $scope.searchProduct = function (keyword) {
         $scope.searchProductResults = [];
         if (keyword) {
@@ -172,6 +231,7 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
             $scope.searchProductKeyword = null;
         }
     };
+
     $scope.selectedProduct = function (product) {
         var cart = {
             productDetail: product,
@@ -193,6 +253,7 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
         console.log("Sản phẩm đã chọn: ", $scope.selectedProducts);
         $scope.searchProduct(null);
     }
+
     $scope.calculateTotal = function () {
         $scope.form.importInvoiceAmount = 0;
         $scope.selectedProducts.forEach(e => {
@@ -200,13 +261,11 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
         });
     };
 
-
     $scope.removeProduct = function (index) {
         $scope.deletedImportInvoiceDetails.push($scope.selectedProducts[index]);
         $scope.selectedProducts.splice(index, 1);
 
     };
-
 
     function init() {
         var token = localStorage.getItem('token');
@@ -223,7 +282,6 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
             console.log("update time");
         }, 60000);
 
-        $scope.getData();
 
     }
 
