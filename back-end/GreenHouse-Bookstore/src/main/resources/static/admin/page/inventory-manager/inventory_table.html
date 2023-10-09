@@ -15,7 +15,8 @@
                     <div class="input-container">
                       <div class="input-wrapper">
                         <i class="fe fe-search fe-18 icon"></i>
-                        <input class="form-control input" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                        <input class="form-control input" type="search" placeholder="Tìm kiếm..." ng-model="searchText"
+                               ng-change="searchData()">
                       </div>
                     </div>
                   </div>
@@ -46,20 +47,21 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="item in listImportInvoice track by $index">
-                    <td>{{($index + 1)}}</td>
-                    <td>{{item.importInvoiceId}}</td>
-                    <td>{{item.username}}</td>
-                    <td>{{item.createDate | date:'dd/MM/yyyy'}}</td>
-                    <td>{{item.amount|number:'0'}} VND</td>
-                    <td>{{item.suppliers.supplierName}}</td>
-                    <td>{{item.description}}</td>
-                    <td>
-                      <a data-toggle="modal" data-target="#inventoryModal" ng-click="edit(item.importInvoiceId)">
-                        <i class="fe fe-edit fe-16"></i>
-                      </a>
-                      <a ng-click="remove(item.importInvoiceId)"> <i class="fe fe-trash-2 fe-16"></i></a>
-                    </td>
+                <tr
+                        ng-repeat="item in listImportInvoice | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
+                  <td>{{($index + 1)}}</td>
+                  <td>{{item.importInvoiceId}}</td>
+                  <td>{{item.username}}</td>
+                  <td>{{item.createDate | date:'dd/MM/yyyy'}}</td>
+                  <td>{{item.amount|number:'0'}} VND</td>
+                  <td>{{item.suppliers.supplierName}}</td>
+                  <td>{{item.description}}</td>
+                  <td>
+                    <a data-toggle="modal" data-target="#inventoryModal" ng-click="edit(item.importInvoiceId)">
+                      <i class="fe fe-edit fe-16"></i>
+                    </a>
+                    <a ng-click="remove(item.importInvoiceId)"> <i class="fe fe-trash-2 fe-16"></i></a>
+                  </td>
                   </tr>
                 </tbody>
               </table>
@@ -67,31 +69,21 @@
                 <form class="form">
                   <div class="form-row">
                     <div class="form-inline col-auto mr-auto">
-                      <label class="my-1 mr-2 " for="inlineFormCustomSelectPref1">Show</label>
-                      <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1">
-                        <option value="">...</option>
-                        <option value="1">12</option>
-                        <option value="2" selected>32</option>
-                        <option value="3">64</option>
-                        <option value="3">128</option>
+                      <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
+                      <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1" ng-model="itemsPerPage"
+                              ng-options="option for option in itemsPerPageOptions" ng-change="currentPage = 1">
                       </select>
                     </div>
                     <div class="form-group col-auto">
-                      <span>Đang xem 1 trên tổng số 5 mục</span>
-
+                      <span>Đang xem {{ calculateRange() }}</span>
                     </div>
                   </div>
                 </form>
               </div>
-              <nav aria-label="Table Paging" class="mb-0 text-muted">
-                <ul class="pagination justify-content-center mb-0">
-                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-              </nav>
+              <ul uib-pagination ng-model="currentPage" total-items="totalItems" items-per-page="itemsPerPage"
+                  max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" boundary-links="true"
+                  force-ellipses="true" previous-text="<" next-text=">" first-text="<<" last-text=">>">
+              </ul>
             </div>
           </div>
         </div> <!-- simple table -->

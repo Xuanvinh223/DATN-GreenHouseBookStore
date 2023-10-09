@@ -379,7 +379,6 @@ template {
 span {
     font-size: 0.9rem;
 }
-
 [hidden] {
     display: none !important;
 }
@@ -1717,20 +1716,16 @@ pre code {
 .table-striped thead tr th a {
   color: #6c757d;
 }
-
 .table-striped thead tr th a:hover {
     color: #4eaa4f;
 }
-
 .table-striped tbody tr td a i {
     color: #6c757d;
     padding-right: 5px;
 }
-
 .table-striped tbody tr td a i:hover {
     color: #4eaa4f;
 }
-
 .table-hover tbody tr:hover {
     color: #6c757d;
     background-color: #dee2e6;
@@ -9586,11 +9581,9 @@ a.text-dark:focus {
 .text-body {
     color: #6c757d !important;
 }
-
 .card-title1 {
     color: blue !important;
 }
-
 .text-muted {
     color: #6c757d !important;
 }
@@ -10341,6 +10334,9 @@ select {
 
 .table tbody tr th {
     font-weight: 400;
+}
+
+.table tbody tr td a i {
 }
 
 .table tr.collapse {
@@ -11725,26 +11721,26 @@ form.was-validated
 }
 
 @-moz-keyframes passing-through {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(40px);
-    -moz-transform: translateY(40px);
-    -ms-transform: translateY(40px);
-    -o-transform: translateY(40px);
-    transform: translateY(40px);
-  }
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(40px);
+        -moz-transform: translateY(40px);
+        -ms-transform: translateY(40px);
+        -o-transform: translateY(40px);
+        transform: translateY(40px);
+    }
     30%,
     70% {
-    opacity: 1;
-    -webkit-transform: translateY(0px);
-    -moz-transform: translateY(0px);
-    -ms-transform: translateY(0px);
-    -o-transform: translateY(0px);
-    transform: translateY(0px);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform: translateY(-40px);
+        opacity: 1;
+        -webkit-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -ms-transform: translateY(0px);
+        -o-transform: translateY(0px);
+        transform: translateY(0px);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translateY(-40px);
     -moz-transform: translateY(-40px);
     -ms-transform: translateY(-40px);
     -o-transform: translateY(-40px);
@@ -15780,16 +15776,18 @@ a.uppy-Dashboard-poweredBy {
     > .uppy-Dashboard-inner {
     animation: uppy-Dashboard-slideUpFadeOut 0.3s cubic-bezier(0, 0, 0.2, 1);
   }
-  .uppy-Dashboard-inner {
-    width: 750px;
-    height: 550px;
-  }
-  .uppy-Dashboard--modal .uppy-Dashboard-inner {
-    top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 5px 15px 4px rgba(0, 0, 0, 0.15);
-  }
+
+    .uppy-Dashboard-inner {
+        width: 750px;
+        height: 550px;
+    }
+
+    .uppy-Dashboard--modal .uppy-Dashboard-inner {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 5px 15px 4px rgba(0, 0, 0, 0.15);
+    }
 
     .uppy-Dashboard-close {
         font-size: 35px;
@@ -15842,9 +15840,8 @@ a.uppy-Dashboard-poweredBy {
 .select2 {
     margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
 }
-
 /* Định dạng phần phân trang - start */
-.flash-sale-page .pagination {
+.pagination {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15854,13 +15851,13 @@ a.uppy-Dashboard-poweredBy {
 }
 
 /* Định dạng nút phân trang */
-.flash-sale-page .pagination .pagination-first a {
+.pagination .pagination-first a {
     margin-left: 0;
     border-top-left-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem;
 }
 
-.flash-sale-page .pagination li a {
+.pagination li a {
     position: relative;
     display: block;
     padding: 0.5rem 0.75rem;
@@ -15871,20 +15868,23 @@ a.uppy-Dashboard-poweredBy {
     border: 1px solid transparent;
 }
 
-.flash-sale-page .pagination .pagination-last a {
+.pagination li:hover {
+    color: #343a40;
+}
+
+.pagination .pagination-last a {
     margin-right: 0;
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
 }
 
-.flash-sale-page .pagination li:not(.active):hover a {
+.pagination li:not(.active):hover a {
     background-color: rgb(237, 237, 237, 0.3);
-    color: #f8f9fa;
+    color: #343a40;
 }
 
-
 /* Định dạng nút trang hiện tại */
-.flash-sale-page .pagination .active a {
+.pagination .active a {
     background-color: #62ab00;
     border-color: #62ab00;
     z-index: 3;
@@ -15920,7 +15920,6 @@ a.uppy-Dashboard-poweredBy {
 .input {
     border: none;
     /* Loại bỏ border của input */
-    /* background-color: #495057; */
     outline: none;
     /* Loại bỏ border khi focus */
     width: 100% !important;

@@ -50,7 +50,7 @@ public class InventoryRestController {
         List<Product_Detail> productDetails = productDetailRepository.findAll();
         List<Suppliers> suppliers = suppliersRepository.findAll();
 
-        resp.put("importInvoices", importInvoices);
+        resp.put("listImportInvoice", importInvoices);
         resp.put("importInvoiceDetails", importInvoiceDetails);
         resp.put("listProductDetails", productDetails);
         resp.put("suppliers", suppliers);

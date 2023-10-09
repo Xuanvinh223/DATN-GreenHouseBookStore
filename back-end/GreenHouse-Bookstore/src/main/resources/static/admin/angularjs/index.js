@@ -1,6 +1,6 @@
 app.controller('IndexController', IndexController);
 
-function IndexController($scope, $http) { 
+function IndexController($scope, $http) {
     $scope.$on('$routeChangeSuccess', function (event, current, previous) {
         $scope.page.setTitle(current.$$route.title || ' Trang quản trị');
     });
@@ -9,9 +9,10 @@ function IndexController($scope, $http) {
         var url = `${host}/getIndexCount`;
         $http.get(url).then(resp => {
             $scope.countOrdersWithStatus = resp.data.countOrdersWithStatus;
-            $scope.countByBrand = resp.data.countByBrand;
-            $scope.countByCustomer = resp.data.countByCustomer;
-            // console.log(  $scope.countOrdersWithStatus);
+            $scope.countBrand = resp.data.countBrand;
+
+            $scope.countUsersCurrentYear = resp.data.countUsersCurrentYear;
+            $scope.percentageChange = resp.data.percentageChange;
         }).catch(error => {
             console.log("Error", error);
         });
