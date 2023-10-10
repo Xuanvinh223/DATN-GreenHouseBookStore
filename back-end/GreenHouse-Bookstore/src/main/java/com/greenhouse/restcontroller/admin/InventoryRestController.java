@@ -19,8 +19,8 @@ import com.greenhouse.model.ImportInvoice;
 import com.greenhouse.model.ImportInvoiceDetail;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Suppliers;
+import com.greenhouse.repository.ImportInvoiceDetailRepository;
 import com.greenhouse.repository.ImportInvoiceRepository;
-import com.greenhouse.repository.ImportInvoice_DetailRepository;
 import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.repository.SuppliersRepository;
 
@@ -40,17 +40,17 @@ public class InventoryRestController {
     ImportInvoiceRepository impInvoice_Repository;
 
     @Autowired
-    ImportInvoice_DetailRepository impInvoiceDetailRepository;
+    ImportInvoiceDetailRepository impInvoiceDetailRepository;
 
     @GetMapping("/rest/getInventory")
     public ResponseEntity<Map<String, Object>> getInventory() {
         Map<String, Object> resp = new HashMap<>();
-        List<ImportInvoice> importInvoices = impInvoice_Repository.findAll();
+        List<ImportInvoice> importInvoice = impInvoice_Repository.findAll();
         List<ImportInvoiceDetail> importInvoiceDetails = impInvoiceDetailRepository.findAll();
         List<Product_Detail> productDetails = productDetailRepository.findAll();
         List<Suppliers> suppliers = suppliersRepository.findAll();
 
-        resp.put("listImportInvoice", importInvoices);
+        resp.put("listImportInvoice", importInvoice);
         resp.put("importInvoiceDetails", importInvoiceDetails);
         resp.put("listProductDetails", productDetails);
         resp.put("suppliers", suppliers);

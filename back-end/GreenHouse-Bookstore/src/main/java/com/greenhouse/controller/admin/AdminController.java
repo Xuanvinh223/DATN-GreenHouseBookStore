@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class AdminController {
     @Autowired
     JwtUtil jwtUtil;
 
-    @RequestMapping({ "/admin", "/admin/index" })
+    @RequestMapping({"/admin/index"})
     public String adminPage(HttpServletRequest request, Model m) {
 
         // Kiểm tra xem yêu cầu có chứa token không
@@ -39,14 +40,17 @@ public class AdminController {
                     // Người dùng có quyền "ROLE_ADMIN", cho phép truy cập trang admin
                     return "redirect:/admin/index.html";
                 }
-            }
+                }
             } catch (Exception e) {
+                e.printStackTrace();
                 return "redirect:/login";
             }
         } catch (ExpiredJwtException ex) {
             // Xử lý lỗi khi token hết hạn
-            System.out.println("token đã hết hạn");
             return "redirect:/login";
+        } catch (UsernameNotFoundException u) {
+            // Không tìm thấy tài khoản (Chưa đăng nhập)
+            return "redirect:/404";
         }
 
         // Người dùng không có token hợp lệ hoặc không có quyền, có thể xử lý theo cách

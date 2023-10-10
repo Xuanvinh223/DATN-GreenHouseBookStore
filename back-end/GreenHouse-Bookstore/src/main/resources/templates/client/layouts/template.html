@@ -8,7 +8,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   <script src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.1/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.1/dist/sweetalert2.min.css">
   <link rel="stylesheet" type="text/css" media="screen" href="/client/css/plugins.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="/client/css/main.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="/client/css/index.css" />
@@ -22,7 +22,7 @@
 
 <body>
   <th-block th:fragment="menu-fahasha">
-    <nav>
+    <nav ng-controller="headerController">
       <div class="top-bar-desktop">
         <div class="top-banner center_center">
           <a>
@@ -184,25 +184,52 @@
           </div>
 
           <div class="center_center mouse-hover top-account">
-            <a href="/account" class="top-button-icon">
+            <a href="" class="top-button-icon">
               <div class="center_center" style="margin-bottom:3px;">
                 <div class="icon_account_gray"></div>
               </div>
               <div class="center_center">
-                <div class="top_menu_label">Tài khoản</div>
+                <div class="top_menu_label text-bo">{{ username }}</div>
               </div>
             </a>
-            <div class="top-dropdown" style="padding: 5px 10px 15px 10px;width: 16%">
-              <a href="/login" style="margin-top: 5px;" type="button" class="button-default active">
-                <span>Đăng nhập</span>
-              </a>
-              <a href="/resgister" style="margin-top: 5px;" type="button" class="button-default">
-                <span>Đăng ký</span>
-              </a>
-              <button style="margin-top: 5px;" type="button" class="button-facebook center_center">
-                <span class="icon_facebook"></span>
-                <span>Đăng nhập bằng Facebook</span>
-              </button>
+            <!-- Trong HTML template của bạn -->
+            <div class="top-dropdown" style="padding: 5px 10px 15px 10px; width: 16%">
+              <!-- Kiểm tra nếu người dùng có vai trò 'CUSTOMER' -->
+              <div ng-if="isCustomer">
+                <a href="/account" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-user"></i> <span>Tài khoản</span>
+                </a>
+                <a href="/#" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-file-alt"></i> <span>Đơn hàng của tôi</span>
+                </a>
+                <button type="button" ng-click="logout()" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span>
+                </button>
+              </div>
+              <!-- Kiểm tra nếu người dùng có vai trò 'ADMIN' -->
+              <div ng-if="isAdmin">
+                <button type="button" ng-click="admin()" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-cogs"></i> <span>Quản lý</span>
+                </button>
+                <a href="/#" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-file-alt"></i> <span>Báo cáo</span>
+                </a>
+                <button type="button" ng-click="logout()" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span>
+                </button>
+              </div>
+              <!-- Hiển thị nút đăng nhập, đăng ký, và quên mật khẩu cho người dùng chưa đăng nhập -->
+              <div ng-if="!isCustomer && !isAdmin">
+                <a href="/login" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-sign-in-alt"></i> <span>Đăng nhập</span>
+                </a>
+                <a href="/resgister" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-user-plus"></i> <span>Đăng ký</span>
+                </a>
+                <a href="/forgot-password" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-key"></i> <span>Quên mật khẩu</span>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -696,6 +723,8 @@
     <script th:src="@{/client/controller/account-controller.js}"></script>
     <script th:src="@{/client/controller/authenticate.js}"></script>
     <script th:src="@{/client/controller/signin.js}"></script>
+    <script th:src="@{/client/controller/checkout.js}"></script>
+    <script th:src="@{/client/controller/header.js}"></script>
   </th-block>
 </body>
 

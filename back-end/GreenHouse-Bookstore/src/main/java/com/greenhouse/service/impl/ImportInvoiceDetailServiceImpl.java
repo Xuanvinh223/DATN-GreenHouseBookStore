@@ -1,7 +1,7 @@
 package com.greenhouse.service.impl;
 
 import com.greenhouse.model.ImportInvoiceDetail;
-import com.greenhouse.repository.ImportInvoice_DetailRepository;
+import com.greenhouse.repository.ImportInvoiceDetailRepository;
 import com.greenhouse.service.ImportInvoiceDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class ImportInvoiceDetailServiceImpl implements ImportInvoiceDetailService {
 
     @Autowired
-    private ImportInvoice_DetailRepository importInvoiceDetailRepository;
+    private ImportInvoiceDetailRepository importInvoiceDetailRepository;
 
     @Override
     public List<ImportInvoiceDetail> findAll() {

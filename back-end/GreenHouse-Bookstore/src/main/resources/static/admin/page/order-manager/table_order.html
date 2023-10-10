@@ -275,8 +275,11 @@
                                     <input class="input" placeholder="Tìm kiếm sản phẩm" required="" type="text"
                                         ng-model="searchProductKeyword" ng-change="searchProduct(searchProductKeyword)">
                                     <button class="reset" type="reset" ng-click="searchProduct()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" <<<<<<< HEAD
                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            =======
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            >>>>>>> main
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M6 18L18 6M6 6l12 12"></path>
                                         </svg>
@@ -361,10 +364,14 @@
                                                                 style="width: 12px; height: auto;vertical-align: middle;"
                                                                 src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/ico_minus2x.png"></a>
                                                         <input type="text" class="qty-carts" ng-model="item.quantity"
-                                                            ng-change="validateQuantity(item)">
+                                                            <<<<<<< HEAD ng-change="validateQuantity(item)">
                                                         <a class="btn-add-qty"
-                                                            ng-click="increaseQuantityProduct(item)"><img
-                                                                style="width: 12px; height: auto;vertical-align: middle;"
+                                                            ng-click="increaseQuantityProduct(item)"><img=======ng-change="validateQuantity(item)">
+                                                            <a class="btn-add-qty"
+                                                                ng-click="increaseQuantityProduct(item)"><img>>>>>>>
+                                                                main
+                                                                style="width: 12px; height: auto;vertical-align:
+                                                                middle;"
                                                                 src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_plus2x.png"></a>
                                                     </div>
                                                     <div class="product-view-icon-remove-mobile" style="display:none;">
@@ -372,8 +379,11 @@
                                                                 class="fa fa-trash-o" style="font-size:22px"></i></a>
                                                     </div>
                                                 </div>
-                                                <div class="cart-price-total"><span class="cart-price"><span
+                                                <div class="cart-price-total"><span class="cart-price"><span <<<<<<<
+                                                            HEAD class="price">{{item.amount |
+                                                            =======
                                                             class="price">{{item.amount |
+                                                            >>>>>>> main
                                                             number:'0'}}
                                                             đ</span></span></div>
                                             </div>
@@ -399,28 +409,35 @@
                                                 d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
                                         </svg>
                                     </button>
-                                    <input class="input" placeholder="Khách hàng" required="" type="text"
+                                    <input class="input" placeholder="Khách hàng" required="" type="text" <<<<<<< HEAD
                                         ng-model="searchUserKeyword" ng-change="searchUser(searchUserKeyword)">
                                     <button class="reset" type="reset" ng-click="searchUser()">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M6 18L18 6M6 6l12 12"></path>
-                                        </svg>
-                                    </button>
-                                    <div class="search-user-result">
-                                        <div class="user-box" ng-repeat="item in searchUserResults track by $index"
-                                            ng-click="selectedUser(item)">
-                                            <div class="user-info">
-                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                                    viewBox="0 0 448 512">
-                                                    <path
-                                                        d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                                            =======
+                                            ng-model="searchUserKeyword" ng-change="searchUser(searchUserKeyword)">
+                                            <button class="reset" type="reset" ng-click="searchUser()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    >>>>>>> main
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18L18 6M6 6l12 12"></path>
                                                 </svg>
-                                                <span>{{ item.username + ' - ' + item.fullname}}</span>
+                                            </button>
+                                            <div class="search-user-result">
+                                                <div class="user-box"
+                                                    ng-repeat="item in searchUserResults track by $index"
+                                                    ng-click="selectedUser(item)">
+                                                    <div class="user-info">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                                            viewBox="0 0 448 512">
+                                                            <path
+                                                                d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                                                        </svg>
+                                                        <span>{{ item.username + ' - ' + item.fullname}}</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
                                 </form>
 
                                 <div class="selected-user" ng-if="selectedUsers">
@@ -433,7 +450,11 @@
                                             <span>{{ selectedUsers.username + ' - ' + selectedUsers.fullname}}</span>
                                             <button class="reset" type="reset" ng-click="resetSelectedUser()">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                    <<<<<<< HEAD viewBox="0 0 24 24" stroke="currentColor"
+                                                    stroke-width="2">
+                                                    =======
                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    >>>>>>> main
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M6 18L18 6M6 6l12 12"></path>
                                                 </svg>

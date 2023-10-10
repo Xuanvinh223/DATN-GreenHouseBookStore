@@ -25,7 +25,7 @@
               </label>
               <div class="form-floating">
                 <input type="text" class="form-control" id="username" placeholder="Tên tài khoản"
-                  ng-model="formData.username">
+                       ng-model="formData.username" style="padding-right: 200px;">
                 <label for="username">Tên tài khoản <label for="" class="text-danger">(*)</label></label>
               </div>
             </div>
@@ -36,7 +36,7 @@
               </label>
               <div class="form-floating">
                 <input type="text" class="form-control" id="phone" placeholder="Số Điện Thoại"
-                  ng-model="formData.phone">
+                       ng-model="formData.phone" style="padding-right: 200px;">
                 <label for="phone">Số điện thoại <label for="phone"
                     class="text-danger">(*)</label></label>
               </div>
@@ -54,7 +54,8 @@
               </label>
               <div class="form-floating">
                 <input type="password" class="form-control" id="password" placeholder="Mật Khẩu" aria-label="Password"
-                  aria-describedby="addon-wrapping" name="password" ng-model="formData.password">
+                       aria-describedby="addon-wrapping" name="password" ng-model="formData.password"
+                       ng-change="checkPassword()" style="padding-right: 200px;">
                 <label for="password">Mật Khẩu <label for="password" class="text-danger">(*)</label></label>
               </div>
             </div>
@@ -65,11 +66,35 @@
               </label>
               <div class="form-floating">
                 <input type="password" class="form-control" id="repassword" placeholder="Xác Nhận Mật Khẩu"
-                  aria-label="Confirm-Password" aria-describedby="addon-wrapping" name="repassword"
-                  ng-model="formData.repassword">
-                <label for="repassword">Xác Nhận Mật Khẩu <label for="repassword" class="text-danger">(*)</label></label>
+                       aria-label="Confirm-Password" aria-describedby="addon-wrapping" name="repassword"
+                       ng-model="formData.repassword" style="padding-right: 200px;">
+                <label for="repassword">Xác Nhận Mật Khẩu <label for="repassword"
+                                                                 class="text-danger">(*)</label></label>
               </div>
             </div>
+            <div>
+              <ul>
+                <li ng-class="{'text-success': passwordErrors.minLength, 'text-danger': !passwordErrors.minLength}">
+                  Có ít nhất 8 kí tự.
+                </li>
+                <li ng-class="{'text-success': passwordErrors.lowercase, 'text-danger': !passwordErrors.lowercase}">
+                  Chứa ít nhất một chữ cái viết thường (a-z).
+                </li>
+                <li ng-class="{'text-success': passwordErrors.uppercase, 'text-danger': !passwordErrors.uppercase}">
+                  Chứa ít nhất một chữ cái viết hoa (A-Z).
+                </li>
+                <li ng-class="{'text-success': passwordErrors.number, 'text-danger': !passwordErrors.number}">
+                  Chứa ít nhất một số (0-9).
+                </li>
+                <li ng-class="{'text-success': passwordErrors.specialCharacter, 'text-danger': !passwordErrors.specialCharacter}">
+                  Chứa ít nhất một ký tự đặc biệt (@, #, $, %, ^, &, +, =, !).
+                </li>
+                <li ng-class="{'text-success': passwordErrors.noSpace, 'text-danger': !passwordErrors.noSpace}">
+                  Không chứa khoảng trắng (dấu cách, tab, v.v.).
+                </li>
+              </ul>
+            </div>
+
 
             <!-- Checkbox -->
             <div class="form-check d-flex justify-content-left mb-4">

@@ -53,7 +53,7 @@ public class Accounts implements Serializable{
 
     @Column(name = "Active")
     private Boolean active;
-
-    // Constructors, getters, setters, and other methods
+   
+    // Getters and setters
 }
 

@@ -25,11 +25,11 @@ app.config(function ($routeProvider) {
         })
         .when("/brand-form", {
             templateUrl: "page/brand-manager/form_brand.html",
-            controller:"brandController"
+            controller: "brandController"
         })
         .when("/brand-table", {
             templateUrl: "page/brand-manager/table_brand.html",
-            controller:"brandController"
+            controller: "brandController"
         })
         .when("/category-form", {
             templateUrl: "page/category-manager/form_category.html",
@@ -129,12 +129,9 @@ app.run(['$rootScope', function ($rootScope) {
     $rootScope.page = {
         setTitle: function (title) {
             this.title = 'GreenHouse |' + title;
-
         }
     }
-
 }]);
-
 
 // Tạo một interceptor
 app.factory('tokenInterceptor', ['$window', function ($window) {
@@ -146,9 +143,26 @@ app.factory('tokenInterceptor', ['$window', function ($window) {
                 config.headers['Authorization'] = 'Bearer ' + token;
             }
             return config;
+        },
+        responseError: function (response) {
+            // Kiểm tra nếu mã trạng thái là 401 Unauthorized (token hết hạn)
+            if (response.status === 401) {
+                // Xoá token khỏi local storage (hoặc nơi bạn lưu trữ token)
+                $window.localStorage.removeItem('token');
+                // Chuyển hướng đến trang /login
+                window.location.href = "/login";
+            }
+            return response;
         }
     };
 }]);
+
+app.filter('startFrom', function () {
+    return function (input, start) {
+        start = +start; // Chuyển đổi start thành số nguyên
+        return input.slice(start); // Trả về mảng con bắt đầu từ start
+    };
+});
 
 // Đăng ký interceptor vào ứng dụng
 app.config(['$httpProvider', function ($httpProvider) {
