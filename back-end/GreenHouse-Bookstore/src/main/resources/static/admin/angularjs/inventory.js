@@ -51,6 +51,38 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
         $scope.currentPage = pageNo;
     };
 
+    $scope.updateVisibleData = function () {
+        var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage;
+        var endIndex = startIndex + $scope.itemsPerPage;
+        $scope.listImportInvoice = $scope.originalImportInvoiceList.slice(startIndex, endIndex);
+    };
+
+    $scope.isDataChanged = false;
+
+    $scope.$watch('listImportInvoice', function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+            $scope.isDataChanged = true;
+        }
+    }, true);
+
+    $scope.$watchGroup(['currentPage', 'itemsPerPage'], function () {
+        if ($scope.isDataChanged) {
+            $scope.updateVisibleData();
+            $scope.isDataChanged = false; // Đánh dấu đã xử lý sự thay đổi
+        }
+    });
+
+    // Sắp xếp
+    $scope.sortBy = function (field) {
+        if ($scope.sortField === field) {
+            $scope.reverseSort = !$scope.reverseSort;
+        } else {
+            $scope.sortField = field;
+            $scope.reverseSort = false;
+        }
+        $scope.updateVisibleData();
+    };
+
     $scope.calculateRange = function () {
         var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage + 1;
         var endIndex = $scope.currentPage * $scope.itemsPerPage;
