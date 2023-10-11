@@ -1,89 +1,223 @@
 app.controller('inventoryCtrl', inventoryCtrl);
 
-function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams) {
+function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $interval) {
     $scope.$on('$routeChangeSuccess', function (event, current, previous) {
         $scope.page.setTitle(current.$$route.title || ' Quản lý Kho Hàng');
+        $scope.getData();
     });
     let host = "http://localhost:8081/rest";
-    //khai báo biến
-    $scope.listSuppliers = [];
 
+    //khai báo biến
+    $scope.listImportInvoice = [];
+    $scope.listSuppliers = [];
+    $scope.currentDateTime = moment();
+    $scope.formattedDateTime = $scope.currentDateTime.format('DD/MM/YYYY HH:mm A');
     //biến trả về
     $scope.searchProductResults = [];
     $scope.listProductDetailsResult = [];
+
+    // DECLARE REQUEST DATA - START
     $scope.selectedProducts = [];
 
-    $scope.searchProductKeyword = null;
+    //Khai báo biến phân trang
+    $scope.searchText = "";
+    $scope.itemsPerPageOptions = [5, 12, 24, 32, 64, 128];
+    $scope.currentPage = 1; // Trang hiện tại
+    $scope.itemsPerPage = 12; // Số mục hiển thị trên mỗi trang
+    $scope.totalItems = $scope.listImportInvoice.length; // Tổng số mục
+    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
+    $scope.reverseSort = false; // Sắp xếp tăng dần
 
+    $scope.form = {
+        importInvoiceId: null,
+        username: null,
+        suppliers: {supplierId: null},
+        description: null,
+        importInvoiceAmount: 0,
+    }
+
+    $scope.deletedImportInvoiceDetails = [];
+    // DECLARE REQUEST DATA - END
+
+    $scope.searchProductKeyword = null;
+    // Hàm SEARCH CHUNG
+    // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
+    $scope.getNumOfPages = function () {
+        return Math.ceil($scope.totalItems / $scope.itemsPerPage);
+    };
+
+    // Hàm chuyển đổi trang
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
+
+    $scope.updateVisibleData = function () {
+        var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage;
+        var endIndex = startIndex + $scope.itemsPerPage;
+        $scope.listImportInvoice = $scope.originalImportInvoiceList.slice(startIndex, endIndex);
+    };
+
+    $scope.isDataChanged = false;
+
+    $scope.$watch('listImportInvoice', function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+            $scope.isDataChanged = true;
+        }
+    }, true);
+
+    $scope.$watchGroup(['currentPage', 'itemsPerPage'], function () {
+        if ($scope.isDataChanged) {
+            $scope.updateVisibleData();
+            $scope.isDataChanged = false; // Đánh dấu đã xử lý sự thay đổi
+        }
+    });
+
+    // Sắp xếp
+    $scope.sortBy = function (field) {
+        if ($scope.sortField === field) {
+            $scope.reverseSort = !$scope.reverseSort;
+        } else {
+            $scope.sortField = field;
+            $scope.reverseSort = false;
+        }
+        $scope.updateVisibleData();
+    };
+
+    $scope.calculateRange = function () {
+        var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage + 1;
+        var endIndex = $scope.currentPage * $scope.itemsPerPage;
+
+        if (endIndex > $scope.totalItems) {
+            endIndex = $scope.totalItems;
+        }
+
+        return startIndex + ' đến ' + endIndex + ' trên tổng số ' + $scope.totalItems + ' mục';
+    };
+
+    $scope.searchData = function () {
+        // Lọc danh sách gốc bằng searchText
+        $scope.listImportInvoice = $scope.originalImportInvoiceList.filter(function (item) {
+            // Thực hiện tìm kiếm trong các thuộc tính cần thiết của item
+            return (
+                item.importInvoiceId.toString().includes($scope.searchText) || item.username.toLowerCase().includes($scope.searchText.toLowerCase())
+                || (item.suppliers.supplierName.toLowerCase().includes($scope.searchText.toLowerCase())) ||
+                (item.createDate && item.createDate.toString().includes($scope.searchText.toLowerCase())) ||
+                item.description.toLowerCase().includes($scope.searchText.toLowerCase())
+            );
+        });
+        $scope.totalItems = $scope.searchText ? $scope.listImportInvoice.length : $scope.originalImportInvoiceList.length;
+        $scope.setPage(1);
+    };
+    //End Search
     // Hàm Save
     $scope.saveImportInvoice = function (active) {
         var check = $scope.checkErrors();
         if (check) {
             $scope.createDateFormat = moment();
-            var createDate = moment($scope.createDateFormat, 'YYYY-MM-DDTHH:mm:ss.SSS').format("YYYY-MM-DD HH:mm:ss.SSS");
+
+            var supplier = $scope.listSuppliers.find(e => {
+                return e.supplierId === $scope.form.suppliers.supplierId;
+            })
 
             var importInvoiceDTO = {
                 importInvoice: {
-                    //   importInvoiceId: $scope.item.importInvoiceId,
-                    username: $scope.username,
+                    importInvoiceId: $scope.form.importInvoiceId | null,
+                    username: $scope.form.username,
                     createDate: new Date(),
-                    amount: $scope.TotalAmount,
-                    supplierId: $scope.item.supplierId,
-                    description: $scope.item.description,
+                    amount: $scope.form.importInvoiceAmount,
+                    suppliers: supplier,
+                    description: $scope.form.description,
                     status: active
                 },
-                importInvoiceDetails: $scope.selectedProducts
+                importInvoiceDetails: $scope.selectedProducts,
+                deletedImportInvoiceDetails: $scope.deletedImportInvoiceDetails
             };
 
-            // Gửi dữ liệu lên máy chủ
+            console.log(importInvoiceDTO);
+
             $http.post(`${host}/importInvoice`, importInvoiceDTO)
                 .then(function (response) {
-                    // Xử lý phản hồi từ máy chủ (nếu cần)
+                    $scope.getData();
+                    Swal.fire({
+                        icon: "success",
+                        title: "Thành công",
+                        text: `Thêm Phiếu Nhập thành công`,
+                    });
                     console.log('Dữ liệu đã được lưu thành công.', response);
-                    // Sau khi lưu thành công, bạn có thể làm các công việc khác như làm mới trang hoặc hiển thị thông báo.
                 })
                 .catch(function (error) {
-                    // Xử lý lỗi nếu có
+                    Swal.fire({
+                        icon: "error",
+                        title: "Thất bại",
+                        text: `Xóa Phiếu Nhập thất bại`,
+                    });
                     console.error('Lỗi khi gửi dữ liệu: ', error);
-                    // Hiển thị thông báo hoặc xử lý lỗi khác nếu cần.
                 });
-        }else{
-            console.log("Lỗi mẹ ròi");
         }
-        // Tạo một đối tượng ImportInvoiceDTO từ các dữ liệu bạn đã thu thập trong controller
-
     };
 
-    //checkLoi
-    $scope.reset = function () {
+    $scope.edit = function (id) {
+        var url = `${host}/importInvoiceEdit/${id}`;
+        $http
+            .get(url)
+            .then(function (resp) {
+                $scope.selectedProducts = angular.fromJson(resp.data.selectedProducts);
 
-    }
-    // var errors = 0;
-      $scope.item={};
+                $scope.form = resp.data.importInvoice;
+                console.log($scope.form);
+                $scope.calculateTotal();
+            })
+            .catch(function (error) {
+                console.log("Error", error);
+            });
+    };
+
+    $scope.resetForm = function () {
+        $scope.form = {
+            importInvoiceId: null,
+            username: $scope.username,
+            suppliers: {supplierId: null},
+            description: null,
+            importInvoiceAmount: 0,
+        }
+    };
+
+    $scope.resetInventoryModal = function () {
+        $scope.selectedProducts = [];
+        $scope.deletedImportInvoiceDetails = [];
+        $scope.resetForm();
+    };
+
+
+    $('#inventoryModal').on('hidden.bs.modal', function () {
+        $scope.$apply(function () {
+            console.log('Modal đã đóng lại');
+            $scope.resetInventoryModal();
+        });
+    });
+
     $scope.checkErrors = function () {
         $scope.errors = {};
-      
-        var supplier = $scope.item.supplierId;
-        var description = $scope.item.description;
-    
+
+        var supplier = $scope.form.suppliers.supplierId;
+        var description = $scope.form.description;
+
         if (!supplier) {
             $scope.errors.supplierId = 'Vui lòng chọn nhà cung cấp';
         }
-    
+
         if (!description) {
             $scope.errors.description = 'Vui lòng nhập ghi chú';
         }
-    
+
         if (!$scope.selectedProducts || $scope.selectedProducts.length === 0) {
             $scope.errors.products = 'Vui lòng chọn ít nhất một sản phẩm';
         }
-    
         // Kiểm tra nếu có bất kỳ lỗi nào xuất hiện
         var hasErrors = Object.keys($scope.errors).length > 0;
-    
-        return !hasErrors;
+        return !hasErrors
     };
-    
+
 
 
     $scope.getData = function () {
@@ -91,14 +225,20 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams) {
         var url = `${host}/getInventory`;
         $http.get(url).then((resp) => {
             $scope.listSuppliers = resp.data.suppliers;
-            $scope.listimportInvoice = resp.data.importInvoice;
+            //
+            $scope.originalImportInvoiceList = resp.data.listImportInvoice;
+            $scope.listImportInvoice = $scope.originalImportInvoiceList;
+
             $scope.listProductDetails = resp.data.listProductDetails;
-            console.log("", resp.data.listProductDetails)
+            console.log("", resp.data.listImportInvoice)
             $scope.loadModelProduct();
+            $scope.totalItems = $scope.originalImportInvoiceList.length; // Tổng số mục
+
         }).catch((Error) => {
             console.log("Error: ", Error);
         });
     }
+
     $scope.loadModelProduct = function () {
         $scope.listProductDetailsResult = [];
         $scope.listProductDetails.filter(function (item) {
@@ -109,6 +249,7 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams) {
         console.log("Danh sách sản phẩm có status = 1:", $scope.listProductDetailsResult);
 
     }
+
     $scope.searchProduct = function (keyword) {
         $scope.searchProductResults = [];
         if (keyword) {
@@ -122,6 +263,7 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams) {
             $scope.searchProductKeyword = null;
         }
     };
+
     $scope.selectedProduct = function (product) {
         var cart = {
             productDetail: product,
@@ -144,22 +286,17 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams) {
         $scope.searchProduct(null);
     }
 
-    $scope.calculateTotal = function (item) {
-        item.amount = item.quantity * item.price;
-        $scope.updateQuantityItemInInvoices();
-    };
-
-    $scope.updateQuantityItemInInvoices = function () {
-        $scope.TotalAmount = 0.0;
-        $scope.selectedProducts.forEach(function (c) {
-            $scope.TotalAmount += parseFloat(c.amount);
+    $scope.calculateTotal = function () {
+        $scope.form.importInvoiceAmount = 0;
+        $scope.selectedProducts.forEach(e => {
+            $scope.form.importInvoiceAmount += e.price * e.quantity;
         });
-        // alert(  $scope.TotalAmount)
     };
 
     $scope.removeProduct = function (index) {
-        // Sử dụng index để xác định hàng cần xóa và loại bỏ nó khỏi danh sách selectedProducts
+        $scope.deletedImportInvoiceDetails.push($scope.selectedProducts[index]);
         $scope.selectedProducts.splice(index, 1);
+
     };
 
     function init() {
@@ -167,13 +304,16 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams) {
         if (token) {
             var decodedToken = jwtHelper.decodeToken(token);
             $scope.username = decodedToken.sub;
+            $scope.form.username = $scope.username;
             console.log("username:", $scope.username);
         }
-        $scope.currentDateTime = moment();
 
-        // Định dạng ngày giờ theo định dạng bạn muốn (ví dụ: "DD/MM/YYYY HH:mm:ss")
-        $scope.formattedDateTime = $scope.currentDateTime.format('DD/MM/YYYY HH:mm A');
-        $scope.getData();
+        $interval(function () {
+            $scope.currentDateTime = moment();
+            $scope.formattedDateTime = $scope.currentDateTime.format('DD/MM/YYYY HH:mm A');
+            console.log("update time");
+        }, 60000);
+
 
     }
 
