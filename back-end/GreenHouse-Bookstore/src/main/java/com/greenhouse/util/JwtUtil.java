@@ -63,9 +63,10 @@ public class JwtUtil {
     }
 
     // Tạo JWT dựa trên tên người dùng
-    public String generateToken(String userName, Collection<? extends GrantedAuthority> collection) {
+    public String generateToken(String userName, String fullName, Collection<? extends GrantedAuthority> collection) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("roles", collection);
+        claims.put("fullName", fullName);
         return createToken(claims, userName);
     }
 

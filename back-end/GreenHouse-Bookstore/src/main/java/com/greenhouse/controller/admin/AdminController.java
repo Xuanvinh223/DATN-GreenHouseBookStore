@@ -30,16 +30,19 @@ public class AdminController {
         // Kiểm tra xem yêu cầu có chứa token không
         String token = request.getParameter("token");
         String username = request.getParameter("username");
+        System.out.println(token);
+        System.out.println(username);
         try {
             // Thực hiện xác thực token và kiểm tra quyền
             UserDetails userDetails = detailsServiceImpl.loadUserByUsername(username);
+
             try {
                 if (jwtUtil.validateToken(token, userDetails)) {
-                Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-                if (authorities.stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
-                    // Người dùng có quyền "ROLE_ADMIN", cho phép truy cập trang admin
-                    return "redirect:/admin/index.html";
-                }
+                    Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+                    if (authorities.stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
+                        // Người dùng có quyền "ROLE_ADMIN", cho phép truy cập trang admin
+                        return "redirect:/admin/index.html";
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

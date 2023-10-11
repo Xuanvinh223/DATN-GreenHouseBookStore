@@ -458,39 +458,4 @@ jQuery(document).ready(function ($) {
         }
 
     });
-
-    /*--
-        15: Google Map
-    ----------------------------------------------------*/
-<<<<<<< HEAD:font-end/client-template/js/custom.js
-    // Initialize and add the map
-    if ($('#google-map').length) {
-        function initMap() {
-            // The location of Uluru
-            var uluru = { lat: 9.984232450459027, lng: 105.75771759264275 };
-            // The map, centered at Uluru
-            var map = new google.maps.Map(
-                document.getElementById('google-map'), { zoom: 12, center: uluru });
-            // The marker, positioned at Uluru
-            var marker = new google.maps.Marker({ position: uluru, map: map });
-        }
-        initMap();
-    }
-=======
-	// Initialize and add the map
-	if($('#google-map').length){
-		function initMap() {
-			// The location of Uluru
-			var uluru = {lat: 9.984232450459027, lng: 105.75771759264275};  
-			// The map, centered at Uluru
-			var map = new google.maps.Map(
-				document.getElementById('google-map'), {zoom: 12, center: uluru});
-			// The marker, positioned at Uluru
-			var marker = new google.maps.Marker({position: uluru, map: map});
-            console.log("GG Map");
-		}
-		initMap();
-	}
->>>>>>> dev/datmv:back-end/GreenHouse-Bookstore/src/main/resources/static/client/js/custom.js
-
 });

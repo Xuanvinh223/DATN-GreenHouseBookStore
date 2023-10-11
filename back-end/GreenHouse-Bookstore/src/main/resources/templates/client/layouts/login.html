@@ -20,21 +20,21 @@
               <label for="username" class="icon-form">
                 <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
               </label>
-              <div class="form-floating">
-                <input type="text" class="form-control" id="username" placeholder="Email hoặc Số Điện Thoại"
-                       ng-model="userData.username" style="padding-right: 200px;">
-                <label for="username">Email hoặc Số Điện Thoại <label for="" class="text-danger">(*)</label></label>
+              <div class="form-floating full-with">
+                  <input type="text" class="form-control" id="username" placeholder="Email hoặc Số Điện Thoại"
+                         ng-model="userData.username">
+                  <label for="username">Email hoặc Số Điện Thoại <label for="" class="text-danger">(*)</label></label>
               </div>
             </div>
             <div class="input-group flex-nowrap mb-2">
               <label for="username" class="icon-form">
                 <i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i>
               </label>
-              <div class="form-floating">
-                <input type="password" class="form-control" id="password" placeholder="Mật khẩu"
-                       ng-model="userData.password" style="padding-right: 200px;">
-                <label for="password">Mật khẩu <label for="" class="text-danger">(*)</label></label>
-              </div>
+                <div class="form-floating full-with">
+                    <input type="password" class="form-control" id="password" placeholder="Mật khẩu"
+                           ng-model="userData.password">
+                    <label for="password">Mật khẩu <label for="" class="text-danger">(*)</label></label>
+                </div>
             </div>
 
             <div class="input-group border-0 mb-3 d-flex justify-content-between">
@@ -52,9 +52,11 @@
               <button type="submit" class="btn btn-lg btn-success1 w-100 fs-6">Đăng nhập</button>
             </div>
             <div class="row">
-              <div class="col-6"><a href="#" class="btn btn-lg btn-light  w-100 fs-6"
-                  style="border: 1px solid gainsboro;"><img src="/client/image/logoGoogle.png" style="width:20px"
-                    class="me-2"><small>Google</small></a></div>
+                <div class="col-6"><a th:href="@{/oauth2/authorization/google}" class="btn btn-lg btn-light  w-100 fs-6"
+                                      style="border: 1px solid gainsboro;"><img src="/client/image/logoGoogle.png"
+                                                                                style="width:20px"
+                                                                                class="me-2"><small>Google</small></a>
+                </div>
               <div class="col-6"> <a href="#" class="btn btn-lg btn-light w-100 fs-6"
                   style="border: 1px solid gainsboro;"><img src="/client/image/logoFacebook.png" style="width:20px"
                     class="me-2"><small>Facebook</small></a></div>
