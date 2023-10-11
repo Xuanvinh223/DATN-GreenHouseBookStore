@@ -20,7 +20,7 @@ import com.greenhouse.model.ImportInvoiceDetail;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Suppliers;
 import com.greenhouse.repository.ImportInvoiceRepository;
-import com.greenhouse.repository.ImportInvoice_DetailRepository;
+import com.greenhouse.repository.ImportInvoiceDetailRepository;
 import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.repository.SuppliersRepository;
 
