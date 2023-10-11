@@ -1,10 +1,17 @@
-const app = angular.module("myApp", ["angular-jwt"]);
+const app = angular.module("myApp", ["angular-jwt", "ngCookies"]);
 
-app.constant('authenticateAPI', 'http://localhost:8081/authenticate');
-app.constant('signupAPI', 'http://localhost:8081/sign-up');
-app.constant('checkOutAPI', 'http://localhost:8081/customer/rest/check-out');
+app.constant("authenticateAPI", "http://localhost:8081/authenticate");
+app.constant("signupAPI", "http://localhost:8081/sign-up");
+app.constant("checkOutAPI", "http://localhost:8081/customer/rest/check-out");
 
-app.run(function ($rootScope, $http, $templateCache, jwtHelper) {
+app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
+    var token = $cookies.get("token");
+
+    if (token) {
+        localStorage.setItem("token", token);
+        $cookies.remove('token');
+    }
+
     var jsFiles = [
         "js/custom.js",
         "js/code.js",
@@ -43,8 +50,6 @@ app.run(function ($rootScope, $http, $templateCache, jwtHelper) {
         checkTokenExpiration();
         setInterval(checkTokenExpiration, 1000 * 30); // 30 phút
     };
-
-
 });
 
 // Tạo một interceptor
