@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.AuthoritiesRepository;
 import com.greenhouse.repository.BrandRepository;
-import com.greenhouse.repository.OrderMappingStatusRepository;
-import com.greenhouse.repository.OrdersRepository;
 
 @RestController
 @CrossOrigin("*")
@@ -25,10 +23,6 @@ public class IndexRestController {
     private BrandRepository brandRepository;
     @Autowired
     private AuthoritiesRepository authoritiesRepository;
-    @Autowired
-    private OrdersRepository ordersRepository;
-    @Autowired
-    private OrderMappingStatusRepository orderMappingStatusRepository;
 
     @GetMapping("/rest/getIndexCount")
     public ResponseEntity<Map<String, Object>> getIndex() {

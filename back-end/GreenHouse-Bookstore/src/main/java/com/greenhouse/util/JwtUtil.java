@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import com.greenhouse.model.Accounts;
 import io.jsonwebtoken.io.Decoders;
 import java.security.Key;
 import java.util.Collection;
@@ -63,11 +64,12 @@ public class JwtUtil {
     }
 
     // Tạo JWT dựa trên tên người dùng
-    public String generateToken(String userName, String fullName, Collection<? extends GrantedAuthority> collection) {
+    public String generateToken(Accounts account, Collection<? extends GrantedAuthority> collection) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("roles", collection);
-        claims.put("fullName", fullName);
-        return createToken(claims, userName);
+        claims.put("fullName", account.getFullname());
+        claims.put("image", account.getImage());
+        return createToken(claims, account.getUsername());
     }
 
     // Tạo JWT từ các thông tin được cung cấp
