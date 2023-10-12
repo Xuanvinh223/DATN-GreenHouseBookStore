@@ -142,7 +142,7 @@ public class Maincontroller {
         List<GrantedAuthority> authoritiesList = listAuthorities.stream()
                 .map(authority -> new SimpleGrantedAuthority("ROLE_" + authority.getRole().getRole()))
                 .collect(Collectors.toList());
-        final String jwt = jwtUtil.generateToken(username, fullname, authoritiesList);
+        final String jwt = jwtUtil.generateToken(existingAccount, authoritiesList);
 
         Cookie cookie = new Cookie("token", jwt);
         cookie.setMaxAge(3600);

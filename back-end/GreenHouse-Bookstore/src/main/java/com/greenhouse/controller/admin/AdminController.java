@@ -30,8 +30,6 @@ public class AdminController {
         // Kiểm tra xem yêu cầu có chứa token không
         String token = request.getParameter("token");
         String username = request.getParameter("username");
-        System.out.println(token);
-        System.out.println(username);
         try {
             // Thực hiện xác thực token và kiểm tra quyền
             UserDetails userDetails = detailsServiceImpl.loadUserByUsername(username);
@@ -50,8 +48,10 @@ public class AdminController {
             }
         } catch (ExpiredJwtException ex) {
             // Xử lý lỗi khi token hết hạn
+            ex.printStackTrace();
             return "redirect:/login";
         } catch (UsernameNotFoundException u) {
+            u.printStackTrace();
             // Không tìm thấy tài khoản (Chưa đăng nhập)
             return "redirect:/404";
         }

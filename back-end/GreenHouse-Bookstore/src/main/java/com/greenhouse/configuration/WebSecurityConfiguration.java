@@ -30,7 +30,7 @@ public class WebSecurityConfiguration {
     private final String[] apiEndpoints = {"/rest/**"}; // Danh sách các API bảo mật
     private final String[] apiEndpointsPermit = {"/authenticate", "/resgister", "/index", "/login", "/404", "/sign-up",
             "/account", "/contact", "/voucher", "/flash-sale", "/product", "/product-details", "/cart", "/checkout",
-            "/checkout-complete", "/forgot-password", "/oauth2/authorization/google", "/google-processing", "/google-success", "/client/**",
+            "/checkout-complete", "/forgot-password", "/oauth2/authorization/google", "/logout", "/google-processing", "/google-success", "/client/**",
             "/admin/**"}; // Danh sách các API cho phép truy cập
 
     @Bean
@@ -45,6 +45,11 @@ public class WebSecurityConfiguration {
                 .oauth2Login().loginPage("/login")
                 .defaultSuccessUrl("/google-processing", true)
                 .and()
+                .logout()
+                .logoutUrl("/logout") // Định nghĩa URL để thực hiện logout
+                .clearAuthentication(true) // Xóa thông tin xác thực
+                .invalidateHttpSession(true) // Huỷ phiên làm việc
+                .permitAll().and()
                 .exceptionHandling()
                 .accessDeniedPage("/404")
                 .and().addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class)
