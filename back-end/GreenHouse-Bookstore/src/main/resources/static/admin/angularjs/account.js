@@ -1,21 +1,71 @@
 app.controller("AccountController", function ($scope, $location, $routeParams, $http) {
-    let host = "http://localhost:8081/rest/accounts"; // Thay đổi địa chỉ URL nếu cần
+    // Thay đổi địa chỉ URL nếu cần
     $scope.editingAccounts = {};
     $scope.isEditing = false;
 
     $scope.accounts = [];
+    $scope.searchText = "";
+
+    $scope.itemsPerPageOptions = [5, 12, 24, 32, 64, 128];
+    let host = "http://localhost:8081/rest/accounts";
+    $scope.selectedItemsPerPage = 5; // Khởi tạo giá trị mặc định cho số mục trên mỗi trang
+    $scope.currentPage = 1; // Trang hiện tại
+    $scope.itemsPerPage = 5; // Số mục hiển thị trên mỗi trang
+    $scope.totalItems = $scope.accounts.length; // Tổng số mục
+    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
+    $scope.reverseSort = false; // Sắp xếp tăng dần
+    // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
+    $scope.getNumOfPages = function () {
+        return Math.ceil($scope.totalItems / $scope.itemsPerPage);
+    };
+
+    // Hàm chuyển đổi trang
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
+
+    $scope.calculateRange = function () {
+        var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage + 1;
+        var endIndex = $scope.currentPage * $scope.itemsPerPage;
+
+        if (endIndex > $scope.totalItems) {
+            endIndex = $scope.totalItems;
+        }
+
+        return startIndex + ' đến ' + endIndex + ' trên tổng số ' + $scope.totalItems + ' mục';
+    };
 
     $scope.loadAccount = function () {
         var url = `${host}`;
-        $http
-            .get(url)
-            .then((resp) => {
-                $scope.accounts = resp.data;
-            })
-            .catch((error) => {
-                console.log("Error", error);
-            });
+        $http.get(url).then(resp => {
+            $scope.accounts = resp.data;
+            $scope.originalaccounts = $scope.accounts;
+
+            console.log("success", resp.data);
+            $scope.totalItems = $scope.accounts.length;
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    }
+
+    $scope.searchData = function () {
+        // Lọc danh sách gốc bằng searchText
+        $scope.accounts = $scope.originalaccounts.filter(function (account) {
+            // Thực hiện tìm kiếm trong các thuộc tính cần thiết của item
+            if (account.fullname) {
+                return (
+                    account.username.toString().includes($scope.searchText) ||
+                    account.fullname.toLowerCase().includes($scope.searchText.toLowerCase()) ||
+                    account.email.toString().includes($scope.searchText) ||
+                    account.phone.toString().includes($scope.searchText)
+                );
+            }
+            return false; // Bỏ qua mục này nếu fullname là null hoặc undefined
+        });
+        $scope.totalItems = $scope.searchText ? $scope.accounts.length : $scope.originalaccounts.length;
+        $scope.setPage(1);
     };
+
 
     $scope.saveAccounts = function () {
         $scope.errorMessages = {

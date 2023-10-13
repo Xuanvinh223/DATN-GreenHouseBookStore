@@ -379,6 +379,7 @@ template {
 span {
     font-size: 0.9rem;
 }
+
 [hidden] {
     display: none !important;
 }
@@ -1716,16 +1717,20 @@ pre code {
 .table-striped thead tr th a {
   color: #6c757d;
 }
+
 .table-striped thead tr th a:hover {
     color: #4eaa4f;
 }
+
 .table-striped tbody tr td a i {
     color: #6c757d;
     padding-right: 5px;
 }
+
 .table-striped tbody tr td a i:hover {
     color: #4eaa4f;
 }
+
 .table-hover tbody tr:hover {
     color: #6c757d;
     background-color: #dee2e6;
@@ -9581,9 +9586,11 @@ a.text-dark:focus {
 .text-body {
     color: #6c757d !important;
 }
+
 .card-title1 {
     color: blue !important;
 }
+
 .text-muted {
     color: #6c757d !important;
 }
@@ -10334,9 +10341,6 @@ select {
 
 .table tbody tr th {
     font-weight: 400;
-}
-
-.table tbody tr td a i {
 }
 
 .table tr.collapse {
@@ -11741,11 +11745,11 @@ form.was-validated
     100% {
         opacity: 0;
         -webkit-transform: translateY(-40px);
-    -moz-transform: translateY(-40px);
-    -ms-transform: translateY(-40px);
-    -o-transform: translateY(-40px);
-    transform: translateY(-40px);
-  }
+        -moz-transform: translateY(-40px);
+        -ms-transform: translateY(-40px);
+        -o-transform: translateY(-40px);
+        transform: translateY(-40px);
+    }
 }
 
 @keyframes passing-through {
@@ -15768,14 +15772,15 @@ a.uppy-Dashboard-poweredBy {
 }
 
 @media only screen and (min-width: 820px) {
-  .uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose
+    .uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose
     > .uppy-Dashboard-inner {
-    animation: uppy-Dashboard-slideDownAndFadeIn 0.3s cubic-bezier(0, 0, 0.2, 1);
-  }
-  .uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing
+        animation: uppy-Dashboard-slideDownAndFadeIn 0.3s cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    .uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing
     > .uppy-Dashboard-inner {
-    animation: uppy-Dashboard-slideUpFadeOut 0.3s cubic-bezier(0, 0, 0.2, 1);
-  }
+        animation: uppy-Dashboard-slideUpFadeOut 0.3s cubic-bezier(0, 0, 0.2, 1);
+    }
 
     .uppy-Dashboard-inner {
         width: 750px;
@@ -15840,58 +15845,7 @@ a.uppy-Dashboard-poweredBy {
 .select2 {
     margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
 }
-/* Định dạng phần phân trang - start */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-}
 
-/* Định dạng nút phân trang */
-.pagination .pagination-first a {
-    margin-left: 0;
-    border-top-left-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
-}
-
-.pagination li a {
-    position: relative;
-    display: block;
-    padding: 0.5rem 0.75rem;
-    margin-left: -1px;
-    line-height: 1.25;
-    color: #adb5bd;
-    background-color: transparent;
-    border: 1px solid transparent;
-}
-
-.pagination li:hover {
-    color: #343a40;
-}
-
-.pagination .pagination-last a {
-    margin-right: 0;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
-}
-
-.pagination li:not(.active):hover a {
-    background-color: rgb(237, 237, 237, 0.3);
-    color: #343a40;
-}
-
-/* Định dạng nút trang hiện tại */
-.pagination .active a {
-    background-color: #62ab00;
-    border-color: #62ab00;
-    z-index: 3;
-    color: #f8f9fa;
-}
-
-/* Định dạng phần phân trang - end */
 /* Định dạng của container chứa icon và input */
 .input-container {
     width: 60%;
@@ -15920,6 +15874,7 @@ a.uppy-Dashboard-poweredBy {
 .input {
     border: none;
     /* Loại bỏ border của input */
+    /* background-color: #495057; */
     outline: none;
     /* Loại bỏ border khi focus */
     width: 100% !important;
@@ -15961,21 +15916,92 @@ a.uppy-Dashboard-poweredBy {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #62ab00;
+    background: #62ab00;
 }
 
 /* End Thanh cuộn */
 /* CSS Invertory  */
 
+/* End Thanh cuộn */
+
+/* Định dạng nút phân trang */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.pagination .pagination-first a {
+    margin-left: 0;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.pagination li a {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #adb5bd;
+    background-color: transparent;
+    border: 1px solid transparent;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.pagination .pagination-last a {
+    margin-right: 0;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.pagination li:not(.active):hover a {
+    background-color: rgb(237, 237, 237, 0.3);
+    color: #f8f9fa;
+}
+
+
+/* Định dạng nút trang hiện tại */
+.pagination .active a {
+    background-color: #62ab00;
+    border-color: #62ab00;
+    z-index: 3;
+    color: #f8f9fa;
+}
+
+/* CSS cho mũi tên "previous" */
+.pagination .pagination-prev a::before {
+    content: '\276C'; /* Unicode ký tự mũi tên trái */
+}
+
+/* CSS cho mũi tên "next" */
+.pagination .pagination-next a::after {
+    content: '\276D'; /* Unicode ký tự mũi tên phải */
+}
+
+/* CSS cho mũi tên "first" */
+.pagination .pagination-first a::before {
+    content: '\2759\276E'; /* Unicode ký tự mũi tên trái */
+}
+
+/* CSS cho mũi tên "last" */
+.pagination .pagination-last a::after {
+    content: '\276F\2759'; /* Unicode ký tự mũi tên phải */
+}
+
 .inventory-table
-  #inventoryModal
-  .modal-body
-  .search-box
-  .form-modal-search
-  button {
-  border: none;
-  background: none;
-  color: #8b8ba7;
+#inventoryModal
+.modal-body
+.search-box
+.form-modal-search
+button {
+    border: none;
+    background: none;
+    color: #8b8ba7;
 }
 
 .inventory-table #inventoryModal .modal-body .search-box .form-modal-search {
@@ -16351,14 +16377,64 @@ a.uppy-Dashboard-poweredBy {
 }
 .bg-success1 {
   position: absolute;
-  background-color: #3ad29f !important;
-  bottom: 0;
-  right: 0;
+    background-color: #3ad29f !important;
+    bottom: 0;
+    right: 0;
 }
+
 .alert-product {
-  color: #282726;
-  background-color: #ecebeb;
-  border-color: #d3eaf2;
-  text-align: center;
+    color: #282726;
+    background-color: #ecebeb;
+    border-color: #d3eaf2;
+    text-align: center;
 }
+
+/* Định dạng phần phân trang - start */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
 /* END */
+.table-hover-green tbody tr:hover {
+    background-color: #CCFFCC;
+    /* Màu nền hover mong muốn */
+    cursor: pointer; /* Biểu tượng chuột thay đổi thành con trỏ */
+}
+
+.total-profit {
+    float: right;
+    margin-right: 50px;
+}
+
+.body-profit {
+    padding: 0 10px 10px 10px; /* Padding top = 0px, Padding right = 10px, Padding bottom = 10px, Padding left = 10px */
+}
+
+.total {
+    float: right;
+    color: orangered;
+    margin-left: 20px;
+}
+
+.expense {
+    float: right;
+    color: #ff1a1a;
+    margin-left: 20px;
+}
+
+.profit {
+    float: right;
+    color: #62ab00;
+    margin-left: 20px;
+}
+
+.table-hr {
+    border: 1px solid #000;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}

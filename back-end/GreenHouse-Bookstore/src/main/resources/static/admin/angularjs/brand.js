@@ -1,23 +1,66 @@
 app.controller("brandController", function ($scope, $location, $routeParams, $http) {
-    let host = "http://localhost:8081/rest/brand"; // Thay đổi địa chỉ URL nếu cần
+    // Thay đổi địa chỉ URL nếu cần
     $scope.editingBrand = {};
     $scope.isEditing = false;
 
     $scope.brands = [];
+    $scope.searchText = "";
+
+    $scope.itemsPerPageOptions = [5, 12, 24, 32, 64, 128];
+    let host = "http://localhost:8081/rest/brand";
+    $scope.selectedItemsPerPage = 5; // Khởi tạo giá trị mặc định cho số mục trên mỗi trang
+    $scope.currentPage = 1; // Trang hiện tại
+    $scope.itemsPerPage = 5; // Số mục hiển thị trên mỗi trang
+    $scope.totalItems = $scope.brands.length; // Tổng số mục
+    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
+    $scope.reverseSort = false; // Sắp xếp tăng dần
+
+    // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
+    $scope.getNumOfPages = function () {
+        return Math.ceil($scope.totalItems / $scope.itemsPerPage);
+    };
+
+    // Hàm chuyển đổi trang
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
+
+    $scope.calculateRange = function () {
+        var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage + 1;
+        var endIndex = $scope.currentPage * $scope.itemsPerPage;
+
+        if (endIndex > $scope.totalItems) {
+            endIndex = $scope.totalItems;
+        }
+
+        return startIndex + ' đến ' + endIndex + ' trên tổng số ' + $scope.totalItems + ' mục';
+    };
 
     $scope.loadBrand = function () {
         var url = `${host}`;
-        $http
-            .get(url)
-            .then((resp) => {
-                $scope.brands = resp.data;
-            })
-            .catch((error) => {
-                console.log("Error", error);
-            });
+        $http.get(url).then(resp => {
+            $scope.brands = resp.data;
+            $scope.originalbrands = $scope.brands;
+
+            console.log("success", resp.data);
+            $scope.totalItems = $scope.brands.length;
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    }
+
+    $scope.searchData = function () {
+        // Lọc danh sách gốc bằng searchText
+        $scope.brands = $scope.originalbrands.filter(function (brand) {
+            // Thực hiện tìm kiếm trong các thuộc tính cần thiết của item
+            return (
+                brand.brandId.toString().toLowerCase().includes($scope.searchText) || brand.brandName.toLowerCase().includes($scope.searchText.toLowerCase())
+            );
+        });
+        $scope.totalItems = $scope.searchText ? $scope.brands.length : $scope.originalbrands.length;
+        ;
+        $scope.setPage(1);
     };
-
-
     $scope.saveBrand = function () {
         // Reset error messages
         $scope.errorMessages = {
