@@ -17,6 +17,7 @@ app.controller(
                     var status = resp.status;
                     var message = resp.data.message;
                     if (status == 200) {
+                        localStorage.setItem("username", data.username)
                         localStorage.setItem("token", resp.data.token);
                         window.location.href = "/index";
                     } else {
