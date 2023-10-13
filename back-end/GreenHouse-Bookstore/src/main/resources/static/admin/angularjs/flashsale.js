@@ -242,7 +242,7 @@ function flashsaleController($scope, $http, $location, $routeParams) {
         $scope.item = {};
         $scope.listProductFlashSale = []; // Xóa toàn bộ dữ liệu trong bảng
     };
-
+ 
     //Hàm EDIT
     $scope.edit = function (flashSaleId) {
         var url = `${host}/edit/${flashSaleId}`;
