@@ -1,7 +1,7 @@
 package com.greenhouse.service.impl;
 
 import com.greenhouse.model.Product_Reviews;
-import com.greenhouse.repository.Product_ReviewsRepository;
+import com.greenhouse.repository.ProductReviewsRepository;
 import com.greenhouse.service.ProductReviewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class ProductReviewsServiceImpl implements ProductReviewsService {
 
     @Autowired
-    private Product_ReviewsRepository productReviewsRepository;
+    private ProductReviewsRepository productReviewsRepository;
 
     @Override
     public List<Product_Reviews> findAll() {

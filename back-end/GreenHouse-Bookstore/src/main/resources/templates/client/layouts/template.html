@@ -161,17 +161,16 @@
             </a>
             <!-- Model cart -->
             <div class="top-dropdown">
-              <div class=" single-cart-block ">
-                <div class="cart-product">
+              <div class="single-cart-block">
+                <div class="cart-product mb-3 mt-3" ng-repeat="cart in listCartHeader track by $index">
                   <a href="product-details.html" class="image">
-                    <img src="/client/image/products/cart-product-1.jpg" alt="">
+                    <img src="{{cart.productDetails.image}}" alt="">
                   </a>
                   <div class="content">
-                    <h3 class="title"><a href="product-details.html">Kodak PIXPRO
-                        Astro Zoom AZ421 16 MP</a>
+                    <h3 class="title"><a href="">{{cart.productDetail.product.productName}}</a>
                     </h3>
-                    <p class="price"><span class="qty">1 ×</span> £87.34</p>
-                    <button class="cross-btn"><i class="fas fa-times"></i></button>
+                    <p class="price"><span class="qty">{{cart.quantity}} ×</span> {{(cart.priceDiscount > 0 ?
+                      cart.priceDiscount : cart.price) | number:'0'}}</p>
                   </div>
                 </div>
               </div>
@@ -719,16 +718,18 @@
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.1/dist/sweetalert2.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-cookies/1.8.2/angular-cookies.min.js"></script>
 
-      <script th:src="@{/client/js/plugins.js}"></script>
-      <script th:src="@{/client/js/custom.js}"></script>
-      <script th:src="@{/client/js/code.js}"></script>
-      <!-- Controller -->
-      <script th:src="@{/client/controller/app.js}"></script>
-      <script th:src="@{/client/controller/account-controller.js}"></script>
-      <script th:src="@{/client/controller/authenticate.js}"></script>
-      <script th:src="@{/client/controller/signin.js}"></script>
-      <script th:src="@{/client/controller/checkout.js}"></script>
+    <script th:src="@{/client/js/plugins.js}"></script>
+    <script th:src="@{/client/js/custom.js}"></script>
+    <script th:src="@{/client/js/code.js}"></script>
+    <!-- Controller -->
+    <script th:src="@{/client/controller/app.js}"></script>
+    <script th:src="@{/client/controller/account-controller.js}"></script>
+    <script th:src="@{/client/controller/authenticate.js}"></script>
+    <script th:src="@{/client/controller/signin.js}"></script>
+    <script th:src="@{/client/controller/checkout.js}"></script>
     <script th:src="@{/client/controller/header.js}"></script>
+    <script th:src="@{/client/controller/product-page.js}"></script>
+    <script th:src="@{/client/controller/cart.js}"></script>
   </th-block>
 </body>
 
