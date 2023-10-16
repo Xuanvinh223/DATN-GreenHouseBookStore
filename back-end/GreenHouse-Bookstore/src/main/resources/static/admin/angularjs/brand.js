@@ -1,5 +1,4 @@
 app.controller("brandController", function ($scope, $location, $routeParams, $http) {
-    // Thay đổi địa chỉ URL nếu cần
     $scope.editingBrand = {};
     $scope.isEditing = false;
 
@@ -61,6 +60,8 @@ app.controller("brandController", function ($scope, $location, $routeParams, $ht
         ;
         $scope.setPage(1);
     };
+
+
     $scope.saveBrand = function () {
         // Reset error messages
         $scope.errorMessages = {
@@ -90,13 +91,6 @@ app.controller("brandController", function ($scope, $location, $routeParams, $ht
         // Kiểm tra CountryOfOrigin
         if (!countryOfOrigin) {
             $scope.errorMessages.countryOfOrigin = 'Vui lòng không bỏ trống thông tin nơi xuất xứ';
-            return;
-        }
-
-        // Kiểm tra ID thương hiệu
-        var brandIdRegex = /^[A-Z0-9]{4,}$/;
-        if (!brandIdRegex.test(brandId)) {
-            $scope.errorMessages.brandId = 'ID thương hiệu phải chứa ít nhất 4 ký tự và chỉ được điền kí tự HOA và số';
             return;
         }
 
@@ -166,8 +160,10 @@ app.controller("brandController", function ($scope, $location, $routeParams, $ht
                     .path("/brand-form")
                     .search({
                         id: brandId,
-                        data: angular.toJson(resp.data)
-                    });
+                        data: resp.data
+                    })
+                    .replace();
+                console.log(data);
             })
             .catch(function (error) {
                 console.log("Error", error);
@@ -224,10 +220,21 @@ app.controller("brandController", function ($scope, $location, $routeParams, $ht
 
 
     $scope.resetForm = function () {
+        // Kiểm tra xem có tham số "id" và "data" trong URL không, và nếu có thì xóa chúng
+        if ($location.search().id || $location.search().data) {
+            $location.search('id', null);
+            $location.search('data', null);
+        }
+
+        // Gán giá trị cho editingBrand và isEditing
         $scope.editingBrand = {};
         $scope.isEditing = false;
+
+        // Chuyển hướng lại đến trang /brand-form
+        $location.path('/brand-form');
         $scope.clearImage();
     };
+
 
     $scope.clearImage = function () {
         $scope.editingBrand.logo = ""; // Xóa đường dẫn ảnh đại diện

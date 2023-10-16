@@ -14,13 +14,16 @@ public class Vouchers implements Serializable {
     @Column(name = "Voucher_Id")
     private int voucherId;
 
-    @Column(name = "Code")
+    @Column(name = " Voucher_Name")
+    private String voucherName;
+
+    @Column(name = "Code", length = 100)
     private String code;
 
-    @Column(name = "Voucher_Type")
+    @Column(name = " Voucher_Type")
     private String voucherType;
 
-    @Column(name = "Discount_Type", columnDefinition = "nvarchar(200)", nullable = false)
+    @Column(name = "Discount_Type", columnDefinition = "nvarchar(200)")
     private String discountType;
 
     @Column(name = "Discount_Amount")
@@ -34,12 +37,6 @@ public class Vouchers implements Serializable {
 
     @Column(name = "Maximum_Discount_Amount")
     private Double maximumDiscountAmount;
-
-    @Column(name = "Product_Id", length = 30)
-    private String productId;
-
-    @Column(name = "Product_Category_Id")
-    private String productCategoryId;
 
     @Column(name = "Start_Date")
     private Date startDate;
@@ -55,6 +52,9 @@ public class Vouchers implements Serializable {
 
     @Column(name = "Status")
     private boolean status;
+
+    @Column(name = "Description")
+    private String description;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

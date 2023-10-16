@@ -13,7 +13,8 @@
                 <div class="input-container ">
                   <div class="input-wrapper col-lg-9">
                     <i class="fe fe-search fe-18 icon"></i>
-                    <input class="form-control input" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                    <input class="form-control input" type="search" placeholder="Tìm kiếm..." ng-model="searchText"
+                           ng-change="searchData()">
                   </div>
 
                 </div>
@@ -41,9 +42,9 @@
                         <th></th>
                       </tr>
                     </thead>
-                    <tbody>
+                      <tbody>
 
-                      <tr ng-repeat="account in accounts track by $index">
+                      <tr ng-repeat="account in accounts | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
                           <td>{{$index + 1}}</td>
                           <td>{{account.username}}</td>
                           <td>{{account.fullname}}</td>
@@ -54,17 +55,38 @@
                           <td>{{account.active ? 'Hoạt động' : 'Chưa hoạt động'}}</td>
                           <td>
                               <img ng-src="/images/{{account.image}}"
-                               style="width: 50px; height: 50px; border-radius: 10%;">
-                        </td>
-                        <td>
-                          <a ng-click="editAccountsAndRedirect(account.username)"><i class="fe fe-edit fe-16"></i></a>
-                          <a ng-click="deleteAccounts(account.username)">
-                            <i class="fe fe-trash-2 fe-16"></i>
-                        </td>
+                                   style="width: 50px; height: 50px; border-radius: 10%;">
+                          </td>
+                          <td>
+                              <a ng-click="editAccountsAndRedirect(account.username)"><i
+                                      class="fe fe-edit fe-16"></i></a>
+                              <a ng-click="deleteAccounts(account.username)">
+                                  <i class="fe fe-trash-2 fe-16"></i>
+                          </td>
                       </tr>
 
-                    </tbody>
+                      </tbody>
                   </table>
+                    <div class="toolbar">
+                        <form class="form">
+                            <div class="form-row">
+                                <div class="form-inline col-auto mr-auto">
+                                    <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
+                                    <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1"
+                                            ng-model="itemsPerPage"
+                                            ng-options="option for option in itemsPerPageOptions"
+                                            ng-change="currentPage = 1">
+                                    </select>
+                                </div>
+                                <div class="form-group col-auto">
+                                    <span>Đang xem {{ calculateRange() }}</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <ul uib-pagination ng-model="currentPage" total-items="totalItems" items-per-page="itemsPerPage"
+                        max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" boundary-links="true"
+                        force-ellipses="true" previous-text="<" next-text=">" first-text="<<" last-text=">>"></ul>
                 </div>
 
               </div>

@@ -377,11 +377,10 @@ template {
 }
 
 span {
-    font-size: 0.9rem;
+  font-size: 0.9rem;
 }
-
 [hidden] {
-    display: none !important;
+  display: none !important;
 }
 
 h1,
@@ -1717,23 +1716,19 @@ pre code {
 .table-striped thead tr th a {
   color: #6c757d;
 }
-
 .table-striped thead tr th a:hover {
-    color: #4eaa4f;
+  color: #4eaa4f;
 }
-
 .table-striped tbody tr td a i {
-    color: #6c757d;
-    padding-right: 5px;
+  color: #6c757d;
+  padding-right: 5px;
 }
-
 .table-striped tbody tr td a i:hover {
-    color: #4eaa4f;
+  color: #4eaa4f;
 }
-
 .table-hover tbody tr:hover {
-    color: #6c757d;
-    background-color: #dee2e6;
+  color: #6c757d;
+  background-color: #dee2e6;
 }
 
 .table-primary,
@@ -4521,15 +4516,15 @@ input[type="button"].btn-block {
 }
 
 .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #ffffff;
-    background-clip: border-box;
-    border: 1px solid #e9ecef;
-    border-radius: 0.25rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #ffffff;
+  background-clip: border-box;
+  border: 1px solid #e9ecef;
+  border-radius: 0.25rem;
 }
 .card > hr {
   margin-right: 0;
@@ -4775,14 +4770,14 @@ input[type="button"].btn-block {
 }
 
 .page-link {
-    position: relative;
-    display: block;
-    padding: 0.5rem 0.75rem;
-    margin-left: -1px;
-    line-height: 1.25;
-    color: #6c757d;
-    background-color: transparent;
-    border: 1px solid transparent;
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #6c757d;
+  background-color: transparent;
+  border: 1px solid transparent;
 }
 
 .page-link:hover {
@@ -9584,15 +9579,13 @@ a.text-dark:focus {
 }
 
 .text-body {
-    color: #6c757d !important;
+  color: #6c757d !important;
 }
-
 .card-title1 {
-    color: blue !important;
+  color: blue !important;
 }
-
 .text-muted {
-    color: #6c757d !important;
+  color: #6c757d !important;
 }
 
 .text-black-50 {
@@ -10340,12 +10333,15 @@ select {
 }
 
 .table tbody tr th {
-    font-weight: 400;
+  font-weight: 400;
+}
+
+.table tbody tr td a i {
 }
 
 .table tr.collapse {
-    border-top: 1px solid #e9ecef;
-    border-bottom: 1px solid #e9ecef;
+  border-top: 1px solid #e9ecef;
+  border-bottom: 1px solid #e9ecef;
 }
 .table tr.collapse:hover {
   cursor: pointer;
@@ -10903,9 +10899,9 @@ strong {
 /* Logo */
 
 img.brand-img {
-    width: 100px;
-    height: auto;
-    fill: #62ab00;
+  width: 100px;
+  height: auto;
+  fill: #62ab00;
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -11725,31 +11721,31 @@ form.was-validated
 }
 
 @-moz-keyframes passing-through {
-    0% {
-        opacity: 0;
-        -webkit-transform: translateY(40px);
-        -moz-transform: translateY(40px);
-        -ms-transform: translateY(40px);
-        -o-transform: translateY(40px);
-        transform: translateY(40px);
-    }
-    30%,
-    70% {
-        opacity: 1;
-        -webkit-transform: translateY(0px);
-        -moz-transform: translateY(0px);
-        -ms-transform: translateY(0px);
-        -o-transform: translateY(0px);
-        transform: translateY(0px);
-    }
-    100% {
-        opacity: 0;
-        -webkit-transform: translateY(-40px);
-        -moz-transform: translateY(-40px);
-        -ms-transform: translateY(-40px);
-        -o-transform: translateY(-40px);
-        transform: translateY(-40px);
-    }
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(40px);
+    -moz-transform: translateY(40px);
+    -ms-transform: translateY(40px);
+    -o-transform: translateY(40px);
+    transform: translateY(40px);
+  }
+  30%,
+  70% {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+    -ms-transform: translateY(0px);
+    -o-transform: translateY(0px);
+    transform: translateY(0px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-40px);
+    -moz-transform: translateY(-40px);
+    -ms-transform: translateY(-40px);
+    -o-transform: translateY(-40px);
+    transform: translateY(-40px);
+  }
 }
 
 @keyframes passing-through {
@@ -15772,43 +15768,50 @@ a.uppy-Dashboard-poweredBy {
 }
 
 @media only screen and (min-width: 820px) {
-    .uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose
-    > .uppy-Dashboard-inner {
-        animation: uppy-Dashboard-slideDownAndFadeIn 0.3s cubic-bezier(0, 0, 0.2, 1);
-    }
+  .uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose
+  > .uppy-Dashboard-inner {
+    animation: uppy-Dashboard-slideDownAndFadeIn 0.3s cubic-bezier(0, 0, 0.2, 1);
+  }
 
-    .uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing
-    > .uppy-Dashboard-inner {
-        animation: uppy-Dashboard-slideUpFadeOut 0.3s cubic-bezier(0, 0, 0.2, 1);
-    }
+  .uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing
+  > .uppy-Dashboard-inner {
+    animation: uppy-Dashboard-slideUpFadeOut 0.3s cubic-bezier(0, 0, 0.2, 1);
+  }
 
-    .uppy-Dashboard-inner {
-        width: 750px;
-        height: 550px;
-    }
+  .uppy-Dashboard-inner {
+    width: 750px;
+    height: 550px;
+  }
 
-    .uppy-Dashboard--modal .uppy-Dashboard-inner {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        box-shadow: 0 5px 15px 4px rgba(0, 0, 0, 0.15);
-    }
+  .uppy-Dashboard--modal .uppy-Dashboard-inner {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 5px 15px 4px rgba(0, 0, 0, 0.15);
+  }
 
-    .uppy-Dashboard-close {
-        font-size: 35px;
-        top: -10px;
-        right: -35px;
-    }
+  .uppy-Dashboard-close {
+    font-size: 35px;
+    top: -10px;
+    right: -35px;
+  }
 
-    .Upload {
-        padding-top: 100px;
-    }
+  .Upload {
+    /* padding-top:100px; */
+    max-width: 18%;
+  }
+
+}
+
+.Upload-publisher {
+  max-width: 25%;
 }
 
 /* Định dạng của container chứa icon và input */
 .input-container {
-    width: 60%;
+  width: 60%;
 }
+
 @media (min-width: 992px) {
   .input-container {
     width: 70%;
@@ -15816,7 +15819,7 @@ a.uppy-Dashboard-poweredBy {
 }
 
 .icon {
-    padding-left: 10px;
+  padding-left: 10px;
 }
 
 /* Định dạng của phần tử bao quanh cả icon và input */
@@ -15837,61 +15840,110 @@ a.uppy-Dashboard-poweredBy {
 
 /* Đảm bảo icon và combobox nằm cùng một hàng ngang */
 .input-group-prepend .input-group-text {
-    border-right: none !important;
-    padding: 0; /* Loại bỏ khoảng trống xung quanh icon */
+  border-right: none !important;
+  padding: 0; /* Loại bỏ khoảng trống xung quanh icon */
 }
 
 /* Điều chỉnh khoảng cách giữa icon và combobox */
 .select2 {
-    margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
+  margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
 }
 
+/* Định dạng phần phân trang - start */
+.flash-sale-page .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+/* Định dạng nút phân trang */
+.flash-sale-page .pagination .pagination-first a {
+  margin-left: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.flash-sale-page .pagination li a {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #adb5bd;
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+.flash-sale-page .pagination .pagination-last a {
+  margin-right: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.flash-sale-page .pagination li:not(.active):hover a {
+  background-color: rgb(237, 237, 237, 0.3);
+  color: #f8f9fa;
+}
+
+
+/* Định dạng nút trang hiện tại */
+.flash-sale-page .pagination .active a {
+  background-color: #62ab00;
+  border-color: #62ab00;
+  z-index: 3;
+  color: #f8f9fa;
+}
+
+/* Định dạng phần phân trang - end */
 /* Định dạng của container chứa icon và input */
 .input-container {
-    width: 60%;
+  width: 60%;
 }
 
 @media (min-width: 992px) {
-    .input-container {
-        width: 70%;
-    }
+  .input-container {
+    width: 70%;
+  }
 }
 
 .icon {
-    padding-left: 10px;
+  padding-left: 10px;
 }
 
 /* Định dạng của phần tử bao quanh cả icon và input */
 .input-wrapper {
-    border: 1px solid #ccc; /* Border cho phần tử bao quanh */
-    border-radius: 5px; /* Bo tròn viền */
-    display: flex;
-    align-items: center;
-    padding: 3px; /* Khoảng cách bên trong phần tử bao quanh */
+  border: 1px solid #ccc; /* Border cho phần tử bao quanh */
+  border-radius: 5px; /* Bo tròn viền */
+  display: flex;
+  align-items: center;
+  padding: 3px; /* Khoảng cách bên trong phần tử bao quanh */
 }
 
 /* Định dạng của input */
 .input {
-    border: none;
-    /* Loại bỏ border của input */
-    /* background-color: #495057; */
-    outline: none;
-    /* Loại bỏ border khi focus */
-    width: 100% !important;
-    /* Độ rộng của input */
+  border: none;
+  /* Loại bỏ border của input */
+  /* background-color: #495057; */
+  outline: none;
+  /* Loại bỏ border khi focus */
+  width: 100% !important;
+  /* Độ rộng của input */
 }
 
 /* Đảm bảo icon và combobox nằm cùng một hàng ngang */
 .input-group-prepend .input-group-text {
-    border-right: none !important;
-    padding: 0;
-    /* Loại bỏ khoảng trống xung quanh icon */
+  border-right: none !important;
+  padding: 0;
+  /* Loại bỏ khoảng trống xung quanh icon */
 }
 
 /* Điều chỉnh khoảng cách giữa icon và combobox */
 .select2 {
-    margin-left: 5px;
-    /* Điều chỉnh khoảng cách bên trái của combobox */
+  margin-left: 5px;
+  /* Điều chỉnh khoảng cách bên trái của combobox */
 }
 
 /* CUSTOM CSS FOR GREENHOUSE */
@@ -15916,82 +15968,11 @@ a.uppy-Dashboard-poweredBy {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #62ab00;
+  background: #62ab00;
 }
 
 /* End Thanh cuộn */
 /* CSS Invertory  */
-
-/* End Thanh cuộn */
-
-/* Định dạng nút phân trang */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-}
-
-.pagination .pagination-first a {
-    margin-left: 0;
-    border-top-left-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
-}
-
-.pagination li a {
-    position: relative;
-    display: block;
-    padding: 0.5rem 0.75rem;
-    margin-left: -1px;
-    line-height: 1.25;
-    color: #adb5bd;
-    background-color: transparent;
-    border: 1px solid transparent;
-    font-size: 1.1rem;
-    font-weight: 400;
-}
-
-.pagination .pagination-last a {
-    margin-right: 0;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
-}
-
-.pagination li:not(.active):hover a {
-    background-color: rgb(237, 237, 237, 0.3);
-    color: #f8f9fa;
-}
-
-
-/* Định dạng nút trang hiện tại */
-.pagination .active a {
-    background-color: #62ab00;
-    border-color: #62ab00;
-    z-index: 3;
-    color: #f8f9fa;
-}
-
-/* CSS cho mũi tên "previous" */
-.pagination .pagination-prev a::before {
-    content: '\276C'; /* Unicode ký tự mũi tên trái */
-}
-
-/* CSS cho mũi tên "next" */
-.pagination .pagination-next a::after {
-    content: '\276D'; /* Unicode ký tự mũi tên phải */
-}
-
-/* CSS cho mũi tên "first" */
-.pagination .pagination-first a::before {
-    content: '\2759\276E'; /* Unicode ký tự mũi tên trái */
-}
-
-/* CSS cho mũi tên "last" */
-.pagination .pagination-last a::after {
-    content: '\276F\2759'; /* Unicode ký tự mũi tên phải */
-}
 
 .inventory-table
 #inventoryModal
@@ -15999,9 +15980,9 @@ a.uppy-Dashboard-poweredBy {
 .search-box
 .form-modal-search
 button {
-    border: none;
-    background: none;
-    color: #8b8ba7;
+  border: none;
+  background: none;
+  color: #8b8ba7;
 }
 
 .inventory-table #inventoryModal .modal-body .search-box .form-modal-search {
@@ -16391,50 +16372,586 @@ button {
 
 /* Định dạng phần phân trang - start */
 .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
 }
 
 /* END */
+
+/* VOUCHER */
+.voucher-page #voucherModal .modal-body .border-product {
+  width: 95%;
+  margin: auto;
+  border-bottom-width: 1px;
+  border-bottom-color: #ededed;
+  border-bottom-style: solid;
+}
+
+.th-voucher {
+  white-space: nowrap;
+
 .table-hover-green tbody tr:hover {
-    background-color: #CCFFCC;
-    /* Màu nền hover mong muốn */
-    cursor: pointer; /* Biểu tượng chuột thay đổi thành con trỏ */
+  background-color: #CCFFCC;
+  /* Màu nền hover mong muốn */
+  cursor: pointer; /* Biểu tượng chuột thay đổi thành con trỏ */
 }
 
 .total-profit {
-    float: right;
-    margin-right: 50px;
+  float: right;
+  margin-right: 50px;
 }
 
 .body-profit {
-    padding: 0 10px 10px 10px; /* Padding top = 0px, Padding right = 10px, Padding bottom = 10px, Padding left = 10px */
+  padding: 0 10px 10px 10px; /* Padding top = 0px, Padding right = 10px, Padding bottom = 10px, Padding left = 10px */
 }
 
 .total {
-    float: right;
-    color: orangered;
-    margin-left: 20px;
+  float: right;
+  color: orangered;
+  margin-left: 20px;
+
+/* CSS MODAL Voucher */
+
+.voucher-page #voucherModal .modal-body .search-box .form-modal-search button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+
+.voucher-page #voucherModal .modal-body .search-box .form-modal-search {
+  --timing: 0.3s;
+  --width-of-input: 80%;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #2f2ee9;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg, #fff);
+}
+
+.voucher-page #voucherModal .modal-body .search-box .input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+
+.voucher-page #voucherModal .modal-body .search-box .form-modal-search:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+
+.voucher-page
+#voucherModal
+.modal-body
+.search-box
+.form-modal-search:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+.voucher-page #voucherModal .modal-body .search-box input:focus {
+  outline: none;
+}
+
+.voucher-page
+#voucherModal
+.modal-body
+.search-box
+.form-modal-search:focus-within:before {
+  transform: scale(1);
+}
+
+.voucher-page #voucherModal .modal-body .search-box .reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.voucher-page
+#voucherModal
+.modal-body
+.search-box
+input:not(:placeholder-shown)
+~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+
+.voucher-page #voucherModal .modal-body .search-box .form-modal-search svg {
+  width: 17px;
+  margin-top: 3px;
+}
+
+/* MODAL - CART PRODUCT LEFT - START*/
+.voucher-page #voucherModal .modal-body .selected-products {
+  position: relative;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.voucher-page #voucherModal .modal-body .product-cart-left {
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.voucher-page #voucherModal .modal-body .item-product-cart {
+  margin: 1rem 0.8rem;
+}
+
+.voucher-page #voucherModal .modal-body .group-product-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.voucher-page #voucherModal .modal-body .product-name-full-text {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.button-voucher {
+  text-align: right;
+  padding: 20px;
+}
+
+.table-voucher {
+  width: 100%;
+  border: solid 1px;
+}
+
+.voucher-page #voucherModal .modal-body .product-name-full-text {
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 18px;
+  display: inline-block;
+  color: #595959;
+}
+
+.voucher-page #voucherModal .modal-body .info-product-cart {
+  width: 100%;
+}
+
+.voucher-page #voucherModal .modal-body .info-product-cart .cart-item-price {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.voucher-page
+#voucherModal
+.modal-body
+.info-product-cart
+.cart-price
+.price-old
+.price {
+  font-size: 1em;
+}
+
+.voucher-page #voucherModal .modal-body .item-product-cart .btn-remove-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* SEARCH - BOX - START */
+/* PRODUCT - START */
+.voucher-page #voucherModal .modal-body .search-box .product-cart-left {
+  z-index: 10;
+  max-height: 150%;
+  width: 80%;
+  overflow: auto;
+  position: absolute !important;
+  bottom: 1px;
+  top: 50px;
+}
+
+.voucher-page
+#voucherModal
+.modal-body
+.search-box
+.product-cart-left
+.item-product-cart {
+  background: #eaeaea;
+  cursor: pointer;
+  margin: 0 0.8rem;
+  padding: 7px;
+}
+
+.voucher-page
+#voucherModal
+.modal-body
+.search-box
+.product-cart-left
+.item-product-cart
+.img-product-cart {
+  padding: 0;
+}
+
+.voucher-page
+#voucherModal
+.modal-body
+.search-box
+.product-cart-left
+.item-product-cart:hover {
+  background: #d5f5d6;
+}
+
+.voucher-page
+#voucherModal
+.modal-body
+.search-box
+.product-cart-left
+.group-product-info
+.info-product-cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .expense {
-    float: right;
-    color: #ff1a1a;
-    margin-left: 20px;
+  float: right;
+  color: #ff1a1a;
+  margin-left: 20px;
+
+/* PRODUCT - END */
+
+/*VoucherModal Product*/
+.voucher-page #voucherProduct .modal-body .border-product {
+  width: 95%;
+  margin: auto;
+  border-bottom-width: 1px;
+  border-bottom-color: #ededed;
+  border-bottom-style: solid;
 }
 
 .profit {
-    float: right;
-    color: #62ab00;
-    margin-left: 20px;
+  float: right;
+  color: #62ab00;
+  margin-left: 20px;
 }
 
 .table-hr {
-    border: 1px solid #000;
-    margin-bottom: 10px;
-    margin-top: 5px;
+  border: 1px solid #000;
+  margin-bottom: 10px;
+  margin-top: 5px;
 }
+
+.voucher-page #voucherProduct .modal-body .search-box .form-modal-search button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+
+.voucher-page #voucherProduct .modal-body .search-box .form-modal-search {
+  --timing: 0.3s;
+  --width-of-input: 80%;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #2f2ee9;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg, #fff);
+}
+
+.voucher-page #voucherProduct .modal-body .search-box .input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+
+.voucher-page #voucherProduct .modal-body .search-box .form-modal-search:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+
+.voucher-page
+#voucherProduct
+.modal-body
+.search-box
+.form-modal-search:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+.voucher-page #voucherProduct .modal-body .search-box input:focus {
+  outline: none;
+}
+
+.voucher-page
+#voucherProduct
+.modal-body
+.search-box
+.form-modal-search:focus-within:before {
+  transform: scale(1);
+}
+
+.voucher-page #voucherProduct .modal-body .search-box .reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.voucher-page
+#voucherProduct
+.modal-body
+.search-box
+input:not(:placeholder-shown)
+~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+
+.voucher-page #voucherProduct .modal-body .search-box .form-modal-search svg {
+  width: 17px;
+  margin-top: 3px;
+}
+
+.voucher-page #voucherProduct .modal-body .selected-products {
+  position: relative;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.voucher-page #voucherProduct .modal-body .product-cart-left {
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.voucher-page #voucherProduct .modal-body .item-product-cart {
+  margin: 1rem 0.8rem;
+}
+
+.voucher-page #voucherProduct .modal-body .group-product-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.voucher-page #voucherProduct .modal-body .product-name-full-text {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.voucher-page #voucherProduct .modal-body .product-name-full-text {
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 18px;
+  display: inline-block;
+  color: #595959;
+}
+
+.voucher-page #voucherProduct .modal-body .info-product-cart {
+  width: 100%;
+}
+
+.voucher-page #voucherProduct .modal-body .info-product-cart .cart-item-price {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.voucher-page
+#voucherProduct
+.modal-body
+.info-product-cart
+.cart-price
+.price-old
+.price {
+  font-size: 1em;
+}
+
+.voucher-page #voucherProduct .modal-body .item-product-cart .btn-remove-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* SEARCH - BOX - START */
+/* PRODUCT - START */
+.voucher-page #voucherProduct .modal-body .search-box .product-cart-left {
+  z-index: 10;
+  max-height: 150%;
+  width: 80%;
+  overflow: auto;
+  position: absolute !important;
+  top: 40%;
+}
+
+.voucher-page
+#voucherProduct
+.modal-body
+.search-box
+.product-cart-left
+.item-product-cart {
+  background: #eaeaea;
+  cursor: pointer;
+  margin: 0 0.8rem;
+  padding: 7px;
+}
+
+.voucher-page
+#voucherProduct
+.modal-body
+.search-box
+.product-cart-left
+.item-product-cart
+.img-product-cart {
+  padding: 0;
+}
+
+.voucher-page
+#voucherProduct
+.modal-body
+.search-box
+.product-cart-left
+.item-product-cart:hover {
+  background: #d5f5d6;
+}
+
+.voucher-page
+#voucherProduct
+.modal-body
+.search-box
+.product-cart-left
+.group-product-info
+.info-product-cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.voucher-page #voucherProduct .modal-body .border-product {
+  width: 95%;
+  margin: auto;
+  border-bottom-width: 1px;
+  border-bottom-color: #ededed;
+  border-bottom-style: solid;
+}
+
+/*VoucherModal Product end*/
+
+/* Định dạng của container chứa icon và input */
+
+@media (min-width: 992px) {
+  .input-container {
+    width: 70%;
+  }
+}
+
+.icon {
+  padding-left: 10px;
+}
+
+.voucher-page #voucherModal .modal-body .border-product {
+  width: 95%;
+  margin: auto;
+  border-bottom-width: 1px;
+  border-bottom-color: #ededed;
+  border-bottom-style: solid;
+}
+
+/*END VOUCHER */
+/* Định dạng phần phân trang - start */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+/* Định dạng nút phân trang */
+.pagination .pagination-first a {
+  margin-left: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.pagination li a {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #adb5bd;
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+.pagination .pagination-last a {
+  margin-right: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.pagination li:not(.active):hover a {
+  background-color: rgb(237, 237, 237, 0.3);
+  color: #f8f9fa;
+}
+
+
+/* Định dạng nút trang hiện tại */
+.pagination .active a {
+  background-color: #62ab00;
+  border-color: #62ab00;
+  z-index: 3;
+  color: #f8f9fa;
+}
+
+/* Định dạng phần phân trang - end */
+/* END */

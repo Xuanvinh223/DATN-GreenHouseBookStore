@@ -22,10 +22,9 @@
                   
                 </div>
                 <div class="button-add col-lg-3">
-                  <button type="button" class="btn btn-success ml-auto" data-toggle="modal"
-                    data-target="#addAuthorModal">
-                    Thêm thương hiệu
-                  </button>
+                    <a type="button" class="btn btn-success" href="#!/brand-form">
+                        Thêm thương hiệu
+                    </a>
                 </div>
               </div>
               <!-- table -->
@@ -33,7 +32,6 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>ID</th>
                     <th>Tên thương hiệu</th>
                     <th>Nơi xuất xứ</th>
                     <th>Hình ảnh Logo</th>
@@ -42,16 +40,11 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="brand in brands | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
-                    <td>{{$index + 1}}</td>
                     <td>{{brand.brandId}}</td>
                     <td>{{brand.brandName}}</td>
                     <td>{{brand.countryOfOrigin}}</td>
-                    <td>{{brand.logo}}</td>
-                    <!-- <td>
-                      <div class="avatar avatar-md">
-                        <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                      </div>
-                    </td> -->
+                    <td><img ng-src="/images/{{brand.logo}}" style="width: 50px; height: 50px; border-radius: 10%;">
+                    </td>
                     <td>
                         <a ng-click="editBrandAndRedirect(brand.brandId)"><i class="fe fe-edit fe-16"></i></a>
                         <a ng-click="deleteBrand(brand.brandId)">

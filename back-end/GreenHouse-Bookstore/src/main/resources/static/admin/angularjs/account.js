@@ -1,5 +1,4 @@
 app.controller("AccountController", function ($scope, $location, $routeParams, $http) {
-    // Thay đổi địa chỉ URL nếu cần
     $scope.editingAccounts = {};
     $scope.isEditing = false;
 
@@ -14,6 +13,7 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
     $scope.totalItems = $scope.accounts.length; // Tổng số mục
     $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
     $scope.reverseSort = false; // Sắp xếp tăng dần
+
     // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
     $scope.getNumOfPages = function () {
         return Math.ceil($scope.totalItems / $scope.itemsPerPage);
@@ -66,7 +66,6 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         $scope.setPage(1);
     };
 
-
     $scope.saveAccounts = function () {
         $scope.errorMessages = {
             username: '',
@@ -84,12 +83,12 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         var email = $scope.editingAccounts.email;
         var phone = $scope.editingAccounts.phone;
         var birthday = $scope.editingAccounts.birthday;
+
         // Kiểm tra xem các trường bắt buộc có được điền không
         if (!username) {
             $scope.errorMessages.username = 'Vui lòng không bỏ trống tên tài khoản';
             return;
         }
-
         if (!fullname) {
             $scope.errorMessages.fullname = 'Vui lòng không bỏ trống họ và tên';
             return;
@@ -144,8 +143,12 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             $scope.errorMessages.email = 'Địa chỉ email không hợp lệ';
             return;
         }
-        if ($scope.checkDuplicateUsername(username) || $scope.checkDuplicateEmail(email)) {
-            return; // Hiển thị thông báo lỗi đã tồn tại
+
+        if (!$scope.isEditing) {
+            // Kiểm tra trùng username chỉ khi thêm mới
+            if ($scope.checkDuplicateUsername(username)) {
+                return; // Hiển thị thông báo lỗi đã tồn tại
+            }
         }
 
         if (fileInput && fileInput.files.length > 0) {
@@ -223,7 +226,7 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         $http
             .get(url)
             .then(function (resp) {
-                $scope.editingAccounts = angular.copy(resp.data);
+                $scope.editiRedirectngAccounts = angular.copy(resp.data);
                 $scope.isEditing = true;
 
                 // Chuyển hướng đến trang chỉnh sửa thông tin tài khoản và truyền dữ liệu tài khoản.
@@ -232,7 +235,7 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
                     .path("/account-form")
                     .search({
                         id: username,
-                        data: angular.toJson(resp.data)
+                        data: resp.data
                     });
             })
             .catch(function (error) {
@@ -245,6 +248,7 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         // Parse dữ liệu từ tham số data và gán vào editingAccount.
         $scope.editingAccounts = angular.fromJson($routeParams.data);
         $scope.isEditing = true;
+
     }
 
     $scope.deleteAccounts = function (username) {
@@ -289,8 +293,18 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
     };
 
     $scope.resetForm = function () {
+        // Kiểm tra xem có tham số "id" và "data" trong URL không, và nếu có thì xóa chúng
+        if ($location.search().id || $location.search().data) {
+            $location.search('id', null);
+            $location.search('data', null);
+        }
+
+        // Gán giá trị cho editingBrand và isEditing
         $scope.editingAccounts = {};
         $scope.isEditing = false;
+
+        // Chuyển hướng lại đến trang /brand-form
+        $location.path('/account-form');
         $scope.clearImage();
     };
 
