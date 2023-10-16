@@ -1,31 +1,21 @@
 package com.greenhouse.model;
 
-import java.io.Serializable;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import lombok.Data;
+import jakarta.persistence.*;
 
 @Entity
+@Data
 @Table(name = "Voucher_Mapping_Product")
-public class VoucherMappingProduct implements Serializable {
+public class VoucherMappingProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private int Id;
 
-    @ManyToOne
-    @JoinColumn(name = "Voucher_Id")
-    private Vouchers voucher;
+    @Column(name = "Voucher_Id")
+    private int voucherId;
 
-    @ManyToOne
-    @JoinColumn(name = "Product_Detail_Id")
-    private Product_Detail productDetail;
-
+    @Column(name = "Product_Detail_Id", length = 30)
+    private String productDetailId;
 }
