@@ -20565,7 +20565,7 @@ input[type=number] {
 }
 
 .bg-shade-whisper {
-  background: #EDEDED;
+  background-image: url(http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/02/bg_brick.jpg);
 }
 
 .bg-pink {
@@ -23410,7 +23410,7 @@ font-size:0.9rem;
 }
 @media (min-width: 1200px) {
   .hero-area .home-content h1 {
-    font-size: 45px;
+    font-size: 40px;
   }
 }
 @media (min-width: 1600px) {
@@ -23440,12 +23440,13 @@ font-size:0.9rem;
 }
 @media (min-width: 992px) {
   .hero-area .home-content h2 {
-    font-size: 22px;
+    font-size: 20px;
   }
 }
 @media (min-width: 1200px) {
   .hero-area .home-content h2 {
-    font-size: 30px;
+    font-size: 22px;
+  }
   }
 }
 @media (min-width: 1600px) {
@@ -23475,7 +23476,7 @@ font-size:0.9rem;
     font-size: 15px;
   }
 }
-.hero-area .home-content .hero-partial-image {
+.hero-area .home-content  .hero-partial-image{
   position: relative;
   margin-bottom: 10px;
   width: 70%;
@@ -23592,6 +23593,7 @@ font-size:0.9rem;
     padding-left: 85px;
   }
 }
+
 .hero-area.hero-slider-2 .home-content {
   min-height: 330px;
 }
@@ -23643,13 +23645,13 @@ font-size:0.9rem;
 }
 @media (min-width: 576px) {
   .hero-area.hero-slider-2 .home-content h2 {
-    font-size: 62px;
+    font-size: 60px;
   }
 }
 .hero-area.hero-slider-2 .home-content h2.h2-v2 {
   letter-spacing: 0px;
   font-weight: 900;
-  font-size: 25px;
+  font-size: 20px;
 }
 @media (min-width: 480px) {
   .hero-area.hero-slider-2 .home-content h2.h2-v2 {
@@ -23917,7 +23919,7 @@ font-size:0.9rem;
   margin-right: 10px;
 }
 .hero-products-group-slider .product-card .card-image {
-  width: 135px;
+  width: 130px;
 }
 
 [class*=hero-slider-] .single-slide {

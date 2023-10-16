@@ -211,10 +211,10 @@
               <!-- Kiểm tra nếu người dùng có vai trò 'ADMIN' -->
               <div ng-if="isAdmin">
                 <button type="button" ng-click="admin()" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-cogs"></i> <span>Quản lý</span>
+                  <i class="fas fa-cogs"></i> <span>Trang Admin</span>
                 </button>
                 <a href="/#" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-file-alt"></i> <span>Báo cáo</span>
+                  <i class="fas fa-user-edit"></i> <span>Tài Khoản</span>
                 </a>
                 <button type="button" ng-click="logout()" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span>
@@ -285,7 +285,7 @@
 
   <div class="site-wrapper" id="top">
     <th-block th:fragment="menu">
-      <div class="site-header header-2 mb--20 d-none d-lg-block">
+      <div class="site-header header-2  d-none d-lg-block">
         <div class="header-bottom bg-primary">
           <div class="container">
             <div class="row align-items-center">
@@ -421,23 +421,23 @@
               <div class="col-lg-9">
                 <div class="main-navigation flex-lg-right">
                   <ul class="main-menu menu-right main-menu--white  li-last-0">
-                    <li class="menu-item has-children">
+                    <li class="menu-item ">
                       <a href="/index">Trang Chủ </a>
                     </li>
                     <!-- Shop -->
-                    <li class="menu-item has-children ">
+                    <li class="menu-item">
 
                       <a href="/product">Sản Phẩm </a>
 
                     </li>
-                    <li class="menu-item  has-children">
+                    <li class="menu-item">
                       <a href="/flash-sale">Ưu Đãi</a>
                     </li>
 
-                    <li class="menu-item  has-children">
+                    <li class="menu-item">
                       <a href="/voucher">Mã Khuyến Mãi</a>
                     </li>
-                    <li class="menu-item  has-children">
+                    <li class="menu-item">
                       <a href="/contact">Liên Hệ</a>
                     </li>
                   </ul>
@@ -617,11 +617,11 @@
             <div class="col-lg-8">
               <div class="main-navigation flex-lg-right">
                 <ul class="main-menu menu-right ">
-                  <li class="menu-item has-children">
+                  <li class="menu-item">
                     <a href="/index">Trang Chủ </a>
                   </li>
                   <!-- Shop -->
-                  <li class="menu-item has-children">
+                  <li class="menu-item">
                     <a href="/product">Sản Phẩm </a>
                   </li>
                   <li class="menu-item">
@@ -724,6 +724,7 @@
       <script th:src="@{/client/js/code.js}"></script>
       <!-- Controller -->
       <script th:src="@{/client/controller/app.js}"></script>
+      <script th:src="@{/client/controller/index.js}"></script>
       <script th:src="@{/client/controller/account-controller.js}"></script>
       <script th:src="@{/client/controller/authenticate.js}"></script>
       <script th:src="@{/client/controller/signin.js}"></script>

@@ -1,91 +1,68 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+    th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 
 <head>
     <title>Trang chủ</title>
 </head>
-<main id="layout">
-    <section class="hero-area hero-slider-2 mt-3">
-        <div class="container">
-            <div class="row align-items-lg-center">
-                <div class="col-lg-8">
-                    <div class="sb-slick-slider" data-slick-setting='{
-                                                                              "autoplay": true,
-                                                                              "autoplaySpeed": 8000,
-                                                                              "slidesToShow": 1,
-                                                                              "dots":true
-                                                                              }'>
-                        <div class="single-slide bg-image bg-position-left bg-position-lg-center"
-                            data-bg="https://htmldemo.net/pustok/pustok/image/bg-images/home-4-slider-1.jpg"
-                            style="width: 100%;display: inline-block;background-image: url(&quot;https://htmldemo.net/pustok/pustok/image/bg-images/home-4-slider-1.jpg&quot;);">
-                            <div class="home-content text-left text-md-center pl--30 pl-md--0">
-                                <div class="row">
-                                    <div class="col-lg-7 col-xl-5 col-md-6 col-sm-6">
-                                        <span class="title-small">Beautifully Designed</span>
-                                        <h2>INSTA</h2>
-                                        <p>Cover up front of book and
-                                            <br>leave summary
-                                        </p>
-                                        <a href="shop-grid.html" class="btn btn-outlined--primary">
-                                            Shop Now
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+<main id="layout" ng-controller="indexClientController">
+    <!--=================================  Hero Area  ===================================== -->
+    <section class="hero-area hero-slider-1">
+        <div class="sb-slick-slider" data-slick-setting='{
+                            "autoplay": true,
+                            "fade": true,
+                            "autoplaySpeed": 3000,
+                            "speed": 3000,
+                            "slidesToShow": 1,
+                            "dots":true
+                            }'>
+            <div class="single-slide bg-shade-whisper  ">
+                <div class="container">
+                    <div class="home-content text-center text-sm-left position-relative">
+                        <div class="hero-partial-image image-right">
+                            <img src="https://bookworm.madrasthemes.com/wp-content/uploads/2020/08/img1-14.png" alt="">
                         </div>
-                        <div class="single-slide bg-image" data-bg="/client/image/bg-images/home-2-slider-2.webp"
-                            style="width: 100%;display: inline-block;background-image: url(&quot;/client/image/bg-images/home-2-slider-2.webp&quot;);">
-                            <div class="home-content pl--30">
-                                <div class="row">
-                                    <div class="col-lg-7">
-                                        <span class="title-mid">Book Mockup</span>
-                                        <h2 class="h2-v2">Hardcover.</h2>
-                                        <p>Cover up front of book and
-                                            <br>leave summary
-                                        </p>
-                                        <a href="shop-grid.html" class="btn btn-outlined--primary" tabindex="0">
-                                            Shop Now
-                                        </a>
-                                    </div>
+                        <div class="row g-0">
+                            <div class="col-xl-6 col-md-6 col-sm-7">
+                                <div class="home-content-inner content-left-side text-start">
+                                    <h1>Nhận khuyến mãi  <br> đặc biệt
+                                      </h1>
+                                    <h2> Tất cả sách hiện đang được giảm giá 50%!</h2>
+                                    <a href="" class="btn btn-outlined--primary">
+                                       Xem Thêm!
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mt--30 mt-lg--0">
-                    <div class="sb-slick-slider hero-products-group-slider product-border-reset" data-slick-setting='{
-                                          "autoplay": true,
-                                          "autoplaySpeed": 8000,
-                                          "slidesToShow": 1,
-                                          "rows":2
-                                      }' data-slick-responsive='[
-                                          {"breakpoint":992, "settings": {"slidesToShow": 2,"rows":2} },
-                                          {"breakpoint":768, "settings": {"slidesToShow": 1} },
-                                       {"breakpoint":490, "settings": {"slidesToShow": 1} }
-                                  ]'>
-                        <div class="single-slide">
-    
-                            <div class="card-image1">
-                                <img src="/client/image/bg-images/promo-banner-with-text-2.webp" alt="">
-                            </div>
-    
-    
+            </div>
+            <div class="single-slide bg-shade-whisper">
+                <div class="container">
+                    <div class="home-content text-center text-sm-left position-relative">
+                        <div class="hero-partial-image image-left" >
+                            <img src="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/Book2-Cover-Mockup-S32EJNB.png" 
+                            alt="" class=" image-slideshow">
                         </div>
-                        <div class="single-slide">
-    
-                            <div class="card-image1">
-                                <img src="/client/image/bg-images/promo-banner-with-text.webp" alt="">
+                        <div class="row align-items-center justify-content-start justify-content-md-end">
+                            <div class="col-lg-6 col-xl-7 col-md-6 col-sm-7">
+                                <div class="home-content-inner content-right-side text-start">
+                                    <h1>Khám phá  <br>
+                                        những cuốn sách hay nhất trong ngày</h1>
+                                    <h2>"Những chuyến phiêu lưu đang chờ bạn trong mỗi trang sách."</h2>
+                                    <a href="" class="btn btn-outlined--primary">
+                                        Xem Thêm!
+                                    </a>
+                                </div>
                             </div>
-    
-    
                         </div>
-    
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <!--=================================  End Hero Area  ===================================== -->
+    <!--=================================  Flash Sale  ===================================== -->
     <section class="section-margin container">
         <div class="flashsale-header section-title--bordered">
             <!-- Start flashsale-header -->
@@ -105,7 +82,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
             <!-- Section flash sale-->
             <div class="flashsale-container pt-3">
                 <div class="shop-product-wrap grid-four row space-db--30 ">
-    
+
                     <div class="col-lg-4 col-sm-6">
                         <div class="product-card">
                             <div class="product-card--body">
@@ -122,7 +99,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                             <a href="wishlist.html" class="single-btn">
                                                 <i class="fas fa-heart"></i>
                                             </a>
-    
+
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
                                                 class="single-btn">
                                                 <i class="fas fa-eye"></i>
@@ -130,7 +107,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                         </div>
                                     </div>
                                 </div>
-    
+
                             </div>
                             <div class="price-block">
                                 <span class="price">100.000đ</span>
@@ -138,7 +115,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                 <span class="price-discount">20%</span>
                             </div>
                             <div class="product-header">
-    
+
                                 <h3><a href="product-details.html">Thỏ tám màu</a></h3>
                             </div>
                             <div class="progress">
@@ -163,7 +140,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                             <a href="wishlist.html" class="single-btn">
                                                 <i class="fas fa-heart"></i>
                                             </a>
-    
+
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
                                                 class="single-btn">
                                                 <i class="fas fa-eye"></i>
@@ -171,7 +148,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                         </div>
                                     </div>
                                 </div>
-    
+
                             </div>
                             <div class="price-block">
                                 <span class="price">100.000đ</span>
@@ -179,7 +156,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                 <span class="price-discount">20%</span>
                             </div>
                             <div class="product-header">
-    
+
                                 <h3><a href="product-details.html">Thỏ tám màu</a></h3>
                             </div>
                             <div class="progress">
@@ -204,7 +181,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                             <a href="wishlist.html" class="single-btn">
                                                 <i class="fas fa-heart"></i>
                                             </a>
-    
+
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
                                                 class="single-btn">
                                                 <i class="fas fa-eye"></i>
@@ -212,7 +189,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                         </div>
                                     </div>
                                 </div>
-    
+
                             </div>
                             <div class="price-block">
                                 <span class="price">100.000đ</span>
@@ -220,7 +197,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                 <span class="price-discount">20%</span>
                             </div>
                             <div class="product-header">
-    
+
                                 <h3><a href="product-details.html">Thỏ tám màu</a></h3>
                             </div>
                             <div class="progress">
@@ -245,7 +222,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                             <a href="wishlist.html" class="single-btn">
                                                 <i class="fas fa-heart"></i>
                                             </a>
-    
+
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
                                                 class="single-btn">
                                                 <i class="fas fa-eye"></i>
@@ -253,7 +230,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                         </div>
                                     </div>
                                 </div>
-    
+
                             </div>
                             <div class="price-block">
                                 <span class="price">100.000đ</span>
@@ -261,7 +238,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                 <span class="price-discount">20%</span>
                             </div>
                             <div class="product-header">
-    
+
                                 <h3><a href="product-details.html">Thỏ tám màu</a></h3>
                             </div>
                             <div class="progress">
@@ -286,7 +263,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                             <a href="wishlist.html" class="single-btn">
                                                 <i class="fas fa-heart"></i>
                                             </a>
-    
+
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
                                                 class="single-btn">
                                                 <i class="fas fa-eye"></i>
@@ -294,7 +271,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                         </div>
                                     </div>
                                 </div>
-    
+
                             </div>
                             <div class="price-block">
                                 <span class="price">100.000đ</span>
@@ -302,7 +279,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                 <span class="price-discount">20%</span>
                             </div>
                             <div class="product-header">
-    
+
                                 <h3><a href="product-details.html">Thỏ tám màu</a></h3>
                             </div>
                             <div class="progress">
@@ -327,7 +304,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                             <a href="wishlist.html" class="single-btn">
                                                 <i class="fas fa-heart"></i>
                                             </a>
-    
+
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
                                                 class="single-btn">
                                                 <i class="fas fa-eye"></i>
@@ -335,7 +312,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                         </div>
                                     </div>
                                 </div>
-    
+
                             </div>
                             <div class="price-block">
                                 <span class="price">100.000đ</span>
@@ -343,7 +320,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                 <span class="price-discount">20%</span>
                             </div>
                             <div class="product-header">
-    
+
                                 <h3><a href="product-details.html">Thỏ tám màu</a></h3>
                             </div>
                             <div class="progress">
@@ -368,7 +345,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                             <a href="wishlist.html" class="single-btn">
                                                 <i class="fas fa-heart"></i>
                                             </a>
-    
+
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
                                                 class="single-btn">
                                                 <i class="fas fa-eye"></i>
@@ -376,7 +353,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                         </div>
                                     </div>
                                 </div>
-    
+
                             </div>
                             <div class="price-block">
                                 <span class="price">100.000đ</span>
@@ -384,7 +361,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                 <span class="price-discount">20%</span>
                             </div>
                             <div class="product-header">
-    
+
                                 <h3><a href="product-details.html">Thỏ tám màu</a></h3>
                             </div>
                             <div class="progress">
@@ -398,39 +375,33 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
             <div class="center_center">
                 <a class="flashsale-xemthem" href="#!flash-sale">Xem thêm</a>
             </div>
-    
-    
+
+
         </div> <!-- End flashsale-container -->
-    
+
     </section>
+    <!--=================================  End Flash Sale  ===================================== -->
+    <!--=================================  Sản Phẩm Bán Chạy  ===================================== -->
     <section class="section-margin  container">
         <div class="container">
             <div class="flashsale-header section-title--bordered">
                 <!-- Start flashsale-header -->
-                <img src="https://cdn0.fahasa.com/skin/frontend/base/default/images/ico_dealhot.png" style="width: 25px; height: 25px;margin-left: 10px;">
+                <img src="https://cdn0.fahasa.com/skin/frontend/base/default/images/ico_dealhot.png"
+                    style="width: 25px; height: 25px;margin-left: 10px;">
                 <span class="flashsale-header-title" style="margin-right:5px">SẢN PHẨM BÁN CHẠY </span>
-    
+
             </div>
-    
-            <div class="product-slider sb-slick-slider pt-3" data-slick-setting='{
-                                "autoplay": true,
-                                "autoplaySpeed": 8000,
-                                "slidesToShow": 5,
-                                "dots":true
-                            }' data-slick-responsive='[
-                                {"breakpoint":1500, "settings": {"slidesToShow": 4} },
-                                {"breakpoint":992, "settings": {"slidesToShow": 3} },
-                                {"breakpoint":768, "settings": {"slidesToShow": 2} },
-                                {"breakpoint":480, "settings": {"slidesToShow": 1} },
-                                {"breakpoint":320, "settings": {"slidesToShow": 1} }
-                            ]'>
-                <div class="single-slide">
+
+            <div class="shop-product-wrap grid-four row space-db--30 mt--10 mb--30">
+
+                <div class="col-lg-4 col-sm-6" ng-repeat="item in sellingProducts">
                     <div class="product-card">
-    
                         <div class="product-card--body">
                             <div class="card-image">
-                                <img src="/client/image/img/search4.jpg" alt="">
+                                <img ng-src="{{item[5]}}"
+                                    alt="">
                                 <div class="hover-contents">
+
                                     <div class="hover-btns">
                                         <a href="cart.html" class="single-btn">
                                             <i class="fas fa-shopping-basket"></i>
@@ -438,14 +409,15 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                         <a href="wishlist.html" class="single-btn">
                                             <i class="fas fa-heart"></i>
                                         </a>
-    
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal" class="single-btn">
+
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
+                                            class="single-btn">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-    
+
                         </div>
                         <div class="price-block">
                             <span class="price">100.000đ</span>
@@ -453,230 +425,21 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                             <span class="price-discount">20%</span>
                         </div>
                         <div class="product-header">
-    
-                            <h3><a href="product-details.html">Thỏ tám màu</a></h3>
+
+                            <h3><a href="product-details.html">{{item[2]}}</a></h3>
                         </div>
-    
+
                     </div>
                 </div>
-                <div class="single-slide">
-                    <div class="product-card">
-    
-                        <div class="product-card--body">
-                            <div class="card-image">
-                                <img src="/client/image/img/search4.jpg" alt="">
-                                <div class="hover-contents">
-                                    <div class="hover-btns">
-                                        <a href="cart.html" class="single-btn">
-                                            <i class="fas fa-shopping-basket"></i>
-                                        </a>
-                                        <a href="wishlist.html" class="single-btn">
-                                            <i class="fas fa-heart"></i>
-                                        </a>
-    
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal" class="single-btn">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-    
-                        </div>
-                        <div class="price-block">
-                            <span class="price">100.000đ</span>
-                            <del class="price-old">100.000đ</del>
-                            <span class="price-discount">20%</span>
-                        </div>
-                        <div class="product-header">
-    
-                            <h3><a href="product-details.html">Thỏ tám màu</a></h3>
-                        </div>
-    
-                    </div>
-                </div>
-                <div class="single-slide">
-                    <div class="product-card">
-    
-                        <div class="product-card--body">
-                            <div class="card-image">
-                                <img src="/client/image/img/search4.jpg" alt="">
-                                <div class="hover-contents">
-                                    <div class="hover-btns">
-                                        <a href="cart.html" class="single-btn">
-                                            <i class="fas fa-shopping-basket"></i>
-                                        </a>
-                                        <a href="wishlist.html" class="single-btn">
-                                            <i class="fas fa-heart"></i>
-                                        </a>
-    
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal" class="single-btn">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-    
-                        </div>
-                        <div class="price-block">
-                            <span class="price">100.000đ</span>
-                            <del class="price-old">100.000đ</del>
-                            <span class="price-discount">20%</span>
-                        </div>
-                        <div class="product-header">
-    
-                            <h3><a href="product-details.html">Thỏ tám màu</a></h3>
-                        </div>
-    
-                    </div>
-                </div>
-                <div class="single-slide">
-                    <div class="product-card">
-    
-                        <div class="product-card--body">
-                            <div class="card-image">
-                                <img src="/client/image/img/search4.jpg" alt="">
-                                <div class="hover-contents">
-                                    <div class="hover-btns">
-                                        <a href="cart.html" class="single-btn">
-                                            <i class="fas fa-shopping-basket"></i>
-                                        </a>
-                                        <a href="wishlist.html" class="single-btn">
-                                            <i class="fas fa-heart"></i>
-                                        </a>
-    
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal" class="single-btn">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-    
-                        </div>
-                        <div class="price-block">
-                            <span class="price">100.000đ</span>
-                            <del class="price-old">100.000đ</del>
-                            <span class="price-discount">20%</span>
-                        </div>
-                        <div class="product-header">
-    
-                            <h3><a href="product-details.html">Thỏ tám màu</a></h3>
-                        </div>
-    
-                    </div>
-                </div>
-                <div class="single-slide">
-                    <div class="product-card">
-    
-                        <div class="product-card--body">
-                            <div class="card-image">
-                                <img src="/client/image/img/search4.jpg" alt="">
-                                <div class="hover-contents">
-                                    <div class="hover-btns">
-                                        <a href="cart.html" class="single-btn">
-                                            <i class="fas fa-shopping-basket"></i>
-                                        </a>
-                                        <a href="wishlist.html" class="single-btn">
-                                            <i class="fas fa-heart"></i>
-                                        </a>
-    
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal" class="single-btn">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-    
-                        </div>
-                        <div class="price-block">
-                            <span class="price">100.000đ</span>
-                            <del class="price-old">100.000đ</del>
-                            <span class="price-discount">20%</span>
-                        </div>
-                        <div class="product-header">
-    
-                            <h3><a href="product-details.html">Thỏ tám màu</a></h3>
-                        </div>
-    
-                    </div>
-                </div>
-                <div class="single-slide">
-                    <div class="product-card">
-    
-                        <div class="product-card--body">
-                            <div class="card-image">
-                                <img src="/client/image/img/search4.jpg" alt="">
-                                <div class="hover-contents">
-                                    <div class="hover-btns">
-                                        <a href="cart.html" class="single-btn">
-                                            <i class="fas fa-shopping-basket"></i>
-                                        </a>
-                                        <a href="wishlist.html" class="single-btn">
-                                            <i class="fas fa-heart"></i>
-                                        </a>
-    
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal" class="single-btn">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-    
-                        </div>
-                        <div class="price-block">
-                            <span class="price">100.000đ</span>
-                            <del class="price-old">100.000đ</del>
-                            <span class="price-discount">20%</span>
-                        </div>
-                        <div class="product-header">
-    
-                            <h3><a href="product-details.html">Thỏ tám màu</a></h3>
-                        </div>
-    
-                    </div>
-                </div>
-                <div class="single-slide">
-                    <div class="product-card">
-    
-                        <div class="product-card--body">
-                            <div class="card-image">
-                                <img src="/client/image/img/search4.jpg" alt="">
-                                <div class="hover-contents">
-                                    <div class="hover-btns">
-                                        <a href="cart.html" class="single-btn">
-                                            <i class="fas fa-shopping-basket"></i>
-                                        </a>
-                                        <a href="wishlist.html" class="single-btn">
-                                            <i class="fas fa-heart"></i>
-                                        </a>
-    
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal" class="single-btn">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-    
-                        </div>
-                        <div class="price-block">
-                            <span class="price">100.000đ</span>
-                            <del class="price-old">100.000đ</del>
-                            <span class="price-discount">20%</span>
-                        </div>
-                        <div class="product-header">
-    
-                            <h3><a href="product-details.html">Thỏ tám màu</a></h3>
-                        </div>
-    
-                    </div>
-                </div>
-    
+
             </div>
         </div>
-    
+
     </section>
+    <!--=================================  End Sản Phẩm Bán Chạy  ===================================== -->
+
     <section class="section-margin container mt-3">
         <div class="container">
-    
             <div class="flashsale-header ">
                 <!-- Start flashsale-header -->
                 <img src="https://cdn0.fahasa.com/media/wysiwyg/icon-menu/ico_flashsale@3x.png"
@@ -685,27 +448,27 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
             </div>
             <ul class="nav nav-pills mb-5 justify-content-md-left ml--10 pb-2 section-title--bordered" id="pills-tab"
                 role="tablist">
-    
+
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="shop-tab" data-bs-toggle="tab" href="#shop" role="tab"
                         aria-controls="shop" aria-selected="true">Parragon</button>
                 </li>
-    
+
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="men-tab" data-bs-toggle="tab" href="#men" role="tab" aria-controls="men"
-                        aria-selected="true">Photodune</button>
+                    <button class="nav-link" id="men-tab" data-bs-toggle="tab" href="#men" role="tab"
+                        aria-controls="men" aria-selected="true">Photodune</button>
                 </li>
-    
+
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="woman-tab" data-bs-toggle="tab" href="#woman" role="tab"
                         aria-controls="woman" aria-selected="false">Lunch</button>
                 </li>
-    
+
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane show active" id="shop" role="tabpanel" aria-labelledby="shop-tab">
                     <div class="shop-product-wrap grid-four row space-db--30 ">
-    
+
                         <div class="col-lg-4 col-sm-6">
                             <div class="product-card">
                                 <div class="product-card--body">
@@ -713,7 +476,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                         <img src="https://salt.tikicdn.com/cache/368x368/ts/product/f7/cc/86/823b2aca8b9f9d0791c5b9ba2781172e.jpg.webp"
                                             alt="">
                                         <div class="hover-contents">
-    
+
                                             <div class="hover-btns">
                                                 <a href="cart.html" class="single-btn">
                                                     <i class="fas fa-shopping-basket"></i>
@@ -721,7 +484,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                                 <a href="wishlist.html" class="single-btn">
                                                     <i class="fas fa-heart"></i>
                                                 </a>
-    
+
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
                                                     class="single-btn">
                                                     <i class="fas fa-eye"></i>
@@ -729,7 +492,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                             </div>
                                         </div>
                                     </div>
-    
+
                                 </div>
                                 <div class="price-block">
                                     <span class="price">100.000đ</span>
@@ -737,18 +500,18 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                     <span class="price-discount">20%</span>
                                 </div>
                                 <div class="product-header">
-    
+
                                     <h3><a href="product-details.html">Thỏ tám màu</a></h3>
                                 </div>
-    
+
                             </div>
                         </div>
-    
+
                     </div>
                 </div>
                 <div class="tab-pane" id="men" role="tabpanel" aria-labelledby="men-tab">
                     <div class="shop-product-wrap grid-four row space-db--30 ">
-    
+
                         <div class="col-lg-4 col-sm-6">
                             <div class="product-card">
                                 <div class="product-card--body">
@@ -756,7 +519,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                         <img src="https://nhasachphuongnam.com/images/thumbnails/500/500/detailed/258/cuon-so-mau.jpg"
                                             alt="">
                                         <div class="hover-contents">
-    
+
                                             <div class="hover-btns">
                                                 <a href="cart.html" class="single-btn">
                                                     <i class="fas fa-shopping-basket"></i>
@@ -764,7 +527,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                                 <a href="wishlist.html" class="single-btn">
                                                     <i class="fas fa-heart"></i>
                                                 </a>
-    
+
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
                                                     class="single-btn">
                                                     <i class="fas fa-eye"></i>
@@ -772,7 +535,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                             </div>
                                         </div>
                                     </div>
-    
+
                                 </div>
                                 <div class="price-block">
                                     <span class="price">100.000đ</span>
@@ -780,10 +543,10 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                     <span class="price-discount">20%</span>
                                 </div>
                                 <div class="product-header">
-    
+
                                     <h3><a href="product-details.html">Thỏ tám màu</a></h3>
                                 </div>
-    
+
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-6">
@@ -793,7 +556,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                         <img src="https://nhasachphuongnam.com/images/thumbnails/500/500/detailed/258/cuon-so-mau.jpg"
                                             alt="">
                                         <div class="hover-contents">
-    
+
                                             <div class="hover-btns">
                                                 <a href="cart.html" class="single-btn">
                                                     <i class="fas fa-shopping-basket"></i>
@@ -801,7 +564,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                                 <a href="wishlist.html" class="single-btn">
                                                     <i class="fas fa-heart"></i>
                                                 </a>
-    
+
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
                                                     class="single-btn">
                                                     <i class="fas fa-eye"></i>
@@ -809,7 +572,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                             </div>
                                         </div>
                                     </div>
-    
+
                                 </div>
                                 <div class="price-block">
                                     <span class="price">100.000đ</span>
@@ -817,7 +580,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                     <span class="price-discount">20%</span>
                                 </div>
                                 <div class="product-header">
-    
+
                                     <h3><a href="product-details.html">Thỏ tám màu</a></h3>
                                 </div>
                                 <div class="progress">
@@ -830,7 +593,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                 </div>
                 <div class="tab-pane" id="woman" role="tabpanel" aria-labelledby="woman-tab">
                     <div class="shop-product-wrap grid-four row space-db--30 ">
-    
+
                         <div class="col-lg-4 col-sm-6">
                             <div class="product-card">
                                 <div class="product-card--body">
@@ -838,7 +601,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                         <img src="https://nhasachphuongnam.com/images/thumbnails/500/500/detailed/257/muon-kiep-nhan-sinh-3-kho-nho.jpg"
                                             alt="">
                                         <div class="hover-contents">
-    
+
                                             <div class="hover-btns">
                                                 <a href="cart.html" class="single-btn">
                                                     <i class="fas fa-shopping-basket"></i>
@@ -846,7 +609,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                                 <a href="wishlist.html" class="single-btn">
                                                     <i class="fas fa-heart"></i>
                                                 </a>
-    
+
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
                                                     class="single-btn">
                                                     <i class="fas fa-eye"></i>
@@ -854,7 +617,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                             </div>
                                         </div>
                                     </div>
-    
+
                                 </div>
                                 <div class="price-block">
                                     <span class="price">100.000đ</span>
@@ -862,10 +625,10 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                     <span class="price-discount">20%</span>
                                 </div>
                                 <div class="product-header">
-    
+
                                     <h3><a href="product-details.html">Thỏ tám màu</a></h3>
                                 </div>
-    
+
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-6">
@@ -875,7 +638,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                         <img src="https://nhasachphuongnam.com/images/thumbnails/500/500/detailed/257/muon-kiep-nhan-sinh-3-kho-nho.jpg"
                                             alt="">
                                         <div class="hover-contents">
-    
+
                                             <div class="hover-btns">
                                                 <a href="cart.html" class="single-btn">
                                                     <i class="fas fa-shopping-basket"></i>
@@ -883,7 +646,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                                 <a href="wishlist.html" class="single-btn">
                                                     <i class="fas fa-heart"></i>
                                                 </a>
-    
+
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
                                                     class="single-btn">
                                                     <i class="fas fa-eye"></i>
@@ -891,21 +654,21 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                                             </div>
                                         </div>
                                     </div>
-    
+
                                 </div>
                                 <div class="price-block">
                                     <span class="price">100.000đ</span>
                                     <del class="price-old">100.000đ</del>
                                     <span class="price-discount">20%</span>
                                 </div>
-    
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    
+
     </section>
     <section class="mb--30">
         <div class="container">
@@ -1016,4 +779,5 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
         </div>
     </section>
 </main>
+
 </html>
