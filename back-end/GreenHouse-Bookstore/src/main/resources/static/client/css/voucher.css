@@ -965,9 +965,9 @@
 
 .progress {
     position: relative;
-    height: 10px;
+    height: 1em;
     border-radius: 15px;
-    background-color: rgba(190, 58, 40, 0.4);
+    background-color: rgba(125, 190, 40, 0.4);
     /* margin-left: 2%;
     margin-right: 2%; */
     width: 96%;
@@ -1163,93 +1163,6 @@
 
 .provider-silder.multiple-row .slick-dots {
     margin-top: 25px;
-}
-
-/*>>>>>>>> Sliders <<<<<<<<<*/
-/*===== Brand Slider ======*/
-.sb-slick-slider {
-    position: relative;
-}
-
-.sb-slick-slider .slick-dots {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-}
-
-.sb-slick-slider .slick-dots li {
-    font-size: 0;
-    width: 11px;
-    height: 11px;
-    border-radius: 100%;
-    background: #d3d3d3;
-    margin: 4px;
-    display: block;
-    opacity: 1;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.sb-slick-slider .slick-dots li.slick-active {
-    background: #62ab00;
-}
-
-.sb-slick-slider .slick-dots li button {
-    font-size: 0;
-}
-
-.sb-slick-slider .product-card.card-style-list {
-    -webkit-box-orient: horizontal !important;
-    -webkit-box-direction: normal !important;
-    -ms-flex-direction: row !important;
-    flex-direction: row !important;
-}
-
-/* .slider-single-row*/
-.slider-single-row .single-slide .provider-card--body {
-    position: relative;
-    padding: 1px;
-}
-
-.slider-single-row.single-slide .provider-card--body::before {
-    position: absolute;
-    content: "";
-    left: 0px;
-    top: 0;
-    height: 100%;
-    width: 1px;
-}
-
-.slider-single-row.single-slide.slick-current .provider-card--body::before {
-    height: 0%;
-}
-
-
-.slider-border-single-row.product-list-slider .provider-card--body::before {
-    height: 0;
-}
-
-.slider-border-single-row.product-list-slider .single-slide .product-card {
-    position: relative;
-    padding: 1px;
-}
-
-.slider-border-single-row.product-list-slider .single-slide .product-card::before {
-    position: absolute;
-    content: "";
-    background: #e5e5e5;
-    left: 0px;
-    top: 0;
-    height: 100%;
-    width: 1px;
-}
-
-.slider-border-single-row.product-list-slider .single-slide.slick-current .product-card::before {
-    height: 0%;
 }
 
 /*++ Product Cards ++*/

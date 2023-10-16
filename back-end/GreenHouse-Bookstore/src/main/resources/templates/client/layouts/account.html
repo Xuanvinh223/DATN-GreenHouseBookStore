@@ -224,25 +224,19 @@
                                                 <li
                                                         class="list-group-item d-flex justify-content-between align-items-center remove-bg">
                                                     <div>
-                                                        <strong class="font-weight-bold text-danger fs-3">Alex
-                                                            Tuntuni</strong> <br>
-                                                        <Strong>Quốc gia : </Strong> <label>Việt nam</label> <br>
-                                                        <Strong>Tỉnh/Thành phố : </Strong> <label>Cần thơ</label>
-                                                        <br>
-                                                        <Strong>Quận/Huyện : </Strong> <label>Cái răng</label> <br>
-                                                        <Strong>Xã/Phường : </Strong> <label>Hưng phú</label> <br>
-                                                        <Strong>Số điện thoại: </Strong> <label>0926546260</label>
-                                                        <br>
-                                                        <label>Địa chỉ thanh toán: 724 Tổ 9 Khu vực 1 Hưng phú Cái Răng
-                                                            Cần
-                                                            Thơ</label>
+                                                        <strong class="font-weight-bold text-primary fs-3">Địa
+                                                            chỉ</strong> <br>
+                                                        <Strong>Lâm Diễm Thúy |</strong> 0926546260<br>
+
+                                                        Đường 724 Tổ 9 Khu vực 1 Hưng phú Cái Răng
+                                                        Cần Thơ
                                                     </div>
                                                 </li>
-                                                <li
-                                                        class="list-group-item d-flex justify-content-between align-items-center remove-bg">
+                                                <!-- <li
+                                                    class="list-group-item d-flex justify-content-between align-items-center remove-bg">
                                                     <div>
                                                         <strong
-                                                                class="font-weight-bold text-danger fs-3 text-center">Alex
+                                                            class="font-weight-bold text-danger fs-3 text-center">Alex
                                                             Tuntuni</strong> <br>
                                                         <Strong>Quốc gia : </Strong> <label>Việt nam</label> <br>
                                                         <Strong>Tỉnh/Thành phố : </Strong> <label>Cần thơ</label>
@@ -255,7 +249,7 @@
                                                             Cần
                                                             Thơ</label>
                                                     </div>
-                                                </li>
+                                                </li> -->
                                             </ul>
                                         </div>
                                     </div>
@@ -374,7 +368,7 @@
                                                aria-describedby="fullnameHelp" ng-model="address.fullname"
                                                ng-required="reqFullname">
                                         <span class="require" ng-show="af.fullname.$error.required">Vui
-											lòng nhập họ và tên </span>
+                                            lòng nhập họ và tên </span>
                                     </div>
                                     <div class="form-group col-md-6 mb-2">
                                         <label for="phone" class="font-weight-bold text-dark">*Số
@@ -384,17 +378,17 @@
                                                aria-describedby="fullnameHelp" ng-model="address.phone" maxlength="10"
                                                ng-required="reqPhone" ng-attr-phone="reqPhone">
                                         <span class="require" ng-show="af.phone.$error.required">Vui
-											lòng
-											nhập số điện thoại</span>
+                                            lòng
+                                            nhập số điện thoại</span>
                                         <span class="require" ng-show="af.phone.$error.phone">Số
-											điện thoại
-											không đúng định dạng</span>
+                                            điện thoại
+                                            không đúng định dạng</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12"> <span type="button" class="font-weight-bold text-dark"
                                                                   ng-show="update">Địa
-											chỉ: {{updateForm.address}}</spna>
+                                            chỉ: {{updateForm.address}}</spna>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -408,7 +402,7 @@
                                                     ng-options="y.code as y.name for y in provinceList"
                                                     ng-change="getdistrict()" ng-required="reqProvince"></select>
                                             <span class="require" ng-show="af.province.$error.required">Vui
-												lòng chọn tỉnh</span>
+                                                lòng chọn tỉnh</span>
                                         </div>
                                     </div>
                                     <div class="form-group col-12 col-md-4">
@@ -421,7 +415,7 @@
                                                     ng-required="reqDistrict">
                                             </select>
                                             <span class="require" ng-show="af.district.$error.required">Vui
-												lòng chọn Huyện</span>
+                                                lòng chọn Huyện</span>
                                         </div>
                                     </div>
                                     <div class="form-group col-12 col-md-4">
@@ -434,7 +428,7 @@
                                                     ng-required="reqWard" ng-change="refeshList()">
                                             </select>
                                             <span class="require" ng-show="af.ward.$error.required">Vui
-												lòng chọn Xã</span>
+                                                lòng chọn Xã</span>
                                         </div>
                                     </div>
                                 </div>
@@ -446,7 +440,7 @@
                                                   ng-model="address.adr" name="adr" id="adr"
                                                   ng-required="reqAdr"></textarea>
                                         <span class="require" ng-show="af.adr.$error.required">Vui
-											lòng nhập địa chỉ cụ thể</span>
+                                            lòng nhập địa chỉ cụ thể</span>
                                     </div>
 
                                 </div>
