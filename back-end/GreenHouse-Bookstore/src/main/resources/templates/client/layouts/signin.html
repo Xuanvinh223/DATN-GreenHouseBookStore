@@ -75,24 +75,24 @@
             </div>
             <div>
               <ul>
-                <li ng-class="{'text-success': passwordErrors.minLength, 'text-danger': !passwordErrors.minLength}">
-                  Có ít nhất 8 kí tự.
+                <li ng-if="!passwordErrors.minLength" class="text-danger">
+                    Có ít nhất 8 kí tự.
                 </li>
-                <li ng-class="{'text-success': passwordErrors.lowercase, 'text-danger': !passwordErrors.lowercase}">
-                  Chứa ít nhất một chữ cái viết thường (a-z).
-                </li>
-                <li ng-class="{'text-success': passwordErrors.uppercase, 'text-danger': !passwordErrors.uppercase}">
-                  Chứa ít nhất một chữ cái viết hoa (A-Z).
-                </li>
-                <li ng-class="{'text-success': passwordErrors.number, 'text-danger': !passwordErrors.number}">
-                  Chứa ít nhất một số (0-9).
-                </li>
-                <li ng-class="{'text-success': passwordErrors.specialCharacter, 'text-danger': !passwordErrors.specialCharacter}">
-                  Chứa ít nhất một ký tự đặc biệt (@, #, $, %, ^, &, +, =, !).
-                </li>
-                <li ng-class="{'text-success': passwordErrors.noSpace, 'text-danger': !passwordErrors.noSpace}">
-                  Không chứa khoảng trắng (dấu cách, tab, v.v.).
-                </li>
+                  <li ng-if="!passwordErrors.lowercase" class="text-danger">
+                      Chứa ít nhất một chữ cái viết thường (a-z).
+                  </li>
+                  <li ng-if="!passwordErrors.uppercase" class="text-danger">
+                      Chứa ít nhất một chữ cái viết hoa (A-Z).
+                  </li>
+                  <li ng-if="!passwordErrors.number" class="text-danger">
+                      Chứa ít nhất một số (0-9).
+                  </li>
+                  <li ng-if="!passwordErrors.specialCharacter" class="text-danger">
+                      Chứa ít nhất một ký tự đặc biệt (@, #, $, %, ^, &, +, =, !).
+                  </li>
+                  <li ng-if="!passwordErrors.noSpace" class="text-danger">
+                      Không chứa khoảng trắng (dấu cách, tab, v.v.).
+                  </li>
               </ul>
             </div>
 
