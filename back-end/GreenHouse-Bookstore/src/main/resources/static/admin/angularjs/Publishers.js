@@ -342,7 +342,7 @@ function PublishersController($scope, $location, $routeParams, $http) {
   };
 
   // Làm mới form
-    $scope.resetForm = function () {.
+    $scope.resetForm = function () {
         $scope.editingPublisher = {};
         $scope.isEditing = false;
         $scope.clearImage(); // Xóa ảnh đại diện khi làm mới form
