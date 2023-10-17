@@ -162,17 +162,16 @@
             </a>
             <!-- Model cart -->
             <div class="top-dropdown">
-              <div class=" single-cart-block ">
-                <div class="cart-product">
+              <div class="single-cart-block">
+                <div class="cart-product mb-3 mt-3" ng-repeat="cart in listCartHeader track by $index">
                   <a href="product-details.html" class="image">
-                    <img src="/client/image/products/cart-product-1.jpg" alt="">
+                    <img src="{{cart.productDetails.image}}" alt="">
                   </a>
                   <div class="content">
-                    <h3 class="title"><a href="product-details.html">Kodak PIXPRO
-                        Astro Zoom AZ421 16 MP</a>
+                    <h3 class="title"><a href="">{{cart.productDetail.product.productName}}</a>
                     </h3>
-                    <p class="price"><span class="qty">1 ×</span> £87.34</p>
-                    <button class="cross-btn"><i class="fas fa-times"></i></button>
+                    <p class="price"><span class="qty">{{cart.quantity}} ×</span> {{(cart.priceDiscount > 0 ?
+                      cart.priceDiscount : cart.price) | number:'0'}}</p>
                   </div>
                 </div>
               </div>
@@ -204,6 +203,9 @@
                 </a>
                 <a href="/#" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-file-alt"></i> <span>Đơn hàng của tôi</span>
+                </a>
+                <a href="/change-password" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-file-alt"></i> <span>Đổi mật khẩu</span>
                 </a>
                 <button type="button" ng-click="logout()" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span>
@@ -732,6 +734,9 @@
     <script th:src="@{/client/controller/signin.js}"></script>
     <script th:src="@{/client/controller/checkout.js}"></script>
     <script th:src="@{/client/controller/header.js}"></script>
+    <script th:src="@{/client/controller/product-page.js}"></script>
+    <script th:src="@{/client/controller/cart.js}"></script>
+    <script th:src="@{/client/controller/index.js}"></script>
   </th-block>
 </body>
 

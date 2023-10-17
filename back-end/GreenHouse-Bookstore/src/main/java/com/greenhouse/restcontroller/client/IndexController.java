@@ -21,7 +21,6 @@ public class IndexController {
     public ResponseEntity<Map<String, Object>> getDataIndex() {
         Map<String, Object> resp = new HashMap<>();
 
-       
         List<Object[]> sellingProducts = productsReps.SellingProduct();
 
         // Xử lý dữ liệu và thêm vào resp

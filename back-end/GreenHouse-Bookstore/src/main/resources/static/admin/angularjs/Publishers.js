@@ -1,147 +1,81 @@
 app.controller("PublishersController", PublishersController);
 
 function PublishersController($scope, $location, $routeParams, $http) {
-  let host = "http://localhost:8081/rest/publishers";
   $scope.$on('$routeChangeSuccess', function (event, current, previous) {
     $scope.page.setTitle(current.$$route.title || ' Quản Lý nhà xuất bản');
+      $scope.loadPublishers();
   });
 
-  $scope.editingPublisher = {};
-  $scope.isEditing = false;
-  $scope.publishers = [];
+    $scope.editingPublisher = {};
+    $scope.isEditing = false;
+    $scope.publishers = [];
+    $scope.searchText = "";
 
-  $scope.sortField = null;
-  $scope.reverseSort = false;
-  // Khai báo danh sách tùy chọn cho số mục trên mỗi trang
-  $scope.itemsPerPageOptions = [5, 12, 24, 32, 64, 128];
-  $scope.selectedItemsPerPage = 5; // Khởi tạo giá trị mặc định cho số mục trên mỗi trang
+    // Khai báo danh sách tùy chọn cho số mục trên mỗi trang
+    $scope.itemsPerPageOptions = [5, 12, 24, 32, 64, 128];
+    let host = "http://localhost:8081/rest/publishers";
+    $scope.selectedItemsPerPage = 5; // Khởi tạo giá trị mặc định cho số mục trên mỗi trang
+    $scope.currentPage = 1; // Trang hiện tại
+    $scope.itemsPerPage = 5; // Số mục hiển thị trên mỗi trang
+    $scope.totalItems = $scope.publishers.length; // Tổng số mục
+    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
+    $scope.reverseSort = false; // Sắp xếp tăng dần
 
-  // Load danh sách nhà xuất bản
-  $scope.loadPublishers = function () {
-    var url = `${host}`;
-    $http.get(url)
-      .then(function (resp) {
-        $scope.publishers = resp.data;
+    // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
+    $scope.getNumOfPages = function () {
+        return Math.ceil($scope.totalItems / $scope.itemsPerPage);
+    };
 
-        $scope.totalItems = $scope.publishers.length;
+    // Hàm chuyển đổi trang
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
 
-        $scope.data = resp.data;
+    $scope.calculateRange = function () {
+        var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage + 1;
+        var endIndex = $scope.currentPage * $scope.itemsPerPage;
 
-        // Số mục trên mỗi trang
-        $scope.itemsPerPage = 5;
-        // Tính toán tổng số mục
-        $scope.totalItems = $scope.data.length;
-        // Trang hiện tại
-        $scope.currentPage = 1;
-
-        // Tính toán số trang
-        $scope.pageCount = Math.ceil($scope.data.length / $scope.itemsPerPage);
-
-        // Cập nhật danh sách mục trang hiện tại khi trang thay đổi
-        $scope.$watch('currentPage + selectedItemsPerPage', function () {
-          var begin = ($scope.currentPage - 1) * $scope.selectedItemsPerPage;
-          var end = begin + $scope.selectedItemsPerPage;
-          $scope.publishers = $scope.data.slice(begin, end);
-        });
-
-        $scope.showLastDots = true; // Biến trạng thái để kiểm soát hiển thị dấu chấm "..." hoặc nút "Last"
-
-        $scope.firstPage = function () {
-          if ($scope.currentPage > 1) {
-            $scope.currentPage = 1;
-            $scope.showLastDots = true;
-            updateVisiblePages();
-          }
-        };
-
-        $scope.prevPage = function () {
-          if ($scope.currentPage > 1) {
-            $scope.currentPage--;
-            $scope.showLastDots = true;
-            updateVisiblePages();
-          }
-        };
-
-        $scope.nextPage = function () {
-          if ($scope.currentPage < $scope.pageCount) {
-            $scope.currentPage++;
-            $scope.showLastDots = true;
-            updateVisiblePages();
-          }
-        };
-
-        $scope.lastPage = function () {
-          if ($scope.currentPage < $scope.pageCount) {
-            $scope.currentPage = $scope.pageCount;
-            $scope.showLastDots = false;
-            updateVisiblePages();
-          }
-        };
-
-        // Đặt trang hiện tại
-        $scope.setPage = function (page) {
-          $scope.currentPage = page;
-          updateVisiblePages();
-        };
-
-        // Cập nhật danh sách trang hiển thị
-        function updateVisiblePages() {
-          var totalPages = $scope.pageCount;
-          var currentPage = $scope.currentPage;
-          var visiblePageCount = 3; // Số trang bạn muốn hiển thị
-          var startPage, endPage;
-
-          if (totalPages <= visiblePageCount) {
-            startPage = 1;
-            endPage = totalPages;
-          } else {
-            if (currentPage <= Math.ceil(visiblePageCount / 2)) {
-              startPage = 1;
-              endPage = visiblePageCount;
-            } else if (currentPage + Math.floor(visiblePageCount / 2) > totalPages) {
-              startPage = totalPages - visiblePageCount + 1;
-              endPage = totalPages;
-            } else {
-              startPage = currentPage - Math.floor(visiblePageCount / 2);
-              endPage = currentPage + Math.floor(visiblePageCount / 2);
-            }
-          }
-
-          $scope.visiblePages = [];
-          for (var i = startPage; i <= endPage; i++) {
-            $scope.visiblePages.push(i);
-          }
+        if (endIndex > $scope.totalItems) {
+            endIndex = $scope.totalItems;
         }
 
-        // Ban đầu, cập nhật danh sách trang hiển thị
-        updateVisiblePages();
-
-        $scope.onItemsPerPageChange = function () {
-          // Cập nhật số lượng phần tử trên mỗi trang
-          $scope.itemsPerPage = $scope.selectedItemsPerPage;
-          // Tính toán lại số trang dựa trên số lượng phần tử mới
-          $scope.pageCount = Math.ceil($scope.data.length / $scope.itemsPerPage);
-          // Đặt lại trang hiện tại về 1
-          $scope.currentPage = 1;
-          // Cập nhật danh sách trang hiển thị
-          updateVisiblePages();
-
-        };
-        console.log("Success", resp)
-      }).catch(error => {
-        console.log("Error", error);
-      });
-  }
-
-
-  // Lưu thông tin nhà xuất bản
-  $scope.savePublisher = function (publisherId) {
-    $scope.errorMessages = {
-      publisherId: '',
-      publisherName: '',
-      address: '',
-      email: ''
+        return startIndex + ' đến ' + endIndex + ' trên tổng số ' + $scope.totalItems + ' mục';
     };
+
+    $scope.loadPublishers = function () {
+        var url = `${host}`;
+        $http.get(url).then(resp => {
+            $scope.originalPublishers = $scope.publishers;
+            $scope.publishers = resp.data;
+            console.log("success", resp.data);
+            $scope.totalItems = $scope.publishers.length;
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    }
+
+    $scope.searchData = function () {
+        // Lọc danh sách gốc bằng searchText
+        $scope.publishers = $scope.originalPublishers.filter(function (publisher) {
+            // Thực hiện tìm kiếm trong các thuộc tính cần thiết của item
+            return (
+                publisher.publisherId.toString().includes($scope.searchText) || publisher.publisherName.toLowerCase().includes($scope.searchText.toLowerCase()) || publisher.email.toString().includes($scope.searchText)
+            );
+        });
+        $scope.totalItems = $scope.searchText ? $scope.publishers.length : $scope.originalPublishers.length;
+        ;
+        $scope.setPage(1);
+    };
+
+
+    // Lưu thông tin nhà xuất bản
+    $scope.savePublisher = function (publisherId) {
+        $scope.errorMessages = {
+            publisherId: '',
+            publisherName: '',
+            address: '',
+            email: ''
+        };
 
     var formData = new FormData();
     var fileInput = document.getElementById("fileInput");
@@ -372,19 +306,33 @@ function PublishersController($scope, $location, $routeParams, $http) {
                 text: `Nhà xuất bản mã "${publisherId}" đang được sử dụng và không thể xóa.`,
               });
             } else {
-              Swal.fire({
-                icon: "error",
-                title: "Thất bại",
-                text: `Xóa nhà xuất bản "${publisherId}" thất bại`,
-              });
+                Swal.fire({
+                    icon: "error",
+                    title: "Thất bại",
+                    text: `Xóa nhà xuất bản "${publisherId}" thất bại`,
+                });
             }
           });
       }
     });
   };
 
+    function displayImage(event) {
+        var imageElement = document.getElementById("uploadedImage");
+        var fileInput = event.target;
 
-  // Xóa ảnh đại diện và làm mới form
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imageElement.src = e.target.result;
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+
+    // Xóa ảnh đại diện và làm mới form
   $scope.clearImage = function () {
     $scope.editingPublisher.image = "";
     var imageElement = document.getElementById("uploadedImage");
@@ -394,19 +342,19 @@ function PublishersController($scope, $location, $routeParams, $http) {
   };
 
   // Làm mới form
-  $scope.resetForm = function () {
-    $scope.editingPublisher = {};
-    $scope.isEditing = false;
-    $scope.clearImage(); // Xóa ảnh đại diện khi làm mới form
-    $location.search('id', null);
-    $location.search('data', null);
-  
-    // Sau khi xóa, chuyển hướng lại đến trang /flashsale-form
-    $location.path('/publisher-form');
-  };
+    $scope.resetForm = function () {
+        $scope.editingPublisher = {};
+        $scope.isEditing = false;
+        $scope.clearImage(); // Xóa ảnh đại diện khi làm mới form
+        $location.search('id', null);
+        $location.search('data', null);
+
+        // Sau khi xóa, chuyển hướng lại đến trang /flashsale-form
+        $location.path('/publisher-form');
+    };
   // Sử dụng $location.search() để xóa tham số "id" và "data" khỏi URL
 
- 
-  // Load danh sách nhà xuất bản khi controller được khởi tạo
+
+    // Load danh sách nhà xuất bản khi controller được khởi tạo
   $scope.loadPublishers();
 }

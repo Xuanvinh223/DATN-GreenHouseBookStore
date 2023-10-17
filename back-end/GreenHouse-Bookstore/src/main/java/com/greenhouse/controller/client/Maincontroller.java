@@ -103,6 +103,11 @@ public class Maincontroller {
         return "client/layouts/forgot-password";
     }
 
+    @GetMapping(value = "/change-password")
+    public String changePassword() {
+        return "client/layouts/change-password";
+    }
+
     @GetMapping("/404")
     public String accessDenied() {
         return "client/layouts/404"; // Chuyển hướng đến trang 403
@@ -121,10 +126,9 @@ public class Maincontroller {
         String image = oauth2User.getAttribute("picture");
         String email = oauth2User.getAttribute("email");
 
-        // Kiểm tra xem tài khoản đã tồn tại trong cơ sở dữ liệu chưa
-        Accounts existingAccount = accountRepository.findByUsername(username);
+        Accounts existAccountEmail = accountRepository.findByEmail(email);
 
-        if (existingAccount == null) {
+        if (existAccountEmail == null) {
             accounts.setUsername(username);
             accounts.setPassword(new BCryptPasswordEncoder().encode(username));
             accounts.setFullname(fullname);
@@ -133,21 +137,34 @@ public class Maincontroller {
 
             accountRepository.save(accounts);
 
-            authorities.setUsername(accounts.getUsername());
-            authorities.setRoleId(3);
-            authoritiesRepository.save(authorities);
+            if (authoritiesRepository.findByUsername(username).isEmpty()) {
+                authorities.setUsername(accounts.getUsername());
+                authorities.setRoleId(3);
+                authoritiesRepository.save(authorities);
+            }
+
+            setCookie(response, username, accounts);
+        } else {
+            setCookie(response, existAccountEmail.getUsername(), existAccountEmail);
         }
 
+        return "redirect:/index";
+
+    }
+
+    private void setCookie(HttpServletResponse response, String username, Accounts account) {
+
         List<Authorities> listAuthorities = authoritiesRepository.findByUsername(username);
+
         List<GrantedAuthority> authoritiesList = listAuthorities.stream()
                 .map(authority -> new SimpleGrantedAuthority("ROLE_" + authority.getRole().getRole()))
                 .collect(Collectors.toList());
-        final String jwt = jwtUtil.generateToken(existingAccount, authoritiesList);
+
+        final String jwt = jwtUtil.generateToken(account, authoritiesList);
 
         Cookie cookie = new Cookie("token", jwt);
         cookie.setMaxAge(3600);
         cookie.setPath("/");
         response.addCookie(cookie);
-        return "redirect:/index";
     }
 }

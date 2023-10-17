@@ -37,9 +37,9 @@
                                     <div class="mb-3">
                                         <label for="categoryFilter" class="form-label">Danh mục:</label>
                                         <select class="form-control" id="category" ng-model="editingProduct.category"
-                                        ng-options="category as category.categoryName for category in categories track by category.categoryId">
-                                    <option value="">Chọn tên danh mục</option>
-                                </select>
+                                                ng-options="category as category.categoryName for category in categories track by category.categoryId">
+                                            <option value="">Chọn tên danh mục</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -68,18 +68,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat-start="item in inventorystatics track by $index" data-toggle="collapse"
-                                        data-target="#{{item[0]}}">
-                                        <td>{{$index + 1}}</td>
-                                        <td>{{item[0]}}</td>
-                                        <td>{{item[1]}}</td>
-                                        <td>{{item[2]}}</td>
-                                        <td>{{item[3]}}</td>
-                                        <td>{{item[4]}}</td>
-                                        <td>{{item[5]}}</td>
-                                        <td>{{item[6]}}</td>
-                                    </tr>
-                                    <tr ng-repeat-end id="{{item[0]}}" class="collapse">
+                                <tr ng-repeat-start="item in inventorystatics track by $index"
+                                    data-toggle="collapse" data-target="#{{item[0]}}">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{item[0]}}</td>
+                                    <td>{{item[1]}}</td>
+                                    <td>{{item[2]}}</td>
+                                    <td>{{item[3]}}</td>
+                                    <td>{{item[4]}}</td>
+                                    <td>{{item[5]}}</td>
+                                    <td>{{item[6]}}</td>
+                                </tr>
+                                <tr ng-repeat-end id="{{item[0]}}" class="collapse">
                                         <td colspan="10">
                                             <table class="table table-bordered">
                                                 <thead style="pointer-events: none;">
@@ -116,33 +116,24 @@
                                 <form class="form">
                                     <div class="form-row">
                                         <div class="form-inline col-auto mr-auto">
-                                            <label class="my-1 mr-2 " for="inlineFormCustomSelectPref1">Show</label>
-                                            <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1">
-                                                <option value="">...</option>
-                                                <option value="1">12</option>
-                                                <option value="2" selected>32</option>
-                                                <option value="3">64</option>
-                                                <option value="3">128</option>
+                                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
+                                            <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1"
+                                                    ng-model="itemsPerPage1"
+                                                    ng-options="option for option in itemsPerPageOptions1"
+                                                    ng-change="currentPage1 = 1">
                                             </select>
                                         </div>
                                         <div class="form-group col-auto">
-                                            <span>Đang xem 1 trên tổng số 5 mục</span>
-
+                                            <span>Đang xem {{ calculateRange1() }}</span>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <nav aria-label="Table Paging" class="mb-0 text-muted">
-                                <ul class="pagination justify-content-center mb-0">
-                                    <li class="page-item"><a class="page-link" href="#">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                </ul>
-                            </nav>
+                            <ul uib-pagination ng-model="currentPage1" total-items="totalItems1"
+                                items-per-page="itemsPerPage1" max-size="maxSize1" class="pagination-sm"
+                                boundary-link-numbers="true" boundary-links="true" force-ellipses="true"
+                                previous-text="<" next-text=">" first-text="<<" last-text=">>">
+                            </ul>
                         </div>
                     </div>
                 </div> <!-- simple table -->
@@ -206,18 +197,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat-start="item in inventorystaticsdesc track by $index" data-toggle="collapse"
-                                        data-target="#desc{{item[0]}}">
-                                        <td>{{$index + 1}}</td>
-                                        <td>{{item[0]}}</td>
-                                        <td>{{item[1]}}</td>
-                                        <td>{{item[2]}}</td>
-                                        <td>{{item[3]}}</td>
-                                        <td>{{item[4]}}</td>
-                                        <td>{{item[5]}}</td>
-                                        <td>{{item[6]}}</td>
-                                    </tr>
-                                    <tr ng-repeat-end id="desc{{item[0]}}" class="collapse">
+                                <tr ng-repeat-start="item in inventorystaticsdesc track by $index"
+                                    data-toggle="collapse" data-target="#desc{{item[0]}}">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{item[0]}}</td>
+                                    <td>{{item[1]}}</td>
+                                    <td>{{item[2]}}</td>
+                                    <td>{{item[3]}}</td>
+                                    <td>{{item[4]}}</td>
+                                    <td>{{item[5]}}</td>
+                                    <td>{{item[6]}}</td>
+                                </tr>
+                                <tr ng-repeat-end id="desc{{item[0]}}" class="collapse">
                                         <td colspan="10">
                                             <table class="table table-bordered">
                                                 <thead style="pointer-events: none;">
@@ -254,33 +245,24 @@
                                 <form class="form">
                                     <div class="form-row">
                                         <div class="form-inline col-auto mr-auto">
-                                            <label class="my-1 mr-2 " for="inlineFormCustomSelectPref1">Show</label>
-                                            <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1">
-                                                <option value="">...</option>
-                                                <option value="1">12</option>
-                                                <option value="2" selected>32</option>
-                                                <option value="3">64</option>
-                                                <option value="3">128</option>
+                                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
+                                            <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1"
+                                                    ng-model="itemsPerPage2"
+                                                    ng-options="option for option in itemsPerPageOptions2"
+                                                    ng-change="currentPage2 = 1">
                                             </select>
                                         </div>
                                         <div class="form-group col-auto">
-                                            <span>Đang xem 1 trên tổng số 5 mục</span>
-
+                                            <span>Đang xem {{ calculateRange2() }}</span>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <nav aria-label="Table Paging" class="mb-0 text-muted">
-                                <ul class="pagination justify-content-center mb-0">
-                                    <li class="page-item"><a class="page-link" href="#">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                </ul>
-                            </nav>
+                            <ul uib-pagination ng-model="currentPage2" total-items="totalItems2"
+                                items-per-page="itemsPerPage2" max-size="maxSize2" class="pagination-sm"
+                                boundary-link-numbers="true" boundary-links="true" force-ellipses="true"
+                                previous-text="<" next-text=">" first-text="<<" last-text=">>">
+                            </ul>
                         </div>
                     </div>
                 </div> <!-- simple table -->
