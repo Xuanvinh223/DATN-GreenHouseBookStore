@@ -6,7 +6,7 @@
     <title>Tài khoản</title>
 </head>
 <main id="layout">
-    <div class="site-wrapper" id="top" ng-controller="accountController">
+    <div class="site-wrapper profile-account" id="top" ng-controller="accountController">
         <section class="breadcrumb-section">
             <div class="container">
                 <div class="breadcrumb-contents">
@@ -209,48 +209,36 @@
                                     <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade " id="address-edit" role="tabpanel">
                                         <div class="myaccount-content">
-                                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <h4 class="mb-0 fs-3">Địa chỉ thanh toán</h4>
-                                                <button
-                                                        class="btn btn-outline-primary btn-edit-address float-right shadow-none"
+                                            <div class="d-flex justify-content-between align-items-center address-content">
+                                                <h4 class="text-13 mb-2 fs-3">Địa chỉ thanh toán</h4>
+                                                <button class="btn btn-edit-address float-right shadow-none mb-2"
                                                         data-bs-toggle="modal" data-bs-target="#createAddressModal"
                                                         ng-click="addModel()"><i class="fas fa-plus pr-1"></i>Thêm địa
                                                     chỉ
                                                     mới
                                                 </button>
+                                            </div>
+                                            <div class="profile-address remove-bg" ng-repeat="address in listAddress">
+                                                <div class="row border-bottom mt-3">
+                                                    <div class="col-12 col-md-8">
+                                                        <div class="d-flex justify-content-start">
+                                                            <h6>{{address.fullname}} |&nbsp;</h6>
+                                                            <p>{{address.phone}} </p>
+                                                        </div>
+                                                        <div class=" d-flex justify-content-start">
+                                                            <p>{{address.address}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <div class=" d-flex justify-content-end align-items-center mt-1">
+                                                            <a href="" class="text-danger"
+                                                               ng-click="">Chỉnh Sửa</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                             </div>
-                                            <ul class="list-group">
-                                                <li
-                                                        class="list-group-item d-flex justify-content-between align-items-center remove-bg">
-                                                    <div>
-                                                        <strong class="font-weight-bold text-primary fs-3">Địa
-                                                            chỉ</strong> <br>
-                                                        <Strong>Lâm Diễm Thúy |</strong> 0926546260<br>
-
-                                                        Đường 724 Tổ 9 Khu vực 1 Hưng phú Cái Răng
-                                                        Cần Thơ
-                                                    </div>
-                                                </li>
-                                                <!-- <li
-                                                    class="list-group-item d-flex justify-content-between align-items-center remove-bg">
-                                                    <div>
-                                                        <strong
-                                                            class="font-weight-bold text-danger fs-3 text-center">Alex
-                                                            Tuntuni</strong> <br>
-                                                        <Strong>Quốc gia : </Strong> <label>Việt nam</label> <br>
-                                                        <Strong>Tỉnh/Thành phố : </Strong> <label>Cần thơ</label>
-                                                        <br>
-                                                        <Strong>Quận/Huyện : </Strong> <label>Cái răng</label> <br>
-                                                        <Strong>Xã/Phường : </Strong> <label>Hưng phú</label> <br>
-                                                        <Strong>Số điện thoại: </Strong> <label>0926546260</label>
-                                                        <br>
-                                                        <label>Địa chỉ thanh toán: 724 Tổ 9 Khu vực 1 Hưng phú Cái Răng
-                                                            Cần
-                                                            Thơ</label>
-                                                    </div>
-                                                </li> -->
-                                            </ul>
                                         </div>
                                     </div>
                                     <!-- Single Tab Content End -->
@@ -338,7 +326,6 @@
                                     </div>
                                     <!-- Single Tab Content End -->
                                 </div>
-                            </div>
                             <!-- My Account Tab Content End -->
                         </div>
                     </div>
@@ -347,36 +334,31 @@
         </div>
 
         <!-- Modal Address Start -->
-        <div class="modal fade" id="createAddressModal" tabindex="-1" aria-labelledby="createAddressModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog  modal-lg modal-dialog-scrollable ">
-                <div class="modal-content ">
-                    <div class="modal-header">
-                        <h5 class="modal-title font-weight-bold">Tạo địa chỉ </h5>
-                        <!-- <h5 class="modal-title" id="exampleModalLabel" ng-show="add">Tạo địa chỉ
-                    </h5>
-                    <h5 class="modal-title" id="exampleModalLabel" ng-show="update">Cập nhật địa
-                        chỉ</h5> -->
-                    </div>
-                    <div class="modal-body ">
-                        <div class="container">
-                            <form method="post" class="position-relative" name="af">
-                                <div class="row ">
-                                    <div class="form-group col-md-6">
-                                        <label for="lastname" class="font-weight-bold text-dark">*Họ</label>
-                                        <input type="text" class="form-control" name="fullname" id="fullname"
-                                               aria-describedby="fullnameHelp" ng-model="address.fullname"
-                                               ng-required="reqFullname">
-                                        <span class="require" ng-show="af.fullname.$error.required">Vui
+            <div class="modal fade" id="createAddressModal" tabindex="-1" aria-labelledby="createAddressModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog  modal-lg modal-dialog-scrollable ">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-16 ml--10">Tạo địa chỉ </h5>
+                        </div>
+                        <div class="modal-body ">
+                            <div class="container">
+                                <form method="post" class="position-relative" name="af">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="lastname" class="text-bold text-dark">*Họ</label>
+                                            <input type="text" class="form-control" name="fullname" id="fullname"
+                                                   aria-describedby="fullnameHelp" ng-model="address.fullname"
+                                                   ng-required="reqFullname">
+                                            <span class="require" ng-show="af.fullname.$error.required">Vui
                                             lòng nhập họ và tên </span>
-                                    </div>
-                                    <div class="form-group col-md-6 mb-2">
-                                        <label for="phone" class="font-weight-bold text-dark">*Số
-                                            điện
-                                            thoại</label>
-                                        <input type="text" class="form-control" name="phone" id="phone"
-                                               aria-describedby="fullnameHelp" ng-model="address.phone" maxlength="10"
-                                               ng-required="reqPhone" ng-attr-phone="reqPhone">
+                                        </div>
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label for="phone" class="text-bold text-dark">*Số điện thoại</label>
+                                            <input type="text" class="form-control" name="phone" id="phone"
+                                                   aria-describedby="fullnameHelp" ng-model="address.phone"
+                                                   maxlength="10"
+                                                   ng-required="reqPhone" ng-attr-phone="reqPhone">
                                         <span class="require" ng-show="af.phone.$error.required">Vui
                                             lòng
                                             nhập số điện thoại</span>
@@ -385,62 +367,54 @@
                                             không đúng định dạng</span>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12"> <span type="button" class="font-weight-bold text-dark"
-                                                                  ng-show="update">Địa
+                                    <div class="row">
+                                        <div class="col-md-12"> <span type="button" class="text-bold text-dark"
+                                                                      ng-show="update">Địa
                                             chỉ: {{updateForm.address}}</spna>
+                                        </div>
                                     </div>
-                                </div>
                                 <div class="row mt-2">
                                     <div class="form-group col-12 col-md-4">
                                         <div class="form-group">
-                                            <label class="font-weight-bold text-dark">*Tỉnh/Thành
+                                            <label class="text-bold text-dark">*Tỉnh/Thành
                                                 phố</label>
                                             <select class="selectpicker form-control" title="Chọn Tỉnh" name="province"
                                                     id="province" data-live-search="true" data-size="5"
                                                     ng-model="selectProvince"
                                                     ng-options="y.code as y.name for y in provinceList"
                                                     ng-change="getdistrict()" ng-required="reqProvince"></select>
-                                            <span class="require" ng-show="af.province.$error.required">Vui
-                                                lòng chọn tỉnh</span>
                                         </div>
                                     </div>
                                     <div class="form-group col-12 col-md-4">
                                         <div class="form-group">
-                                            <label class="font-weight-bold text-dark">*Huyện/Quận</label>
+                                            <label class="text-bold text-dark">*Huyện/Quận</label>
                                             <select class="selectpicker form-control" title="Chọn Huyện"
                                                     ng-model="selectDistrict" data-live-search="true" data-size="5"
                                                     ng-options="y.code as y.name for y in districtList"
                                                     ng-change="getward()" name="district" id="district"
                                                     ng-required="reqDistrict">
                                             </select>
-                                            <span class="require" ng-show="af.district.$error.required">Vui
-                                                lòng chọn Huyện</span>
                                         </div>
                                     </div>
                                     <div class="form-group col-12 col-md-4">
                                         <div class="form-group">
-                                            <label class="font-weight-bold text-dark">*Xã/Phường</label>
+                                            <label class="text-bold text-dark">*Xã/Phường</label>
                                             <select class="selectpicker form-control" title="Chọn Xã"
                                                     ng-model="selectWard" data-live-search="true" data-size="5"
                                                     ng-options="y.code as y.name for y in wardList" name="ward"
                                                     id="ward"
                                                     ng-required="reqWard" ng-change="refeshList()">
                                             </select>
-                                            <span class="require" ng-show="af.ward.$error.required">Vui
-                                                lòng chọn Xã</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label class="font-weight-bold text-dark">*Địa chỉ cụ
+                                        <label class="text-bold text-dark">*Địa chỉ cụ
                                             thể</label>
                                         <textarea class="form-control " placeholder="Địa chỉ cụ thể"
                                                   ng-model="address.adr" name="adr" id="adr"
                                                   ng-required="reqAdr"></textarea>
-                                        <span class="require" ng-show="af.adr.$error.required">Vui
-                                            lòng nhập địa chỉ cụ thể</span>
                                     </div>
 
                                 </div>

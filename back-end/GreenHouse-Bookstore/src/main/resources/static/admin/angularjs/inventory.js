@@ -143,13 +143,14 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
                         title: "Thành công",
                         text: `Thêm Phiếu Nhập thành công`,
                     });
+                    $scope.resetForm();
                     console.log('Dữ liệu đã được lưu thành công.', response);
                 })
                 .catch(function (error) {
                     Swal.fire({
                         icon: "error",
                         title: "Thất bại",
-                        text: `Xóa Phiếu Nhập thất bại`,
+                        text: `Thêm Phiếu Nhập thất bại`,
                     });
                     console.error('Lỗi khi gửi dữ liệu: ', error);
                 });
@@ -164,6 +165,7 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
                 $scope.selectedProducts = angular.fromJson(resp.data.selectedProducts);
 
                 $scope.form = resp.data.importInvoice;
+                console.log($scope.form.status);
                 console.log($scope.form);
                 $scope.calculateTotal();
             })
@@ -180,6 +182,7 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
             description: null,
             importInvoiceAmount: 0,
         }
+        $scope.selectedProducts = [];
     };
 
     $scope.resetInventoryModal = function () {
@@ -291,12 +294,13 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
         $scope.selectedProducts.forEach(e => {
             $scope.form.importInvoiceAmount += e.price * e.quantity;
         });
+
     };
 
     $scope.removeProduct = function (index) {
         $scope.deletedImportInvoiceDetails.push($scope.selectedProducts[index]);
         $scope.selectedProducts.splice(index, 1);
-
+        $scope.calculateTotal();
     };
 
     function init() {

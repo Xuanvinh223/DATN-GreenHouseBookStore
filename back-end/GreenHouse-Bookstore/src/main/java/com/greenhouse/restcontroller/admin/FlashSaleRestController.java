@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -71,20 +72,21 @@ public class FlashSaleRestController {
     public ResponseEntity<Map<String, Object>> editFlashSale(@PathVariable Integer id) {
         Map<String, Object> resp = new HashMap<>();
 
-        List<Product_Flash_Sale> productFS = profs.findByFlashSaleId(fs.findById(id).orElse(null));
+        // Lấy Flash Sale theo ID
+        Optional<Flash_Sales> flashSaleOptional = fs.findById(id);
+        if (flashSaleOptional.isPresent()) {
+            Flash_Sales flashSale = flashSaleOptional.get();
 
-        if (productFS.isEmpty()) {
-            return ResponseEntity.ok(null);
+            // Lấy danh sách sản phẩm chi tiết liên quan đến Flash Sale
+            List<Product_Flash_Sale> productFS = profs.findByFlashSaleId(flashSale);
+
+            resp.put("listProductFlashSale", productFS);
+            resp.put("flashSale", flashSale);
+            return ResponseEntity.ok(resp);
+        } else {
+            // Nếu không tìm thấy Flash Sale theo ID, trả về phản hồi rỗng hoặc thông báo lỗi
+            return ResponseEntity.notFound().build();
         }
-
-        Flash_Sales flashSale = new Flash_Sales();
-
-        flashSale = productFS.get(0).getFlashSaleId();
-
-        resp.put("listProductFlashSale", productFS);
-        resp.put("flashSale", flashSale);
-        return ResponseEntity.ok(resp);
-
     }
 
     @PostMapping("/rest/flashsales")
