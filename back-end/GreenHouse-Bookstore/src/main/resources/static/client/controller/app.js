@@ -125,6 +125,16 @@ app.controller('MainController', function ($scope, CartService, $timeout, $rootS
 
     $scope.updateUserInfo();
 
+    // ================ SHOW FULL TEXT OR COMPRESS =================================================================
+    $scope.showFullText = {};
+
+    $scope.toggleFullText = function (productId) {
+        if (!$scope.showFullText[productId]) {
+            $scope.showFullText[productId] = true;
+        } else {
+            $scope.showFullText[productId] = false;
+        }
+    };
 
     // =========== NOTIFICATION =============================
     $scope.notifications = [];
