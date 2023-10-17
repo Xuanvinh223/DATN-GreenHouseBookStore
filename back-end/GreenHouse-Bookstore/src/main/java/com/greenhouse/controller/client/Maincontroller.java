@@ -103,6 +103,11 @@ public class Maincontroller {
         return "client/layouts/forgot-password";
     }
 
+    @GetMapping(value = "/change-password")
+    public String changePassword() {
+        return "client/layouts/change-password";
+    }
+
     @GetMapping("/404")
     public String accessDenied() {
         return "client/layouts/404"; // Chuyển hướng đến trang 403
