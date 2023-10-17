@@ -17,6 +17,7 @@ import com.greenhouse.model.Categories;
 import com.greenhouse.model.CategoryTypes;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Product_Discount;
+import com.greenhouse.model.Product_Images;
 import com.greenhouse.model.Product_Reviews;
 import com.greenhouse.repository.BookAuthorsRepository;
 import com.greenhouse.repository.BrandRepository;
@@ -25,6 +26,7 @@ import com.greenhouse.repository.CategoryTypesRepository;
 import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.repository.ProductDiscountRepository;
 import com.greenhouse.repository.ProductReviewsRepository;
+import com.greenhouse.repository.Product_ImagesRepository;
 
 @RestController
 @RequestMapping("/customer/rest/product-page")
@@ -44,6 +46,8 @@ public class ProductPageController {
     private ProductReviewsRepository productReviewsRepository;
     @Autowired
     private BrandRepository brandRepository;
+    @Autowired
+    private Product_ImagesRepository productImagesRepository;
 
     @GetMapping("/data")
     public ResponseEntity<Map<String, Object>> getData() {
@@ -56,6 +60,7 @@ public class ProductPageController {
         List<Product_Discount> listProductDiscount = productDiscountRepository.findAll();
         List<Product_Reviews> listProductReviews = productReviewsRepository.findAll();
         List<Brands> listBrands = brandRepository.findAll();
+        List<Product_Images> listProductImages = productImagesRepository.findAll();
 
         response.put("listProductDetail", listProductDetail);
         response.put("listCategoryTypes", listCategoryTypes);
@@ -64,6 +69,7 @@ public class ProductPageController {
         response.put("listProductDiscount", listProductDiscount);
         response.put("listProductReviews", listProductReviews);
         response.put("listBrands", listBrands);
+        response.put("listProductImages", listProductImages);
         return ResponseEntity.ok(response);
     }
 }
