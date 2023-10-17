@@ -12,12 +12,14 @@ function productPageController($http, $scope, productPageAPI, CartService) {
     $scope.listProductDiscount = [];
     $scope.listProductReviews = [];
     $scope.listBrands = [];
+    $scope.listProductImages = [];
 
     // DECLARE SCOPE GET DATA - END
 
     // DECLARE SCOPE FOR UI - START
     $scope.numStar = [1, 2, 3, 4, 5];
-    $scope.quickViewProduct = [];
+    $scope.quickViewProduct = null;
+    $scope.listImageQuickView = [];
     // pagination - START
     $scope.currentPage = 1;
     $scope.totalItems = 0;
@@ -38,6 +40,7 @@ function productPageController($http, $scope, productPageAPI, CartService) {
             $scope.listProductDiscount = response.data.listProductDiscount;
             $scope.listProductReviews = response.data.listProductReviews;
             $scope.listBrands = response.data.listBrands;
+            $scope.listProductImages = response.data.listProductImages;
 
             $scope.totalItems = $scope.listProductDetail.length;
 
@@ -48,6 +51,7 @@ function productPageController($http, $scope, productPageAPI, CartService) {
             console.log("Danh sách sản phẩm giảm giá: ", $scope.listProductDiscount);
             console.log("Danh sách đánh giá sản phẩm: ", $scope.listProductReviews);
             console.log("Danh sách thương hiệu: ", $scope.listBrands);
+            console.log("Danh sách ảnh mở rộng của sản phẩm: ", $scope.listProductImages);
 
         }).catch(function (error) {
             console.error("Lỗi call api: ", error);
@@ -85,6 +89,11 @@ function productPageController($http, $scope, productPageAPI, CartService) {
     $scope.getListCateByCateTypeId = function (typeId) {
         return $scope.listCategories.filter(category => category.typeId.typeId === typeId);
     }
+
+    $scope.getListImagesByProductDetailId = function (productDetailId) {
+        return $scope.listProductImages.filter(pi => pi.productDetail.productDetailId === productDetailId);
+    }
+
     // RETURN LIST DATA - END
     // SCOPE_FUNCTION GET DATA WITH PARAMETERS - END
 
@@ -124,6 +133,8 @@ function productPageController($http, $scope, productPageAPI, CartService) {
     // xem nhanh thông tin sản phẩm
     $scope.quickView = function (productDetail) {
         $scope.quickViewProduct = productDetail;
+        $scope.listImageQuickView = $scope.getListImagesByProductDetailId($scope.quickViewProduct.productDetailId);
+        console.log($scope.listImageQuickView);
         $scope.quantityQuickViewProduct = 1;
     }
 
