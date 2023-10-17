@@ -1,4 +1,4 @@
-const app = angular.module("myApp", ["angular-jwt"]);
+const app = angular.module("myApp", ["angular-jwt", "ngCookies"]);
 
 app.constant('authenticateAPI', 'http://localhost:8081/authenticate');
 app.constant('signupAPI', 'http://localhost:8081/sign-up');
@@ -6,7 +6,15 @@ app.constant('checkOutAPI', 'http://localhost:8081/customer/rest/check-out');
 app.constant('productPageAPI', 'http://localhost:8081/customer/rest/product-page');
 app.constant('cartAPI', 'http://localhost:8081/customer/rest/cart');
 
-app.run(function ($rootScope, $http, $templateCache, jwtHelper) {
+app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
+
+    var token = $cookies.get("token");
+
+    if (token) {
+        localStorage.setItem("token", token);
+        $cookies.remove('token');
+    }
+
     var jsFiles = [
         "js/custom.js",
         "js/code.js",
@@ -51,27 +59,27 @@ app.run(function ($rootScope, $http, $templateCache, jwtHelper) {
 
 // Tạo một interceptor
 app.factory("tokenInterceptor", function () {
-    return {
-        request: function (config) {
-            var token = window.localStorage.getItem("token");
-            // Kiểm tra nếu token tồn tại
-            if (token) {
-                config.headers["Authorization"] = "Bearer " + token;
-            }
-            return config;
-        },
-        responseError: function (response) {
-            // Kiểm tra nếu mã trạng thái là 401 Unauthorized (token hết hạn)
-            if (response.status === 401) {
-                // Token đã hết hạn, xoá nó khỏi local storage
-                window.localStorage.removeItem("token");
-                // Chuyển hướng đến trang /login
-                window.location.href = "/login";
-            }
-            return response;
-        },
-    };
-},
+        return {
+            request: function (config) {
+                var token = window.localStorage.getItem("token");
+                // Kiểm tra nếu token tồn tại
+                if (token) {
+                    config.headers["Authorization"] = "Bearer " + token;
+                }
+                return config;
+            },
+            responseError: function (response) {
+                // Kiểm tra nếu mã trạng thái là 401 Unauthorized (token hết hạn)
+                if (response.status === 401) {
+                    // Token đã hết hạn, xoá nó khỏi local storage
+                    window.localStorage.removeItem("token");
+                    // Chuyển hướng đến trang /login
+                    window.location.href = "/login";
+                }
+                return response;
+            },
+        };
+    },
 );
 
 // Đăng ký interceptor vào ứng dụng
@@ -82,7 +90,7 @@ app.config([
     },
 ]);
 
-// ================= MAIN CONTROLLER ================== 
+// ================= MAIN CONTROLLER ==================
 app.controller('MainController', function ($scope, CartService, $timeout, $rootScope) {
     var username = localStorage.getItem('username');
 
@@ -122,7 +130,7 @@ app.controller('MainController', function ($scope, CartService, $timeout, $rootS
     $scope.notifications = [];
 
     $scope.showNotification = function (type, message) {
-        var notification = { type: type, message: message };
+        var notification = {type: type, message: message};
         $scope.notifications.push(notification);
 
         $timeout(function () {

@@ -6,5 +6,5 @@ import com.greenhouse.model.VoucherMappingProduct;
 
 public interface VoucherMappingProductRepository extends JpaRepository<VoucherMappingProduct, Integer> {
 
-    
+
 }

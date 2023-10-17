@@ -191,12 +191,18 @@
 .dialog-footer small {
   font-size: 0.9rem;
 }
-.btn-success1{
+
+.btn-success1 {
     color: #fff;
     background-color: #326e51;
-    
+
 }
-.btn-success1:hover{
+
+.btn-success1:hover {
     color: #fff;
     background-color: #62ab00;
+}
+
+.full-with {
+    width: 100%;
 }

@@ -1,10 +1,43 @@
 package com.greenhouse.controller.client;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.greenhouse.model.Accounts;
+import com.greenhouse.model.Authorities;
+import com.greenhouse.repository.AccountRepository;
+import com.greenhouse.repository.AuthoritiesRepository;
+import com.greenhouse.service.impl.UserDetailsServiceImpl;
+import com.greenhouse.util.JwtUtil;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 @Controller
 public class Maincontroller {
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    UserDetailsServiceImpl detailsServiceImpl;
+
+    @Autowired
+    AccountRepository accountRepository;
+
+    @Autowired
+    private AuthoritiesRepository authoritiesRepository;
+
     @GetMapping(value = "/index")
     public String index() {
         return "client/layouts/home";
@@ -72,7 +105,61 @@ public class Maincontroller {
 
     @GetMapping("/404")
     public String accessDenied() {
-        System.out.println("Access Denied Controller Called");
         return "client/layouts/404"; // Chuyển hướng đến trang 403
+    }
+
+    @GetMapping("/google-processing")
+    public String googleProcessing(OAuth2AuthenticationToken authenticationToken, HttpServletRequest request,
+                                   HttpServletResponse response) {
+        // Lấy thông tin tài khoản Google đã đăng nhập từ authenticationToken
+        OAuth2User oauth2User = authenticationToken.getPrincipal();
+        Accounts accounts = new Accounts();
+        Authorities authorities = new Authorities();
+
+        String username = oauth2User.getAttribute("sub");
+        String fullname = oauth2User.getAttribute("name");
+        String image = oauth2User.getAttribute("picture");
+        String email = oauth2User.getAttribute("email");
+
+        Accounts existAccountEmail = accountRepository.findByEmail(email);
+
+        if (existAccountEmail == null) {
+            accounts.setUsername(username);
+            accounts.setPassword(new BCryptPasswordEncoder().encode(username));
+            accounts.setFullname(fullname);
+            accounts.setImage(image);
+            accounts.setEmail(email);
+
+            accountRepository.save(accounts);
+
+            if (authoritiesRepository.findByUsername(username).isEmpty()) {
+                authorities.setUsername(accounts.getUsername());
+                authorities.setRoleId(3);
+                authoritiesRepository.save(authorities);
+            }
+
+            setCookie(response, username, accounts);
+        } else {
+            setCookie(response, existAccountEmail.getUsername(), existAccountEmail);
+        }
+
+        return "redirect:/index";
+
+    }
+
+    private void setCookie(HttpServletResponse response, String username, Accounts account) {
+
+        List<Authorities> listAuthorities = authoritiesRepository.findByUsername(username);
+
+        List<GrantedAuthority> authoritiesList = listAuthorities.stream()
+                .map(authority -> new SimpleGrantedAuthority("ROLE_" + authority.getRole().getRole()))
+                .collect(Collectors.toList());
+
+        final String jwt = jwtUtil.generateToken(account, authoritiesList);
+
+        Cookie cookie = new Cookie("token", jwt);
+        cookie.setMaxAge(3600);
+        cookie.setPath("/");
+        response.addCookie(cookie);
     }
 }

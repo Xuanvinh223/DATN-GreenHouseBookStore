@@ -1,59 +1,4 @@
-<style>
-    .truncate-cell {
-        max-width: 100px;
-        /* Độ rộng tối đa của cột */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .btn-find {
-        border: none;
-        border-radius: 3px;
-        font-weight: bold;
-        text-align: center;
-    }
-
-    .btn-find:hover {
-        background-color: #62ab00;
-    }
-
-    .total-profit {
-        float: right;
-        margin-right: 50px;
-    }
-
-    .body-profit {
-        padding: 0 10px 10px 10px;
-        /* Padding top = 0px, Padding right = 10px, Padding bottom = 10px, Padding left = 10px */
-    }
-
-    .total {
-        float: right;
-        color: orangered;
-        margin-left: 20px;
-    }
-
-    .expense {
-        float: right;
-        color: #ff1a1a;
-        margin-left: 20px;
-    }
-
-    .profit {
-        float: right;
-        color: #62ab00;
-        margin-left: 20px;
-    }
-
-    .table-hr {
-        border: 1px solid #000;
-        margin-bottom: 10px;
-        margin-top: 5px;
-    }
-</style>
-
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="StaticOvertime">
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="row">
@@ -179,133 +124,100 @@
                             </div>
                             <div class="toolbar row mb-3">
                                 <div class="col">
-                                  <form class="form-inline d-flex justify-content-between">
-                                    <div class="form-group">
-                                      <label for="startDate" class="mr-2">Từ ngày:</label>
-                                      <input class="form-control rounded" type="date" id="startDate">
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="endDate" class="mr-2">Đến ngày:</label>
-                                      <input class="form-control rounded" type="date" id="endDate">
-                                    </div>
-                                    <button class="btn btn-warning btn-find">Tìm kiếm</button>
-                                  </form>
+                                    <form class="form-inline d-flex justify-content-between">
+                                        <div class="form-group">
+                                            <label for="startDate" class="mr-2">Từ ngày:</label>
+                                            <input class="form-control rounded" type="date" id="startDate">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="endDate" class="mr-2">Đến ngày:</label>
+                                            <input class="form-control rounded" type="date" id="endDate">
+                                        </div>
+                                        <button class="btn btn-warning btn-find">Tìm kiếm</button>
+                                    </form>
                                 </div>
-                              </div>
-                              
+                            </div>
+
                             <!-- table -->
-                            <table id="myTable" class="table table-hover">
+                            <table class="table table-hover table-hover-green">
                                 <thead>
-                                    <tr>
-                                        <th>Mã hóa đơn</th>
-                                        <th>Ngày</th>
-                                        <th>Tên khách hàng</th>
-                                        <th>Mã giảm giá</th>
-                                        <th>Được giảm từ voucher</th>
-                                        <th>Tổng tiền</th>
-                                    </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Mã hóa đơn</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Phí ship</th>
+                                    <th>Tiền thanh toán</th>
+                                    <th>Ngày thanh toán</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="table-row">
-                                        <td>1</td>
-                                        <td>15/10/2023</td>
-                                        <td>Nguyễn Vũ Phong</td>
-                                        <td>100.00</td>
-                                        <td>0</td>
-                                        <td>100.00</td>
-                                    </tr>
-                                    <tr class="nested-row">
-                                        <td colspan="6" class="nested-content">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Mã Sản phẩm</th>
-                                                        <th>Tên sản phẩm</th>
-                                                        <th>Thương hiệu</th>
-                                                        <th>Giá nhập</th>
-                                                        <th>Giá bán</th>
-                                                        <th>Số lượng</th>
-                                                        <th>Tiền sản phẩm</th>
-                                                        <th>Giá bán khi có khuyến mãi</th>
-                                                        <th>Lợi nhuận</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>2222</td>
-                                                        <td>Bút bi đỏ</td>
-                                                        <td>Thiên Long</td>
-                                                        <td>4.000</td>
-                                                        <td>5.000</td>
-                                                        <td>10</td>
-                                                        <td>50.000</td>
-                                                        <td>NULL</td>
-                                                        <td>1.000</td>
-                                                    </tr>
-                                                    <!-- Thêm các dòng khác tùy ý -->
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-row">
-                                        <td>1</td>
-                                        <td>15/10/2023</td>
-                                        <td>Nguyễn Vũ Phong</td>
-                                        <td>100.00</td>
-                                        <td>0</td>
-                                        <td>100.00</td>
-                                    </tr>
-                                    <tr class="nested-row">
-                                        <td colspan="6" class="nested-content">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Mã Sản phẩm</th>
-                                                        <th>Tên sản phẩm</th>
-                                                        <th>Thương hiệu</th>
-                                                        <th>Giá nhập</th>
-                                                        <th>Giá bán</th>
-                                                        <th>Số lượng</th>
-                                                        <th>Tiền sản phẩm</th>
-                                                        <th>Giá bán khi có khuyến mãi</th>
-                                                        <th>Lợi nhuận</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>2222</td>
-                                                        <td>Bút bi đỏ</td>
-                                                        <td>Thiên Long</td>
-                                                        <td>4.000</td>
-                                                        <td>5.000</td>
-                                                        <td>10</td>
-                                                        <td>50.000</td>
-                                                        <td>NULL</td>
-                                                        <td>1.000</td>
-                                                    </tr>
-                                                    <!-- Thêm các dòng khác tùy ý -->
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <!-- Thêm các dòng khác tùy ý -->
+                                <tr ng-repeat-start="item in invoiceRepeat"
+                                    data-toggle="collapse" data-target="#collapse-{{item.invoiceId}}">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{item.invoiceId}}</td>
+                                    <td>{{item.account.fullname}}</td>
+                                    <td>{{item.createDate | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{item.totalAmount}}</td>
+                                    <td>{{item.shippingFee}}</td>
+                                    <td>{{item.paymentAmount}}</td>
+                                    <td>{{item.paymentDate | date:'dd/MM/yyyy'}}</td>
+                                </tr>
+                                <tr ng-repeat-end id="collapse-{{item.invoiceId}}" class="collapse">
+                                    <td colspan="8">
+                                        <table class="table table-bordered">
+                                            <thead style="pointer-events: none;">
+                                            <tr>
+                                                <th class="text-center">Hình ảnh</th>
+                                                <th class="text-center">Mã sản phẩm</th>
+                                                <th class="text-center">Tên sản phẩm</th>
+                                                <th class="text-center">Gía bán</th>
+                                                <th class="text-center">Gía discount</th>
+                                                <th class="text-center">Số lượng</th>
+                                                <th class="text-center">Tổng giá</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="invoiceDetail in getListInvoiceDetailByInvoiceId(item.invoiceId) track by $index">
+                                                <td>{{invoiceDetail.productDetail.image}}</td>
+                                                <td>{{invoiceDetail.productDetail.product.productId}}</td>
+                                                <td>{{invoiceDetail.productDetail.product.productName}}</td>
+                                                <td>{{invoiceDetail.price}}</td>
+                                                <td>{{invoiceDetail.priceDiscount}}</td>
+                                                <td>{{invoiceDetail.quantity}}</td>
+                                                <td>{{invoiceDetail.amount}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                             <div class="toolbar">
                                 <div class="row">
                                     <div class="col-12">
+                                        <!-- Nút để ẩn/hiện body-profit -->
+                                        <button class="btn btn-secondary" data-toggle="collapse"
+                                                data-target="#bodyProfitCollapse" aria-expanded="false">
+                                            <span id="toggleButtonText">Hiện doanh thu</span>
+                                        </button>
+                                        <!-- total-profit -->
                                         <div class="total-profit">
-                                            <div class="body-profit">
-                                                <div>
-                                                    <h6>Tổng doanh thu:<span class="total">100000000000</span>
-                                                    </h6>
-                                                </div>
-                                                <div>
-                                                    <h6>Tổng chi phí:<span class="expense">10</span></h6>
-                                                </div>
-                                                <hr class="table-hr">
-                                                <div>
-                                                    <h6>Tổng lợi nhuận:<span class="profit">90</span></h6>
+                                            <!-- body-profit -->
+                                            <div id="bodyProfitCollapse" class="collapse">
+                                                <div class="body-profit">
+                                                    <div>
+                                                        <h6>Tổng doanh thu:<span class="total">100000000000</span></h6>
+                                                    </div>
+                                                    <div>
+                                                        <h6>Tổng chi phí:<span class="expense">10</span></h6>
+                                                    </div>
+                                                    <hr class="table-hr">
+                                                    <div>
+                                                        <h6>Tổng lợi nhuận:<span class="profit">90</span></h6>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -317,33 +229,24 @@
                                 <form class="form">
                                     <div class="form-row">
                                         <div class="form-inline col-auto mr-auto">
-                                            <label class="my-1 mr-2 " for="inlineFormCustomSelectPref1">Show</label>
-                                            <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1">
-                                                <option value="">...</option>
-                                                <option value="1">12</option>
-                                                <option value="2" selected>32</option>
-                                                <option value="3">64</option>
-                                                <option value="3">128</option>
+                                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
+                                            <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1"
+                                                    ng-model="itemsPerPage"
+                                                    ng-options="option for option in itemsPerPageOptions"
+                                                    ng-change="currentPage = 1">
                                             </select>
                                         </div>
                                         <div class="form-group col-auto">
-                                            <span>Đang xem 1 trên tổng số 5 mục</span>
-
+                                            <span>Đang xem {{ calculateRange() }}</span>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <nav aria-label="Table Paging" class="mb-0 text-muted">
-                                <ul class="pagination justify-content-center mb-0">
-                                    <li class="page-item"><a class="page-link" href="#">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                </ul>
-                            </nav>
+                            <ul uib-pagination ng-model="currentPage" total-items="totalItems"
+                                items-per-page="itemsPerPage" max-size="maxSize" class="pagination-sm"
+                                boundary-link-numbers="true" boundary-links="true" force-ellipses="true"
+                                previous-text=" " next-text=" " first-text=" " last-text=" ">
+                            </ul>
                         </div>
                     </div>
                 </div> <!-- simple table -->

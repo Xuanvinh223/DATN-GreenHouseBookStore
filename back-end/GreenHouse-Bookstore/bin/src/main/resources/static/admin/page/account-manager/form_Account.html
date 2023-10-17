@@ -1,0 +1,105 @@
+<div class="container-fluid" ng-controller="AccountController">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="card mb-2">
+      <h3 class="mb-3 mt-3 ml-3">Thông tin tài khoản</h3>
+    </div>
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-9">
+
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="PublishersID">Tên Tài Khoản(*)</label>
+                  <input type="text" class="form-control" placeholder="Nhập tên tài khoản" ng-model="editingAccounts.username" ng-disabled="isEditing">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="PublishersName">Họ và Tên(*)</label>
+                  <input type="text" name="username" class="form-control" placeholder="Nhập họ và tên" ng-model="editingAccounts.fullname">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="example-password">Mật Khẩu(*)</label>
+                  <input type="password" id="example-password" class="form-control" value="password" ng-model="editingAccounts.password">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="example-email">Email(*)</label>
+                  <input type="email" id="example-email" name="example-email" class="form-control" placeholder="Nhập email" ng-model="editingAccounts.email">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="custom-phone">Số Điện Thoại(*)</label>
+                  <input class="form-control input-phoneus" id="custom-phone" placeholder="Nhập số điện thoại" ng-model="editingAccounts.phone">
+
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="address">Ngày Sinh(*)</label>
+                  <input class="form-control" id="example-date" type="date" name="date" ng-model="editingAccounts.birthday" ng-value="formatDate(editingAccounts.birthday)">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <p class="mb-2">Giới Tính(*)</p>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="role" id="male" value="option1" ng-model="editingAccounts.gender" ng-value="true">
+                    <label class="form-check-label" for="male">Nam</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="role" id="female" value="option2" ng-model="editingAccounts.gender" ng-value="false">
+                    <label class="form-check-label" for="female">Nữ</label>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <p class="mb-2">Trạng Thái(*)</p>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="active" value="option3" ng-model="editingAccounts.active" ng-value="true">
+                    <label class="form-check-label" for="active">Hoạt động</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="unactive"
+                      value="option4" ng-model="editingAccounts.active" ng-value="false">
+                    <label class="form-check-label" for="unactive">Ngừng hoạt động</label>
+                  </div>
+                </div>
+              </div>
+
+
+              <button type="button" class="btn btn-primary" ng-click="saveAccounts()">
+                {{ isEditing ? 'Lưu sửa đổi' : 'Thêm mới' }}</button>
+              <button type="submit" class="btn btn-primary" ng-click="resetForm()">Làm mới</button>
+              
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 Upload">
+
+              <div class="form-label h5 text-center">
+                <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại diện(*)</label>
+              </div>
+              <div class="row d-flex justify-content-center">
+                <div>
+                  <img src="./assets/avatars/face-3.jpg" class="img-fluid w-100 h-100">
+                </div>
+              </div>
+              <div class="row d-flex justify-content-center">
+                <label class="text-center mt-2 btn btn-dark w-100">
+                  <i class="fa fa-upload"></i>
+                  Tải ảnh đại diện
+                  <input type="file" th:field="*{file}" onchange="uploadImg()" hidden accept=".png,.jpg,.jpge">
+                </label>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- / .card -->
+
+    </div> <!-- .col-12 -->
+  </div> <!-- .row -->
+
+</div> <!-- .container-fluid -->

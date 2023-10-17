@@ -1,4 +1,4 @@
-var app = angular.module('admin-app', ['ngRoute', 'ui.bootstrap', 'angular-jwt']);
+var app = angular.module('admin-app', ["angular-jwt", 'ngRoute', 'ui.bootstrap']);
 
 app.config(function ($routeProvider) {
     $routeProvider
@@ -71,10 +71,6 @@ app.config(function ($routeProvider) {
             templateUrl: "page/coupon-manager/table_flashsale.html",
             controller: "flashsaleController"
         })
-        .when("/inventory-form", {
-            templateUrl: "page/inventory-manager/inventory_form.html",
-            controller: "inventoryCtrl"
-        })
         .when("/inventory-table", {
             templateUrl: "page/inventory-manager/inventory_table.html",
             controller: "inventoryCtrl"
@@ -82,7 +78,7 @@ app.config(function ($routeProvider) {
         //đơn hàng
         .when("/order-manager", {
             templateUrl: "page/order-manager/table_order.html",
-            controller: "OrderController"
+            controller: ""
         })
         .when("/product-table", {
             templateUrl: "page/product-manager/table_product.html",
@@ -129,20 +125,24 @@ app.config(function ($routeProvider) {
         })
 })
 
-app.run(['$rootScope', function ($rootScope) {
+app.run(['$rootScope', function ($rootScope, $window) {
+
+    var fullName = window.localStorage.getItem("fullName");
+
     $rootScope.page = {
         setTitle: function (title) {
             this.title = 'GreenHouse |' + title;
         }
     }
+
 }]);
 
 // Tạo một interceptor
 app.factory('tokenInterceptor', ['$window', function ($window) {
     return {
         request: function (config) {
+
             var token = $window.localStorage.getItem('token');
-            // Kiểm tra nếu URL của request bắt đầu bằng "/api/"
             if (token && config.url.includes('/rest/')) {
                 config.headers['Authorization'] = 'Bearer ' + token;
             }

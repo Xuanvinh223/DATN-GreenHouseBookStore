@@ -3,24 +3,29 @@ app.controller("headerController", headerController);
 function headerController($http, $window, $scope, jwtHelper) {
   var token = localStorage.getItem("token");
   // Khởi tạo biến $scope.username với giá trị mặc định
-  $scope.username = "Tài khoản";
+  $scope.fullName = "Tài khoản";
   if (token) {
-    var decodedToken = jwtHelper.decodeToken(token);
-    var username = decodedToken.sub;
-    $scope.isCustomer = false; // Mặc định không phải là khách hàng
-    $scope.roles = decodedToken.roles;
+      var decodedToken = jwtHelper.decodeToken(token);
+      var username = decodedToken.sub;
+      var fullName = decodedToken.fullName;
+      var image = decodedToken.image;
+      window.localStorage.setItem("fullName", fullName);
+      window.localStorage.setItem("username", username);
+      window.localStorage.setItem("image", image);
+      $scope.isCustomer = false; // Mặc định không phải là khách hàng
+      $scope.roles = decodedToken.roles;
 
-    if (username) {
-      $scope.username = username;
-    }
+      if (fullName) {
+          $scope.fullName = fullName;
+      }
 
-    $scope.isCustomer = $scope.roles.some(function (role) {
-      return role.authority === "ROLE_CUSTOMER";
-    });
+      $scope.isCustomer = $scope.roles.some(function (role) {
+          return role.authority === "ROLE_CUSTOMER";
+      });
 
-    $scope.isAdmin = $scope.roles.some(function (role) {
-      return role.authority === "ROLE_ADMIN";
-    });
+      $scope.isAdmin = $scope.roles.some(function (role) {
+          return role.authority === "ROLE_ADMIN";
+      });
   }
 
   $scope.admin = function () {
@@ -29,7 +34,9 @@ function headerController($http, $window, $scope, jwtHelper) {
   };
 
   $scope.logout = function () {
-    $window.localStorage.removeItem("token");
-    window.location.href = "/login";
+      $window.localStorage.removeItem("token");
+      $window.localStorage.removeItem("username");
+      $window.localStorage.removeItem("fullName");
+      window.location.href = "/logout";
   };
 }

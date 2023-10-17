@@ -1,4 +1,5 @@
 app.controller("cartController", cartController);
+
 function cartController($http, $scope, cartAPI, CartService) {
     var username = localStorage.getItem("username");
 
@@ -54,7 +55,7 @@ function cartController($http, $scope, cartAPI, CartService) {
         });
     };
     $scope.$watch('listCart', function (newListCart, oldListCart) {
-        $scope.checkAll = true; 
+        $scope.checkAll = true;
 
         angular.forEach(newListCart, function (cart) {
             if (!cart.checked) {

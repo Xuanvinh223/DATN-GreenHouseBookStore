@@ -4,17 +4,17 @@
 <th:block th:replace="~{client/layouts/template.html :: head (${title})}"></th:block>
 
 <body ng-app="myApp" ng-controller="MainController">
-  <div class="notification-container">
+<div class="notification-container">
     <div class="notification" id="{{'notification-'+$index}}" ng-repeat="notification in notifications track by $index"
-      ng-class="notification.type">
-      {{ notification.message }}
-      <span class="close-button" ng-click="removeNotification(notification)">&times;</span>
+         ng-class="notification.type">
+        {{ notification.message }}
+        <span class="close-button" ng-click="removeNotification(notification)">&times;</span>
     </div>
-  </div>
+</div>
 
-  <th-block th:replace="~{client/layouts/template.html :: 'menu-fahasha'}"></th-block>
+<th-block th:replace="~{client/layouts/template.html :: 'menu-fahasha'}"></th-block>
 
-  <div class="site-wrapper" id="top">
+<div class="site-wrapper" id="top">
 
     <th-block th:replace="~{client/layouts/template.html :: 'menu'}"></th-block>
 

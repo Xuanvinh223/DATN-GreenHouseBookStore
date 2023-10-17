@@ -15,6 +15,8 @@ public interface ProductDetailService {
     Product_Detail update(Product_Detail entity);
 
     void delete(Integer productDetailId);
+    
+    List<Object[]> findAllInventoryList();
 
     List<Product_Detail> findProductsByStatus();
 }

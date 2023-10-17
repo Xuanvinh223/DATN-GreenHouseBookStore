@@ -30,7 +30,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Lấy thông tin người dùng từ cơ sở dữ liệu
         Accounts accounts = accountRepository.findByUsername(username);
-
         List<Authorities> authorities = authoritiesRepository.findByUsername(username);
 
         if (accounts == null) {

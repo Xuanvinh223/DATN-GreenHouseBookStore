@@ -10833,7 +10833,7 @@ a.text-dark:focus {
   }
 
   abbr[title]::after {
-    content: " (" attr(title) ")";
+    content: " ("attr(title) ")";
   }
 
   pre {
@@ -17456,16 +17456,23 @@ a.uppy-Dashboard-poweredBy {
   max-height: 300px;
 }
 
+.order-info .tab-content .form-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
 .order-info .tab-content .form-info {
   width: 100%;
   line-height: 28px;
   border: 2px solid transparent;
   border-bottom-color: #777;
-  padding: .2rem 0;
+  padding: 0.2rem 0;
   outline: none;
   background-color: transparent;
   color: #e8e8e8;
-  transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .order-info .tab-content .form-info:not(:disabled) {
@@ -17475,7 +17482,7 @@ a.uppy-Dashboard-poweredBy {
 .order-info .tab-content .form-info:focus,
 .form-info:hover {
   outline: none;
-  padding: .2rem 1rem;
+  padding: 0.2rem 1rem;
   border-radius: 1rem;
   border-color: #79c44d;
 }
@@ -17486,7 +17493,7 @@ a.uppy-Dashboard-poweredBy {
 
 .order-info .tab-content .form-info:focus::placeholder {
   opacity: 0;
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 }
 
 .order-info .tab-content label {
@@ -17673,7 +17680,7 @@ a.uppy-Dashboard-poweredBy {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  border: 1px solid #E0E0E0E0;
+  border: 1px solid #e0e0e0e0;
   border-radius: 5px;
   height: 30px;
 }
@@ -17715,7 +17722,7 @@ a.uppy-Dashboard-poweredBy {
 }
 
 .order-page #orderModal .modal-body .cart-price-total .cart-price .price {
-  color: #C92127;
+  color: #c92127;
   font-weight: bold;
   font-size: 1.2em;
 }
@@ -17841,11 +17848,6 @@ a.uppy-Dashboard-poweredBy {
   background: #cffad1;
 }
 
-
-.order-page #orderModal .modal-body .search-box .search-user-result .user-box:hover {
-  background: #cffad1;
-}
-
 .order-page #orderModal .modal-body .search-box .search-user-result .user-box .user-info {
   display: flex;
   align-items: center;
@@ -17883,8 +17885,6 @@ a.uppy-Dashboard-poweredBy {
 /* END CSS ORDER PAGE */
 
 /* END CSS ORDER PAGE */
-
-
 /* CSS FLASH SALE PAGE - START */
 
 /* Định dạng phần phân trang - start */
@@ -17936,13 +17936,11 @@ a.uppy-Dashboard-poweredBy {
 }
 
 /* Định dạng phần phân trang - end */
-
 /* CSS FLASH SALE PAGE - END */
-
 /* Định dạng của container chứa icon và input */
-.input-container {
+/* .input-container {
   width: 60%;
-}
+} */
 
 @media (min-width: 992px) {
   .input-container {
@@ -17970,11 +17968,17 @@ a.uppy-Dashboard-poweredBy {
 .input {
   border: none;
   /* Loại bỏ border của input */
-  /* background-color: #495057; */
+  background-color: transparent;
   outline: none;
   /* Loại bỏ border khi focus */
   width: 100% !important;
   /* Độ rộng của input */
+}
+
+.input:focus {
+  background-color: transparent;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Đảm bảo icon và combobox nằm cùng một hàng ngang */
@@ -17995,6 +17999,28 @@ a.uppy-Dashboard-poweredBy {
   min-width: 90%;
 }
 
+/* Thanh cuộn */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #494E4A;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #79827B;
+}
+
+/* End Thanh cuộn */
 /* CSS Invertory  */
 
 .inventory-table #inventoryModal .modal-body .search-box .form-modal-search button {
@@ -18110,9 +18136,9 @@ a.uppy-Dashboard-poweredBy {
 }
 
 .inventory-table #inventoryModal .modal-body .item-product-cart .img-product-cart img {
-  width: 90%;
+  width: 100%;
+  max-width: 80px;
   object-fit: contain;
-  padding-left: 10px;
 }
 
 .inventory-table #inventoryModal .modal-body .group-product-info {
@@ -18269,10 +18295,11 @@ a.uppy-Dashboard-poweredBy {
 
 .inventory-table #inventoryModal .modal-body .search-box .product-cart-left {
   z-index: 10;
-  max-height: 100%;
-  max-width: 100%;
+  height: 400px;
+  width: 95%;
   overflow: auto;
   position: absolute !important;
+
 }
 
 .bg-success1 {
@@ -18282,4 +18309,129 @@ a.uppy-Dashboard-poweredBy {
   right: 0;
 }
 
+.alert-product {
+  color: #fff;
+  background-color: #495057;
+  border-color: #9e9e9e;
+  text-align: center;
+}
+
+/* END */
+.table-hover-green tbody tr:hover {
+  background-color: #339900;
+  /* Màu nền hover mong muốn */
+  cursor: pointer;
+  /* Biểu tượng chuột thay đổi thành con trỏ */
+}
+
+.total-profit {
+  float: right;
+  margin-right: 50px;
+}
+
+.body-profit {
+  padding: 0 10px 10px 10px;
+  /* Padding top = 0px, Padding right = 10px, Padding bottom = 10px, Padding left = 10px */
+}
+
+.total {
+  float: right;
+  color: orangered;
+  margin-left: 20px;
+}
+
+.expense {
+  float: right;
+  color: #ff1a1a;
+  margin-left: 20px;
+}
+
+.profit {
+  float: right;
+  color: #62ab00;
+  margin-left: 20px;
+}
+
+.table-hr {
+  border: 1px solid #000;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+
+/* Định dạng nút trang hiện tại */
+.pagination .active a {
+  background-color: #62ab00;
+  border-color: #62ab00;
+  z-index: 3;
+  color: #f8f9fa;
+}
+/* CSS cho mũi tên "previous" */
+.pagination .pagination-prev a::before {
+  content: '\276C'; /* Unicode ký tự mũi tên trái */
+}
+
+/* CSS cho mũi tên "next" */
+.pagination .pagination-next a::after {
+  content: '\276D'; /* Unicode ký tự mũi tên phải */
+}
+/* CSS cho mũi tên "first" */
+.pagination .pagination-first a::before {
+  content: '\2759\276E'; /* Unicode ký tự mũi tên trái */
+}
+
+/* CSS cho mũi tên "last" */
+.pagination .pagination-last a::after {
+  content: '\276F\2759'; /* Unicode ký tự mũi tên phải */
+}
+/* Định dạng phần phân trang - start */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+/* Định dạng nút phân trang */
+.pagination .pagination-first a {
+  margin-left: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.pagination li a {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #adb5bd;
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+.pagination .pagination-last a {
+  margin-right: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.pagination li:not(.active):hover a {
+  background-color: rgb(237, 237, 237, 0.3);
+  color: #f8f9fa;
+}
+
+F
+
+/* Định dạng nút trang hiện tại */
+.pagination .active a {
+  background-color: #62ab00;
+  border-color: #62ab00;
+  z-index: 3;
+  color: #f8f9fa;
+}
+
+/* Định dạng phần phân trang - end */
 /* END */
