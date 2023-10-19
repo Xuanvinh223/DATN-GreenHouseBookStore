@@ -1,4 +1,4 @@
-app.controller("checkOutController", function ($scope, $http, checkOutAPI) {
+app.controller("checkOutController", function ($scope, $http, checkOutAPI, $timeout) {
     const host = checkOutAPI;
 
 
@@ -15,10 +15,19 @@ app.controller("checkOutController", function ($scope, $http, checkOutAPI) {
 
     $scope.getProvince = function () {
         var url = "https://provinces.open-api.vn/api/?depth=3";
-        $http.get(url).then(response => {
-            $scope.listProvince = response.data
-            console.log($scope.listProvince);
-        })
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                $scope.listProvince = JSON.parse(xhr.responseText);
+                console.log('Danh sách quận/huyện:', $scope.listProvince);
+                $timeout(function () {
+                    $('.selectpicker').selectpicker('refresh');
+                }, 1)
+            }
+        };
+        xhr.send();
     }
 
     $scope.getListDistrict = function () {
@@ -31,6 +40,7 @@ app.controller("checkOutController", function ($scope, $http, checkOutAPI) {
         } else {
             $scope.listDistrict = [];
         }
+        console.log(provinceCodeSelected);
     };
 
     $scope.getListWard = function () {

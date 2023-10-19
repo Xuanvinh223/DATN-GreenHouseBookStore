@@ -1156,15 +1156,13 @@
 }
 
 .login-cutomer-icon {
-  background: url("https://cdn0.fahasa.com/skin/frontend/base/default/images/ico_thongtintk.svg")
-    no-repeat center center;
+    background: url("https://cdn0.fahasa.com/skin/frontend/base/default/images/ico_thongtintk.svg") no-repeat center center;
     background-size: contain;
     height: 24px;
     width: 24px;
     position: relative;
     margin-right: 10px;
 }
-
 /* End Mobile */
 .fill-white {
     fill: white !important;
@@ -1208,7 +1206,7 @@
     margin-bottom: 20px;
 }
 
-.profile-account .myaccount-content .btn {
+.profile-account .btn {
     display: inline-block;
     font-weight: 400;
     color: #6C757D;
@@ -1218,10 +1216,15 @@
     background-color: transparent;
     border: 1px solid transparent;
     padding: 0.375rem 0.75rem;
-    font-size: 1rem;
+    font-size: 0.85rem;
     line-height: 1.5;
+    min-height: 40px;
     border-radius: 0;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.profile-account a.edit-address:hover {
+    color: #26d94a;
 }
 
 .btn-edit-address {
@@ -1230,13 +1233,18 @@
 }
 
 .btn-edit-address i {
+    padding-right: 0.5rem;
     color: rgb(98, 171, 0);
 }
 
-.btn-edit-address:hover, .btn-edit-address i:hover {
-    color: rgb(253, 253, 253) !important;
+.btn-edit-address:hover {
+    color: rgb(255, 255, 255) !important;
     border-color: transparent;
-    background-color: #26d94a;
+    background-color: #26d94a !important;
+}
+
+.btn-edit-address i:hover {
+    color: rgb(255, 255, 255) !important;
 }
 
 .profile-account.btn-primary {
@@ -1245,8 +1253,9 @@
 }
 
 .profile-account .btn-danger {
-    background-color: #fff;
-    border-color: #c03e3e;
+    background-color: #d83030;
+    color: #e8e3e3;
+    border-color: transparent;
 }
 
 .profile-account .btn-secondary {
@@ -1270,4 +1279,38 @@
 
 .profile-account .address-content {
     border-bottom: 1px dashed #cecece;
+}
+
+#createAddressModal {
+    z-index: 99999;
+}
+
+#addressDelete {
+    z-index: 100000;
+}
+
+#message1 {
+    z-index: 1000000;
+}
+
+.btn-outline-primary {
+    color: #00d404 !important;
+    border-color: #00d404 !important;
+}
+
+.btn-outline-primary:hover {
+    color: #212529 !important;
+    background-color: #00d404 !important;
+    border-color: #00d404 !important;
+}
+
+.btn-outline-dark {
+    color: #3D464D !important;
+    border-color: #3D464D !important;
+}
+
+.btn-outline-dark:hover {
+    color: #fff !important;
+    background-color: #3D464D !important;
+    border-color: #3D464D !important;
 }
