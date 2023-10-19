@@ -20,6 +20,8 @@
                                         <label for="PublishersName">Tên Ưu Đãi(*)</label>
                                         <input type="text" ng-model="item.name" class="form-control"
                                             placeholder="Nhập Tên Flash Sale">
+                                        <small class="mt-1 text-danger">{{
+                                            errors.flashSaleName }}</small>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -30,15 +32,22 @@
                                                 ng-value="item.startTime" placeholder=""
                                                 aria-describedby="button-addon2">
                                         </div>
+                                        <small class="mt-1 text-danger" ng-show="errors.startTime">{{ errors.startTime
+                                            }}</small>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="address">Giờ kết thúc(*)</label>
                                         <div class="input-group">
                                             <input type="time" ng-model="item.endTime" class="form-control "
-                                                   ng-value="item.endTime" placeholder=""
-                                                   aria-describedby="button-addon2">
+                                                ng-value="item.endTime" placeholder="" aria-describedby="button-addon2">
                                         </div>
+                                        <small class="mt-1 text-danger" ng-show="errors.endTime">{{ errors.endTime
+                                            }}</small>
                                     </div>
+                                    <small class="text-danger" ng-show="errors.failTime" style="margin-top: -13px;">{{
+                                        errors.failTime}}</small>
+                                </div>
+                                <div class="form-row">
                                     <div class="col-md-12 mb-3">
                                         <label for="address">Ngày thực hiện(*)</label>
                                         <div class="input-group">
@@ -46,9 +55,10 @@
                                                 name="item.userDate" ng-model="item.userDate"
                                                 ng-value="formatDate(item.userDate)">
                                         </div>
+                                        <small class="mt-1 text-danger" ng-show="errors.userDate">{{ errors.userDate
+                                            }}</small>
                                     </div>
                                 </div>
-
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
                                         <p class="mb-2">Trạng Thái(*)</p>
@@ -64,14 +74,16 @@
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" ng-model="item.status"
-                                                   ng-value="3" id="expired">
+                                                ng-value="3" id="expired">
                                             <label class="form-check-label" for="expired">Hết hạn</label>
-                                        </div>
+                                        </div><br>
+                                        <small class="mt-1 text-danger" ng-show="errors.status">{{ errors.status
+                                            }}</small>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-2" ng-click="create()">Lưu</button>
-                                <button type="reset" class="btn btn-info">Làm Mới</button>
-                            </form>
+                                <button type="reset" class="btn btn-info" ng-click="clearTable()">Làm Mới</button>
+                                <form>
                         </div>
 
                     </div>
@@ -83,8 +95,12 @@
                 <div class="col-md-8 ">
                     <div class="card shadow">
                         <div class="card-header">
-                            <a class="card-title1 " data-toggle="modal" data-target="#exampleModal">Chọn sản phẩm</a>
+                            <a class="card-title1 " data-toggle="modal" data-target="#exampleModal">Chọn sản
+                                phẩm</a>
                             <a class="float-right small ">{{ listProductFlashSale.length }} sản phẩm được chọn</a>
+                        </div>
+                        <div class="card-header" ng-show="!listProductFlashSale.length">
+                            <center> <small class="text-danger"> {{errors.listProductFlashSale}} </small></center>
                         </div>
                         <!--  -->
                         <div class="card-body" ng-if="listProductFlashSale.length > 0">
@@ -107,12 +123,14 @@
                                         <td class="row pr-2">
                                             <div class="col-md-4 " style="margin-right: 10px;">
                                                 <img ng-src="{{product.productDetail.image}}" alt=""
-                                                     style="width: 50px;height: auto;">
+                                                    style="width: 50px;height: auto;">
                                             </div>
                                             <div class="col-md-8 d-flex justify-content-center flex-column">
-                                                <span class="product-name">{{ product.productDetail.product.productName
+                                                <span class="product-name">{{
+                                                    product.productDetail.product.productName
                                                     }}</span>
-                                                <span class="quantity-ins">Còn: {{ product.productDetail.quantityInStock
+                                                <span class="quantity-ins">Còn: {{
+                                                    product.productDetail.quantityInStock
                                                     }}</span>
                                             </div>
                                         </td>
@@ -158,7 +176,8 @@
                                     <div class="input-wrapper">
                                         <i class="fe fe-search fe-18 icon"></i>
                                         <!--  -->
-                                        <input class="form-control input" type="search" placeholder="Tìm kiếm...">
+                                        <input class="form-control input" type="search" placeholder="Tìm kiếm..."
+                                        ng-model="searchTextProFl" ng-change="searchDataProFl()">
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +197,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="item in listModelProduct">
+                                    <tr ng-repeat="item in listModelProduct | startFrom:(currentPageProFl - 1) * itemsPerPageProFl | limitTo:itemsPerPageProFl">
                                         <td>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input" type="checkbox" id="item{{$index}}"
@@ -188,8 +207,7 @@
                                         </td>
                                         <th class="row">
                                             <div class="col-md-4">
-                                                <img ng-src="{{item.image}}" alt="Lỗi ảnh"
-                                                    style="width: 100px;height: auto;">
+                                                <img ng-src="{{item.image}}" alt="Lỗi ảnh" style="width: 100px;height: auto;">
                                             </div>
                                             <div class="col-md-8 d-flex justify-content-center flex-column">
                                                 <span class="product-name">{{item.product.productName}}</span>
@@ -199,8 +217,27 @@
                                         <td>{{item.price | number:'0'}} VNĐ</td>
                                     </tr>
                                 </tbody>
-
                             </table>
+                                <div class="toolbar">
+                                    <form class="form">
+                                        <div class="form-row">
+                                            <div class="form-inline col-auto mr-auto">
+                                                <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
+                                                <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1" ng-model="itemsPerPageProFl"
+                                                    ng-options="option for option in itemsPerPageOptionsProFl" ng-change="currentPageProFl = 1">
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-auto">
+                                                <span>Đang xem {{ calculateRangeProFl() }}</span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <ul uib-pagination ng-model="currentPageProFl" total-items="totalItemsProFl" items-per-page="itemsPerPageProFl"
+                                    max-size="maxSizeProFl" class="pagination-sm" boundary-link-numbers="true" boundary-links="true"
+                                    force-ellipses="true" previous-text="<" next-text=">" first-text="<<" last-text=">>">
+                                </ul>
+                                
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Trở Về</button>

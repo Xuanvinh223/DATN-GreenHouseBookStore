@@ -5,12 +5,12 @@ function headerController($http, $window, $scope, jwtHelper) {
   var imageStorge = localStorage.getItem("image");
   // Khởi tạo biến $scope.username với giá trị mặc định
   $scope.fullName = fullName;
-  $scope.image = "https://tse1.explicit.bing.net/th?id=OIP.Hv9ZwItRTU5Kd68xiwSkMwHaHa&pid=Api&P=0&h=220";
+  $scope.image = "https://img2.woyaogexing.com/2021/07/17/362d5f90c6a14213b27fb814e5c599da!400x400.jpeg";
 
   if (imageStorge !== "undefined") {
     $scope.image = imageStorge;
   } else if (imageStorge == undefined) {
-    $scope.image = "https://tse1.explicit.bing.net/th?id=OIP.Hv9ZwItRTU5Kd68xiwSkMwHaHa&pid=Api&P=0&h=220";
+    $scope.image = "https://img2.woyaogexing.com/2021/07/17/362d5f90c6a14213b27fb814e5c599da!400x400.jpeg";
   }
 
   $scope.logout = function () {

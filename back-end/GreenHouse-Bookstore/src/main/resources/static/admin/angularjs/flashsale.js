@@ -26,6 +26,9 @@ function flashsaleController($scope, $http, $location, $routeParams) {
     $scope.sortField = null;
     $scope.reverseSort = false;
     // Khai báo danh sách tùy chọn cho số mục trên mỗi trang
+    $scope.currentPage = 1; // Trang hiện tại
+    $scope.itemsPerPage = 12; // Số mục hiển thị trên mỗi trang
+    $scope.maxSize = 5;
     $scope.itemsPerPageOptions = [5, 12, 24, 32, 64, 128];
     $scope.selectedItemsPerPage = 5; // Khởi tạo giá trị mặc định cho số mục trên mỗi trang
     let host = "http://localhost:8081/rest";
@@ -52,6 +55,8 @@ function flashsaleController($scope, $http, $location, $routeParams) {
         return startIndex + ' đến ' + endIndex + ' trên tổng số ' + $scope.totalItems + ' mục';
     };
 
+
+
     $scope.searchData = function () {
         // Lọc danh sách gốc bằng searchText
         $scope.flashsalelist = $scope.originalFlashSaleList.filter(function (item) {
@@ -75,7 +80,7 @@ function flashsaleController($scope, $http, $location, $routeParams) {
             console.log("List Product Detail List", resp.data.productList)
             console.log("List FlashSAle List", resp.data.flashsalelist)
             // Cập nhật trạng thái Flash Sale
-            // $scope.updateFlashSaleStatus();
+
             $scope.loadModelProduct();
             $scope.totalItems = $scope.originalFlashSaleList.length; // Tổng số mục
         }).catch(error => {
@@ -91,6 +96,7 @@ function flashsaleController($scope, $http, $location, $routeParams) {
                 $scope.listModelProduct.push(item);
             }
         });
+        $scope.totalItemsProFl = $scope.listModelProduct.length;
         console.log("Danh sách sản phẩm có status = 1:", $scope.listModelProduct);
 
     }
@@ -170,48 +176,58 @@ function flashsaleController($scope, $http, $location, $routeParams) {
     };
     //hàm Save 
     $scope.create = function () {
-        var url = `${host}/flashsales`;
-        var formattedTime = moment($scope.item.startTime, 'hh:mm A').format('HH:mm:ss');
-        var formattedEndTime = moment($scope.item.endTime, 'hh:mm A').format('HH:mm:ss');
-        var formatUserDate = moment($scope.item.userDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
-        // Tạo dữ liệu yêu cầu POST từ các trường trong form HTML
-        var requestData = {
-            flashSale: {
-                flashSaleId: $scope.item.flashSaleId | null,
-                name: $scope.item.name,
-                startTime: formattedTime,
-                endTime: formattedEndTime,
-                userDate: formatUserDate,
-                status: $scope.item.status
-            },
-            productFlashSales: $scope.listProductFlashSale,
-            listDeletedProductFlashSale: $scope.listDeletedProductFlashSale
-        };
-        // Duyệt qua danh sách sản phẩm đã chọn và thêm chúng vào danh sách productFlashSales
-        console.log(requestData);
-        $http.post(url, requestData).then(resp => {
-            console.log("Thêm Flashsale thành công", resp);
-            $scope.clearTable();
-            Swal.fire({
-                icon: "success",
-                title: "Thành công",
-                text: `Thêm Flash Sale thành công`,
-            });
+        var check = $scope.check();
+        if (check) {
+            var url = `${host}/flashsales`;
+            var formattedTime = moment($scope.item.startTime, 'hh:mm A').format('HH:mm:ss');
+            var formattedEndTime = moment($scope.item.endTime, 'hh:mm A').format('HH:mm:ss');
+            var formatUserDate = moment($scope.item.userDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
+            // Tạo dữ liệu yêu cầu POST từ các trường trong form HTML
+            var requestData = {
+                flashSale: {
+                    flashSaleId: $scope.item.flashSaleId | null,
+                    name: $scope.item.name,
+                    startTime: formattedTime,
+                    endTime: formattedEndTime,
+                    userDate: formatUserDate,
+                    status: $scope.item.status
+                },
+                productFlashSales: $scope.listProductFlashSale,
+                listDeletedProductFlashSale: $scope.listDeletedProductFlashSale
+            };
+            // Duyệt qua danh sách sản phẩm đã chọn và thêm chúng vào danh sách productFlashSales
+            console.log(requestData);
+            $http.post(url, requestData).then(resp => {
+                console.log("Thêm Flashsale thành công", resp);
+                $scope.clearTable();
+                Swal.fire({
+                    icon: "success",
+                    title: "Thành công",
+                    text: `Thêm Flash Sale thành công`,
+                });
 
-        }).catch(error => {
-            console.log("Error", error);
-            Swal.fire({
-                icon: "error",
-                title: "Thất bại",
-                text: `Thêm Flash Sale thất bại`,
+            }).catch(error => {
+                console.log("Error", error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Thất bại",
+                    text: `Thêm Flash Sale thất bại`,
+                });
             });
-        });
+        }
     }
 
     //Hàm Reset
     $scope.clearTable = function () {
         $scope.item = {};
-        $scope.listProductFlashSale = []; // Xóa toàn bộ dữ liệu trong bảng
+        $scope.listProductFlashSale = [];
+        $scope.errors = {};
+        // Sử dụng $location.search() để xóa tham số "id" và "data" khỏi URL
+        $location.search('id', null);
+        $location.search('data', null);
+
+        // Sau khi xóa, chuyển hướng lại đến trang /flashsale-form
+        $location.path('/flashsale-form');
     };
 
     //Hàm EDIT
@@ -222,7 +238,7 @@ function flashsaleController($scope, $http, $location, $routeParams) {
             .then(function (resp) {
                 $location
                     .path("/flashsale-form")
-                    .search({id: flashSaleId, data: resp.data});
+                    .search({ id: flashSaleId, data: resp.data });
                 console.log(resp.data);
             }).catch(function (error) {
                 console.log("Error", error);
@@ -248,6 +264,96 @@ function flashsaleController($scope, $http, $location, $routeParams) {
 
         return `${year}-${month}-${day}`;
     };
+
+    $scope.check = function () {
+        if ($scope.item) {
+            console.log("Ok");
+            var flashSaleName = $scope.item.name;
+            var startTime = moment($scope.item.startTime, 'HH:mm:ss');
+            var endTime = moment($scope.item.endTime, 'HH:mm:ss');
+            var userDate = $scope.item.userDate;
+            var active = $scope.item.status;
+
+            $scope.errors = {}; // Đặt lại đối tượng errors
+
+            if (!flashSaleName) {
+                $scope.errors.flashSaleName = '*Vui lòng nhập tên FlashSale';
+            }
+            if (!startTime.isValid()) {
+                $scope.errors.startTime = '*Vui lòng chọn giờ bắt đầu hợp lệ';
+            }
+
+            if (!endTime.isValid()) {
+                $scope.errors.endTime = '*Vui lòng chọn giờ kết thúc hợp lệ';
+            }
+
+            if (!userDate) {
+                $scope.errors.userDate = '*Vui lòng chọn ngày thực hiện';
+            }
+
+            if (!active || active == null) {
+                $scope.errors.status = '*Vui lòng chọn trạng thái';
+            }
+            // So sánh ngày bắt đầu và ngày kết thúc
+            // So sánh thời gian bắt đầu và kết thúc
+            if (startTime.isValid() && endTime.isValid() && endTime.isBefore(startTime)) {
+                $scope.errors.failTime = '*Giờ kết thúc phải sau giờ bắt đầu';
+            }
+
+            if (!$scope.listProductFlashSale || $scope.listProductFlashSale.length === 0) {
+                $scope.errors.listProductFlashSale = 'Vui lòng chọn ít nhất một sản phẩm';
+            }
+            var hasErrors = Object.keys($scope.errors).length > 0;
+
+            return !hasErrors
+        }
+    }
+
+    //////////////////////////HÀM CỦA PRODUCT FLASHSALE/////////////////////////////////
+    $scope.currentPageProFl = 1; // Trang hiện tại
+    $scope.itemsPerPageProFl = 5; // Số mục hiển thị trên mỗi trang
+    $scope.maxSizeProFl = 5;
+    $scope.itemsPerPageOptionsProFl = [5, 12, 24, 32, 64, 128];
+    $scope.selectedItemsPerPageProFl = 5; // Khởi tạo giá trị mặc định cho số mục trên mỗi trang
+    $scope.searchTextProFl ="";
+    // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
+    $scope.getNumOfPagesProFl = function () {
+        return Math.ceil($scope.totalItemsProFl / $scope.itemsPerPageProFl);
+    };
+
+    // Hàm chuyển đổi trang
+    $scope.setPageProFl = function (pageNo) {
+        $scope.currentPageProFl = pageNo;
+    };
+
+    $scope.calculateRangeProFl = function () {
+        var startIndex = ($scope.currentPageProFl - 1) * $scope.itemsPerPageProFl + 1;
+        var endIndex = $scope.currentPageProFl * $scope.itemsPerPageProFl;
+
+        if (endIndex > $scope.totalItemsProFl) {
+            endIndex = $scope.totalItemsProFl;
+        }
+
+        return startIndex + ' đến ' + endIndex + ' trên tổng số ' + $scope.totalItemsProFl + ' mục';
+    };
+
+    $scope.searchDataProFl = function () {
+        // Lọc danh sách gốc bằng searchText
+        if (!$scope.originalModelProductList) {
+            $scope.originalModelProductList = angular.copy($scope.listModelProduct);
+        }
+    
+        $scope.listModelProduct = $scope.originalModelProductList.filter(function (item) {
+            // Thực hiện tìm kiếm trong các thuộc tính cần thiết của item
+            return (
+                item.product.productName.toLowerCase().includes($scope.searchTextProFl.toLowerCase())
+            );
+        });
+        $scope.totalItemsProFl = $scope.searchTextProFl ? $scope.listModelProduct.length : $scope.originalModelProductList.length;
+        $scope.setPageProFl(1);
+    };
+    
+    
 
 }
 
