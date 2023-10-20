@@ -5,7 +5,7 @@ app.constant('signupAPI', 'http://localhost:8081/sign-up');
 app.constant('checkOutAPI', 'http://localhost:8081/customer/rest/check-out');
 app.constant('productPageAPI', 'http://localhost:8081/customer/rest/product-page');
 app.constant('cartAPI', 'http://localhost:8081/customer/rest/cart');
-
+app.constant('changePasswordAPI', 'http://localhost:8081/customer/rest/change-password');
 app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
 
     var token = $cookies.get("token");
@@ -142,7 +142,6 @@ app.controller('MainController', function ($scope, CartService, $timeout, $rootS
     $scope.showNotification = function (type, message) {
         var notification = {type: type, message: message};
         $scope.notifications.push(notification);
-
         $timeout(function () {
             $scope.removeNotification(notification);
         }, 3000);
