@@ -51,7 +51,7 @@
 }
 
 /* Address */
-.btn-edit-address {
+/* .btn-edit-address {
     border: 1px solid #62ab00;
     color: #62ab00;
     font-size: 1rem;
@@ -75,7 +75,7 @@
     padding: 5px 0;
     width: 100%;
     transition: border-bottom-color 0.3s;
-}
+} */
 
 .form-control:focus {
     border-bottom-color: #007bff;

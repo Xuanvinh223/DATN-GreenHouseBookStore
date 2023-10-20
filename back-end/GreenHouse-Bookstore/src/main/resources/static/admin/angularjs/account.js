@@ -19,21 +19,6 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         return Math.ceil($scope.totalItems / $scope.itemsPerPage);
     };
 
-    // Hàm chuyển đổi trang
-    $scope.setPage = function (pageNo) {
-        $scope.currentPage = pageNo;
-    };
-
-    $scope.calculateRange = function () {
-        var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage + 1;
-        var endIndex = $scope.currentPage * $scope.itemsPerPage;
-
-        if (endIndex > $scope.totalItems) {
-            endIndex = $scope.totalItems;
-        }
-
-        return startIndex + ' đến ' + endIndex + ' trên tổng số ' + $scope.totalItems + ' mục';
-    };
 
     $scope.loadAccount = function () {
         var url = `${host}`;
@@ -105,14 +90,17 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             $scope.errorMessages.phone = 'Vui lòng không bỏ trống số điện thoại';
             return;
         }
-        if (birthday) {
-            var currentDate = new Date();
-            var selectedDate = new Date(birthday);
-
-            if (selectedDate > currentDate) {
-                $scope.errorMessages.birthday = 'Ngày sinh không được là ngày ở tương lai';
-                return;
-            }
+        if (!birthday) {
+            $scope.errorMessages.birthday = 'Vui lòng không bỏ trống ngày sinh';
+            return;
+        }
+        
+        var currentDate = new Date();
+        var selectedDate = new Date(birthday);
+    
+        if (selectedDate > currentDate) {
+            $scope.errorMessages.birthday = 'Ngày sinh không được là ngày ở tương lai';
+            return;
         }
 
         // Kiểm tra tên tài khoản chỉ được nhập chữ và số
@@ -170,14 +158,14 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         var url = $scope.isEditing ? `${host}/${username}` : host;
 
         $http({
-            method: $scope.isEditing ? 'PUT' : 'POST',
-            url: url,
-            data: formData,
-            headers: {
-                'Content-Type': undefined
-            },
-            transformRequest: angular.identity
-        })
+                method: $scope.isEditing ? 'PUT' : 'POST',
+                url: url,
+                data: formData,
+                headers: {
+                    'Content-Type': undefined
+                },
+                transformRequest: angular.identity
+            })
             .then(function (resp) {
                 console.log(resp);
                 $scope.loadAccount();
@@ -326,6 +314,22 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         var day = formattedDate.getDate().toString().padStart(2, '0');
 
         return `${year}-${month}-${day}`;
+    };
+
+    // Hàm chuyển đổi trang
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
+
+    $scope.calculateRange = function () {
+        var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage + 1;
+        var endIndex = $scope.currentPage * $scope.itemsPerPage;
+
+        if (endIndex > $scope.totalItems) {
+            endIndex = $scope.totalItems;
+        }
+
+        return startIndex + ' đến ' + endIndex + ' trên tổng số ' + $scope.totalItems + ' mục';
     };
 
 

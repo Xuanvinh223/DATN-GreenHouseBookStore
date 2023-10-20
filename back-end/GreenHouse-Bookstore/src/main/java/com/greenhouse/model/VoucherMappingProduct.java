@@ -17,5 +17,5 @@ public class VoucherMappingProduct {
     private int voucherId;
 
     @Column(name = "Product_Detail_Id", length = 30)
-    private String productDetailId;
+    private int productDetailId;
 }
