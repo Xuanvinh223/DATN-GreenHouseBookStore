@@ -47,7 +47,7 @@ public class VouchersRestController {
     public ResponseEntity<Map<String, Object>> getVouchersById(@PathVariable("voucherId") int voucherId) {
         Map<String, Object> resp = new HashMap<>();
     
-        Vouchers vouchers = vouchersRepository.findById(voucherId);
+        Vouchers vouchers = vouchersRepository.findById(voucherId).orElse(null);
         List<Categories> categories = new ArrayList<>();
         List<Product_Detail> productDetails = new ArrayList<>();
         List<VoucherMappingCategory> listVoucherMappingCategories = voucherMappingCategoryRepository.findByVoucherId(voucherId);
@@ -164,8 +164,8 @@ public class VouchersRestController {
         for (VoucherMappingProduct v : voucherMappingProducts) {
             voucherMappingProductRepository.delete(v);
         }
-    
-        Vouchers existingVouchers = vouchersRepository.findById(voucherId);
+
+        Vouchers existingVouchers = vouchersRepository.findById(voucherId).orElse(null);
         if (existingVouchers == null) {
             return ResponseEntity.notFound().build();
         }
