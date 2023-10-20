@@ -28783,3 +28783,7 @@ p.show-full-text {
     text-decoration: underline !important;
     color: #024fc2;
 }
+
+.payment-block{
+  padding-bottom: 50px;
+}

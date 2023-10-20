@@ -17378,54 +17378,51 @@ a.uppy-Dashboard-poweredBy {
 }
 
 /* Định dạng phần phân trang - start */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
+.flash-sale-page .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
 }
 
 /* Định dạng nút phân trang */
-.pagination .pagination-first a {
-    margin-left: 0;
-    border-top-left-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
+.flash-sale-page .pagination .pagination-first a {
+  margin-left: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
 }
 
-.pagination li a {
-    position: relative;
-    display: block;
-    padding: 0.5rem 0.75rem;
-    margin-left: -1px;
-    line-height: 1.25;
-    color: #adb5bd;
-    background-color: transparent;
-    border: 1px solid transparent;
+.flash-sale-page .pagination li a {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #adb5bd;
+  background-color: transparent;
+  border: 1px solid transparent;
 }
 
-.pagination .pagination-last a {
-    margin-right: 0;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
+.flash-sale-page .pagination .pagination-last a {
+  margin-right: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 
-.pagination li:not(.active):hover a {
-    z-index: 2;
-    color: #f8f9fa;
-    text-decoration: none;
-    background-color: #6c757d;
-    border-color: #6c757d;
+.flash-sale-page .pagination li:not(.active):hover a {
+  background-color: rgb(237, 237, 237, 0.3);
+  color: #f8f9fa;
 }
 
 
 /* Định dạng nút trang hiện tại */
-.pagination .active a {
-    background-color: #62ab00;
-    border-color: #62ab00;
-    z-index: 3;
-    color: #f8f9fa;
+.flash-sale-page .pagination .active a {
+  background-color: #62ab00;
+  border-color: #62ab00;
+  z-index: 3;
+  color: #f8f9fa;
 }
 
 /* Định dạng phần phân trang - end */
@@ -17836,34 +17833,9 @@ a.uppy-Dashboard-poweredBy {
   border-bottom-style: solid;
 }
 
-.th-voucher {
-  white-space: nowrap;
+.modal-supper-lg1 {
+  min-width: 50%;
 }
-
-.table-hover-green tbody tr:hover {
-  background-color: #CCFFCC;
-  /* Màu nền hover mong muốn */
-  cursor: pointer;
-  /* Biểu tượng chuột thay đổi thành con trỏ */
-}
-
-.total-profit {
-  float: right;
-  margin-right: 50px;
-}
-
-.body-profit {
-  padding: 0 10px 10px 10px;
-  /* Padding top = 0px, Padding right = 10px, Padding bottom = 10px, Padding left = 10px */
-}
-
-.total {
-  float: right;
-  color: orangered;
-  margin-left: 20px;
-}
-
-/* CSS MODAL Voucher */
 
 .voucher-page #voucherModal .modal-body .search-box .form-modal-search button {
   border: none;
@@ -17873,7 +17845,7 @@ a.uppy-Dashboard-poweredBy {
 
 .voucher-page #voucherModal .modal-body .search-box .form-modal-search {
   --timing: 0.3s;
-  --width-of-input: 80%;
+  --width-of-input: 100%;
   --height-of-input: 40px;
   --border-height: 2px;
   --input-bg: #fff;
@@ -17944,7 +17916,6 @@ a.uppy-Dashboard-poweredBy {
   margin-top: 3px;
 }
 
-/* MODAL - CART PRODUCT LEFT - START*/
 .voucher-page #voucherModal .modal-body .selected-products {
   position: relative;
   max-height: 50vh;
@@ -17970,16 +17941,6 @@ a.uppy-Dashboard-poweredBy {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.button-voucher {
-  text-align: right;
-  padding: 20px;
-}
-
-.table-voucher {
-  width: 100%;
-  border: solid 1px;
 }
 
 .voucher-page #voucherModal .modal-body .product-name-full-text {
@@ -18011,12 +17972,10 @@ a.uppy-Dashboard-poweredBy {
   align-items: center;
 }
 
-/* SEARCH - BOX - START */
-/* PRODUCT - START */
 .voucher-page #voucherModal .modal-body .search-box .product-cart-left {
   z-index: 10;
   max-height: 150%;
-  width: 80%;
+  width: 95%;
   overflow: auto;
   position: absolute !important;
   bottom: 1px;
@@ -18045,13 +18004,13 @@ a.uppy-Dashboard-poweredBy {
   width: 100%;
 }
 
-.expense {
-  float: right;
-  color: #ff1a1a;
-  margin-left: 20px;
+.voucher-page #voucherModal .modal-body .border-product {
+  width: 95%;
+  margin: auto;
+  border-bottom-width: 1px;
+  border-bottom-color: #ededed;
+  border-bottom-style: solid;
 }
-
-/* PRODUCT - END */
 
 /*VoucherModal Product*/
 .voucher-page #voucherProduct .modal-body .border-product {
@@ -18062,18 +18021,6 @@ a.uppy-Dashboard-poweredBy {
   border-bottom-style: solid;
 }
 
-.profit {
-  float: right;
-  color: #62ab00;
-  margin-left: 20px;
-}
-
-.table-hr {
-  border: 1px solid #000;
-  margin-bottom: 10px;
-  margin-top: 5px;
-}
-
 .voucher-page #voucherProduct .modal-body .search-box .form-modal-search button {
   border: none;
   background: none;
@@ -18082,7 +18029,7 @@ a.uppy-Dashboard-poweredBy {
 
 .voucher-page #voucherProduct .modal-body .search-box .form-modal-search {
   --timing: 0.3s;
-  --width-of-input: 80%;
+  --width-of-input: 100%;
   --height-of-input: 40px;
   --border-height: 2px;
   --input-bg: #fff;
@@ -18209,15 +18156,14 @@ a.uppy-Dashboard-poweredBy {
   align-items: center;
 }
 
-/* SEARCH - BOX - START */
-/* PRODUCT - START */
 .voucher-page #voucherProduct .modal-body .search-box .product-cart-left {
   z-index: 10;
   max-height: 150%;
-  width: 80%;
+  width: 95%;
   overflow: auto;
   position: absolute !important;
-  top: 40%;
+  bottom: 1px;
+  top: 50px;
 }
 
 .voucher-page #voucherProduct .modal-body .search-box .product-cart-left .item-product-cart {
@@ -18250,6 +18196,20 @@ a.uppy-Dashboard-poweredBy {
   border-bottom-style: solid;
 }
 
+.button-voucher {
+  text-align: right;
+  padding: 20px;
+}
+
+.table-voucher {
+  width: 100%;
+  border: solid 1px;
+}
+
+.th-voucher {
+  white-space: nowrap;
+}
+
 /*VoucherModal Product end*/
 
 /* Định dạng của container chứa icon và input */
@@ -18273,3 +18233,54 @@ a.uppy-Dashboard-poweredBy {
 }
 
 /*END VOUCHER */
+
+/* Định dạng phần phân trang - start */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+/* Định dạng nút phân trang */
+.pagination .pagination-first a {
+  margin-left: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.pagination li a {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #adb5bd;
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+.pagination .pagination-last a {
+  margin-right: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.pagination li:not(.active):hover a {
+  background-color: rgb(237, 237, 237, 0.3);
+  color: #f8f9fa;
+}
+
+
+/* Định dạng nút trang hiện tại */
+.pagination .active a {
+  background-color: #62ab00;
+  border-color: #62ab00;
+  z-index: 3;
+  color: #f8f9fa;
+}
+
+/* Định dạng phần phân trang - end */
+/* END */
