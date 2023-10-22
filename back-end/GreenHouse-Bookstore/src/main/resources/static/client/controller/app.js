@@ -1,12 +1,13 @@
-const app = angular.module("myApp", ["angular-jwt","ngRoute", "ngCookies","angularUtils.directives.dirPagination"]);
+const app = angular.module("myApp", ["angular-jwt", "ngCookies"]);
 
 app.constant('authenticateAPI', 'http://localhost:8081/authenticate');
 app.constant('signupAPI', 'http://localhost:8081/sign-up');
 app.constant('checkOutAPI', 'http://localhost:8081/customer/rest/check-out');
 app.constant('productPageAPI', 'http://localhost:8081/customer/rest/product-page');
 app.constant('cartAPI', 'http://localhost:8081/customer/rest/cart');
-app.constant('changePasswordAPI', 'http://localhost:8081/customer/rest/change-password');
-app.constant('productDetailAPI','http://localhost:8081/customer/rest/product-detail')
+app.constant('changePasswordAPI', 'http://localhost:8081/customer/rest/reset-password');
+app.constant('forgotPasswordAPI', 'http://localhost:8081/customer/rest/forgot-password');
+app.constant('productDetailAPI', 'http://localhost:8081/customer/rest/product-detail')
 
 app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
 
@@ -61,27 +62,27 @@ app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
 
 // Tạo một interceptor
 app.factory("tokenInterceptor", function () {
-    return {
-        request: function (config) {
-            var token = window.localStorage.getItem("token");
-            // Kiểm tra nếu token tồn tại
-            if (token) {
-                config.headers["Authorization"] = "Bearer " + token;
-            }
-            return config;
-        },
-        responseError: function (response) {
-            // Kiểm tra nếu mã trạng thái là 401 Unauthorized (token hết hạn)
-            if (response.status === 401) {
-                // Token đã hết hạn, xoá nó khỏi local storage
-                window.localStorage.removeItem("token");
-                // Chuyển hướng đến trang /login
-                window.location.href = "/login";
-            }
-            return response;
-        },
-    };
-},
+        return {
+            request: function (config) {
+                var token = window.localStorage.getItem("token");
+                // Kiểm tra nếu token tồn tại
+                if (token) {
+                    config.headers["Authorization"] = "Bearer " + token;
+                }
+                return config;
+            },
+            responseError: function (response) {
+                // Kiểm tra nếu mã trạng thái là 401 Unauthorized (token hết hạn)
+                if (response.status === 401) {
+                    // Token đã hết hạn, xoá nó khỏi local storage
+                    window.localStorage.removeItem("token");
+                    // Chuyển hướng đến trang /login
+                    window.location.href = "/login";
+                }
+                return response;
+            },
+        };
+    },
 );
 
 // Đăng ký interceptor vào ứng dụng
@@ -224,7 +225,7 @@ app.service('CartService', function ($http, cartAPI) {
 
 app.service('ProductDetailService', function ($http, productDetailAPI) {
     this.getProductDetailById = function (productDetailId) {
-        var url = `${productDetailAPI}/${productDetailId}`; 
+        var url = `${productDetailAPI}/${productDetailId}`;
         return $http.get(url)
             .then(function (response) {
                 return response.data;

@@ -23,7 +23,6 @@ import com.greenhouse.filters.JwtRequestFilter;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration {
-
     @Autowired
     private JwtRequestFilter requestFilter;
 

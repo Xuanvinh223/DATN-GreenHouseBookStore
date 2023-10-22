@@ -73,7 +73,7 @@ public class Maincontroller {
     @GetMapping(value = "/product-details")
     public String productDetails(Model m, @RequestParam("id") Integer id) {
         List<Product_Images> productImages = productImagesReps.findByProductDetail_ProductDetailId(id);
-		m.addAttribute("productImages", productImages);
+        m.addAttribute("productImages", productImages);
 
         return "client/layouts/product-details";
     }
@@ -144,7 +144,7 @@ public class Maincontroller {
             accounts.setFullname(fullname);
             accounts.setImage(image);
             accounts.setEmail(email);
-
+            accounts.setActive(true);
             accountRepository.save(accounts);
 
             if (authoritiesRepository.findByUsername(username).isEmpty()) {
