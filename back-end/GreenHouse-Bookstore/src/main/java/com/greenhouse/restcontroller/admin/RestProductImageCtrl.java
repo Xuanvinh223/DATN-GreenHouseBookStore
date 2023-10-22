@@ -63,7 +63,7 @@ public class RestProductImageCtrl {
 
         for (int i = 0; i < uploadedImageUrls.size(); i++) {
             if (i < productImages.length) {
-                productImages[i].setImages(uploadedImageUrls.get(i));
+                productImages[i].setImage(uploadedImageUrls.get(i));
                 productImagesService.add(productImages[i]);
             } else {
                 break; // Tránh lỗi ArrayIndexOutOfBoundsException nếu uploadedImageUrls nhiều hơn productImages

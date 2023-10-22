@@ -12,18 +12,18 @@ public interface InvoicesRepository extends JpaRepository<Invoices, Integer> {
 
     @Query(value = "SELECT SUM(Total_Amount) AS TotalRevenue " +
             "FROM Invoices " +
-            "WHERE YEAR(Create_Date) = YEAR(GETDATE())", nativeQuery = true)
+            "WHERE YEAR(Payment_Date) = YEAR(GETDATE())", nativeQuery = true)
     Double calculateTotalRevenueForCurrentYear();
 
     @Query(value = "SELECT SUM(Total_Amount) AS TotalRevenue " +
             "FROM Invoices " +
-            "WHERE YEAR(Create_Date) = YEAR(DATEADD(year, -1, GETDATE()))", nativeQuery = true)
+            "WHERE YEAR(Payment_Date) = YEAR(DATEADD(year, -1, GETDATE()))", nativeQuery = true)
     Double calculateTotalRevenueForLastYear();
 
     @Query(value = "SELECT SUM(Total_Amount) AS TotalRevenue " +
             "FROM Invoices " +
-            "WHERE YEAR(Create_Date) = YEAR(GETDATE()) " +
-            "AND MONTH(Create_Date) = MONTH(GETDATE())", nativeQuery = true)
+            "WHERE YEAR(Payment_Date) = YEAR(GETDATE()) " +
+            "AND MONTH(Payment_Date) = MONTH(GETDATE())", nativeQuery = true)
     Double calculateTotalRevenueForCurrentMonth();
 
     @Query(value = "SELECT YEAR(Payment_Date) AS Year FROM Invoices GROUP BY YEAR(Payment_Date) ORDER BY Year", nativeQuery = true)
