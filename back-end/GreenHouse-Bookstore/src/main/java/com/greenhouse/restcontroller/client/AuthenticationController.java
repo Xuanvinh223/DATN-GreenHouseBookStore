@@ -48,7 +48,7 @@ public class AuthenticationController {
                 authenticationDTO.getUsername(), authenticationDTO.getUsername());
 
         if (accounts == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Tài khoản không tồn tại!", 404));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Tên đăng nhập hoặc mật khẩu không chính xác", 404));
         }
 
         try {
@@ -56,7 +56,7 @@ public class AuthenticationController {
                     new UsernamePasswordAuthenticationToken(accounts.getUsername(), authenticationDTO.getPassword()));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new Response("Tên đăng nhập hoặc mật khẩu không chính xác!", 401));
+                    .body(new Response("Tên đăng nhập hoặc mật khẩu không chính xác", 401));
         } catch (DisabledException disabledException) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new Response("Người dùng chưa được kích hoạt", 403));

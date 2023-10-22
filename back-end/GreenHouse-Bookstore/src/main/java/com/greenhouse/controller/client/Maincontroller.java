@@ -134,7 +134,7 @@ public class Maincontroller {
             accounts.setFullname(fullname);
             accounts.setImage(image);
             accounts.setEmail(email);
-
+            accounts.setActive(true);
             accountRepository.save(accounts);
 
             if (authoritiesRepository.findByUsername(username).isEmpty()) {
