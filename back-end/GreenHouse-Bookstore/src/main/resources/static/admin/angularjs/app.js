@@ -14,6 +14,10 @@ app.config(function ($routeProvider) {
             templateUrl: "page/account-manager/table_account.html",
             controller: "AccountController"
         })
+        .when("/role-form", {
+            templateUrl: "page/account-manager/form_role.html",
+            controller: "AuthoritiesController"
+        })
         .when("/author-form", {
             templateUrl: "page/author-manager/form_author.html",
             controller: "AuthorController"

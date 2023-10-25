@@ -94,10 +94,10 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             $scope.errorMessages.birthday = 'Vui lòng không bỏ trống ngày sinh';
             return;
         }
-        
+
         var currentDate = new Date();
         var selectedDate = new Date(birthday);
-    
+
         if (selectedDate > currentDate) {
             $scope.errorMessages.birthday = 'Ngày sinh không được là ngày ở tương lai';
             return;
@@ -110,12 +110,13 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             return;
         }
 
-
-        // Kiểm tra mật khẩu
-        var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-        if (!passwordRegex.test(password)) {
-            $scope.errorMessages.password = 'Mật khẩu phải có ít nhất 6 kí tự, bao gồm kí tự hoa, kí tự đặc biệt và số';
-            return;
+        // Kiểm tra mật khẩu chỉ khi thêm mới
+        if (!$scope.isEditing) {
+            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+            if (!passwordRegex.test(password)) {
+                $scope.errorMessages.password = 'Mật khẩu phải có ít nhất 6 kí tự, bao gồm kí tự hoa, kí tự đặc biệt và số';
+                return;
+            }
         }
 
         // Kiểm tra số điện thoại là số Việt Nam
@@ -130,6 +131,13 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         if (!emailRegex.test(email)) {
             $scope.errorMessages.email = 'Địa chỉ email không hợp lệ';
             return;
+        }
+
+        if (!$scope.isEditing) {
+            if ($scope.checkDuplicateEmail(email)) {
+                return; // Hiển thị thông báo lỗi đã tồn tại
+            }
+
         }
 
         if (!$scope.isEditing) {
@@ -167,7 +175,6 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
                 transformRequest: angular.identity
             })
             .then(function (resp) {
-                console.log(resp);
                 $scope.loadAccount();
                 $scope.resetForm();
                 var action = $scope.isEditing ? 'Cập nhật' : 'Thêm';
@@ -179,6 +186,7 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
                 showError(`${action} tài khoản thất bại`);
             });
     };
+
 
     $scope.checkDuplicateUsername = function (username) {
         // Kiểm tra trùng lặp username
@@ -239,8 +247,24 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
 
     }
 
+    $scope.checkAccountHasAuthority = function (username) {
+        var account = $scope.accounts.find(function (account) {
+            return account.username === username;
+        });
+        console.log(account);
+        if (account && account.authorities && account.authorities.length > 0) {
+            console.log("alo");
+            return true; // Tài khoản có quyền
+        }
+        console.log("asd");
+        return false; // Tài khoản không có quyền
+    };
+
+
     $scope.deleteAccounts = function (username) {
         var url = `${host}/${username}`;
+
+
         Swal.fire({
             title: "Bạn chắc chắn?",
             text: "Dữ liệu sẽ bị xóa vĩnh viễn.",
@@ -250,6 +274,16 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             cancelButtonText: "Hủy",
         }).then((result) => {
             if (result.isConfirmed) {
+                var hasAuthority = $scope.checkAccountHasAuthority(username);
+
+                if (hasAuthority) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Thất bại",
+                        text: `Tài khoản ${username} đã được phân quyền và không thể xóa.`,
+                    });
+                    return;
+                }
                 // Sử dụng $http để gửi yêu cầu DELETE đến API
                 $http.delete(url)
                     .then((resp) => {
@@ -279,6 +313,7 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             }
         });
     };
+
 
     $scope.resetForm = function () {
         // Kiểm tra xem có tham số "id" và "data" trong URL không, và nếu có thì xóa chúng

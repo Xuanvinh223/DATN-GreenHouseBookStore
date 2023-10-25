@@ -153,7 +153,6 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
             });
     };
 
-
     $scope.validateVoucher = function (voucher) {
         var isError = false;
 
@@ -168,8 +167,9 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
             maximumDiscountAmount: '',
             startDate: '',
             endDate: '',
-            totalQuantity: '',
-            status: ''
+            status: '',
+            totalQuantity: ''
+
         };
 
         if (!voucher.voucherName) {
@@ -180,6 +180,15 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
         if (!voucher.code) {
             errorMessages.code = 'Vui lòng không bỏ trống mã voucher';
             isError = true;
+        } else {
+            // Kiểm tra trùng lặp mã voucher chỉ khi thêm mới
+            if (!$scope.isEditing) {
+                var isDuplicateCode = $scope.checkDuplicateCode(voucher.code);
+                if (isDuplicateCode) {
+                    errorMessages.code = isDuplicateCode;
+                    isError = true;
+                }
+            }
         }
 
         if (!voucher.voucherType) {
@@ -236,15 +245,17 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
             isError = true;
         }
 
+
         if (!voucher.totalQuantity || voucher.totalQuantity <= 0) {
             errorMessages.totalQuantity = 'Vui lòng nhập số lượng hợp lệ';
             isError = true;
         }
 
-        if (!voucher.status) {
-            errorMessages.status = 'Vui lòng không bỏ trống trạng thái';
-            isError = true;
-        }
+        // console.log("ALO", voucher.status);
+        // if (!voucher.status) {
+        //     errorMessages.status = '*Vui lòng chọn trạng thái';
+        //     isError = true;
+        // }
 
         var start = new Date(voucher.startDate);
         var end = new Date(voucher.endDate);
@@ -266,7 +277,6 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
     $scope.saveVoucher = function () {
 
         var result = $scope.validateVoucher($scope.edittingVoucher);
-        console.log(result);
         if (result.isError) {
             $scope.errorMessages = result.errorMessages;
         } else {
@@ -293,7 +303,7 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
                 listdeletedCategories: $scope.listdeletedCategories,
                 listdeletedProducts: $scope.listdeletedProducts
             };
-
+            console.log("Status", $scope.edittingVoucher.status);
             $http.post(host, data).then(resp => {
                 console.log("Thêm Voucher thành công", data);
                 $scope.loadVouchers();
@@ -308,19 +318,16 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
     };
 
 
-
     $scope.checkDuplicateCode = function (code) {
         // Kiểm tra trùng lặp code
-        var existingCode = $scope.accounts.find(function (voucher) {
+        var existingCode = $scope.vouchers.find(function (voucher) {
             return voucher.code === code;
         });
-
         if (existingCode) {
-            $scope.errorMessages.code = 'Mã code đã tồn tại.';
-            return true; // Đã tồn tại
+            return 'Mã code đã tồn tại.';
         }
 
-        return false; // Chưa tồn tại
+        return null; // Chưa tồn tại
     };
 
 

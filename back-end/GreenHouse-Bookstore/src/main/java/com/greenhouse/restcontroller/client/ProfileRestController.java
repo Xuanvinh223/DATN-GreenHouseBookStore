@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.greenhouse.model.Accounts;
 import com.greenhouse.model.Address;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.AddressRepository;
@@ -32,6 +33,9 @@ public class ProfileRestController {
 
     @Autowired
     AddressRepository addressRepository;
+
+    @Autowired
+    AccountRepository accountRepository;
 
     @GetMapping("/rest/address/{username}")
     public ResponseEntity<Map<String, Object>> getAddressByUsername(@PathVariable String username) {
@@ -69,5 +73,39 @@ public class ProfileRestController {
         addressRepository.delete(address.get());
         return ResponseEntity.noContent().build();
     }
+
+    // ACCOUNT
+    @GetMapping("/rest/profile_account/{username}")
+    public ResponseEntity<Accounts> getAccountfindByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(acc.findByUsername(username));
+    }
+
+    @PostMapping("/rest/profile_account")
+    public ResponseEntity<Accounts> updateAccount(@RequestBody Accounts newAccount) {
+        // Lấy thông tin tài khoản hiện tại từ cơ sở dữ liệu
+        Accounts existingAccount = accountRepository.findByUsername(newAccount.getUsername());
+
+        if (existingAccount != null) {
+            // Cập nhật các thuộc tính (trừ mật khẩu)
+            existingAccount.setFullname(newAccount.getFullname());
+            existingAccount.setEmail(newAccount.getEmail());
+            existingAccount.setGender(newAccount.getGender());
+            existingAccount.setBirthday(newAccount.getBirthday());
+            existingAccount.setPhone(newAccount.getPhone());
+            existingAccount.setImage(newAccount.getImage());
+            existingAccount.setActive(newAccount.getActive());
+            existingAccount.setCreatedAt(newAccount.getCreatedAt());
+            existingAccount.setDeletedAt(newAccount.getDeletedAt());
+            existingAccount.setDeletedBy(newAccount.getDeletedBy());
+
+            // Lưu thông tin tài khoản đã được cập nhật vào cơ sở dữ liệu
+            accountRepository.save(existingAccount);
+
+            return new ResponseEntity<>(existingAccount, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 }

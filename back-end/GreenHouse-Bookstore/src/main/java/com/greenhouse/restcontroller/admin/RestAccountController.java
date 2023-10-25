@@ -3,20 +3,18 @@ package com.greenhouse.restcontroller.admin;
 import com.google.gson.Gson;
 import com.greenhouse.model.Accounts;
 import com.greenhouse.service.AccountsService;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -28,6 +26,10 @@ public class RestAccountController {
 
     @Value("${upload.path}")
     private String uploadPath;
+
+    private static final String CLOUDINARY_CLOUD_NAME = "dmbh3sz8s";
+    private static final String CLOUDINARY_API_KEY = "165312227781173";
+    private static final String CLOUDINARY_API_SECRET = "xcADjr7hxF6iXNMtsdf2CQAnbOI";
 
     @GetMapping
     public ResponseEntity<List<Accounts>> getAllAccount() {
@@ -41,7 +43,6 @@ public class RestAccountController {
         if (accounts == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-
             return new ResponseEntity<>(accounts, HttpStatus.OK);
         }
     }
@@ -49,29 +50,22 @@ public class RestAccountController {
     @PostMapping
     public ResponseEntity<Object> create(@RequestParam(value = "image", required = false) MultipartFile file,
                                          @RequestParam("AccountJson") String AccountJson) {
-        if (StringUtils.isEmpty(AccountJson)) {
-            return new ResponseEntity<>("Thông tin tài khoản không hợp lệ.", HttpStatus.BAD_REQUEST);
-        }
 
-        // Xử lý tải lên ảnh (nếu có)
-        String uploadedFileName = null;
+
+        String photoUrl = null;
         if (file != null && !file.isEmpty()) {
             try {
-                String originalFileName = file.getOriginalFilename();
-                String fileExtension = FilenameUtils.getExtension(originalFileName);
-                uploadedFileName = "Account_" + System.currentTimeMillis() + "." + fileExtension;
-                File uploadedFile = new File(uploadPath + File.separator + uploadedFileName);
-                FileUtils.writeByteArrayToFile(uploadedFile, file.getBytes());
-            } catch (IOException e) {
-                return new ResponseEntity<>("Lỗi khi tải ảnh lên.", HttpStatus.BAD_REQUEST);
+                photoUrl = uploadImageToCloudinary(file, "Account_" + System.currentTimeMillis());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new ResponseEntity<>("Lỗi khi tải ảnh lên Cloudinary.", HttpStatus.BAD_REQUEST);
             }
         }
 
-        // Xử lý thông tin thương hiệu
         Accounts accounts = new Gson().fromJson(AccountJson, Accounts.class);
 
-        if (uploadedFileName != null) {
-            accounts.setImage(uploadedFileName);
+        if (photoUrl != null) {
+            accounts.setImage(photoUrl);
         }
 
         Accounts editingAccount = accountsService.findById(accounts.getUsername());
@@ -88,30 +82,21 @@ public class RestAccountController {
                                            @RequestParam(value = "image", required = false) MultipartFile file,
                                            @RequestParam("AccountJson") String AccountJson) {
 
-        // Xử lý tải lên ảnh (nếu có)
-        String uploadedFileName = null;
+        String photoUrl = null;
         if (file != null && !file.isEmpty()) {
             try {
-                String originalFileName = file.getOriginalFilename();
-                String fileExtension = FilenameUtils.getExtension(originalFileName);
-                uploadedFileName = "Account_" + System.currentTimeMillis() + "." + fileExtension;
-                File uploadedFile = new File(uploadPath + File.separator + uploadedFileName);
-                FileUtils.writeByteArrayToFile(uploadedFile, file.getBytes());
-            } catch (IOException e) {
+                photoUrl = uploadImageToCloudinary(file, "Account_" + System.currentTimeMillis());
+            } catch (Exception e) {
                 e.printStackTrace();
-                return ResponseEntity.badRequest().build();
             }
         }
 
-        // Chuyển đổi dữ liệu thương hiệu từ JSON thành đối tượng Brand
         Accounts accounts = new Gson().fromJson(AccountJson, Accounts.class);
 
-        // Kiểm tra xem ảnh đã tải lên mới chưa
-        if (uploadedFileName != null) {
-            accounts.setImage(uploadedFileName);
+        if (photoUrl != null) {
+            accounts.setImage(photoUrl);
         }
 
-        // Cập nhật thông tin thương hiệu
         accounts.setUsername(username);
 
         Accounts updatedAccounts = accountsService.update(accounts);
@@ -126,5 +111,31 @@ public class RestAccountController {
         }
         accountsService.delete(username);
         return ResponseEntity.ok().build();
+    }
+
+    private String uploadImageToCloudinary(MultipartFile imageFile, String imageName) throws Exception {
+        String photoUrl = null;
+
+        try {
+            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                    "cloud_name", CLOUDINARY_CLOUD_NAME,
+                    "api_key", CLOUDINARY_API_KEY,
+                    "api_secret", CLOUDINARY_API_SECRET));
+
+            byte[] imageBytes = imageFile.getBytes();
+
+            Map uploadResult = cloudinary.uploader().upload(imageBytes, ObjectUtils.asMap(
+                    "public_id", imageName,
+                    "folder", "accounts",
+                    "overwrite", true
+            ));
+
+            photoUrl = (String) uploadResult.get("secure_url");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("Lỗi khi tải ảnh lên Cloudinary.");
+        }
+
+        return photoUrl;
     }
 }
