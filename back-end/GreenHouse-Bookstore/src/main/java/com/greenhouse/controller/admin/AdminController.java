@@ -26,14 +26,12 @@ public class AdminController {
 
     @RequestMapping({"/admin/index"})
     public String adminPage(HttpServletRequest request, Model m) {
-
         // Kiểm tra xem yêu cầu có chứa token không
         String token = request.getParameter("token");
-        String username = request.getParameter("username");
         try {
+            String username = jwtUtil.extractUsername(token);
             // Thực hiện xác thực token và kiểm tra quyền
             UserDetails userDetails = detailsServiceImpl.loadUserByUsername(username);
-
             try {
                 if (jwtUtil.validateToken(token, userDetails)) {
                     Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
@@ -43,16 +41,16 @@ public class AdminController {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(e);
                 return "redirect:/login";
             }
         } catch (ExpiredJwtException ex) {
             // Xử lý lỗi khi token hết hạn
-            ex.printStackTrace();
             return "redirect:/login";
         } catch (UsernameNotFoundException u) {
-            u.printStackTrace();
             // Không tìm thấy tài khoản (Chưa đăng nhập)
+            return "redirect:/404";
+        } catch (IllegalArgumentException e) {
             return "redirect:/404";
         }
 
