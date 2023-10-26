@@ -1,6 +1,6 @@
 app.controller("changePasswordController", changePasswordController);
 
-function changePasswordController($http, $scope, $timeout, changePasswordAPI) {
+function changePasswordController($http, $scope, $timeout, AuthService, changePasswordAPI) {
     const host = changePasswordAPI;
     var currentURL = window.location.href;
     var url = new URL(currentURL);
@@ -32,6 +32,7 @@ function changePasswordController($http, $scope, $timeout, changePasswordAPI) {
         if ($scope.countdown === 0) {
             // Nếu đếm ngược hết, điều hướng về trang đăng nhập
             window.location.href = "/login"; // Đổi đường dẫn thành trang đăng nhập của bạn
+            AuthService.logout();
         } else {
             // Nếu chưa hết thời gian, tiếp tục cập nhật đếm ngược
             $timeout(updateCountdown, 1000);
@@ -44,26 +45,51 @@ function changePasswordController($http, $scope, $timeout, changePasswordAPI) {
             newPassword: $scope.newPassword || "",
             confirmPassword: $scope.confirmPassword || "",
         };
-        $http
-            .post(host, account)
-            .then((response) => {
-                // Xử lý kết quả trả về khi gọi API thành công
-                var status = response.status;
-                var message = response.data.message;
-                if (status === 200) {
-                    $scope.showFormPassword = false;
-                    updateCountdown();
-                } else {
-                    Swal.fire({
-                        title: "Thông báo",
-                        text: message,
-                        icon: "error",
-                        confirmButtonText: "OK",
-                    });
-                }
-            })
-            .catch((error) => {
-                console.error("Lỗi: " + error);
-            });
+        if (account.token == null) {
+            var username = localStorage.getItem("username");
+            $http
+                .post(host + "/" + username, account)
+                .then((response) => {
+                    // Xử lý kết quả trả về khi gọi API thành công
+                    var status = response.status;
+                    var message = response.data.message;
+                    if (status === 200) {
+                        $scope.showFormPassword = false;
+                        updateCountdown();
+                    } else {
+                        Swal.fire({
+                            title: "Thông báo",
+                            text: message,
+                            icon: "error",
+                            confirmButtonText: "OK",
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error("Lỗi: " + error);
+                });
+        } else {
+            $http
+                .post(host, account)
+                .then((response) => {
+                    // Xử lý kết quả trả về khi gọi API thành công
+                    var status = response.status;
+                    var message = response.data.message;
+                    if (status === 200) {
+                        $scope.showFormPassword = false;
+                        updateCountdown();
+                    } else {
+                        Swal.fire({
+                            title: "Thông báo",
+                            text: message,
+                            icon: "error",
+                            confirmButtonText: "OK",
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error("Lỗi: " + error);
+                });
+        }
     };
 }

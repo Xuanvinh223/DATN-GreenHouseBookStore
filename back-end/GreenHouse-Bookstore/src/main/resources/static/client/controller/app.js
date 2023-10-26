@@ -10,12 +10,11 @@ app.constant('forgotPasswordAPI', 'http://localhost:8081/customer/rest/forgot-pa
 app.constant('productDetailAPI', 'http://localhost:8081/customer/rest/product-detail')
 
 app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
-
     var token = $cookies.get("token");
 
     if (token) {
         localStorage.setItem("token", token);
-        $cookies.remove('token');
+        $cookies.remove("token");
     }
 
     var jsFiles = [
@@ -56,34 +55,44 @@ app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
         checkTokenExpiration();
         setInterval(checkTokenExpiration, 1000 * 30); // 30 phút
     };
-
-
 });
 
 // Tạo một interceptor
 app.factory("tokenInterceptor", function () {
-        return {
-            request: function (config) {
-                var token = window.localStorage.getItem("token");
-                // Kiểm tra nếu token tồn tại
-                if (token) {
-                    config.headers["Authorization"] = "Bearer " + token;
-                }
-                return config;
-            },
-            responseError: function (response) {
-                // Kiểm tra nếu mã trạng thái là 401 Unauthorized (token hết hạn)
-                if (response.status === 401) {
-                    // Token đã hết hạn, xoá nó khỏi local storage
-                    window.localStorage.removeItem("token");
-                    // Chuyển hướng đến trang /login
-                    window.location.href = "/login";
-                }
-                return response;
-            },
-        };
-    },
-);
+    return {
+        request: function (config) {
+            var token = window.localStorage.getItem("token");
+            // Kiểm tra nếu token tồn tại
+            if (token) {
+                config.headers["Authorization"] = "Bearer " + token;
+            }
+            return config;
+        },
+        responseError: function (response) {
+            // Kiểm tra nếu mã trạng thái là 401 Unauthorized (token hết hạn)
+            if (response.status === 401) {
+                // Token đã hết hạn, xoá nó khỏi local storage
+                window.localStorage.removeItem("token");
+                // Chuyển hướng đến trang /login
+                window.location.href = "/login";
+            }
+            return response;
+        },
+    };
+});
+
+app.factory("AuthService", function ($window) {
+    var service = {};
+
+    service.logout = function () {
+        $window.localStorage.removeItem("token");
+        $window.localStorage.removeItem("username");
+        $window.localStorage.removeItem("fullName");
+        window.location.href = "/logout";
+    };
+
+    return service;
+});
 
 // Đăng ký interceptor vào ứng dụng
 app.config([
@@ -94,84 +103,90 @@ app.config([
 ]);
 
 // ================= MAIN CONTROLLER ==================
-app.controller('MainController', function ($scope, CartService, $timeout, $rootScope) {
-    var username = localStorage.getItem('username');
+app.controller("MainController", function ($scope, CartService, $timeout, $rootScope) {
+        var username = localStorage.getItem("username");
 
-    $scope.addToCart = function (productDetailId, quantity) {
-        CartService.addToCart(productDetailId, quantity, username)
-            .then(function (response) {
-                $scope.showNotification(response.status, response.message);
-            })
-            .catch(function (error) {
-                console.log('error', 'Lỗi trong quá trình gửi dữ liệu lên server: ' + error);
-            });
-    };
-    $scope.getCart = function () {
-        CartService.getCart(username)
-            .then(function (response) {
-                $scope.listCartHeader = response.listCart;
-            })
-            .catch(function (error) {
-                console.log('error', 'Lỗi trong quá trình gửi dữ liệu lên server: ' + error);
-            });
-    }
+        $scope.addToCart = function (productDetailId, quantity) {
+            CartService.addToCart(productDetailId, quantity, username)
+                .then(function (response) {
+                    $scope.showNotification(response.status, response.message);
+                })
+                .catch(function (error) {
+                    console.log(
+                        "error",
+                        "Lỗi trong quá trình gửi dữ liệu lên server: " + error
+                    );
+                });
+        };
+        $scope.getCart = function () {
+            CartService.getCart(username)
+                .then(function (response) {
+                    $scope.listCartHeader = response.listCart;
+                })
+                .catch(function (error) {
+                    console.log(
+                        "error",
+                        "Lỗi trong quá trình gửi dữ liệu lên server: " + error
+                    );
+                });
+        };
 
+        $scope.updateUserInfo = function () {
+            var username = localStorage.getItem("username");
+            if (username) {
+                $scope.getCart();
+            } else {
+                $scope.getCart();
+            }
+        };
 
-    $scope.updateUserInfo = function () {
-        var username = localStorage.getItem('username');
-        if (username) {
-            $scope.getCart();
-        } else {
-            $scope.getCart();
-        }
-    }
+        $scope.updateUserInfo();
 
-    $scope.updateUserInfo();
+        // ================ SHOW FULL TEXT OR COMPRESS =================================================================
+        $scope.showFullText = {};
 
-    // ================ SHOW FULL TEXT OR COMPRESS =================================================================
-    $scope.showFullText = {};
-
-    $scope.toggleFullText = function (productId) {
-        if (!$scope.showFullText[productId]) {
-            $scope.showFullText[productId] = true;
-        } else {
+        $scope.toggleFullText = function (productId) {
+            if (!$scope.showFullText[productId]) {
+                $scope.showFullText[productId] = true;
+            } else {
             $scope.showFullText[productId] = false;
         }
     };
 
     // =========== NOTIFICATION =============================
-    $scope.notifications = [];
+        $scope.notifications = [];
 
-    $scope.showNotification = function (type, message) {
-        var notification = { type: type, message: message };
-        $scope.notifications.push(notification);
-        $timeout(function () {
-            $scope.removeNotification(notification);
-        }, 3000);
-    };
+        $scope.showNotification = function (type, message) {
+            var notification = {type: type, message: message};
+            $scope.notifications.push(notification);
+            $timeout(function () {
+                $scope.removeNotification(notification);
+            }, 3000);
+        };
 
-
-    $scope.removeNotification = function (notification) {
-        var index = $scope.notifications.indexOf(notification);
-        if (index !== -1) {
-            $scope.notifications.splice(index, 1);
-        }
-    };
-});
+        $scope.removeNotification = function (notification) {
+            var index = $scope.notifications.indexOf(notification);
+            if (index !== -1) {
+                $scope.notifications.splice(index, 1);
+            }
+        };
+    }
+);
 //================================================================================================================================
 // ====================================== SERVICE ======================================
 // =============== CART SERVICE =============
-app.service('CartService', function ($http, cartAPI) {
+app.service("CartService", function ($http, cartAPI) {
     this.addToCart = function (productDetailId, quantity, username) {
-        var url = cartAPI + '/add';
+        var url = cartAPI + "/add";
 
         var data = {
             productDetailId: productDetailId,
             quantity: quantity,
-            username: username
+            username: username,
         };
 
-        return $http.post(url, data)
+        return $http
+            .post(url, data)
             .then(function (response) {
                 return response.data;
             })
@@ -181,9 +196,10 @@ app.service('CartService', function ($http, cartAPI) {
     };
 
     this.getCart = function (username) {
-        var url = cartAPI + '/getCart?username=' + username;
+        var url = cartAPI + "/getCart?username=" + username;
 
-        return $http.get(url)
+        return $http
+            .get(url)
             .then(function (response) {
                 return response.data;
             })
@@ -193,14 +209,15 @@ app.service('CartService', function ($http, cartAPI) {
     };
 
     this.updateQuantity = function (cartId, quantity) {
-        var url = cartAPI + '/updateQuantity'
+        var url = cartAPI + "/updateQuantity";
 
         var data = {
             cartId: cartId,
-            quantity: quantity
-        }
+            quantity: quantity,
+        };
 
-        return $http.post(url, data)
+        return $http
+            .post(url, data)
             .then(function (response) {
                 return response.data;
             })
