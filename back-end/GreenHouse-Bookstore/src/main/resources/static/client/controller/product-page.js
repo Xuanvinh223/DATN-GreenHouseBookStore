@@ -1,8 +1,10 @@
 app.controller("productPageController", productPageController);
 
-function productPageController($http, $scope, productPageAPI, CartService) {
+function productPageController($http, $scope, productPageAPI, CartService, ProductDetailService, $location) {
     const host = productPageAPI;
 
+    //Phân trang
+    $scope.currentPage = 1;
     // DECLARE SCOPE GET DATA - START
 
     $scope.listProductDetail = [];
@@ -103,7 +105,7 @@ function productPageController($http, $scope, productPageAPI, CartService) {
     $scope.countReviewsOfProduct = function (productId) {
         var totalReviews = 0;
         $scope.listProductReviews.forEach(review => {
-            if (review.product.productId === productId) {
+            if (review.productDetail.productDetailId === productId) {
                 totalReviews++;
             }
         })
@@ -111,17 +113,16 @@ function productPageController($http, $scope, productPageAPI, CartService) {
     }
 
     // tính số sao vote của sản phẩm
-    $scope.getStarRatingByProductId = function (productId) {
+    $scope.getStarRatingByProductId = function (productDetailId) {
         var totalStars = 0;
         var totalReviews = 0;
 
         $scope.listProductReviews.forEach(review => {
-            if (review.product.productId === productId) {
+            if (review.productDetail.productDetailId === productDetailId) {
                 totalStars += review.star;
                 totalReviews++;
             }
         });
-
         if (totalReviews > 0) {
             var averageRating = totalStars / totalReviews;
             return Math.round(averageRating);
@@ -159,6 +160,10 @@ function productPageController($http, $scope, productPageAPI, CartService) {
 
     // PAGINATION - END
     // SCOPE_FUNCTION FOR UI - END
+    $scope.navigateToProductDetail = function (productDetailId) {
+        console.log("DÔ ĐÂY", productDetailId);
+        window.location.href = '/product-details?id=' + productDetailId;
+    };
 
     $scope.init = function () {
         $scope.getData();

@@ -1,4 +1,4 @@
-var app = angular.module('admin-app', ["angular-jwt", 'ngRoute', 'ui.bootstrap']);
+var app = angular.module('admin-app', ['ngRoute', 'ui.bootstrap', 'angular-jwt']);
 
 app.config(function ($routeProvider) {
     $routeProvider
@@ -125,24 +125,20 @@ app.config(function ($routeProvider) {
         })
 })
 
-app.run(['$rootScope', function ($rootScope, $window) {
-
-    var fullName = window.localStorage.getItem("fullName");
-
+app.run(['$rootScope', function ($rootScope) {
     $rootScope.page = {
         setTitle: function (title) {
             this.title = 'GreenHouse |' + title;
         }
     }
-
 }]);
 
 // Tạo một interceptor
 app.factory('tokenInterceptor', ['$window', function ($window) {
     return {
         request: function (config) {
-
             var token = $window.localStorage.getItem('token');
+            // Kiểm tra nếu URL của request bắt đầu bằng "/api/"
             if (token && config.url.includes('/rest/')) {
                 config.headers['Authorization'] = 'Bearer ' + token;
             }
@@ -172,3 +168,11 @@ app.filter('startFrom', function () {
 app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('tokenInterceptor');
 }]);
+  
+
+app.filter('startFrom', function () {
+    return function (input, start) {
+        start = +start; // Chuyển đổi start thành số nguyên
+        return input.slice(start); // Trả về mảng con bắt đầu từ start
+    };
+});

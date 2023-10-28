@@ -1,7 +1,7 @@
 app.controller('accountController', accountController);
 
 function accountController($http, $window, $scope, jwtHelper, $timeout) {
-    let host = "http://localhost:8081/rest";
+    let host = "http://localhost:8081/customer/rest";
 
     var token = localStorage.getItem('token');
     if (token) {
@@ -23,19 +23,22 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
             $http
                 .get(url)
                 .then(function (resp) {
-                    var listAddress = resp.data.listAddress;
-                    // Kiểm tra nếu danh sách không rỗng và có ít nhất một địa chỉ
-                    if (Array.isArray(listAddress) && listAddress.length > 0) {
-                        $scope.listAddress = listAddress;
+                    if (resp.data.listAddress) {
+                        // Kiểm tra nếu có danh sách địa chỉ
+                        $scope.listAddress = resp.data.listAddress;
                         console.log("Danh Sách Địa Chỉ", $scope.listAddress);
                     } else {
-                        console.log("Không tìm thấy địa chỉ cho người dùng này.");
+                        // Không tìm thấy địa chỉ hoặc danh sách địa chỉ trống
+                        $scope.listAddress = [];
+                        console.log("Không tìm thấy địa chỉ cho người dùng này hoặc danh sách rỗng.");
                     }
                 })
                 .catch(function (error) {
                     console.log("Error", error);
                 });
-        };
+
+        }
+
 
         $scope.getProvince = function () {
             var url = "https://provinces.open-api.vn/api/?depth=3";
