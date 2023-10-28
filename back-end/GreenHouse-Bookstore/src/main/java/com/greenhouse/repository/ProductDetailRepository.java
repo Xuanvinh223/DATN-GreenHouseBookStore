@@ -88,25 +88,36 @@ public interface ProductDetailRepository extends JpaRepository<Product_Detail, I
                         "    p.Product_Name, " +
                         "    pd.Quantity_In_Stock, " +
                         "    iid.Price, " +
-                "    pd.Price_discount, " +
-                "    p.Status, " +
-                "    b.Brand_Name, " +
-                "    p.Manufacture_Date, " +
-                "    ii.Create_Date, " +
-                "    s.Supplier_Name " +
-                "ORDER BY " +
-                "    pd.Quantity_In_Stock DESC", nativeQuery = true)
+                        "    pd.Price_discount, " +
+                        "    p.Status, " +
+                        "    b.Brand_Name, " +
+                        "    p.Manufacture_Date, " +
+                        "    ii.Create_Date, " +
+                        "    s.Supplier_Name " +
+                        "ORDER BY " +
+                        "    pd.Quantity_In_Stock DESC", nativeQuery = true)
         List<Object[]> findAllInventoryListDesc();
 
-    @Query(value = "SELECT p.Product_Id, p.Product_Name, pd.Image, id.Quantity AS Quantity_Invoice, pd.Price AS Product_Price, pd.Price_Discount AS Product_Discount, id.Amount "
-            +
-            "FROM Product_Detail AS pd " +
-            "JOIN Products AS p ON pd.Product_Id = p.Product_Id " +
-            "JOIN Invoice_Details AS id ON pd.Product_Detail_Id = id.Product_Detail_Id " +
-            "WHERE id.Invoice_Id = :id", nativeQuery = true)
-    List<Object[]> getInvoiceDetails(@Param("id") Integer id);
+        @Query(value = "SELECT p.Product_Id, p.Product_Name, pd.Image, id.Quantity AS Quantity_Invoice, pd.Price AS Product_Price, pd.Price_Discount AS Product_Discount, id.Amount "
+                        +
+                        "FROM Product_Detail AS pd " +
+                        "JOIN Products AS p ON pd.Product_Id = p.Product_Id " +
+                        "JOIN Invoice_Details AS id ON pd.Product_Detail_Id = id.Product_Detail_Id " +
+                        "WHERE id.Invoice_Id = :id", nativeQuery = true)
+        List<Object[]> getInvoiceDetails(@Param("id") Integer id);
 
-    @Query(value = "SELECT d.* FROM Product_Detail d join Products p on d.Product_Id = p.Product_Id " +
-            "WHERE p.Status = 1", nativeQuery = true)
-    List<Product_Detail> findProductsByStatus();
+        @Query(value = "SELECT d.* FROM Product_Detail d join Products p on d.Product_Id = p.Product_Id " +
+                        "WHERE p.Status = 1", nativeQuery = true)
+        List<Product_Detail> findProductsByStatus();
+
+        List<Product_Detail> findProductDetailsByProduct_Brand_BrandId(String brandId);
+
+        @Query(value = "SELECT d.* FROM Product_Detail d " +
+                        "JOIN Products p ON d.Product_Id = p.Product_Id " +
+                        "JOIN Product_Category c ON p.Product_Id = c.Product_Id " +
+                        "WHERE c.Category_Id IN " +
+                        "(SELECT Category_Id FROM Product_Category WHERE Product_Id = " +
+                        "(SELECT Product_Id FROM Product_Detail WHERE Product_Detail_Id = ?1))", nativeQuery = true)
+        List<Product_Detail> findRelatedProducts(int productDetailId);
+
 }

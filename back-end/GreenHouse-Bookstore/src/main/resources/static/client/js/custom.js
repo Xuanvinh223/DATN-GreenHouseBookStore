@@ -92,7 +92,7 @@ jQuery(document).ready(function ($) {
         categoryMenuExpandInMobile();
 
         /*------------------------
-        	--> Search PopUp
+            --> Search PopUp
         ------------------------*/
         (function () {
             $(".search-trigger").on('click', function () {
@@ -115,7 +115,7 @@ jQuery(document).ready(function ($) {
         })
 
         /*------------------------
-        	--> Slick Carousel
+            --> Slick Carousel
         ------------------------*/
 
         var $html = $('html');
@@ -195,7 +195,7 @@ jQuery(document).ready(function ($) {
 
         });
         /*---------------------------
-        	--> Dropdown Slide Item
+            --> Dropdown Slide Item
         ----------------------------*/
 
         $(".slide-down--btn").on('click', function (e) {
@@ -207,7 +207,7 @@ jQuery(document).ready(function ($) {
         })
 
         /*-------------------------------------
-        	--> Slideup While clicking On Dom
+            --> Slideup While clicking On Dom
         ---------------------------------------*/
         function clickDom() {
             $('body').on('click', function (e) {
@@ -222,11 +222,11 @@ jQuery(document).ready(function ($) {
 
 
         /*-------------------------------------
-        	--> Sticky Header
+            --> Sticky Header
         ---------------------------------------*/
         function stickyHeader() {
 
-            var headerHeight = $('.site-header')[0].getBoundingClientRect().height;
+            var headerHeight = $('nav')[0].getBoundingClientRect().height;
             $(window).on({
                 resize: function () {
                     var width = $(window).width();
@@ -265,7 +265,7 @@ jQuery(document).ready(function ($) {
         }
         stickyHeader()
         /*-------------------------------------
-        	--> Range Slider
+            --> Range Slider
         ---------------------------------------*/
         $(function () {
             $(".sb-range-slider").slider({
@@ -282,7 +282,7 @@ jQuery(document).ready(function ($) {
         });
 
         /*-------------------------------------
-        	--> Product View Mode
+            --> Product View Mode
         ---------------------------------------*/
         $('.product-view-mode a').on('click', function (e) {
             e.preventDefault();
@@ -301,7 +301,7 @@ jQuery(document).ready(function ($) {
         })
 
         /*-------------------------------------
-        	--> Quantity
+            --> Quantity
         ---------------------------------------*/
         $('.count-btn').on('click', function () {
             var $button = $(this);
@@ -319,7 +319,7 @@ jQuery(document).ready(function ($) {
             $button.parent('.count-input-btns').parent().find('input').val(newVal);
         });
         /*-------------------------------------
-        	--> Shipping Form Toggle
+            --> Shipping Form Toggle
         ---------------------------------------*/
         $('[data-shipping]').on('click', function () {
             if ($('[data-shipping]:checked').length > 0) {
@@ -329,7 +329,7 @@ jQuery(document).ready(function ($) {
             }
         })
         /*-------------------------------------
-        	--> Add To Cart Animation
+            --> Add To Cart Animation
         ---------------------------------------*/
         $('.add-to-cart').on('click', function (e) {
             e.preventDefault();
@@ -342,7 +342,7 @@ jQuery(document).ready(function ($) {
         });
 
         /*-------------------------------------
-        	--> Data Background Image
+            --> Data Background Image
         ---------------------------------------*/
         function bgImageSettings() {
             $('.bg-image').each(function () {
@@ -358,13 +358,13 @@ jQuery(document).ready(function ($) {
         bgImageSettings();
 
         /*-------------------------------------
-        	--> NIce Select
+            --> NIce Select
         ---------------------------------------*/
         $('.nice-select').niceSelect()
 
 
         /*-------------------------------------
-        	--> Product Sorting
+            --> Product Sorting
         ---------------------------------------*/
         $('.product-view-mode a').on('click', function (e) {
             e.preventDefault();
@@ -382,7 +382,7 @@ jQuery(document).ready(function ($) {
             }
         })
         /*-------------------------------------
-        	--> Payment method select
+            --> Payment method select
         ---------------------------------------*/
         $('[name="payment-method"]').on('click', function () {
 
@@ -426,7 +426,7 @@ jQuery(document).ready(function ($) {
 
 
     /*-------------------------------------
-    	--> Countdown Activation
+        --> Countdown Activation
     ---------------------------------------*/
 
     $('[data-countdown]').each(function () {
@@ -468,12 +468,12 @@ jQuery(document).ready(function ($) {
     if ($('#google-map').length) {
         function initMap() {
             // The location of Uluru
-            var uluru = {lat: 9.984232450459027, lng: 105.75771759264275};
+            var uluru = { lat: 9.984232450459027, lng: 105.75771759264275 };
             // The map, centered at Uluru
             var map = new google.maps.Map(
-                document.getElementById('google-map'), {zoom: 12, center: uluru});
+                document.getElementById('google-map'), { zoom: 12, center: uluru });
             // The marker, positioned at Uluru
-            var marker = new google.maps.Marker({position: uluru, map: map});
+            var marker = new google.maps.Marker({ position: uluru, map: map });
             console.log("GG Map");
         }
 

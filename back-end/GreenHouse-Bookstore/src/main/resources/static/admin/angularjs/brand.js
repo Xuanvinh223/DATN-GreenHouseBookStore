@@ -107,28 +107,29 @@ app.controller("brandController", function ($scope, $location, $routeParams, $ht
 
         var url = $scope.isEditing ? `${host}/${brandId}` : host;
 
-        $http({
-            method: $scope.isEditing ? 'PUT' : 'POST',
-            url: url,
-            data: formData,
-            headers: {
-                'Content-Type': undefined
-            },
-            transformRequest: angular.identity
-        })
-            .then(function (resp) {
-                console.log(resp);
-                $scope.loadBrand();
-                $scope.resetForm();
-                var action = $scope.isEditing ? 'Cập nhật' : 'Thêm';
-                showSuccess(`${action} thương hiệu ${resp.data.brandId}`);
-                $scope.clearImage(); // Xóa ảnh đại diện sau khi cập nhật hoặc thêm
-            })
-            .catch(function (error) {
-                var action = $scope.isEditing ? 'Cập nhật' : 'Thêm';
-                showError(`${action} thương hiệu thất bại`);
-            });
-    };
+    $http({
+        method: $scope.isEditing ? 'PUT' : 'POST',
+        url: url,
+        data: formData,
+        headers: {
+            'Content-Type': undefined
+        },
+        transformRequest: angular.identity
+    })
+    .then(function (resp) {
+        console.log(resp);
+        $scope.loadBrand();
+        $scope.resetForm();
+        var action = $scope.isEditing ? 'Cập nhật' : 'Thêm';
+        showSuccess(`${action} thương hiệu ${resp.data.brandId}`);
+        $scope.clearImage();
+    })
+    .catch(function (error) {
+        var action = $scope.isEditing ? 'Cập nhật' : 'Thêm';
+        showError(`${action} thương hiệu thất bại`);
+    });
+};
+    
 
 
     $scope.checkDuplicateBrandId = function (brandId) {
@@ -148,26 +149,15 @@ app.controller("brandController", function ($scope, $location, $routeParams, $ht
 
     $scope.editBrandAndRedirect = function (brandId) {
         var url = `${host}/${brandId}`;
-        $http
-            .get(url)
-            .then(function (resp) {
-                $scope.editingBrand = angular.copy(resp.data);
-                $scope.isEditing = true;
-
-                // Chuyển hướng đến trang chỉnh sửa thông tin thương hiệu và truyền dữ liệu thương hiệu.
-                // Sử dụng $location.search để thiết lập tham số trong URL.
-                $location
-                    .path("/brand-form")
-                    .search({
-                        id: brandId,
-                        data: resp.data
-                    })
-                    .replace();
-                console.log(data);
-            })
-            .catch(function (error) {
-                console.log("Error", error);
-            });
+        $http.get(url)
+        .then(function (resp) {
+            $scope.editingBrand = angular.copy(resp.data);
+            $scope.isEditing = true;
+            $location.path("/brand-form").search({ id: brandId, data: resp.data }).replace();
+        })
+        .catch(function (error) {
+            console.log("Error", error);
+        });
     };
 
     // Kiểm tra xem có tham số data trong URL không.

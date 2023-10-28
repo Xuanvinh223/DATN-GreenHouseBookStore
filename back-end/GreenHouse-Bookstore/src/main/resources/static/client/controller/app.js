@@ -1,10 +1,11 @@
-const app = angular.module("myApp", ["angular-jwt", "ngCookies"]);
+const app = angular.module("myApp", ["angular-jwt","ngRoute", "ngCookies","angularUtils.directives.dirPagination"]);
 
 app.constant('authenticateAPI', 'http://localhost:8081/authenticate');
 app.constant('signupAPI', 'http://localhost:8081/sign-up');
 app.constant('checkOutAPI', 'http://localhost:8081/customer/rest/check-out');
 app.constant('productPageAPI', 'http://localhost:8081/customer/rest/product-page');
 app.constant('cartAPI', 'http://localhost:8081/customer/rest/cart');
+app.constant('productDetailAPI','http://localhost:8081/customer/rest/product-detail')
 
 app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
 
@@ -19,7 +20,7 @@ app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
         "js/custom.js",
         "js/code.js",
         "js/login-register.js",
-        "js/plugins.js",
+        "js/plugins.js"
     ]; // Danh sách các tệp JavaScript
 
     function loadAndAppendScript(jsFile) {
@@ -207,6 +208,20 @@ app.service('CartService', function ($http, cartAPI) {
             });
     }
 
+});
+
+app.service('ProductDetailService', function ($http, productDetailAPI) {
+    this.getProductDetailById = function (productDetailId) {
+        var url = `${productDetailAPI}/${productDetailId}`; 
+        return $http.get(url)
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log('Lỗi khi lấy dữ liệu:', error);
+                return Promise.reject(error);
+            });
+    };
 });
 
 

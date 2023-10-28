@@ -1,7 +1,7 @@
 app.controller('accountController', accountController);
 
 function accountController($http, $window, $scope, jwtHelper, $timeout) {
-    let host = "http://localhost:8081/rest";
+    let host = "http://localhost:8081/customer/rest";
 
     var token = localStorage.getItem('token');
     if (token) {
@@ -19,23 +19,27 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
 
         // Gọi hàm loadData với tên người dùng hiện tại
         $scope.loadData = function (username) {
+
             var url = `${host}/address/${username}`;
             $http
                 .get(url)
                 .then(function (resp) {
-                    var listAddress = resp.data.listAddress;
-                    // Kiểm tra nếu danh sách không rỗng và có ít nhất một địa chỉ
-                    if (Array.isArray(listAddress) && listAddress.length > 0) {
-                        $scope.listAddress = listAddress;
+                    if (resp.data.listAddress) {
+                        // Kiểm tra nếu có danh sách địa chỉ
+                        $scope.listAddress = resp.data.listAddress;
                         console.log("Danh Sách Địa Chỉ", $scope.listAddress);
                     } else {
-                        console.log("Không tìm thấy địa chỉ cho người dùng này.");
+                        // Không tìm thấy địa chỉ hoặc danh sách địa chỉ trống
+                        $scope.listAddress = [];
+                        console.log("Không tìm thấy địa chỉ cho người dùng này hoặc danh sách rỗng.");
                     }
                 })
                 .catch(function (error) {
                     console.log("Error", error);
                 });
-        };
+
+        }
+
 
         $scope.getProvince = function () {
             var url = "https://provinces.open-api.vn/api/?depth=3";
@@ -114,7 +118,7 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
                 var url = `${host}/profile_address`;
                 $http.post(url, newAddress)
                     .then(function (resp) {
-                        
+
                         $scope.loadData($scope.username);
                         console.log("Địa chỉ đã được lưu thành công:", resp.data);
                         $('#createAddressModal').modal('hide');
@@ -265,7 +269,7 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
                 $scope.errors.fullname = 'Vui lòng nhập họ và tên';
             } else if ($scope.address.fullname.length < 10) {
                 $scope.errors.fullname = 'Họ và tên phải có ít nhất 10 ký tự';
-            } 
+            }
 
             var reg = /^(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/;
             // Kiểm tra các điều kiện cho trường phone
@@ -274,7 +278,7 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
             } else if (!reg.test($scope.address.phone)) {
                 $scope.errors.phone = 'Số điện thoại không đúng định dạng ';
             }
-            
+
             // Kiểm tra các điều kiện cho trường province
             if (!$scope.selectedProvinceCode) {
                 $scope.errors.province = 'Vui lòng chọn tỉnh/thành phố';

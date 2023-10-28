@@ -10,12 +10,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenhouse.model.Accounts;
 import com.greenhouse.model.Authorities;
+import com.greenhouse.model.Product_Images;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.AuthoritiesRepository;
+import com.greenhouse.repository.Product_ImagesRepository;
 import com.greenhouse.service.impl.UserDetailsServiceImpl;
 import com.greenhouse.util.JwtUtil;
 
@@ -34,6 +38,9 @@ public class Maincontroller {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    private Product_ImagesRepository productImagesReps;
 
     @Autowired
     private AuthoritiesRepository authoritiesRepository;
@@ -64,7 +71,10 @@ public class Maincontroller {
     }
 
     @GetMapping(value = "/product-details")
-    public String productDetails() {
+    public String productDetails(Model m, @RequestParam("id") Integer id) {
+        List<Product_Images> productImages = productImagesReps.findByProductDetail_ProductDetailId(id);
+		m.addAttribute("productImages", productImages);
+
         return "client/layouts/product-details";
     }
 
@@ -115,7 +125,7 @@ public class Maincontroller {
 
     @GetMapping("/google-processing")
     public String googleProcessing(OAuth2AuthenticationToken authenticationToken, HttpServletRequest request,
-                                   HttpServletResponse response) {
+            HttpServletResponse response) {
         // Lấy thông tin tài khoản Google đã đăng nhập từ authenticationToken
         OAuth2User oauth2User = authenticationToken.getPrincipal();
         Accounts accounts = new Accounts();
