@@ -24394,7 +24394,7 @@ input[type=number] {
   text-transform: capitalize;
   display: block;
   margin-bottom: 11px;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
   color: #333;
 }
@@ -24415,7 +24415,7 @@ input[type=number] {
 
 .cart-product .content .price .qty {
   line-height: 18px;
-  font-size: 13px;
+  font-size: 18px;
   display: inline-block;
   vertical-align: top;
   color: #666;
@@ -31443,7 +31443,7 @@ p.show-full-text {
 
 .notification.hidden {
   transform: translateY(-100%);
-  pointer-events: none; 
+  pointer-events: none;
 }
 
 /* CSS cho nút đóng thông báo */
@@ -31455,4 +31455,29 @@ p.show-full-text {
   cursor: pointer;
   text-decoration: underline !important;
   color: #024fc2;
+}
+
+/* CSS CART ICON */
+.cart-icon {
+  position: relative;
+}
+
+.cart-icon::before {
+  content: attr(data-quantity-icon);
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  transform: translate(-50%, -50%);
+  background: rgb(255, 28, 51, 0.9);
+  color: white;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 12px;
+  border-radius: 50%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
 }

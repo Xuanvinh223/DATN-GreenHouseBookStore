@@ -207,6 +207,18 @@ app.service('CartService', function ($http, cartAPI) {
             });
     }
 
+    this.removeCartItem = function (cartId) {
+        var url = cartAPI + '/remove'
+
+        return $http.post(url, cartId)
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                return Promise.reject(error);
+            });
+    }
+
 });
 
 

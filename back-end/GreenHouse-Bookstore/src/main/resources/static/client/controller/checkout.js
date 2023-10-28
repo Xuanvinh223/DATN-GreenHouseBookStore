@@ -15,10 +15,15 @@ app.controller("checkOutController", function ($scope, $http, checkOutAPI) {
 
     $scope.getProvince = function () {
         var url = "https://provinces.open-api.vn/api/?depth=3";
-        $http.get(url).then(response => {
-            $scope.listProvince = response.data
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) { }
+            $scope.listProvince = JSON.parse(xhr.responseText);
             console.log($scope.listProvince);
-        })
+        }
+        xhr.send();
     }
 
     $scope.getListDistrict = function () {
