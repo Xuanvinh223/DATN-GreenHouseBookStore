@@ -75,6 +75,10 @@ app.config(function ($routeProvider) {
             templateUrl: "page/coupon-manager/table_flashsale.html",
             controller: "flashsaleController"
         })
+        .when("/inventory-form", {
+            templateUrl: "page/inventory-manager/inventory_form.html",
+            controller: ""
+        })
         .when("/inventory-table", {
             templateUrl: "page/inventory-manager/inventory_table.html",
             controller: "inventoryCtrl"
@@ -86,11 +90,11 @@ app.config(function ($routeProvider) {
         })
         .when("/product-table", {
             templateUrl: "page/product-manager/table_product.html",
-            controller: ""
+            controller: "ProductController"
         })
         .when("/product-form", {
             templateUrl: "page/product-manager/form_product.html",
-            controller: ""
+            controller: "ProductController"
         })
         .when("/product-learning-table", {
             templateUrl: "page/product-manager/form_product_learning.html",
@@ -172,7 +176,7 @@ app.filter('startFrom', function () {
 app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('tokenInterceptor');
 }]);
-  
+
 
 app.filter('startFrom', function () {
     return function (input, start) {

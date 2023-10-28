@@ -28,6 +28,12 @@ public class Address implements Serializable {
     @Column(name = "Fullname")
     private String fullname;
 
+    @Column(name = "Phone")
+    private String phone;
+
+    @Column(name = "Fullname")
+    private String fullname;
+
     @ManyToOne
     @JoinColumn(name = "Username", referencedColumnName = "Username", insertable = false, updatable = false)
     private Accounts account;

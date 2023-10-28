@@ -21,7 +21,7 @@ public class Product_Detail implements Serializable {
     @Column(name = "Price")
     private double price;
 
-    @Column(name = "Price_Discount")
+    @Column(name = "Price_discount")
     private double priceDiscount;
 
     @Column(name = "Quantity_In_Stock")
@@ -30,7 +30,7 @@ public class Product_Detail implements Serializable {
     @Column(name = "Weight")
     private int weight;
 
-    @Column(name = "Image", columnDefinition = "nvarchar(200)")
+    @Column(name = "Image")
     private String image;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.

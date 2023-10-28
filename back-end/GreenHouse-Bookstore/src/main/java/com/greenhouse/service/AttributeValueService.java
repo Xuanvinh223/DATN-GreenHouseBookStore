@@ -9,9 +9,9 @@ public interface AttributeValueService {
 
     AttributeValue findById(Integer id);
 
-    void add(AttributeValue entity);
+    AttributeValue add(AttributeValue entity);
 
-    void update(AttributeValue entity);
+    AttributeValue update(AttributeValue entity);
 
     void delete(Integer id);
 }

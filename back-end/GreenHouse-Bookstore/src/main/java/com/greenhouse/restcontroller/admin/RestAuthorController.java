@@ -1,5 +1,4 @@
-package com.greenhouse.restcontroller.admin;
-
+package com.greenhouse.restcontroller.AdminRestController;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;

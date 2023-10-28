@@ -12,14 +12,14 @@ public class Product_Images implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "Product_Detail_Id")
     private Product_Detail productDetail;
 
-    @Column(name = "Image", columnDefinition = "nvarchar(200)")
-    private String image;
+    @Column(name = "Image")
+    private String images;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

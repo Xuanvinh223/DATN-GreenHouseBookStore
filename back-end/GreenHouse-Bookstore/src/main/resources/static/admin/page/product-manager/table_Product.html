@@ -25,10 +25,17 @@
                                         <div class="row">
                                             <div class="col-md-8">
                                                 <div class="form-row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="productId">Mã Sản Phẩm(*)</label>
+                                                        <input type="text" class="form-control"
+                                                               ng-model="editingProduct.product.productId"
+                                                               placeholder="Mã sản phẩm tự động"
+                                                               ng-disabled="isEditing">
+                                                    </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="productName">Tên Sản Phẩm(*)</label>
                                                         <input type="text" class="form-control"
-                                                               ng-model="editingProduct.productName"
+                                                               ng-model="editingProduct.product.productName"
                                                                placeholder="Nhập tên sản phẩm">
                                                     </div>
                                                 </div>
@@ -36,7 +43,7 @@
                                                     <div class="col-md-4 mb-3">
                                                         <label for="brand">Thương Hiệu(*)</label>
                                                         <select class="form-control " id="brand" name="brand"
-                                                                ng-model="editingProduct.brand"
+                                                                ng-model="editingProduct.product.brand"
                                                                 ng-options="brand as brand.brandName for brand in brands track by brand.brandName">
                                                             <option value="">Chọn thương hiệu</option>
                                                         </select>
@@ -44,7 +51,7 @@
                                                     <div class="col-md-4 mb-3">
                                                         <label for="category">Tên Danh Mục(*)</label>
                                                         <select class="form-control" id="category"
-                                                                ng-model="editingProduct.category"
+                                                                ng-model="editingProduct.productCategory.category"
                                                                 ng-options="category as category.categoryName for category in categories track by category.categoryId">
                                                             <option value="">Chọn tên danh mục</option>
                                                         </select>
@@ -52,24 +59,25 @@
                                                     <div class="col-md-4 mb-3">
                                                         <label for="author">Tên Tác Giả(*)</label>
                                                         <select class="form-control" id="author"
-                                                                ng-model="editingProduct.author"
+                                                                ng-model="editingProduct.bookAuthor.author"
                                                                 ng-options="author as author.authorName for author in authors track by author.authorId">
                                                             <option value="">Chọn tên tác giả</option>
                                                         </select>
                                                     </div>
 
+
                                                     <div class="col-md-4 mb-3">
                                                         <label for="manufactureDate">Ngày Sản Xuất(*)</label>
                                                         <input class="form-control" id="manufactureDate" type="date"
-                                                               ng-model="editingProduct.manufactureDate">
+                                                               ng-model="editingProduct.product.manufactureDate">
                                                     </div>
 
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-4 mb-3">
                                                         <label for="publisher">Nhà Xuất Bản(*)</label>
-                                                        <select class="form-control " id="publisher"
-                                                                ng-model="editingProduct.publisher"
+                                                        <select class="form-control " id="publisher" name="publisher"
+                                                                ng-model="editingProduct.product.publisher"
                                                                 ng-options="publisher as publisher.publisherName for publisher in publishers track by publisher.publisherName">
                                                             <option value="">Chọn nhà xuất bản</option>
                                                         </select>
@@ -78,14 +86,14 @@
                                                         <p class="mb-2">Trạng Thái(*)</p>
                                                         <div class="form-check form-check-inline">
                                                             <input class="form-check-input" type="radio"
-                                                                   ng-model="editingProduct.status"
+                                                                   ng-model="editingProduct.product.status"
                                                                    name="status" id="active" ng-value="true">
                                                             <label class="form-check-label" for="active">Kinh
                                                                 doanh</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
                                                             <input class="form-check-input" type="radio"
-                                                                   ng-model="editingProduct.status"
+                                                                   ng-model="editingProduct.product.status"
                                                                    name="status" id="unactive" ng-value="false">
                                                             <label class="form-check-label" for="unactive">Ngừng kinh
                                                                 doanh</label>
@@ -94,9 +102,28 @@
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="description">Mô tả</label>
-                                                    <textarea class="form-control" ng-model="editingProduct.description"
+                                                    <textarea class="form-control"
+                                                              ng-model="editingProduct.product.description"
                                                               placeholder="Viết mô tả...." rows="4"></textarea>
                                                 </div>
+
+                                                <!-- <div class="col-md-4 mb-3">
+                                                  <label for="atributeId">Tên Thuộc Tính(*)</label>
+                                                  <select class="form-control " id="atributeId"
+                                                  ng-model="editingCategory.atributeId"
+                                                  ng-options="atributeId as atributeId.nameAtributes for atributeId in productAttributes track by atributeId.nameAtributes">
+                                                  <option value="">Chọn loại thuộc tính</option>
+                                                </select>
+                                                </div>
+
+
+                                                <div class="col-md-4 mb-3">
+                                                  <label for="value">Giá trị thuộc tính(*)</label>
+                                                  <input type="text" class="form-control" ng-model="editingProduct.productDetail.value"
+                                                    name="value" placeholder="Nhập giá trị thuộc tính">
+                                                </div> -->
+
+
                                             </div>
                                             <!-- /.col -->
                                             <div class="col-md-4 ">
@@ -105,8 +132,102 @@
                                                         <label for="createAt">Ngày Tạo Sản phẩm(*)</label>
                                                         <input class="form-control" id="createAt" type="date"
                                                                name="createAt"
-                                                               ng-model="editingProduct.createAt">
+                                                               ng-model="editingProduct.product.createAt">
                                                     </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="price">Giá Sản Phẩm(*)</label>
+                                                        <input type="number" class="form-control"
+                                                               ng-model="editingProduct.productDetail.price"
+                                                               name="price"
+                                                               placeholder="Nhập giá sản phẩm">
+                                                    </div>
+
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="quantityInStock">Số lượng Sản Phẩm(*)</label>
+                                                        <input type="number" class="form-control"
+                                                               ng-model="editingProduct.productDetail.quantityInStock"
+                                                               name="quantityInStock" placeholder="Nhập tên sản phẩm">
+                                                    </div>
+
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="weight">Khối Lượng Sản Phẩm(*)</label>
+                                                        <input type="number" class="form-control"
+                                                               ng-model="editingProduct.productDetail.weight"
+                                                               name="weight" placeholder="Nhập khối lượng sản phẩm">
+                                                    </div>
+
+                                                    <!-- ảnh chi tiết -->
+                                                    <div class="col-md-5 mb-3">
+                                                        <label class="col-form-label"> (*) Thêm hình ảnh:</label>
+                                                    </div>
+                                                    <!-- Trong mã HTML của bạn -->
+                                                    <div class="row col-12">
+                                                        <label class="custom-file-upload">
+                                                            <input type="file" hidden accept="image/*" multiple
+                                                                   name="images"
+                                                                   onchange="angular.element(this).scope().onImageSelect(event)">
+                                                            <div class="upload-icon">
+                                                                <i class='bx bx-camera'></i>
+                                                            </div>
+                                                            <p>Chọn ảnh</p>
+                                                        </label>
+                                                        <!-- Hiển thị danh sách các ảnh đã chọn -->
+                                                        <div class="col-4 text-center mb-3 position-relative"
+                                                             ng-repeat="images in selectedImages track by $index">
+                                                            <label for="" class="detail-img-label">
+                                                                <div class="image-container">
+                                                                    <!-- hiển thị nhiều hình ảnh khi chỉnh sửa -->
+                                                                    <img ng-src="{{  images.url  }}"
+                                                                         class="img-fluid detail-img"
+                                                                         alt="Ảnh chi tiết">
+                                                                    <button type="button"
+                                                                            class="btn-danger btn-sm delete-btn"
+                                                                            ng-click="deleteImage($index)">
+                                                                        X
+                                                                    </button>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- end -->
+
+
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="discount">Phần Trăm Giảm(*)</label>
+                                                        <select class="form-control" id="discount"
+                                                                ng-model="editingProduct.productDiscount.discount"
+                                                                ng-options="discount as discount.value for discount in discounts track by discount.discountId"
+                                                                ng-change="calculateDiscount()">
+                                                            <option value="">Chọn phần trăm giảm</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-6 mb-3">
+                            <span ng-model="editingProduct.productDetail.priceDiscount"
+                                  ng-show="editingProduct.productDetail.priceDiscount">Số giá giảm: {{
+                              editingProduct.productDetail.priceDiscount }}</span>
+                                                    </div>
+
+                                                    <div class="col-md- mb-3">
+                                                        <img class="object-fit"
+                                                             ng-src="{{editingProduct.productDetail.image}}"
+                                                             alt="Uploaded Image"
+                                                             id="uploadedImage" name="image"
+                                                             style="max-height: 250px; width: 100%; border-radius: 5%;">
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label class="btn btn-danger text-white">
+                                                            <i class="fa fa-upload"></i>
+                                                            Tải ảnh đại diện
+                                                            <input type="file" hidden name="image"
+                                                                   style="object-fit: contain;" id="fileInput"
+                                                                   ng-model="editingProduct.productDetail.image"
+                                                                   onchange="displayImage(event)"
+                                                                   accept=".png,.jpg,.jpeg"/>
+                                                        </label>
+                                                    </div>
+
 
                                                 </div>
                                             </div>
@@ -133,7 +254,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-12">
             <h2 class="mb-2 page-title">Danh Sách Sản Phẩm</h2>
             <div class="row my-4">
                 <!-- Small table -->
@@ -141,7 +262,7 @@
                     <div class="card shadow">
                         <div class="card-body">
                             <!-- table -->
-                            <table class="table table-striped table-hover ">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
                                     <th>STT</th>
@@ -152,84 +273,60 @@
                                     <th>Nhà Xuất Bản</th>
                                     <th>Trạng Thái</th>
                                     <th>Mô Tả</th>
+                                    <th>Giá Sản Phẩm</th>
+                                    <th>Giá Giảm</th>
+                                    <th>Số Lượng</th>
+                                    <th>Khối Lượng</th>
+                                    <th>Ảnh</th>
+                                    <th>Ảnh chi tiết</th>
+                                    <th>Danh Mục Sản Phẩm</th>
+                                    <th>Tác Giả</th>
+                                    <th>Giảm Giá</th>
                                     <th>Hành Động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="product in products">
+                                <tr ng-repeat="item in combinedData">
                                     <td>{{$index + 1}}</td>
-                                    <td>{{product.productId}}</td>
-                                    <td>{{product.productName}}</td>
-                                    <td>{{product.manufactureDate | date:'dd/MM/yyyy'}}</td>
-                                    <td>{{product.brand.brandName}}</td>
-                                    <td>{{product.publisher.publisherName}}</td>
-                                    <td>{{product.status ? 'Kinh doanh' : 'Ngừng kinh doanh'}}</td>
-                                    <td>{{product.description}}</td>
+                                    <td>{{item.product.productId}}</td>
+                                    <td>{{item.product.productName}}</td>
+                                    <td>{{item.product.manufactureDate | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{item.product.brand.brandName}}</td>
+                                    <td>{{item.product.publisher.publisherName}}</td>
+                                    <td>{{item.product.status ? 'Kinh doanh' : 'Ngừng kinh doanh'}}</td>
+                                    <td>{{item.product.description}}</td>
+                                    <td>{{item.productDetail.price}}</td>
+                                    <td>{{item.productDetail.priceDiscount}}</td>
+                                    <td>{{item.productDetail.quantityInStock}}</td>
+                                    <td>{{item.productDetail.weight}}</td>
+                                    <td><img class="object-fit" ng-src="{{item.productDetail.image}}"
+                                             style="width: 50px; height: 50px; border-radius: 10%;"></td>
                                     <td>
-                                        <a ng-click="editProductAndRedirect(product.productId)"><i
+                                        <div ng-repeat="image in getProductImages(item.productDetail.productDetailId)">
+                                            <img class="object-fit" ng-src="{{image.images}}"
+                                                 style="width: 50px; height: 50px; border-radius: 10%;">
+                                        </div>
+                                    </td>
+
+                                    <td>{{item.productCategory.category.categoryName}}</td>
+                                    <td>{{item.bookAuthor.author.authorName}}</td>
+                                    <td>{{item.productDiscount.discount.value}}%</td>
+                                    <td>
+                                        <a ng-click="editProductAndRedirect(item.product.productId)"><i
                                                 class="fe fe-edit fe-16"></i></a>
-                                        <a ng-click="deleteProduct(product.productId)"><i
+                                        <a ng-click="deleteProduct(item.product.productId)"><i
                                                 class="fe fe-trash-2 fe-16"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
+
+
                         </div>
                     </div>
                 </div> <!-- simple table -->
             </div> <!-- end section -->
         </div> <!-- .col-12 -->
-        <div class="col-4">
-            <h2 class="mb-2 page-title">Danh Sách Danh Mục</h2>
-            <div class="row my-4">
-                <!-- Small table -->
-                <div class="col-md-12">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-8">
 
-                                    <div class="form-row">
-
-                                        <div class="col-md-8 mb-3">
-                                            <label for="productId">Tên Tác Giả(*)</label>
-                                            <select class="form-control" id="productId" ng-model="productId"
-                                                    ng-options="bookAu.author.authorName for bookAu in bookAuthors track by bookAu.id">
-                                                <option value="">Chọn tên tác giả</option>
-                                            </select>
-                                        </div>
-
-
-                                        <div class="col-md-8 mb-3">
-                                            <label for="productId">Tên Danh Mục(*)</label>
-                                            <select class="form-control" id="productId" ng-model="productId"
-                                                    ng-options="proCat.category.categoryName for proCat in productCategories track by proCat.id">
-                                                <option value="">Chọn tên danh mục</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-8 mb-3">
-                                            <label for="productId">Tên Sản Phẩm(*)</label>
-                                            <select class="form-control" id="productId" ng-model="productId"
-                                                    ng-options="proCat.product.productName for proCat in productCategories track by proCat.id">
-                                                <option value="">Chọn tên sản phẩm</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-8 mb-3">
-                                            <label for="productId">Tên Sản Phẩm(*)</label>
-                                            <select class="form-control" id="productId" ng-model="productId"
-                                                    ng-options="proCat.product.productName for proCat in bookAuthors track by proCat.id">
-                                                <option value="">Chọn tên sản phẩm</option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- simple table -->
-            </div> <!-- end section -->
-        </div> <!-- .col-12 -->
     </div> <!-- .row -->
 </div> <!-- .container-fluid -->

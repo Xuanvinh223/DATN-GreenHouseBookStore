@@ -27,13 +27,13 @@ public class AttributeValueServiceImpl implements AttributeValueService {
     }
 
     @Override
-    public void add(AttributeValue entity) {
-        attributeValueRepository.save(entity);
+    public AttributeValue add(AttributeValue entity) {
+        return attributeValueRepository.save(entity);
     }
 
     @Override
-    public void update(AttributeValue entity) {
-        attributeValueRepository.save(entity);
+    public AttributeValue update(AttributeValue entity) {
+        return attributeValueRepository.save(entity);
     }
 
     @Override

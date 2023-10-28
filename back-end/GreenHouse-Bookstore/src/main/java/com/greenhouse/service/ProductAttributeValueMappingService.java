@@ -10,9 +10,9 @@ public interface ProductAttributeValueMappingService {
 
     ProductAttributeValueMapping findById(Integer id);
 
-    void add(ProductAttributeValueMapping entity);
+    ProductAttributeValueMapping add(ProductAttributeValueMapping entity);
 
-    void update(ProductAttributeValueMapping entity);
+    ProductAttributeValueMapping update(ProductAttributeValueMapping entity);
 
     void delete(Integer id);
 }

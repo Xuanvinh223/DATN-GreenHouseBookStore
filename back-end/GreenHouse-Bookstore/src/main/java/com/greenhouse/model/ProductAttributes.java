@@ -12,10 +12,10 @@ public class ProductAttributes implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private int atributeId;
 
     @Column(name = "Name", columnDefinition = "nvarchar(50)")
-    private String name;
+    private String nameAtributes;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }
