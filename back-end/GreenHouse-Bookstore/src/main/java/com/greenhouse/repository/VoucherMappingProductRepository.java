@@ -14,4 +14,5 @@ public interface VoucherMappingProductRepository extends JpaRepository<VoucherMa
 
     VoucherMappingProduct findByVoucherIdAndProductDetailId(int voucherId, int productDetailId);
 
+    List<VoucherMappingProduct> findByVoucherId(Integer voucherId);
 }

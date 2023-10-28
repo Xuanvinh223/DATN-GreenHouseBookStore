@@ -153,7 +153,7 @@
             </div>
           </div>
           <div class="center_center mouse-hover cart-dropdown">
-            <a class="top-button-icon">
+            <a class="top-button-icon  cart-icon" data-quantity-icon="{{listCartHeader.length > 50 ? '50+' : listCartHeader.length}}">
               <div class="center_center" style="margin-bottom:3px;">
                 <div class="icon_cart_gray"></div>
               </div>
@@ -162,21 +162,24 @@
               </div>
             </a>
             <!-- Model cart -->
-            <div class="top-dropdown">
+            <div class="top-dropdown" ng-if="isCustomer || isAdmin" style="
+            transform: translateY(53%) translateX(-38%);">
               <div class="single-cart-block">
-                <div class="cart-product mb-3 mt-3" ng-repeat="cart in listCartHeader track by $index">
+                <div class="cart-product mb-3 mt-3" ng-repeat="cart in listCartHeader | limitTo: 5 track by $index">
                   <a href="product-details.html" class="image">
-                    <img src="{{cart.productDetails.image}}" alt="">
+                    <img src="{{cart.productDetail.image}}" alt="">
                   </a>
                   <div class="content">
                     <h3 class="title"><a href="">{{cart.productDetail.product.productName}}</a>
                     </h3>
-                    <p class="price"><span class="qty">{{cart.quantity}} ×</span> {{(cart.priceDiscount > 0 ?
+                    <p class="price"><span class="qty">{{cart.quantity}} ×</span> {{(cart.priceDiscount - cart.price !=
+                      0
+                      ?
                       cart.priceDiscount : cart.price) | number:'0'}}</p>
                   </div>
                 </div>
               </div>
-              <div class=" single-cart-block ">
+              <div class=" single-cart-block p-4">
                 <div class="btn-block">
                   <a href="/cart" class="btn">Xem thêm <i class="fas fa-chevron-right"></i></a>
                   <a href="#!thanhtoan" class="btn btn--primary">Thanh toán <i class="fas fa-chevron-right"></i></a>

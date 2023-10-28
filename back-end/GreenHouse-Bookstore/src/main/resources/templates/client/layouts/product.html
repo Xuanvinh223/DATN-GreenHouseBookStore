@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+    th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 
 <head>
     <title>Sản phẩm</title>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="shop-product-wrap grid with-pagination row space-db--30 shop-border">
                             <div class="col-lg-4 col-sm-6"
-                                 ng-repeat="productDetail in listProductDetail track by $index">
+                                ng-repeat="productDetail in listProductDetail track by $index">
                                 <div class="product-card">
                                     <div class="product-grid-content">
                                         <div class="product-card--body">
@@ -125,12 +125,12 @@
                                                     </a>
                                                     <div class="hover-btns">
                                                         <a href="" class="single-btn"
-                                                           ng-click="addToCart(productDetail.productDetailId, 1)">
+                                                            ng-click="addToCart(productDetail.productDetailId, 1)">
                                                             <i class="fas fa-shopping-basket"></i>
                                                         </a>
 
                                                         <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
-                                                           ng-click="quickView(productDetail)" class="single-btn">
+                                                            ng-click="quickView(productDetail)" class="single-btn">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
                                                     </div>
@@ -149,19 +149,18 @@
                                                     productDetail.priceDiscount : productDetail.price | number:'0'}}
                                                 </span>
                                                 <del class="price-old"
-                                                     ng-if="productDetail.price - productDetail.priceDiscount > 0">
-                                                    {{productDetail.price
+                                                    ng-if="productDetail.price - productDetail.priceDiscount > 0">{{productDetail.price
                                                     |
                                                     number:'0'}}
                                                 </del>
                                                 <span class="price-discount"
-                                                      ng-if="getDiscountValueByProductId(productDetail.productDetailId)">{{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
+                                                    ng-if="getDiscountValueByProductId(productDetail.productDetailId)">{{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
                                             </div>
                                             <div class="rating-block">
                                                 <div class="rating-star">
                                                     <span class="fas fa-star"
-                                                          ng-class="{star_on: star <= getStarRatingByProductId(productDetail.product.productId)}"
-                                                          ng-repeat="star in numStar track by $index"></span>
+                                                        ng-class="{star_on: star <= getStarRatingByProductId(productDetail.product.productId)}"
+                                                        ng-repeat="star in numStar track by $index"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -173,7 +172,7 @@
                                         <div class="product-card--body">
                                             <div class="product-header">
                                                 <h3><a href="/product-details"
-                                                       tabindex="0">{{productDetail.product.productName}}</a></h3>
+                                                        tabindex="0">{{productDetail.product.productName}}</a></h3>
                                                 <a href="" class="author">
                                                     {{getAuthorNameByProductId(productDetail.product.productId)}}
                                                 </a>
@@ -181,11 +180,11 @@
                                             <article class="mb-4">
                                                 <h4 class="sr-only">Tóm Tắt sản phẩm</h4>
                                                 <p class="limit-text"
-                                                   ng-class="{'show-full-text': showFullText[productDetail.product.productId]}">
+                                                    ng-class="{'show-full-text': showFullText[productDetail.product.productId]}">
                                                     {{productDetail.product.description}}
                                                 </p>
                                                 <span class="read-more"
-                                                      ng-click="toggleFullText(productDetail.product.productId)">
+                                                    ng-click="toggleFullText(productDetail.product.productId)">
                                                     {{showFullText[productDetail.product.productId] ? 'Thu gọn' : 'Xem
                                                     Thêm'}}
                                                 </span>
@@ -197,19 +196,18 @@
                                                     productDetail.priceDiscount : productDetail.price | number:'0'}}
                                                 </span>
                                                 <del class="price-old"
-                                                     ng-if="productDetail.price - productDetail.priceDiscount > 0">
-                                                    {{productDetail.price
+                                                    ng-if="productDetail.price - productDetail.priceDiscount > 0">{{productDetail.price
                                                     |
                                                     number:'0'}}
                                                 </del>
                                                 <span class="price-discount"
-                                                      ng-if="getDiscountValueByProductId(productDetail.productDetailId)">{{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
+                                                    ng-if="getDiscountValueByProductId(productDetail.productDetailId)">{{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
                                             </div>
                                             <div class="rating-block">
                                                 <div class="rating-star">
                                                     <span class="fas fa-star"
-                                                          ng-class="{star_on: star <= getStarRatingByProductId(productDetail.product.productId)}"
-                                                          ng-repeat="star in numStar track by $index"></span>
+                                                        ng-class="{star_on: star <= getStarRatingByProductId(productDetail.product.productId)}"
+                                                        ng-repeat="star in numStar track by $index"></span>
                                                 </div>
                                             </div>
                                             <div class="btn-block">
@@ -228,36 +226,36 @@
                                 <div class="pagination-block">
                                     <ul class="pagination-btns flex-center">
                                         <li><a href="" class="single-btn prev-btn ">|<i
-                                                class="zmdi zmdi-chevron-left"></i>
-                                        </a></li>
+                                                    class="zmdi zmdi-chevron-left"></i>
+                                            </a></li>
                                         <li><a href="" class="single-btn prev-btn "><i
-                                                class="zmdi zmdi-chevron-left"></i>
-                                        </a></li>
+                                                    class="zmdi zmdi-chevron-left"></i>
+                                            </a></li>
                                         <li class="active"><a href="" class="single-btn">1</a></li>
                                         <li><a href="" class="single-btn">2</a></li>
                                         <li><a href="" class="single-btn">3</a></li>
                                         <li><a href="" class="single-btn">4</a></li>
                                         <li><a href="" class="single-btn next-btn"><i
-                                                class="zmdi zmdi-chevron-right"></i></a></li>
+                                                    class="zmdi zmdi-chevron-right"></i></a></li>
                                         <li><a href="" class="single-btn next-btn"><i
-                                                class="zmdi zmdi-chevron-right"></i>|</a></li>
+                                                    class="zmdi zmdi-chevron-right"></i>|</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <!-- Modal -->
                         <div class="modal fade modal-quick-view" id="quickModal" tabindex="-1" role="dialog"
-                             aria-labelledby="quickModal" aria-hidden="true">
+                            aria-labelledby="quickModal" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                        aria-label="Close"></button>
                                     <div class="product-details-modal">
                                         <div class="row">
                                             <div class="col-lg-5">
                                                 <!-- Product Details Slider Big Image-->
                                                 <div class="product-details-slider sb-slick-slider arrow-type-two"
-                                                     data-slick-setting='{
+                                                    data-slick-setting='{
 												"slidesToShow": 1,
 												"arrows": false,
 												"fade": true,
@@ -266,13 +264,13 @@
 												"asNavFor": ".product-slider-nav"
 												}'>
                                                     <div class="single-slide"
-                                                         ng-repeat="item in listImageQuickView track by $index">
+                                                        ng-repeat="item in listImageQuickView track by $index">
                                                         <img src="{{item.image}}" alt="">
                                                     </div>
                                                 </div>
                                                 <!-- Product Details Slider Nav -->
                                                 <div class="mt--30 product-slider-nav sb-slick-slider arrow-type-two"
-                                                     data-slick-setting='{
+                                                    data-slick-setting='{
 						"infinite":true,
 						  "autoplay": true,
 						  "autoplaySpeed": 8000,
@@ -284,7 +282,7 @@
 						  "focusOnSelect": true
 						  }'>
                                                     <div class="single-slide"
-                                                         ng-repeat="item in listImageQuickView track by $index">
+                                                        ng-repeat="item in listImageQuickView track by $index">
                                                         <img src="{{item.image}}" alt="">
                                                     </div>
                                                 </div>
@@ -301,8 +299,8 @@
                                                                 class="list-value">{{quickViewProduct.product.publisher.publisherName}}</span>
                                                         </li>
                                                         <li>Thương Hiệu: <a href="#"
-                                                                            class="list-value font-weight-bold">
-                                                            {{quickViewProduct.product.brand.brandName}}</a></li>
+                                                                class="list-value font-weight-bold">
+                                                                {{quickViewProduct.product.brand.brandName}}</a></li>
                                                         <li>Mã hàng: <span
                                                                 class="list-value">{{quickViewProduct.productDetailId}}</span>
                                                         </li>
@@ -317,20 +315,20 @@
                                                             number:'0'}}
                                                         </span>
                                                         <del class="price-old"
-                                                             ng-if="quickViewProduct.price - quickViewProduct.priceDiscount > 0">
+                                                            ng-if="quickViewProduct.price - quickViewProduct.priceDiscount > 0">
                                                             {{quickViewProduct.price
                                                             |
                                                             number:'0'}}
                                                         </del>
                                                         <span class="price-discount"
-                                                              ng-if="getDiscountValueByProductId(quickViewProduct.productDetailId)">{{getDiscountValueByProductId(quickViewProduct.productDetailId)}}%</span>
+                                                            ng-if="getDiscountValueByProductId(quickViewProduct.productDetailId)">{{getDiscountValueByProductId(quickViewProduct.productDetailId)}}%</span>
                                                     </div>
                                                     <div class="rating-widget">
                                                         <div class="rating-block">
                                                             <div class="rating-star">
                                                                 <span class="fas fa-star"
-                                                                      ng-class="{star_on: star <= getStarRatingByProductId(quickViewProduct.product.productId)}"
-                                                                      ng-repeat="star in numStar track by $index"></span>
+                                                                    ng-class="{star_on: star <= getStarRatingByProductId(quickViewProduct.product.productId)}"
+                                                                    ng-repeat="star in numStar track by $index"></span>
                                                             </div>
                                                         </div>
                                                         <div class="review-widget">
@@ -342,11 +340,11 @@
                                                     <article class="product-details-article mb-4">
                                                         <h4 class="sr-only">Tóm Tắt sản phẩm</h4>
                                                         <p class="limit-text"
-                                                           ng-class="{'show-full-text': showFullText[quickViewProduct.product.productId]}">
+                                                            ng-class="{'show-full-text': showFullText[quickViewProduct.product.productId]}">
                                                             {{quickViewProduct.product.description}}
                                                         </p>
                                                         <span class="read-more"
-                                                              ng-click="toggleFullText(quickViewProduct.product.productId)">
+                                                            ng-click="toggleFullText(quickViewProduct.product.productId)">
                                                             {{showFullText[quickViewProduct.product.productId] ? 'Thu
                                                             gọn' : 'Xem Thêm'}}
                                                         </span>
@@ -356,11 +354,11 @@
                                                         <div class="count-input-block">
                                                             <span class="widget-label">Số Lượng</span>
                                                             <input type="number" class="form-control text-center"
-                                                                   ng-model="quantityQuickViewProduct">
+                                                                ng-model="quantityQuickViewProduct">
                                                         </div>
                                                         <div class="add-cart-btn">
                                                             <a href="" class="btn btn-outlined--primary"
-                                                               ng-click="addToCart(quickViewProduct.productDetailId, quantityQuickViewProduct)"><span
+                                                                ng-click="addToCart(quickViewProduct.productDetailId, quantityQuickViewProduct)"><span
                                                                     class="plus-icon"></span>Thêm vào giỏ hàng</a>
                                                             <a href="" class="btn btn-outlined--primary"><span
                                                                     class="plus-icon"></span>Mua Ngay</a>
@@ -440,7 +438,7 @@
                                     <div class="filter-box">
                                         <div class="option-checkbox" ng-repeat="brand in listBrands track by $index">
                                             <input type="checkbox" id="{{brand.brandId}}" name="{{brand.brandName}}"
-                                                   value="{{brand.brandId}}">
+                                                value="{{brand.brandId}}">
                                             <label for="{{brand.brandId}}">{{brand.brandName}}</label><br>
                                         </div>
                                     </div>

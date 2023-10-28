@@ -17,16 +17,12 @@ app.controller("checkOutController", function ($scope, $http, checkOutAPI, $time
         var url = "https://provinces.open-api.vn/api/?depth=3";
 
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
+        xhr.open('GET', url, true);
         xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                $scope.listProvince = JSON.parse(xhr.responseText);
-                console.log('Danh sách quận/huyện:', $scope.listProvince);
-                $timeout(function () {
-                    $('.selectpicker').selectpicker('refresh');
-                }, 1)
-            }
-        };
+            if (xhr.readyState === 4 && xhr.status === 200) { }
+            $scope.listProvince = JSON.parse(xhr.responseText);
+            console.log($scope.listProvince);
+        }
         xhr.send();
     }
 

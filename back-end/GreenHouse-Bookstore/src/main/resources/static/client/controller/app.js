@@ -59,27 +59,27 @@ app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
 
 // Tạo một interceptor
 app.factory("tokenInterceptor", function () {
-        return {
-            request: function (config) {
-                var token = window.localStorage.getItem("token");
-                // Kiểm tra nếu token tồn tại
-                if (token) {
-                    config.headers["Authorization"] = "Bearer " + token;
-                }
-                return config;
-            },
-            responseError: function (response) {
-                // Kiểm tra nếu mã trạng thái là 401 Unauthorized (token hết hạn)
-                if (response.status === 401) {
-                    // Token đã hết hạn, xoá nó khỏi local storage
-                    window.localStorage.removeItem("token");
-                    // Chuyển hướng đến trang /login
-                    window.location.href = "/login";
-                }
-                return response;
-            },
-        };
-    },
+    return {
+        request: function (config) {
+            var token = window.localStorage.getItem("token");
+            // Kiểm tra nếu token tồn tại
+            if (token) {
+                config.headers["Authorization"] = "Bearer " + token;
+            }
+            return config;
+        },
+        responseError: function (response) {
+            // Kiểm tra nếu mã trạng thái là 401 Unauthorized (token hết hạn)
+            if (response.status === 401) {
+                // Token đã hết hạn, xoá nó khỏi local storage
+                window.localStorage.removeItem("token");
+                // Chuyển hướng đến trang /login
+                window.location.href = "/login";
+            }
+            return response;
+        },
+    };
+},
 );
 
 // Đăng ký interceptor vào ứng dụng
@@ -140,7 +140,7 @@ app.controller('MainController', function ($scope, CartService, $timeout, $rootS
     $scope.notifications = [];
 
     $scope.showNotification = function (type, message) {
-        var notification = {type: type, message: message};
+        var notification = { type: type, message: message };
         $scope.notifications.push(notification);
         $timeout(function () {
             $scope.removeNotification(notification);
@@ -198,6 +198,18 @@ app.service('CartService', function ($http, cartAPI) {
         }
 
         return $http.post(url, data)
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                return Promise.reject(error);
+            });
+    }
+
+    this.removeCartItem = function (cartId) {
+        var url = cartAPI + '/remove'
+
+        return $http.post(url, cartId)
             .then(function (response) {
                 return response.data;
             })

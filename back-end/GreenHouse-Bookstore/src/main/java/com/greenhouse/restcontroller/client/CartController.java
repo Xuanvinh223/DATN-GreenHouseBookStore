@@ -17,10 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.greenhouse.dto.client.CartDTO;
 import com.greenhouse.model.Accounts;
 import com.greenhouse.model.Carts;
+import com.greenhouse.model.Product_Category;
 import com.greenhouse.model.Product_Detail;
+import com.greenhouse.model.UserVoucher;
+import com.greenhouse.model.VoucherMappingCategory;
+import com.greenhouse.model.VoucherMappingProduct;
+import com.greenhouse.model.Vouchers;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.CartsRepository;
+import com.greenhouse.repository.ProductCategoryRepository;
 import com.greenhouse.repository.ProductDetailRepository;
+import com.greenhouse.repository.UserVoucherRepository;
+import com.greenhouse.repository.VoucherMappingCategoryRepository;
+import com.greenhouse.repository.VoucherMappingProductRepository;
 
 @RestController
 @RequestMapping("/customer/rest/cart")
@@ -32,6 +41,14 @@ public class CartController {
     private AccountRepository accountRepository;
     @Autowired
     private ProductDetailRepository productDetailRepository;
+    @Autowired
+    private UserVoucherRepository userVoucherRepository;
+    @Autowired
+    private VoucherMappingCategoryRepository voucherMappingCategoryRepository;
+    @Autowired
+    private VoucherMappingProductRepository voucherMappingProductRepository;
+    @Autowired
+    private ProductCategoryRepository productCategoryRepository;
 
     @PostMapping("/add")
     public ResponseEntity<Map<String, Object>> addToCart(@RequestBody CartDTO data) {
@@ -51,7 +68,6 @@ public class CartController {
                 Double price = productDetail.getPrice();
                 Double priceDiscount = productDetail.getPriceDiscount();
                 Double amount = quantity * (priceDiscount > 0 ? priceDiscount : price);
-                System.out.println(productDetail.getQuantityInStock() - quantity);
 
                 if (productDetail.getQuantityInStock() - quantity >= 0) {
                     if (duplicate != null) {
@@ -115,6 +131,18 @@ public class CartController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/getProductCategory")
+    public ResponseEntity<Map<String, Object>> getProductCategory() {
+        Map<String, Object> response = new HashMap<>();
+
+        List<Product_Category> listProductCategory = new ArrayList<>();
+        listProductCategory = productCategoryRepository.findAll();
+
+        response.put("listProductCategory", listProductCategory);
+
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/updateQuantity")
     public ResponseEntity<Map<String, Object>> updateQuantity(@RequestBody Map<String, Object> data) {
         Map<String, Object> response = new HashMap<>();
@@ -134,7 +162,7 @@ public class CartController {
                 if (quantityInStock - quantity > 0) {
                     Double price = cart.getPrice();
                     Double priceDiscount = cart.getPriceDiscount();
-                    Double amount = quantity * (priceDiscount > 0 ? priceDiscount : price);
+                    Double amount = quantity * (priceDiscount - price != 0 ? priceDiscount : price);
 
                     cart.setQuantity(quantity);
                     cart.setAmount(amount);
@@ -152,6 +180,58 @@ public class CartController {
         }
 
         response.put("cart", cart);
+        response.put("status", status);
+        response.put("message", message);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/remove")
+    public ResponseEntity<Map<String, Object>> removeCartItem(@RequestBody Integer cartId) {
+        Carts cart = new Carts();
+        cart = cartsRepository.findById(cartId).get();
+
+        if (cart != null) {
+            cartsRepository.delete(cart);
+        }
+
+        return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("/getVoucher")
+    public ResponseEntity<Map<String, Object>> getVoucherByUsername(@RequestParam String username) {
+        Map<String, Object> response = new HashMap<>();
+        String status = "error";
+        String message = "Lỗi API lấy dữ liệu của giỏ hàng";
+
+        List<UserVoucher> listUserVouchers = new ArrayList<>();
+        List<Vouchers> listVouchers = new ArrayList<>();
+        List<VoucherMappingCategory> listVouchersMappingCategories = new ArrayList<>();
+        List<VoucherMappingProduct> listVouchersMappingProduct = new ArrayList<>();
+
+        try {
+            listUserVouchers = userVoucherRepository.findByUsernameAndStatus(username, false);
+            for (UserVoucher item : listUserVouchers) {
+                listVouchers.add(item.getVoucher());
+
+                List<VoucherMappingCategory> listVMC = new ArrayList<>();
+                List<VoucherMappingProduct> listVMP = new ArrayList<>();
+
+                listVMP = voucherMappingProductRepository.findByVoucherId(item.getVoucher().getVoucherId());
+                listVMC = voucherMappingCategoryRepository.findByVoucherId(item.getVoucher().getVoucherId());
+
+                listVouchersMappingCategories.addAll(listVMC);
+                listVouchersMappingProduct.addAll(listVMP);
+            }
+            status = "success";
+            message = "Lấy danh sách voucher của người dùng: [" + username + "] thành công";
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        response.put("listVouchers", listVouchers);
+        response.put("listVouchersMappingCategories", listVouchersMappingCategories);
+        response.put("listVouchersMappingProducts", listVouchersMappingProduct);
         response.put("status", status);
         response.put("message", message);
 

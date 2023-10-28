@@ -480,24 +480,24 @@ jQuery(document).ready(function ($) {
         initMap();
     }
 
-
     document.addEventListener("DOMContentLoaded", function () {
         var textContainer = document.querySelector(".limit-text");
         var readMore = document.querySelector(".read-more");
-
+    
         if (textContainer) {
             if (textContainer.scrollWidth > textContainer.clientWidth) {
                 // Đoạn văn bản bị giới hạn, hiển thị "Xem Thêm"
                 readMore.style.display = "inline";
             }
         }
-
+    
         readMore.addEventListener("click", function () {
             // Xử lý khi người dùng bấm "Xem Thêm" (có thể hiển thị toàn bộ văn bản)
             textContainer.classList.remove("limit-text");
             readMore.style.display = "none";
         });
     });
-
-
+    
+    
+    
 });
