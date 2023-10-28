@@ -2,6 +2,12 @@
     --check-box-cart-color: #30cf30;
 }
 
+.cart-page-main-block {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* CART HEADER  */
 
 .cart .page-title {

@@ -12,7 +12,7 @@
 |	|___ Common
 |
 |--- Components
-|	|___ Color
+|	|___ Colorproduct-header
 |	|___ countdown
 |	|___ Modal
 |	|___ Buttons
@@ -159,6 +159,7 @@ ul {
 
 img {
   max-width: 100%;
+  vertical-align: middle;
 }
 
 p {
@@ -286,7 +287,7 @@ input[type=number] {
   color: #7b7b7b;
   font-size: 15px;
   width: 100%;
-  border: 2px solid #d4d4d4;
+  border: 1px solid #d4d4d4;
   background: #fff;
   border-radius: 3px;
   -webkit-box-shadow: none;
@@ -296,7 +297,7 @@ input[type=number] {
   -webkit-box-shadow: none;
           box-shadow: none;
   outline: none;
-  border: 2px solid #eeeeee;
+  border: 1px solid #eeeeee;
 }
 
 /*>>>>>>>> Common <<<<<<<<<*/
@@ -20565,7 +20566,7 @@ input[type=number] {
 }
 
 .bg-shade-whisper {
-  background: #EDEDED;
+  background-image: url(http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/02/bg_brick.jpg);
 }
 
 .bg-pink {
@@ -21224,13 +21225,21 @@ input[type=number] {
   color: #62ab00;
 }
 .product-card h3 a {
-  padding: 0;
-  display: block;
+  padding-top: 0px !important;
+    line-height: 1.4em;
+    min-height: 2.8em;
+    max-height: 2.8em;
+    font-size: 0.6em;
+    color: #333333;
   text-transform: capitalize;
-  overflow: hidden;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 18px;
+  word-break: break-word;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+ 
 }
 .product-card h3 a:hover {
   color: #62ab00;
@@ -21238,7 +21247,7 @@ input[type=number] {
 .product-card .price-block {
   text-align: center;
   position: relative;
-  margin-top: 24px;
+  margin-top: 10px;
 }
 .product-card .card-image {
   position: relative;
@@ -21433,6 +21442,12 @@ input[type=number] {
 .price {
   color: #929292;
   font-size: 18px;
+  color: #62ab00;
+  font-weight: 600;
+}
+.price1{
+  color: #929292;
+  font-size: 23px;
   color: #62ab00;
   font-weight: 600;
 }
@@ -21658,6 +21673,43 @@ input[type=number] {
 .product-slider-nav .single-slide {
   margin: 0 10px;
 }
+.product-slider-nav .single-slide  .image-container {
+  width: 100px;
+  height: 130px; 
+  margin-right: 10px; 
+}
+.product-slider-nav .single-slide  .image-container{
+  border:1px solid gainsboro;
+}
+.product-slider-nav .single-slide.slick-current  .image-container {
+  border: 2px solid rgb(105, 153, 32); 
+}
+.product-slider-nav .single-slide .image-container img {
+  width: 98%; 
+  max-height: 120px; 
+}
+ 
+@media (max-width:320px) {
+  .product-details-slider .single-slide img {
+    width: 100%; 
+    height: 150px; 
+    border: 1px solid gainsboro;
+  }
+  .product-slider-nav .single-slide .image-container {
+    width: 60px;
+    height: 80px;
+    margin-right: 5px;
+    border: 1px solid gainsboro;
+  }
+  .product-slider-nav .single-slide.slick-current .image-container {
+    border: 2px solid rgb(105, 153, 32);
+  }
+  .product-slider-nav .single-slide .image-container img {
+    width: 100%;
+    max-height: 75px;
+  }
+}
+
 .product-slider-nav .slick-arrow {
   width: 40px;
   height: 40px;
@@ -21912,6 +21964,7 @@ input[type=number] {
 /*>>>>>>>> Tabs <<<<<<<<<*/
 .sb-custom-tab {
   text-align: center;
+  background-color: #fff;
 }
 .sb-custom-tab .nav.nav-tabs {
   display: -webkit-inline-box;
@@ -21920,7 +21973,7 @@ input[type=number] {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   border: 2px solid #e5e5e5;
   border-radius: 3px;
 }
@@ -22002,6 +22055,7 @@ input[type=number] {
 .sb-custom-tab .nav.nav-tabs.nav-style-2 {
   border-width: 0px 0px 1px 0px;
   border-style: solid;
+  background-color: #fff;
   border-color: #e5e5e5;
 }
 @media (min-width: 480px) {
@@ -22051,6 +22105,7 @@ input[type=number] {
 }
 .sb-custom-tab .nav.nav-tabs.nav-style-2 .nav-link.active, .sb-custom-tab .nav.nav-tabs.nav-style-2 .nav-link.show {
   color: #62ab00;
+  background-color: #fff;
 }
 .sb-custom-tab .nav.nav-tabs.nav-style-2 .nav-link.active:before, .sb-custom-tab .nav.nav-tabs.nav-style-2 .nav-link.show:before {
   background: #62ab00;
@@ -23410,7 +23465,7 @@ font-size:0.9rem;
 }
 @media (min-width: 1200px) {
   .hero-area .home-content h1 {
-    font-size: 45px;
+    font-size: 40px;
   }
 }
 @media (min-width: 1600px) {
@@ -23440,12 +23495,13 @@ font-size:0.9rem;
 }
 @media (min-width: 992px) {
   .hero-area .home-content h2 {
-    font-size: 22px;
+    font-size: 20px;
   }
 }
 @media (min-width: 1200px) {
   .hero-area .home-content h2 {
-    font-size: 30px;
+    font-size: 22px;
+  }
   }
 }
 @media (min-width: 1600px) {
@@ -23475,7 +23531,7 @@ font-size:0.9rem;
     font-size: 15px;
   }
 }
-.hero-area .home-content .hero-partial-image {
+.hero-area .home-content  .hero-partial-image{
   position: relative;
   margin-bottom: 10px;
   width: 70%;
@@ -23592,6 +23648,7 @@ font-size:0.9rem;
     padding-left: 85px;
   }
 }
+
 .hero-area.hero-slider-2 .home-content {
   min-height: 330px;
 }
@@ -23643,13 +23700,13 @@ font-size:0.9rem;
 }
 @media (min-width: 576px) {
   .hero-area.hero-slider-2 .home-content h2 {
-    font-size: 62px;
+    font-size: 60px;
   }
 }
 .hero-area.hero-slider-2 .home-content h2.h2-v2 {
   letter-spacing: 0px;
   font-weight: 900;
-  font-size: 25px;
+  font-size: 20px;
 }
 @media (min-width: 480px) {
   .hero-area.hero-slider-2 .home-content h2.h2-v2 {
@@ -23917,7 +23974,7 @@ font-size:0.9rem;
   margin-right: 10px;
 }
 .hero-products-group-slider .product-card .card-image {
-  width: 135px;
+  width: 130px;
 }
 
 [class*=hero-slider-] .single-slide {
@@ -25719,6 +25776,7 @@ font-size:0.9rem;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
+
 .product-details-info .rating-widget .rating-block {
   margin-right: 8px;
 }
@@ -26058,6 +26116,7 @@ font-size:0.9rem;
 
 .review-tab {
   text-align: left;
+  background: #fff;
 }
 .review-tab .nav-tabs {
   -webkit-box-pack: center;
@@ -26179,7 +26238,9 @@ font-size:0.9rem;
 .product-features > dl.data-sheet dt.name:nth-of-type(even) {
   background: #f6f6f6;
 }
-
+.review-wrapper{
+  padding: 0 25px 25px 25px;
+}
 .review-wrapper .title-lg {
   font-size: 15px;
   color: #333;
@@ -26197,8 +26258,11 @@ font-size:0.9rem;
   display: flex;
 }
 .review-comment .avatar {
-  width: 60px;
+  width: 50px;
   margin-right: 10px;
+}
+.review-comment .avatar img{
+  border-radius: 50%;
 }
 .review-comment .text {
   border: 1px solid #ececec;
@@ -26359,7 +26423,10 @@ font-size:0.9rem;
 }
 
 .product-details-slider .single-slide img {
-  width: 100%;
+  width: 570px;
+  height: 450px;
+  border: 1px solid gainsboro;
+  
 }
 
 /*>>>>>>>> Blog Page <<<<<<<<<*/
@@ -28306,6 +28373,9 @@ p.form-messege.error {
       -ms-flex-direction: column;
           flex-direction: column;
 }
+.myaccount-tab-menu,.myaccount-content{
+  background-color: white;
+}
 .myaccount-tab-menu a {
   border: 1px solid #cecece;
   border-bottom: none;
@@ -28605,3 +28675,4 @@ ul.main-menu .menu-title1:hover a {
 .accordion .card .card-body {
   padding: 0 30px 30px;
 }
+

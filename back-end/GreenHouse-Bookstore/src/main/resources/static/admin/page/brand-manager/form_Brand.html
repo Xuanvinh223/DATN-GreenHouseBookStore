@@ -45,7 +45,7 @@
                     hiệu(*)</label>
                 </div>
                 <div class="row d-flex justify-content-center">
-                  <img class="object-fit" ng-src="/images/{{editingBrand.logo}}" alt="Uploaded Image" id="uploadedImage"
+                  <img class="object-fit"  ng-src="{{editingBrand.logo}}" alt="Uploaded Image" id="uploadedImage"
                        name="logo" style="max-height: 250px; width: 100%; border-radius: 10%;">
                 </div>
 
@@ -63,7 +63,7 @@
             <button type="button" class="btn btn-primary" ng-click="saveBrand()">
               {{ isEditing ? 'Lưu sửa đổi' : 'Thêm mới' }}
             </button>
-            <button type="submit" class="btn btn-primary" ng-click="resetForm()">Làm mới</button>
+            <button type="submit" class="btn btn-info" ng-click="resetForm()">Làm mới</button>
           </form>
 
         </div>

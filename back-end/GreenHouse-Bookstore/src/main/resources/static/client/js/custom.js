@@ -1,5 +1,5 @@
-jQuery(document).ready(function($) {
-    (function($) {
+jQuery(document).ready(function ($) {
+    (function ($) {
 
         'use strict';
 
@@ -17,7 +17,7 @@ jQuery(document).ready(function($) {
         $offCanvasNavSubMenu.slideUp();
 
         /*Category Sub Menu Toggle*/
-        $offCanvasNav.on('click', 'li a, li .menu-expand', function(e) {
+        $offCanvasNav.on('click', 'li a, li .menu-expand', function (e) {
             var $this = $(this);
             if (($this.parent().attr('class').match(/\b(menu-item-has-children|has-children|has-sub-menu)\b/)) && ($this.attr('href') === '#' || $this.hasClass('menu-expand'))) {
                 e.preventDefault();
@@ -33,11 +33,11 @@ jQuery(document).ready(function($) {
         });
 
         // Off Canvas Open close
-        $(".off-canvas-btn").on('click', function() {
+        $(".off-canvas-btn").on('click', function () {
             $(".off-canvas-wrapper").addClass('open');
         });
 
-        $(".btn-close-off-canvas").on('click', function() {
+        $(".btn-close-off-canvas").on('click', function () {
             $(".off-canvas-wrapper").removeClass('open');
         });
 
@@ -49,13 +49,13 @@ jQuery(document).ready(function($) {
             $(".hidden-menu-item").css('display', 'none');
 
             $(window).on({
-                load: function() {
+                load: function () {
                     var ww = $(window).width();
                     if (ww <= 1200) {
                         $(".hidden-lg-menu-item").css('display', 'none');
                     }
                 },
-                resize: function() {
+                resize: function () {
 
                     var ww = $(window).width();
                     if (ww <= 1200) {
@@ -63,7 +63,7 @@ jQuery(document).ready(function($) {
                     }
                 }
             });
-            $(".js-expand-hidden-menu").on('click', function(e) {
+            $(".js-expand-hidden-menu").on('click', function (e) {
                 e.preventDefault();
                 $(".hidden-menu-item").toggle(500);
                 var window_width = $(window).width();
@@ -82,39 +82,40 @@ jQuery(document).ready(function($) {
          ***********************/
 
         function categoryMenuExpandInMobile() {
-            $('.category-menu .has-children > a').on('click', function(e) {
+            $('.category-menu .has-children > a').on('click', function (e) {
                 e.preventDefault();
                 $(this).siblings('.sub-menu').slideToggle('500');
             });
         }
+
         categoryMenuExpand();
         categoryMenuExpandInMobile();
 
         /*------------------------
-        	--> Search PopUp
+            --> Search PopUp
         ------------------------*/
-        (function() {
-            $(".search-trigger").on('click', function() {
+        (function () {
+            $(".search-trigger").on('click', function () {
                 $(".search-wrapper").addClass('open');
             })
-            $(".search-dismiss,body").on('click', function(e) {
+            $(".search-dismiss,body").on('click', function (e) {
                 $(".search-wrapper").removeClass('open')
             })
             // $("body").on('click', function () { 
             // 	$(".search-wrapper").removeClass('open')
             // })
-            $(".search-box,.search-trigger").on('click', function(e) {
+            $(".search-box,.search-trigger").on('click', function (e) {
                 e.stopPropagation();
             })
         })();
 
-        $('.category-trigger').on('click', function(e) {
+        $('.category-trigger').on('click', function (e) {
             $('.category-nav').toggleClass('show');
             e.stopPropagation();
         })
 
         /*------------------------
-        	--> Slick Carousel
+            --> Slick Carousel
         ------------------------*/
 
         var $html = $('html');
@@ -126,7 +127,7 @@ jQuery(document).ready(function($) {
             $uptimoSlickSlider.attr("dir", "rtl");
         }
 
-        $uptimoSlickSlider.each(function() {
+        $uptimoSlickSlider.each(function () {
 
             /*Setting Variables*/
             var $this = $(this),
@@ -194,10 +195,10 @@ jQuery(document).ready(function($) {
 
         });
         /*---------------------------
-        	--> Dropdown Slide Item
+            --> Dropdown Slide Item
         ----------------------------*/
 
-        $(".slide-down--btn").on('click', function(e) {
+        $(".slide-down--btn").on('click', function (e) {
             e.stopPropagation();
             $(this).siblings('.slide-down--item').slideToggle("400");
             $(this).siblings('.slide-down--item').toggleClass("show");
@@ -206,13 +207,13 @@ jQuery(document).ready(function($) {
         })
 
         /*-------------------------------------
-        	--> Slideup While clicking On Dom
+            --> Slideup While clicking On Dom
         ---------------------------------------*/
         function clickDom() {
-            $('body').on('click', function(e) {
+            $('body').on('click', function (e) {
                 $('.slide-down--item').slideUp('500');
             });
-            $('.slide-down--item').on('click', function(e) {
+            $('.slide-down--item').on('click', function (e) {
                 e.stopPropagation();
             })
         };
@@ -221,13 +222,13 @@ jQuery(document).ready(function($) {
 
 
         /*-------------------------------------
-        	--> Sticky Header
+            --> Sticky Header
         ---------------------------------------*/
         function stickyHeader() {
 
-            var headerHeight = $('.site-header')[0].getBoundingClientRect().height;
+            var headerHeight = $('nav')[0].getBoundingClientRect().height;
             $(window).on({
-                resize: function() {
+                resize: function () {
                     var width = $(window).width();
                     if ((width <= 991)) {
                         $('.sticky-init').removeClass('fixed-header');
@@ -239,7 +240,7 @@ jQuery(document).ready(function($) {
                         $('.sticky-init').addClass('fixed-header');
                     }
                 },
-                load: function() {
+                load: function () {
                     var width = $(window).width();
                     if ((width <= 991)) {
                         $('.sticky-init').removeClass('fixed-header');
@@ -252,7 +253,7 @@ jQuery(document).ready(function($) {
                     }
                 }
             });
-            $(window).on('scroll', function() {
+            $(window).on('scroll', function () {
                 if ($(window).scrollTop() >= headerHeight) {
                     $('.fixed-header').addClass('sticky-header');
                 } else {
@@ -264,15 +265,15 @@ jQuery(document).ready(function($) {
         }
         stickyHeader()
         /*-------------------------------------
-        	--> Range Slider
+            --> Range Slider
         ---------------------------------------*/
-        $(function() {
+        $(function () {
             $(".sb-range-slider").slider({
                 range: true,
                 min: 0,
                 max: 753,
                 values: [80, 320],
-                slide: function(event, ui) {
+                slide: function (event, ui) {
                     $("#amount").val("£" + ui.values[0] + " - £" + ui.values[1]);
                 }
             });
@@ -281,9 +282,9 @@ jQuery(document).ready(function($) {
         });
 
         /*-------------------------------------
-        	--> Product View Mode
+            --> Product View Mode
         ---------------------------------------*/
-        $('.product-view-mode a').on('click', function(e) {
+        $('.product-view-mode a').on('click', function (e) {
             e.preventDefault();
 
             var shopProductWrap = $('.shop-product-wrap');
@@ -300,9 +301,9 @@ jQuery(document).ready(function($) {
         })
 
         /*-------------------------------------
-        	--> Quantity
+            --> Quantity
         ---------------------------------------*/
-        $('.count-btn').on('click', function() {
+        $('.count-btn').on('click', function () {
             var $button = $(this);
             var oldValue = $button.parent('.count-input-btns').parent().find('input').val();
             if ($button.hasClass('inc-ammount')) {
@@ -318,9 +319,9 @@ jQuery(document).ready(function($) {
             $button.parent('.count-input-btns').parent().find('input').val(newVal);
         });
         /*-------------------------------------
-        	--> Shipping Form Toggle
+            --> Shipping Form Toggle
         ---------------------------------------*/
-        $('[data-shipping]').on('click', function() {
+        $('[data-shipping]').on('click', function () {
             if ($('[data-shipping]:checked').length > 0) {
                 $('#shipping-form').slideDown();
             } else {
@@ -328,9 +329,9 @@ jQuery(document).ready(function($) {
             }
         })
         /*-------------------------------------
-        	--> Add To Cart Animation
+            --> Add To Cart Animation
         ---------------------------------------*/
-        $('.add-to-cart').on('click', function(e) {
+        $('.add-to-cart').on('click', function (e) {
             e.preventDefault();
 
             if ($(this).hasClass('added')) {
@@ -339,11 +340,12 @@ jQuery(document).ready(function($) {
                 $(this).addClass('added').find('i').addClass('ti-check').removeClass('ti-shopping-cart').siblings('span').text('added');
             }
         });
+
         /*-------------------------------------
-        	--> Data Background Image
+            --> Data Background Image
         ---------------------------------------*/
         function bgImageSettings() {
-            $('.bg-image').each(function() {
+            $('.bg-image').each(function () {
                 var $this = $(this),
                     $image = $this.data('bg');
 
@@ -356,15 +358,15 @@ jQuery(document).ready(function($) {
         bgImageSettings();
 
         /*-------------------------------------
-        	--> NIce Select
+            --> NIce Select
         ---------------------------------------*/
         $('.nice-select').niceSelect()
-        
+
 
         /*-------------------------------------
-        	--> Product Sorting
+            --> Product Sorting
         ---------------------------------------*/
-        $('.product-view-mode a').on('click', function(e) {
+        $('.product-view-mode a').on('click', function (e) {
             e.preventDefault();
 
             var shopProductWrap = $('.shop-product-wrap');
@@ -380,9 +382,9 @@ jQuery(document).ready(function($) {
             }
         })
         /*-------------------------------------
-        	--> Payment method select
+            --> Payment method select
         ---------------------------------------*/
-        $('[name="payment-method"]').on('click', function() {
+        $('[name="payment-method"]').on('click', function () {
 
             var $value = $(this).attr('value');
 
@@ -390,7 +392,7 @@ jQuery(document).ready(function($) {
             $('[data-method="' + $value + '"]').slideDown();
 
         });
-        $('.slide-trigger').on('click', function() {
+        $('.slide-trigger').on('click', function () {
 
             var $value = $(this).data('target');
 
@@ -424,17 +426,17 @@ jQuery(document).ready(function($) {
 
 
     /*-------------------------------------
-    	--> Countdown Activation
+        --> Countdown Activation
     ---------------------------------------*/
 
-    $('[data-countdown]').each(function() {
+    $('[data-countdown]').each(function () {
         var $this = $(this),
             finalDate = $(this).data('countdown');
-        $this.countdown(finalDate, function(event) {
+        $this.countdown(finalDate, function (event) {
             $this.html(event.strftime('<div class="single-countdown"><span class="single-countdown__time">%D</span><span class="single-countdown__text">Days</span></div><div class="single-countdown"><span class="single-countdown__time">%H</span><span class="single-countdown__text">Hours</span></div><div class="single-countdown"><span class="single-countdown__time">%M</span><span class="single-countdown__text">mins</span></div><div class="single-countdown"><span class="single-countdown__time">%S</span><span class="single-countdown__text">Secs</span></div>'));
         });
     });
-    $('.color-list a').on('click', function(e) {
+    $('.color-list a').on('click', function (e) {
         e.preventDefault();
         var $this = $(this);
         $this.addClass('active');
@@ -462,19 +464,40 @@ jQuery(document).ready(function($) {
     /*--
         15: Google Map
     ----------------------------------------------------*/
-	// Initialize and add the map
-	if($('#google-map').length){
-		function initMap() {
-			// The location of Uluru
-			var uluru = {lat: 9.984232450459027, lng: 105.75771759264275};  
-			// The map, centered at Uluru
-			var map = new google.maps.Map(
-				document.getElementById('google-map'), {zoom: 12, center: uluru});
-			// The marker, positioned at Uluru
-			var marker = new google.maps.Marker({position: uluru, map: map});
+    // Initialize and add the map
+    if ($('#google-map').length) {
+        function initMap() {
+            // The location of Uluru
+            var uluru = { lat: 9.984232450459027, lng: 105.75771759264275 };
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                document.getElementById('google-map'), { zoom: 12, center: uluru });
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({ position: uluru, map: map });
             console.log("GG Map");
-		}
-		initMap();
-	}
+        }
+
+        initMap();
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var textContainer = document.querySelector(".limit-text");
+        var readMore = document.querySelector(".read-more");
+
+        if (textContainer) {
+            if (textContainer.scrollWidth > textContainer.clientWidth) {
+                // Đoạn văn bản bị giới hạn, hiển thị "Xem Thêm"
+                readMore.style.display = "inline";
+            }
+        }
+
+        readMore.addEventListener("click", function () {
+            // Xử lý khi người dùng bấm "Xem Thêm" (có thể hiển thị toàn bộ văn bản)
+            textContainer.classList.remove("limit-text");
+            readMore.style.display = "none";
+        });
+    });
+
 
 });

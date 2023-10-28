@@ -13,7 +13,7 @@
 
 .top-banner {
     text-align: center;
-    background-color: #008a8c;
+    background-color: #38284F;
 }
 
 .site-banner {
@@ -683,85 +683,6 @@
     display: inline-block;
 }
 
-.cart-product {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    position: relative;
-}
-
-.cart-product .image {
-    width: 120px;
-    padding: 0 10px;
-}
-
-.cart-product .content {
-    padding-left: 10px;
-    padding-right: 30px;
-}
-
-.cart-product .content .title {
-    line-height: 20px;
-    text-transform: capitalize;
-    display: block;
-    margin-bottom: 11px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #333;
-}
-
-.cart-product .content .title:hover a {
-    color: #62ab00;
-}
-
-.cart-product .content .price {
-    font-size: 18px;
-    color: #62ab00;
-    display: inline-block;
-    vertical-align: top;
-    line-height: 20px;
-    font-weight: 600;
-    margin-bottom: 0;
-}
-
-.cart-product .content .price .qty {
-    line-height: 18px;
-    font-size: 13px;
-    display: inline-block;
-    vertical-align: top;
-    color: #666;
-    font-weight: 300;
-}
-
-.cart-product .cross-btn {
-    background-color: #999999;
-    width: 16px;
-    height: 16px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    position: absolute;
-    border-radius: 2px;
-    bottom: 20px;
-    right: 10px;
-}
-
-.cart-product .cross-btn i {
-    color: #fff;
-    font-size: 10px;
-}
-
-.cart-product .cross-btn:hover {
-    background: #62ab00;
-}
-
-/* End */
 /*  */
 /*danh mục sản phẩm */
 
@@ -1044,9 +965,9 @@
 
 .progress {
     position: relative;
-    height: 10px;
+    height: 1em;
     border-radius: 15px;
-    background-color: rgba(190, 58, 40, 0.4);
+    background-color: rgba(125, 190, 40, 0.4);
     /* margin-left: 2%;
     margin-right: 2%; */
     width: 96%;
@@ -1242,93 +1163,6 @@
 
 .provider-silder.multiple-row .slick-dots {
     margin-top: 25px;
-}
-
-/*>>>>>>>> Sliders <<<<<<<<<*/
-/*===== Brand Slider ======*/
-.sb-slick-slider {
-    position: relative;
-}
-
-.sb-slick-slider .slick-dots {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-}
-
-.sb-slick-slider .slick-dots li {
-    font-size: 0;
-    width: 11px;
-    height: 11px;
-    border-radius: 100%;
-    background: #d3d3d3;
-    margin: 4px;
-    display: block;
-    opacity: 1;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.sb-slick-slider .slick-dots li.slick-active {
-    background: #62ab00;
-}
-
-.sb-slick-slider .slick-dots li button {
-    font-size: 0;
-}
-
-.sb-slick-slider .product-card.card-style-list {
-    -webkit-box-orient: horizontal !important;
-    -webkit-box-direction: normal !important;
-    -ms-flex-direction: row !important;
-    flex-direction: row !important;
-}
-
-/* .slider-single-row*/
-.slider-single-row .single-slide .provider-card--body {
-    position: relative;
-    padding: 1px;
-}
-
-.slider-single-row.single-slide .provider-card--body::before {
-    position: absolute;
-    content: "";
-    left: 0px;
-    top: 0;
-    height: 100%;
-    width: 1px;
-}
-
-.slider-single-row.single-slide.slick-current .provider-card--body::before {
-    height: 0%;
-}
-
-
-.slider-border-single-row.product-list-slider .provider-card--body::before {
-    height: 0;
-}
-
-.slider-border-single-row.product-list-slider .single-slide .product-card {
-    position: relative;
-    padding: 1px;
-}
-
-.slider-border-single-row.product-list-slider .single-slide .product-card::before {
-    position: absolute;
-    content: "";
-    background: #e5e5e5;
-    left: 0px;
-    top: 0;
-    height: 100%;
-    width: 1px;
-}
-
-.slider-border-single-row.product-list-slider .single-slide.slick-current .product-card::before {
-    height: 0%;
 }
 
 /*++ Product Cards ++*/

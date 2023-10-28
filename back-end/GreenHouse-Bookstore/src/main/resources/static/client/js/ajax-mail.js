@@ -150,4 +150,6 @@ Author: Siddharth Doshi
         });
         return this
     }
+    
 })(jQuery);
+

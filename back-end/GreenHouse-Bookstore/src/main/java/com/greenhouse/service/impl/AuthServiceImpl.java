@@ -34,7 +34,7 @@ public class AuthServiceImpl implements AuthService {
         accounts.setEmail(signupDTO.getEmail());
         accounts.setPhone(signupDTO.getPhone());
         accounts.setCreatedAt(new Date());
-
+        accounts.setActive(false);
         Accounts createdUser = accountRepository.save(accounts); // lưu vào db bảng account
 
         authorities.setUsername(accounts.getUsername());

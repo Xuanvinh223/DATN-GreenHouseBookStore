@@ -10,6 +10,7 @@ import lombok.Data;
 public class Authentic_Photos implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Authentic_Photo_Id")
     private int authenticPhotoId;
 

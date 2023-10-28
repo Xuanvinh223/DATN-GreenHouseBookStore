@@ -33,13 +33,14 @@ public class AdminController {
         try {
             // Thực hiện xác thực token và kiểm tra quyền
             UserDetails userDetails = detailsServiceImpl.loadUserByUsername(username);
+
             try {
                 if (jwtUtil.validateToken(token, userDetails)) {
-                Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-                if (authorities.stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
-                    // Người dùng có quyền "ROLE_ADMIN", cho phép truy cập trang admin
-                    return "redirect:/admin/index.html";
-                }
+                    Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+                    if (authorities.stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
+                        // Người dùng có quyền "ROLE_ADMIN", cho phép truy cập trang admin
+                        return "redirect:/admin/index.html";
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -47,8 +48,10 @@ public class AdminController {
             }
         } catch (ExpiredJwtException ex) {
             // Xử lý lỗi khi token hết hạn
+            ex.printStackTrace();
             return "redirect:/login";
         } catch (UsernameNotFoundException u) {
+            u.printStackTrace();
             // Không tìm thấy tài khoản (Chưa đăng nhập)
             return "redirect:/404";
         }

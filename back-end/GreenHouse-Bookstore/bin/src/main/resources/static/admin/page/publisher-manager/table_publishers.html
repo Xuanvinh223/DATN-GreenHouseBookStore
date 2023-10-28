@@ -1,0 +1,123 @@
+<div class="container-fluid" ng-controller="PublishersController">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="toolbar row">
+        <div class="col">
+          <form class="form-inline mr-auto  text-muted">
+            <h2 class="mb-2 page-title">Danh sách nhà xuất bản</h2>
+          </form>
+        </div>
+      </div>
+      <div class="row my-2">
+        <!-- Small table -->
+        <div class="col-md-12">
+          <div class="card shadow">
+            <div class="card-body">
+              <div class="toolbar row mb-3">
+                <div class="col">
+                  <form class="form-inline mr-auto  text-muted">
+                    <input class="form-control mr-sm-2 bg-transparent border-1 pl-4 text-muted" type="search"
+                      placeholder="Tìm kiếm..." aria-label="Search" ng-model="searchText">
+                  </form>
+                </div>
+                <div class="col ml-auto">
+                  <div class="dropdown float-right">
+                    <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle" type="button"
+                      id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Tất cả trạng thái</button>
+                    <div class="dropdown-menu" aria-labelledby="btnnhaphang">
+                      <a class="dropdown-item" href="#"><i class='bx bxs-file-export mr-1'></i>Nhập File Excel</a>
+                      <a class="dropdown-item" href="#"><i class='bx bxs-file-import mr-1'></i>Xuất File Excel</a>
+                    </div>
+                    <a class="btn btn-info " href="#!/publisher-form"> <i class='bx bx-plus-medical mr-1'></i>Thêm nhà
+                      xuất bản
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!-- table -->
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Tên nhà xuất bản</th>
+                    <th>Mô tả</th>
+                    <th>Địa chỉ</th>
+                    <th>Email</th>
+                    <th>Hình ảnh Logo</th>
+                    <th>Hành động</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="publisher in publishers">
+                    <td>{{$index + 1}}</td>
+                    <td>{{publisher.publisherId}}</td>
+                    <td>{{publisher.publisherName}}</td>
+                    <td>{{publisher.description}}</td>
+                    <td>{{publisher.address}}</td>
+                    <td>{{publisher.email}}</td>
+                    <td>
+                      <img ng-src="/images/{{publisher.image}}" alt="Chưa có ảnh"
+                        style="width: 50px; height: 50px; border-radius: 10%;">
+                    </td>
+                    <td>
+                      <a ng-click="editPublisherAndRedirect(publisher.publisherId)"><i
+                          class="fe fe-edit fe-16 "></i></a>
+                      <a ng-click="deletePublisher(publisher.publisherId)"><i class="fe fe-trash fe-16"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="toolbar">
+                <form class="form">
+                  <div class="form-row">
+                    <div class="form-inline col-auto mr-auto">
+                      <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
+                      <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1"
+                        ng-model="selectedItemsPerPage" ng-options="value for value in itemsPerPageOptions"
+                        ng-change="onItemsPerPageChange()">
+                      </select>
+                    </div>
+                    <div class="form-group col-auto">
+                      <span>Đang xem {{(currentPage-1)*itemsPerPage+1}} đến {{(currentPage*itemsPerPage > totalItems) ?
+                        totalItems : (currentPage*itemsPerPage)}} trên tổng số {{totalItems}}</span>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <nav aria-label="Table Paging" class="mb-0 text-muted">
+                <ul class="pagination justify-content-center mb-0">
+                  <li class="page-item" ng-class="{'disabled': currentPage === 1}">
+                    <button class="page-link" type="button" ng-click="firstPage()">First</button>
+                  </li>
+                  <li class="page-item" ng-class="{'disabled': currentPage === 1}">
+                    <button class="page-link" type="button" ng-click="prevPage()"
+                      ng-disabled="currentPage === 1">Previous</button>
+                  </li>
+                  <li class="page-item" ng-show="currentPage > 2"><span>...</span></li>
+                  <li class="page-item" ng-repeat="page in visiblePages" ng-class="{'active': page === currentPage}">
+                    <button type="button" class="page-link" ng-click="setPage(page)">{{ page }}</button>
+                  </li>
+                  <li class="page-item" ng-show="currentPage < pageCount - 1 && showLastDots">
+                    <span>...</span>
+                  </li>
+                  <li class="page-item" ng-show="currentPage < pageCount && !showLastDots">
+                    <button type="button" class="page-link" ng-click="setPage(pageCount)">{{ pageCount }}</button>
+                  </li>
+                  <li class="page-item" ng-class="{'disabled': currentPage === pageCount}">
+                    <button class="page-link" type="button" ng-click="nextPage()"
+                      ng-disabled="currentPage === pageCount">Next</button>
+                  </li>
+                  <li class="page-item" ng-class="{'disabled': currentPage === pageCount}">
+                    <button class="page-link" type="button" ng-click="lastPage()">Last</button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div> <!-- simple table -->
+      </div> <!-- end section -->
+    </div> <!-- .col-12 -->
+  </div> <!-- .row -->
+</div> <!-- .container-fluid -->

@@ -1,19 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, layout)" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, layout)">
 
 <th:block th:replace="~{client/layouts/template.html :: head (${title})}"></th:block>
 
-<body ng-app="myApp">
-  <th-block th:replace="~{client/layouts/template.html :: 'menu-fahasha'}"></th-block>
-  
-  <div class="site-wrapper" id="top">
-    
+<body ng-app="myApp" ng-controller="MainController">
+<div class="notification-container">
+    <div class="notification" id="{{'notification-'+$index}}" ng-repeat="notification in notifications track by $index"
+         ng-class="notification.type">
+        {{ notification.message }}
+        <span class="close-button" ng-click="removeNotification(notification)">&times;</span>
+    </div>
+</div>
+
+<th-block th:replace="~{client/layouts/template.html :: 'menu-fahasha'}"></th-block>
+
+<div class="site-wrapper" id="top">
+
     <th-block th:replace="~{client/layouts/template.html :: 'menu'}"></th-block>
 
     <th-block th:replace="~{client/layouts/template.html :: 'menu-mobie'}"></th-block>
-   
+
     <th-block th:replace="~{client/layouts/template.html :: 'menu-rolls'}"></th-block>
-    
+
     <main th:replace="${layout}"></main>
   </div>
 

@@ -33,7 +33,9 @@ var allElement = document.getElementsByTagName("*");
 for (let i = 0; i < allElement.length; i++) {
     allElement[i].addEventListener("click", checkToggleLanguage);
 }
-
+$(document).ready(function () {
+    $('.selectpicker').selectpicker();
+});
 
 //Menu Sách
 $("#sach-menu").mouseenter(function () {
