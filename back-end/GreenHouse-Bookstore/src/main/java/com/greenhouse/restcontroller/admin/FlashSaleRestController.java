@@ -68,8 +68,7 @@ public class FlashSaleRestController {
     }
 
     @Transactional
-   
-    
+    @GetMapping("/rest/edit/{id}")
     public ResponseEntity<Map<String, Object>> editFlashSale(@PathVariable Integer id) {
         Map<String, Object> resp = new HashMap<>();
     
