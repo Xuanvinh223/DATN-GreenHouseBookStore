@@ -32,30 +32,36 @@ function singinController($http, $scope, signupAPI) {
             repassword: $scope.repassword || "",
         };
         // Gửi dữ liệu đến backend thông qua HTTP POST request
-        $http.post(host, formData).then(function (response) {
-            var status = response.data.status;
-            var message = response.data.message;
-            if (status == 201) {
-                Swal.fire({
-                    title: "Thông báo",
-                    text: message,
-                    icon: "success",
-                    confirmButtonText: "OK",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Nếu người dùng nhấn nút "OK", thực hiện chuyển hướng đến /login
-                        // window.location.href = "/login";
-                    }
-                });
-            } else {
-                Swal.fire({
-                    title: "Thông báo",
-                    text: message,
-                    icon: "error",
-                    confirmButtonText: "OK",
-                });
-            }
-        });
+        $http
+            .post(host, formData)
+            .then(function (response) {
+                var status = response.data.status;
+                var message = response.data.message;
+                if (status == 201) {
+                    Swal.fire({
+                        title: "Thông báo",
+                        text: message,
+                        icon: "success",
+                        confirmButtonText: "OK",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Nếu người dùng nhấn nút "OK", thực hiện chuyển hướng đến /login
+                            // window.location.href = "/login";
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Thông báo",
+                        text: message,
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    });
+                }
+            })
+            .finally(() => {
+                // Sau khi hoàn thành gọi API (thành công hoặc thất bại), đặt isLoading lại thành false.
+                $scope.isLoading = false;
+            });
     };
 
     $scope.sendCode = function () {
@@ -65,24 +71,31 @@ function singinController($http, $scope, signupAPI) {
             password: $scope.password || "",
             repassword: $scope.repassword || "",
         };
-        $http.post(host + "/send-code", formData).then(function (response) {
-            var status = response.data.status;
-            var message = response.data.message;
-            if (status == 201) {
-                Swal.fire({
-                    title: "Thông báo",
-                    text: message,
-                    icon: "success",
-                    confirmButtonText: "OK",
-                });
-            } else {
-                Swal.fire({
-                    title: "Thông báo",
-                    text: message,
-                    icon: "error",
-                    confirmButtonText: "OK",
-                });
-            }
-        });
+        $scope.isLoading = true;
+        $http
+            .post(host + "/send-code", formData)
+            .then(function (response) {
+                var status = response.data.status;
+                var message = response.data.message;
+                if (status == 201) {
+                    Swal.fire({
+                        title: "Thông báo",
+                        text: message,
+                        icon: "success",
+                        confirmButtonText: "OK",
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Thông báo",
+                        text: message,
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    });
+                }
+            })
+            .finally(() => {
+                // Sau khi hoàn thành gọi API (thành công hoặc thất bại), đặt isLoading lại thành false.
+                $scope.isLoading = false;
+            });
     };
 }
