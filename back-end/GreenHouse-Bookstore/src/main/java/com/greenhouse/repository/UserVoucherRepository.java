@@ -13,10 +13,10 @@ import com.greenhouse.model.UserVoucher;
 @Repository
 public interface UserVoucherRepository extends JpaRepository<UserVoucher, Integer> {
 
-    List<UserVoucher> findByUsername(String username);
+    // List<UserVoucher> findByUsername(String username);
 
     List<UserVoucher> findByUsernameAndStatus(String username, Boolean status);
 
-//   List<Optional<UserVoucher>> findByUsername(String username);
+    List<Optional<UserVoucher>> findByUsername(String username);
 }
 

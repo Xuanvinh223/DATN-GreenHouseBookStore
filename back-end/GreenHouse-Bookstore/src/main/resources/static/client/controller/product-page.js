@@ -1,6 +1,6 @@
 app.controller("productPageController", productPageController);
 
-function productPageController($http, $scope, productPageAPI, CartService, ProductDetailService, $location) {
+function productPageController($http, $scope, $filter, productPageAPI, CartService, ProductDetailService, $location) {
     const host = productPageAPI;
 
     //Phân trang
@@ -26,15 +26,23 @@ function productPageController($http, $scope, productPageAPI, CartService, Produ
     $scope.currentPage = 1;
     $scope.totalItems = 0;
     $scope.maxSize = 5;
-    $scope.itemsPerPage = 36;
+    $scope.itemsPerPage = 6;
     // pagination - END
 
     // DECLARE SCOPE FOR UI - END
     //=================================
     // SCOPE_FUNCTION GET DATA - START
-    $scope.getData = function () {
-        var url = host + "/data";
-        $http.get(url).then(response => {
+
+
+    $scope.selectedCategoryId = null;
+    $scope.selectedCategoryName = null;
+    // $scope.selectedCategory = null;
+
+    $scope.getDataProductDetail = function () {
+        var url = host + "/product-show";
+
+        // Truy vấn API để lấy dữ liệu
+        $http.get(url, {params: {categoryId: $scope.selectedCategoryId}}).then(response => {
             $scope.listProductDetail = response.data.listProductDetail;
             $scope.listCategoryTypes = response.data.listCategoryTypes;
             $scope.listCategories = response.data.listCategories;
@@ -46,7 +54,6 @@ function productPageController($http, $scope, productPageAPI, CartService, Produ
 
             $scope.totalItems = $scope.listProductDetail.length;
 
-            console.log("Danh sách sản phẩm chi tiết: ", $scope.listProductDetail);
             console.log("Danh sách thể loại sản phẩm: ", $scope.listCategoryTypes);
             console.log("Danh sách loại sản phẩm: ", $scope.listCategories);
             console.log("Danh sách tác giả: ", $scope.listBookAuthor);
@@ -54,11 +61,27 @@ function productPageController($http, $scope, productPageAPI, CartService, Produ
             console.log("Danh sách đánh giá sản phẩm: ", $scope.listProductReviews);
             console.log("Danh sách thương hiệu: ", $scope.listBrands);
             console.log("Danh sách ảnh mở rộng của sản phẩm: ", $scope.listProductImages);
-
+            // Hiển thị thông tin đã lấy được trong console
+            console.log("Danh sách sản phẩm chi tiết: ", $scope.listProductDetail);
         }).catch(function (error) {
-            console.error("Lỗi call api: ", error);
+            console.error("Lỗi call API: ", error);
         });
-    }
+    };
+
+    $scope.selectCategory = function (categoryId, categoryName) {
+        // Gán categoryId và categoryName vào biến để sử dụng trong việc hiển thị breadcrumb
+        $scope.selectedCategoryId = categoryId;
+        $scope.selectedCategoryName = categoryName;
+        console.log($scope.selectedCategoryId);
+        $scope.getDataProductDetail(); // Gọi lại hàm lấy dữ liệu để cập nhật danh sách sản phẩm
+    };
+    $scope.changeItemsPerPage = function () {
+        console.log("Đã gọi hàm changeItemsPerPage");
+        // Cập nhật số lượng phần tử mỗi trang
+        $scope.currentPage = 1; // Đặt lại trang về trang đầu
+        $scope.getDataProductDetail(); // Gọi lại hàm lấy dữ liệu để cập nhật danh sách sản phẩm với itemsPerPage mới
+    };
+
     // SCOPE_FUNCTION GET DATA - END
     //===========================
     // SCOPE_FUNCTION GET DATA WITH PARAMETERS - START
@@ -166,10 +189,36 @@ function productPageController($http, $scope, productPageAPI, CartService, Produ
     };
 
     $scope.init = function () {
-        $scope.getData();
+        $scope.getDataProductDetail();
     }
 
     $scope.init();
-
-
 }
+
+// $scope.getData = function () {
+//     var url = host + "/data";
+//     $http.get(url).then(response => {
+//         $scope.listProductDetail = response.data.listProductDetail;
+//         $scope.listCategoryTypes = response.data.listCategoryTypes;
+//         $scope.listCategories = response.data.listCategories;
+//         $scope.listBookAuthor = response.data.listBookAuthor;
+//         $scope.listProductDiscount = response.data.listProductDiscount;
+//         $scope.listProductReviews = response.data.listProductReviews;
+//         $scope.listBrands = response.data.listBrands;
+//         $scope.listProductImages = response.data.listProductImages;
+
+//         $scope.totalItems = $scope.listProductDetail.length;
+
+//         console.log("Danh sách sản phẩm chi tiết: ", $scope.listProductDetail);
+//         console.log("Danh sách thể loại sản phẩm: ", $scope.listCategoryTypes);
+//         console.log("Danh sách loại sản phẩm: ", $scope.listCategories);
+//         console.log("Danh sách tác giả: ", $scope.listBookAuthor);
+//         console.log("Danh sách sản phẩm giảm giá: ", $scope.listProductDiscount);
+//         console.log("Danh sách đánh giá sản phẩm: ", $scope.listProductReviews);
+//         console.log("Danh sách thương hiệu: ", $scope.listBrands);
+//         console.log("Danh sách ảnh mở rộng của sản phẩm: ", $scope.listProductImages);
+
+//     }).catch(function (error) {
+//         console.error("Lỗi call api: ", error);
+//     });
+// }

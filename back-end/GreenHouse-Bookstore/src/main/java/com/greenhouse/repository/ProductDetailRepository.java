@@ -9,20 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ProductDetailRepository extends JpaRepository<Product_Detail, Integer> {
-        // @Query(value = "SELECT " +
-        // " PD.Product_Detail_Id AS ID, " +
-        // " P.Product_Name AS 'Tên sản phẩm', " +
-        // " PD.Price AS 'Giá nhập', " +
-        // " PD.Price_Discount AS 'Giá bán', " +
-        // " P.Manufacture_Date AS 'Ngày sản xuất', " +
-        // " P.Create_At AS 'Ngày thêm', " +
-        // " P.status AS 'Trạng thái', " +
-        // " PD.Quantity_In_Stock AS 'Số lượng tồn', " +
-        // " B.Brand_Name AS 'Thương Hiệu' " +
-        // "FROM Product_Detail AS PD " +
-        // "INNER JOIN Products AS P ON PD.Product_Id = P.Product_Id " +
-        // "LEFT JOIN Brands AS B ON P.Brand_Id = B.Brand_Id", nativeQuery = true)
-        // List<Object[]> findAllInventoryList();
+
         @Query(value = "SELECT " +
                         "    p.Product_Id AS ID, " +
                         "    p.Product_Name AS 'Tên sản phẩm', " +
@@ -110,14 +97,20 @@ public interface ProductDetailRepository extends JpaRepository<Product_Detail, I
                         "WHERE p.Status = 1", nativeQuery = true)
         List<Product_Detail> findProductsByStatus();
 
-        List<Product_Detail> findProductDetailsByProduct_Brand_BrandId(String brandId);
+    List<Product_Detail> findProductDetailsByProduct_Brand_BrandId(String brandId);
 
-        @Query(value = "SELECT d.* FROM Product_Detail d " +
-                        "JOIN Products p ON d.Product_Id = p.Product_Id " +
-                        "JOIN Product_Category c ON p.Product_Id = c.Product_Id " +
-                        "WHERE c.Category_Id IN " +
-                        "(SELECT Category_Id FROM Product_Category WHERE Product_Id = " +
-                        "(SELECT Product_Id FROM Product_Detail WHERE Product_Detail_Id = ?1))", nativeQuery = true)
-        List<Product_Detail> findRelatedProducts(int productDetailId);
+    @Query(value = "SELECT d.* FROM Product_Detail d " +
+            "JOIN Products p ON d.Product_Id = p.Product_Id " +
+            "JOIN Product_Category c ON p.Product_Id = c.Product_Id " +
+            "WHERE c.Category_Id IN " +
+            "(SELECT Category_Id FROM Product_Category WHERE Product_Id = " +
+            "(SELECT Product_Id FROM Product_Detail WHERE Product_Detail_Id = ?1))", nativeQuery = true)
+    List<Product_Detail> findRelatedProducts(int productDetailId);
 
+    @Query(value = "SELECT pd.* " +
+            "FROM Product_Category pc " +
+            "INNER JOIN Products p ON pc.Product_Id = p.Product_Id " +
+            "INNER JOIN Product_Detail pd ON p.Product_Id = pd.Product_Id " +
+            "WHERE pc.Category_Id = :categoryId", nativeQuery = true)
+    List<Product_Detail> findAllCate(@Param("categoryId") String categoryId);
 }
