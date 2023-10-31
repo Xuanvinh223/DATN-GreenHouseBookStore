@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +33,7 @@ public class ChangePasswordController {
     EmailService sendEmail;
 
     @PostMapping()
-    private ResponseEntity<Response> resetPassword(@RequestBody ChangePasswordDTO dto) {
+    public ResponseEntity<Response> resetPassword(@RequestBody ChangePasswordDTO dto) {
         Response response = new Response();
         if (dto.getNewPassword().isEmpty() || dto.getConfirmPassword().isEmpty()) {
             response.setStatus(400);
@@ -64,13 +63,11 @@ public class ChangePasswordController {
             }
         } catch (ExpiredJwtException e) {
             response.setStatus(400);
-            response.setMessage(
-                    "Xin lỗi, thao tác đổi mật khẩu đã hết hạn. Vui lòng thực hiện lại yêu cầu đổi mật khẩu bằng cách gửi mã xác nhận mới. Chúng tôi rất xin lỗi vì sự bất tiện này và sẽ cố gắng để cung cấp dịch vụ tốt nhất cho bạn.");
+            response.setMessage("Xin lỗi, thao tác đổi mật khẩu đã hết hạn. Vui lòng thực hiện lại yêu cầu đổi mật khẩu bằng cách gửi mã xác nhận mới. Chúng tôi rất xin lỗi vì sự bất tiện này và sẽ cố gắng để cung cấp dịch vụ tốt nhất cho bạn.");
             return ResponseEntity.status(response.getStatus()).body(response);
         } catch (IllegalArgumentException e) {
             response.setStatus(400);
-            response.setMessage(
-                    "Xin lỗi, thao tác đổi mật khẩu đã hết hạn. Vui lòng thực hiện lại yêu cầu đổi mật khẩu bằng cách gửi mã xác nhận mới. Chúng tôi rất xin lỗi vì sự bất tiện này và sẽ cố gắng để cung cấp dịch vụ tốt nhất cho bạn.");
+            response.setMessage("Xin lỗi, thao tác đổi mật khẩu đã hết hạn. Vui lòng thực hiện lại yêu cầu đổi mật khẩu bằng cách gửi mã xác nhận mới. Chúng tôi rất xin lỗi vì sự bất tiện này và sẽ cố gắng để cung cấp dịch vụ tốt nhất cho bạn.");
             return ResponseEntity.status(response.getStatus()).body(response);
         }
         response.setStatus(400);
@@ -78,36 +75,7 @@ public class ChangePasswordController {
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 
-    @PostMapping("/{username}")
-    private ResponseEntity<Response> resetPasswordByUsername(@RequestBody ChangePasswordDTO dto,
-                                                             @PathVariable String username) {
-        Response response = new Response();
-        if (dto.getNewPassword().isEmpty() || dto.getConfirmPassword().isEmpty()) {
-            response.setStatus(400);
-            response.setMessage("Không được bỏ trống thông tin!");
-            return ResponseEntity.status(response.getStatus()).body(response);
-        }
-        if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
-            response.setStatus(400);
-            response.setMessage("Mật khẩu không trùng khớp!");
-            return ResponseEntity.status(response.getStatus()).body(response);
-        }
-
-        if (!isValidPassword(dto.getNewPassword())) {
-            response.setStatus(400);
-            response.setMessage("Mật khẩu không hợp lệ!");
-            return ResponseEntity.status(response.getStatus()).body(response);
-        }
-
-        Accounts accounts = accountRepository.findByUsername(username);
-        accounts.setPassword(new BCryptPasswordEncoder().encode(dto.getNewPassword()));
-        accountRepository.save(accounts);
-        response.setStatus(200);
-        response.setMessage("Đổi mật khẩu thành công!");
-        return ResponseEntity.status(response.getStatus()).body(response);
-    }
-
-    private boolean isValidPassword(String password) {
+    public boolean isValidPassword(String password) {
         // Kiểm tra xem mật khẩu có ít nhất 8 ký tự
         if (password.length() < 8) {
             return false;

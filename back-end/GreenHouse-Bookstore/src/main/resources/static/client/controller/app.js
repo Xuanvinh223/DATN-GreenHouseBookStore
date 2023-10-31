@@ -1,21 +1,13 @@
-const app = angular.module("myApp", ["angular-jwt", "ngCookies"]);
+const app = angular.module("myApp", ["angular-jwt", "ngCookies", "ngRoute", "angularUtils.directives.dirPagination"]);
+app.constant('authenticateAPI', 'http://localhost:8081/authenticate');
+app.constant('signupAPI', 'http://localhost:8081/sign-up');
+app.constant('checkOutAPI', 'http://localhost:8081/customer/rest/check-out');
+app.constant('productPageAPI', 'http://localhost:8081/customer/rest/product-page');
+app.constant('cartAPI', 'http://localhost:8081/customer/rest/cart');
+app.constant('changePasswordAPI', 'http://localhost:8081/customer/rest/reset-password');
+app.constant('forgotPasswordAPI', 'http://localhost:8081/customer/rest/forgot-password');
+app.constant('productDetailAPI', 'http://localhost:8081/customer/rest/product-detail')
 
-app.constant("authenticateAPI", "http://localhost:8081/authenticate");
-app.constant("signupAPI", "http://localhost:8081/sign-up");
-app.constant("checkOutAPI", "http://localhost:8081/customer/rest/check-out");
-app.constant(
-    "productPageAPI",
-    "http://localhost:8081/customer/rest/product-page"
-);
-app.constant("cartAPI", "http://localhost:8081/customer/rest/cart");
-app.constant(
-    "changePasswordAPI",
-    "http://localhost:8081/customer/rest/reset-password"
-);
-app.constant(
-    "forgotPasswordAPI",
-    "http://localhost:8081/customer/rest/forgot-password"
-);
 app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
     var token = $cookies.get("token");
 
@@ -28,7 +20,7 @@ app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
         "js/custom.js",
         "js/code.js",
         "js/login-register.js",
-        "js/plugins.js",
+        "js/plugins.js"
     ]; // Danh sách các tệp JavaScript
 
     function loadAndAppendScript(jsFile) {
@@ -110,15 +102,14 @@ app.config([
 ]);
 
 // ================= MAIN CONTROLLER ==================
-app.controller(
-    "MainController",
-    function ($scope, CartService, $timeout, $rootScope) {
+app.controller("MainController", function ($scope, CartService, $timeout, $rootScope) {
         var username = localStorage.getItem("username");
 
         $scope.addToCart = function (productDetailId, quantity) {
             CartService.addToCart(productDetailId, quantity, username)
                 .then(function (response) {
                     $scope.showNotification(response.status, response.message);
+                    $scope.getCart();
                 })
                 .catch(function (error) {
                     console.log(
@@ -149,29 +140,29 @@ app.controller(
             }
         };
 
-    $scope.updateUserInfo();
+        $scope.updateUserInfo();
 
-    // ================ SHOW FULL TEXT OR COMPRESS =================================================================
-    $scope.showFullText = {};
+        // ================ SHOW FULL TEXT OR COMPRESS =================================================================
+        $scope.showFullText = {};
 
-    $scope.toggleFullText = function (productId) {
-        if (!$scope.showFullText[productId]) {
-            $scope.showFullText[productId] = true;
-        } else {
+        $scope.toggleFullText = function (productId) {
+            if (!$scope.showFullText[productId]) {
+                $scope.showFullText[productId] = true;
+            } else {
             $scope.showFullText[productId] = false;
         }
     };
 
     // =========== NOTIFICATION =============================
-    $scope.notifications = [];
+        $scope.notifications = [];
 
-    $scope.showNotification = function (type, message) {
-        var notification = {type: type, message: message};
-        $scope.notifications.push(notification);
-        $timeout(function () {
-            $scope.removeNotification(notification);
-        }, 3000);
-    };
+        $scope.showNotification = function (type, message) {
+            var notification = {type: type, message: message};
+            $scope.notifications.push(notification);
+            $timeout(function () {
+                $scope.removeNotification(notification);
+            }, 3000);
+        };
 
         $scope.removeNotification = function (notification) {
             var index = $scope.notifications.indexOf(notification);
@@ -233,5 +224,35 @@ app.service("CartService", function ($http, cartAPI) {
             .catch(function (error) {
                 return Promise.reject(error);
             });
+    }
+
+    this.removeCartItem = function (cartId) {
+        var url = cartAPI + '/remove'
+
+        return $http.post(url, cartId)
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                return Promise.reject(error);
+            });
+    }
+
+});
+
+app.service('ProductDetailService', function ($http, productDetailAPI) {
+    this.getProductDetailById = function (productDetailId) {
+        var url = `${productDetailAPI}/${productDetailId}`;
+        return $http.get(url)
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log('Lỗi khi lấy dữ liệu:', error);
+                return Promise.reject(error);
+            });
     };
 });
+
+
+

@@ -31,7 +31,7 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
     $scope.form = {
         importInvoiceId: null,
         username: null,
-        suppliers: {supplierId: null},
+        suppliers: { supplierId: null },
         description: null,
         importInvoiceAmount: 0,
     }
@@ -178,7 +178,7 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
         $scope.form = {
             importInvoiceId: null,
             username: $scope.username,
-            suppliers: {supplierId: null},
+            suppliers: { supplierId: null },
             description: null,
             importInvoiceAmount: 0,
         }

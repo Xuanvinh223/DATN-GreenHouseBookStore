@@ -10,9 +10,9 @@ public interface ProductImagesService {
 
     Product_Images findById(Integer id);
 
-    void add(Product_Images entity);
+    Product_Images add(Product_Images entity);
 
-    void update(Product_Images entity);
+    Product_Images update(Product_Images entity);
 
     void delete(Integer id);
 }

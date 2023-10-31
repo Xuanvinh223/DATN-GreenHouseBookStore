@@ -1,20 +1,20 @@
 package com.greenhouse.restcontroller.admin;
 
+
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.google.gson.Gson;
 import com.greenhouse.model.Suppliers; // Import Suppliers thay vì Publishers
 import com.greenhouse.service.SuppliersService; // Import SuppliersService thay vì PublishersService
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.util.StringUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/rest/suppliers") // Thay đổi đường dẫn
@@ -22,8 +22,11 @@ public class RestSuppliersController {
 
     @Autowired
     private SuppliersService suppliersService; // Sử dụng SuppliersService thay vì PublishersService
-    @Value("${upload.path}")
-    private String uploadPath;
+
+
+    private static final String CLOUDINARY_CLOUD_NAME = "dmbh3sz8s";
+    private static final String CLOUDINARY_API_KEY = "165312227781173";
+    private static final String CLOUDINARY_API_SECRET = "xcADjr7hxF6iXNMtsdf2CQAnbOI";
 
     @GetMapping
     public ResponseEntity<List<Suppliers>> getAllSuppliers() { // Thay đổi tên phương thức và kiểu dữ liệu
@@ -42,34 +45,24 @@ public class RestSuppliersController {
 
     @PostMapping
     public ResponseEntity<Object> create(@RequestParam(value = "image", required = false) MultipartFile file,
-            @RequestParam("supplierJson") String supplierJson) {
+                                         @RequestParam("supplierJson") String supplierJson) throws Exception {
         if (StringUtils.isEmpty(supplierJson)) {
             return new ResponseEntity<>("Thông tin nhà cung cấp không hợp lệ.", HttpStatus.BAD_REQUEST);
         }
 
-        // Xử lý tải lên ảnh
-        String uploadedFileName = null;
+        String photoUrl = null;
         if (file != null && !file.isEmpty()) {
-            try {
-                String originalFileName = file.getOriginalFilename();
-                String fileExtension = FilenameUtils.getExtension(originalFileName);
-                uploadedFileName = "supplier_" + System.currentTimeMillis() + "." + fileExtension;
-                File uploadedFile = new File(uploadPath + File.separator + uploadedFileName);
-                FileUtils.writeByteArrayToFile(uploadedFile, file.getBytes());
-            } catch (IOException e) {
-                return new ResponseEntity<>("Lỗi khi tải ảnh lên.", HttpStatus.BAD_REQUEST);
-            }
+            photoUrl = uploadImageToCloudinary(file, "author_" + System.currentTimeMillis());
         }
+
 
         // Xử lý thông tin nhà cung cấp
         Suppliers supplier = new Gson().fromJson(supplierJson, Suppliers.class);
 
-        // Kiểm tra xem ảnh đã tải lên mới chưa và ảnh không null
-        if (uploadedFileName != null) {
-            supplier.setImage(uploadedFileName);
-        } else {
-            supplier.setImage(null); // Đặt ảnh thành null nếu không có ảnh
+        if (photoUrl != null) {
+            supplier.setImage(photoUrl);
         }
+
 
         Suppliers existingSupplier = suppliersService.findById(supplier.getSupplierId());
         if (existingSupplier != null) {
@@ -82,32 +75,20 @@ public class RestSuppliersController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Suppliers> update(@PathVariable("id") String id,
-            @RequestParam(value = "image", required = false) MultipartFile file,
-            @RequestParam("supplierJson") String supplierJson) {
+                                            @RequestParam(value = "image", required = false) MultipartFile file,
+                                            @RequestParam("supplierJson") String supplierJson) throws Exception {
 
-        // Xử lý tải lên ảnh (nếu có)
-        String uploadedFileName = null;
+        String photoUrl = null;
         if (file != null && !file.isEmpty()) {
-            try {
-                String originalFileName = file.getOriginalFilename();
-                String fileExtension = FilenameUtils.getExtension(originalFileName);
-                uploadedFileName = "supplier_" + System.currentTimeMillis() + "." + fileExtension;
-                File uploadedFile = new File(uploadPath + File.separator + uploadedFileName);
-                FileUtils.writeByteArrayToFile(uploadedFile, file.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-                return ResponseEntity.badRequest().build();
-            }
+            photoUrl = uploadImageToCloudinary(file, "author_" + System.currentTimeMillis());
         }
 
-        // Chuyển đổi dữ liệu nhà cung cấp từ JSON thành đối tượng Suppliers
+
+        // Xử lý thông tin nhà cung cấp
         Suppliers supplier = new Gson().fromJson(supplierJson, Suppliers.class);
 
-        // Kiểm tra xem ảnh đã tải lên mới chưa và ảnh không null
-        if (uploadedFileName != null) {
-            supplier.setImage(uploadedFileName);
-        } else {
-            supplier.setImage(null); // Đặt ảnh thành null nếu không có ảnh
+        if (photoUrl != null) {
+            supplier.setImage(photoUrl);
         }
 
         // Cập nhật thông tin nhà cung cấp
@@ -125,5 +106,33 @@ public class RestSuppliersController {
         }
         suppliersService.delete(id); // Sử dụng Suppliers thay vì Publishers
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    private String uploadImageToCloudinary(MultipartFile imageFile, String imageName) throws Exception {
+        String photoUrl = null;
+
+        try {
+            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                    "cloud_name", CLOUDINARY_CLOUD_NAME,
+                    "api_key", CLOUDINARY_API_KEY,
+                    "api_secret", CLOUDINARY_API_SECRET));
+
+            byte[] imageBytes = imageFile.getBytes();
+
+            Map uploadResult = cloudinary.uploader().upload(imageBytes, ObjectUtils.asMap(
+                    "public_id", imageName, // Tên hình ảnh trên Cloudinary
+                    "folder", "authors", // Thư mục trên Cloudinary
+                    "overwrite", true // Ghi đè nếu hình ảnh đã tồn tại
+            ));
+
+            // Lấy URL của hình ảnh đã tải lên từ kết quả
+            photoUrl = (String) uploadResult.get("secure_url");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("Lỗi khi tải ảnh lên Cloudinary.");
+        }
+
+        return photoUrl;
     }
 }

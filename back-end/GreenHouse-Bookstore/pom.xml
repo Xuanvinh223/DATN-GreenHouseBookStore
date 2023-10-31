@@ -95,10 +95,25 @@
             <scope>compile</scope>
         </dependency>
 
+
+        <!-- Các dependencies khác của dự án -->
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http44</artifactId>
+            <version>1.35.0</version>
+        </dependency>
+
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>1.5</version> <!-- Thay thế 1.4 bằng phiên bản muốn sử dụng -->
+        </dependency>
+
+        <!-- Các dependencies khác của dự án -->
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http44</artifactId>
+            <version>1.35.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
@@ -113,7 +128,12 @@
             <version>2.11.0</version>
         </dependency>
         <!-- Commons FileUpload -->
-
+         <!-- Các dependencies khác của dự án -->
+			<dependency>
+				<groupId>com.cloudinary</groupId>
+				<artifactId>cloudinary-http44</artifactId>
+				<version>1.35.0</version>
+			</dependency>
         <!-- Thư viện Spring Boot Starter Thymeleaf cho xử lý template Thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

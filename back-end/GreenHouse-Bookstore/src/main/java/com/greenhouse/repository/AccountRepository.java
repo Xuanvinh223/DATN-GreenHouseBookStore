@@ -1,14 +1,14 @@
 package com.greenhouse.repository;
 
+
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.greenhouse.model.Accounts;
-import com.greenhouse.model.OTP;
+
 
 public interface AccountRepository extends JpaRepository<Accounts, String> {
     Accounts findByUsername(String username);
@@ -46,5 +46,6 @@ public interface AccountRepository extends JpaRepository<Accounts, String> {
             "WHERE YEAR(Create_At) = YEAR(GETDATE()) - 1 AND Active = 1 " +
             "GROUP BY YEAR(Create_At)", nativeQuery = true)
     long countActiveUsersByPreviousYear();
+
 
 }

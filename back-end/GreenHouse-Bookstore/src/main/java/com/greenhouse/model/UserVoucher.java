@@ -21,5 +21,8 @@ public class UserVoucher implements Serializable {
     @JoinColumn(name = "Voucher_Id")
     private Vouchers voucher;
 
+    @Column(name = "Status")
+    private Boolean status;
+
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

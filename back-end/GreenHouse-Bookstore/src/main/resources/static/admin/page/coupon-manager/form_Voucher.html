@@ -126,20 +126,21 @@
                 <div class="mb-3">
                   <p class="mb-2">Trạng thái(*)</p>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="status1" name="status"
-                      ng-model="edittingVoucher.status" ng-value="true">
-                    <label class="form-check-label" for="status1">Đã sử dụng</label>
+                      <input class="form-check-input" type="radio" id="status1" name="status"
+                             ng-model="edittingVoucher.status" ng-value="true" ng-checked="true">
+                      <label class="form-check-label">Đã sử dụng</label>
                   </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="status2" name="status"
-                      ng-model="edittingVoucher.status" ng-value="false">
-                    <label class="form-check-label" for="status2">Chưa sử dụng</label>
-                  </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="status1" name="status"
+                               ng-model="edittingVoucher.status" ng-value="false">
+                        <label class="form-check-label">Chưa sử dụng</label>
+                    </div>
                   <div>
                     <small class="error-label text-danger"
                       ng-show="errorMessages.status">{{errorMessages.status}}</small>
                   </div>
                 </div>
+
               </div>
 
               <div class="col-md-4">

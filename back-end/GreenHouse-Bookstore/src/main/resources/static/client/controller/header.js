@@ -11,16 +11,16 @@ function headerController($http, $window, $scope, jwtHelper, AuthService) {
         var image = decodedToken.image;
         window.localStorage.setItem("fullName", fullName);
         window.localStorage.setItem("username", username);
-      window.localStorage.setItem("image", image);
-      $scope.isCustomer = false; // Mặc định không phải là khách hàng
-      $scope.roles = decodedToken.roles;
+        window.localStorage.setItem("image", image);
+        $scope.isCustomer = false; // Mặc định không phải là khách hàng
+        $scope.roles = decodedToken.roles;
 
-      if (fullName) {
-          $scope.fullName = fullName;
-      }
+        if (fullName) {
+            $scope.fullName = fullName;
+        }
 
-      $scope.isCustomer = $scope.roles.some(function (role) {
-          return role.authority === "ROLE_CUSTOMER";
+        $scope.isCustomer = $scope.roles.some(function (role) {
+            return role.authority === "ROLE_CUSTOMER";
       });
 
       $scope.isAdmin = $scope.roles.some(function (role) {

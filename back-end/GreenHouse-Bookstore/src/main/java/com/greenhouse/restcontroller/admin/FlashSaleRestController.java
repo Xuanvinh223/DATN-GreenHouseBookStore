@@ -71,15 +71,15 @@ public class FlashSaleRestController {
     @GetMapping("/rest/edit/{id}")
     public ResponseEntity<Map<String, Object>> editFlashSale(@PathVariable Integer id) {
         Map<String, Object> resp = new HashMap<>();
-
+    
         // Lấy Flash Sale theo ID
         Optional<Flash_Sales> flashSaleOptional = fs.findById(id);
         if (flashSaleOptional.isPresent()) {
             Flash_Sales flashSale = flashSaleOptional.get();
-
+    
             // Lấy danh sách sản phẩm chi tiết liên quan đến Flash Sale
             List<Product_Flash_Sale> productFS = profs.findByFlashSaleId(flashSale);
-
+    
             resp.put("listProductFlashSale", productFS);
             resp.put("flashSale", flashSale);
             return ResponseEntity.ok(resp);
@@ -88,7 +88,7 @@ public class FlashSaleRestController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    
     @PostMapping("/rest/flashsales")
     public ResponseEntity<String> createFlashSale(@RequestBody FlashSaleRequest request) {
         // Ở đây, FlashSaleRequest là một lớp Java chứa cả flashSale và
@@ -136,68 +136,3 @@ public class FlashSaleRestController {
     // FORM FLASH SALE REST API
 
 }
-
-// @GetMapping("/rest/flashsales")
-// public ResponseEntity<List<Flash_Sales>> getAll() {
-// return ResponseEntity.ok(fs.findAll());
-// }
-// @GetMapping("/rest/flashsales")
-// public ResponseEntity<List<Flash_Sales>> getAll() {
-// return ResponseEntity.ok(fs.findAll());
-
-// }
-// @GetMapping("/rest/flashsales")
-// public ResponseEntity<List<Flash_Sales>> getAll() {
-// return ResponseEntity.ok(fs.findAll());
-
-// }
-
-// @GetMapping("/rest/productflashsales/{Flash_Sale_Id}")
-// public ResponseEntity<?>
-// getProductFlashSaleByIDFS(@PathVariable("Flash_Sale_Id") Integer id) {
-// if (profs.findByProductFSId(id) == null) {
-// return ResponseEntity.notFound().build();
-// }
-// return ResponseEntity.ok(profs.findByProductFSId(id));
-// }
-
-// @GetMapping("/rest/flashsales/{id}")
-// public ResponseEntity<Flash_Sales> getOne(@PathVariable("id") Integer id) {
-// if (fs.findById(id) == null) {
-// return ResponseEntity.notFound().build();
-// }
-// return ResponseEntity.ok(fs.findById(id));
-// }
-
-// @PostMapping("/rest/flashsales")
-// public ResponseEntity<String> createFlashSale(@RequestBody FlashSaleRequest
-// request) {
-// // Ở đây, FlashSaleRequest là một lớp Java chứa cả flashSale và
-// // productFlashSales.
-// Flash_Sales flashSale = request.getFlashSale();
-// List<Product_Flash_Sale> product_Flash_Sale = request.getProductFlashSales();
-
-// fs.add(flashSale);
-
-// System.out.println(flashSale);
-
-// for (Product_Flash_Sale p : product_Flash_Sale) {
-// p.setFlashSaleId(flashSale);
-// profs.add(p);
-// }
-// // Trả về FlashSale đã được tạo.
-// return ResponseEntity.ok(null);
-// }
-
-// @GetMapping("/rest/productfs")
-// public ResponseEntity<List<Product_Detail>> getProductsByStatus() {
-// List<Product_Detail> lProducts = productDetailService.findAll();
-// List<Product_Detail> respon = new ArrayList<>();
-
-// for (Product_Detail p : lProducts) {
-// if (p.getProduct().isStatus()) {
-// respon.add(p);
-// }
-// }
-// return ResponseEntity.ok(respon);
-// }

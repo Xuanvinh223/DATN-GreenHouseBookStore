@@ -11,6 +11,8 @@ function InventoryStatic($scope, $http) {
 
     $scope.inventorystatics = [];
     $scope.inventorystaticsdesc = [];
+    $scope.searchText1 = "";
+    $scope.searchText2 = "";
     $scope.categories = [];
     $scope.sortField = null;
     $scope.reverseSort = false;
@@ -67,8 +69,12 @@ function InventoryStatic($scope, $http) {
         var url = `${host}`;
         $http.get(url).then(resp => {
             console.log("Response data:", resp.data);
+            $scope.originaList1 = $scope.inventorystatics;
             $scope.inventorystatics = resp.data.list1;
+
+            $scope.originaList2 = $scope.inventorystaticsdesc;
             $scope.inventorystaticsdesc = resp.data.list2;
+
             $scope.totalItems1 = $scope.inventorystatics.length;
             $scope.totalItems2 = $scope.inventorystaticsdesc.length;
             // Rest of your code...
@@ -77,6 +83,41 @@ function InventoryStatic($scope, $http) {
                 console.log("Error", error);
             });
     };
+    $scope.searchData1 = function () {
+        // Lọc danh sách gốc bằng searchText
+        $scope.inventorystatics = $scope.originaList1.filter(function (item) {
+            // Thực hiện tìm kiếm trong các trường cần thiết của sản phẩm
+            return (
+                item[0].toString().includes($scope.searchText1) || // ID
+                item[1].toLowerCase().includes($scope.searchText1.toLowerCase()) || // Tên sản phẩm
+                item[2].toString().includes($scope.searchText1) || // Số lượng tồn kho
+                item[3].toString().includes($scope.searchText1) || // Giá nhập
+                item[4].toString().includes($scope.searchText1) || // Trạng thái tồn kho
+                item[5].toString().includes($scope.searchText1) || // Tên thương hiệu
+                new Date(item[6]).toLocaleDateString().includes($scope.searchText1) // Ngày sản xuất
+            );
+        });
+        $scope.totalItems1 = $scope.searchText1 ? $scope.inventorystatics.length : $scope.originaList1.length;
+        $scope.setPage1(1);
+    };
+    $scope.searchData2 = function () {
+        // Lọc danh sách gốc bằng searchText2
+        $scope.inventorystaticsdesc = $scope.originaList2.filter(function (item) {
+            // Thực hiện tìm kiếm trong các trường cần thiết của sản phẩm trong phần "desc"
+            return (
+                item[0].toString().includes($scope.searchText2) || // ID
+                item[1].toLowerCase().includes($scope.searchText2.toLowerCase()) || // Tên sản phẩm
+                item[2].toString().includes($scope.searchText2) || // Số lượng tồn kho
+                item[3].toString().includes($scope.searchText2) || // Giá nhập
+                item[4].toString().includes($scope.searchText2) || // Trạng thái tồn kho
+                item[5].toString().includes($scope.searchText2) || // Tên thương hiệu
+                new Date(item[6]).toLocaleDateString().includes($scope.searchText2) // Ngày sản xuất
+            );
+        });
+        $scope.totalItems2 = $scope.searchText2 ? $scope.inventorystaticsdesc.length : $scope.originaList2.length;
+        $scope.setPage2(1);
+    };
+
     // Lấy dữ liệu loại danh mục
     $http
         .get("/rest/categories")

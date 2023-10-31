@@ -27,13 +27,13 @@ public class ProductAttributeValueMappingServiceImpl implements ProductAttribute
     }
 
     @Override
-    public void add(ProductAttributeValueMapping entity) {
-        productAttributeValueMappingRepository.save(entity);
+    public ProductAttributeValueMapping add(ProductAttributeValueMapping entity) {
+        return productAttributeValueMappingRepository.save(entity);
     }
 
     @Override
-    public void update(ProductAttributeValueMapping entity) {
-        productAttributeValueMappingRepository.save(entity);
+    public ProductAttributeValueMapping update(ProductAttributeValueMapping entity) {
+        return productAttributeValueMappingRepository.save(entity);
     }
 
     @Override

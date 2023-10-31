@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+    th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 
 <head>
     <title>Sản phẩm</title>
@@ -13,7 +13,10 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                            <li class="breadcrumb-item active">Sản phẩm</li>
+                            <li class="breadcrumb-item ">Sản phẩm</li>
+                            <li class="breadcrumb-item active">
+                                <a href="#">{{selectedCategoryName|| 'Tất cả sản phẩm'}}</a>
+                            </li>
                         </ol>
                     </nav>
                 </div>
@@ -39,24 +42,43 @@
                                                 class="fas fa-list"></i></a>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-md-6 col-sm-6  mt--10 mt-sm--0">
+                                <div class="col-xl-4 col-md-4 col-sm-6  mt--10 mt-sm--0">
                                     <div class="toolbar-status">
                                         <span>Hiển thị {{ calculateRange() }}</span>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
-                                    <div class="sorting-selection">
-                                        <span>Sắp xếp:</span>
-                                        <select class="form-control nice-select sort-select mr-0">
-                                            <option value="" selected="selected">Mới nhất</option>
-                                            <option value="">Bán chạy nhất</option>
-                                            <option value="">Giá thấp nhất</option>
-                                            <option value="">Giá cao nhất</option>
-                                            <option value="">Nổi bật tuần</option>
-                                            <option value="">Nổi bật tháng</option>
-                                            <option value="">Nổi bật năm</option>
+                                <div class="col-lg-6 col-md-6 col-sm-6 mt--10 mt-md--0">
+                                    <div class="d-flex justify-content-end">
+                                        <div class="sorting-selection">
+                                            <span>Sắp xếp:</span>
+                                            <div class="sorting-selection">
+                                                <div class="custom-select">
+                                                    <select class="form-control" ng-model="sortBy" ng-change="onSortChange()">
+                                                        <option value="newest">Mới nhất</option>
+                                                        <option value="bestSelling">Bán chạy nhất</option>
+                                                        <option value="lowestPrice">Giá thấp nhất</option>
+                                                        <option value="highestPrice">Giá cao nhất</option>
+                                                    </select>
+                                                    <i class='bx bx-chevron-down'></i>
+                                                </div>
+                                            </div>
 
-                                        </select>
+                                        </div>
+                                        <div class="sorting-selection">
+                                            <div class="custom-select">
+                                                <select class="form-control " ng-model="itemsPerPage"
+                                                        id="itemsPerPageSelect" ng-change="changeItemsPerPage()"
+                                                        ng-init="itemsPerPage = '6'">
+                                                    <option value="6">6 sản phẩm</option>
+                                                    <option value="10">10 sản phẩm</option>
+                                                    <option value="15">15 sản phẩm</option>
+                                                    <option value="25">25 sản phẩm</option>
+                                                </select>
+                                                <i class='bx bx-chevron-down'></i>
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +135,8 @@
                         </div>
                         <div class="shop-product-wrap grid with-pagination row space-db--30 shop-border">
                             <div class="col-lg-4 col-sm-6"
-                                 ng-repeat="productDetail in listProductDetail track by $index">
+                                 dir-paginate="productDetail in listProductDetail | itemsPerPage: itemsPerPage"
+                                 current-page="currentPage">
                                 <div class="product-card">
                                     <div class="product-grid-content">
                                         <div class="product-card--body">
@@ -125,12 +148,12 @@
                                                     </a>
                                                     <div class="hover-btns">
                                                         <a href="" class="single-btn"
-                                                           ng-click="addToCart(productDetail.productDetailId, 1)">
+                                                            ng-click="addToCart(productDetail.productDetailId, 1)">
                                                             <i class="fas fa-shopping-basket"></i>
                                                         </a>
 
                                                         <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
-                                                           ng-click="quickView(productDetail)" class="single-btn">
+                                                            ng-click="quickView(productDetail)" class="single-btn">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
                                                     </div>
@@ -140,7 +163,11 @@
                                                 <a class="author">
                                                     {{getAuthorNameByProductId(productDetail.product.productId)}}
                                                 </a>
-                                                <h3><a href="/product-details">{{productDetail.product.productName}}</a>
+                                                <h3>
+                                                    <a
+                                                            ng-click="navigateToProductDetail(productDetail.productDetailId)">
+                                                        {{productDetail.product.productName}}
+                                                    </a>
                                                 </h3>
                                             </div>
                                             <div class="price-block">
@@ -155,13 +182,13 @@
                                                     number:'0'}}
                                                 </del>
                                                 <span class="price-discount"
-                                                      ng-if="getDiscountValueByProductId(productDetail.productDetailId)">{{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
+                                                    ng-if="getDiscountValueByProductId(productDetail.productDetailId)">{{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
                                             </div>
                                             <div class="rating-block">
                                                 <div class="rating-star">
                                                     <span class="fas fa-star"
-                                                          ng-class="{star_on: star <= getStarRatingByProductId(productDetail.product.productId)}"
-                                                          ng-repeat="star in numStar track by $index"></span>
+                                                        ng-class="{star_on: star <= getStarRatingByProductId(productDetail.productDetailId)}"
+                                                        ng-repeat="star in numStar track by $index"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -173,7 +200,7 @@
                                         <div class="product-card--body">
                                             <div class="product-header">
                                                 <h3><a href="/product-details"
-                                                       tabindex="0">{{productDetail.product.productName}}</a></h3>
+                                                        tabindex="0">{{productDetail.product.productName}}</a></h3>
                                                 <a href="" class="author">
                                                     {{getAuthorNameByProductId(productDetail.product.productId)}}
                                                 </a>
@@ -181,11 +208,11 @@
                                             <article class="mb-4">
                                                 <h4 class="sr-only">Tóm Tắt sản phẩm</h4>
                                                 <p class="limit-text"
-                                                   ng-class="{'show-full-text': showFullText[productDetail.product.productId]}">
+                                                    ng-class="{'show-full-text': showFullText[productDetail.product.productId]}">
                                                     {{productDetail.product.description}}
                                                 </p>
                                                 <span class="read-more"
-                                                      ng-click="toggleFullText(productDetail.product.productId)">
+                                                    ng-click="toggleFullText(productDetail.product.productId)">
                                                     {{showFullText[productDetail.product.productId] ? 'Thu gọn' : 'Xem
                                                     Thêm'}}
                                                 </span>
@@ -197,19 +224,19 @@
                                                     productDetail.priceDiscount : productDetail.price | number:'0'}}
                                                 </span>
                                                 <del class="price-old"
-                                                     ng-if="productDetail.price - productDetail.priceDiscount > 0">
+                                                    ng-if="productDetail.price - productDetail.priceDiscount > 0">
                                                     {{productDetail.price
                                                     |
                                                     number:'0'}}
                                                 </del>
                                                 <span class="price-discount"
-                                                      ng-if="getDiscountValueByProductId(productDetail.productDetailId)">{{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
+                                                    ng-if="getDiscountValueByProductId(productDetail.productDetailId)">{{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
                                             </div>
                                             <div class="rating-block">
                                                 <div class="rating-star">
                                                     <span class="fas fa-star"
-                                                          ng-class="{star_on: star <= getStarRatingByProductId(productDetail.product.productId)}"
-                                                          ng-repeat="star in numStar track by $index"></span>
+                                                        ng-class="{star_on: star <= getStarRatingByProductId(productDetail.productDetailId)}"
+                                                        ng-repeat="star in numStar track by $index"></span>
                                                 </div>
                                             </div>
                                             <div class="btn-block">
@@ -220,44 +247,33 @@
                                     </div>
                                 </div>
                             </div>
+                            <div ng-if="listProductDetail.length === 0">
+                                <p class="note-msg">Không có sản phẩm phù hợp với từ khóa tìm kiếm của bạn.</p>
+                            </div>
 
                         </div>
                         <!-- Pagination Block -->
-                        <div class="row pt--30">
+                        <div class="row pt--30" ng-show="listProductDetail.length > 0">
                             <div class="col-md-12">
-                                <div class="pagination-block">
-                                    <ul class="pagination-btns flex-center">
-                                        <li><a href="" class="single-btn prev-btn ">|<i
-                                                class="zmdi zmdi-chevron-left"></i>
-                                        </a></li>
-                                        <li><a href="" class="single-btn prev-btn "><i
-                                                class="zmdi zmdi-chevron-left"></i>
-                                        </a></li>
-                                        <li class="active"><a href="" class="single-btn">1</a></li>
-                                        <li><a href="" class="single-btn">2</a></li>
-                                        <li><a href="" class="single-btn">3</a></li>
-                                        <li><a href="" class="single-btn">4</a></li>
-                                        <li><a href="" class="single-btn next-btn"><i
-                                                class="zmdi zmdi-chevron-right"></i></a></li>
-                                        <li><a href="" class="single-btn next-btn"><i
-                                                class="zmdi zmdi-chevron-right"></i>|</a></li>
-                                    </ul>
+                                <div class="product__pagination">
+                                    <dir-pagination-controls max-size="6" direction-links="true" boundary-links="true"
+                                                             auto-hide="false"></dir-pagination-controls>
                                 </div>
                             </div>
                         </div>
                         <!-- Modal -->
                         <div class="modal fade modal-quick-view" id="quickModal" tabindex="-1" role="dialog"
-                             aria-labelledby="quickModal" aria-hidden="true">
+                            aria-labelledby="quickModal" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                        aria-label="Close"></button>
                                     <div class="product-details-modal">
                                         <div class="row">
                                             <div class="col-lg-5">
                                                 <!-- Product Details Slider Big Image-->
                                                 <div class="product-details-slider sb-slick-slider arrow-type-two"
-                                                     data-slick-setting='{
+                                                    data-slick-setting='{
 												"slidesToShow": 1,
 												"arrows": false,
 												"fade": true,
@@ -266,13 +282,13 @@
 												"asNavFor": ".product-slider-nav"
 												}'>
                                                     <div class="single-slide"
-                                                         ng-repeat="item in listImageQuickView track by $index">
+                                                        ng-repeat="item in listImageQuickView track by $index">
                                                         <img src="{{item.image}}" alt="">
                                                     </div>
                                                 </div>
                                                 <!-- Product Details Slider Nav -->
                                                 <div class="mt--30 product-slider-nav sb-slick-slider arrow-type-two"
-                                                     data-slick-setting='{
+                                                    data-slick-setting='{
 						"infinite":true,
 						  "autoplay": true,
 						  "autoplaySpeed": 8000,
@@ -284,7 +300,7 @@
 						  "focusOnSelect": true
 						  }'>
                                                     <div class="single-slide"
-                                                         ng-repeat="item in listImageQuickView track by $index">
+                                                        ng-repeat="item in listImageQuickView track by $index">
                                                         <img src="{{item.image}}" alt="">
                                                     </div>
                                                 </div>
@@ -301,8 +317,8 @@
                                                                 class="list-value">{{quickViewProduct.product.publisher.publisherName}}</span>
                                                         </li>
                                                         <li>Thương Hiệu: <a href="#"
-                                                                            class="list-value font-weight-bold">
-                                                            {{quickViewProduct.product.brand.brandName}}</a></li>
+                                                                class="list-value font-weight-bold">
+                                                                {{quickViewProduct.product.brand.brandName}}</a></li>
                                                         <li>Mã hàng: <span
                                                                 class="list-value">{{quickViewProduct.productDetailId}}</span>
                                                         </li>
@@ -317,20 +333,20 @@
                                                             number:'0'}}
                                                         </span>
                                                         <del class="price-old"
-                                                             ng-if="quickViewProduct.price - quickViewProduct.priceDiscount > 0">
+                                                            ng-if="quickViewProduct.price - quickViewProduct.priceDiscount > 0">
                                                             {{quickViewProduct.price
                                                             |
                                                             number:'0'}}
                                                         </del>
                                                         <span class="price-discount"
-                                                              ng-if="getDiscountValueByProductId(quickViewProduct.productDetailId)">{{getDiscountValueByProductId(quickViewProduct.productDetailId)}}%</span>
+                                                            ng-if="getDiscountValueByProductId(quickViewProduct.productDetailId)">{{getDiscountValueByProductId(quickViewProduct.productDetailId)}}%</span>
                                                     </div>
                                                     <div class="rating-widget">
                                                         <div class="rating-block">
                                                             <div class="rating-star">
                                                                 <span class="fas fa-star"
-                                                                      ng-class="{star_on: star <= getStarRatingByProductId(quickViewProduct.product.productId)}"
-                                                                      ng-repeat="star in numStar track by $index"></span>
+                                                                    ng-class="{star_on: star <= getStarRatingByProductId(quickViewProduct.product.productId)}"
+                                                                    ng-repeat="star in numStar track by $index"></span>
                                                             </div>
                                                         </div>
                                                         <div class="review-widget">
@@ -342,11 +358,11 @@
                                                     <article class="product-details-article mb-4">
                                                         <h4 class="sr-only">Tóm Tắt sản phẩm</h4>
                                                         <p class="limit-text"
-                                                           ng-class="{'show-full-text': showFullText[quickViewProduct.product.productId]}">
+                                                            ng-class="{'show-full-text': showFullText[quickViewProduct.product.productId]}">
                                                             {{quickViewProduct.product.description}}
                                                         </p>
                                                         <span class="read-more"
-                                                              ng-click="toggleFullText(quickViewProduct.product.productId)">
+                                                            ng-click="toggleFullText(quickViewProduct.product.productId)">
                                                             {{showFullText[quickViewProduct.product.productId] ? 'Thu
                                                             gọn' : 'Xem Thêm'}}
                                                         </span>
@@ -356,11 +372,11 @@
                                                         <div class="count-input-block">
                                                             <span class="widget-label">Số Lượng</span>
                                                             <input type="number" class="form-control text-center"
-                                                                   ng-model="quantityQuickViewProduct">
+                                                                ng-model="quantityQuickViewProduct">
                                                         </div>
                                                         <div class="add-cart-btn">
                                                             <a href="" class="btn btn-outlined--primary"
-                                                               ng-click="addToCart(quickViewProduct.productDetailId, quantityQuickViewProduct)"><span
+                                                                ng-click="addToCart(quickViewProduct.productDetailId, quantityQuickViewProduct)"><span
                                                                     class="plus-icon"></span>Thêm vào giỏ hàng</a>
                                                             <a href="" class="btn btn-outlined--primary"><span
                                                                     class="plus-icon"></span>Mua Ngay</a>
@@ -395,7 +411,10 @@
                                         <a href="">{{cateType.typeName}}</a>
                                         <ul class="inner-cat-items"
                                             ng-repeat="cate in getListCateByCateTypeId(cateType.typeId) track by $index">
-                                            <li><a href="">{{cate.categoryName}}</a></li>
+                                            <li>
+                                                <a ng-class="{active: selectedCategoryId === cate.categoryId}"
+                                                   ng-click="selectCategory(cate.categoryId, cate.categoryName)">{{cate.categoryName}}</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -440,7 +459,7 @@
                                     <div class="filter-box">
                                         <div class="option-checkbox" ng-repeat="brand in listBrands track by $index">
                                             <input type="checkbox" id="{{brand.brandId}}" name="{{brand.brandName}}"
-                                                   value="{{brand.brandId}}">
+                                                value="{{brand.brandId}}">
                                             <label for="{{brand.brandId}}">{{brand.brandName}}</label><br>
                                         </div>
                                     </div>

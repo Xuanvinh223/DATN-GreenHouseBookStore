@@ -1,4 +1,4 @@
-var app = angular.module('admin-app', ["angular-jwt", 'ngRoute', 'ui.bootstrap']);
+var app = angular.module('admin-app', ['ngRoute', 'ui.bootstrap', 'angular-jwt']);
 
 app.config(function ($routeProvider) {
     $routeProvider
@@ -13,6 +13,10 @@ app.config(function ($routeProvider) {
         .when("/account-table", {
             templateUrl: "page/account-manager/table_account.html",
             controller: "AccountController"
+        })
+        .when("/role-form", {
+            templateUrl: "page/account-manager/form_role.html",
+            controller: "AuthoritiesController"
         })
         .when("/author-form", {
             templateUrl: "page/author-manager/form_author.html",
@@ -71,6 +75,10 @@ app.config(function ($routeProvider) {
             templateUrl: "page/coupon-manager/table_flashsale.html",
             controller: "flashsaleController"
         })
+        .when("/inventory-form", {
+            templateUrl: "page/inventory-manager/inventory_form.html",
+            controller: ""
+        })
         .when("/inventory-table", {
             templateUrl: "page/inventory-manager/inventory_table.html",
             controller: "inventoryCtrl"
@@ -82,11 +90,11 @@ app.config(function ($routeProvider) {
         })
         .when("/product-table", {
             templateUrl: "page/product-manager/table_product.html",
-            controller: ""
+            controller: "ProductController"
         })
         .when("/product-form", {
             templateUrl: "page/product-manager/form_product.html",
-            controller: ""
+            controller: "ProductController"
         })
         .when("/product-learning-table", {
             templateUrl: "page/product-manager/form_product_learning.html",
@@ -125,24 +133,20 @@ app.config(function ($routeProvider) {
         })
 })
 
-app.run(['$rootScope', function ($rootScope, $window) {
-
-    var fullName = window.localStorage.getItem("fullName");
-
+app.run(['$rootScope', function ($rootScope) {
     $rootScope.page = {
         setTitle: function (title) {
             this.title = 'GreenHouse |' + title;
         }
     }
-
 }]);
 
 // Tạo một interceptor
 app.factory('tokenInterceptor', ['$window', function ($window) {
     return {
         request: function (config) {
-
             var token = $window.localStorage.getItem('token');
+            // Kiểm tra nếu URL của request bắt đầu bằng "/api/"
             if (token && config.url.includes('/rest/')) {
                 config.headers['Authorization'] = 'Bearer ' + token;
             }
@@ -172,3 +176,11 @@ app.filter('startFrom', function () {
 app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('tokenInterceptor');
 }]);
+
+
+app.filter('startFrom', function () {
+    return function (input, start) {
+        start = +start; // Chuyển đổi start thành số nguyên
+        return input.slice(start); // Trả về mảng con bắt đầu từ start
+    };
+});

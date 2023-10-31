@@ -10,9 +10,9 @@ public interface ProductAttributesService {
 
     ProductAttributes findById(Integer id);
 
-    void add(ProductAttributes entity);
+    ProductAttributes add(ProductAttributes entity);
 
-    void update(ProductAttributes entity);
+    ProductAttributes update(ProductAttributes entity);
 
     void delete(Integer id);
 }

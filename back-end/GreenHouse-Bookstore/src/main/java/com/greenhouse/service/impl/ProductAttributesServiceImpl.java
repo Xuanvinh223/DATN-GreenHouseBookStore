@@ -27,13 +27,13 @@ public class ProductAttributesServiceImpl implements ProductAttributesService {
     }
 
     @Override
-    public void add(ProductAttributes productAttributes) {
-        productAttributesRepository.save(productAttributes);
+    public ProductAttributes add(ProductAttributes productAttributes) {
+        return productAttributesRepository.save(productAttributes);
     }
 
     @Override
-    public void update(ProductAttributes productAttributes) {
-        productAttributesRepository.save(productAttributes);
+    public ProductAttributes update(ProductAttributes productAttributes) {
+        return productAttributesRepository.save(productAttributes);
     }
 
     @Override

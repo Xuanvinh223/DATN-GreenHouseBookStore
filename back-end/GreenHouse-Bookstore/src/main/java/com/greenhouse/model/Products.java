@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.Flow.Publisher;
 
+import org.hibernate.annotations.Proxy;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "Products")
+@Proxy(lazy = false)
 public class Products implements Serializable {
 
     @Id
