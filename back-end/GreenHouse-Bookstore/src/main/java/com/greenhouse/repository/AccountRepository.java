@@ -1,12 +1,11 @@
 package com.greenhouse.repository;
 
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.greenhouse.model.Accounts;
-import com.greenhouse.model.Address;
+
 
 public interface AccountRepository extends JpaRepository<Accounts, String> {
     Accounts findByUsername(String username);

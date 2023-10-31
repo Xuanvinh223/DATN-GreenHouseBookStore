@@ -51,7 +51,6 @@ public class RestAccountController {
     public ResponseEntity<Object> create(@RequestParam(value = "image", required = false) MultipartFile file,
                                          @RequestParam("AccountJson") String AccountJson) {
 
-
         String photoUrl = null;
         if (file != null && !file.isEmpty()) {
             try {

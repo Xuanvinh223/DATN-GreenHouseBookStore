@@ -17,6 +17,7 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
         $scope.address = {};
         $scope.account = {};
         $scope.accounts = [];
+        $scope.uservoucher = {};
 
         // Gọi hàm loadData với tên người dùng hiện tại
         $scope.loadData = function (username) {
@@ -320,6 +321,12 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
 
         $scope.saveAccount = function () {
             var result = $scope.checkErrorAccount();
+            var formData = new FormData();
+            var fileInput = document.getElementById("fileInput");
+            if (fileInput && fileInput.files.length > 0) {
+                formData.append("image", fileInput.files[0]);
+            }
+
             if (result.isError) {
                 $scope.errorMessages = result.errorMessages;
             } else {
@@ -337,9 +344,19 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
                     createdAt: new Date(),
                     deletedAt: null,
                     deletedBy: null,
-                    image: null
                 };
-                $http.post(url, newAccount)
+
+                formData.append("AccountJson", JSON.stringify(newAccount));
+
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: formData,
+                    headers: {
+                        'Content-Type': undefined
+                    },
+                    transformRequest: angular.identity
+                })
                     .then(function (response) {
                         $scope.getAccountByUsername($scope.username);
                         $scope.modalContent = "Cập nhật tài khoản thành công";
@@ -393,12 +410,6 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
             } else if (!emailPattern.test($scope.account.email)) {
                 errorMessages.email = 'Email không đúng định dạng';
                 isError = true;
-            } else {
-                var isDuplicateEmail = $scope.checkDuplicateEmail($scope.account.email);
-                if (isDuplicateEmail) {
-                    errorMessages.email = isDuplicateEmail;
-                    isError = true;
-                }
             }
 
             var currentDate = new Date();
@@ -444,10 +455,36 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
             return `${year}-${month}-${day}`;
         };
 
+        //GET VOUCHER-----------------------------------------------------------------------
+        $scope.getUserVoucherById = function (username) {
+            var url = `${host}/profile_voucher/${username}`;
+
+            $http.get(url)
+                .then(function (response) {
+                    if (response.data.userVouchersList) {
+                        // Kiểm tra nếu có danh sách địa chỉ
+                        $scope.uservoucher = response.data.userVouchersList;
+                        console.log("Danh Sách Voucher", $scope.uservoucher);
+                    } else {
+                        // Không tìm thấy địa chỉ hoặc danh sách địa chỉ trống
+                        $scope.uservoucher = [];
+                        console.log("Không tìm thấy Voucher cho người dùng này hoặc danh sách rỗng.");
+                    }
+                    // // Xử lý dữ liệu voucher ở đây
+                    // $scope.uservoucher = response.data;
+                    // console.log("Thông tin voucher: ", $scope.uservoucher);
+                })
+                .catch(function (error) {
+                    console.error("Lỗi khi lấy thông tin voucher: ", error);
+                });
+        }
+
     }
+
 
     function init() {
         $scope.getAccountByUsername($scope.username);
+        $scope.getUserVoucherById($scope.username);
         $scope.loadData($scope.username);
         $scope.getProvince();
     }
@@ -478,4 +515,19 @@ function initJavascript() {
         }
     });
 
+}
+
+function displayImage(event) {
+    var imageElement = document.getElementById("uploadedImage");
+    var fileInput = event.target;
+
+    if (fileInput.files && fileInput.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            imageElement.src = e.target.result;
+        };
+
+        reader.readAsDataURL(fileInput.files[0]);
+    }
 }

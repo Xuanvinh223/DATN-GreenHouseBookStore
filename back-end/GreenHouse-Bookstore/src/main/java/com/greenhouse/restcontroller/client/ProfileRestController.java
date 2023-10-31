@@ -1,10 +1,13 @@
 package com.greenhouse.restcontroller.client;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import com.google.gson.Gson;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,12 +19,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.greenhouse.model.Accounts;
+import com.greenhouse.model.UserVoucher;
 import com.greenhouse.model.Address;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.AddressRepository;
+import com.greenhouse.repository.UserVoucherRepository;
 
 @CrossOrigin("*")
 @RestController
@@ -36,6 +45,13 @@ public class ProfileRestController {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    UserVoucherRepository userVoucherRepository;
+
+    private static final String CLOUDINARY_CLOUD_NAME = "dmbh3sz8s";
+    private static final String CLOUDINARY_API_KEY = "165312227781173";
+    private static final String CLOUDINARY_API_SECRET = "xcADjr7hxF6iXNMtsdf2CQAnbOI";
 
     @GetMapping("/rest/address/{username}")
     public ResponseEntity<Map<String, Object>> getAddressByUsername(@PathVariable String username) {
@@ -74,6 +90,21 @@ public class ProfileRestController {
         return ResponseEntity.noContent().build();
     }
 
+    // VOUCHER
+    @GetMapping("/rest/profile_voucher/{username}")
+    public ResponseEntity<Map<String, Object>> getUserVoucherById(@PathVariable String username) {
+
+        List<Optional<UserVoucher>> userVouchers = userVoucherRepository.findByUsername(username);
+        Map<String, Object> response = new HashMap<>();
+
+        List<UserVoucher> userVouchersList = new ArrayList<>();
+        userVouchers.forEach(optional -> optional.ifPresent(userVouchersList::add));
+
+        response.put("success", !userVouchersList.isEmpty());
+        response.put("userVouchersList", userVouchersList);
+        return ResponseEntity.ok(response);
+    }
+
     // ACCOUNT
     @GetMapping("/rest/profile_account/{username}")
     public ResponseEntity<Accounts> getAccountfindByUsername(@PathVariable String username) {
@@ -81,24 +112,43 @@ public class ProfileRestController {
     }
 
     @PostMapping("/rest/profile_account")
-    public ResponseEntity<Accounts> updateAccount(@RequestBody Accounts newAccount) {
-        // Lấy thông tin tài khoản hiện tại từ cơ sở dữ liệu
+    public ResponseEntity<Accounts> updateAccount(@RequestParam(value = "image", required = false) MultipartFile file,
+                                                  @RequestParam("AccountJson") String AccountJson) {
+        String photoUrl = null;
+
+        if (file != null && !file.isEmpty()) {
+            try {
+                photoUrl = uploadImageToCloudinary(file, "Account_" + System.currentTimeMillis());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }
+
+        Accounts newAccount = new Gson().fromJson(AccountJson, Accounts.class);
+
+        if (photoUrl != null) {
+            newAccount.setImage(photoUrl);
+        }
+
+        // Tiếp tục với việc cập nhật thông tin tài khoản
         Accounts existingAccount = accountRepository.findByUsername(newAccount.getUsername());
 
         if (existingAccount != null) {
-            // Cập nhật các thuộc tính (trừ mật khẩu)
             existingAccount.setFullname(newAccount.getFullname());
             existingAccount.setEmail(newAccount.getEmail());
             existingAccount.setGender(newAccount.getGender());
             existingAccount.setBirthday(newAccount.getBirthday());
             existingAccount.setPhone(newAccount.getPhone());
-            existingAccount.setImage(newAccount.getImage());
             existingAccount.setActive(newAccount.getActive());
             existingAccount.setCreatedAt(newAccount.getCreatedAt());
             existingAccount.setDeletedAt(newAccount.getDeletedAt());
             existingAccount.setDeletedBy(newAccount.getDeletedBy());
 
-            // Lưu thông tin tài khoản đã được cập nhật vào cơ sở dữ liệu
+            if (photoUrl != null) {
+                existingAccount.setImage(photoUrl);
+            }
+
             accountRepository.save(existingAccount);
 
             return new ResponseEntity<>(existingAccount, HttpStatus.OK);
@@ -107,5 +157,29 @@ public class ProfileRestController {
         }
     }
 
+    private String uploadImageToCloudinary(MultipartFile imageFile, String imageName) throws Exception {
+        String photoUrl = null;
+
+        try {
+            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                    "cloud_name", CLOUDINARY_CLOUD_NAME,
+                    "api_key", CLOUDINARY_API_KEY,
+                    "api_secret", CLOUDINARY_API_SECRET));
+
+            byte[] imageBytes = imageFile.getBytes();
+
+            Map uploadResult = cloudinary.uploader().upload(imageBytes, ObjectUtils.asMap(
+                    "public_id", imageName,
+                    "folder", "accounts",
+                    "overwrite", true));
+
+            photoUrl = (String) uploadResult.get("secure_url");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("Lỗi khi tải ảnh lên Cloudinary.");
+        }
+
+        return photoUrl;
+    }
 
 }

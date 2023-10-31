@@ -260,11 +260,21 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         return false; // Tài khoản không có quyền
     };
 
+    $scope.loadAuthorities = function (username) {
+        var url = `${host}/authorities/${username}`;
+        return $http.get(url)
+            .then(resp => {
+                return resp.data; // Trả về dữ liệu authorities từ response
+            })
+            .catch(error => {
+                console.error("Error loading authorities", error);
+                throw error; // Ném lỗi để có thể xử lý ở nơi gọi hàm này
+            });
+    };
+
 
     $scope.deleteAccounts = function (username) {
         var url = `${host}/${username}`;
-
-
         Swal.fire({
             title: "Bạn chắc chắn?",
             text: "Dữ liệu sẽ bị xóa vĩnh viễn.",
@@ -274,41 +284,47 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             cancelButtonText: "Hủy",
         }).then((result) => {
             if (result.isConfirmed) {
-                var hasAuthority = $scope.checkAccountHasAuthority(username);
-
-                if (hasAuthority) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Thất bại",
-                        text: `Tài khoản ${username} đã được phân quyền và không thể xóa.`,
-                    });
-                    return;
-                }
-                // Sử dụng $http để gửi yêu cầu DELETE đến API
-                $http.delete(url)
-                    .then((resp) => {
-                        $scope.loadAccount(); // Nạp lại danh sách tài khoản iệu sau khi xóa
-                        Swal.fire({
-                            icon: "success",
-                            title: "Thành công",
-                            text: `Xóa tài khoản ${username} thành công`,
-                        });
-                    })
-                    .catch((error) => {
-                        if (error.status === 409) {
-                            // Kiểm tra mã trạng thái lỗi
+                // Sử dụng hàm loadAuthorities để lấy thông tin authorities
+                $scope.loadAuthorities(username)
+                    .then((hasAuthority) => {
+                        if (hasAuthority) {
                             Swal.fire({
                                 icon: "error",
                                 title: "Thất bại",
-                                text: `Tài khoản ${username} đang được sử dụng và không thể xóa.`,
+                                text: `Tài khoản ${username} đã được phân quyền và không thể xóa.`,
                             });
                         } else {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Thất bại",
-                                text: `Xóa tài khoản ${username} thất bại`,
-                            });
+                            // Sử dụng $http để gửi yêu cầu DELETE đến API
+                            $http.delete(url)
+                                .then((resp) => {
+                                    $scope.loadAccount(); // Nạp lại danh sách tài khoản sau khi xóa
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Thành công",
+                                        text: `Xóa tài khoản ${username} thành công`,
+                                    });
+                                })
+                                .catch((error) => {
+                                    if (error.status === 409) {
+                                        // Kiểm tra mã trạng thái lỗi
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Thất bại",
+                                            text: `Tài khoản ${username} đang được sử dụng và không thể xóa.`,
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Thất bại",
+                                            text: `Xóa tài khoản ${username} thất bại`,
+                                        });
+                                    }
+                                });
                         }
+                    })
+                    .catch((error) => {
+                        // Xử lý lỗi khi không thể lấy thông tin authorities
+                        console.error(error);
                     });
             }
         });

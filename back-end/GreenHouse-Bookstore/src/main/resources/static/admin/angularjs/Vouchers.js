@@ -245,17 +245,10 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
             isError = true;
         }
 
-
         if (!voucher.totalQuantity || voucher.totalQuantity <= 0) {
             errorMessages.totalQuantity = 'Vui lòng nhập số lượng hợp lệ';
             isError = true;
         }
-
-        // console.log("ALO", voucher.status);
-        // if (!voucher.status) {
-        //     errorMessages.status = '*Vui lòng chọn trạng thái';
-        //     isError = true;
-        // }
 
         var start = new Date(voucher.startDate);
         var end = new Date(voucher.endDate);
