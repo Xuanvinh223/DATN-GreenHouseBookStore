@@ -1,4 +1,4 @@
-package com.greenhouse.restcontroller.AdminRestController;
+package com.greenhouse.restcontroller.admin;
 
 import com.greenhouse.model.AttributeValue;
 import com.greenhouse.service.AttributeValueService;

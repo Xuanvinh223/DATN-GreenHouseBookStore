@@ -1,9 +1,6 @@
 package com.greenhouse.model;
 
-
-
 import java.io.Serializable;
-
 import jakarta.persistence.*;
 import lombok.Data;
 @Entity
@@ -21,12 +18,6 @@ public class Address implements Serializable {
 
     @Column(name = "Username")
     private String username;
-
-    @Column(name = "Phone")
-    private String phone;
-
-    @Column(name = "Fullname")
-    private String fullname;
 
     @Column(name = "Phone")
     private String phone;
