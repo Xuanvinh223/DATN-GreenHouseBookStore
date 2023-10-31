@@ -83,10 +83,10 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
                 }
 
                 if (isRelated && isEligible) {
-                    if (voucher.moreAmountPercents >= 100) {
-                        $scope.eligibleVouchers.push(voucher);
-                    } else {
+                    if (voucher.moreAmountPercents < 100 && voucher.moreAmountPercents >= 0) {
                         $scope.relatedVouchers.push(voucher);
+                    } else {
+                        $scope.eligibleVouchers.push(voucher);
                     }
                 }
             });
@@ -224,17 +224,10 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
             cart.checked = $scope.checkAll;
         });
     };
+
     $scope.$watch('listCartItem', function (newListCart, oldListCart) {
         $scope.listCartItemSelected = [];
         $scope.checkAll = true;
-
-        angular.forEach(oldListCart, function (item) {
-            angular.forEach(newListCart, function (cart) {
-                if (cart.cartId === item.cartId) {
-                    cart.checked = item.checked;
-                }
-            });
-        })
 
         angular.forEach(newListCart, function (cart) {
             if (!cart.checked) {

@@ -221,7 +221,7 @@ public class CartController {
                 listVMC = voucherMappingCategoryRepository.findByVoucherId(item.getVoucher().getVoucherId());
 
                 listVouchersMappingCategories.addAll(listVMC);
-                listVouchersMappingProduct.addAll(listVMP);
+                listVouchersMappingProduct.addAll(listVMP); 
             }
             status = "success";
             message = "Lấy danh sách voucher của người dùng: [" + username + "] thành công";
