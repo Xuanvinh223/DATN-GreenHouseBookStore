@@ -1,27 +1,27 @@
-// package com.greenhouse.restcontroller.AdminRestController;
+package com.greenhouse.restcontroller.admin;
 
-// import java.util.List;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.ui.Model;
-// import org.springframework.web.bind.annotation.CrossOrigin;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-// import com.greenhouse.model.Accounts;
-// import com.greenhouse.model.Flash_Sales;
-// import com.greenhouse.service.FlashSalesService;
+import com.greenhouse.repository.ProductDetailRepository;
 
-// @RestController
-// @CrossOrigin("*")
-// public class RestStaticBestSeller {
+@RestController
+@CrossOrigin("*")
+public class RestStaticBestSeller {
+    @Autowired
+    ProductDetailRepository pd;
 
-//     @Autowired
-//     FlashSalesService fs;
-
-//     @GetMapping("/rest/BestSellerStatic")
-// 	public ResponseEntity<List<Object[]>> getAll(Model m) {
-// 		return ResponseEntity.ok(fs.findAllFlashSale());
-// 	}
-// }
+    @GetMapping("/rest/best-seller")
+    public ResponseEntity<List<Object[]>> getBestSellers() {
+        List<Object[]> bestSellers = pd.getBestSellingProducts();
+        return ResponseEntity.ok(bestSellers);
+    }
+}

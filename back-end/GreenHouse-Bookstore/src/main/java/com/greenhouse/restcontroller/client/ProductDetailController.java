@@ -18,19 +18,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.greenhouse.model.Accounts;
-import com.greenhouse.model.Address;
 import com.greenhouse.model.Authentic_Photos;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Product_Images;
 import com.greenhouse.model.Product_Reviews;
-import com.greenhouse.model.Products;
 import com.greenhouse.repository.AuthenticPhotosRepository;
 import com.greenhouse.repository.BookAuthorsRepository;
 import com.greenhouse.repository.BrandRepository;
@@ -39,7 +35,6 @@ import com.greenhouse.repository.ProductDiscountRepository;
 import com.greenhouse.repository.ProductReviewsRepository;
 import com.greenhouse.repository.Product_ImagesRepository;
 import com.greenhouse.repository.ProductsRepository;
-import java.nio.file.Path;
 
 import io.jsonwebtoken.io.IOException;
 import jakarta.transaction.Transactional;

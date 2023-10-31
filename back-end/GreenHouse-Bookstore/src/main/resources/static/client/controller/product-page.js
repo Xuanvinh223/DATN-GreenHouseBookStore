@@ -1,6 +1,6 @@
 app.controller("productPageController", productPageController);
 
-function productPageController($http, $scope, $filter, productPageAPI, CartService, ProductDetailService, $location) {
+function productPageController($http, $scope, productPageAPI,) {
     const host = productPageAPI;
 
     //Phân trang
@@ -49,6 +49,13 @@ function productPageController($http, $scope, $filter, productPageAPI, CartServi
             $scope.listProductImages = response.data.listProductImages;
             $scope.listImportInvoiceDetail = response.data.listImportInvoiceDetail;
             $scope.listInvoiceDetails = response.data.listInvoiceDetails;
+
+            $scope.listProductDetail.sort((a, b) => {
+                const createDateA = getNearestImportInvoiceCreateDate(a.productDetailId);
+                const createDateB = getNearestImportInvoiceCreateDate(b.productDetailId);
+                return createDateB - createDateA;
+            });
+
             $scope.totalItems = $scope.listProductDetail.length;
 
             console.log("Danh sách listInvoiceDetails sản phẩm: ", $scope.listInvoiceDetails);

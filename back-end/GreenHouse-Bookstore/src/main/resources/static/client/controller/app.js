@@ -1,5 +1,4 @@
-const app = angular.module("myApp", ["angular-jwt", "ngCookies"]);
-
+const app = angular.module("myApp", ["angular-jwt", "ngCookies", "ngRoute", "angularUtils.directives.dirPagination"]);
 app.constant('authenticateAPI', 'http://localhost:8081/authenticate');
 app.constant('signupAPI', 'http://localhost:8081/sign-up');
 app.constant('checkOutAPI', 'http://localhost:8081/customer/rest/check-out');
