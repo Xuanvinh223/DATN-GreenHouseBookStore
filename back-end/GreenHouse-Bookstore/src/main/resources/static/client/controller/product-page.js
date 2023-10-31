@@ -34,10 +34,6 @@ function productPageController($http, $scope, $filter, productPageAPI, CartServi
     // SCOPE_FUNCTION GET DATA - START
 
 
-    $scope.selectedCategoryId = null;
-    $scope.selectedCategoryName = null;
-    // $scope.selectedCategory = null;
-
     $scope.getDataProductDetail = function () {
         var url = host + "/product-show";
 
@@ -51,9 +47,11 @@ function productPageController($http, $scope, $filter, productPageAPI, CartServi
             $scope.listProductReviews = response.data.listProductReviews;
             $scope.listBrands = response.data.listBrands;
             $scope.listProductImages = response.data.listProductImages;
-
+            $scope.listImportInvoiceDetail = response.data.listImportInvoiceDetail;
+            $scope.listInvoiceDetails = response.data.listInvoiceDetails;
             $scope.totalItems = $scope.listProductDetail.length;
 
+            console.log("Danh sách listInvoiceDetails sản phẩm: ", $scope.listInvoiceDetails);
             console.log("Danh sách thể loại sản phẩm: ", $scope.listCategoryTypes);
             console.log("Danh sách loại sản phẩm: ", $scope.listCategories);
             console.log("Danh sách tác giả: ", $scope.listBookAuthor);
@@ -67,7 +65,58 @@ function productPageController($http, $scope, $filter, productPageAPI, CartServi
             console.error("Lỗi call API: ", error);
         });
     };
+    //Ngày nhập mới nhất
+    function getNearestImportInvoiceCreateDate(productDetailId) {
+        let nearestCreateDate = null;
+        for (const detail of $scope.listImportInvoiceDetail) {
+            if (detail.productDetail.productDetailId === productDetailId) {
+                const createDate = new Date(detail.importInvoice.createDate);
+                if (!nearestCreateDate || createDate > nearestCreateDate) {
+                    nearestCreateDate = createDate;
+                }
+            }
+        }
+        return nearestCreateDate;
+    }
+    //Đếm số lượt mua nhiều nhất
+    $scope.countSoldQuantity = function (productDetailId) {
+        var totalQuantity = $scope.listInvoiceDetails.reduce(function (sum, item) {
+            if (item.productDetail.productDetailId === productDetailId) {
+                return sum + item.quantity;
+            }
+            return sum;
+        }, 0);
+        return totalQuantity;
+    };
 
+    //sort
+    $scope.sortBy = 'newest'; // Mặc định sắp xếp theo 'Mới nhất'
+
+    $scope.onSortChange = function () {
+        if ($scope.sortBy === 'newest') {
+            $scope.listProductDetail.sort((a, b) => {
+                // Tìm ngày tạo gần nhất trong listImportInvoiceDetail cho sản phẩm a
+                const createDateA = getNearestImportInvoiceCreateDate(a.productDetailId);
+                // Tìm ngày tạo gần nhất trong listImportInvoiceDetail cho sản phẩm b
+                const createDateB = getNearestImportInvoiceCreateDate(b.productDetailId);
+                return createDateB - createDateA;
+            });
+        } else if ($scope.sortBy === 'bestSelling') {
+            $scope.listProductDetail.sort((a, b) => {
+                const quantityA = $scope.countSoldQuantity(a.productDetailId);
+                const quantityB = $scope.countSoldQuantity(b.productDetailId);
+                return quantityB - quantityA;
+            });
+        } else if ($scope.sortBy === 'lowestPrice') {
+            $scope.listProductDetail.sort((a, b) => a.price - b.price);
+        } else if ($scope.sortBy === 'highestPrice') {
+            $scope.listProductDetail.sort((a, b) => b.price - a.price);
+        }
+    };
+
+    $scope.selectedCategoryId = null;
+    $scope.selectedCategoryName = null;
+    // $scope.selectedCategory = null;
     $scope.selectCategory = function (categoryId, categoryName) {
         // Gán categoryId và categoryName vào biến để sử dụng trong việc hiển thị breadcrumb
         $scope.selectedCategoryId = categoryId;

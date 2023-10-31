@@ -53,14 +53,11 @@
                                             <span>Sắp xếp:</span>
                                             <div class="sorting-selection">
                                                 <div class="custom-select">
-                                                    <select class="form-control">
-                                                        <option value="" selected="selected">Mới nhất</option>
-                                                        <option value="">Bán chạy nhất</option>
-                                                        <option value="">Giá thấp nhất</option>
-                                                        <option value="">Giá cao nhất</option>
-                                                        <option value="">Nổi bật tuần</option>
-                                                        <option value="">Nổi bật tháng</option>
-                                                        <option value="">Nổi bật năm</option>
+                                                    <select class="form-control" ng-model="sortBy" ng-change="onSortChange()">
+                                                        <option value="newest">Mới nhất</option>
+                                                        <option value="bestSelling">Bán chạy nhất</option>
+                                                        <option value="lowestPrice">Giá thấp nhất</option>
+                                                        <option value="highestPrice">Giá cao nhất</option>
                                                     </select>
                                                     <i class='bx bx-chevron-down'></i>
                                                 </div>
