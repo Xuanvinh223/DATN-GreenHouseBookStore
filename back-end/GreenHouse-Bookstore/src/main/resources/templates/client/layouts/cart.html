@@ -375,17 +375,18 @@
                                             dụng tối đa:
                                             1</span>
                                     </div>
-                                    <div class="gh-event-promo-list-item matched gh-event-promo-list-item-coupon ">
+                                    <div ng-repeat="voucherPopup in listVouchersOriginal track by $index"
+                                         class="gh-event-promo-list-item matched gh-event-promo-list-item-coupon">
                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink" class="coupon_bg"
-                                            viewBox="7.5 -2 478.5 148"
-                                            style="filter: drop-shadow(rgba(0, 0, 0, 0.15) 0px 1px 3px);">
+                                             xmlns:xlink="http://www.w3.org/1999/xlink" class="coupon_bg"
+                                             viewBox="7.5 -2 478.5 148"
+                                             style="filter: drop-shadow(rgba(0, 0, 0, 0.15) 0px 1px 3px);">
                                             <g fill="none" fill-rule="evenodd">
                                                 <g>
                                                     <g>
                                                         <g>
                                                             <g
-                                                                transform="translate(-544 -3050) translate(80 2072) translate(0 930) translate(464 48)">
+                                                                    transform="translate(-544 -3050) translate(80 2072) translate(0 930) translate(464 48)">
                                                                 <path id="Frame_voucher_Web"
                                                                     d="M 110 144 h -98 a 12 12 0 0 1 -12 -12 v -122 a 12 12 0 0 1 12 -12 H 110 a 12.02 12 0 0 0 24 0 H 480.5 a 12 12 0 0 1 12 12 V 132 a 12 12 0 0 1 -12 12 H 134 v 0 a 12 12 0 0 0 -24 0 v 0 Z"
                                                                     transform="translate(0.5 0.5)" fill="#fff"
@@ -467,58 +468,6 @@
                         <button type="button" title="Đóng" class="btn-close-popup-event"><span>Đóng</span></button>
                     </div>
                     <div id="popup_event_cart_detail_close" class="close-popup-event">
-                    </div>
-                </div>
-            </div>
-
-            <div class="popup-loading-event-cart-detail">
-                <div class="popup-loading-event-cart-title">
-                    <div class="gh-event-promo-title">
-                        <div class="gh-event-promo-title-left" onclick="fhs_promotion.closeEventCartDetail();">
-                            <div><img
-                                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_back_blue.svg?q=10268">
-                            </div>
-                        </div>
-                        <div class="gh-event-promo-title-center">Điều kiện áp dụng</div>
-                        <div class="gh-event-promo-title-right lg-close" onclick="fhs_promotion.closeEventCart();">
-                            <div><img
-                                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_delete_gray.svg?q=10268">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="popup-loading-event-cart-content">
-                    <div class="gh-event-promo-list">
-                        <div id="gh-event-promo-list-detail" class="gh-event-promo-list-item">
-                        </div>
-                    </div>
-                    <div id="gh-event-promo-list-detail-content" class="gh-event-promo-list-detail-content">
-                        <style>
-                            .gh-container {
-                                padding: 5px 0;
-                            }
-
-                            .bold-text {
-                                font-weight: bold;
-                            }
-                        </style>
-                        <div class="gh-container bold-text">
-                            MÃ GIẢM GIÁ
-                        </div>
-                        <div style="background-color: #f2ddc3ab;padding: 8px 16px; color: #ea7601;">
-                            Mã giảm giá 25K
-                        </div>
-                        <div class="gh-container">
-                            - Điều kiện áp dụng: Áp dụng cho đơn hàng từ 300K, không áp dụng cho đơn hàng có sản phẩm
-                            Phiếu Quà Tặng và Sách Giáo Khoa
-                        </div>
-                        <div class="gh-container">
-                            - Thời gian áp dụng: Đến hết Tháng 10/2023
-
-                        </div>
-                        <div class="gh-container">
-                            - Khách hàng có thể áp dụng cùng lúc với mã giảm phí vận chuyển
-                        </div>
                     </div>
                 </div>
             </div>

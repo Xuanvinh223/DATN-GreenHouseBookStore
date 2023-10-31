@@ -109,6 +109,7 @@ app.controller("MainController", function ($scope, CartService, $timeout, $rootS
             CartService.addToCart(productDetailId, quantity, username)
                 .then(function (response) {
                     $scope.showNotification(response.status, response.message);
+                    $scope.getCart();
                 })
                 .catch(function (error) {
                     console.log(
