@@ -1,9 +1,14 @@
 package com.greenhouse.repository;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.greenhouse.model.Accounts;
+import com.greenhouse.model.OTP;
 
 public interface AccountRepository extends JpaRepository<Accounts, String> {
     Accounts findByUsername(String username);
@@ -16,11 +21,13 @@ public interface AccountRepository extends JpaRepository<Accounts, String> {
 
     Accounts findByUsernameOrEmailOrPhone(String username, String email, String phone);
 
-    boolean existsByUsername(String username);
+    boolean existsByUsernameAndActiveIsTrue(String username);
 
-    boolean existsByEmail(String username);
+    boolean existsByEmailAndActiveIsTrue(String email);
 
-    boolean existsByPhone(String username);
+    boolean existsByPhone(String phone);
+
+    boolean existsByEmail(String email);
 
     @Query(value = "SELECT COUNT(o.Order_Id) FROM Orders o " +
             "JOIN Order_Mapping_Status m ON o.Order_Id = m.Order_Id " +
