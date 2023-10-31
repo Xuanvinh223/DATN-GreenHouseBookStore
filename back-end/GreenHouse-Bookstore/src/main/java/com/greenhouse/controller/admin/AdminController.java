@@ -28,6 +28,7 @@ public class AdminController {
     public String adminPage(HttpServletRequest request, Model m) {
         // Kiểm tra xem yêu cầu có chứa token không
         String token = request.getParameter("token");
+        System.out.println(token);
         try {
             String username = jwtUtil.extractUsername(token);
             // Thực hiện xác thực token và kiểm tra quyền
@@ -49,8 +50,10 @@ public class AdminController {
             return "redirect:/login";
         } catch (UsernameNotFoundException u) {
             // Không tìm thấy tài khoản (Chưa đăng nhập)
+            System.out.println(u);
             return "redirect:/404";
         } catch (IllegalArgumentException e) {
+            System.out.println(e);
             return "redirect:/404";
         }
 

@@ -30,7 +30,7 @@ public class EmailService {
         }
     }
 
-    public void sendEmailChangePassword(String to, String subject, String confirmationCode) {
+    public void sendEmailSigup(String to, String subject, String confirmationCode) {
         String html = "<html><body><h1>Mã xác nhận của bạn là : " + confirmationCode + "</h1></body></html>";
         sendEmail(to, subject, html);
     }
@@ -56,19 +56,4 @@ public class EmailService {
         sendEmail(to, subject, html);
     }
 
-    public String generateRandomCode() {
-        int codeLength = 6;
-
-        String characters = "0123456789";
-
-        StringBuilder code = new StringBuilder();
-        Random random = new Random();
-
-        for (int i = 0; i < codeLength; i++) {
-            int index = random.nextInt(characters.length());
-            code.append(characters.charAt(index));
-        }
-
-        return code.toString();
-    }
 }
