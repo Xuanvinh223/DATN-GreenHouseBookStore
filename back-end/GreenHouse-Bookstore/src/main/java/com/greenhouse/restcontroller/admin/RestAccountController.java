@@ -2,6 +2,9 @@ package com.greenhouse.restcontroller.admin;
 
 import com.google.gson.Gson;
 import com.greenhouse.model.Accounts;
+import com.greenhouse.model.Authorities;
+import com.greenhouse.repository.AccountRepository;
+import com.greenhouse.repository.AuthoritiesRepository;
 import com.greenhouse.service.AccountsService;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +28,11 @@ public class RestAccountController {
     @Autowired
     private AccountsService accountsService;
 
+    @Autowired
+    AccountRepository accountRepository;
+    @Autowired
+    AuthoritiesRepository authoritiesRepository;
+
     @Value("${upload.path}")
     private String uploadPath;
 
@@ -33,7 +42,7 @@ public class RestAccountController {
 
     @GetMapping
     public ResponseEntity<List<Accounts>> getAllAccount() {
-        List<Accounts> accounts = accountsService.findAll();
+        List<Accounts> accounts = accountRepository.findByDeletedByIsNullAndDeletedAtIsNull();
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
@@ -102,14 +111,21 @@ public class RestAccountController {
         return ResponseEntity.ok(updatedAccounts);
     }
 
-    @DeleteMapping(value = "/{username}")
-    private ResponseEntity<Void> delete(@PathVariable("username") String username) {
-        Accounts existingAccounts = accountsService.findById(username);
-        if (existingAccounts == null) {
-            return ResponseEntity.notFound().build();
+    @DeleteMapping("/rest/account/{username}")
+    public void delete(@PathVariable String username, @RequestParam String deletedBy) {
+        Date currentDate = new Date();
+        Accounts userDeleted = accountRepository.findById(username).orElse(null);
+        if (userDeleted != null) {
+            userDeleted.setActive(false);
+            userDeleted.setDeletedAt(currentDate);
+            userDeleted.setDeletedBy(deletedBy);
+            accountRepository.save(userDeleted);
+
+            List<Authorities> listDelete = authoritiesRepository.findByUsername(userDeleted.getUsername());
+            for (Authorities item : listDelete) {
+                authoritiesRepository.delete(item);
+            }
         }
-        accountsService.delete(username);
-        return ResponseEntity.ok().build();
     }
 
     private String uploadImageToCloudinary(MultipartFile imageFile, String imageName) throws Exception {
@@ -126,8 +142,7 @@ public class RestAccountController {
             Map uploadResult = cloudinary.uploader().upload(imageBytes, ObjectUtils.asMap(
                     "public_id", imageName,
                     "folder", "accounts",
-                    "overwrite", true
-            ));
+                    "overwrite", true));
 
             photoUrl = (String) uploadResult.get("secure_url");
         } catch (IOException e) {

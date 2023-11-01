@@ -248,23 +248,15 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
     }
 
     $scope.checkAccountHasAuthority = function (username) {
-        var account = $scope.accounts.find(function (account) {
-            return account.username === username;
-        });
-        console.log(account);
-        if (account && account.authorities && account.authorities.length > 0) {
-            console.log("alo");
-            return true; // Tài khoản có quyền
-        }
-        console.log("asd");
-        return false; // Tài khoản không có quyền
-    };
 
-    $scope.loadAuthorities = function (username) {
-        var url = `${host}/authorities/${username}`;
+        var url = `http://localhost:8081/rest/authorities/duplicate?username=${username}`;
         return $http.get(url)
             .then(resp => {
-                return resp.data; // Trả về dữ liệu authorities từ response
+                if (resp.data.authorities.length > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
             })
             .catch(error => {
                 console.error("Error loading authorities", error);
@@ -274,7 +266,6 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
 
 
     $scope.deleteAccounts = function (username) {
-        var url = `${host}/${username}`;
         Swal.fire({
             title: "Bạn chắc chắn?",
             text: "Dữ liệu sẽ bị xóa vĩnh viễn.",
@@ -284,48 +275,44 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             cancelButtonText: "Hủy",
         }).then((result) => {
             if (result.isConfirmed) {
-                // Sử dụng hàm loadAuthorities để lấy thông tin authorities
-                $scope.loadAuthorities(username)
-                    .then((hasAuthority) => {
-                        if (hasAuthority) {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Thất bại",
-                                text: `Tài khoản ${username} đã được phân quyền và không thể xóa.`,
-                            });
-                        } else {
-                            // Sử dụng $http để gửi yêu cầu DELETE đến API
-                            $http.delete(url)
-                                .then((resp) => {
-                                    $scope.loadAccount(); // Nạp lại danh sách tài khoản sau khi xóa
-                                    Swal.fire({
-                                        icon: "success",
-                                        title: "Thành công",
-                                        text: `Xóa tài khoản ${username} thành công`,
-                                    });
-                                })
-                                .catch((error) => {
-                                    if (error.status === 409) {
-                                        // Kiểm tra mã trạng thái lỗi
-                                        Swal.fire({
-                                            icon: "error",
-                                            title: "Thất bại",
-                                            text: `Tài khoản ${username} đang được sử dụng và không thể xóa.`,
-                                        });
-                                    } else {
-                                        Swal.fire({
-                                            icon: "error",
-                                            title: "Thất bại",
-                                            text: `Xóa tài khoản ${username} thất bại`,
-                                        });
-                                    }
+                console.log($scope.checkAccountHasAuthority(username));
+                $scope.checkAccountHasAuthority(username).then(hasAuthority => {
+                    if (hasAuthority) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Thất bại",
+                            text: `Tài khoản ${username} đã được phân quyền và không thể xóa.`,
+                        });
+                    } else {
+                        var deletedBy = localStorage.getItem("username");
+                        var url = `${host}/rest/account/${username}?deletedBy=${deletedBy}`;
+                        $http.delete(url)
+                            .then((resp) => {
+                                $scope.loadAccount(); // Nạp lại danh sách tài khoản sau khi xóa
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Thành công",
+                                    text: `Xóa tài khoản ${username} thành công`,
                                 });
-                        }
-                    })
-                    .catch((error) => {
-                        // Xử lý lỗi khi không thể lấy thông tin authorities
-                        console.error(error);
-                    });
+                            })
+                            .catch((error) => {
+                                if (error.status === 409) {
+                                    // Kiểm tra mã trạng thái lỗi
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Thất bại",
+                                        text: `Tài khoản ${username} đang được sử dụng và không thể xóa.`,
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Thất bại",
+                                        text: `Xóa tài khoản ${username} thất bại`,
+                                    });
+                                }
+                            });
+                    }
+                })
             }
         });
     };
