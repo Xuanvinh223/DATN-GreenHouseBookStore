@@ -5,9 +5,8 @@ function singinController($http, $scope, signupAPI) {
     $scope.code;
     $scope.password;
     $scope.repassword;
-
-    // Dữ liệu từ biểu mẫu sẽ được lưu ở đây
     $scope.passwordError = false;
+    $scope.disabled = true;
     $scope.checkPassword = function () {
         if (!$scope.isValidPassword($scope.password)) {
             $scope.passwordError = true;
@@ -32,6 +31,7 @@ function singinController($http, $scope, signupAPI) {
             repassword: $scope.repassword || "",
         };
         // Gửi dữ liệu đến backend thông qua HTTP POST request
+        $scope.isLoading = true;
         $http
             .post(host, formData)
             .then(function (response) {
@@ -46,7 +46,8 @@ function singinController($http, $scope, signupAPI) {
                     }).then((result) => {
                         if (result.isConfirmed) {
                             // Nếu người dùng nhấn nút "OK", thực hiện chuyển hướng đến /login
-                            // window.location.href = "/login";
+                            $scope.disabled = true;
+                            window.location.href = "/login";
                         }
                     });
                 } else {
@@ -84,6 +85,7 @@ function singinController($http, $scope, signupAPI) {
                         icon: "success",
                         confirmButtonText: "OK",
                     });
+                    $scope.disabled = false;
                 } else {
                     Swal.fire({
                         title: "Thông báo",

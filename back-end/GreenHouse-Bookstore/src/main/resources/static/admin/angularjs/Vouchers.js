@@ -1,33 +1,35 @@
-app.controller("VouchersController", function ($scope, $location, $routeParams, $http) {
-    let host = "http://localhost:8081/rest/vouchers";
+app.controller(
+    "VouchersController",
+    function ($scope, $location, $routeParams, $http) {
+        let host = "http://localhost:8081/rest/vouchers";
 
-    $scope.edittingVoucher = {};
-    $scope.isEditing = false;
-    $scope.vouchers = [];
-    $scope.selectedType = '';
-    $scope.isSelectingProduct = true;
-    $scope.modalTitle = 'Chọn loại sản phẩm';
+        $scope.edittingVoucher = {};
+        $scope.isEditing = false;
+        $scope.vouchers = [];
+        $scope.selectedType = "";
+        $scope.isSelectingProduct = true;
+        $scope.modalTitle = "Chọn loại sản phẩm";
 
-    $scope.searchKeyword = '';
+        $scope.searchKeyword = "";
 
     $scope.searchCategoryResults = [];
     $scope.selectedCategories = [];
     $scope.searchCategoryKeyword = null;
     $scope.listCategories = [];
-    $scope.listdeletedCategories = [];
 
     $scope.filteredProducts = [];
 
-    $scope.listProductDetails = [];
-    $scope.searchProductResults = [];
-    $scope.selectedProductDetails = [];
-    $scope.searchProductKeyword = null;
-    $scope.listdeletedProducts = [];
-
+        $scope.listProduct = [];
+        $scope.searchProductResults = [];
+        $scope.selectedProducts = [];
+        $scope.searchProductKeyword = null;
+        $scope.listdeletedCategories = [];
     //thay đổi khi chọn sản phẩm và chọn loại sản phẩm khi vào nút
     $scope.toggleSelection = function () {
         $scope.isSelectingProduct = !$scope.isSelectingProduct;
-        $scope.modalTitle = $scope.isSelectingProduct ? 'Chọn sản phẩm' : 'Chọn loại sản phẩm';
+        $scope.modalTitle = $scope.isSelectingProduct
+            ? "Chọn sản phẩm"
+            : "Chọn loại sản phẩm";
     };
 
     //Get bảng Category
@@ -37,7 +39,6 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
             .get(url)
             .then((resp) => {
                 $scope.listCategories = resp.data;
-
             })
             .catch((error) => {
                 console.log("Error", error);
@@ -49,7 +50,9 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
         $scope.searchCategoryResults = [];
         if (keyword) {
             keyword = keyword.toLowerCase();
-            $scope.searchCategoryResults = $scope.listCategories.filter(function (cate) {
+            $scope.searchCategoryResults = $scope.listCategories.filter(function (
+                cate
+            ) {
                 return cate.categoryName.toLowerCase().includes(keyword);
             });
         } else {
@@ -68,10 +71,10 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
             $scope.selectedCategories.push(cate);
         }
 
-        // Gọi hàm tương ứng để cập nhật giao diện người dùng (nếu cần)   
+        // Gọi hàm tương ứng để cập nhật giao diện người dùng (nếu cần)
         $scope.searchCategory(null);
     };
-    //Hàm Xóa Product Tạm
+        //Hàm Xóa Product_FlashSale Tạm
     $scope.removeCategory = function (index) {
         var removedCategory = $scope.selectedCategories[index];
 
@@ -83,16 +86,14 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
         }
     };
 
-
     //-------------------------------------------------------------------------------
     //Get bảng Product
     $scope.loadProduct = function () {
-        var url = "http://localhost:8081/rest/productDetails";
+        var url = "http://localhost:8081/rest/products";
         $http
             .get(url)
             .then((resp) => {
-                $scope.listProductDetails = resp.data;
-
+                $scope.listProduct = resp.data;
             })
             .catch((error) => {
                 console.log("Error", error);
@@ -104,43 +105,30 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
         $scope.searchProductResults = [];
         if (keyword) {
             keyword = keyword.toLowerCase();
-            $scope.searchProductResults = $scope.listProductDetails.filter(function (pro) {
-                return pro.product.productName.toLowerCase().includes(keyword);
+            $scope.searchProductResults = $scope.listProduct.filter(function (pro) {
+                return pro.productName.toLowerCase().includes(keyword);
             });
         } else {
             $scope.searchProductKeyword = null;
         }
     };
-    $scope.loadProduct();
+        $scope.loadProduct();
 
+        //Select Product để hiển thị khi search trên modal
+        $scope.selectedProduct = function (pro) {
+            var existingProduct = $scope.selectedProducts.find(function (p) {
+                return p.productId === pro.productId;
+            });
 
-    //Select Product để hiển thị khi search trên modal
-    $scope.selectedProductDetail = function (pro) {
-        var existingProduct = $scope.selectedProductDetails.find(function (p) {
-            return p.productDetailId === pro.productDetailId;
-        });
+            if (!existingProduct) {
+                $scope.selectedProducts.push(pro);
+            }
 
-        if (!existingProduct) {
-            $scope.selectedProductDetails.push(pro);
-        }
-        console.log($scope.selectedProductDetails);
-        // Gọi hàm tương ứng để cập nhật giao diện người dùng (nếu cần)   
-        $scope.searchProduct(null);
-    };
+            // Gọi hàm tương ứng để cập nhật giao diện người dùng (nếu cần)
+            $scope.searchProduct(null);
+        };
 
-    //Hàm Xóa Product Tạm
-    $scope.removeProducts = function (index) {
-        var removeProducts = $scope.selectedProductDetails[index];
-
-        if (removeProducts) {
-            removeProducts.deleted = true; // Đánh dấu danh mục đã bị xóa
-            $scope.listdeletedCategories.push(removeProducts);
-            $scope.selectedProductDetails.splice(index, 1); // Loại bỏ danh mục khỏi selectedProduct
-            console.log("Đã xóa được", removeProducts);
-        }
-    };
-
-    //Get Voucher
+        //Get Vocher
     $scope.loadVouchers = function () {
         var url = `${host}`;
         $http
@@ -153,176 +141,45 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
             });
     };
 
-    $scope.validateVoucher = function (voucher) {
-        var isError = false;
-
-        var errorMessages = {
-            voucherName: '',
-            code: '',
-            voucherType: '',
-            discountType: '',
-            discountAmount: '',
-            discountPercentage: '',
-            minimumPurchaseAmount: '',
-            maximumDiscountAmount: '',
-            startDate: '',
-            endDate: '',
-            status: '',
-            totalQuantity: ''
-
-        };
-
-        if (!voucher.voucherName) {
-            errorMessages.voucherName = 'Vui lòng không bỏ trống tên voucher';
-            isError = true;
-        }
-
-        if (!voucher.code) {
-            errorMessages.code = 'Vui lòng không bỏ trống mã voucher';
-            isError = true;
-        } else {
-            // Kiểm tra trùng lặp mã voucher chỉ khi thêm mới
-            if (!$scope.isEditing) {
-                var isDuplicateCode = $scope.checkDuplicateCode(voucher.code);
-                if (isDuplicateCode) {
-                    errorMessages.code = isDuplicateCode;
-                    isError = true;
-                }
-            }
-        }
-
-        if (!voucher.voucherType) {
-            errorMessages.voucherType = 'Vui lòng không bỏ trống loại khuyến mãi';
-            isError = true;
-        }
-
-        if (!voucher.discountType) {
-            errorMessages.discountType = 'Vui lòng không bỏ trống hình thức khuyến mãi';
-            isError = true;
-        }
-
-        if (!$scope.discountTypeSelected) {
-            if (!voucher.discountAmount && !voucher.discountPercentage) {
-                errorMessages.discountAmount = 'Vui lòng không bỏ trống số tiền';
-                errorMessages.discountPercentage = 'Vui lòng không bỏ trống phần trăm';
-                isError = true;
-            } else {
-                if (voucher.discountPercentage < 1 || voucher.discountPercentage > 100) {
-                    errorMessages.discountPercentage = 'Phần trăm phải nằm trong khoảng từ 1 đến 100';
-                    isError = true;
-                }
-
-                if (voucher.discountAmount && voucher.discountAmount < 0) {
-                    errorMessages.discountAmount = 'Số tiền không thể là số âm';
-                    isError = true;
-                }
-            }
-        }
-
-        if (!voucher.minimumPurchaseAmount) {
-            errorMessages.minimumPurchaseAmount = 'Vui lòng không bỏ trống số tiền';
-            isError = true;
-        } else if (voucher.minimumPurchaseAmount < 0) {
-            errorMessages.minimumPurchaseAmount = 'Số tiền không thể là số âm';
-            isError = true;
-        }
-
-        if (!voucher.maximumDiscountAmount) {
-            errorMessages.maximumDiscountAmount = 'Vui lòng không bỏ trống số tiền';
-            isError = true;
-        } else if (voucher.maximumDiscountAmount < 0) {
-            errorMessages.maximumDiscountAmount = 'Số tiền không thể là số âm';
-            isError = true;
-        }
-
-        if (!voucher.startDate) {
-            errorMessages.startDate = 'Vui lòng không bỏ trống ngày';
-            isError = true;
-        }
-
-        if (!voucher.endDate) {
-            errorMessages.endDate = 'Vui lòng không bỏ trống ngày';
-            isError = true;
-        }
-
-        if (!voucher.totalQuantity || voucher.totalQuantity <= 0) {
-            errorMessages.totalQuantity = 'Vui lòng nhập số lượng hợp lệ';
-            isError = true;
-        }
-
-        var start = new Date(voucher.startDate);
-        var end = new Date(voucher.endDate);
-
-        if (end <= start) {
-            errorMessages.endDate = 'Ngày kết thúc phải lớn hơn ngày bắt đầu';
-            isError = true;
-        }
-
-        var result = {
-            isError: isError,
-            errorMessages: errorMessages
-        }
-
-        return result;
-    }
-
     //Save and Update Voucher
     $scope.saveVoucher = function () {
-
-        var result = $scope.validateVoucher($scope.edittingVoucher);
-        if (result.isError) {
-            $scope.errorMessages = result.errorMessages;
-        } else {
-            var data = {
-                voucher: {
-                    voucherId: $scope.edittingVoucher.voucherId,
-                    voucherName: $scope.edittingVoucher.voucherName,
-                    code: $scope.edittingVoucher.code,
-                    voucherType: $scope.edittingVoucher.voucherType,
-                    discountType: $scope.edittingVoucher.discountType,
-                    discountAmount: $scope.edittingVoucher.discountAmount,
-                    discountPercentage: $scope.edittingVoucher.discountPercentage,
-                    minimumPurchaseAmount: $scope.edittingVoucher.minimumPurchaseAmount,
-                    maximumDiscountAmount: $scope.edittingVoucher.maximumDiscountAmount,
-                    startDate: $scope.edittingVoucher.startDate,
-                    endDate: $scope.edittingVoucher.endDate,
-                    totalQuantity: $scope.edittingVoucher.totalQuantity,
-                    usedQuantity: $scope.edittingVoucher.usedQuantity,
-                    status: $scope.edittingVoucher.status,
-                    description: $scope.edittingVoucher.description
-                },
-                categories: $scope.selectedCategories,
-                productDetails: $scope.selectedProductDetails,
-                listdeletedCategories: $scope.listdeletedCategories,
-                listdeletedProducts: $scope.listdeletedProducts
-            };
-            console.log("Status", $scope.edittingVoucher.status);
-            $http.post(host, data).then(resp => {
+        var data = {
+            voucher: {
+                voucherId: $scope.edittingVoucher.voucherId,
+                voucherName: $scope.edittingVoucher.voucherName,
+                code: $scope.edittingVoucher.code,
+                voucherType: $scope.edittingVoucher.voucherType,
+                discountType: $scope.edittingVoucher.discountType,
+                discountAmount: $scope.edittingVoucher.discountAmount,
+                discountPercentage: $scope.edittingVoucher.discountPercentage,
+                minimumPurchaseAmount: $scope.edittingVoucher.minimumPurchaseAmount,
+                maximumDiscountAmount: $scope.edittingVoucher.maximumDiscountAmount,
+                startDate: $scope.edittingVoucher.startDate,
+                endDate: $scope.edittingVoucher.endDate,
+                totalQuantity: $scope.edittingVoucher.totalQuantity,
+                usedQuantity: $scope.edittingVoucher.usedQuantity,
+                status: $scope.edittingVoucher.status,
+                description: $scope.edittingVoucher.description,
+            },
+            categories: $scope.selectedCategories,
+            products: $scope.selectedProduct,
+            listdeletedCategories: $scope.listdeletedCategories, // Thêm danh mục đã bị xóa vào data
+        };
+        console.log($scope.listdeletedCategories);
+        $http
+            .post(host, data)
+            .then((resp) => {
                 console.log("Thêm Voucher thành công", data);
                 $scope.loadVouchers();
                 $scope.resetForm();
                 showSuccess(resp.data.message);
-            }).catch(function (error) {
+            })
+            .catch(function (error) {
                 console.log(error);
-                var action = $scope.isEditing ? 'Thêm' : 'Cập nhật';
+                var action = $scope.isEditing ? "Thêm" : "Cập nhật";
                 showError(`${action} voucher thất bại`);
             });
-        }
     };
-
-
-    $scope.checkDuplicateCode = function (code) {
-        // Kiểm tra trùng lặp code
-        var existingCode = $scope.vouchers.find(function (voucher) {
-            return voucher.code === code;
-        });
-        if (existingCode) {
-            return 'Mã code đã tồn tại.';
-        }
-
-        return null; // Chưa tồn tại
-    };
-
 
     //Edit Voucher và chuyển hướng
     $scope.editVoucherAndRedirect = function (voucherId) {
@@ -330,66 +187,65 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
         $http
             .get(url)
             .then(function (resp) {
-                $location
-                    .path("/voucher-form")
-                    .search({
-                        id: voucherId,
-                        data: angular.toJson(resp.data) // Chuyển đổi thành JSON
-                    });
+                $location.path("/voucher-form").search({
+                    id: voucherId,
+                    data: resp.data,
+                });
+                // .replace();
             })
             .catch(function (error) {
                 console.log("Error", error);
             });
     };
-
     // Kiểm tra xem có tham số data trong URL không.
     if ($routeParams.data) {
         // Parse dữ liệu từ tham số data và gán vào edittingVoucher.
-        var data = angular.fromJson($routeParams.data);
-        $scope.edittingVoucher = data.vouchers;
-        $scope.selectedCategories = data.categories;
-        $scope.selectedProductDetails = data.productDetails;
-        console.log(data);
+        $scope.edittingVoucher = angular.fromJson($routeParams.data.vouchers);
+        $scope.selectedCategories = angular.fromJson(
+            $routeParams.data.categories
+        );
+        $scope.selectedProduct = angular.fromJson($routeParams.data.products);
+        console.log($routeParams.data);
         $scope.isEditing = true;
     }
 
-    //Chuyển đổi 3 button khi click radio 
-    $scope.$watch('edittingVoucher.voucherType', function (newVal, oldVal) {
-        if (newVal === 'Loại sản phẩm') {
-            $scope.selectedType = 'product';
-        } else if (newVal === 'Sản phẩm') {
-            $scope.selectedType = 'item';
-        } else if (newVal === 'Phí ship') {
-            $scope.selectedType = 'ship';
-        } else {
-            $scope.selectedType = '';
-        }
-    });
+        //Chuyển đổi 3 button khi click radio
+        $scope.$watch("edittingVoucher.voucherType", function (newVal, oldVal) {
+            if (newVal === "Loại sản phẩm") {
+                $scope.selectedType = "product";
+            } else if (newVal === "Sản phẩm") {
+                $scope.selectedType = "item";
+            } else if (newVal === "Phí ship") {
+                $scope.selectedType = "ship";
+            } else {
+                $scope.selectedType = "";
+            }
+        });
 
-    //Chuyển đổi input Phần trăm và Giảm giá cố định khi click radio
-    $scope.toggleDiscountType = function () {
-        if ($scope.edittingVoucher.discountType === 'Phần trăm') {
-            $scope.edittingVoucher.discountAmount = null; // Reset giá trị số tiền giảm
-        } else if ($scope.edittingVoucher.discountType === 'Giảm giá cố định') {
-            $scope.edittingVoucher.discountPercentage = null; // Reset giá trị phần trăm giảm
-        }
-    };
+        //Chuyển đổi input Phần trăm và Giảm giá cố định khi click radio
+        $scope.toggleDiscountType = function () {
+            if ($scope.edittingVoucher.discountType === "Phần trăm") {
+                $scope.edittingVoucher.discountAmount = null; // Reset giá trị số tiền giảm
+            } else if ($scope.edittingVoucher.discountType === "Giảm giá cố định") {
+                $scope.edittingVoucher.discountPercentage = null; // Reset giá trị phần trăm giảm
+            }
+        };
 
     //Search Modal
     $scope.search = function () {
-        $http.get('http://your-api-url.com/products?search=' + $scope.searchKeyword)
+        $http
+            .get("http://your-api-url.com/products?search=" + $scope.searchKeyword)
             .then(function (response) {
                 $scope.filteredProducts = response.data;
             })
             .catch(function (error) {
-                console.error('Error fetching product information:', error);
+                console.error("Error fetching product information:", error);
             });
     };
 
     $scope.selectProduct = function (product) {
         $scope.selectedProduct = product;
     };
-
 
     //DELETE VOUCHER
     $scope.deleteVoucher = function (voucherId) {
@@ -404,7 +260,8 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
         }).then((result) => {
             if (result.isConfirmed) {
                 // Sử dụng $http để gửi yêu cầu DELETE đến API
-                $http.delete(url)
+                $http
+                    .delete(url)
                     .then((resp) => {
                         // Xóa voucher thành công, cập nhật danh sách
                         $scope.loadVouchers();
@@ -434,23 +291,20 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
         });
     };
 
-
     //RESET FORM VOUCHER
     $scope.resetForm = function () {
         // Kiểm tra xem có tham số "id" và "data" trong URL không, và nếu có thì xóa chúng
         if ($location.search().id || $location.search().data) {
-            $location.search('id', null);
-            $location.search('data', null);
+            $location.search("id", null);
+            $location.search("data", null);
         }
         // Gán giá trị cho editingBrand và isEditing
         $scope.selectedCategories = [];
-        $scope.selectedProduct = [];
         $scope.edittingVoucher = {};
         $scope.isEditing = false;
-        $scope.errorMessages = [];
 
         // Chuyển hướng lại đến trang /brand-form
-        $location.path('/voucher-form');
+        $location.path("/voucher-form");
     };
 
     //FORMAT DATE
@@ -460,14 +314,15 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
         }
         var formattedDate = new Date(date);
         var year = formattedDate.getFullYear();
-        var month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
-        var day = formattedDate.getDate().toString().padStart(2, '0');
+        var month = (formattedDate.getMonth() + 1).toString().padStart(2, "0");
+        var day = formattedDate.getDate().toString().padStart(2, "0");
 
         return `${year}-${month}-${day}`;
     };
 
-    $scope.loadVouchers();
-});
+        $scope.loadVouchers();
+    }
+);
 
 //Thông báo Success
 function showSuccess(message) {

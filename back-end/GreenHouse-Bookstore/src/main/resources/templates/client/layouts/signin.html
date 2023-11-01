@@ -105,8 +105,7 @@
                             <input style="padding-left: 15px" ng-model="code" placeholder="Nhập mã xác thực 6 số"
                                    type="text" name="code" title="Code"
                                    class="input_frame col-8">
-                            <button class="input_frame1 btn-success1" type="button" ng-click="sendCode()">Gửi mã OTP
-                            </button>
+                                   <button class="btn-success1" type="button" ng-click="sendCode()">Gửi mã OTP</button>
                         </div>
                         <!-- Trường Mật khẩu -->
                         <div class="input-group flex-nowrap mb-2">
@@ -117,7 +116,7 @@
                                 <input type="password" class="form-control" id="password" placeholder="Mật Khẩu"
                                        aria-label="Password"
                                        aria-describedby="addon-wrapping" name="password" ng-model="password"
-                                       ng-change="checkPassword()">
+                                       ng-change="checkPassword()" ng-readonly="disabled">
                                 <label for="password">Mật Khẩu <label for="password"
                                                                       class="text-danger">(*)</label></label>
                             </div>
@@ -131,7 +130,7 @@
                                 <input type="password" class="form-control" id="repassword"
                                        placeholder="Xác Nhận Mật Khẩu"
                                        aria-label="Confirm-Password" aria-describedby="addon-wrapping" name="repassword"
-                                       ng-model="repassword">
+                                       ng-model="repassword" ng-readonly="disabled">
                                 <label for="repassword">Xác Nhận Mật Khẩu <label for="repassword"
                                                                                  class="text-danger">(*)</label></label>
                             </div>
