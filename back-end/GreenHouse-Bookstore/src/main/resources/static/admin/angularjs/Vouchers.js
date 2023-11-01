@@ -12,27 +12,29 @@ app.controller(
 
         $scope.searchKeyword = "";
 
-    $scope.searchCategoryResults = [];
-    $scope.selectedCategories = [];
-    $scope.searchCategoryKeyword = null;
-    $scope.listCategories = [];
-
-    $scope.filteredProducts = [];
-
-        $scope.listProduct = [];
-        $scope.searchProductResults = [];
-        $scope.selectedProducts = [];
-        $scope.searchProductKeyword = null;
+        $scope.searchCategoryResults = [];
+        $scope.selectedCategories = [];
+        $scope.searchCategoryKeyword = null;
+        $scope.listCategories = [];
         $scope.listdeletedCategories = [];
-    //thay đổi khi chọn sản phẩm và chọn loại sản phẩm khi vào nút
-    $scope.toggleSelection = function () {
-        $scope.isSelectingProduct = !$scope.isSelectingProduct;
-        $scope.modalTitle = $scope.isSelectingProduct
-            ? "Chọn sản phẩm"
-            : "Chọn loại sản phẩm";
-    };
 
-    //Get bảng Category
+        $scope.filteredProducts = [];
+
+        $scope.listProductDetails = [];
+        $scope.searchProductResults = [];
+        $scope.selectedProductDetails = [];
+        $scope.searchProductKeyword = null;
+        $scope.listdeletedProducts = [];
+
+        //thay đổi khi chọn sản phẩm và chọn loại sản phẩm khi vào nút
+        $scope.toggleSelection = function () {
+            $scope.isSelectingProduct = !$scope.isSelectingProduct;
+            $scope.modalTitle = $scope.isSelectingProduct
+                ? "Chọn sản phẩm"
+                : "Chọn loại sản phẩm";
+        };
+
+        //Get bảng Category
     $scope.loadCategory = function () {
         var url = "http://localhost:8081/rest/categories";
         $http
@@ -59,6 +61,7 @@ app.controller(
             $scope.searchCategoryKeyword = null;
         }
     };
+
     $scope.loadCategory();
 
     //Select Category để hiển thị khi search trên modal
@@ -74,7 +77,7 @@ app.controller(
         // Gọi hàm tương ứng để cập nhật giao diện người dùng (nếu cần)
         $scope.searchCategory(null);
     };
-        //Hàm Xóa Product_FlashSale Tạm
+        //Hàm Xóa Product Tạm
     $scope.removeCategory = function (index) {
         var removedCategory = $scope.selectedCategories[index];
 
@@ -89,11 +92,12 @@ app.controller(
     //-------------------------------------------------------------------------------
     //Get bảng Product
     $scope.loadProduct = function () {
-        var url = "http://localhost:8081/rest/products";
+        var url = "http://localhost:8081/rest/productDetails";
         $http
             .get(url)
             .then((resp) => {
-                $scope.listProduct = resp.data;
+                $scope.listProductDetails = resp.data;
+                console.log($scope.listProductDetails);
             })
             .catch((error) => {
                 console.log("Error", error);
@@ -105,9 +109,11 @@ app.controller(
         $scope.searchProductResults = [];
         if (keyword) {
             keyword = keyword.toLowerCase();
-            $scope.searchProductResults = $scope.listProduct.filter(function (pro) {
-                return pro.productName.toLowerCase().includes(keyword);
-            });
+            $scope.searchProductResults = $scope.listProductDetails.filter(
+                function (pro) {
+                    return pro.product.productName.toLowerCase().includes(keyword);
+                }
+            );
         } else {
             $scope.searchProductKeyword = null;
         }
@@ -115,99 +121,248 @@ app.controller(
         $scope.loadProduct();
 
         //Select Product để hiển thị khi search trên modal
-        $scope.selectedProduct = function (pro) {
-            var existingProduct = $scope.selectedProducts.find(function (p) {
-                return p.productId === pro.productId;
+        $scope.selectedProductDetail = function (pro) {
+            var existingProduct = $scope.selectedProductDetails.find(function (p) {
+                return p.productDetailId === pro.productDetailId;
             });
 
             if (!existingProduct) {
-                $scope.selectedProducts.push(pro);
+                $scope.selectedProductDetails.push(pro);
             }
-
             // Gọi hàm tương ứng để cập nhật giao diện người dùng (nếu cần)
             $scope.searchProduct(null);
         };
 
-        //Get Vocher
-    $scope.loadVouchers = function () {
-        var url = `${host}`;
-        $http
-            .get(url)
-            .then((resp) => {
-                $scope.vouchers = resp.data;
-            })
-            .catch((error) => {
-                console.log("Error", error);
-            });
-    };
+        //Hàm Xóa Product Tạm
+        $scope.removeProducts = function (index) {
+            var removeProducts = $scope.selectedProductDetails[index];
 
-    //Save and Update Voucher
-    $scope.saveVoucher = function () {
-        var data = {
-            voucher: {
-                voucherId: $scope.edittingVoucher.voucherId,
-                voucherName: $scope.edittingVoucher.voucherName,
-                code: $scope.edittingVoucher.code,
-                voucherType: $scope.edittingVoucher.voucherType,
-                discountType: $scope.edittingVoucher.discountType,
-                discountAmount: $scope.edittingVoucher.discountAmount,
-                discountPercentage: $scope.edittingVoucher.discountPercentage,
-                minimumPurchaseAmount: $scope.edittingVoucher.minimumPurchaseAmount,
-                maximumDiscountAmount: $scope.edittingVoucher.maximumDiscountAmount,
-                startDate: $scope.edittingVoucher.startDate,
-                endDate: $scope.edittingVoucher.endDate,
-                totalQuantity: $scope.edittingVoucher.totalQuantity,
-                usedQuantity: $scope.edittingVoucher.usedQuantity,
-                status: $scope.edittingVoucher.status,
-                description: $scope.edittingVoucher.description,
-            },
-            categories: $scope.selectedCategories,
-            products: $scope.selectedProduct,
-            listdeletedCategories: $scope.listdeletedCategories, // Thêm danh mục đã bị xóa vào data
+            if (removeProducts) {
+                removeProducts.deleted = true; // Đánh dấu danh mục đã bị xóa
+                $scope.listdeletedCategories.push(removeProducts);
+                $scope.selectedProductDetails.splice(index, 1); // Loại bỏ danh mục khỏi selectedProduct
+                console.log("Đã xóa được", removeProducts);
+            }
         };
-        console.log($scope.listdeletedCategories);
-        $http
-            .post(host, data)
-            .then((resp) => {
-                console.log("Thêm Voucher thành công", data);
-                $scope.loadVouchers();
-                $scope.resetForm();
-                showSuccess(resp.data.message);
-            })
-            .catch(function (error) {
-                console.log(error);
-                var action = $scope.isEditing ? "Thêm" : "Cập nhật";
-                showError(`${action} voucher thất bại`);
-            });
-    };
 
-    //Edit Voucher và chuyển hướng
-    $scope.editVoucherAndRedirect = function (voucherId) {
-        var url = `${host}/${voucherId}`;
-        $http
-            .get(url)
-            .then(function (resp) {
-                $location.path("/voucher-form").search({
-                    id: voucherId,
-                    data: resp.data,
+        //Get Voucher
+        $scope.loadVouchers = function () {
+            var url = `${host}`;
+            $http
+                .get(url)
+                .then((resp) => {
+                    $scope.vouchers = resp.data;
+                })
+                .catch((error) => {
+                    console.log("Error", error);
                 });
-                // .replace();
-            })
-            .catch(function (error) {
-                console.log("Error", error);
+        };
+
+        $scope.validateVoucher = function (voucher) {
+            var isError = false;
+
+            var errorMessages = {
+                voucherName: "",
+                code: "",
+                voucherType: "",
+                discountType: "",
+                discountAmount: "",
+                discountPercentage: "",
+                minimumPurchaseAmount: "",
+                maximumDiscountAmount: "",
+                startDate: "",
+                endDate: "",
+                totalQuantity: "",
+                status: "",
+            };
+
+            if (!voucher.voucherName) {
+                errorMessages.voucherName = "Vui lòng không bỏ trống tên voucher";
+                isError = true;
+            }
+
+            if (!voucher.code) {
+                errorMessages.code = "Vui lòng không bỏ trống mã voucher";
+                isError = true;
+            }
+
+            if (!voucher.voucherType) {
+                errorMessages.voucherType = "Vui lòng không bỏ trống loại khuyến mãi";
+                isError = true;
+            }
+
+            if (!voucher.discountType) {
+                errorMessages.discountType =
+                    "Vui lòng không bỏ trống hình thức khuyến mãi";
+                isError = true;
+            }
+
+            if (!$scope.discountTypeSelected) {
+                var typeVoucher = $scope.edittingVoucher.discountType;
+                if (typeVoucher === "Giảm giá cố định") {
+                    if (!voucher.discountAmount) {
+                        errorMessages.discountAmount = "Vui lòng không bỏ trống số tiền";
+                        isError = true;
+                    }
+                    if (voucher.discountAmount && voucher.discountAmount < 0) {
+                        errorMessages.discountAmount = "Số tiền không thể là số âm";
+                        isError = true;
+                    }
+                } else if (typeVoucher === "Phần trăm") {
+                    if (
+                        voucher.discountPercentage < 1 ||
+                        voucher.discountPercentage > 100
+                    ) {
+                        errorMessages.discountPercentage =
+                            "Phần trăm phải nằm trong khoảng từ 1 đến 100";
+                        isError = true;
+                    }
+                    if (!voucher.discountPercentage) {
+                        errorMessages.discountAmount = "Vui lòng không bỏ trống số tiền";
+                        isError = true;
+                    }
+                }
+            }
+
+            if (!voucher.minimumPurchaseAmount) {
+                errorMessages.minimumPurchaseAmount = "Vui lòng không bỏ trống số tiền";
+                isError = true;
+            } else if (voucher.minimumPurchaseAmount < 0) {
+                errorMessages.minimumPurchaseAmount = "Số tiền không thể là số âm";
+                isError = true;
+            }
+
+            if (!voucher.maximumDiscountAmount) {
+                errorMessages.maximumDiscountAmount = "Vui lòng không bỏ trống số tiền";
+                isError = true;
+            } else if (voucher.maximumDiscountAmount < 0) {
+                errorMessages.maximumDiscountAmount = "Số tiền không thể là số âm";
+                isError = true;
+            }
+
+            if (!voucher.startDate) {
+                errorMessages.startDate = "Vui lòng không bỏ trống ngày";
+                isError = true;
+            }
+
+            if (!voucher.endDate) {
+                errorMessages.endDate = "Vui lòng không bỏ trống ngày";
+                isError = true;
+            }
+
+            if (!voucher.totalQuantity || voucher.totalQuantity <= 0) {
+                errorMessages.totalQuantity = "Vui lòng nhập số lượng hợp lệ";
+                isError = true;
+            }
+
+            if (!voucher.status) {
+                errorMessages.status = "Vui lòng không bỏ trống trạng thái";
+                isError = true;
+            }
+
+            var start = new Date(voucher.startDate);
+            var end = new Date(voucher.endDate);
+
+            if (end <= start) {
+                errorMessages.endDate = "Ngày kết thúc phải lớn hơn ngày bắt đầu";
+                isError = true;
+            }
+
+            var result = {
+                isError: isError,
+                errorMessages: errorMessages,
+            };
+
+            return result;
+        };
+
+        //Save and Update Voucher
+        $scope.saveVoucher = function () {
+            var result = $scope.validateVoucher($scope.edittingVoucher);
+            console.log(result);
+            if (result.isError) {
+                $scope.errorMessages = result.errorMessages;
+            } else {
+                var data = {
+                    voucher: {
+                        voucherId: $scope.edittingVoucher.voucherId,
+                        voucherName: $scope.edittingVoucher.voucherName,
+                        code: $scope.edittingVoucher.code,
+                        voucherType: $scope.edittingVoucher.voucherType,
+                        discountType: $scope.edittingVoucher.discountType,
+                        discountAmount: $scope.edittingVoucher.discountAmount,
+                        discountPercentage: $scope.edittingVoucher.discountPercentage,
+                        minimumPurchaseAmount: $scope.edittingVoucher.minimumPurchaseAmount,
+                        maximumDiscountAmount: $scope.edittingVoucher.maximumDiscountAmount,
+                        startDate: $scope.edittingVoucher.startDate,
+                        endDate: $scope.edittingVoucher.endDate,
+                        totalQuantity: $scope.edittingVoucher.totalQuantity,
+                        usedQuantity: $scope.edittingVoucher.usedQuantity,
+                        status: $scope.edittingVoucher.status,
+                        description: $scope.edittingVoucher.description,
+                    },
+                    categories: $scope.selectedCategories,
+                    productDetails: $scope.selectedProductDetails,
+                    listdeletedCategories: $scope.listdeletedCategories,
+                    listdeletedProducts: $scope.listdeletedProducts,
+                };
+
+                $http
+                    .post(host, data)
+                    .then((resp) => {
+                        console.log("Thêm Voucher thành công", data);
+                        $scope.loadVouchers();
+                        $scope.resetForm();
+                        showSuccess(resp.data.message);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        var action = $scope.isEditing ? "Thêm" : "Cập nhật";
+                        showError(`${action} voucher thất bại`);
+                    });
+            }
+        };
+
+        $scope.checkDuplicateCode = function (code) {
+            // Kiểm tra trùng lặp code
+            var existingCode = $scope.accounts.find(function (voucher) {
+                return voucher.code === code;
             });
-    };
+
+            if (existingCode) {
+                $scope.errorMessages.code = "Mã code đã tồn tại.";
+                return true; // Đã tồn tại
+            }
+
+            return false; // Chưa tồn tại
+        };
+
+        //Edit Voucher và chuyển hướng
+        $scope.editVoucherAndRedirect = function (voucherId) {
+            var url = `${host}/${voucherId}`;
+            $http
+                .get(url)
+                .then(function (resp) {
+                    $location.path("/voucher-form").search({
+                        id: voucherId,
+                        data: angular.toJson(resp.data), // Chuyển đổi thành JSON
+                    });
+                })
+                .catch(function (error) {
+                    console.log("Error", error);
+                });
+        };
+
     // Kiểm tra xem có tham số data trong URL không.
-    if ($routeParams.data) {
-        // Parse dữ liệu từ tham số data và gán vào edittingVoucher.
-        $scope.edittingVoucher = angular.fromJson($routeParams.data.vouchers);
-        $scope.selectedCategories = angular.fromJson(
-            $routeParams.data.categories
-        );
-        $scope.selectedProduct = angular.fromJson($routeParams.data.products);
-        console.log($routeParams.data);
-        $scope.isEditing = true;
-    }
+        if ($routeParams.data) {
+            // Parse dữ liệu từ tham số data và gán vào edittingVoucher.
+            var data = angular.fromJson($routeParams.data);
+            $scope.edittingVoucher = data.vouchers;
+            $scope.selectedCategories = data.categories;
+            $scope.selectedProductDetails = data.productDetails;
+            console.log(data);
+            $scope.isEditing = true;
+        }
 
         //Chuyển đổi 3 button khi click radio
         $scope.$watch("edittingVoucher.voucherType", function (newVal, oldVal) {
@@ -231,17 +386,17 @@ app.controller(
             }
         };
 
-    //Search Modal
-    $scope.search = function () {
-        $http
-            .get("http://your-api-url.com/products?search=" + $scope.searchKeyword)
-            .then(function (response) {
-                $scope.filteredProducts = response.data;
-            })
-            .catch(function (error) {
-                console.error("Error fetching product information:", error);
-            });
-    };
+        //Search Modal
+        $scope.search = function () {
+            $http
+                .get("http://your-api-url.com/products?search=" + $scope.searchKeyword)
+                .then(function (response) {
+                    $scope.filteredProducts = response.data;
+                })
+                .catch(function (error) {
+                    console.error("Error fetching product information:", error);
+                });
+        };
 
     $scope.selectProduct = function (product) {
         $scope.selectedProduct = product;
@@ -300,8 +455,10 @@ app.controller(
         }
         // Gán giá trị cho editingBrand và isEditing
         $scope.selectedCategories = [];
+        $scope.selectedProduct = [];
         $scope.edittingVoucher = {};
         $scope.isEditing = false;
+        $scope.errorMessages = [];
 
         // Chuyển hướng lại đến trang /brand-form
         $location.path("/voucher-form");

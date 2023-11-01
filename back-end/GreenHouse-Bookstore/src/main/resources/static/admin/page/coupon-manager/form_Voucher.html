@@ -304,8 +304,8 @@
                 </form>
                 <div class="product-cart-left" ng-if="searchProductKeyword">
                   <div class="item-product-cart d-flex my-2"
-                    ng-repeat="productDetail in searchProductResults track by $index"
-                    ng-click="selectedProductDetail(productDetail)">
+                       ng-repeat="productDetail in searchProductResults"
+                       ng-click="selectedProductDetail(productDetail)">
 
                     <div class="group-product-info col-md-11">
                       <div class="info-product-cart">
@@ -330,7 +330,7 @@
                     <tr ng-repeat="productDetail in selectedProductDetails track by $index">
                       <td>{{productDetail.productDetailId}}</td>
                       <td>{{productDetail.product.productName}}</td>
-                      <td> <a ng-click="removeProducts( $index)"><i class="fe fe-trash-2 fe-16"></i></a></td>
+                        <td><a ng-click="removeProducts($index)"><i class="fe fe-trash-2 fe-16"></i></a></td>
                     </tr>
                   </tbody>
                 </table>
