@@ -155,13 +155,14 @@
             </div>
           </div>
           <div class="center_center mouse-hover cart-dropdown">
-            <a class="top-button-icon">
-              <div class="center_center" style="margin-bottom:3px;">
-                <div class="icon_cart_gray"></div>
-              </div>
-              <div class="center_center">
-                <div class="top_menu_label">Giỏ hàng</div>
-              </div>
+            <a class="top-button-icon  cart-icon"
+               data-quantity-icon="{{listCartHeader.length > 50 ? '50+' : listCartHeader.length}}">
+                <div class="center_center" style="margin-bottom:3px;">
+                    <div class="icon_cart_gray"></div>
+                </div>
+                <div class="center_center">
+                    <div class="top_menu_label">Giỏ hàng</div>
+                </div>
             </a>
             <!-- Model cart -->
             <div class="top-dropdown">
