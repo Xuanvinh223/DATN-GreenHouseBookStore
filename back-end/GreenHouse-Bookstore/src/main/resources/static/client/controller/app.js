@@ -122,6 +122,7 @@ app.controller("MainController", function ($scope, CartService, $timeout, $rootS
             CartService.getCart(username)
                 .then(function (response) {
                     $scope.listCartHeader = response.listCart;
+                    console.log(response);
                 })
                 .catch(function (error) {
                     console.log(
