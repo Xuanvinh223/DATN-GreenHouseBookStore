@@ -6,7 +6,8 @@ app.constant('productPageAPI', 'http://localhost:8081/customer/rest/product-page
 app.constant('cartAPI', 'http://localhost:8081/customer/rest/cart');
 app.constant('changePasswordAPI', 'http://localhost:8081/customer/rest/reset-password');
 app.constant('forgotPasswordAPI', 'http://localhost:8081/customer/rest/forgot-password');
-app.constant('productDetailAPI', 'http://localhost:8081/customer/rest/product-detail')
+app.constant('productDetailAPI', 'http://localhost:8081/customer/rest/product-detail');
+app.constant('voucherAPI', 'http://localhost:8081/customer/rest/voucher');
 
 app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
     var token = $cookies.get("token");

@@ -28,7 +28,6 @@ public class AdminController {
     public String adminPage(HttpServletRequest request, Model m) {
         // Kiểm tra xem yêu cầu có chứa token không
         String token = request.getParameter("token");
-        System.out.println(token);
         try {
             String username = jwtUtil.extractUsername(token);
             // Thực hiện xác thực token và kiểm tra quyền
