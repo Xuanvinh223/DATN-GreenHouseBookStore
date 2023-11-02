@@ -73,7 +73,8 @@ public interface ProductDetailRepository extends JpaRepository<Product_Detail, I
             "JOIN Product_Category c ON p.Product_Id = c.Product_Id " +
             "WHERE c.Category_Id IN " +
             "(SELECT Category_Id FROM Product_Category WHERE Product_Id = " +
-            "(SELECT Product_Id FROM Product_Detail WHERE Product_Detail_Id = ?1))", nativeQuery = true)
+            "(SELECT Product_Id FROM Product_Detail WHERE Product_Detail_Id = ?1)) " +
+            " AND d.Product_Detail_Id <> ?1", nativeQuery = true)
     List<Product_Detail> findRelatedProducts(int productDetailId);
 
     @Query(value = "SELECT pd.* " +
@@ -95,4 +96,12 @@ public interface ProductDetailRepository extends JpaRepository<Product_Detail, I
     List<Product_Detail> findProductDetailsByCategoryAndBrand(
             @Param("categoryId") String categoryId,
             @Param("brandId") String brandId);
+
+    @Query(value = "SELECT TOP 10   d.* " +
+            " FROM Product_Detail d " +
+            "JOIN Invoice_Details id ON d.Product_Detail_Id = id.Product_Detail_Id " +
+            " GROUP BY d.[Product_Id],d.Image,d.Price,d.Price_Discount,d.Product_Detail_Id,d.Quantity_In_Stock, "
+            +
+            " d.Weight ORDER BY SUM(id.Quantity) DESC; ", nativeQuery = true)
+    List<Product_Detail> SellingProduct();
 }

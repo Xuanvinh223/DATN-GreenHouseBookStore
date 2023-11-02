@@ -1,14 +1,13 @@
 package com.greenhouse.restcontroller.client;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,8 +33,6 @@ import com.greenhouse.repository.ProductDiscountRepository;
 import com.greenhouse.repository.ProductReviewsRepository;
 import com.greenhouse.repository.Product_ImagesRepository;
 
-import jakarta.transaction.Transactional;
-
 @RestController
 @RequestMapping("/customer/rest/product-page")
 public class ProductPageController {
@@ -58,33 +55,41 @@ public class ProductPageController {
     private Product_ImagesRepository productImagesRepository;
     @Autowired
     private ImportInvoiceDetailRepository importInvoiceDetailRep;
-   @Autowired
+    @Autowired
     private InvoiceDetailsRepository invoiceDetailRepository;
 
     @GetMapping("/product-show")
-    public ResponseEntity<Map<String, Object>> getProductDetailsByCategory(
-            @RequestParam(name = "categoryId", required = false) String categoryId) {
+    public ResponseEntity<Map<String, Object>> getDataProduct(
+            @RequestParam(name = "categoryId", required = false) String categoryId,
+            @RequestParam(name = "brandId", required = false) String brandId) {
         Map<String, Object> response = new HashMap<String, Object>();
 
         List<Product_Detail> productDetails;
-        if (categoryId != null && !categoryId.isEmpty()) {
+        if (categoryId != null && brandId != null) {
+            // Trường hợp: Lấy ProductDetail theo cả CategoryId và BrandId
+            productDetails = productDetailRepository.findProductDetailsByCategoryAndBrand(categoryId, brandId);
+        } else if (brandId != null) {
+            // Trường hợp: Lấy ProductDetail theo BrandId
+            productDetails = productDetailRepository.findProductDetailsByBrandId(brandId);
+        } else if (categoryId != null) {
+            // Trường hợp: Lấy ProductDetail theo CategoryId
             productDetails = productDetailRepository.findAllCate(categoryId);
         } else {
+            // Trường hợp mặc định: Lấy tất cả ProductDetail
             productDetails = productDetailRepository.findAll();
         }
-        response.put("listProductDetail", productDetails);
-        System.out.println("Number of product details retrieved: " + productDetails.size());
 
         List<CategoryTypes> listCategoryTypes = categoryTypesRepository.findAll();
         List<Categories> listCategories = categoriesRepository.findAll();
         List<Book_Authors> listBookAuthor = bookAuthorsRepository.findAll();
-        List<Product_Discount> listProductDiscount = productDiscountRepository.findAll();
+        List<Product_Discount> listProductDiscount = productDiscountRepository.findProductDiscountsByDate();
         List<Product_Reviews> listProductReviews = productReviewsRepository.findAll();
         List<Brands> listBrands = brandRepository.findAll();
         List<Product_Images> listProductImages = productImagesRepository.findAll();
         List<ImportInvoiceDetail> listImportInvoiceDetail = importInvoiceDetailRep.findAll();
         List<InvoiceDetails> listInvoiceDetails = invoiceDetailRepository.findAll();
 
+        response.put("listProductDetail", productDetails);
         response.put("listInvoiceDetails", listInvoiceDetails);
         response.put("listImportInvoiceDetail", listImportInvoiceDetail);
         response.put("listCategoryTypes", listCategoryTypes);
@@ -98,29 +103,16 @@ public class ProductPageController {
         return ResponseEntity.ok(response);
     }
 
-    // @GetMapping("/data")
-    // public ResponseEntity<Map<String, Object>> getData() {
-    // Map<String, Object> response = new HashMap<String, Object>();
+    @GetMapping("/showQuicklist/{productDetailId}")
+    public ResponseEntity<List<Product_Images>> getImageDetail(@PathVariable Integer productDetailId) {
+        // Tìm danh sách hình ảnh dựa trên ProductDetailID
+        List<Product_Images> productImages = productImagesRepository.findByProductDetail_ProductDetailId(productDetailId);
 
-    // List<Product_Detail> listProductDetail = productDetailRepository.findAll();
-    // List<CategoryTypes> listCategoryTypes = categoryTypesRepository.findAll();
-    // List<Categories> listCategories = categoriesRepository.findAll();
-    // List<Book_Authors> listBookAuthor = bookAuthorsRepository.findAll();
-    // List<Product_Discount> listProductDiscount =
-    // productDiscountRepository.findAll();
-    // List<Product_Reviews> listProductReviews =
-    // productReviewsRepository.findAll();
-    // List<Brands> listBrands = brandRepository.findAll();
-    // List<Product_Images> listProductImages = productImagesRepository.findAll();
+        if (productImages != null && !productImages.isEmpty()) {
+            return ResponseEntity.ok(productImages);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
-    // response.put("listProductDetail", listProductDetail);
-    // response.put("listCategoryTypes", listCategoryTypes);
-    // response.put("listCategories", listCategories);
-    // response.put("listBookAuthor", listBookAuthor);
-    // response.put("listProductDiscount", listProductDiscount);
-    // response.put("listProductReviews", listProductReviews);
-    // response.put("listBrands", listBrands);
-    // response.put("listProductImages", listProductImages);
-    // return ResponseEntity.ok(response);
-    // }
 }

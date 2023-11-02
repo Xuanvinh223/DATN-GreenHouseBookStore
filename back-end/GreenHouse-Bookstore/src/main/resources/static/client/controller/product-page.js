@@ -1,6 +1,6 @@
 app.controller("productPageController", productPageController);
 
-function productPageController($http, $scope, productPageAPI,) {
+function productPageController($http, $scope, productPageAPI) {
     const host = productPageAPI;
 
     //Phân trang
@@ -32,14 +32,49 @@ function productPageController($http, $scope, productPageAPI,) {
     // DECLARE SCOPE FOR UI - END
     //=================================
     // SCOPE_FUNCTION GET DATA - START
-
-
     $scope.getDataProductDetail = function () {
         var url = host + "/product-show";
+        var params = {};
+
+        if ($scope.selectedCategoryId != null) {
+            {
+                params.categoryId = $scope.selectedCategoryId;
+
+            }
+        }
+        if ($scope.selectedCategoryId) {
+            params.categoryId = $scope.selectedCategoryId;
+        }
+
+        if ($scope.selectedBrand) {
+            params.brandId = $scope.selectedBrand;
+        }
+
+        // Tạo một mảng để lưu các khoảng giá đã được chọn
+        var selectedPriceRanges = [];
+        for (var priceRange in $scope.priceSelection) {
+            if ($scope.priceSelection[priceRange]) {
+                if (priceRange === 'gia1') {
+                    selectedPriceRanges.push({min: 0, max: 100000});
+                } else if (priceRange === 'gia2') {
+                    selectedPriceRanges.push({min: 100000, max: 200000});
+                } else if (priceRange === 'gia3') {
+                    selectedPriceRanges.push({min: 200000, max: 500000});
+                } else if (priceRange === 'gia4') {
+                    selectedPriceRanges.push({min: 500000, max: 700000});
+                } else if (priceRange === 'gia5') {
+                    selectedPriceRanges.push({min: 700000, max: Number.MAX_VALUE});
+                }
+            }
+        }
+        if (selectedPriceRanges.length > 0) {
+            // Nếu có ít nhất một khoảng giá được chọn, sử dụng chúng để lọc dữ liệu
+            params.priceRanges = JSON.stringify(selectedPriceRanges); // Gửi danh sách các khoảng giá đã chọn dưới dạng chuỗi JSON
+        }
 
         // Truy vấn API để lấy dữ liệu
-        $http.get(url, {params: {categoryId: $scope.selectedCategoryId}}).then(response => {
-            $scope.listProductDetail = response.data.listProductDetail;
+        $http.get(url, {params: params}).then(response => {
+            // $scope.listProductDetail = response.data.listProductDetail;
             $scope.listCategoryTypes = response.data.listCategoryTypes;
             $scope.listCategories = response.data.listCategories;
             $scope.listBookAuthor = response.data.listBookAuthor;
@@ -49,31 +84,116 @@ function productPageController($http, $scope, productPageAPI,) {
             $scope.listProductImages = response.data.listProductImages;
             $scope.listImportInvoiceDetail = response.data.listImportInvoiceDetail;
             $scope.listInvoiceDetails = response.data.listInvoiceDetails;
+            var allProducts = response.data.listProductDetail;
 
-            $scope.listProductDetail.sort((a, b) => {
-                const createDateA = getNearestImportInvoiceCreateDate(a.productDetailId);
-                const createDateB = getNearestImportInvoiceCreateDate(b.productDetailId);
-                return createDateB - createDateA;
-            });
+            if (selectedPriceRanges.length > 0) {
+                // Nếu có khoảng giá được chọn, lọc danh sách theo nó
+                $scope.listProductDetail = allProducts.filter(product => {
+                    var price = product.priceDiscount;
+                    for (var i = 0; i < selectedPriceRanges.length; i++) {
+                        var range = selectedPriceRanges[i];
+                        if (price >= range.min && price <= range.max) {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
+            } else {
+                // Nếu không có khoảng giá được chọn, sắp xếp theo 'newest'
+                $scope.listProductDetail = allProducts.slice(); // Tạo một bản sao của danh sách
+                $scope.listProductDetail.sort((a, b) => {
+                    const createDateA = $scope.getNearestImportInvoiceCreateDate(a.productDetailId);
+                    const createDateB = $scope.getNearestImportInvoiceCreateDate(b.productDetailId);
+                    return createDateB - createDateA;
+                });
+            }
 
             $scope.totalItems = $scope.listProductDetail.length;
-
-            console.log("Danh sách listInvoiceDetails sản phẩm: ", $scope.listInvoiceDetails);
-            console.log("Danh sách thể loại sản phẩm: ", $scope.listCategoryTypes);
-            console.log("Danh sách loại sản phẩm: ", $scope.listCategories);
-            console.log("Danh sách tác giả: ", $scope.listBookAuthor);
-            console.log("Danh sách sản phẩm giảm giá: ", $scope.listProductDiscount);
-            console.log("Danh sách đánh giá sản phẩm: ", $scope.listProductReviews);
-            console.log("Danh sách thương hiệu: ", $scope.listBrands);
-            console.log("Danh sách ảnh mở rộng của sản phẩm: ", $scope.listProductImages);
-            // Hiển thị thông tin đã lấy được trong console
-            console.log("Danh sách sản phẩm chi tiết: ", $scope.listProductDetail);
         }).catch(function (error) {
             console.error("Lỗi call API: ", error);
         });
     };
+
+    //LỌC THEO GIÁ
+    $scope.priceSelection = {
+        gia1: false,
+        gia2: false,
+        gia3: false,
+        gia4: false,
+        gia5: false
+    };
+    //LỌC THEO GIÁ
+    $scope.togglePriceSelection = function (selectedPrice) {
+        if ($scope.priceSelection[selectedPrice]) {
+            // Nếu đã chọn khoảng giá này và bấm lại, hãy bỏ chọn nó
+            $scope.priceSelection[selectedPrice] = false;
+        } else {
+            // Nếu chưa chọn khoảng giá này, hãy chọn nó và bỏ chọn tất cả các khoảng giá khác
+            for (var priceRange in $scope.priceSelection) {
+                $scope.priceSelection[priceRange] = false;
+            }
+            $scope.priceSelection[selectedPrice] = true;
+        }
+
+        // Kiểm tra nếu không có khoảng giá nào được chọn, hãy gọi hàm để cập nhật danh sách sản phẩm
+        var noPriceRangeSelected = true;
+        for (var priceRange in $scope.priceSelection) {
+            if ($scope.priceSelection[priceRange]) {
+                noPriceRangeSelected = false;
+                break;
+            }
+        }
+
+        if (noPriceRangeSelected) {
+            $scope.getDataProductDetail(); // Gọi lại hàm lấy dữ liệu để trở về trạng thái ban đầu
+        } else {
+            // Nếu có ít nhất một khoảng giá được chọn, gọi hàm để cập nhật danh sách sản phẩm dựa trên lựa chọn
+            $scope.getDataProductDetail();
+        }
+    };
+
+    //LỌC THEO BRAND
+    // Thêm biến selectedBrand vào AngularJS Controller của bạn
+    $scope.selectedBrand = null;
+
+    // Hàm xử lý khi nhấn vào checkbox thương hiệu
+    $scope.toggleBrandSelection = function (brandId) {
+        // Nếu bạn đang chọn thương hiệu đã được chọn, hãy bỏ chọn nó
+        if ($scope.selectedBrand === brandId) {
+            $scope.selectedBrand = null;
+        } else {
+            // Nếu bạn đang chọn thương hiệu khác, hãy chọn nó
+            $scope.selectedBrand = brandId;
+        }
+
+        // Sau khi thay đổi biến selectedBrand, gọi hàm để cập nhật danh sách sản phẩm
+        $scope.getDataProductDetail();
+    };
+
+
+    //LỌC THEO LOẠI SẢN PHẨM
+    $scope.selectedCategoryId = null;
+    $scope.selectedCategoryName = null;
+
+    $scope.selectCategory = function (categoryId, categoryName) {
+        $scope.selectedCategoryId = categoryId;
+        $scope.selectedCategoryName = categoryName;
+        if (categoryId === null) {
+            $scope.selectedCategoryId = null;
+            $scope.selectedCategoryName = null;
+        }
+        $scope.getDataProductDetail();
+    };
+
+    $scope.changeItemsPerPage = function () {
+        console.log("Đã gọi hàm changeItemsPerPage");
+        // Cập nhật số lượng phần tử mỗi trang
+        $scope.currentPage = 1; // Đặt lại trang về trang đầu
+        $scope.getDataProductDetail(); // Gọi lại hàm lấy dữ liệu để cập nhật danh sách sản phẩm với itemsPerPage mới
+    };
+
     //Ngày nhập mới nhất
-    function getNearestImportInvoiceCreateDate(productDetailId) {
+    $scope.getNearestImportInvoiceCreateDate = function (productDetailId) {
         let nearestCreateDate = null;
         for (const detail of $scope.listImportInvoiceDetail) {
             if (detail.productDetail.productDetailId === productDetailId) {
@@ -102,10 +222,8 @@ function productPageController($http, $scope, productPageAPI,) {
     $scope.onSortChange = function () {
         if ($scope.sortBy === 'newest') {
             $scope.listProductDetail.sort((a, b) => {
-                // Tìm ngày tạo gần nhất trong listImportInvoiceDetail cho sản phẩm a
-                const createDateA = getNearestImportInvoiceCreateDate(a.productDetailId);
-                // Tìm ngày tạo gần nhất trong listImportInvoiceDetail cho sản phẩm b
-                const createDateB = getNearestImportInvoiceCreateDate(b.productDetailId);
+                const createDateA = $scope.getNearestImportInvoiceCreateDate(a.productDetailId);
+                const createDateB = $scope.getNearestImportInvoiceCreateDate(b.productDetailId);
                 return createDateB - createDateA;
             });
         } else if ($scope.sortBy === 'bestSelling') {
@@ -115,27 +233,10 @@ function productPageController($http, $scope, productPageAPI,) {
                 return quantityB - quantityA;
             });
         } else if ($scope.sortBy === 'lowestPrice') {
-            $scope.listProductDetail.sort((a, b) => a.price - b.price);
+            $scope.listProductDetail.sort((a, b) => a.priceDiscount - b.priceDiscount);
         } else if ($scope.sortBy === 'highestPrice') {
-            $scope.listProductDetail.sort((a, b) => b.price - a.price);
+            $scope.listProductDetail.sort((a, b) => b.priceDiscount - a.priceDiscount);
         }
-    };
-
-    $scope.selectedCategoryId = null;
-    $scope.selectedCategoryName = null;
-    // $scope.selectedCategory = null;
-    $scope.selectCategory = function (categoryId, categoryName) {
-        // Gán categoryId và categoryName vào biến để sử dụng trong việc hiển thị breadcrumb
-        $scope.selectedCategoryId = categoryId;
-        $scope.selectedCategoryName = categoryName;
-        console.log($scope.selectedCategoryId);
-        $scope.getDataProductDetail(); // Gọi lại hàm lấy dữ liệu để cập nhật danh sách sản phẩm
-    };
-    $scope.changeItemsPerPage = function () {
-        console.log("Đã gọi hàm changeItemsPerPage");
-        // Cập nhật số lượng phần tử mỗi trang
-        $scope.currentPage = 1; // Đặt lại trang về trang đầu
-        $scope.getDataProductDetail(); // Gọi lại hàm lấy dữ liệu để cập nhật danh sách sản phẩm với itemsPerPage mới
     };
 
     // SCOPE_FUNCTION GET DATA - END
@@ -239,9 +340,15 @@ function productPageController($http, $scope, productPageAPI,) {
 
     // PAGINATION - END
     // SCOPE_FUNCTION FOR UI - END
-    $scope.navigateToProductDetail = function (productDetailId) {
-        console.log("DÔ ĐÂY", productDetailId);
-        window.location.href = '/product-details?id=' + productDetailId;
+    //Mở đóng Collapse
+    $scope.collapsedTypes = {}; // Đối tượng để theo dõi trạng thái của các loại sản phẩm
+
+    $scope.toggleCollapse = function (typeId) {
+        $scope.collapsedTypes[typeId] = !$scope.collapsedTypes[typeId];
+    };
+
+    $scope.isCollapsed = function (typeId) {
+        return $scope.collapsedTypes[typeId];
     };
 
     $scope.init = function () {

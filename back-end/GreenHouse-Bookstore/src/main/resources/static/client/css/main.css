@@ -22963,7 +22963,8 @@ input[type=number] {
 }
 
 .product-card h3 a:hover {
-  color: #62ab00;
+    color: #62ab00;
+    cursor: pointer;
 }
 
 .product-card .price-block {

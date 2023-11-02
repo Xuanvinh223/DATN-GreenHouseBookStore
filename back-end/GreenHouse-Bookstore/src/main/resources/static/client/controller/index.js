@@ -1,7 +1,7 @@
 app.controller('indexClientController', indexClientController);
 
-function indexClientController($scope, $http, $location) {   
-     let host = "http://localhost:8081/customer/rest";
+function indexClientController($scope, $http) {
+    let host = "http://localhost:8081/customer/rest";
 
     // Khai báo một mảng để lưu trữ dữ liệu từ API
     $scope.listProductSelling = [];
@@ -9,9 +9,11 @@ function indexClientController($scope, $http, $location) {
     $scope.selectedBrandProducts = [];
     $scope.listProductDiscount = [];
     $scope.listProductReviews = [];
+    $scope.listInvoiceDetails = [];
+    $scope.listProductDetails = [];
     $scope.selectedBrand = null; // Thêm biến để theo dõi brand đang được chọn
     $scope.numStar = [1, 2, 3, 4, 5];
-
+    $scope.quickViewProduct = null;
     // Hàm để lấy sản phẩm chi tiết theo brandId
     $scope.loadSelectedBrandProducts = function (brandId) {
         var url = `${host}/getProductsByBrand/${brandId}`; // Điều này phụ thuộc vào API của bạn
@@ -75,27 +77,36 @@ function indexClientController($scope, $http, $location) {
         var url = `${host}/getDataIndex`;
         $http.get(url)
             .then(function (response) {
-                $scope.sellingBrands = response.data.sellingBrands; 
+                $scope.sellingBrands = response.data.sellingBrands;
                 $scope.sellingProducts = response.data.sellingProducts;
                 $scope.listProductDiscount = response.data.listProductDiscount;
                 $scope.listProductReviews = response.data.listProductReviews;
                 $scope.listBookAuthor = response.data.listBookAuthor;
-
+                $scope.listInvoiceDetails = response.data.listInvoiceDetails;
                 $scope.listProductSelling = response.data.listProductSelling;
                 $scope.selectedBrandId = $scope.sellingBrands[0].brandId;
                 $scope.selectBrand($scope.selectedBrandId);
-               
+                $scope.listProductDetails = response.data.listProduct_Details;
+                console.log($scope.listInvoiceDetails);
+                console.log($scope.listProductDetails);
                 console.log("Dữ Liệu SẢN PHẨM BÁN CHẠY: ", $scope.sellingProducts);
                 console.log("Dữ Liệu THƯƠNG HIỆU NỔI BẬT: ", $scope.sellingBrands);
                 console.log("Danh sách đánh giá sản phẩm: ", $scope.listProductReviews);
-              
+
             })
             .catch(function (error) {
                 console.error('Error fetching data: ' + error);
             });
     }
 
-  
+    // xem nhanh thông tin sản phẩm
+    $scope.quickView = function (productDetail) {
+        $scope.quickViewProduct = productDetail;
+
+        $scope.quantityQuickViewProduct = 1;
+    }
+
+
     // Gọi hàm loadIndex để lấy dữ liệu ban đầu
     $scope.loadIndex();
 }

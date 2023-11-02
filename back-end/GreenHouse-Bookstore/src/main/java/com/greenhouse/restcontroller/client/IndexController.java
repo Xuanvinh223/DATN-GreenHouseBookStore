@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.model.Book_Authors;
 import com.greenhouse.model.Brands;
+import com.greenhouse.model.InvoiceDetails;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Product_Discount;
 import com.greenhouse.model.Product_Reviews;
 import com.greenhouse.repository.BookAuthorsRepository;
 import com.greenhouse.repository.BrandRepository;
+import com.greenhouse.repository.InvoiceDetailsRepository;
 import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.repository.ProductDiscountRepository;
 import com.greenhouse.repository.ProductReviewsRepository;
@@ -43,21 +45,22 @@ public class IndexController {
     private ProductReviewsRepository productReviewsRepository;
     @Autowired
     private BookAuthorsRepository bookAuthorsRepository;
-
-    
+    @Autowired
+    private InvoiceDetailsRepository invoiceDetailRepository;
 
     @GetMapping("/rest/getDataIndex")
     public ResponseEntity<Map<String, Object>> getDataIndex() {
         Map<String, Object> resp = new HashMap<>();
 
-        List<Object[]> sellingProducts = productsReps.SellingProduct();
+        List<Product_Detail> sellingProducts = productDetailReps.SellingProduct();
         List<Brands> sellingBrands = brandReps.findBrandsWithSales();
         List<Product_Detail> listProduct_Details = productDetailReps.findAll();
-        List<Product_Discount> listProductDiscount = productDiscountRepository.findAll();
+        List<Product_Discount> listProductDiscount = productDiscountRepository.findProductDiscountsByDate();
         List<Product_Reviews> listProductReviews = productReviewsRepository.findAll();
         List<Book_Authors> listBookAuthor = bookAuthorsRepository.findAll();
+        List<InvoiceDetails> listInvoiceDetails = invoiceDetailRepository.findAll();
 
-    
+        resp.put("listInvoiceDetails", listInvoiceDetails);
         resp.put("listProduct_Details", listProduct_Details);
         resp.put("sellingBrands", sellingBrands);
         resp.put("sellingProducts", sellingProducts);

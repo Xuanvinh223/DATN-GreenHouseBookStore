@@ -12,7 +12,7 @@
                 <div class="breadcrumb-contents">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="/index">Trang chủ</a></li>
                             <li class="breadcrumb-item ">Sản phẩm</li>
                             <li class="breadcrumb-item active">
                                 <a href="#">{{selectedCategoryName|| 'Tất cả sản phẩm'}}</a>
@@ -53,7 +53,8 @@
                                             <span>Sắp xếp:</span>
                                             <div class="sorting-selection">
                                                 <div class="custom-select">
-                                                    <select class="form-control" ng-model="sortBy" ng-change="onSortChange()">
+                                                    <select class="form-control" ng-model="sortBy"
+                                                            ng-change="onSortChange()">
                                                         <option value="newest">Mới nhất</option>
                                                         <option value="bestSelling">Bán chạy nhất</option>
                                                         <option value="lowestPrice">Giá thấp nhất</option>
@@ -141,19 +142,21 @@
                                     <div class="product-grid-content">
                                         <div class="product-card--body">
                                             <div class="card-image">
-                                                <img src="{{productDetail.image}}" alt="">
+                                                <a ng-click="getProductDetail(productDetail.productDetailId)">
+                                                    <img src="{{productDetail.image}}" alt=""></a>
                                                 <div class="hover-contents">
-                                                    <a href="/product-details" class="hover-image">
+                                                    <a ng-click="getProductDetail(productDetail.productDetailId)"
+                                                       class="hover-image">
                                                         <img src="{{productDetail.image}}" alt="">
                                                     </a>
                                                     <div class="hover-btns">
                                                         <a href="" class="single-btn"
-                                                            ng-click="addToCart(productDetail.productDetailId, 1)">
+                                                           ng-click="addToCart(productDetail.productDetailId, 1)">
                                                             <i class="fas fa-shopping-basket"></i>
                                                         </a>
 
                                                         <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
-                                                            ng-click="quickView(productDetail)" class="single-btn">
+                                                           ng-click="quickView(productDetail)" class="single-btn">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
                                                     </div>
@@ -164,8 +167,7 @@
                                                     {{getAuthorNameByProductId(productDetail.product.productId)}}
                                                 </a>
                                                 <h3>
-                                                    <a
-                                                            ng-click="navigateToProductDetail(productDetail.productDetailId)">
+                                                    <a ng-click="getProductDetail(productDetail.productDetailId)">
                                                         {{productDetail.product.productName}}
                                                     </a>
                                                 </h3>
@@ -273,43 +275,16 @@
                                             <div class="col-lg-5">
                                                 <!-- Product Details Slider Big Image-->
                                                 <div class="product-details-slider sb-slick-slider arrow-type-two"
-                                                    data-slick-setting='{
-												"slidesToShow": 1,
-												"arrows": false,
-												"fade": true,
-												"draggable": false,
-												"swipe": false,
-												"asNavFor": ".product-slider-nav"
-												}'>
-                                                    <div class="single-slide"
-                                                        ng-repeat="item in listImageQuickView track by $index">
-                                                        <img src="{{item.image}}" alt="">
+                                                >
+                                                    <div class="single-slide">
+                                                        <img ng-src="{{quickViewProduct.image}}" alt="Product Image">
+
                                                     </div>
                                                 </div>
-                                                <!-- Product Details Slider Nav -->
-                                                <div class="mt--30 product-slider-nav sb-slick-slider arrow-type-two"
-                                                    data-slick-setting='{
-						"infinite":true,
-						  "autoplay": true,
-						  "autoplaySpeed": 8000,
-						  "slidesToShow": 4,
-						  "arrows": true,
-						  "prevArrow":{"buttonClass": "slick-prev","iconClass":"fa fa-chevron-left"},
-						  "nextArrow":{"buttonClass": "slick-next","iconClass":"fa fa-chevron-right"},
-						  "asNavFor": ".product-details-slider",
-						  "focusOnSelect": true
-						  }'>
-                                                    <div class="single-slide"
-                                                        ng-repeat="item in listImageQuickView track by $index">
-                                                        <img src="{{item.image}}" alt="">
-                                                    </div>
-                                                </div>
+
                                             </div>
                                             <div class="col-lg-7 mt--30 mt-lg--30">
                                                 <div class="product-details-info pl-lg--30 ">
-                                                    <p class="tag-block">Thẻ: <a href="#">datmv</a>, <a
-                                                            href="#">name</a>
-                                                    </p>
                                                     <h3 class="product-title">{{quickViewProduct.product.productName}}
                                                     </h3>
                                                     <ul class="list-unstyled">
@@ -345,12 +320,12 @@
                                                         <div class="rating-block">
                                                             <div class="rating-star">
                                                                 <span class="fas fa-star"
-                                                                    ng-class="{star_on: star <= getStarRatingByProductId(quickViewProduct.product.productId)}"
-                                                                    ng-repeat="star in numStar track by $index"></span>
+                                                                      ng-class="{star_on: star <= getStarRatingByProductId(quickViewProduct.productDetailId)}"
+                                                                      ng-repeat="star in numStar track by $index"></span>
                                                             </div>
                                                         </div>
                                                         <div class="review-widget">
-                                                            <a href="">({{countReviewsOfProduct(quickViewProduct.product.productId)}}
+                                                            <a href="">({{countReviewsOfProduct(quickViewProduct.productDetailId)}}
                                                                 đánh giá)</a> <span>|</span>
                                                             <a href="">Viết đánh giá</a>
                                                         </div>
@@ -386,17 +361,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <div class="widget-social-share">
-                                            <span class="widget-label">Chia Sẻ:</span>
-                                            <div class="modal-social-share">
-                                                <a href="#" class="single-icon"><i class="fab fa-facebook-f"></i></a>
-                                                <a href="#" class="single-icon"><i class="fab fa-twitter"></i></a>
-                                                <a href="#" class="single-icon"><i class="fab fa-youtube"></i></a>
-                                                <a href="#" class="single-icon"><i class="fab fa-google-plus-g"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -407,9 +371,13 @@
                             <div class="single-block">
                                 <h3 class="sidebar-title">Danh Mục Sản Phẩm</h3>
                                 <ul class="sidebar-menu--shop">
+                                    <li class="sidebar-menu-01">
+                                        <a ng-class="{active: !selectedCategoryId}"
+                                           ng-click="selectCategory(null, 'Tất cả sản phẩm')">Tất cả sản phẩm</a>
+                                    </li>
                                     <li ng-repeat="cateType in listCategoryTypes track by $index">
-                                        <a href="">{{cateType.typeName}}</a>
-                                        <ul class="inner-cat-items"
+                                        <a href="#" ng-click="toggleCollapse(cateType.typeId)">{{cateType.typeName}}</a>
+                                        <ul class="inner-cat-items" ng-show="isCollapsed(cateType.typeId)"
                                             ng-repeat="cate in getListCateByCateTypeId(cateType.typeId) track by $index">
                                             <li>
                                                 <a ng-class="{active: selectedCategoryId === cate.categoryId}"
@@ -419,54 +387,62 @@
                                     </li>
                                 </ul>
                             </div>
+                            <!-- Brand -->
+                            <div class="single-block">
+                                <h3 class="sidebar-title">Thương Hiệu</h3>
+                                <ul class="sidebar-menu--shop menu-type-2">
+                                    <div class="filter-box">
+                                        <div class="option-checkbox" ng-repeat="brand in listBrands">
+                                            <input type="checkbox" id="{{brand.brandId}}" name="{{brand.brandName}}"
+                                                   value="{{brand.brandId}}"
+                                                   ng-checked="selectedBrand === brand.brandId"
+                                                   ng-click="toggleBrandSelection(brand.brandId)">
+                                            <label for="{{brand.brandId}}">{{brand.brandName}}</label><br>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
+
                             <!-- Price -->
                             <div class="single-block">
                                 <h3 class="sidebar-title">Chọn Sản Phẩm Theo Giá</h3>
                                 <ul class="sidebar-menu--shop menu-type-2">
                                     <div class="filter-box">
                                         <div class="option-checkbox">
-                                            <input type="checkbox" id="gia1" name="gia1" value="gia1">
-                                            <label for="gia1">0đ - 150.000đ</label><br>
+                                            <input type="checkbox" id="gia1" name="gia1" ng-model="priceSelection.gia1"
+                                                   ng-click="togglePriceSelection('gia1')">
+                                            <label for="gia1">0đ - 100.000đ</label><br>
                                         </div>
 
                                         <div class="option-checkbox">
-                                            <input type="checkbox" id="gia2" name="gia2" value="gia2">
-                                            <label for="gia2">150.000đ - 300.000đ</label><br>
+                                            <input type="checkbox" id="gia2" name="gia2" ng-model="priceSelection.gia2"
+                                                   ng-click="togglePriceSelection('gia2')">
+                                            <label for="gia2">100.000đ - 200.000đ</label><br>
                                         </div>
 
                                         <div class="option-checkbox">
-                                            <input type="checkbox" id="gia3" name="gia3" value="gia3">
-                                            <label for="gia3">300.000đ - 500.000đ</label><br>
+                                            <input type="checkbox" id="gia3" name="gia3" ng-model="priceSelection.gia3"
+                                                   ng-click="togglePriceSelection('gia3')">
+                                            <label for="gia3">200.000đ - 500.000đ</label><br>
                                         </div>
 
                                         <div class="option-checkbox">
-                                            <input type="checkbox" id="gia4" name="gia4" value="gia4">
+                                            <input type="checkbox" id="gia4" name="gia4" ng-model="priceSelection.gia4"
+                                                   ng-click="togglePriceSelection('gia4')">
                                             <label for="gia4">500.000đ - 700.000đ</label><br>
                                         </div>
 
                                         <div class="option-checkbox">
-                                            <input type="checkbox" id="gia5" name="gia5" value="gia5">
+                                            <input type="checkbox" id="gia5" name="gia5" ng-model="priceSelection.gia5"
+                                                   ng-click="togglePriceSelection('gia5')">
                                             <label for="gia5">700.000đ - Trở lên</label><br>
                                         </div>
                                     </div>
                                 </ul>
+                            </div>
 
-                            </div>
-                            <!-- Brand -->
-                            <div class="single-block">
-                                <h3 class="sidebar-title">Thương Hiệu</h3>
-                                <ul class="sidebar-menu--shop menu-type-2">
-                                    <div class="filter-box">
-                                        <div class="option-checkbox" ng-repeat="brand in listBrands track by $index">
-                                            <input type="checkbox" id="{{brand.brandId}}" name="{{brand.brandName}}"
-                                                value="{{brand.brandId}}">
-                                            <label for="{{brand.brandId}}">{{brand.brandName}}</label><br>
-                                        </div>
-                                    </div>
-                                </ul>
-                            </div>
                             <!-- Color -->
-                            <div class="single-block">
+                            <!-- <div class="single-block">
                                 <h3 class="sidebar-title">Chọn Màu Sắc</h3>
                                 <ul class="sidebar-menu--shop menu-type-2">
                                     <div class="filter-box">
@@ -501,9 +477,9 @@
                                         </div>
                                     </div>
                                 </ul>
-                            </div>
+                            </div> -->
                             <!-- Age -->
-                            <div class="single-block">
+                            <!-- <div class="single-block">
                                 <h3 class="sidebar-title">Chọn Độ Tuổi</h3>
                                 <ul class="sidebar-menu--shop menu-type-2">
                                     <div class="filter-box">
@@ -522,7 +498,7 @@
                                         </div>
                                     </div>
                                 </ul>
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>
@@ -572,6 +548,7 @@
             </div>
         </div>
     </section>
+
 </main>
 
 </html>

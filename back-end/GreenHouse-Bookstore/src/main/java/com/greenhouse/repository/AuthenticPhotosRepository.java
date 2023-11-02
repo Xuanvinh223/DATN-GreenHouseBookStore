@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface AuthenticPhotosRepository extends JpaRepository<Authentic_Photos, Integer> {
     // Các phương thức tùy chỉnh có thể được thêm vào đây nếu cần
     List<Authentic_Photos> findByProductReview_ReviewId(int reviewId);
+
 }

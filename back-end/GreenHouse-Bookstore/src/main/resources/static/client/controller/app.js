@@ -102,7 +102,7 @@ app.config([
 ]);
 
 // ================= MAIN CONTROLLER ==================
-app.controller("MainController", function ($scope, CartService, $timeout, $rootScope) {
+app.controller("MainController", function ($scope, CartService, $timeout, $rootScope, ProductDetailService) {
         var username = localStorage.getItem("username");
 
         $scope.addToCart = function (productDetailId, quantity) {
@@ -122,7 +122,6 @@ app.controller("MainController", function ($scope, CartService, $timeout, $rootS
             CartService.getCart(username)
                 .then(function (response) {
                     $scope.listCartHeader = response.listCart;
-                    console.log(response);
                 })
                 .catch(function (error) {
                     console.log(
@@ -150,11 +149,11 @@ app.controller("MainController", function ($scope, CartService, $timeout, $rootS
             if (!$scope.showFullText[productId]) {
                 $scope.showFullText[productId] = true;
             } else {
-            $scope.showFullText[productId] = false;
-        }
-    };
+                $scope.showFullText[productId] = false;
+            }
+        };
 
-    // =========== NOTIFICATION =============================
+        // =========== NOTIFICATION =============================
         $scope.notifications = [];
 
         $scope.showNotification = function (type, message) {
@@ -170,6 +169,27 @@ app.controller("MainController", function ($scope, CartService, $timeout, $rootS
             if (index !== -1) {
                 $scope.notifications.splice(index, 1);
             }
+        };
+        // =========== LOADER =============================
+        $scope.isLoading = false;
+        // Hàm để hiển thị loading
+        $scope.showLoading = function () {
+            $scope.isLoading = true;
+        };
+
+        // Hàm để ẩn loading
+        $scope.hideLoading = function () {
+            $scope.isLoading = false;
+        };
+        //=============PRODUCT DETAIL========================
+        $scope.getProductDetail = function (productDetailId) {
+            ProductDetailService.getProductDetailById(productDetailId)
+                .then(function (response) {
+                    window.location.href = '/product-details?id=' + productDetailId;
+                })
+                .catch(function (error) {
+                    console.log('Lỗi khi lấy dữ liệu sản phẩm: ' + error);
+                });
         };
     }
 );
@@ -240,6 +260,7 @@ app.service("CartService", function ($http, cartAPI) {
     }
 
 });
+// =============== PRODUCT SERVICE =============
 
 app.service('ProductDetailService', function ($http, productDetailAPI) {
     this.getProductDetailById = function (productDetailId) {
