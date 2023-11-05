@@ -27,9 +27,13 @@
                                 </div>
                                 <div class="col ml-auto">
                                     <div class="dropdown float-right">
-                                        <button class="btn btn-secondary text-center" type="button"><i
-                                                class='bx bxs-file-export mr-1'></i> Xuất File
+                                        <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle" type="button" id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Tất cả trạng thái
                                         </button>
+                                        <div class="dropdown-menu" aria-labelledby="btnnhaphang">
+                                            <a class="dropdown-item" ng-click="printPDF1()"><i class='bx bxs-file-export mr-1'></i>Xuất file PDF</a>
+                                            <a class="dropdown-item"  ng-click="exportToExcel1();"><i class='bx bxs-file-export mr-1'></i>Xuất File Excel</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -123,8 +127,13 @@
                                 </div>
                                 <div class="col ml-auto">
                                     <div class="dropdown float-right">
-                                        <button class="btn btn-secondary" type="button"><i
-                                                class='bx bxs-file-export mr-1'></i> Xuất File </button>
+                                        <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle" type="button" id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Tất cả trạng thái
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="btnnhaphang">
+                                            <a class="dropdown-item" ng-click="printPDF2()"><i class='bx bxs-file-export mr-1'></i>Xuất file PDF</a>
+                                            <a class="dropdown-item"  ng-click="exportToExcel2();"><i class='bx bxs-file-export mr-1'></i>Xuất File Excel</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +174,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="item in inventorystaticsdesc | startFrom:(currentPage2 - 1) * itemsPerPage2 | limitTo:itemsPerPage2"
+                                <tr ng-repeat="item in inventorystaticsasc | startFrom:(currentPage2 - 1) * itemsPerPage2 | limitTo:itemsPerPage2"
                                     data-toggle="collapse" data-target="#desc{{item[0]}}">
                                     <td class="text-center">{{$index + 1}}</td>
                                     <td class="text-center">{{item[0]}}</td>

@@ -103,59 +103,46 @@ function StaticOvertime($scope, $http, $filter) {
         });
     };
 
-    // Lọc dữ liệu chỉ cho một năm cụ thể (ví dụ: 2023)
-    $scope.selectedYear = null;
+    $scope.selectedYear = new Date().getFullYear().toString();
+    $scope.years = [[$scope.selectedYear]]; // Ban đầu chỉ có năm hiện tại
 
     $scope.updateSelectedYear = function () {
-        // Giá trị đã chọn từ dropdown sẽ được lưu trong biến $scope.selectedYear
-        console.log("Năm đã chọn: " + $scope.selectedYear);
-
-        // Gọi hàm tính doanh thu hàng tháng với năm đã chọn
         $scope.calculateMonthlyRevenues($scope.selectedYear);
     };
 
-    $scope.calculateMonthlyRevenues = function (selectedYear) {
-        // Phá hủy biểu đồ cũ trước khi tạo biểu đồ mới
-        if ($scope.monthlyRevenueChart) {
-            $scope.monthlyRevenueChart.destroy();
-        }
 
-        $scope.monthlyRevenues = {};
+    $scope.calculateMonthlyRevenues = function (selectedYear) {
+        // Đặt tất cả giá trị doanh thu hàng tháng về 0
+        $scope.monthlyRevenues = new Array(12).fill(0);
 
         $scope.invoice.forEach(function (item) {
             var invoiceDate = new Date(item.paymentDate);
             var year = invoiceDate.getFullYear();
 
-            // Chỉ tính doanh thu cho năm đã chọn
-            if (year === parseInt(selectedYear)) { // Chuyển đổi selectedYear thành số nguyên (integer)
-                var month = invoiceDate.getMonth() + 1;
+            if (year === parseInt(selectedYear)) {
+                var month = invoiceDate.getMonth();
                 var revenue = item.totalAmount;
 
-                var key = year + '-' + (month < 10 ? '0' : '') + month;
-
-                if (!$scope.monthlyRevenues[key]) {
-                    $scope.monthlyRevenues[key] = 0;
-                }
-
-                $scope.monthlyRevenues[key] += revenue;
+                $scope.monthlyRevenues[month] += revenue;
             }
         });
 
-        // Tạo biểu đồ mới
+        // Cập nhật biểu đồ
         var ctx = document.getElementById('monthlyRevenueChart').getContext('2d');
-        var labels = Object.keys($scope.monthlyRevenues);
-        var data = labels.map(function (month) {
-            return $scope.monthlyRevenues[month];
-        });
+        var labels = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
+        var data = $scope.monthlyRevenues;
 
+        if ($scope.monthlyRevenueChart) {
+            $scope.monthlyRevenueChart.destroy();
+        }
         $scope.monthlyRevenueChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Doanh thu',
+                    label: 'VNĐ',
                     data: data,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    backgroundColor: 'rgb(48,207,48, 0.5)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
                 }]
@@ -263,6 +250,126 @@ function StaticOvertime($scope, $http, $filter) {
     // Hàm lấy danh sách chi tiết hóa đơn dựa trên ID hóa đơn
     $scope.getListInvoiceDetailByInvoiceId = function (invoiceId) {
         return $scope.invoiceDetails.filter(a => a.invoice.invoiceId === invoiceId);
+    };
+    //Xuất EXCEL
+    $scope.exportToExcel = function () {
+        // Lấy toàn bộ dữ liệu từ server khi tải trang ban đầu
+        $scope.loadStaticOvertime();
+
+        // Bây giờ, $scope.invoice sẽ chứa toàn bộ dữ liệu từ tất cả các trang
+
+        // Tạo mảng dữ liệu cho tệp Excel
+        var excelData = [
+            ['BÁO CÁO - DANH SÁCH ĐƠN HÀNG'], // Header
+            [], // Empty row for spacing
+            ['#', 'Mã hóa đơn', 'Tên khách hàng', 'Ngày tạo', 'Tổng tiền', 'Phí ship', 'Tiền thanh toán', 'Ngày thanh toán']
+        ];
+
+        $scope.invoice.forEach(function (item, index) {
+            excelData.push([
+                index + 1,
+                item.invoiceId,
+                item.account.fullname,
+                $filter('date')(item.createDate, 'dd/MM/yyyy'),
+                $filter('number')(item.totalAmount, 0),
+                $filter('number')(item.shippingFee, 0),
+                $filter('number')(item.paymentAmount, 0),
+                $filter('date')(item.paymentDate, 'dd/MM/yyyy')
+            ]);
+        });
+        // Đặt độ rộng cố định cho từng cột
+        var colWidths = [10, 15, 20, 15, 15, 15, 15, 15];
+
+        // Sử dụng thư viện XLSX để tạo tệp Excel
+        var ws = XLSX.utils.aoa_to_sheet(excelData);
+
+        // Đặt độ rộng cố định cho các cột
+        for (var i = 0; i < colWidths.length; i++) {
+            ws['!cols'] = ws['!cols'] || [];
+            ws['!cols'].push({ wch: colWidths[i] });
+        }
+
+        // Căn giữa dữ liệu trong từng cột
+        for (var row = 0; row < excelData.length; row++) {
+            for (var col = 0; col < excelData[row].length; col++) {
+                ws[XLSX.utils.encode_cell({ r: row, c: col })].s = { alignment: { horizontal: 'center' } };
+            }
+        }
+
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Danh sách đơn hàng');
+
+        // Xuất tệp Excel
+        XLSX.writeFile(wb, 'danh_sach_don_hang.xlsx');
+    }
+
+
+    // Định nghĩa hàm formatDate để định dạng ngày in
+    function formatDate(date) {
+        var options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        };
+        return date.toLocaleString('en-US', options);
+    }
+
+
+    $scope.printPDF = function () {
+        var headerTable = {
+            table: {
+                headerRows: 1,
+                widths: [20, 30, 110, 60, 60, 40, 60, 60],
+                body: [
+                    [{ text: '#', alignment: 'center', fontSize: 11 }, // Căn giữa cột '#'
+                    { text: 'Mã hóa đơn', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Mã hóa đơn'
+                    { text: 'Tên khách hàng', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Tên khách hàng'
+                    { text: 'Ngày tạo', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Ngày tạo'
+                    { text: 'Tổng tiền', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Tổng tiền'
+                    { text: 'Phí ship', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Phí ship'
+                    { text: 'Tiền thanh toán', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Tiền thanh toán'
+                    { text: 'Ngày thanh toán', alignment: 'center', fontSize: 11 }] // Căn giữa cột 'Ngày thanh toán'
+                ]
+            }
+        };
+
+        var bodyTable = {
+            table: {
+                widths: [20, 30, 110, 60, 60, 40, 60, 60],
+                body: $scope.invoice.map((item, index) => [
+                    { text: (index + 1).toString(), alignment: 'center', fontSize: 11 }, // Đặt kích thước font cho cột '#'
+                    { text: item.invoiceId, alignment: 'center', fontSize: 11 }, // Đặt kích thước font cho cột 'Mã hóa đơn'
+                    { text: item.account.fullname, fontSize: 11 }, // Không đặt kích thước font cho cột 'Tên khách hàng'
+                    { text: $filter('date')(item.createDate, 'dd/MM/yyyy'), alignment: 'center', fontSize: 11 }, // Đặt kích thước font cho cột 'Ngày tạo'
+                    { text: $filter('number')(item.totalAmount, 0), alignment: 'center', fontSize: 11 }, // Đặt kích thước font cho cột 'Tổng tiền'
+                    { text: $filter('number')(item.shippingFee, 0), alignment: 'center', fontSize: 11 }, // Đặt kích thước font cho cột 'Phí ship'
+                    { text: $filter('number')(item.paymentAmount, 0), alignment: 'center', fontSize: 11 }, // Đặt kích thước font cho cột 'Tiền thanh toán'
+                    { text: $filter('date')(item.paymentDate, 'dd/MM/yyyy'), alignment: 'center', fontSize: 11 } // Đặt kích thước font cho cột 'Ngày thanh toán'
+                ])
+            }
+        };
+
+        var docDefinition = {
+            pageOrientation: 'portrait',
+            pageSize: 'A4',
+            content: [
+                { text: 'Danh sách đơn hàng', style: 'header' },
+                ' ',
+                { text: 'Ngày in: ' + moment().format('DD/MM/YYYY'), alignment: 'right', fontSize: 12 },
+                ' ',
+                headerTable,
+                bodyTable
+            ],
+            styles: {
+                header: { fontSize: 16, bold: true, alignment: 'center' },
+                default: { fontSize: 14 }
+            }
+        };
+
+        pdfMake.createPdf(docDefinition).open();
     };
 
     // Xử lý sự kiện bấm nút "Hiện/Ẩn doanh thu"

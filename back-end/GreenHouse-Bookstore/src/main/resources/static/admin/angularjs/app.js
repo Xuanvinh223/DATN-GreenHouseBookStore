@@ -103,33 +103,33 @@ app.config(function ($routeProvider) {
         //nhà xuất bản
         .when("/publisher-form", {
             templateUrl: "page/publisher-manager/form_publishers.html",
-            controller: ""
+            controller: "PublishersController"
         })
         .when("/publisher-table", {
             templateUrl: "page/publisher-manager/table_publishers.html",
-            controller: ""
+            controller: "PublishersController"
         })
         //nhà cung cấp
         .when("/supplier-form", {
             templateUrl: "page/supplier-manager/form_supplier.html",
-            controller: ""
+            controller: "SuppliersController"
         })
         .when("/supplier-table", {
             templateUrl: "page/supplier-manager/table_supplier.html",
-            controller: ""
+            controller: "SuppliersController"
         })
         //thống kê
         .when("/inventory-statics", {
             templateUrl: "page/statistical-manager/inventory-statics.html",
-            controller: ""
+            controller: "InventoryStatic"
         })
         .when("/revenue-static-overtime", {
             templateUrl: "page/statistical-manager/revenue-static-overtime.html",
-            controller: ""
+            controller: "StaticOvertime"
         })
         .when("/static-best-seller", {
             templateUrl: "page/statistical-manager/static-best-seller.html",
-            controller: ""
+            controller: "BestSellerController"
         })
 })
 

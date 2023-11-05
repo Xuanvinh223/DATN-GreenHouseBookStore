@@ -26,9 +26,16 @@
                     <button class="btn btn-primary float-right ml-3" type="button" id="btnnhaphang" data-toggle="modal"
                       data-target="#inventoryModal">
                       <i class='bx bx-plus-medical mr-1 '></i>Nhập Hàng </button>
-                    <button class="btn btn-success" type="button"><i class='bx bxs-file-export mr-1'></i> Xuất File
+                    <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle" type="button"
+                      id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Tất cả trạng thái
                     </button>
-
+                    <div class="dropdown-menu" aria-labelledby="btnnhaphang">
+                      <a class="dropdown-item" ng-click="printPDF()"><i class='bx bxs-file-export mr-1'></i>Xuất file
+                        PDF</a>
+                      <a class="dropdown-item" ng-click="exportToExcel();"><i class='bx bxs-file-export mr-1'></i>Xuất
+                        File Excel</a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -77,7 +84,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr  ng-repeat="item in listImportInvoice | orderBy:sortField:reverseSort | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
+                  <tr
+                    ng-repeat="item in listImportInvoice | orderBy:sortField:reverseSort | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
                     <td>{{($index + 1)}}</td>
                     <td>{{item.importInvoiceId}}</td>
                     <td>{{item.username}}</td>
@@ -217,11 +225,11 @@
                           <td style="width: 150px;">{{item.productDetail.product.productName}}</td>
                           <td>
                             <input type="number" class="form-control form-control-sm" ng-model="item.quantity"
-                              ng-change="calculateTotal()">
+                              ng-change="calculateTotal()" min="1">
                           </td>
                           <td>
                             <input type="number" class="form-control form-control-sm" ng-model="item.price"
-                              ng-change="calculateTotal()">
+                              ng-change="calculateTotal()" min="0">
                           </td>
                           <td>{{item.price * item.quantity | number:'0'}}</td>
                           <td>

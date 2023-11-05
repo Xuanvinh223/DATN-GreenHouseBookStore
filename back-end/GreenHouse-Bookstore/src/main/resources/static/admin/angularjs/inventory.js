@@ -1,6 +1,6 @@
 app.controller('inventoryCtrl', inventoryCtrl);
 
-function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $interval) {
+function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $interval, $filter) {
     $scope.$on('$routeChangeSuccess', function (event, current, previous) {
         $scope.page.setTitle(current.$$route.title || ' Quản lý Kho Hàng');
         $scope.getData();
@@ -320,6 +320,134 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
 
 
     }
+    $scope.exportToExcel = function () {
+        // Lấy toàn bộ dữ liệu từ server khi tải trang ban đầu
+        $scope.getData();
+
+        // Bây giờ, $scope.listImportInvoice sẽ chứa toàn bộ dữ liệu từ tất cả các trang
+
+        // Tạo mảng dữ liệu cho tệp Excel
+        var excelData = [
+            ['BÁO CÁO - DANH SÁCH HÀNG HÓA TRONG KHO'], // Header
+            [], // Empty row for spacing
+            ['#', 'ID', 'Username', 'Ngày Tạo', 'Tổng Tiền', 'Nhà Cung Cấp', 'Mô Tả']
+        ];
+
+        // Sử dụng $filter để định dạng ngày
+        var dateFilter = $filter('date');
+
+        $scope.listImportInvoice.forEach(function (item, index) {
+            excelData.push([
+                index + 1,
+                item.importInvoiceId,
+                item.username,
+                dateFilter(item.createDate, 'dd/MM/yyyy'),
+                $filter('number')(item.amount, 0),
+                item.suppliers.supplierName,
+                item.description // Điền mô tả
+            ]);
+        });
+
+        // Đặt độ rộng cố định cho từng cột
+        var colWidths = [10, 10, 30, 30, 30, 50, 50];
+
+        // Sử dụng thư viện XLSX để tạo tệp Excel
+        var ws = XLSX.utils.aoa_to_sheet(excelData);
+
+        // Đặt độ rộng cố định cho các cột
+        for (var i = 0; i < colWidths.length; i++) {
+            ws['!cols'] = ws['!cols'] || [];
+            ws['!cols'].push({ wch: colWidths[i] });
+        }
+
+        // Căn giữa dữ liệu trong từng cột
+        for (var row = 0; row < excelData.length; row++) {
+            for (var col = 0; col < excelData[row].length; col++) {
+                ws[XLSX.utils.encode_cell({ r: row, c: col })].s = { alignment: { horizontal: 'center' } };
+            }
+        }
+
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Danh sách hàng hóa trong kho');
+
+        // Xuất tệp Excel
+        XLSX.writeFile(wb, 'danh_sach_hang_hoa_trong_kho.xlsx');
+    }
+
+
+    // Định nghĩa hàm formatDate để định dạng ngày in
+    function formatDate(date) {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+
+        // Định dạng thời gian thành chuỗi 'HH:mm:ss'
+        var time = [hours, minutes, seconds].map(function (unit) {
+            return (unit < 10 ? '0' : '') + unit;
+        }).join(':');
+
+        // Định dạng ngày thành chuỗi 'dd/MM/yyyy'
+        var formattedDate = [(day < 10 ? '0' : '') + day, (month < 10 ? '0' : '') + month, year].join('/');
+
+        return formattedDate + ' ' + time;
+    }
+
+    $scope.printPDF = function () {
+        var headerTable = {
+            table: {
+                headerRows: 1,
+                widths: [20, 20, 70, 70, 60, 90, 120],
+                body: [
+                    [{ text: '#', alignment: 'center', fontSize: 11 }, // Căn giữa cột '#'
+                    { text: 'ID', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Mã hóa đơn'
+                    { text: 'Username', alignment: 'center', fontSize: 11 },
+                    { text: 'Ngày Tạo', alignment: 'center', fontSize: 11 },
+                    { text: 'Tổng Tiền', alignment: 'center', fontSize: 11 },
+                    { text: 'Nhà Cung Cấp', alignment: 'center', fontSize: 11 },
+                    { text: 'Mô Tả', alignment: 'center', fontSize: 11 },
+                    ]
+                ]
+            }
+        };
+
+        var bodyTable = {
+            table: {
+                widths: [20, 20, 70, 70, 60, 90, 120],
+                body: $scope.listImportInvoice.map((item, index) => [
+                    { text: (index + 1).toString(), alignment: 'center', fontSize: 11 },
+                    { text: item.importInvoiceId, alignment: 'center', fontSize: 11 },
+                    { text: item.username,  fontSize: 11 },
+                    { text: moment(item.createDate).format('DD/MM/YYYY'), alignment: 'center', fontSize: 11 }, // Định dạng ngày thành 'dd/mm/yyyy' ở đây
+                    { text: item.amount, fontSize: 11 },
+                    { text: item.suppliers.supplierName, fontSize: 11 },
+                    { text: item.description, fontSize: 11 }
+                ])
+            }
+        };
+
+        var docDefinition = {
+            pageOrientation: 'portrait',
+            pageSize: 'A4',
+            content: [
+                { text: 'Danh sách hàng hóa trong kho', style: 'header' },
+                ' ',
+                { text: 'Ngày in: ' + moment().format('DD/MM/YYYY'), alignment: 'right', fontSize: 12 },
+                ' ',
+                headerTable,
+                bodyTable
+            ],
+            styles: {
+                header: { fontSize: 16, bold: true, alignment: 'center' },
+                default: { fontSize: 14 }
+            }
+        };
+
+        pdfMake.createPdf(docDefinition).open();
+    };
+
 
     // Gọi hàm callback để kiểm tra và sử dụng jwtHelper
     init();
