@@ -92,7 +92,9 @@
                                 </div>
                                 <div class="coupon-code">{{ listVoucher.listVouchersProduct[$index].code }}</div>
                                 <div class="button-box">
-                                    <button type="button" class="btn-copy-coupon-code">Lưu</button>
+                                    <button type="button" ng-click="Create(listVoucher.listVouchersProduct[$index])"
+                                            class="btn-copy-coupon-code">Lưu
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +148,9 @@
                                 </div>
                                 <div class="coupon-code">{{ listVoucher.listVouchersShip[$index].code }}</div>
                                 <div class="button-box">
-                                    <button type="button" class="btn-copy-coupon-code">Lưu</button>
+                                    <button type="button" ng-click="Create(listVoucher.listVouchersShip[$index])"
+                                            class="btn-copy-coupon-code">Lưu
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -298,7 +302,10 @@
                                     <div class="coupon-code">{{ listVoucher.listVouchersTypeProduct[$index].code }}
                                     </div>
                                     <div class="button-box">
-                                        <button type="button" class="btn-copy-coupon-code">Lưu</button>
+                                        <button type="button"
+                                                ng-click="Create(listVoucher.listVouchersTypeProduct[$index])"
+                                                class="btn-copy-coupon-code">Lưu
+                                        </button>
                                     </div>
                                 </div>
                             </div>

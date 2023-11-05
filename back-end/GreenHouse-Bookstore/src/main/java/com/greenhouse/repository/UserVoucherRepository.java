@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.greenhouse.model.UserVoucher;
+import com.greenhouse.model.Vouchers;
 
 @Repository
 public interface UserVoucherRepository extends JpaRepository<UserVoucher, Integer> {
@@ -18,5 +19,6 @@ public interface UserVoucherRepository extends JpaRepository<UserVoucher, Intege
     List<UserVoucher> findByUsernameAndStatus(String username, Boolean status);
 
     List<Optional<UserVoucher>> findByUsername(String username);
-}
 
+    UserVoucher findByUsernameAndVoucher(String username, Vouchers vouchers);
+}
