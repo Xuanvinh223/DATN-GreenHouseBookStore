@@ -626,12 +626,6 @@
     padding: 24px;
 }
 
-.top_menu_label {
-    line-height: 18px;
-    color: #7A7E7F;
-    font-size: 12px;
-}
-
 .icon_cart_gray {
     background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_cart_gray.svg") no-repeat center center;
     background-size: contain;

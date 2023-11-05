@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.0.6</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.greenhouse</groupId>
     <artifactId>GreenHouse-Bookstore</artifactId>
@@ -128,12 +129,12 @@
             <version>2.11.0</version>
         </dependency>
         <!-- Commons FileUpload -->
-         <!-- Các dependencies khác của dự án -->
-			<dependency>
-				<groupId>com.cloudinary</groupId>
-				<artifactId>cloudinary-http44</artifactId>
-				<version>1.35.0</version>
-			</dependency>
+        <!-- Các dependencies khác của dự án -->
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http44</artifactId>
+            <version>1.35.0</version>
+        </dependency>
         <!-- Thư viện Spring Boot Starter Thymeleaf cho xử lý template Thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -154,7 +155,26 @@
             <artifactId>javax.mail-api</artifactId>
             <version>1.6.2</version> <!-- Use the appropriate version -->
         </dependency>
+        <!-- Web socket -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
 
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-messaging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator-core</artifactId>
+        </dependency>
+        <!-- <dependency>
+            <groupId>com.corundumstudio.socketio</groupId>
+            <artifactId>netty-socketio</artifactId>
+            <version>1.7.17</version> 
+        </dependency> -->
 
     </dependencies>
 

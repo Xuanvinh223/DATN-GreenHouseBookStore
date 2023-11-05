@@ -1,6 +1,6 @@
 app.controller("headerController", headerController);
 
-function headerController($http, $window, $scope, jwtHelper, AuthService) {
+function headerController($http, $window, $scope, jwtHelper, AuthService, $location, $window, $timeout) {
     var token = localStorage.getItem("token");
     // Khởi tạo biến $scope.username với giá trị mặc định
     $scope.fullName = "Tài khoản";
@@ -21,19 +21,20 @@ function headerController($http, $window, $scope, jwtHelper, AuthService) {
 
         $scope.isCustomer = $scope.roles.some(function (role) {
             return role.authority === "ROLE_CUSTOMER";
-      });
+        });
 
-      $scope.isAdmin = $scope.roles.some(function (role) {
-          return role.authority === "ROLE_ADMIN";
-      });
-  }
+        $scope.isAdmin = $scope.roles.some(function (role) {
+            return role.authority === "ROLE_ADMIN";
+        });
+    }
 
-  $scope.admin = function () {
-      window.location.href =
-          "/admin/index?token=" + token;
-  };
+    $scope.admin = function () {
+        window.location.href =
+            "/admin/index?token=" + token;
+    };
 
-  $scope.logout = function () {
-      AuthService.logout();
-  };
+    $scope.logout = function () {
+        AuthService.logout();
+    };
+
 }

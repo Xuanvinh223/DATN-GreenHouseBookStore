@@ -8,7 +8,7 @@ app.constant('changePasswordAPI', 'http://localhost:8081/customer/rest/reset-pas
 app.constant('forgotPasswordAPI', 'http://localhost:8081/customer/rest/forgot-password');
 app.constant('productDetailAPI', 'http://localhost:8081/customer/rest/product-detail');
 app.constant('voucherAPI', 'http://localhost:8081/customer/rest/voucher');
-
+app.constant('notifyAPI', "http://localhost:8081/customer/notify")
 app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
     var token = $cookies.get("token");
 
@@ -103,96 +103,123 @@ app.config([
 ]);
 
 // ================= MAIN CONTROLLER ==================
-app.controller("MainController", function ($scope, CartService, $timeout, $rootScope, ProductDetailService) {
-        var username = localStorage.getItem("username");
+app.controller("MainController", function ($scope, CartService, $timeout,  ProductDetailService, NotifyService, NotifyWebSocketService) {
+    var token = localStorage.getItem("token");
+    var username = localStorage.getItem("username");
+    $scope.token = token;
+    $scope.currentPage = 1;
+    $scope.ListNotifyUser = [];
 
-        $scope.addToCart = function (productDetailId, quantity) {
-            CartService.addToCart(productDetailId, quantity, username)
-                .then(function (response) {
-                    $scope.showNotification(response.status, response.message);
-                    $scope.getCart();
-                })
-                .catch(function (error) {
-                    console.log(
-                        "error",
-                        "Lỗi trong quá trình gửi dữ liệu lên server: " + error
-                    );
-                });
-        };
-        $scope.getCart = function () {
-            CartService.getCart(username)
-                .then(function (response) {
-                    $scope.listCartHeader = response.listCart;
-                })
-                .catch(function (error) {
-                    console.log(
-                        "error",
-                        "Lỗi trong quá trình gửi dữ liệu lên server: " + error
-                    );
-                });
-        };
-
-        $scope.updateUserInfo = function () {
-            var username = localStorage.getItem("username");
-            if (username) {
-                $scope.getCart();
-            } else {
-                $scope.getCart();
-            }
-        };
-
-        $scope.updateUserInfo();
-
-        // ================ SHOW FULL TEXT OR COMPRESS =================================================================
-        $scope.showFullText = {};
-
-        $scope.toggleFullText = function (productId) {
-            if (!$scope.showFullText[productId]) {
-                $scope.showFullText[productId] = true;
-            } else {
-                $scope.showFullText[productId] = false;
-            }
-        };
-
-        // =========== NOTIFICATION =============================
-        $scope.notifications = [];
-
-        $scope.showNotification = function (type, message) {
-            var notification = {type: type, message: message};
-            $scope.notifications.push(notification);
-            $timeout(function () {
-                $scope.removeNotification(notification);
-            }, 3000);
-        };
-
-        $scope.removeNotification = function (notification) {
-            var index = $scope.notifications.indexOf(notification);
-            if (index !== -1) {
-                $scope.notifications.splice(index, 1);
-            }
-        };
-        // =========== LOADER =============================
-        $scope.isLoading = false;
-        // Hàm để hiển thị loading
-        $scope.showLoading = function () {
-            $scope.isLoading = true;
-        };
-
-        // Hàm để ẩn loading
-        $scope.hideLoading = function () {
-            $scope.isLoading = false;
-        };
-        //=============PRODUCT DETAIL========================
-        $scope.getProductDetail = function (productDetailId) {
-            ProductDetailService.getProductDetailById(productDetailId)
-                .then(function (response) {
-                    window.location.href = '/product-details?id=' + productDetailId;
-                })
-                .catch(function (error) {
-                    console.log('Lỗi khi lấy dữ liệu sản phẩm: ' + error);
-                });
-        };
+    // Khi trang được nạp, kết nối tới WebSocket
+    NotifyWebSocketService.connect(function() {
+        loadNotifications();
+    });
+    
+    // Thay thế REST API call bằng WebSocket call
+    function loadNotifications() {
+        NotifyWebSocketService.getNotifications(function (ListNotifyUser) {
+            $scope.ListNotifyUser = ListNotifyUser;
+         
+            $scope.$apply();
+        });
     }
+    
+
+    $scope.sendNotification = function (title, message) {
+        NotifyWebSocketService.sendNotification(title, message);
+        NotifyWebSocketService.connect(function() {
+            loadNotifications();
+        });
+    }
+
+    $scope.addToCart = function (productDetailId, quantity) {
+        CartService.addToCart(productDetailId, quantity, username)
+            .then(function (response) {
+                $scope.showNotification(response.status, response.message);
+                $scope.getCart();
+            })
+            .catch(function (error) {
+                console.log(
+                    "error",
+                    "Lỗi trong quá trình gửi dữ liệu lên server: " + error
+                );
+            });
+    };
+    $scope.getCart = function () {
+        CartService.getCart(username)
+            .then(function (response) {
+                $scope.listCartHeader = response.listCart;
+            })
+            .catch(function (error) {
+                console.log(
+                    "error",
+                    "Lỗi trong quá trình gửi dữ liệu lên server: " + error
+                );
+            });
+    };
+
+    $scope.updateUserInfo = function () {
+        var username = localStorage.getItem("username");
+        if (username) {
+            $scope.getCart();
+        } else {
+            $scope.getCart();
+        }
+    };
+
+    $scope.updateUserInfo();
+
+    // ================ SHOW FULL TEXT OR COMPRESS =================================================================
+    $scope.showFullText = {};
+
+    $scope.toggleFullText = function (productId) {
+        if (!$scope.showFullText[productId]) {
+            $scope.showFullText[productId] = true;
+        } else {
+            $scope.showFullText[productId] = false;
+        }
+    };
+
+    // =========== NOTIFICATION =============================
+    $scope.notifications = [];
+
+    $scope.showNotification = function (type, message) {
+        var notification = { type: type, message: message };
+        $scope.notifications.push(notification);
+        $timeout(function () {
+            $scope.removeNotification(notification);
+        }, 3000);
+    };
+
+    $scope.removeNotification = function (notification) {
+        var index = $scope.notifications.indexOf(notification);
+        if (index !== -1) {
+            $scope.notifications.splice(index, 1);
+        }
+    };
+    // =========== LOADER =============================
+    $scope.isLoading = false;
+    // Hàm để hiển thị loading
+    $scope.showLoading = function () {
+        $scope.isLoading = true;
+    };
+
+    // Hàm để ẩn loading
+    $scope.hideLoading = function () {
+        $scope.isLoading = false;
+    };
+    //=============PRODUCT DETAIL========================
+    $scope.getProductDetail = function (productDetailId) {
+        ProductDetailService.getProductDetailById(productDetailId)
+            .then(function (response) {
+                window.location.href = '/product-details?id=' + productDetailId;
+            })
+            .catch(function (error) {
+                console.log('Lỗi khi lấy dữ liệu sản phẩm: ' + error);
+            });
+    };
+
+}
 );
 //================================================================================================================================
 // ====================================== SERVICE ======================================
@@ -276,6 +303,95 @@ app.service('ProductDetailService', function ($http, productDetailAPI) {
             });
     };
 });
+//=============== NOTIFY SERVICE  ===========
+app.service('NotifyService', function (NotifyWebSocketService) {
+    this.ListNotifyUser = [];
+
+    this.getNotificationsByUsername = function (username) {
+        // Sử dụng WebSocket để lấy thông báo
+        return new Promise(function (resolve, reject) {
+            NotifyWebSocketService.getNotifications(username, function (notifications) {
+                // Lọc và xử lý thông báo nếu cần
+                resolve(notifications);
+            });
+        });
+    };
+});
+
+app.service('NotifyWebSocketService', function ($rootScope) {
+    var stompClient = null;
+    var isConnecting = false;
+    var currentUsername = localStorage.getItem("username"); // Lấy giá trị username từ localStorage
+
+    this.connect = function (callback) {
+        if (isConnecting) {
+            return;
+        }
+        isConnecting = true;
+
+        var socket = new SockJS('/notify');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            isConnecting = false;
+            console.log('Đã kết nối: ' + frame);
+
+            // Sau khi kết nối đã được thiết lập, gọi hàm callback nếu được cung cấp
+            if (callback) {
+                callback();
+            }
+        });
+    };
+
+    this.subscribeToNotifications = function (callback) {
+        if (stompClient && stompClient.connected) {
+            stompClient.subscribe('/topic/notifications/' + currentUsername, function (notification) {
+                callback(JSON.parse(notification.body));
+            });
+        } else {
+            this.connect(function () {
+                this.subscribeToNotifications(callback);
+            });
+        }
+    };
+
+    this.sendNotification = function (title, message) {
+        if (stompClient && stompClient.connected) {
+            var model = {
+                username: {username:currentUsername},
+                title: title,
+                message: message,
+                createAt: new Date()
+            };
+            stompClient.send("/app/notify", {}, JSON.stringify(model));
+        } else {
+            this.connect(function () {
+                this.sendNotification(title, message);
+            });
+        }
+    };
+
+    this.getNotifications = function (callback) {
+        if (stompClient && stompClient.connected) {
+            stompClient.send("/app/notify/getNotifications/" + currentUsername, {}, "");
+        } else {
+            this.connect(function () {
+                this.getNotifications(callback);
+            });
+        }
+
+        stompClient.subscribe('/topic/notifications', function (response) {
+            var notifications = JSON.parse(response.body);
+            callback(notifications);
+        });
+    };
+});
+
+
+
+
+
+
+
 
 
 

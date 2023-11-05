@@ -6,9 +6,19 @@ function toggleLanguage() {
         language.setAttribute("style", "display: block;");
     }
 }
-
-
-
+// $(document).ready(function() {
+//     $(".top-notification-button").hover(
+//       function() {
+//         // Di chuột vào
+//         $("#top-notification-menu-render").css("display", "block");
+//       },
+//       function() {
+//         // Di chuột ra
+//         $("#top-notification-menu-render").css("display", "none");
+//       }
+//     );
+//   });
+  
 var checkToggleLanguage = function (event) {
     let find = false;
     let element = event.target;

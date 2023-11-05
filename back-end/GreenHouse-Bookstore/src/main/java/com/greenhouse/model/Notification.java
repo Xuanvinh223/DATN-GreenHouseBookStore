@@ -19,7 +19,10 @@ public class Notification implements Serializable {
     @JoinColumn(name = "Username")
     private Accounts username;
 
-    @Column(name = "Message", columnDefinition = "nvarchar(50)")
+    @Column(name = "Title")
+    private String title;
+    
+    @Column(name = "Message")
     private String message;
 
     @Column(name = "Create_At")

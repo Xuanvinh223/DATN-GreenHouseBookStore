@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+    th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 
 <head>
     <title>Tài khoản</title>
@@ -12,7 +12,7 @@
                 <div class="breadcrumb-contents">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#!home">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="/index">Trang chủ</a></li>
                             <li class="breadcrumb-item active">Tài khoản</li>
                         </ol>
                     </nav>
@@ -52,8 +52,8 @@
                                             <h3>BẢNG ĐIỀU KHIỂN CỦA KHÁCH HÀNG</h3>
                                             <div class="welcome mb-20">
                                                 <p>Hello, <strong>Alex Tuntuni</strong> (If Not <strong>Tuntuni
-                                                    !</strong><a href="login-register.html" class="logout">
-                                                    Logout</a>)</p>
+                                                        !</strong><a href="login-register.html" class="logout">
+                                                        Logout</a>)</p>
                                             </div>
                                             <p class="mb-0">From your account dashboard. you can easily check &amp; view
                                                 your
@@ -70,28 +70,28 @@
                                                 <div class="col-md-12 d-flex justify-content-center">
                                                     <div class="btn-group order-status-buttons" role="group">
                                                         <button type="button"
-                                                                class="btn btn-outline-primary order-status-button active"
-                                                                data-status="all">Tất cả
+                                                            class="btn btn-outline-primary order-status-button active"
+                                                            data-status="all">Tất cả
                                                         </button>
                                                         <button type="button"
-                                                                class="btn btn-outline-primary order-status-button"
-                                                                data-status="pending">Chờ thanh toán
+                                                            class="btn btn-outline-primary order-status-button"
+                                                            data-status="pending">Chờ thanh toán
                                                         </button>
                                                         <button type="button"
-                                                                class="btn btn-outline-primary order-status-button"
-                                                                data-status="on-hold">Đang chờ
+                                                            class="btn btn-outline-primary order-status-button"
+                                                            data-status="on-hold">Đang chờ
                                                         </button>
                                                         <button type="button"
-                                                                class="btn btn-outline-primary order-status-button"
-                                                                data-status="approved">Đã duyệt
+                                                            class="btn btn-outline-primary order-status-button"
+                                                            data-status="approved">Đã duyệt
                                                         </button>
                                                         <button type="button"
-                                                                class="btn btn-outline-primary order-status-button"
-                                                                data-status="completed">Hoàn thành
+                                                            class="btn btn-outline-primary order-status-button"
+                                                            data-status="completed">Hoàn thành
                                                         </button>
                                                         <button type="button"
-                                                                class="btn btn-outline-primary order-status-button"
-                                                                data-status="cancelled">Bị hủy
+                                                            class="btn btn-outline-primary order-status-button"
+                                                            data-status="cancelled">Bị hủy
                                                         </button>
                                                     </div>
                                                 </div>
@@ -99,40 +99,40 @@
                                             <div class="myaccount-table table-responsive text-center">
                                                 <table class="table table-hover">
                                                     <thead class="thead-light">
-                                                    <tr>
-                                                        <th>Mã đơn hàng</th>
-                                                        <th>Ngày mua</th>
-                                                        <th>Người nhận</th>
-                                                        <th>Tổng Tiền</th>
-                                                        <th>Trạng thái</th>
-                                                        <th></th>
-                                                    </tr>
+                                                        <tr>
+                                                            <th>Mã đơn hàng</th>
+                                                            <th>Ngày mua</th>
+                                                            <th>Người nhận</th>
+                                                            <th>Tổng Tiền</th>
+                                                            <th>Trạng thái</th>
+                                                            <th></th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Aug 22, 2018</td>
-                                                        <td>Mostarizing Oil</td>
-                                                        <td>$45</td>
-                                                        <td>Pending</td>
-                                                        <td><a href="cart.html" class="btn">Xem chi tiết...</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Aug 22, 2018</td>
-                                                        <td>Mostarizing Oil</td>
-                                                        <td>$45</td>
-                                                        <td>Pending</td>
-                                                        <td><a href="cart.html" class="btn">Xem chi tiết...</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Aug 22, 2018</td>
-                                                        <td>Mostarizing Oil</td>
-                                                        <td>$45</td>
-                                                        <td>Pending</td>
-                                                        <td><a href="cart.html" class="btn">Xem chi tiết...</a></td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Aug 22, 2018</td>
+                                                            <td>Mostarizing Oil</td>
+                                                            <td>$45</td>
+                                                            <td>Pending</td>
+                                                            <td><a href="cart.html" class="btn">Xem chi tiết...</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Aug 22, 2018</td>
+                                                            <td>Mostarizing Oil</td>
+                                                            <td>$45</td>
+                                                            <td>Pending</td>
+                                                            <td><a href="cart.html" class="btn">Xem chi tiết...</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Aug 22, 2018</td>
+                                                            <td>Mostarizing Oil</td>
+                                                            <td>$45</td>
+                                                            <td>Pending</td>
+                                                            <td><a href="cart.html" class="btn">Xem chi tiết...</a></td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -191,37 +191,31 @@
                                     <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade" id="payment-method" role="tabpanel">
                                         <div class="myaccount-content">
-                                            <h3>Thông báo</h3>
-                                            <ul class="list-group">
-                                                <li
-                                                        class="list-group-item d-flex justify-content-between align-items-start remove-bg">
+                                            <div class="d-flex justify-content-between align-items-center address-content">
+                                                <h4 class="text-13 mb-2 fs-3">Thông Báo</h4>
+                                            </div>
+                                            <ul class=" mt--20">
+                                                <li class="list-group-item d-flex justify-content-between align-items-start remove-bg" 
+                                                dir-paginate="notification in ListNotifyUser | itemsPerPage: 5" current-page="currentPage">  
+                                                
                                                     <div>
-                                                        <h5 class="mb-1 text-uppercase"><strong>Đơn hàng của quý khách
-                                                            đã bị
-                                                            hủy</strong></h5>
-                                                        <p class="mb-1">Đơn hàng 104532572 đã bị hủy. Hẹn gặp lại Quý
-                                                            khách
-                                                            trong các đơn hàng tiếp theo.</p>
-                                                        <small class="text-muted">Ngày: 25-08-2023</small><br>
-                                                        <small class="text-muted">Giờ: 14:30</small>
+                                                        <h6 class="mb-1" 
+                                                        style="font-family: nunito-sans, sans-serif, Helvetica, Arial; color:rgb(77, 77, 77)">
+                                                            <strong>{{ notification.title }}</strong></h6>
+                                                        <p class="mb-1">{{ notification.message }}</p>
                                                     </div>
-                                                    <span class="badge bg-primary rounded-pill">Mới</span>
-                                                </li>
-                                                <li
-                                                        class="list-group-item d-flex justify-content-between align-items-start remove-bg">
-                                                    <div>
-                                                        <h5 class="mb-1 text-uppercase"><strong>Đơn hàng của quý khách
-                                                            đã bị
-                                                            hủy</strong></h5>
-                                                        <p class="mb-1">Đơn hàng 104532572 đã bị hủy. Hẹn gặp lại Quý
-                                                            khách
-                                                            trong các đơn hàng tiếp theo.</p>
-                                                        <small class="text-muted">Ngày: 25-08-2023</small><br>
-                                                        <small class="text-muted">Giờ: 14:30</small>
-                                                    </div>
-                                                    <span class="badge bg-primary rounded-pill">Mới</span>
+                                                    <span class="span-notify-create ">{{ notification.createAt | date:'HH:mm dd-MM-yyyy' }}</span>
                                                 </li>
                                             </ul>
+                                            <div class="row pt--30" ng-show="ListNotifyUser.length > 0">
+                                                <div class="col-md-12">
+                                                    <div class="product__pagination">
+                                                        <dir-pagination-controls max-size="5" direction-links="true"
+                                                                                 boundary-links="true"
+                                                                                 auto-hide="false"></dir-pagination-controls>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- Single Tab Content End -->
@@ -229,11 +223,11 @@
                                     <div class="tab-pane fade " id="address-edit" role="tabpanel">
                                         <div class="myaccount-content">
                                             <div
-                                                    class="d-flex justify-content-between align-items-center address-content">
+                                                class="d-flex justify-content-between align-items-center address-content">
                                                 <h4 class="text-13 mb-2 fs-3">Địa chỉ thanh toán</h4>
                                                 <button class="btn btn-edit-address float-right shadow-none mb-2"
-                                                        data-bs-toggle="modal" data-bs-target="#createAddressModal"
-                                                        ng-click="addModel()"><i class="fas fa-plus pr-1"></i>Thêm địa
+                                                    data-bs-toggle="modal" data-bs-target="#createAddressModal"
+                                                    ng-click="addModel()"><i class="fas fa-plus pr-1"></i>Thêm địa
                                                     chỉ
                                                     mới
                                                 </button>
@@ -251,9 +245,9 @@
                                                     </div>
                                                     <div class="col-12 col-md-4">
                                                         <div
-                                                                class=" d-flex justify-content-end align-items-center mt-1">
+                                                            class=" d-flex justify-content-end align-items-center mt-1">
                                                             <a class="text-danger edit-address"
-                                                               ng-click="editAddress(address.id)">Chỉnh Sửa</a>
+                                                                ng-click="editAddress(address.id)">Chỉnh Sửa</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -274,46 +268,45 @@
                                                             <label for="lastname" class="form-label">Họ và tên <label
                                                                     class="text-danger">(*)</label></label>
                                                             <input type="text" class="form-control bg-transparent"
-                                                                   id="lastname" name="lastname" required
-                                                                   placeholder="Nhập họ và tên"
-                                                                   ng-model="account.fullname">
+                                                                id="lastname" name="lastname" required
+                                                                placeholder="Nhập họ và tên"
+                                                                ng-model="account.fullname">
                                                             <small class="error-label text-danger"
-                                                                   ng-show="errorMessages.fullname">{{errorMessages.fullname}}</small>
+                                                                ng-show="errorMessages.fullname">{{errorMessages.fullname}}</small>
 
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="telephone" class="form-label">Số điện thoại
                                                                 <label class="text-danger">(*)</label></label>
                                                             <input type="tel" class="form-control bg-transparent"
-                                                                   id="telephone" name="telephone"
-                                                                   placeholder="Nhập số điện thoại"
-                                                                   ng-model="account.phone">
+                                                                id="telephone" name="telephone"
+                                                                placeholder="Nhập số điện thoại"
+                                                                ng-model="account.phone">
                                                             <small class="error-label text-danger"
-                                                                   ng-show="errorMessages.phone">{{errorMessages.phone}}</small>
+                                                                ng-show="errorMessages.phone">{{errorMessages.phone}}</small>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="email" class="form-label">Email <label
                                                                     class="text-danger">(*)</label></label>
                                                             <input type="email" class="form-control bg-transparent"
-                                                                   id="email" name="email" placeholder="Nhập email"
-                                                                   ng-model="account.email">
+                                                                id="email" name="email" placeholder="Nhập email"
+                                                                ng-model="account.email">
                                                             <small class="error-label text-danger"
-                                                                   ng-show="errorMessages.email">{{errorMessages.email}}</small>
+                                                                ng-show="errorMessages.email">{{errorMessages.email}}</small>
 
                                                         </div>
                                                         <div class="mb-3">
                                                             <p class="mb-2">Giới Tính</p>
                                                             <div class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="radio" name="role"
-                                                                       id="male" value="true" ng-model="account.gender"
-                                                                       ng-value="true" ng-checked="true">
+                                                                    id="male" value="true" ng-model="account.gender"
+                                                                    ng-value="true" ng-checked="true">
                                                                 <label class="form-check-label" for="male">Nam</label>
                                                             </div>
                                                             <div class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="radio" name="role"
-                                                                       id="female" value="false"
-                                                                       ng-model="account.gender"
-                                                                       ng-value="false">
+                                                                    id="female" value="false" ng-model="account.gender"
+                                                                    ng-value="false">
                                                                 <label class="form-check-label" for="female">Nữ</label>
                                                             </div>
                                                         </div>
@@ -321,11 +314,11 @@
                                                         <div class="mb-3">
                                                             <label for="birthday" class="form-label">Ngày sinh</label>
                                                             <input type="date" class="form-control bg-transparent"
-                                                                   id="birthday" name="birthday"
-                                                                   ng-model="account.birthday"
-                                                                   ng-value="formatDate(account.birthday)">
+                                                                id="birthday" name="birthday"
+                                                                ng-model="account.birthday"
+                                                                ng-value="formatDate(account.birthday)">
                                                             <small class="error-label text-danger"
-                                                                   ng-show="errorMessages.birthday">{{errorMessages.birthday}}</small>
+                                                                ng-show="errorMessages.birthday">{{errorMessages.birthday}}</small>
                                                         </div>
 
 
@@ -339,23 +332,22 @@
                                                             </div>
                                                             <div class="d-flex justify-content-center">
                                                                 <img class="object-fit border border-light"
-                                                                     ng-src="{{account.image}}" alt=""
-                                                                     id="uploadedImage"
-                                                                     name="image"
-                                                                     style="max-height: 250px; height: 130px; width: 150px;">
+                                                                    ng-src="{{account.image}}" alt="" id="uploadedImage"
+                                                                    name="image"
+                                                                    style="max-height: 250px; height: 130px; width: 150px;">
 
                                                             </div>
 
                                                             <div class="d-flex justify-content-center ">
                                                                 <label
-                                                                        class="text-center mt-2 btn btn-outline-dark btn-sm">
+                                                                    class="text-center mt-2 btn btn-outline-dark btn-sm">
                                                                     <i class="fa fa-upload"></i>
                                                                     Tải ảnh lên
                                                                     <input type="file" name="file"
-                                                                           style="object-fit: contain;" id="fileInput"
-                                                                           ng-model="account.image"
-                                                                           onchange="displayImage(event)" hidden
-                                                                           accept=".png,.jpg,.jpeg"/>
+                                                                        style="object-fit: contain;" id="fileInput"
+                                                                        ng-model="account.image"
+                                                                        onchange="displayImage(event)" hidden
+                                                                        accept=".png,.jpg,.jpeg" />
                                                                 </label>
                                                             </div>
 
@@ -365,7 +357,7 @@
 
                                                 <div class="text-center">
                                                     <button type="button" class="btnsaveAccount"
-                                                            ng-click="saveAccount()">Lưu thay đổi
+                                                        ng-click="saveAccount()">Lưu thay đổi
                                                     </button>
                                                 </div>
                                             </form>
@@ -383,7 +375,7 @@
 
             <!-- Modal Address Start -->
             <div class="modal fade" id="createAddressModal" tabindex="-1" aria-labelledby="createAddressModalLabel"
-                 aria-hidden="true">
+                aria-hidden="true">
                 <div class="modal-dialog  modal-lg modal-dialog-scrollable ">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -398,16 +390,15 @@
                                         <div class="form-group col-md-6">
                                             <label for="lastname" class="text-bold text-dark">*Họ tên</label>
                                             <input type="text" class="form-control" name="fullname" id="fullname"
-                                                   aria-describedby="fullnameHelp" ng-model="address.fullname"
-                                                   ng-required="reqFullname">
+                                                aria-describedby="fullnameHelp" ng-model="address.fullname"
+                                                ng-required="reqFullname">
                                             <span class="text-danger">{{errors.fullname}}</span>
                                         </div>
                                         <div class="form-group col-md-6 mb-2">
                                             <label for="phone" class="text-bold text-dark">*Số điện thoại</label>
                                             <input type="text" class="form-control" name="phone" id="phone"
-                                                   aria-describedby="fullnameHelp" ng-model="address.phone"
-                                                   maxlength="10"
-                                                   ng-required="reqPhone" ng-attr-phone="reqPhone">
+                                                aria-describedby="fullnameHelp" ng-model="address.phone" maxlength="10"
+                                                ng-required="reqPhone" ng-attr-phone="reqPhone">
                                             <span class="text-danger">{{errors.phone}}</span>
                                         </div>
                                     </div>
@@ -416,10 +407,9 @@
                                             <div class="form-group">
                                                 <label class="text-bold text-dark">*Tỉnh/Thành phố</label>
                                                 <select class="form-control" title="Chọn Tỉnh" name="province"
-                                                        id="province" ng-model="selectedProvinceCode"
-                                                        ng-options="y.code as y.name for y in listProvince"
-                                                        ng-change="getListDistrict()"
-                                                        ng-required="reqProvince"></select>
+                                                    id="province" ng-model="selectedProvinceCode"
+                                                    ng-options="y.code as y.name for y in listProvince"
+                                                    ng-change="getListDistrict()" ng-required="reqProvince"></select>
                                                 <span class="text-danger">{{errors.province}}</span>
                                             </div>
                                         </div>
@@ -427,10 +417,10 @@
                                             <div class="form-group">
                                                 <label class="text-bold text-dark">*Huyện/Quận</label>
                                                 <select class="form-control" title="Chọn Huyện"
-                                                        ng-model="selectedDistrictCode"
-                                                        ng-options="y.code as y.name for y in listDistrict"
-                                                        ng-change="getListWard()" name="district" id="district"
-                                                        ng-required="reqDistrict"></select>
+                                                    ng-model="selectedDistrictCode"
+                                                    ng-options="y.code as y.name for y in listDistrict"
+                                                    ng-change="getListWard()" name="district" id="district"
+                                                    ng-required="reqDistrict"></select>
                                                 <span class="text-danger">{{errors.district}}</span>
                                             </div>
                                         </div>
@@ -438,9 +428,8 @@
                                             <div class="form-group">
                                                 <label class="text-bold text-dark">*Xã/Phường</label>
                                                 <select class="form-control" title="Chọn Xã" ng-model="selectedWardCode"
-                                                        ng-options="y.code as y.name for y in listWard" name="ward"
-                                                        id="ward" ng-required="reqWard"
-                                                        ng-change="refeshList()"></select>
+                                                    ng-options="y.code as y.name for y in listWard" name="ward"
+                                                    id="ward" ng-required="reqWard" ng-change="refeshList()"></select>
                                                 <span class="text-danger">{{errors.ward}}</span>
                                             </div>
                                         </div>
@@ -449,8 +438,8 @@
                                         <div class="form-group col-md-12">
                                             <label class="text-bold text-dark">*Địa chỉ cụ thể</label>
                                             <textarea class="form-control " placeholder="Địa chỉ cụ thể"
-                                                      ng-model="address.adr" name="adr" id="adr"
-                                                      ng-required="reqAdr"></textarea>
+                                                ng-model="address.adr" name="adr" id="adr"
+                                                ng-required="reqAdr"></textarea>
                                             <span class="text-danger">{{errors.adr}}</span>
                                         </div>
                                     </div>
@@ -459,17 +448,17 @@
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary " ng-click="resetAddress()"
-                                    data-dismiss="modal">Làm mới
+                                data-dismiss="modal">Làm mới
                             </button>
                             <button type="button" class="btn btn-primary" ng-click="saveAddress()"
-                                    ng-show="isAddingAddress">Thêm
+                                ng-show="isAddingAddress">Thêm
                                 địa chỉ
                             </button>
                             <button type="button" class="btn btn-primary" ng-show="isEditingAddress"
-                                    ng-click="saveAddress()">Cập nhật
+                                ng-click="saveAddress()">Cập nhật
                             </button>
                             <button type="button" class="btn btn-danger" ng-click="showConfirmAddress(address.id)"
-                                    ng-show="listAddress.length > 1 && isEditingAddress">Xóa
+                                ng-show="listAddress.length > 1 && isEditingAddress">Xóa
                             </button>
 
                         </div>
