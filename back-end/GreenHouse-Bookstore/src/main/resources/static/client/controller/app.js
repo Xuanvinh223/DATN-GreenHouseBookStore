@@ -103,34 +103,58 @@ app.config([
 ]);
 
 // ================= MAIN CONTROLLER ==================
-app.controller("MainController", function ($scope, CartService, $timeout,  ProductDetailService, NotifyService, NotifyWebSocketService) {
+app.controller("MainController", function ($scope, CartService, $timeout, ProductDetailService, NotifyService, NotifyWebSocketService) {
     var token = localStorage.getItem("token");
     var username = localStorage.getItem("username");
     $scope.token = token;
     $scope.currentPage = 1;
     $scope.ListNotifyUser = [];
 
-    // Khi trang được nạp, kết nối tới WebSocket
-    NotifyWebSocketService.connect(function() {
-        loadNotifications();
-    });
-    
-    // Thay thế REST API call bằng WebSocket call
-    function loadNotifications() {
-        NotifyWebSocketService.getNotifications(function (ListNotifyUser) {
-            $scope.ListNotifyUser = ListNotifyUser;
-         
-            $scope.$apply();
-        });
-    }
-    
+    $scope.getListNotification = function () {
+        // Sử dụng dịch vụ NotifyService để lấy danh sách thông báo
+        NotifyService.getNotificationsByUsername(username)
+        .then(function (ListNotifyUser) {
+            // Lấy ngày hiện tại
+            var currentDate = new Date();
+            // Lọc thông báo trong khoảng 7 ngày gần nhất
+            $scope.ListNotifyUser = ListNotifyUser.filter(function (notification) {
+                var createAt = new Date(notification.createAt);
+                var timeDiff = currentDate - createAt;
+                var daysDiff = timeDiff / (1000 * 3600 * 24);
+                return daysDiff <= 7;
+            });
 
-    $scope.sendNotification = function (title, message) {
-        NotifyWebSocketService.sendNotification(title, message);
-        NotifyWebSocketService.connect(function() {
-            loadNotifications();
+            $scope.ListNotifyUser.sort(function (a, b) {
+                return new Date(b.createAt) - new Date(a.createAt);
+            });
+            console.log("NOTIFY", $scope.ListNotifyUser);
+        })
+        .catch(function (error) {
+            console.log("Error loading notifications:", error);
         });
     }
+    $scope.getListNotification();
+    // Khi trang được nạp, kết nối tới WebSocket
+    // NotifyWebSocketService.connect(function() {
+    //     loadNotifications();
+    // });
+
+    // // Thay thế REST API call bằng WebSocket call
+    // function loadNotifications() {
+    //     NotifyWebSocketService.getNotifications(function (ListNotifyUser) {
+    //         $scope.ListNotifyUser = ListNotifyUser;
+
+    //         $scope.$apply();
+    //     });
+    // }
+
+
+    // $scope.sendNotification = function (title, message) {
+    //     NotifyWebSocketService.sendNotification(title, message);
+    //     NotifyWebSocketService.connect(function() {
+    //         loadNotifications();
+    //     });
+    // }
 
     $scope.addToCart = function (productDetailId, quantity) {
         CartService.addToCart(productDetailId, quantity, username)
@@ -304,19 +328,17 @@ app.service('ProductDetailService', function ($http, productDetailAPI) {
     };
 });
 //=============== NOTIFY SERVICE  ===========
-app.service('NotifyService', function (NotifyWebSocketService) {
-    this.ListNotifyUser = [];
-
+app.service('NotifyService', function ($http) {
+    // Hàm để lấy danh sách thông báo cho người dùng cụ thể
     this.getNotificationsByUsername = function (username) {
-        // Sử dụng WebSocket để lấy thông báo
-        return new Promise(function (resolve, reject) {
-            NotifyWebSocketService.getNotifications(username, function (notifications) {
-                // Lọc và xử lý thông báo nếu cần
-                resolve(notifications);
+        return $http.get('/customer/rest/getNotifications/' + username)
+            .then(function (response) {
+                return response.data;
             });
-        });
     };
+
 });
+
 
 app.service('NotifyWebSocketService', function ($rootScope) {
     var stompClient = null;
@@ -357,7 +379,7 @@ app.service('NotifyWebSocketService', function ($rootScope) {
     this.sendNotification = function (title, message) {
         if (stompClient && stompClient.connected) {
             var model = {
-                username: {username:currentUsername},
+                username: { username: currentUsername },
                 title: title,
                 message: message,
                 createAt: new Date()

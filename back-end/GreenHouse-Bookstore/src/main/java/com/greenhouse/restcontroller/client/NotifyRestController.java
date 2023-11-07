@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.model.Notification;
+import com.greenhouse.model.Product_Detail;
 import com.greenhouse.repository.NotificationRepository;
 
 @CrossOrigin("*")
@@ -30,22 +31,30 @@ public class NotifyRestController {
 
     @Autowired
     private NotificationRepository notificationRepository;
-
-    @MessageMapping("/notify/getNotifications/{username}")
-    public void getNotifications(@DestinationVariable String username) {
+    
+    @GetMapping("/rest/getNotifications/{username}")
+    public ResponseEntity<List<Notification>> gegetNotificationstProductsByBrand(@PathVariable String username) {
         List<Notification> notifications = notificationRepository.findByUsernameUsername(username);
-
-        // Gửi thông báo đến người dùng
-        simpMessagingTemplate.convertAndSend("/topic/notifications", notifications);
+        return ResponseEntity.ok(notifications);
     }
+    
+    // @MessageMapping("/notify/getNotifications/{username}")
+    // public void getNotifications(@DestinationVariable String username) {
+    // List<Notification> notifications =
+    // notificationRepository.findByUsernameUsername(username);
 
-    @MessageMapping("/notify")
-    public void sendNotification(Notification model) {
-        // Lưu thông báo vào cơ sở dữ liệu
-        notificationRepository.save(model);
+    // // Gửi thông báo đến người dùng
+    // simpMessagingTemplate.convertAndSend("/topic/notifications", notifications);
+    // }
 
-        // Gửi thông báo đến người dùng tới "/topic/notifications/{username}"
-        simpMessagingTemplate.convertAndSend("/topic/notifications/" + model.getUsername().getUsername(), model);
-    }
+    // @MessageMapping("/notify")
+    // public void sendNotification(Notification model) {
+    // // Lưu thông báo vào cơ sở dữ liệu
+    // notificationRepository.save(model);
+
+    // // Gửi thông báo đến người dùng tới "/topic/notifications/{username}"
+    // simpMessagingTemplate.convertAndSend("/topic/notifications/" +
+    // model.getUsername().getUsername(), model);
+    // }
 
 }

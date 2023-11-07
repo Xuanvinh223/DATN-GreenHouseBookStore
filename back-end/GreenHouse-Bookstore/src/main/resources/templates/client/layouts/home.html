@@ -6,20 +6,6 @@
     <title>Trang chủ</title>
 </head>
 <main id="layout" ng-controller="indexClientController">
-    <div class="container">
-        <h2>Send Notification</h2>
-        <input type="text" ng-model="notificationTitle" placeholder="Title">
-        <input type="text" ng-model="notificationMessage" placeholder="Message">
-        <button ng-click="sendNotification(notificationTitle, notificationMessage)">Send</button>
-    
-        <h2>Notifications</h2>
-        <ul>
-            <li ng-repeat="notification in ListNotifyUser">
-                <strong>{{ notification.title }}</strong>: {{ notification.message }}
-            </li>
-        </ul>
-    </div>
-    
     <!--=================================  Hero Area  ===================================== -->
     <section class="hero-area hero-slider-1">
         <div class="sb-slick-slider" data-slick-setting='{

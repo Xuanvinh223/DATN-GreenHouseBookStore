@@ -2,11 +2,12 @@ package com.greenhouse.model;
 
 import java.io.Serializable;
 
+import org.hibernate.annotations.Proxy;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,6 +19,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "Product_Flash_Sale")
+@Proxy(lazy = false)
 public class Product_Flash_Sale implements Serializable {
 
     private static final long serialVersionUID = 1L;

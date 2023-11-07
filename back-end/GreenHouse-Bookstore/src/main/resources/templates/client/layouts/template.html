@@ -144,7 +144,7 @@
                     ({{ ListNotifyUser.length > 50 ? '50+' : ListNotifyUser.length }})
                   </span>
                 </div>
-                <a href="/account" class="fhs_center_left" style="color: #62ab00; font-size: 1em;">Xem tất cả</a>
+                <a href="/account/notification" class="fhs_center_left" style="color: #62ab00; font-size: 1em;">Xem tất cả</a>
               </div>
               <div class="top-notification-list fhs_scrollbar" style="display: block;">
                 <div ng-if="ListNotifyUser.length > 0" class="top-notification-list fhs_scrollbar"
@@ -196,12 +196,16 @@
               </a>
             </div>
           </div>
-
-          <div class="center_center mouse-hover cart-dropdown">
-            <a class="top-button-icon  cart-icon"
-              data-quantity-icon="{{listCartHeader.length > 50 ? '50+' : listCartHeader.length}}">
-              <div class="center_center" style="margin-bottom:3px;">
-                <div class="icon_cart_gray"></div>
+     
+          <div class="center_center mouse-hover cart-dropdown"><!--cart-icon-->
+            <a class="top-button-icon "   
+            href="">
+              <div class="fhs_center_center" style="margin-bottom: 3px;">
+                <div class="icon_cart_gray">
+                  <div class="top_menu_unseen fhs_center_center">
+                    <span class="cartmini_qty">{{listCartHeader.length > 50 ? '50+' : listCartHeader.length}}</span>
+                  </div>
+                </div>
               </div>
               <div class="center_center">
                 <div class="top_menu_label">Giỏ hàng</div>
@@ -874,7 +878,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-cookies/1.8.2/angular-cookies.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
     <script th:src="@{/client/js/plugins.js}"></script>
     <script th:src="@{/client/js/custom.js}"></script>
     <script th:src="@{/client/js/code.js}"></script>
@@ -890,6 +894,7 @@
     <script th:src="@{/client/controller/checkout.js}"></script>
     <script th:src="@{/client/controller/header.js}"></script>
     <script th:src="@{/client/controller/product-page.js}"></script>
+    <script th:src="@{/client/controller/flash-sale.js}"></script>
     <script th:src="@{/client/controller/cart.js}"></script>
     <script th:src="@{/client/controller/index.js}"></script>
     <script th:src="@{/client/controller/change-password.js}"></script>

@@ -79,7 +79,37 @@ public class Maincontroller {
 
     @GetMapping(value = "/account")
     public String account() {
-        return "client/layouts/account";
+        return "client/layouts/account-doashboad";
+    }
+
+    @GetMapping(value = "/account/notification")
+    public String account_Notify() {
+        return "client/layouts/account-notify";
+    }
+
+    @GetMapping(value = "/account/address")
+    public String account_Address() {
+        return "client/layouts/account-address";
+    }
+
+    @GetMapping(value = "/account/info")
+    public String account_Info() {
+        return "client/layouts/account-info";
+    }
+
+    @GetMapping(value = "/account/order")
+    public String account_Order() {
+        return "client/layouts/account-order";
+    }
+
+    @GetMapping(value = "/account/review")
+    public String account_Review() {
+        return "client/layouts/account-review";
+    }
+
+    @GetMapping(value = "/account/voucher")
+    public String account_Voucher() {
+        return "client/layouts/account-voucher";
     }
 
     @GetMapping(value = "/cart")

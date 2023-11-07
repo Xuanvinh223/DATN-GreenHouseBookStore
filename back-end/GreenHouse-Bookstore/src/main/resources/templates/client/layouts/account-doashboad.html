@@ -13,7 +13,8 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/index">Trang chủ</a></li>
-                            <li class="breadcrumb-item active">Tài khoản</li>
+                            <li class="breadcrumb-item">Tài khoản</li>
+                            <li class="breadcrumb-item active">Bảng điều khiển</li>
                         </ol>
                     </nav>
                 </div>
@@ -27,19 +28,14 @@
                             <!-- My Account Tab Menu Start -->
                             <div class="col-lg-3 col-12">
                                 <div class="myaccount-tab-menu nav" role="tablist">
-                                    <a href="#dashboad" class="active" data-bs-toggle="tab"><i
-                                            class="fas fa-tachometer-alt"></i>
+                                    <a href="/account" class="active"><i class="fas fa-tachometer-alt"></i>
                                         Bảng điều khiển tài khoản</a>
-                                    <a href="#account-info" data-bs-toggle="tab"><i class="fa fa-user"></i> Thông tin
-                                        tài khoản</a>
-                                    <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i>
-                                        Đơn hàng của tôi</a>
-                                    <a href="#address-edit" data-bs-toggle="tab"><i class="fa fa-map-marker"></i>
-                                        Địa chỉ</a>
-                                    <a href="#download" data-bs-toggle="tab"><i class="fa fa-percent"></i>
-                                        Voucher của tôi</a>
-                                    <a href="#payment-method" data-bs-toggle="tab"><i class="fa fa-comment"></i>
-                                        Thông báo</a>
+                                    <a href="/account/info"><i class="fa fa-user"></i> Thông tin tài khoản</a>
+                                    <a href="/account/order"><i class="fa fa-cart-arrow-down"></i> Đơn hàng của tôi</a>
+                                    <a href="/account/address"><i class="fa fa-map-marker"></i> Địa chỉ</a>
+                                    <a href="/account/voucher"><i class="fa fa-percent"></i> Voucher của tôi</a>
+                                    <a href="/account/notification"><i class="fa fa-comment"></i> Thông báo</a>
+                                    <a href="/account/review"><i class="fa fa-comment"></i> Nhận xét của tôi</a>
                                 </div>
                             </div>
                             <!-- My Account Tab Menu End -->
@@ -189,30 +185,34 @@
                                     </div>
                                     <!-- Single Tab Content End -->
                                     <!-- Single Tab Content Start -->
-                                    <div class="tab-pane fade" id="payment-method" role="tabpanel">
+                                    <div class="tab-pane fade" id="notify-method" role="tabpanel">
                                         <div class="myaccount-content">
-                                            <div class="d-flex justify-content-between align-items-center address-content">
+                                            <div
+                                                class="d-flex justify-content-between align-items-center address-content">
                                                 <h4 class="text-13 mb-2 fs-3">Thông Báo</h4>
                                             </div>
                                             <ul class=" mt--20">
-                                                <li class="list-group-item d-flex justify-content-between align-items-start remove-bg" 
-                                                dir-paginate="notification in ListNotifyUser | itemsPerPage: 5" current-page="currentPage">  
-                                                
+                                                <li class="list-group-item d-flex justify-content-between align-items-start remove-bg"
+                                                    dir-paginate="notification in ListNotifyUser | itemsPerPage: 5"
+                                                    current-page="currentPage">
+
                                                     <div>
-                                                        <h6 class="mb-1" 
-                                                        style="font-family: nunito-sans, sans-serif, Helvetica, Arial; color:rgb(77, 77, 77)">
-                                                            <strong>{{ notification.title }}</strong></h6>
+                                                        <h6 class="mb-1"
+                                                            style="font-family: nunito-sans, sans-serif, Helvetica, Arial; color:rgb(77, 77, 77)">
+                                                            <strong>{{ notification.title }}</strong>
+                                                        </h6>
                                                         <p class="mb-1">{{ notification.message }}</p>
                                                     </div>
-                                                    <span class="span-notify-create ">{{ notification.createAt | date:'HH:mm dd-MM-yyyy' }}</span>
+                                                    <span class="span-notify-create ">{{ notification.createAt |
+                                                        date:'HH:mm dd-MM-yyyy' }}</span>
                                                 </li>
                                             </ul>
                                             <div class="row pt--30" ng-show="ListNotifyUser.length > 0">
                                                 <div class="col-md-12">
                                                     <div class="product__pagination">
                                                         <dir-pagination-controls max-size="5" direction-links="true"
-                                                                                 boundary-links="true"
-                                                                                 auto-hide="false"></dir-pagination-controls>
+                                                            boundary-links="true"
+                                                            auto-hide="false"></dir-pagination-controls>
                                                     </div>
                                                 </div>
                                             </div>

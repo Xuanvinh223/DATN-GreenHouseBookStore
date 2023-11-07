@@ -30,7 +30,7 @@ public class WebSecurityConfiguration {
     private final String[] apiEndpointsPermit = {"/authenticate", "/resgister", "/index", "/login", "/404", "/sign-up/**",
             "/account", "/contact", "/voucher", "/flash-sale", "/product", "/product-details", "/cart", "/checkout",
             "/checkout-complete", "/forgot-password", "/change-password", "/customer/**", "/oauth2/authorization/google", "/logout", "/google-processing", "/google-success", "/client/**",
-            "/admin/**","/notify/**","/topic/**","/app/**"}; // Danh sách các API cho phép truy cập
+            "/admin/**","/notify/**","/topic/**","/app/**","/account/**"}; // Danh sách các API cho phép truy cập
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

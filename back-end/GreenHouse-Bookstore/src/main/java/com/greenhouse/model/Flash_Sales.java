@@ -5,6 +5,8 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.Proxy;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -20,6 +22,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "Flash_Sales")
+@Proxy(lazy = false)
 public class Flash_Sales implements Serializable {
 
     @Id

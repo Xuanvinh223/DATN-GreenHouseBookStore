@@ -476,7 +476,7 @@
   line-height: 18px;
   color: #7a7e7f;
   font-size: 12px;
-  padding-left: 5px;
+  padding-left: 0.7rem;
 }
 
 .icon_cart_gray {
@@ -3617,4 +3617,32 @@ html.bx-ios.bx-ios-fix-frame-focus {
   font-style: italic;
   font-size: 0.75rem;
   color: #7a7e7f;
+}
+/* GIỎ HÀNG */
+.heading-custom {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-number {
+  margin-top: -54px;
+  margin-left: 30px;
+  width: 20px;
+  height: 20px;
+  background: #C92127;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-number span {
+  font-size: 12px;
+  color: #fff;
+}
+
+.heading-custom div {
+  text-align: center;
 }
