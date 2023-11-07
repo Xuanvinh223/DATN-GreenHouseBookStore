@@ -52,20 +52,14 @@
               <button type="submit" class="btn btn-lg btn-success1 w-100 fs-6">Đăng nhập</button>
             </div>
             <div class="row">
-                <div class="col-6"><a th:href="@{/oauth2/authorization/google}" class="btn btn-lg btn-light  w-100 fs-6"
-                                      style="border: 1px solid gainsboro;"><img src="/client/image/logoGoogle.png"
-                                                                                style="width:20px"
-                                                                                class="me-2"><small>Google</small></a>
-                </div>
-              <div class="col-6"> <a href="#" class="btn btn-lg btn-light w-100 fs-6"
-                  style="border: 1px solid gainsboro;"><img src="/client/image/logoFacebook.png" style="width:20px"
-                    class="me-2"><small>Facebook</small></a></div>
-            </div>
-
-            <div class="dialog-footer d-flex justify-content-center align-items-center mt-3">
-              <small>Bạn chưa có tài khoản?<a href="/resgister" class="text-green mx-1">Đăng
-                ký</a></small>
-            </div>
+              <div class="col-12"><a th:href="@{/oauth2/authorization/google}" class="btn btn-lg btn-light  w-100 fs-6"
+                                     style="border: 1px solid gainsboro;">
+                <img src="/client/image/logoGoogle.png" style="width:20px" class="me-2"><small>Google</small></a>
+              </div>
+              <div class="dialog-footer d-flex justify-content-center align-items-center mt-3">
+                <small>Bạn chưa có tài khoản?<a href="/resgister" class="text-green mx-1">Đăng
+                  ký</a></small>
+              </div>
           </form>
         </div>
       </div>

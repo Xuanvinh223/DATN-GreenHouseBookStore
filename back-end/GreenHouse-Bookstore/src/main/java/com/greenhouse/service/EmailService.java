@@ -1,7 +1,5 @@
 package com.greenhouse.service;
 
-import java.util.Random;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -31,7 +29,23 @@ public class EmailService {
     }
 
     public void sendEmailSigup(String to, String subject, String confirmationCode) {
-        String html = "<html><body><h1>Mã xác nhận của bạn là : " + confirmationCode + "</h1></body></html>";
+        String html = "<!DOCTYPE html>\r\n" + //
+                "<html>\r\n" + //
+                "<head>\r\n" + //
+                "    <meta charset=\"UTF-8\">\r\n" + //
+                "    <title>Xác Thực OTP</title>\r\n" + //
+                "</head>\r\n" + //
+                "<body>\r\n" + //
+                "    <div style=\"background-color: white; font-family: Arial, sans-serif; padding: 20px; text-align: center;\">\r\n" + //
+                "        <img src=\"https://down-ws-vn.img.susercontent.com/87ec164c0d56e1d4c58487973017ed3f_tn\" alt=\"Logo\" width=\"150\" height=\"150\">\r\n" + //
+                "        <h2>Xác Thực OTP</h2>\r\n" + //
+                "        <p>Vui lòng nhập mã OTP dưới đây để đăng ký tài khoản của bạn:</p>\r\n" + //
+                "        <p style=\"font-size: 24px; font-weight: bold;\">Mã OTP: " + confirmationCode + "</p>\r\n" + //
+                "        <p>Nếu bạn không yêu cầu mã OTP này, xin vui lòng bỏ qua email này. Mã OTP này sẽ hết hạn sau một thời gian nhất định.</p>\r\n" + //
+                "    </div>\r\n" + //
+                "</body>\r\n" + //
+                "</html>\r\n" + //
+                "";
         sendEmail(to, subject, html);
     }
 
