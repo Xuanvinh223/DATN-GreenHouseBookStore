@@ -272,6 +272,9 @@
                 <button type="button" ng-click="admin()" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-cogs"></i> <span th:text="#{lo.mn.ql}">Quản lý</span>
                 </button>
+                <a href="/account" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
+                </a>
                 <a href="/#" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.bc}">Báo cáo</span>
                 </a>
@@ -293,8 +296,7 @@
               </div>
             </div>
           </div>
-
-          <div class="center_center top-language mouse-hover" onclick="toggleLanguage()">
+          <div class="center_center top-language mouse-hover" ng-click="toggleLanguage()">
             <div class="top-language-flag center_center">
               <span class="top-language-flag-icon"></span>
               <span class="top-language-flag-seemore"></span>

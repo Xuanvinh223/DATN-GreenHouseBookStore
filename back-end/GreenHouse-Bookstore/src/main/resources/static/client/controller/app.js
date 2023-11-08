@@ -88,6 +88,7 @@ app.factory("AuthService", function ($window) {
         $window.localStorage.removeItem("token");
         $window.localStorage.removeItem("username");
         $window.localStorage.removeItem("fullName");
+        $window.localStorage.removeItem("image");
         window.location.href = "/logout";
     };
 
@@ -113,25 +114,25 @@ app.controller("MainController", function ($scope, CartService, $timeout, Produc
     $scope.getListNotification = function () {
         // Sử dụng dịch vụ NotifyService để lấy danh sách thông báo
         NotifyService.getNotificationsByUsername(username)
-        .then(function (ListNotifyUser) {
-            // Lấy ngày hiện tại
-            var currentDate = new Date();
-            // Lọc thông báo trong khoảng 7 ngày gần nhất
-            $scope.ListNotifyUser = ListNotifyUser.filter(function (notification) {
-                var createAt = new Date(notification.createAt);
-                var timeDiff = currentDate - createAt;
-                var daysDiff = timeDiff / (1000 * 3600 * 24);
-                return daysDiff <= 7;
-            });
+            .then(function (ListNotifyUser) {
+                // Lấy ngày hiện tại
+                var currentDate = new Date();
+                // Lọc thông báo trong khoảng 7 ngày gần nhất
+                $scope.ListNotifyUser = ListNotifyUser.filter(function (notification) {
+                    var createAt = new Date(notification.createAt);
+                    var timeDiff = currentDate - createAt;
+                    var daysDiff = timeDiff / (1000 * 3600 * 24);
+                    return daysDiff <= 7;
+                });
 
-            $scope.ListNotifyUser.sort(function (a, b) {
-                return new Date(b.createAt) - new Date(a.createAt);
+                $scope.ListNotifyUser.sort(function (a, b) {
+                    return new Date(b.createAt) - new Date(a.createAt);
+                });
+                console.log("NOTIFY", $scope.ListNotifyUser);
+            })
+            .catch(function (error) {
+                console.log("Error loading notifications:", error);
             });
-            console.log("NOTIFY", $scope.ListNotifyUser);
-        })
-        .catch(function (error) {
-            console.log("Error loading notifications:", error);
-        });
     }
     $scope.getListNotification();
     // Khi trang được nạp, kết nối tới WebSocket
@@ -182,27 +183,63 @@ app.controller("MainController", function ($scope, CartService, $timeout, Produc
             });
     };
 
-    $scope.updateUserInfo = function () {
-        var username = localStorage.getItem("username");
-        if (username) {
-            $scope.getCart();
-        } else {
-            $scope.getCart();
+        $scope.updateUserInfo = function () {
+            var username = localStorage.getItem("username");
+            if (username) {
+                $scope.getCart();
+            } else {
+                $scope.getCart();
+            }
+        };
+
+        $scope.updateUserInfo();
+        // ================ LANGUAGE =================================================================
+        $scope.toggleLanguage = function () {
+            let languageDropdown = document.getElementById("top-language-dropdown");
+
+            if (languageDropdown.style.display === "block") {
+                languageDropdown.style.display = "none";
+            } else {
+                languageDropdown.style.display = "block";
+            }
         }
-    };
 
-    $scope.updateUserInfo();
-
-    // ================ SHOW FULL TEXT OR COMPRESS =================================================================
-    $scope.showFullText = {};
-
-    $scope.toggleFullText = function (productId) {
-        if (!$scope.showFullText[productId]) {
-            $scope.showFullText[productId] = true;
-        } else {
-            $scope.showFullText[productId] = false;
+        $scope.changeLanguage = function (lang) {
+            localStorage.setItem("lang", lang);
+            setLanguage();
         }
-    };
+
+        function setLanguage() {
+            var lang = localStorage.getItem("lang");
+
+            let flagIcon = document.querySelector(".top-language-flag-icon");
+            let languageDropdown = document.getElementById("top-language-dropdown");
+            languageDropdown.style.display = "none";
+
+            let flagImage = "";
+            if (lang) {
+                if (lang == "en") {
+                    flagImage = "https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/store/english.svg"
+                } else if (lang == "vi") {
+                    flagImage = "https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/default.svg";
+                }
+            } else {
+                flagImage = "https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/default.svg";
+            }
+            flagIcon.style.backgroundImage = `url(${flagImage})`;
+        }
+
+        setLanguage();
+        // ================ SHOW FULL TEXT OR COMPRESS =================================================================
+        $scope.showFullText = {};
+
+        $scope.toggleFullText = function (productId) {
+            if (!$scope.showFullText[productId]) {
+                $scope.showFullText[productId] = true;
+            } else {
+                $scope.showFullText[productId] = false;
+            }
+        };
 
     // =========== NOTIFICATION =============================
     $scope.notifications = [];
@@ -313,7 +350,6 @@ app.service("CartService", function ($http, cartAPI) {
 
 });
 // =============== PRODUCT SERVICE =============
-
 app.service('ProductDetailService', function ($http, productDetailAPI) {
     this.getProductDetailById = function (productDetailId) {
         var url = `${productDetailAPI}/${productDetailId}`;
@@ -338,8 +374,6 @@ app.service('NotifyService', function ($http) {
     };
 
 });
-
-
 app.service('NotifyWebSocketService', function ($rootScope) {
     var stompClient = null;
     var isConnecting = false;
