@@ -24,9 +24,9 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         var url = `${host}`;
         $http.get(url).then(resp => {
             $scope.accounts = resp.data;
+
             $scope.originalaccounts = $scope.accounts;
 
-            console.log("success", resp.data);
             $scope.totalItems = $scope.accounts.length;
         }).catch(error => {
             console.log("Error", error);
@@ -37,7 +37,7 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         // Lọc danh sách gốc bằng searchText
         $scope.accounts = $scope.originalaccounts.filter(function (account) {
             // Thực hiện tìm kiếm trong các thuộc tính cần thiết của item
-            if (account.fullname) {
+            if (account.username) {
                 return (
                     account.username.toString().includes($scope.searchText) ||
                     account.fullname.toLowerCase().includes($scope.searchText.toLowerCase()) ||
@@ -137,7 +137,6 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             if ($scope.checkDuplicateEmail(email)) {
                 return; // Hiển thị thông báo lỗi đã tồn tại
             }
-
         }
 
         if (!$scope.isEditing) {
@@ -193,12 +192,10 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         var existingUsername = $scope.accounts.find(function (account) {
             return account.username === username;
         });
-
         if (existingUsername) {
             $scope.errorMessages.username = 'Tên tài khoản đã tồn tại.';
             return true; // Đã tồn tại
         }
-
         return false; // Chưa tồn tại
     };
 
@@ -207,12 +204,10 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         var existingEmail = $scope.accounts.find(function (account) {
             return account.email === email;
         });
-
         if (existingEmail) {
             $scope.errorMessages.email = 'Email đã tồn tại.';
             return true; // Đã tồn tại
         }
-
         return false; // Chưa tồn tại
     };
 

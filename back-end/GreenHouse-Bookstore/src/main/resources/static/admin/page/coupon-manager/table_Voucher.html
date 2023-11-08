@@ -14,7 +14,7 @@
                                     <div class="input-wrapper col-lg-9">
                                         <i class="fe fe-search fe-18 icon"></i>
                                         <input class="form-control input" type="search" placeholder="Tìm kiếm..."
-                                               aria-label="Search">
+                                               aria-label="Search" ng-model="searchText" ng-change="searchData()">
                                     </div>
 
                                 </div>
@@ -47,7 +47,8 @@
 
 
                                     <tbody>
-                                    <tr ng-repeat="voucher in vouchers track by $index">
+                                    <tr
+                                            ng-repeat="voucher in vouchers  | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
                                         <td>{{voucher.voucherId}}</td>
                                         <td>{{voucher.voucherName}}</td>
                                         <td>{{voucher.code}}</td>
@@ -71,6 +72,29 @@
                                 </table>
                             </div>
 
+                            <div class="p-3">
+                                <div class="toolbar">
+                                    <form class="form">
+                                        <div class="form-row">
+                                            <div class="form-inline col-auto mr-auto">
+                                                <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
+                                                <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1"
+                                                        ng-model="itemsPerPage"
+                                                        ng-options="option for option in itemsPerPageOptions"
+                                                        ng-change="currentPage = 1">
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-auto">
+                                                <span>Đang xem {{ calculateRange() }}</span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <ul uib-pagination ng-model="currentPage" total-items="totalItems"
+                                    items-per-page="itemsPerPage" max-size="maxSize" class="pagination-sm"
+                                    boundary-link-numbers="true" boundary-links="true" force-ellipses="true"
+                                    previous-text="<" next-text=">" first-text="<<" last-text=">>"></ul>
+                            </div>
                         </div>
                     </div>
                 </div> <!-- simple table -->

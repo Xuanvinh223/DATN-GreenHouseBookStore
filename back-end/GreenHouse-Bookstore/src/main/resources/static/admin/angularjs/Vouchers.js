@@ -1,11 +1,19 @@
-app.controller(
-    "VouchersController",
-    function ($scope, $location, $routeParams, $http) {
+app.controller("VouchersController", function ($scope, $location, $routeParams, $http) {
         let host = "http://localhost:8081/rest/vouchers";
+
+        $scope.searchText = "";
+        $scope.itemsPerPageOptions = [5, 12, 24, 32, 64, 128];
+        $scope.selectedItemsPerPage = 5; // Khởi tạo giá trị mặc định cho số mục trên mỗi trang
+        $scope.currentPage = 1; // Trang hiện tại
+        $scope.itemsPerPage = 5; // Số mục hiển thị trên mỗi trang
+        $scope.vouchers = [];
+        $scope.totalItems = $scope.vouchers.length; // Tổng số mục
+        $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
+        $scope.reverseSort = false;
 
         $scope.edittingVoucher = {};
         $scope.isEditing = false;
-        $scope.vouchers = [];
+
         $scope.selectedType = "";
         $scope.isSelectingProduct = true;
         $scope.modalTitle = "Chọn loại sản phẩm";
@@ -26,98 +34,129 @@ app.controller(
         $scope.searchProductKeyword = null;
         $scope.listdeletedProducts = [];
 
-        //thay đổi khi chọn sản phẩm và chọn loại sản phẩm khi vào nút
-        $scope.toggleSelection = function () {
-            $scope.isSelectingProduct = !$scope.isSelectingProduct;
-            $scope.modalTitle = $scope.isSelectingProduct
-                ? "Chọn sản phẩm"
-                : "Chọn loại sản phẩm";
+        // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
+        $scope.getNumOfPages = function () {
+            return Math.ceil($scope.totalItems / $scope.itemsPerPage);
         };
 
-        //Get bảng Category
-    $scope.loadCategory = function () {
-        var url = "http://localhost:8081/rest/categories";
-        $http
-            .get(url)
-            .then((resp) => {
-                $scope.listCategories = resp.data;
-            })
-            .catch((error) => {
-                console.log("Error", error);
-            });
-    };
-
-    // SEARCH Category -- START
-    $scope.searchCategory = function (keyword) {
-        $scope.searchCategoryResults = [];
-        if (keyword) {
-            keyword = keyword.toLowerCase();
-            $scope.searchCategoryResults = $scope.listCategories.filter(function (
-                cate
-            ) {
-                return cate.categoryName.toLowerCase().includes(keyword);
-            });
-        } else {
-            $scope.searchCategoryKeyword = null;
-        }
-    };
-
-    $scope.loadCategory();
-
-    //Select Category để hiển thị khi search trên modal
-    $scope.selectedCategory = function (cate) {
-        var existingCategory = $scope.selectedCategories.find(function (c) {
-            return c.categoryId === cate.categoryId;
-        });
-
-        if (!existingCategory) {
-            $scope.selectedCategories.push(cate);
-        }
-
-        // Gọi hàm tương ứng để cập nhật giao diện người dùng (nếu cần)
-        $scope.searchCategory(null);
-    };
-        //Hàm Xóa Product Tạm
-    $scope.removeCategory = function (index) {
-        var removedCategory = $scope.selectedCategories[index];
-
-        if (removedCategory) {
-            removedCategory.deleted = true; // Đánh dấu danh mục đã bị xóa
-            $scope.listdeletedCategories.push(removedCategory);
-            $scope.selectedCategories.splice(index, 1); // Loại bỏ danh mục khỏi selectedCategories
-            console.log("Đã xóa được", removedCategory);
-        }
-    };
-
-    //-------------------------------------------------------------------------------
-    //Get bảng Product
-    $scope.loadProduct = function () {
-        var url = "http://localhost:8081/rest/productDetails";
-        $http
-            .get(url)
-            .then((resp) => {
-                $scope.listProductDetails = resp.data;
-                console.log($scope.listProductDetails);
-            })
-            .catch((error) => {
-                console.log("Error", error);
-            });
-    };
-
-    // SEARCH Product -- START
-    $scope.searchProduct = function (keyword) {
-        $scope.searchProductResults = [];
-        if (keyword) {
-            keyword = keyword.toLowerCase();
-            $scope.searchProductResults = $scope.listProductDetails.filter(
-                function (pro) {
-                    return pro.product.productName.toLowerCase().includes(keyword);
+        $scope.searchData = function () {
+            // Lọc danh sách gốc bằng searchText
+            $scope.vouchers = $scope.originalvoucher.filter(function (vouchers) {
+                // Thực hiện tìm kiếm trong các thuộc tính cần thiết của item
+                if (vouchers.voucherName) {
+                    return (
+                        vouchers.voucherName.toLowerCase().includes($scope.searchText.toLowerCase()) ||
+                        vouchers.code.toString().includes($scope.searchText) ||
+                        vouchers.voucherType.toLowerCase().includes($scope.searchText.toLowerCase()) ||
+                        vouchers.discountType.toLowerCase().includes($scope.searchText.toLowerCase())
+                    );
                 }
-            );
-        } else {
-            $scope.searchProductKeyword = null;
-        }
-    };
+                return false; // Bỏ qua mục này nếu fullname là null hoặc undefined
+            });
+            $scope.totalItems = $scope.searchText ? $scope.vouchers.length : $scope.originalvoucher.length;
+            $scope.setPage(1);
+        };
+
+        //Get Voucher
+        $scope.loadVouchers = function () {
+            var url = `${host}`;
+            $http
+                .get(url)
+                .then((resp) => {
+                    $scope.vouchers = resp.data;
+                    $scope.originalvoucher = $scope.vouchers;
+                    $scope.totalItems = $scope.vouchers.length;
+                })
+                .catch((error) => {
+                    console.log("Error", error);
+                });
+        };
+
+
+        //Get bảng Category
+        $scope.loadCategory = function () {
+            var url = "http://localhost:8081/rest/categories";
+            $http
+                .get(url)
+                .then((resp) => {
+                    $scope.listCategories = resp.data;
+                })
+                .catch((error) => {
+                    console.log("Error", error);
+                });
+        };
+
+        // SEARCH Category -- START
+        $scope.searchCategory = function (keyword) {
+            $scope.searchCategoryResults = [];
+            if (keyword) {
+                keyword = keyword.toLowerCase();
+                $scope.searchCategoryResults = $scope.listCategories.filter(function (
+                    cate
+                ) {
+                    return cate.categoryName.toLowerCase().includes(keyword);
+                });
+            } else {
+                $scope.searchCategoryKeyword = null;
+            }
+        };
+
+        $scope.loadCategory();
+
+        //Select Category để hiển thị khi search trên modal
+        $scope.selectedCategory = function (cate) {
+            var existingCategory = $scope.selectedCategories.find(function (c) {
+                return c.categoryId === cate.categoryId;
+            });
+
+            if (!existingCategory) {
+                $scope.selectedCategories.push(cate);
+            }
+
+            // Gọi hàm tương ứng để cập nhật giao diện người dùng (nếu cần)
+            $scope.searchCategory(null);
+        };
+        //Hàm Xóa Product Tạm
+        $scope.removeCategory = function (index) {
+            var removedCategory = $scope.selectedCategories[index];
+
+            if (removedCategory) {
+                removedCategory.deleted = true; // Đánh dấu danh mục đã bị xóa
+                $scope.listdeletedCategories.push(removedCategory);
+                $scope.selectedCategories.splice(index, 1); // Loại bỏ danh mục khỏi selectedCategories
+                console.log("Đã xóa được", removedCategory);
+            }
+        };
+
+        //-------------------------------------------------------------------------------
+        //Get bảng Product
+        $scope.loadProduct = function () {
+            var url = "http://localhost:8081/rest/productDetails";
+            $http
+                .get(url)
+                .then((resp) => {
+                    $scope.listProductDetails = resp.data;
+                    console.log($scope.listProductDetails);
+                })
+                .catch((error) => {
+                    console.log("Error", error);
+                });
+        };
+
+        // SEARCH Product -- START
+        $scope.searchProduct = function (keyword) {
+            $scope.searchProductResults = [];
+            if (keyword) {
+                keyword = keyword.toLowerCase();
+                $scope.searchProductResults = $scope.listProductDetails.filter(
+                    function (pro) {
+                        return pro.product.productName.toLowerCase().includes(keyword);
+                    }
+                );
+            } else {
+                $scope.searchProductKeyword = null;
+            }
+        };
         $scope.loadProduct();
 
         //Select Product để hiển thị khi search trên modal
@@ -145,18 +184,7 @@ app.controller(
             }
         };
 
-        //Get Voucher
-        $scope.loadVouchers = function () {
-            var url = `${host}`;
-            $http
-                .get(url)
-                .then((resp) => {
-                    $scope.vouchers = resp.data;
-                })
-                .catch((error) => {
-                    console.log("Error", error);
-                });
-        };
+
 
         $scope.validateVoucher = function (voucher) {
             var isError = false;
@@ -255,11 +283,6 @@ app.controller(
                 isError = true;
             }
 
-            if (!voucher.status) {
-                errorMessages.status = "Vui lòng không bỏ trống trạng thái";
-                isError = true;
-            }
-
             var start = new Date(voucher.startDate);
             var end = new Date(voucher.endDate);
 
@@ -353,7 +376,7 @@ app.controller(
                 });
         };
 
-    // Kiểm tra xem có tham số data trong URL không.
+        // Kiểm tra xem có tham số data trong URL không.
         if ($routeParams.data) {
             // Parse dữ liệu từ tham số data và gán vào edittingVoucher.
             var data = angular.fromJson($routeParams.data);
@@ -372,10 +395,21 @@ app.controller(
                 $scope.selectedType = "item";
             } else if (newVal === "Phí ship") {
                 $scope.selectedType = "ship";
+            } else if (newVal === "Hóa đơn") {
+                $scope.selectedType = "bill";
             } else {
                 $scope.selectedType = "";
             }
         });
+
+        //thay đổi khi chọn sản phẩm và chọn loại sản phẩm khi vào nút
+        $scope.toggleSelection = function () {
+            $scope.isSelectingProduct = !$scope.isSelectingProduct;
+            $scope.modalTitle = $scope.isSelectingProduct ?
+                "Chọn sản phẩm" :
+                "Chọn loại sản phẩm";
+        };
+
 
         //Chuyển đổi input Phần trăm và Giảm giá cố định khi click radio
         $scope.toggleDiscountType = function () {
@@ -398,84 +432,101 @@ app.controller(
                 });
         };
 
-    $scope.selectProduct = function (product) {
-        $scope.selectedProduct = product;
-    };
+        $scope.selectProduct = function (product) {
+            $scope.selectedProduct = product;
+        };
 
-    //DELETE VOUCHER
-    $scope.deleteVoucher = function (voucherId) {
-        var url = `${host}/${voucherId}`;
-        Swal.fire({
-            title: "Bạn chắc chắn?",
-            text: "Dữ liệu sẽ bị xóa vĩnh viễn.",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Xác nhận",
-            cancelButtonText: "Hủy",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Sử dụng $http để gửi yêu cầu DELETE đến API
-                $http
-                    .delete(url)
-                    .then((resp) => {
-                        // Xóa voucher thành công, cập nhật danh sách
-                        $scope.loadVouchers();
-                        Swal.fire({
-                            icon: "success",
-                            title: "Thành công",
-                            text: `Xóa Voucher ${voucherId} thành công`,
+        //DELETE VOUCHER
+        $scope.deleteVoucher = function (voucherId) {
+            var url = `${host}/${voucherId}`;
+            Swal.fire({
+                title: "Bạn chắc chắn?",
+                text: "Dữ liệu sẽ bị xóa vĩnh viễn.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Xác nhận",
+                cancelButtonText: "Hủy",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Sử dụng $http để gửi yêu cầu DELETE đến API
+                    $http
+                        .delete(url)
+                        .then((resp) => {
+                            // Xóa voucher thành công, cập nhật danh sách
+                            $scope.loadVouchers();
+                            Swal.fire({
+                                icon: "success",
+                                title: "Thành công",
+                                text: `Xóa Voucher ${voucherId} thành công`,
+                            });
+                        })
+                        .catch((error) => {
+                            if (error.status === 409) {
+                                // Kiểm tra mã trạng thái lỗi
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Thất bại",
+                                    text: `Voucher mã ${voucherId} đang được sử dụng và không thể xóa.`,
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Thất bại",
+                                    text: `Xóa Voucher ${voucherId} thất bại`,
+                                });
+                            }
                         });
-                    })
-                    .catch((error) => {
-                        if (error.status === 409) {
-                            // Kiểm tra mã trạng thái lỗi
-                            Swal.fire({
-                                icon: "error",
-                                title: "Thất bại",
-                                text: `Voucher mã ${voucherId} đang được sử dụng và không thể xóa.`,
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Thất bại",
-                                text: `Xóa Voucher ${voucherId} thất bại`,
-                            });
-                        }
-                    });
+                }
+            });
+        };
+
+        //RESET FORM VOUCHER
+        $scope.resetForm = function () {
+            // Kiểm tra xem có tham số "id" và "data" trong URL không, và nếu có thì xóa chúng
+            if ($location.search().id || $location.search().data) {
+                $location.search("id", null);
+                $location.search("data", null);
             }
-        });
-    };
+            // Gán giá trị cho editingBrand và isEditing
+            $scope.selectedCategories = [];
+            $scope.selectedProduct = [];
+            $scope.edittingVoucher = {};
+            $scope.isEditing = false;
+            $scope.errorMessages = [];
 
-    //RESET FORM VOUCHER
-    $scope.resetForm = function () {
-        // Kiểm tra xem có tham số "id" và "data" trong URL không, và nếu có thì xóa chúng
-        if ($location.search().id || $location.search().data) {
-            $location.search("id", null);
-            $location.search("data", null);
-        }
-        // Gán giá trị cho editingBrand và isEditing
-        $scope.selectedCategories = [];
-        $scope.selectedProduct = [];
-        $scope.edittingVoucher = {};
-        $scope.isEditing = false;
-        $scope.errorMessages = [];
+            // Chuyển hướng lại đến trang /brand-form
+            $location.path("/voucher-form");
+        };
 
-        // Chuyển hướng lại đến trang /brand-form
-        $location.path("/voucher-form");
-    };
+        //FORMAT DATE
+        $scope.formatDate = function (date) {
+            if (date == null) {
+                return "";
+            }
+            var formattedDate = new Date(date);
+            var year = formattedDate.getFullYear();
+            var month = (formattedDate.getMonth() + 1).toString().padStart(2, "0");
+            var day = formattedDate.getDate().toString().padStart(2, "0");
 
-    //FORMAT DATE
-    $scope.formatDate = function (date) {
-        if (date == null) {
-            return "";
-        }
-        var formattedDate = new Date(date);
-        var year = formattedDate.getFullYear();
-        var month = (formattedDate.getMonth() + 1).toString().padStart(2, "0");
-        var day = formattedDate.getDate().toString().padStart(2, "0");
+            return `${year}-${month}-${day}`;
+        };
 
-        return `${year}-${month}-${day}`;
-    };
+        // Hàm chuyển đổi trang
+        $scope.setPage = function (pageNo) {
+            $scope.currentPage = pageNo;
+        };
+
+        $scope.calculateRange = function () {
+            var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage + 1;
+            var endIndex = $scope.currentPage * $scope.itemsPerPage;
+
+            if (endIndex > $scope.totalItems) {
+                endIndex = $scope.totalItems;
+            }
+
+            return startIndex + ' đến ' + endIndex + ' trên tổng số ' + $scope.totalItems + ' mục';
+        };
+
 
         $scope.loadVouchers();
     }

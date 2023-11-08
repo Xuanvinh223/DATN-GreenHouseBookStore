@@ -25,10 +25,10 @@
                         <div class="row g-0">
                             <div class="col-xl-6 col-md-6 col-sm-7">
                                 <div class="home-content-inner content-left-side text-start">
-                                    <h1>Nhận khuyến mãi <br> đặc biệt
+                                    <h1 th:text="#{lo.mn.nkmdb}">Nhận khuyến mãi <br> đặc biệt
                                     </h1>
-                                    <h2> Tất cả sách hiện đang được giảm giá 50%!</h2>
-                                    <a href="" class="btn btn-outlined--primary">
+                                    <h2 th:text="#{lo.mn.allbanner}"> Tất cả sách hiện đang được giảm giá 50%!</h2>
+                                    <a href="" class="btn btn-outlined--primary" th:text="#{lo.mn.cartmenu}">
                                         Xem Thêm!
                                     </a>
                                 </div>
@@ -47,10 +47,11 @@
                         <div class="row align-items-center justify-content-start justify-content-md-end">
                             <div class="col-lg-6 col-xl-7 col-md-6 col-sm-7">
                                 <div class="home-content-inner content-right-side text-start">
-                                    <h1>Khám phá <br>
+                                    <h1 th:text="#{lo.mn.khampha}">Khám phá <br>
                                         những cuốn sách hay nhất trong ngày</h1>
-                                    <h2>"Những chuyến phiêu lưu đang chờ bạn trong mỗi trang sách."</h2>
-                                    <a href="" class="btn btn-outlined--primary">
+                                    <h2 th:text="#{lo.mn.phieuluu}">"Những chuyến phiêu lưu đang chờ bạn trong mỗi trang
+                                        sách."</h2>
+                                    <a href="" class="btn btn-outlined--primary" th:text="#{lo.mn.cartmenu}">
                                         Xem Thêm!
                                     </a>
                                 </div>
@@ -67,9 +68,9 @@
         <div class="flashsale-header section-title--bordered">
             <!-- Start flashsale-header -->
             <img src="https://cdn0.fahasa.com/media/wysiwyg/icon-menu/ico_flashsale@3x.png"
-                style="width: 25px; height: 25px;margin-left: 10px;">
-            <span class="flashsale-header-title" style="margin-right:5px">FLASH SALE | </span>
-            <span class="flashsale-page-countdown-label">Kết thúc trong</span>
+                 style="width: 25px; height: 25px;margin-left: 10px;">
+            <span class="flashsale-header-title" style="margin-right:5px" th:text="#{lo.mn.fsale}">FLASH SALE | </span>
+            <span class="flashsale-page-countdown-label" th:text="#{lo.mn.end}">Kết thúc trong</span>
             <div class="flashsale-header-countdown">
                 <span class="flashsale-header-countdown-item">00</span>
                 <span>:</span>
@@ -348,7 +349,7 @@
                 </div>
             </div>
             <div class="center_center">
-                <a class="flashsale-xemthem" href="#!flash-sale">Xem thêm</a>
+                <a class="flashsale-xemthem" href="#!flash-sale" th:text="#{lo.mn.flsee}">Xem thêm</a>
             </div>
 
 
@@ -363,7 +364,7 @@
                 <!-- Start flashsale-header -->
                 <img src="https://cdn0.fahasa.com/skin/frontend/base/default/images/ico_dealhot.png"
                     style="width: 25px; height: 25px;margin-left: 10px;">
-                <span class="flashsale-header-title" style="margin-right:5px">SẢN PHẨM BÁN CHẠY </span>
+                <span class="flashsale-header-title" style="margin-right:5px" th:text="#{lo.mn.sphbanchay}">SẢN PHẨM BÁN CHẠY </span>
             </div>
 
             <div class="shop-product-wrap grid-four shop-border row space-db--30 mt--10 mb--30">
@@ -426,7 +427,7 @@
                 <!-- Start flashsale-header -->
                 <img src="https://cdn0.fahasa.com/media/wysiwyg/icon-menu/ico_flashsale@3x.png"
                      style="width: 25px; height: 25px;margin-left: 10px;">
-                <span class="flashsale-header-title" style="margin-right:5px">THƯƠNG HIỆU NỔI BẬT </span>
+                <span class="flashsale-header-title" style="margin-right:5px" th:text="#{lo.mn.brand}">THƯƠNG HIỆU NỔI BẬT </span>
             </div>
             <ul class="nav nav-pills mb-3 justify-content-md-left ml--10 pb-2 section-title--bordered" id="pills-tab"
                 role="tablist">
@@ -503,8 +504,8 @@
                             <i class="fas fa-shipping-fast"></i>
                         </div>
                         <div class="text">
-                            <h5>Miễn Phí Vận Chuyển Mặt Hàng</h5>
-                            <p>Đơn hàng trên 500.000đ</p>
+                            <h5 th:text="#{lo.mn.mphi}">Miễn Phí Vận Chuyển Mặt Hàng</h5>
+                            <p th:text="#{lo.mn.dhang}">Đơn hàng trên 500.000đ</p>
                         </div>
                     </div>
                 </div>
@@ -514,8 +515,8 @@
                             <i class="fas fa-redo-alt"></i>
                         </div>
                         <div class="text">
-                            <h5>Đảm Bảo Hoàn Tiền </h5>
-                            <p>100% hoàn tiền</p>
+                            <h5 th:text="#{lo.mn.dbhtien}">Đảm Bảo Hoàn Tiền </h5>
+                            <p th:text="#{lo.mn.htien}">100% hoàn tiền</p>
                         </div>
                     </div>
                 </div>
@@ -525,8 +526,8 @@
                             <i class="fas fa-piggy-bank"></i>
                         </div>
                         <div class="text">
-                            <h5>Tiền Mặt Khi Giao Hàng</h5>
-                            <p>Lorem ipsum dolor amet</p>
+                            <h5 th:text="#{lo.mn.tienmat}">Thanh toán bằng ví điện tử</h5>
+                            <p th:text="#{lo.mn.tkh}">Tiết kiệm hơn khi mua hàng</p>
                         </div>
                     </div>
                 </div>
@@ -536,8 +537,8 @@
                             <i class="fas fa-life-ring"></i>
                         </div>
                         <div class="text">
-                            <h5> Trợ Giúp & Hỗ Trợ </h5>
-                            <p>Gọi cho chúng tôi: + 0123.4567.89</p>
+                            <h5 th:text="#{lo.mn.trgiup}"> Trợ Giúp & Hỗ Trợ </h5>
+                            <p th:text="#{lo.mn.goi}">Gọi cho chúng tôi: + 0123.4567.89</p>
                         </div>
                     </div>
                 </div>

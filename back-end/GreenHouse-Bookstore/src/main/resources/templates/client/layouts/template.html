@@ -48,13 +48,13 @@
 
           <div class="top-bar-search-container">
             <div class="top-bar-search">
-              <input type="text" placeholder="Tìm kiếm sản phẩm mong muốn...">
+              <input type="text" th:placeholder="#{lo.mn.search}">
               <span class="button"><i class='bx bx-search'></i></span>
 
             </div>
             <div class="top-bar-search-info">
               <div class="top-bar-search-info-headline">
-                <span class="top-bar-search-info-headline-label">Cặp sách mới - kiến thức mới</span>
+                <span class="top-bar-search-info-headline-label" th:text="#{lo.mn.new}"></span>
                 <img class=" lazyloaded" src="https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Artboard_11.3.jpg"
                   data-src="https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Artboard_11.3.jpg">
               </div>
@@ -62,7 +62,7 @@
               <div class="tu-khoa-hot">
                 <span><img
                     src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
-                <span>Từ khoá Hot</span>
+                <span th:text="#{lo.mn.hot}"></span>
               </div>
 
               <div class="tu-khoa-hot-container">
@@ -98,7 +98,7 @@
               <div class="tu-khoa-hot" style="margin-top: 10px;">
                 <span><img width="20px" height="20px"
                     src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_menu.svg"></span>
-                <span>Chuyên mục nổi bật</span>
+                <span th:text="#{lo.mn.nb}"></span>
               </div>
 
               <div class="tu-khoa-hot-container" style="margin-top: 20px; margin-bottom: 20px;">
@@ -131,8 +131,8 @@
                   </div>
                 </div>
               </div>
-              <div class="fhs_top_center">
-                <div class="top_menu_label">Thông Báo</div>
+              <div class="center_center">
+                <div class="top_menu_label" th:text="#{lo.mn.mess}"></div>
               </div>
             </a>
             <div class="top-dropdown" ng-if="token" style="padding: 5px 10px 15px 10px;margin-top: -18px; width: 22%">
@@ -177,29 +177,32 @@
               <div class="dropdown-pad">
                 <div class="center_center" style="font-size: 1.23em; color: #0D0E0F;">
                   <span class="icon_nofi_black" style="margin-right: 5px;"></span>
-                  <span>Thông báo</span>
+                  <span th:text="#{lo.mn.mess}"></span>
                 </div>
               </div>
               <div class="center_center">
                 <span class="ico_notlogin"></span>
               </div>
-              <div class="center_center" style="color: #0D0E0F; font-size: 1.23em; ">Vui lòng
+              <div class="center_center" style="color: #0D0E0F; font-size: 1.23em; " th:text="#{lo.mn.messmeanu}">Vui
+                lòng
                 đăng nhập để
               </div>
-              <div class="center_center" style="color: #0D0E0F; padding-bottom:24px; font-size: 1.23em;">xem
-                thông báo</div>
+              <div class="center_center" style="color: #0D0E0F; padding-bottom:24px; font-size: 1.23em;"
+                   th:text="#{lo.mn.messmeanu1}">xem
+                thông báo
+              </div>
               <a href="/login" style="margin-top: 5px;" class="button-default active">
-                <span>Đăng nhập</span>
+                <span th:text="#{lo.mn.login}">Đăng nhập</span>
               </a>
               <a href="/resgister" style="margin-top: 10px;" class="button-default">
-                <span>Đăng ký</span>
+                <span th:text="#{lo.mn.signup}">Đăng ký</span>
               </a>
             </div>
           </div>
-     
+
           <div class="center_center mouse-hover cart-dropdown"><!--cart-icon-->
-            <a class="top-button-icon "   
-            href="">
+            <a class="top-button-icon "
+               href="">
               <div class="fhs_center_center" style="margin-bottom: 3px;">
                 <div class="icon_cart_gray">
                   <div class="top_menu_unseen fhs_center_center">
@@ -208,7 +211,7 @@
                 </div>
               </div>
               <div class="center_center">
-                <div class="top_menu_label">Giỏ hàng</div>
+                <div class="top_menu_label" th:text="#{lo.mn.cart}">Giỏ hàng</div>
               </div>
             </a>
             <!-- Model cart -->
@@ -228,8 +231,10 @@
               </div>
               <div class=" single-cart-block ">
                 <div class="btn-block">
-                  <a href="/cart" class="btn">Xem thêm <i class="fas fa-chevron-right"></i></a>
-                  <a href="#!thanhtoan" class="btn btn--primary">Thanh toán <i class="fas fa-chevron-right"></i></a>
+                  <a href="/cart" class="btn" th:text="#{lo.mn.cartmenu}">Xem thêm <i
+                          class="fas fa-chevron-right"></i></a>
+                  <a href="#!thanhtoan" class="btn btn--primary" th:text="#{lo.mn.cartmenu1}">Thanh toán <i
+                          class="fas fa-chevron-right"></i></a>
                 </div>
               </div>
             </div>
@@ -250,40 +255,40 @@
               <!-- Kiểm tra nếu người dùng có vai trò 'CUSTOMER' -->
               <div ng-if="isCustomer">
                 <a href="/account" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-user"></i> <span>Tài khoản</span>
+                  <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
                 </a>
                 <a href="/#" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-file-alt"></i> <span>Đơn hàng của tôi</span>
+                  <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.Order}">Đơn hàng của tôi</span>
                 </a>
                 <a href="/change-password" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-file-alt"></i> <span>Đổi mật khẩu</span>
+                  <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.change}">Đổi mật khẩu</span>
                 </a>
                 <button type="button" ng-click="logout()" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span>
+                  <i class="fas fa-sign-out-alt"></i> <span th:text="#{lo.mn.logout}">Đăng xuất</span>
                 </button>
               </div>
               <!-- Kiểm tra nếu người dùng có vai trò 'ADMIN' -->
               <div ng-if="isAdmin">
                 <button type="button" ng-click="admin()" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-cogs"></i> <span>Quản lý</span>
+                  <i class="fas fa-cogs"></i> <span th:text="#{lo.mn.ql}">Quản lý</span>
                 </button>
                 <a href="/#" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-file-alt"></i> <span>Báo cáo</span>
+                  <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.bc}">Báo cáo</span>
                 </a>
                 <button type="button" ng-click="logout()" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span>
+                  <i class="fas fa-sign-out-alt"></i> <span th:text="#{lo.mn.logout}">Đăng xuất</span>
                 </button>
               </div>
               <!-- Hiển thị nút đăng nhập, đăng ký, và quên mật khẩu cho người dùng chưa đăng nhập -->
               <div ng-if="!isCustomer && !isAdmin">
                 <a href="/login" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-sign-in-alt"></i> <span>Đăng nhập</span>
+                  <i class="fas fa-sign-in-alt"></i> <span th:text="#{lo.mn.login}">Đăng nhập</span>
                 </a>
                 <a href="/resgister" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-user-plus"></i> <span>Đăng ký</span>
+                  <i class="fas fa-user-plus"></i> <span th:text="#{lo.mn.signup}">Đăng ký</span>
                 </a>
                 <a href="/forgot-password" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-key"></i> <span>Quên mật khẩu</span>
+                  <i class="fas fa-key"></i> <span th:text="#{lo.mn.forgot}">Quên mật khẩu</span>
                 </a>
               </div>
             </div>
@@ -295,15 +300,18 @@
               <span class="top-language-flag-seemore"></span>
             </div>
             <div class="top-language-dropdown" style="display: none;" id="top-language-dropdown">
-              <div class="top-language-dropdown-item center_center">
-                <span class="top-language-flag-icon"></span>
-                <span class="top-language-dropdown-item-label">VN</span>
-              </div>
-              <div class="top-language-dropdown-item center_center">
-                <span class="top-language-flag-icon-eng"></span>
-                <span class="top-language-dropdown-item-label">EN</span>
-              </div>
-
+              <a th:href="@{'?lang=vi'}" ng-click="changeLanguage('vi')">
+                <div class="top-language-dropdown-item center_center">
+                  <span class="top-language-flag-icon"></span>
+                  <span class="top-language-dropdown-item-label">VN</span>
+                </div>
+              </a>
+              <a th:href="@{'?lang=en'}" ng-click="changeLanguage('en')">
+                <div class="top-language-dropdown-item center_center">
+                  <span class="top-language-flag-icon-eng"></span>
+                  <span class="top-language-dropdown-item-label">EN</span>
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -321,7 +329,7 @@
           </div>
 
           <div class="top-bar-search-mobile" style="margin-left: 1%;">
-            <input type="text" placeholder="Tìm kiếm sản phẩm mong muốn...">
+            <input type="text" th:placeholder="#{lo.mn.search}" placeholder="Tìm kiếm sản phẩm mong muốn...">
           </div>
 
           <div class="top-bar-mobile-icon center_center">
@@ -346,10 +354,10 @@
               <div class="col-lg-3">
                 <nav class="category-nav white-nav ">
                   <div>
-                    <a class="category-trigger"><i class="fa fa-bars"></i>Danh mục sản phẩm</a>
+                    <a class="category-trigger" th:text="#{lo.mn.dmsp}"><i class="fa fa-bars"></i>Danh mục sản phẩm</a>
                     <ul class="category-menu">
                       <li class="cat-item has-children mega-menu">
-                        <a href="#">Sách Trong Nước</a>
+                        <a href="#" th:text="#{lo.mn.bookin}">Sách Trong Nước</a>
                         <ul class="sub-menu">
                           <li class="single-block">
                             <h3 class="title">Truyện</h3>
@@ -386,7 +394,7 @@
                         </ul>
                       </li>
 
-                      <li class="cat-item has-children"><a href="#">Sách Nước Ngoài</a>
+                      <li class="cat-item has-children"><a href="#" th:text="#{lo.mn.snuoc}">Sách Nước Ngoài</a>
                         <ul class="sub-menu">
                           <li><a href="">Brake Tools</a></li>
                           <li><a href="">Driveshafts</a></li>
@@ -394,7 +402,8 @@
                           <li><a href="">Spools</a></li>
                         </ul>
                       </li>
-                      <li class="cat-item has-children mega-menu"><a href="#">Dụng Cụ Học Sinh</a>
+                      <li class="cat-item has-children mega-menu"><a href="#" th:text="#{lo.mn.dcu}">Dụng Cụ Học
+                        Sinh</a>
                         <ul class="sub-menu">
                           <li class="single-block">
                             <h3 class="title">Bút - Viết</h3>
@@ -425,7 +434,8 @@
                           </li>
                         </ul>
                       </li>
-                      <li class="cat-item has-children mega-menu"><a href="#">Hành Trang Đến Trường</a>
+                      <li class="cat-item has-children mega-menu"><a href="#" th:text="#{lo.mn.htdt}">Hành Trang
+                        ĐếnTrường</a>
                         <ul class="sub-menu">
                           <li class="single-block">
                             <h3 class="title">Sách Giáo Khoa - Tham Khảo</h3>
@@ -463,7 +473,8 @@
                         </ul>
                       </li>
 
-                      <li class="cat-item"><a href="#" class="js-expand-hidden-menu">Xem Nhiều Hơn</a></li>
+                      <li class="cat-item"><a href="#" class="js-expand-hidden-menu" th:text="#{lo.mn.xnh}">Xem Nhiều
+                        Hơn</a></li>
                     </ul>
                   </div>
                 </nav>
@@ -476,23 +487,23 @@
                 <div class="main-navigation flex-lg-right">
                   <ul class="main-menu menu-right main-menu--white  li-last-0">
                     <li class="menu-item">
-                      <a href="/index">Trang Chủ </a>
+                      <a href="/index" th:text="#{lo.mn.home}">Trang Chủ </a>
                     </li>
                     <!-- Shop -->
                     <li class="menu-item">
 
-                      <a href="/product">Sản Phẩm </a>
+                      <a href="/product" th:text="#{lo.mn.product}">Sản Phẩm </a>
 
                     </li>
                     <li class="menu-item">
-                      <a href="/flash-sale">Ưu Đãi</a>
+                      <a href="/flash-sale" th:text="#{lo.mn.sales}">Ưu Đãi</a>
                     </li>
 
                     <li class="menu-item">
-                      <a href="/voucher">Mã Khuyến Mãi</a>
+                      <a href="/voucher" th:text="#{lo.mn.voucher}">Mã Khuyến Mãi</a>
                     </li>
                     <li class="menu-item">
-                      <a href="/contact">Liên Hệ</a>
+                      <a href="/contact" th:text="#{lo.mn.contact}">Liên Hệ</a>
                     </li>
                   </ul>
                 </div>
@@ -526,13 +537,13 @@
               <nav class="off-canvas-nav">
                 <ul class="mobile-menu main-mobile-menu">
                   <li class="menu-item-has-children">
-                    <a href="/index">Trang Chủ </a>
+                    <a href="/index" th:text="#{lo.mn.home}">Trang Chủ </a>
                   </li>
                   <li class="menu-item-has-children">
-                    <a href="#">Sản Phẩm</a>
+                    <a href="#" th:text="#{lo.mn.product}">Sản Phẩm</a>
                     <ul class="sub-menu">
                       <li class="menu-item-has-children">
-                        <a href="#">Sách trong nước</a>
+                        <a href="#" th:text="#{lo.mn.bookin}">Sách trong nước</a>
                         <ul class="sub-menu">
                           <li class="menu-item-has-children">
                             <a href="#">Giáo Khoa - Tham Khảo</a>
@@ -568,7 +579,7 @@
                         </ul>
                       </li>
                       <li class="menu-item-has-children">
-                        <a href="#">Sách nước ngoài</a>
+                        <a href="#" th:text="#{lo.mn.snuoc}">Sách nước ngoài</a>
                         <ul class="sub-menu">
                           <li><a href="">Brake Tools</a></li>
                           <li><a href="">Driveshafts</a></li>
@@ -578,7 +589,7 @@
                         </ul>
                       </li>
                       <li class="menu-item-has-children">
-                        <a href="#">Dụng cụ học sinh</a>
+                        <a href="#" th:text="#{lo.mn.dcu}">Dụng cụ học sinh</a>
                         <ul class="sub-menu">
                           <li><a href="#">Hồ Dán</a></li>
                           <li><a href="#">Thước</a></li>
@@ -587,7 +598,7 @@
                         </ul>
                       </li>
                       <li class="menu-item-has-children">
-                        <a href="#">Hành trang đến trường</a>
+                        <a href="#" th:text="#{lo.mn.htdt}">Hành trang đến trường</a>
                         <ul class="sub-menu">
                           <li class="menu-item-has-children">
                             <a href="#">Giáo Khoa - Tham Khảo</a>
@@ -626,13 +637,13 @@
                     </ul>
                   </li>
                   <li class="menu-item">
-                    <a href="#!flash-sale">Ưu Đãi</a>
+                    <a href="#!flash-sale" th:text="#{lo.mn.sales}">Ưu Đãi</a>
                   </li>
                   <li class="menu-item">
-                    <a href="/voucher">Mã Khuyến Mãi</a>
+                    <a href="/voucher" th:text="#{lo.mn.voucher}">Mã Khuyến Mãi</a>
                   </li>
                   <li class="menu-item">
-                    <a href="/contact">Liên Hệ</a>
+                    <a href="/contact" th:text="#{lo.mn.contact}">Liên Hệ</a>
                   </li>
                 </ul>
               </nav>
@@ -672,20 +683,20 @@
               <div class="main-navigation flex-lg-right">
                 <ul class="main-menu menu-right ">
                   <li class="menu-item">
-                    <a href="/index">Trang Chủ </a>
+                    <a href="/index" th:text="#{lo.mn.home}">Trang Chủ </a>
                   </li>
                   <!-- Shop -->
                   <li class="menu-item">
-                    <a href="/product">Sản Phẩm </a>
+                    <a href="/product" th:text="#{lo.mn.product}">Sản Phẩm </a>
                   </li>
                   <li class="menu-item">
-                    <a href="/flash-sale">Ưu Đãi</a>
+                    <a href="/flash-sale" th:text="#{lo.mn.sales}">Ưu Đãi</a>
                   </li>
                   <li class="menu-item">
-                    <a href="/voucher">Mã Khuyến Mãi</a>
+                    <a href="/voucher" th:text="#{lo.mn.voucher}">Mã Khuyến Mãi</a>
                   </li>
                   <li class="menu-item">
-                    <a href="/contact">Liên Hệ</a>
+                    <a href="/contact" th:text="#{lo.mn.contact}">Liên Hệ</a>
                   </li>
                 </ul>
               </div>
@@ -707,9 +718,10 @@
                 <img src="/client/image/GreenHouse_Logo.png" alt="">
               </div>
               <div class="footer-contact">
-                <p><span class="label">Địa chỉ:</span>
+                <p><span class="label" th:text="#{lo.mn.address}">Địa chỉ:</span>
                   Toà nhà FPT Polytechnic, Đ. Số 22, Thường Thạnh, Cái Răng, Cần Thơ, Vietnam</p>
-                <p><span class="label">Điện thoại:</span><span class="text">1800.123.4569</span></p>
+                <p><span class="label" th:text="#{lo.mn.phone}">Điện thoại:</span><span
+                        class="text">1800.123.4569</span></p>
                 <p><span class="label">Email:</span><span class="text">greenhousebook@gmail.com</span></p>
 
               </div>
@@ -718,13 +730,13 @@
           <div class=" col-xl-4 col-lg-2 col-sm-6 border-end border-success text-center">
             <div class="single-footer pb--40 ">
               <div class="footer-title">
-                <h3>dịch vụ của Greenhouse</h3>
+                <h3 th:text="#{lo.mn.dichvu}">dịch vụ của Greenhouse</h3>
               </div>
               <ul class="footer-list normal-list">
-                <li><a href="">Bảo mật thông tin cá nhân</a></li>
-                <li><a href="">Bảo mật thanh toán</a></li>
-                <li><a href="">Hệ thống uy tín</a></li>
-                <li><a href="">Điều khoản sử dụng phù hợp</a></li>
+                <li><a href="" th:text="#{lo.mn.baomat}">Bảo mật thông tin cá nhân</a></li>
+                <li><a href="" th:text="#{lo.mn.thanhtoan}">Bảo mật thanh toán</a></li>
+                <li><a href="" th:text="#{lo.mn.hethong}">Hệ thống uy tín</a></li>
+                <li><a href="" th:text="#{lo.mn.dieukhoan}">Điều khoản sử dụng phù hợp</a></li>
 
               </ul>
             </div>
@@ -735,24 +747,26 @@
 
           <div class=" col-xl-4 col-lg-4 col-sm-6 text-center">
             <div class="footer-title">
-              <h3>Hổ trợ và ưu đãi</h3>
+              <h3 th:text="#{lo.mn.hotro}">Hỗ trợ và ưu đãi</h3>
             </div>
             <ul class="footer-list normal-list">
-              <li><a href="">Được đổi - trả - hoàn tiền</a></li>
-              <li><a href="">Được nhận ưu đãi bảo hành</a></li>
-              <li><a href="">Vận chuyển hàng nhanh chóng</a></li>
-              <li><a href="">Hình thức thanh toán tiện lợi</a></li>
-              <li><a href="">Khuyến mãi cho khách hàng tiềm năng</a></li>
+              <li><a href="" th:text="#{lo.mn.duoc}">Được đổi - trả - hoàn tiền</a></li>
+              <li><a href="" th:text="#{lo.mn.uudai}">Được nhận ưu đãi bảo hành</a></li>
+              <li><a href="" th:text="#{lo.mn.vanchuyen}">Vận chuyển hàng nhanh chóng</a></li>
+              <li><a href="" th:text="#{lo.mn.hthuc}">Hình thức thanh toán tiện lợi</a></li>
+              <li><a href="" th:text="#{lo.mn.tnang}">Khuyến mãi cho khách hàng tiềm năng</a></li>
 
             </ul>
             <div class="social-block">
 
               <ul class="social-list list-inline">
-                <li class="single-social facebook"><a href=""><i class="ion ion-social-facebook"></i></a>
-                </li>
-                <li class="single-social twitter"><a href=""><i class="ion ion-social-twitter"></i></a></li>
-                <li class="single-social google"><a href=""><i class="ion ion-social-googleplus-outline"></i></a></li>
-                <li class="single-social youtube"><a href=""><i class="ion ion-social-youtube"></i></a></li>
+                <li class="single-social facebook"><a href="https://www.facebook.com/greenhouseteam"><i
+                        class="ion ion-social-facebook"></i></a></li>
+                <li class="single-social youtube"><a href="https://www.youtube.com/channel/UCcVno9Do_VIONEAf9QGzeQw"><i
+                        class="ion ion-social-youtube"></i></a></li>
+                <li class="single-social google"><a href="https://www.instagram.com/greenhousebookstrore/"><i
+                        class="ion ion-social-instagram"></i></a></li>
+
               </ul>
             </div>
           </div>
@@ -771,7 +785,7 @@
         <div dir="ltr" data-b24-crm-button-cont=""
           class="b24-widget-button-wrapper b24-widget-button-position-bottom-left b24-widget-button-visible"
           id="sudovn-btn-wrapper">
-          <div id="sudovn-btn-title">Bạn cần hỗ trợ?</div>
+          <div id="sudovn-btn-title" th:text="#{lo.mn.chat}">Bạn cần hỗ trợ?</div>
           <div id="sudovn-btn-social"><a href="tel:0335031624" target="_blank" rel="nofollow"
               class="sudovn-btn-social-item">
               <div class="sudovn-btn-social-item-icon"><img
@@ -854,15 +868,15 @@
       <script type="text/javascript">
         document.getElementById("sudovn-btn-icon-container").addEventListener("click", function () {
           document.getElementById("sudovn-btn-social").classList.remove("b24-widget-button-hide"), document
-            .getElementById("sudovn-btn-social").classList.add("b24-widget-button-show"), document.getElementById(
-              "sudovn-btn-shadow").classList.remove("b24-widget-button-hide"), document.getElementById(
-                "sudovn-btn-shadow").classList.add("b24-widget-button-show"), document.getElementById(
+                  .getElementById("sudovn-btn-social").classList.add("b24-widget-button-show"), document.getElementById(
+                  "sudovn-btn-shadow").classList.remove("b24-widget-button-hide"), document.getElementById(
+                  "sudovn-btn-shadow").classList.add("b24-widget-button-show"), document.getElementById(
                   "sudovn-btn-wrapper").classList.add("b24-widget-button-bottom")
         }), document.getElementById("sudovn-btn-close").addEventListener("click", function () {
           document.getElementById("sudovn-btn-social").classList.remove("b24-widget-button-show"), document
-            .getElementById("sudovn-btn-social").classList.add("b24-widget-button-hide"), document.getElementById(
-              "sudovn-btn-shadow").classList.remove("b24-widget-button-show"), document.getElementById(
-                "sudovn-btn-shadow").classList.add("b24-widget-button-hide"), document.getElementById(
+                  .getElementById("sudovn-btn-social").classList.add("b24-widget-button-hide"), document.getElementById(
+                  "sudovn-btn-shadow").classList.remove("b24-widget-button-show"), document.getElementById(
+                  "sudovn-btn-shadow").classList.add("b24-widget-button-hide"), document.getElementById(
                   "sudovn-btn-wrapper").classList.remove("b24-widget-button-bottom")
         });
       </script>

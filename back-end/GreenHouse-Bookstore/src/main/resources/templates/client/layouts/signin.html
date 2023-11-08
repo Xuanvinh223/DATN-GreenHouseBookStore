@@ -63,8 +63,8 @@
             <div class="col-md-12 right-box">
                 <div class="row align-items-center">
                     <div class="header-text mb-4 text-center">
-                        <h2 class="text-uppercase">Đăng ký</h2>
-                        <p>Khám phá sách tuyệt vời và tính năng độc đáo tại trang web.</p>
+                        <h2 class="text-uppercase" th:text="#{lo.mn.signupacc}">Đăng ký</h2>
+                        <p th:text="#{lo.mn.khampha}">Khám phá sách tuyệt vời và tính năng độc đáo tại trang web.</p>
                     </div>
 
                     <form ng-submit="signup()">
@@ -76,16 +76,18 @@
                             <div class="form-floating full-with">
                                 <input type="text" class="form-control" id="phone" placeholder="Số Điện Thoại"
                                        ng-model="emailAndPhone">
-                                <label for="phone">Email & Số điện thoại<label for="phone"
-                                                                               class="text-danger">(*)</label></label>
+                                <label for="phone" th:text="#{lo.mn.hoac}">*Email & Số điện thoại</label>
                             </div>
                         </div>
                         <!-- OTP -->
                         <div class="form-floating  form-floating-row flex-nowrap mb-2">
-                            <input style="padding-left: 15px" ng-model="code" placeholder="Nhập mã xác thực 6 số"
+                            <input style="padding-left: 15px" ng-model="code" th:placeholder="#{lo.mn.xacthuc}"
+                                   placeholder="Nhập mã xác thực 6 số"
                                    type="text" name="code" title="Code"
                                    class="input_frame col-8">
-                                   <button class="btn-success1" type="button" ng-click="sendCode()">Gửi mã OTP</button>
+                            <button class="btn-success1" type="button" ng-click="sendCode()" th:text="#{lo.mn.otp}">Gửi
+                                mã OTP
+                            </button>
                         </div>
                         <!-- Trường Mật khẩu -->
                         <div class="input-group flex-nowrap mb-2">
@@ -97,8 +99,7 @@
                                        aria-label="Password"
                                        aria-describedby="addon-wrapping" name="password" ng-model="password"
                                        ng-change="checkPassword()" ng-readonly="disabled">
-                                <label for="password">Mật Khẩu <label for="password"
-                                                                      class="text-danger">(*)</label></label>
+                                <label for="password" th:text="#{lo.mn.matkhau}">*Mật Khẩu </label>
                             </div>
                         </div>
                         <!-- Trường Nhập lại mật khẩu -->
@@ -111,28 +112,28 @@
                                        placeholder="Xác Nhận Mật Khẩu"
                                        aria-label="Confirm-Password" aria-describedby="addon-wrapping" name="repassword"
                                        ng-model="repassword" ng-readonly="disabled">
-                                <label for="repassword">Xác Nhận Mật Khẩu <label for="repassword"
-                                                                                 class="text-danger">(*)</label></label>
+                                <label for="repassword" th:text="#{lo.mn.xacnhan}">*Xác Nhận Mật Khẩu </label></label>
                             </div>
                         </div>
-                        <div class="text-danger" ng-show="passwordError">
+                        <div class="text-danger" ng-show="passwordError" th:text="#{lo.mn.check}">
                             Mật khẩu phải có ít nhất 8 ký tự, có ít nhất một chữ cái viết thường, một chữ cái viết hoa,
                             một số, và một ký tự đặc biệt.
                         </div>
                         <!-- Checkbox -->
                         <div class="form-check d-flex justify-content-left mb-4">
                             <input class="form-check-input " type="checkbox" value="" id="registerCheck" checked>
-                            <label class="form-check-label" for="registerCheck">
+                            <label class="form-check-label" for="registerCheck" th:text="#{lo.mn.dongy}">
                                 Tôi đã đọc và đồng ý với các điều khoản.
                             </label>
                         </div>
 
                         <div class="mb-3">
-                            <button class="btn btn-lg btn-success1 w-100 fs-6">Đăng ký</button>
+                            <button class="btn btn-lg btn-success1 w-100 fs-6" th:text="#{lo.mn.signupacc}">Đăng ký
+                            </button>
                         </div>
                         <div class="dialog-footer d-flex justify-content-center align-items-center mt-3">
-                            <small>Bạn đã có tài khoản? <a href="/login" class="text-green">Đăng
-                                nhập</a></small>
+                            <small th:text="#{lo.mn.co}">Bạn đã có tài khoản? </small>
+                            <a href="/login" class="text-green" th:text="#{lo.mn.login}">Đăng nhập</a>
                         </div>
                     </form>
         </div>

@@ -12,10 +12,11 @@
                 <div class="breadcrumb-contents">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/index">Trang chủ</a></li>
-                            <li class="breadcrumb-item ">Sản phẩm</li>
+                            <li class="breadcrumb-item" th:text="#{lo.mn.homecon}"><a href="/index">Trang chủ</a></li>
+                            <li class="breadcrumb-item" th:text="#{lo.mn.productcon}">Sản phẩm</li>
                             <li class="breadcrumb-item active">
-                                <a href="#">{{selectedCategoryName|| 'Tất cả sản phẩm'}}</a>
+                                <a href="#" th:text="#{lo.mn.allproduct}">{{selectedCategoryName|| 'Tất cả sản
+                                    phẩm'}}</a>
                             </li>
                         </ol>
                     </nav>
@@ -50,15 +51,22 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6 mt--10 mt-md--0">
                                     <div class="d-flex justify-content-end">
                                         <div class="sorting-selection">
-                                            <span>Sắp xếp:</span>
+                                            <span th:text="#{lo.mn.sapxep}">Sắp xếp:</span>
                                             <div class="sorting-selection">
                                                 <div class="custom-select">
                                                     <select class="form-control" ng-model="sortBy"
                                                             ng-change="onSortChange()">
-                                                        <option value="newest">Mới nhất</option>
-                                                        <option value="bestSelling">Bán chạy nhất</option>
-                                                        <option value="lowestPrice">Giá thấp nhất</option>
-                                                        <option value="highestPrice">Giá cao nhất</option>
+                                                        <option th:text="#{lo.mn.moinhat}" value="newest">Mới nhất
+                                                        </option>
+                                                        <option th:text="#{lo.mn.banchay}" value="bestSelling">Bán chạy
+                                                            nhất
+                                                        </option>
+                                                        <option th:text="#{lo.mn.thapnhat}" value="lowestPrice">Giá thấp
+                                                            nhất
+                                                        </option>
+                                                        <option th:text="#{lo.mn.caonhat}" value="highestPrice">Giá cao
+                                                            nhất
+                                                        </option>
                                                     </select>
                                                     <i class='bx bx-chevron-down'></i>
                                                 </div>
@@ -70,10 +78,10 @@
                                                 <select class="form-control " ng-model="itemsPerPage"
                                                         id="itemsPerPageSelect" ng-change="changeItemsPerPage()"
                                                         ng-init="itemsPerPage = '6'">
-                                                    <option value="6">6 sản phẩm</option>
-                                                    <option value="10">10 sản phẩm</option>
-                                                    <option value="15">15 sản phẩm</option>
-                                                    <option value="25">25 sản phẩm</option>
+                                                    <option th:text="#{lo.mn.six }" value="6">6 sản phẩm</option>
+                                                    <option th:text="#{lo.mn.ten}" value="10">10 sản phẩm</option>
+                                                    <option th:text="#{lo.mn.fif}" value="15">15 sản phẩm</option>
+                                                    <option th:text="#{lo.mn.tew}" value="25">25 sản phẩm</option>
                                                 </select>
                                                 <i class='bx bx-chevron-down'></i>
                                             </div>
@@ -369,7 +377,7 @@
                         <div class="inner-page-sidebar">
                             <!-- Accordion -->
                             <div class="single-block">
-                                <h3 class="sidebar-title">Danh Mục Sản Phẩm</h3>
+                                <h3 class="sidebar-title" th:text="#{lo.mn.dmsp}">Danh Mục Sản Phẩm</h3>
                                 <ul class="sidebar-menu--shop">
                                     <li class="sidebar-menu-01">
                                         <a ng-class="{active: !selectedCategoryId}"

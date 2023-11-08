@@ -12,8 +12,8 @@
       <div class="col-md-12 right-box">
         <div class="row align-items-center">
           <div class="header-text text-center">
-            <h2 class="text-uppercase">Đăng nhập</h2>
-            <p>Chúng tôi rất vui khi có bạn trở lại.</p>
+            <h2 class="text-uppercase" th:text="#{lo.mn.loginbig}">Đăng nhập</h2>
+            <p th:text="#{lo.mn.ratvui}">Chúng tôi rất vui khi có bạn trở lại.</p>
           </div>
           <form ng-submit="login()">
             <div class="input-group flex-nowrap mb-2">
@@ -23,7 +23,8 @@
               <div class="form-floating full-with">
                   <input type="text" class="form-control" id="username" placeholder="Email hoặc Số Điện Thoại"
                          ng-model="userData.username">
-                  <label for="username">Email hoặc Số Điện Thoại <label for="" class="text-danger">(*)</label></label>
+                <label for="username" th:text="#{lo.mn.hoac}">Email hoặc Số Điện Thoại <label for=""
+                                                                                              class="text-danger">(*)</label></label>
               </div>
             </div>
             <div class="input-group flex-nowrap mb-2">
@@ -33,23 +34,27 @@
                 <div class="form-floating full-with">
                     <input type="password" class="form-control" id="password" placeholder="Mật khẩu"
                            ng-model="userData.password">
-                    <label for="password">Mật khẩu <label for="" class="text-danger">(*)</label></label>
+                  <label for="password" th:text="#{lo.mn.matkhau}">Mật khẩu <label for=""
+                                                                                   class="text-danger">(*)</label></label>
                 </div>
             </div>
 
             <div class="input-group border-0 mb-3 d-flex justify-content-between">
               <div class="form-check d-flex justify-content-between">
                 <input type="checkbox" class="form-check-input" id="formCheck">
-                <label for="formCheck" class="form-check-label text-secondary"><small>Ghi nhớ đăng
-                    nhập</small></label>
+                <label for="formCheck" class="form-check-label text-secondary"><small th:text="#{lo.mn.ghinho}">Ghi nhớ
+                  đăng
+                  nhập</small></label>
               </div>
               <div class="forgot">
-                <small><a href="/forgot-password" class="text-green forgot-password-link">Quên mật
-                    khẩu?</a></small>
+                <small><a href="/forgot-password" class="text-green forgot-password-link" th:text="#{lo.mn.quen}">Quên
+                  mật
+                  khẩu?</a></small>
               </div>
             </div>
             <div class="input-group border-0 mb-3">
-              <button type="submit" class="btn btn-lg btn-success1 w-100 fs-6">Đăng nhập</button>
+              <button type="submit" class="btn btn-lg btn-success1 w-100 fs-6" th:text="#{lo.mn.loginbig}">Đăng nhập
+              </button>
             </div>
             <div class="row">
               <div class="col-12"><a th:href="@{/oauth2/authorization/google}" class="btn btn-lg btn-light  w-100 fs-6"
@@ -57,7 +62,8 @@
                 <img src="/client/image/logoGoogle.png" style="width:20px" class="me-2"><small>Google</small></a>
               </div>
               <div class="dialog-footer d-flex justify-content-center align-items-center mt-3">
-                <small>Bạn chưa có tài khoản?<a href="/resgister" class="text-green mx-1">Đăng
+                <small th:text="#{lo.mn.chua}">Bạn chưa có tài khoản?<a href="/resgister" class="text-green mx-1"
+                                                                        th:text="#{lo.mn.signup}">Đăng
                   ký</a></small>
               </div>
           </form>
