@@ -24447,6 +24447,9 @@ input[type=number] {
 }
 
 .cart-product .content {
+  width: 100%;
+  overflow: hidden;
+  text-align: left;
   padding-left: 10px;
   padding-right: 30px;
 }

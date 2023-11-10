@@ -1,6 +1,9 @@
 package com.greenhouse.restcontroller.client;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -212,16 +215,19 @@ public class CartController {
         try {
             listUserVouchers = userVoucherRepository.findByUsernameAndStatus(username, false);
             for (UserVoucher item : listUserVouchers) {
-                listVouchers.add(item.getVoucher());
+                if (isVoucherValid(item.getVoucher().getStartDate(),
+                        item.getVoucher().getEndDate())) {
+                    listVouchers.add(item.getVoucher());
 
-                List<VoucherMappingCategory> listVMC = new ArrayList<>();
-                List<VoucherMappingProduct> listVMP = new ArrayList<>();
+                    List<VoucherMappingCategory> listVMC = new ArrayList<>();
+                    List<VoucherMappingProduct> listVMP = new ArrayList<>();
 
-                listVMP = voucherMappingProductRepository.findByVoucherId(item.getVoucher().getVoucherId());
-                listVMC = voucherMappingCategoryRepository.findByVoucherId(item.getVoucher().getVoucherId());
+                    listVMP = voucherMappingProductRepository.findByVoucherId(item.getVoucher().getVoucherId());
+                    listVMC = voucherMappingCategoryRepository.findByVoucherId(item.getVoucher().getVoucherId());
 
-                listVouchersMappingCategories.addAll(listVMC);
-                listVouchersMappingProduct.addAll(listVMP); 
+                    listVouchersMappingCategories.addAll(listVMC);
+                    listVouchersMappingProduct.addAll(listVMP);
+                }
             }
             status = "success";
             message = "Lấy danh sách voucher của người dùng: [" + username + "] thành công";
@@ -238,4 +244,12 @@ public class CartController {
         return ResponseEntity.ok(response);
     }
 
+    private static boolean isVoucherValid(Date startDate, Date endDate) {
+        Date currentDate = new Date();
+        if (currentDate.before(endDate) && currentDate.after(startDate)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

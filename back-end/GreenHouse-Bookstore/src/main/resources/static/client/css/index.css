@@ -571,6 +571,7 @@
 
 .cart-dropdown > .top-dropdown {
   display: none;
+  max-width: 550px;
 }
 
 .cart-dropdown:hover > .top-dropdown {
