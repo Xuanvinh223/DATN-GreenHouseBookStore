@@ -24449,8 +24449,11 @@ input[type=number] {
 }
 
 .cart-product .content {
-  padding-left: 10px;
-  padding-right: 30px;
+    width: 100%;
+    overflow: hidden;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 30px;
 }
 
 .cart-product .content .title {

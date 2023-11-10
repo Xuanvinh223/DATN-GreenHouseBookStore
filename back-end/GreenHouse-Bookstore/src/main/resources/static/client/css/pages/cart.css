@@ -341,17 +341,23 @@ input.qty-carts {
 }
 
 .item-product-cart .div-of-btn-remove-cart {
-    flex-basis: 8%;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 48px;
+    cursor: pointer;
+}
+
+.item-product-cart .div-of-btn-remove-cart svg {
+    fill: #5e5e5e;
+    transition: all ease .3s;
 }
 
 .cart .cart-ui-content .checkbox-wrapper-12 {
     position: relative;
 }
 
-.cart .cart-ui-content .checkbox-wrapper-12>svg {
+.cart .cart-ui-content .checkbox-wrapper-12 > svg {
     position: absolute;
     top: -130%;
     left: -170%;
@@ -626,22 +632,7 @@ input.qty-carts {
     -webkit-box-orient: vertical;
 }
 
-.gh-event-promo-list-item-content-description {
-    color: #7A7E7F;
-}
 
-.gh-event-promo-item>div:nth-of-type(2) {
-    display: flex;
-    flex-direction: row;
-    align-self: stretch;
-    align-items: flex-start;
-    justify-content: flex-start;
-    min-height: 40px;
-}
-
-.gh-event-promo-item>div:nth-of-type(2)>div:first-of-type {
-    width: calc(100% - 116px);
-}
 
 .gh-event-promo-item-progress-bar {
     width: 100%;
@@ -761,7 +752,8 @@ hr {
     margin: 0;
 }
 
-.gh-btn-view-promo-coupon.applied {
+.gh-btn-view-promo-coupon.applied,
+#popup_event_cart_detail_close .gh-btn-view-promo.applied {
     background-color: white;
     color: #27a51b;
     border: 1.5px solid #27a51b;
@@ -981,82 +973,6 @@ button.btn-checkout {
     margin-bottom: 20px;
 }
 
-
-/* CSS BUTTON DELETE + UNDO */
-.item-product-cart .div-of-btn-remove-cart button {
-    margin-right: 20px;
-}
-
-.item-product-cart .div-of-btn-remove-cart .BtnDelete {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100px;
-    height: 40px;
-    border: none;
-    padding: 0px 20px;
-    background-color: rgb(255, 40, 40);
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-    border-radius: 10px;
-    box-shadow: 5px 5px 0px rgb(197, 15, 15);
-    transition-duration: .3s;
-}
-
-.item-product-cart .div-of-btn-remove-cart .svg {
-    width: 26px;
-    position: absolute;
-    right: 0;
-    margin-right: 20px;
-    fill: white;
-    transition-duration: .3s;
-}
-
-.item-product-cart .div-of-btn-remove-cart .BtnDelete:hover {
-    color: transparent;
-}
-
-.item-product-cart .div-of-btn-remove-cart .BtnDelete:hover svg {
-    right: 35%;
-    margin: 0;
-    padding: 0;
-    border: none;
-    transition-duration: .3s;
-}
-
-
-.item-product-cart .div-of-btn-remove-cart .BtnUndo {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100px;
-    height: 40px;
-    border: none;
-    padding: 0px 20px;
-    background-color: rgb(32, 196, 67);
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-    border-radius: 10px;
-    box-shadow: 5px 5px 0px rgb(14, 160, 26);
-    transition-duration: .3s;
-}
-
-.item-product-cart .div-of-btn-remove-cart .BtnUndo:hover {
-    color: transparent;
-}
-
-.item-product-cart .div-of-btn-remove-cart .BtnUndo:hover svg {
-    right: 35%;
-    margin: 0;
-    padding: 0;
-    border: none;
-    transition-duration: .3s;
-}
-
 /* POPUP COUPON */
 
 #popup-loading-event-cart {
@@ -1065,20 +981,28 @@ button.btn-checkout {
     z-index: 99999;
     width: 550px;
     height: 80%;
-    max-height: 650px;
+    max-height: 750px;
     max-width: 100%;
     background-color: white;
     display: none;
     border: none;
-    top: 10%;
-    left: 50%;
+    top: 15%;
+    left: 40%;
+    -webkit-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
+    -webkit-border-bottom-left-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    transform: scale(1.2);
     overflow: hidden;
 }
 
-#popup-loading-event-cart:not(.popup-loading-event-cart_hasbottom)>.popup-loading-event-cart-info {
-    height: 100%;
-    padding-bottom: 15px;
+#popup-loading-event-cart.popup-loading-event-cart_hasbottom > .popup-loading-event-cart-info,
+#popup-loading-event-cart.popup-loading-event-cart_hasbottom > .popup-loading-event-cart-detail {
+    height: calc(100% - 55px);
 }
 
 #popup-loading-event-cart .popup-loading-event-cart-title {
@@ -1189,7 +1113,7 @@ button.btn-checkout {
     box-shadow: 0px 4px 6px hsl(0, 0%, 90%);
     border-radius: 8px;
     padding: 5px 0;
-    background: #2F80ED;
+    background: #27a51b;
     border: none;
     color: white;
 }
@@ -1211,7 +1135,7 @@ button.btn-checkout {
 }
 
 #popup-loading-event-cart .popup-loading-event-cart-content {
-    height: calc(100% - 50px);
+    height: calc(100% - 150px);
     width: 100%;
     overflow-y: auto;
     padding: 7.5px 7.5px 7.5px 15px;
@@ -1255,18 +1179,6 @@ button.btn-checkout {
     justify-content: flex-start;
 }
 
-.gh-event-promo-list .gh-event-promo-list-item {
-    display: flex;
-    flex-direction: row;
-    align-self: stretch;
-    align-items: flex-start;
-    justify-content: stretch;
-    border-radius: 8px;
-    margin: 7.5px 0;
-    position: relative;
-    height: 146px;
-}
-
 svg:not(:root) {
     overflow: hidden;
 }
@@ -1282,16 +1194,6 @@ svg:not(:root) {
     height: 100%;
 }
 
-.gh-event-promo-list .gh-event-promo-list-item.gh-event-promo-list-item-coupon.not_matched>div:first-of-type {
-    background: url(/skin/frontend/ma_vanese/fahasa/images/promotion/Frame_icon_web_light_yellow.svg) no-repeat center center;
-    background-size: calc(100% - 16px) calc(100% - 16px);
-}
-
-.gh-event-promo-list .gh-event-promo-list-item.gh-event-promo-list-item-coupon>div:first-of-type {
-    background: url(/skin/frontend/ma_vanese/fahasa/images/promotion/Frame_icon_web.svg) no-repeat center center;
-    background-size: calc(100% - 16px) calc(100% - 16px);
-}
-
 .gh-event-promo-list .gh-event-promo-list-item {
     display: flex;
     flex-direction: row;
@@ -1304,7 +1206,11 @@ svg:not(:root) {
     height: 146px;
 }
 
-.gh-event-promo-list .gh-event-promo-list-item>div:first-of-type {
+.gh-event-promo-list .gh-event-promo-list-item:hover svg {
+    filter: drop-shadow(rgba(0, 255, 13, 0.644) 0px 1px 3px);
+}
+
+.gh-event-promo-list .gh-event-promo-list-item > div:first-of-type {
     width: 132px;
     min-height: 100px;
     height: 100%;
@@ -1316,14 +1222,41 @@ svg:not(:root) {
     position: relative;
 }
 
-.gh-event-promo-list .gh-event-promo-list-item.gh-event-promo-list-item-coupon > div:first-of-type {
+.gh-event-promo-list .gh-event-promo-list-item.gh-event-promo-list-item-coupon > .voucherNormal {
+    background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/Frame_icon_web_light_yellow.svg) no-repeat center center;
+    background-size: calc(100% - 20px) calc(100% - 16px);
+}
+
+.gh-event-promo-list .gh-event-promo-list-item.gh-event-promo-list-item-coupon .voucherNormal.eligible {
     background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/Frame_icon_web.svg) no-repeat center center;
     background-size: calc(100% - 20px) calc(100% - 16px);
 }
 
-.gh-event-promo-list .gh-event-promo-list-item>div:nth-of-type(2) {
+/* ------------- */
+.gh-event-promo-list .gh-event-promo-list-item.gh-event-promo-list-item-coupon .voucherShipping {
+    background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/Frame_icon_web_lightgreen.svg) no-repeat center center;
+    background-size: calc(100% - 20px) calc(100% - 16px);
+}
+
+.gh-event-promo-list .gh-event-promo-list-item.gh-event-promo-list-item-coupon .voucherShipping.eligible {
+    background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/Frame_icon_web_green.svg) no-repeat center center;
+    background-size: calc(100% - 20px) calc(100% - 16px);
+}
+
+/* ------------- */
+.gh-event-promo-list .gh-event-promo-list-item.gh-event-promo-list-item-coupon .voucherPayment {
+    background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/Frame_icon_web_lightblue.svg) no-repeat center center;
+    background-size: calc(100% - 20px) calc(100% - 16px);
+}
+
+.gh-event-promo-list .gh-event-promo-list-item.gh-event-promo-list-item-coupon .voucherPayment.eligible {
+    background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/Frame_icon_web_blue.svg) no-repeat center center;
+    background-size: calc(100% - 20px) calc(100% - 16px);
+}
+
+.gh-event-promo-list .gh-event-promo-list-item > div:nth-of-type(2) {
     width: calc(100% - 138px);
-    padding: 12px 8px;
+    padding: 12px 16px 12px 8px;
     display: flex;
     flex-direction: column;
     align-self: stretch;
@@ -1426,18 +1359,8 @@ svg:not(:root) {
     width: calc(100% - 116px);
 }
 
-.gh-event-promo-item-progress-bar {
-    width: 100%;
-    height: 40px;
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    align-items: flex-start;
-    justify-content: center;
-}
-
-.gh-event-promo-item-progress-bar>.gh-event-promo-item-progress,
-.gh-event-promo-item>.gh-event-promo-item-progress {
+.gh-event-promo-item-progress-bar .gh-event-promo-item-progress,
+.gh-event-promo-list .gh-event-promo-item-progress {
     margin-top: 4px;
     width: 100%;
     height: 6px;
@@ -1455,8 +1378,8 @@ svg:not(:root) {
     margin-bottom: 0;
 }
 
-.gh-event-promo-item-progress-bar>.gh-event-promo-item-progress>hr,
-.gh-event-promo-item>.gh-event-promo-item-progress>hr {
+.gh-event-promo-item-progress-bar > .gh-event-promo-item-progress > hr,
+.gh-event-promo-list .gh-event-promo-item-progress > hr {
     width: 0%;
     height: 100%;
     border-radius: 10px;
@@ -1512,15 +1435,25 @@ svg:not(:root) {
     font-size: 1.2em;
     color: #F7941E;
     cursor: pointer;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
     user-select: none;
     display: flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     flex-direction: row;
     align-items: center;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
     justify-content: center;
 }
 
-.collapse {
-    display: none;
+.gh-event-promo-list > .gh-event-promo-list-viewmore > a > span {
+    padding-right: 4px;
 }
 
 .gh-event-promo-list>.gh-event-promo-list-viewmore>a.collapsed>.text-viewmore {
@@ -1529,10 +1462,6 @@ svg:not(:root) {
 
 .gh-event-promo-list>.gh-event-promo-list-viewmore>a.collapsed>.text-viewless {
     display: none;
-}
-
-.gh-event-promo-list>.gh-event-promo-list-viewmore>a>span {
-    padding-right: 4px;
 }
 
 
@@ -1618,4 +1547,122 @@ svg:not(:root) {
         background: var(--check-box-cart-color);
         box-shadow: 0 -36px 0 -10px transparent, 32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent, 0 36px 0 -10px transparent, -32px 16px 0 -10px transparent, -32px -16px 0 -10px transparent;
     }
+}
+
+.background-behind-popup {
+    background: #261E1E none repeat scroll 0% 0%;
+    position: fixed;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.rotate-icon {
+    transform: rotate(180deg);
+    transition: transform 0.35s;
+}
+
+#popup-loading-event-cart > .popup-loading-event-cart-detail .gh-event-promo-title {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+#popup-loading-event-cart > .popup-loading-event-cart-detail .gh-event-promo-title > .gh-event-promo-title-left,
+#popup-loading-event-cart > .popup-loading-event-cart-detail .gh-event-promo-title > .gh-event-promo-title-right {
+    cursor: pointer;
+}
+
+#popup-loading-event-cart > .popup-loading-event-cart-detail .gh-event-promo-item-progress-bar > div {
+    width: 100%;
+}
+
+#popup-loading-event-cart > .popup-loading-event-cart-detail .gh-event-promo-item-progress-bar .gh-event-promo-item-progress {
+    height: 8px;
+}
+
+#popup-loading-event-cart > .popup-loading-event-cart-detail .gh-event-promo-item-progress-bar .gh-event-promo-item-progress hr {
+    height: 100%;
+    border-radius: 10px;
+    background-color: #18970d;
+    border: none;
+}
+
+#popup-loading-event-cart > .popup-loading-event-cart-detail .gh-event-promo-item-progress-bar .gh-event-promo-item-minmax {
+    font-size: 1rem;
+}
+
+.close-popup-event {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+}
+
+#popup-loading-event-cart > .popup-loading-event-cart-bottom {
+    height: 55px;
+    box-shadow: 0 -4px 7px 0 hsl(0, 0%, 95%);
+}
+
+#popup-loading-event-cart:not(.popup-loading-event-cart_hasbottom) > .popup-loading-event-cart-bottom {
+    display: none;
+}
+
+#popup-loading-event-cart:not(.popup-loading-event-cart_hasbottom) > .popup-loading-event-cart-info,
+#popup-loading-event-cart:not(.popup-loading-event-cart_hasbottom) > .popup-loading-event-cart-detail {
+    height: 100%;
+    padding-bottom: 15px;
+}
+
+#popup-loading-event-cart.popup-loading-event-cart_hasbottom > .popup-loading-event-cart-info,
+#popup-loading-event-cart.popup-loading-event-cart_hasbottom > .popup-loading-event-cart-detail {
+    height: calc(100% - 55px);
+}
+
+#popup-loading-event-cart.popup-loading-event-cart_hasbottom > .popup-loading-event-cart-bottom #popup_event_cart_detail_close {
+    width: 100%;
+}
+
+#popup_event_cart_detail_close .gh-btn-view-promo-detail-coupon,
+#popup_event_cart_detail_close .gh-btn-view-promo-detail-gift {
+    background-color: #27a51b;
+    border: 1.5px solid #27a51b;
+    color: white;
+}
+
+#popup_event_cart_detail_close button {
+    background-color: #27a51b;
+    border: 1.5px solid #27a51b;
+    color: white;
+    font-size: 1.1em;
+    font-weight: 550;
+    text-transform: uppercase;
+}
+
+.btn-close-popup-event {
+    width: calc(100% - 30px);
+    font-size: 1.2em;
+    font-weight: 600;
+    transition: all 0.3s;
+    box-shadow: 0px 4px 6px hsl(0, 0%, 90%);
+    border-radius: 8px;
+    padding: 5px;
+    background-color: white;
+    color: #27a51b;
+    border: 1.5px solid #27a51b;
+    margin: 10px;
+}
+
+.close-popup-event > a {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
 }

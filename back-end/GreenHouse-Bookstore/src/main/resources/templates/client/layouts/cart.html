@@ -63,22 +63,7 @@
                                 </div>
                                 <div class="space">Đang chọn {{listCartItemSelected.length}} sản phẩm</div>
                                 <div class="cart-action">
-                                    <a class="btn edit" ng-if="!isEdit" ng-click="editCartItem()">
-                                        <svg viewBox="0 0 24 24" height="24" width="24"
-                                            xmlns="http://www.w3.org/2000/svg" class="icon edit">
-                                            <path
-                                                d="M19.4 7.34 16.66 4.6A2 2 0 0 0 14 4.53l-9 9a2 2 0 0 0-.57 1.21L4 18.91a1 1 0 0 0 .29.8A1 1 0 0 0 5 20h.09l4.17-.38a2 2 0 0 0 1.21-.57l9-9a1.92 1.92 0 0 0-.07-2.71zM9.08 17.62l-3 .28.27-3L12 9.32l2.7 2.7zM16 10.68 13.32 8l1.95-2L18 8.73z"
-                                                id="Fill"></path>
-                                        </svg>
-                                    </a>
-                                    <a class="btn done" ng-if="isEdit" ng-click="doneEditCartItem()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" class="icon done">
-                                            <path fill-rule="evenodd"
-                                                d="M12 3.5C7.30558 3.5 3.5 7.30558 3.5 12C3.5 16.6944 7.30558 20.5 12 20.5C16.6944 20.5 20.5 16.6944 20.5 12C20.5 7.30558 16.6944 3.5 12 3.5ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM16.0304 9.13633C16.3232 9.42923 16.3232 9.9041 16.0304 10.197L11.3637 14.8637C11.0708 15.1566 10.5959 15.1566 10.303 14.8637L7.96969 12.5303C7.6768 12.2374 7.6768 11.7626 7.96969 11.4697C8.26259 11.1768 8.73746 11.1768 9.03035 11.4697L10.8334 13.2727L14.9697 9.13633C15.2626 8.84344 15.7375 8.84344 16.0304 9.13633Z"
-                                                clip-rule="evenodd"></path>
-                                        </svg>
-                                    </a>
+
                                 </div>
                             </div>
                             <div class="product-cart-left">
@@ -146,7 +131,7 @@
                                                                 src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/ico_minus2x.png"></a>
 
                                                         <input type="text" class="qty-carts" ng-model="cart.quantity"
-                                                            ng-change="updateQuantity($index)">
+                                                               ng-blur="updateQuantity($index)">
 
                                                         <a class="btn-add-qty" ng-click="addQuantity($index)"><img
                                                                 style="width: 12px; height: auto;vertical-align: middle;"
@@ -159,27 +144,16 @@
                                                     </div>
                                                 </div>
                                                 <div class="cart-price-total"><span class="cart-price"><span
-                                                            class="price">{{cart.amount | number:'0'}} đ</span></span>
+                                                        class="price">{{cart.amount | number:'0'}} đ</span></span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="div-of-btn-remove-cart" ng-if="isEdit">
-                                            <button class="BtnDelete" ng-if="!cart.isDeleted"
-                                                ng-click="removeFromCart($index)">Xóa
-                                                <svg class="svg" viewBox="0 0 32 32">
-                                                    <path
+                                        <div class="div-of-btn-remove-cart" ng-click="removeFromCart($index)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="delete">
+                                                <path
                                                         d="M24.2,12.193,23.8,24.3a3.988,3.988,0,0,1-4,3.857H12.2a3.988,3.988,0,0,1-4-3.853L7.8,12.193a1,1,0,0,1,2-.066l.4,12.11a2,2,0,0,0,2,1.923h7.6a2,2,0,0,0,2-1.927l.4-12.106a1,1,0,0,1,2,.066Zm1.323-4.029a1,1,0,0,1-1,1H7.478a1,1,0,0,1,0-2h3.1a1.276,1.276,0,0,0,1.273-1.148,2.991,2.991,0,0,1,2.984-2.694h2.33a2.991,2.991,0,0,1,2.984,2.694,1.276,1.276,0,0,0,1.273,1.148h3.1A1,1,0,0,1,25.522,8.164Zm-11.936-1h4.828a3.3,3.3,0,0,1-.255-.944,1,1,0,0,0-.994-.9h-2.33a1,1,0,0,0-.994.9A3.3,3.3,0,0,1,13.586,7.164Zm1.007,15.151V13.8a1,1,0,0,0-2,0v8.519a1,1,0,0,0,2,0Zm4.814,0V13.8a1,1,0,0,0-2,0v8.519a1,1,0,0,0,2,0Z">
-                                                    </path>
-                                                </svg>
-                                            </button>
-                                            <button class="BtnUndo" ng-if="cart.isDeleted"
-                                                ng-click="undoRemoveFormCart($index)">Huỷ
-                                                <svg class="svg" viewBox="0 0 32 32">
-                                                    <path
-                                                        d="M20.22 21a1 1 0 0 1-1-.76 8.91 8.91 0 0 0-7.8-6.69v1.12a1.78 1.78 0 0 1-1.09 1.64A2 2 0 0 1 8.18 16l-5.06-4.41a1.76 1.76 0 0 1 0-2.68l5.06-4.42a2 2 0 0 1 2.18-.3 1.78 1.78 0 0 1 1.09 1.64V7A10.89 10.89 0 0 1 21.5 17.75a10.29 10.29 0 0 1-.31 2.49 1 1 0 0 1-1 .76z">
-                                                    </path>
-                                                </svg>
-                                            </button>
+                                                </path>
+                                            </svg>
                                         </div>
                                     </div>
                                     <div class="border-product"></div>
@@ -216,8 +190,8 @@
                                                                     <div class="gh-event-promo-list-item-content-title">
                                                                         {{voucher.voucherName}}
                                                                     </div>
-                                                                    <div
-                                                                        class="gh-event-promo-list-item-detail gh_blue_link">
+                                                                    <div class="gh-event-promo-list-item-detail gh_blue_link"
+                                                                         ng-click="showVoucherDetail(voucher)">
                                                                         Chi tiết
                                                                     </div>
                                                                 </div>
@@ -231,36 +205,39 @@
                                                             <div class="gh-event-promo-item-progress-bar">
                                                                 <div class="gh-event-promo-item-progress">
                                                                     <hr
-                                                                        ng-style="{'width': voucher.moreAmountPercents + '%'}">
+                                                                            ng-style="{'width': voucher.moreAmountPercents + '%'}">
                                                                     <img class="progress-cheat"
-                                                                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico-cheatprogresss.svg?q=102479">
+                                                                         src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico-cheatprogresss.svg?q=102479">
                                                                 </div>
-                                                                <div class="gh-event-promo-item-minmax"><span>Mua
+                                                                <div class="gh-event-promo-item-minmax">
+                                                                    <span>Mua
                                                                         thêm {{voucher.moreAmount | number:'0'}} đ để
                                                                         nhận
                                                                         mã</span><span>{{voucher.minimumPurchaseAmount |
-                                                                        number:'0'}} đ</span></div>
+                                                                        number:'0'}} đ</span>
+                                                                </div>
                                                             </div>
-                                                            <div><a href="/deal-hot-pages?gh_campaign=GIO_HANG_GAN_DAT">
-                                                                    <button type="button" title="Mua Thêm"
+                                                            <div><a href="/product">
+                                                                <button type="button" title="Mua Thêm"
                                                                         class="gh-btn-view-promo"><span>Mua
                                                                             Thêm</span></button>
-                                                                </a></div>
+                                                            </a></div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="gh-event-promo-sumary">
-                                                    <div class="gh-event-promo-sumary-matched">
+                                                    <div class="gh-event-promo-sumary-matched"
+                                                         ng-click="openEventCartPopup()">
                                                         <span>{{eligibleVouchers.length}} khuyến mãi
                                                             đủ điều kiện</span><span><img
-                                                                src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_seemore_blue.svg"></span>
+                                                            src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_seemore_blue.svg"></span>
                                                     </div>
                                                     <div class="gh_label_note">
                                                         <div class="gh_label_coupon_label_info">
                                                             <div>Có thể áp dụng đồng thời nhiều mã</div>
                                                             <div class="gh_tooltip" style="margin-left: 0.25em;">
                                                                 <img
-                                                                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico-alert-grey.svg?q=102479"><span>Áp
+                                                                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico-alert-grey.svg?q=102479"><span>Áp
                                                                     dụng tối đa 1 mã giảm giá <br>và 1 mã
                                                                     freeship</span>
                                                             </div>
@@ -307,6 +284,7 @@
                 </div>
             </div>
 
+            <div class="background-popup"></div>
             <div id="popup-loading-event-cart">
                 <div class="popup-loading-event-cart-info">
                     <div class="popup-loading-event-cart-title">
@@ -369,17 +347,145 @@
                     <div class="popup-loading-event-cart-content">
                         <div id="popup-loading-event-cart-content-tabs" class="loading">
                             <div class="popup-loading-event-cart-content-promotion">
-                                <div class="gh-event-promo-list">
+
+                                <div class="gh-event-promo-list" ng-if="listNormalVouchers.length > 0">
                                     <div class="gh-event-promo-list-title">
                                         <span>Mã giảm giá</span><span class="gh_label_note" style="margin-left: 8px;">Áp
                                             dụng tối đa:
                                             1</span>
                                     </div>
-                                    <div ng-repeat="voucherPopup in listVouchersOriginal track by $index"
+                                    <div ng-repeat="vPopup in listNormalVouchers | limitTo: numViewNormalVouchers track by $index"
                                          class="gh-event-promo-list-item matched gh-event-promo-list-item-coupon">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                              xmlns:xlink="http://www.w3.org/1999/xlink" class="coupon_bg"
-                                             viewBox="7.5 -2 478.5 148"
+                                             viewBox="10 0 478.5 148">
+                                            <g fill="none" fill-rule="evenodd">
+                                                <g>
+                                                    <g>
+                                                        <g>
+                                                            <g
+                                                                    transform="translate(-544 -3050) translate(80 2072) translate(0 930) translate(464 48)">
+                                                                <path id="Frame_voucher_Web"
+                                                                      d="M 110 144 h -98 a 12 12 0 0 1 -12 -12 v -122 a 12 12 0 0 1 12 -12 H 110 a 12.02 12 0 0 0 24 0 H 480.5 a 12 12 0 0 1 12 12 V 132 a 12 12 0 0 1 -12 12 H 134 v 0 a 12 12 0 0 0 -24 0 v 0 Z"
+                                                                      fill="#fff" stroke="rgba(0,0,0,0)"
+                                                                      stroke-miterlimit="10" stroke-width="1"></path>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <div class="voucherNormal"
+                                             ng-class="{'eligible': isEligibleVoucherPopup(vPopup)}">
+                                            <img
+                                                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico_promotion.svg?q=10268">
+                                        </div>
+                                        <div class="gh-event-promo-item ">
+                                            <div>
+                                                <div class="gh-event-promo-list-item-content"
+                                                     ng-click="showVoucherDetail(vPopup)">
+                                                    <div>
+                                                        <div class="gh-event-promo-list-item-content-title">
+                                                            {{vPopup.voucherName}}
+                                                        </div>
+                                                        <div class="gh-event-promo-list-item-detail gh_blue_link"
+                                                             ng-click="showVoucherDetail(vPopup)">
+                                                            Chi
+                                                            tiết
+                                                        </div>
+                                                    </div>
+                                                    <div class="gh-event-promo-list-item-content-description">
+                                                        {{vPopup.description}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="gh-event-promo-item-progress-bar">
+                                                    <div class="gh-event-promo-item-msg"
+                                                         ng-if="isAppliedVoucher(vPopup)">
+                                                        <img
+                                                                src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico_check.svg?q=10268">
+                                                        <span style="padding-left: 4px; color: #2F80ED;">Đã áp
+                                                            dụng</span>
+                                                    </div>
+
+                                                    <div ng-if="vPopup.moreAmount > 0">
+                                                        <div class="gh-event-promo-item-progress">
+                                                            <hr ng-style="{'width': vPopup.moreAmountPercents + '%'}">
+                                                            <img class="progress-cheat"
+                                                                 src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico-cheatprogresss.svg?q=10274">
+                                                        </div>
+                                                        <div class="gh-event-promo-item-minmax">
+                                                            <span>Mua thêm {{vPopup.moreAmount | number:'0' }} đ để nhận
+                                                                mã</span>
+                                                            <span>{{vPopup.minimumPurchaseAmount | number:'0' }}
+                                                                đ</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div ng-if="isEligibleVoucherPopup(vPopup)">
+                                                    <div ng-if="isAppliedVoucher(vPopup)">
+                                                        <button type="button" ng-click="toggleVoucherApplied(vPopup)"
+                                                                title="Bỏ chọn"
+                                                                class="gh-btn-view-promo-coupon applied"><span>Bỏ
+                                                                chọn</span></button>
+                                                    </div>
+                                                    <div ng-if="!isAppliedVoucher(vPopup)">
+                                                        <button type="button" ng-click="applyVoucher(vPopup)"
+                                                                title="Áp dụng" class="gh-btn-view-promo-coupon"><span>Áp
+                                                                dụng</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div><a href="/product" ng-if="!isEligibleVoucherPopup(vPopup)">
+                                                    <button type="button" title="Mua Thêm"
+                                                            class="gh-btn-view-promo"><span>Mua
+                                                                Thêm</span></button>
+                                                </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="label_expired"
+                                             ng-if="vPopup.totalQuantity - vPopup.usedQuantity <= 10"><img
+                                                src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/label_saphet.svg?q=10268">
+                                        </div>
+                                    </div>
+                                    <div class="gh-event-promo-list-viewmore">
+                                        <a href="">
+                                            <div ng-show="numViewNormalVouchers == 2"
+                                                 ng-click="viewMoreNormalVouchers()">
+                                                <span class="text-viewmore">Xem
+                                                    thêm
+                                                </span>
+                                                <img
+                                                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_down_orange.svg?q=10272">
+                                            </div>
+
+                                            <div ng-show="numViewNormalVouchers != 2"
+                                                 ng-click="viewLessNormalVouchers()">
+                                                <span class="text-viewless">Rút gọn</span>
+                                                <img ng-class="{'rotate-icon': numViewNormalVouchers != 2}"
+                                                     src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_down_orange.svg?q=10272">
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+
+
+                                <div class="gh-event-promo-list" ng-if="listShippingVouchers.length > 0">
+                                    <div class="gh-event-promo-list-title">
+                                        <span>Mã vận chuyển</span><span class="gh_label_note"
+                                                                        style="margin-left: 8px;">Áp
+                                            dụng tối đa:
+                                            1</span>
+                                    </div>
+                                    <div ng-repeat="vPopup in listShippingVouchers | limitTo: numViewShippingVouchers track by $index"
+                                         class="gh-event-promo-list-item matched gh-event-promo-list-item-coupon">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink" class="coupon_bg"
+                                             viewBox="10 0 478.5 148"
                                              style="filter: drop-shadow(rgba(0, 0, 0, 0.15) 0px 1px 3px);">
                                             <g fill="none" fill-rule="evenodd">
                                                 <g>
@@ -388,49 +494,240 @@
                                                             <g
                                                                     transform="translate(-544 -3050) translate(80 2072) translate(0 930) translate(464 48)">
                                                                 <path id="Frame_voucher_Web"
-                                                                    d="M 110 144 h -98 a 12 12 0 0 1 -12 -12 v -122 a 12 12 0 0 1 12 -12 H 110 a 12.02 12 0 0 0 24 0 H 480.5 a 12 12 0 0 1 12 12 V 132 a 12 12 0 0 1 -12 12 H 134 v 0 a 12 12 0 0 0 -24 0 v 0 Z"
-                                                                    transform="translate(0.5 0.5)" fill="#fff"
-                                                                    stroke="rgba(0,0,0,0)" stroke-miterlimit="10"
-                                                                    stroke-width="1"></path>
+                                                                      d="M 110 144 h -98 a 12 12 0 0 1 -12 -12 v -122 a 12 12 0 0 1 12 -12 H 110 a 12.02 12 0 0 0 24 0 H 480.5 a 12 12 0 0 1 12 12 V 132 a 12 12 0 0 1 -12 12 H 134 v 0 a 12 12 0 0 0 -24 0 v 0 Z"
+                                                                      fill="#fff" stroke="rgba(0,0,0,0)"
+                                                                      stroke-miterlimit="10" stroke-width="1"></path>
                                                             </g>
                                                         </g>
                                                     </g>
                                                 </g>
                                             </g>
                                         </svg>
-                                        <div><img
-                                                src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico_promotion.svg?q=10268">
+                                        <div class="voucherShipping"
+                                             ng-class="{'eligible': isEligibleVoucherPopup(vPopup)}">
+                                            <img
+                                                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico_freeship.svg?q=10274">
                                         </div>
                                         <div class="gh-event-promo-item ">
                                             <div>
                                                 <div class="gh-event-promo-list-item-content"
-                                                    onclick="fhs_promotion.showEventCartDetail(this, 'affect_coupons','0','matched',false,true);">
+                                                     ng-click="showVoucherDetail(vPopup)">
                                                     <div>
-                                                        <div class="gh-event-promo-list-item-content-title">MÃ GIẢM 25K
-                                                            - ĐƠN HÀNG TỪ 300K</div>
-                                                        <div class="gh-event-promo-list-item-detail gh_blue_link">Chi
-                                                            tiết</div>
+                                                        <div class="gh-event-promo-list-item-content-title">
+                                                            {{vPopup.voucherName}}
+                                                        </div>
+                                                        <div class="gh-event-promo-list-item-detail gh_blue_link"
+                                                             ng-click="showVoucherDetail(vPopup)">
+                                                            Chi
+                                                            tiết
+                                                        </div>
                                                     </div>
-                                                    <div class="gh-event-promo-list-item-content-description">Không Áp
-                                                        Dụng Cho Phiếu Quà Tặng và Sách Giáo Khoa</div>
+                                                    <div class="gh-event-promo-list-item-content-description">
+                                                        {{vPopup.description}}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div>
                                                 <div class="gh-event-promo-item-progress-bar">
-                                                    <div class="gh-event-promo-item-msg"><img
-                                                            src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico_check.svg?q=10268"><span
-                                                            style="padding-left: 4px; color: #2F80ED;">Đã áp dụng</span>
+                                                    <div class="gh-event-promo-item-msg"
+                                                         ng-if="isAppliedVoucher(vPopup)">
+                                                        <img
+                                                                src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico_check.svg?q=10268">
+                                                        <span style="padding-left: 4px; color: #2F80ED;">Đã áp
+                                                            dụng</span>
+                                                    </div>
+
+                                                    <div ng-if="vPopup.moreAmount > 0">
+                                                        <div class="gh-event-promo-item-progress">
+                                                            <hr ng-style="{'width': vPopup.moreAmountPercents + '%'}">
+                                                            <img class="progress-cheat"
+                                                                 src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico-cheatprogresss.svg?q=10274">
+                                                        </div>
+                                                        <div class="gh-event-promo-item-minmax">
+                                                            <span>Mua thêm {{vPopup.moreAmount | number:'0' }} đ để nhận
+                                                                mã</span>
+                                                            <span>{{vPopup.minimumPurchaseAmount | number:'0' }}
+                                                                đ</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div><button type="button" onclick="fhs_promotion.applyCoupon(this);"
-                                                        title="Bỏ chọn" coupon="FHS25KT10" apply="0"
-                                                        class="gh-btn-view-promo-coupon applied"><span>Bỏ
-                                                            chọn</span></button></div>
+
+
+                                                <div ng-if="isEligibleVoucherPopup(vPopup)">
+                                                    <div ng-if="isAppliedVoucher(vPopup)">
+                                                        <button type="button" ng-click="toggleVoucherApplied(vPopup)"
+                                                                title="Bỏ chọn"
+                                                                class="gh-btn-view-promo-coupon applied"><span>Bỏ
+                                                                chọn</span></button>
+                                                    </div>
+                                                    <div ng-if="!isAppliedVoucher(vPopup)">
+                                                        <button type="button" ng-click="applyVoucher(vPopup)"
+                                                                title="Áp dụng" class="gh-btn-view-promo-coupon"><span>Áp
+                                                                dụng</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div><a href="/product" ng-if="!isEligibleVoucherPopup(vPopup)">
+                                                    <button type="button" title="Mua Thêm"
+                                                            class="gh-btn-view-promo"><span>Mua
+                                                                Thêm</span></button>
+                                                </a>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="label_expired"><img
-                                                src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/label_saphet.svg?q=10268">
+                                        <div class="label_expired"
+                                             ng-if="vPopup.totalQuantity - vPopup.usedQuantity <= 10">
+                                            <img
+                                                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/label_saphet.svg?q=10268">
                                         </div>
+                                    </div>
+                                    <div class="gh-event-promo-list-viewmore">
+                                        <a href="">
+                                            <div ng-show="numViewShippingVouchers == 2"
+                                                 ng-click="viewMoreShippingVouchers()">
+                                                <span class="text-viewmore">Xem
+                                                    thêm
+                                                </span>
+                                                <img
+                                                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_down_orange.svg?q=10272">
+                                            </div>
+
+                                            <div ng-show="numViewShippingVouchers != 2"
+                                                 ng-click="viewLessShippingVouchers()">
+                                                <span class="text-viewless">Rút gọn</span>
+                                                <img ng-class="{'rotate-icon': numViewShippingVouchers != 2}"
+                                                     src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_down_orange.svg?q=10272">
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+
+
+                                <div class="gh-event-promo-list" ng-if="listPaymentVouchers.length > 0">
+                                    <div class="gh-event-promo-list-title">
+                                        <span>Ưu đãi thanh toán</span><span class="gh_label_note"
+                                                                            style="margin-left: 8px;">Áp
+                                            dụng tối đa:
+                                            1</span>
+                                    </div>
+                                    <div ng-repeat="vPopup in listPaymentVouchers | limitTo: numViewPaymentVouchers track by $index"
+                                         class="gh-event-promo-list-item matched gh-event-promo-list-item-coupon">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink" class="coupon_bg"
+                                             viewBox="10 0 478.5 148"
+                                             style="filter: drop-shadow(rgba(0, 0, 0, 0.15) 0px 1px 3px);">
+                                            <g fill="none" fill-rule="evenodd">
+                                                <g>
+                                                    <g>
+                                                        <g>
+                                                            <g
+                                                                    transform="translate(-544 -3050) translate(80 2072) translate(0 930) translate(464 48)">
+                                                                <path id="Frame_voucher_Web"
+                                                                      d="M 110 144 h -98 a 12 12 0 0 1 -12 -12 v -122 a 12 12 0 0 1 12 -12 H 110 a 12.02 12 0 0 0 24 0 H 480.5 a 12 12 0 0 1 12 12 V 132 a 12 12 0 0 1 -12 12 H 134 v 0 a 12 12 0 0 0 -24 0 v 0 Z"
+                                                                      fill="#fff" stroke="rgba(0,0,0,0)"
+                                                                      stroke-miterlimit="10" stroke-width="1"></path>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <div class="voucherPayment"
+                                             ng-class="{'eligible': isEligibleVoucherPopup(vPopup)}">
+                                            <img
+                                                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico_ewallet.svg?q=10274">
+                                        </div>
+                                        <div class="gh-event-promo-item ">
+                                            <div>
+                                                <div class="gh-event-promo-list-item-content"
+                                                     ng-click="showVoucherDetail(vPopup)">
+                                                    <div>
+                                                        <div class="gh-event-promo-list-item-content-title">
+                                                            {{vPopup.voucherName}}
+                                                        </div>
+                                                        <div class="gh-event-promo-list-item-detail gh_blue_link"
+                                                             ng-click="showVoucherDetail(vPopup)">
+                                                            Chi
+                                                            tiết
+                                                        </div>
+                                                    </div>
+                                                    <div class="gh-event-promo-list-item-content-description">
+                                                        {{vPopup.description}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="gh-event-promo-item-progress-bar">
+                                                    <div class="gh-event-promo-item-msg"
+                                                         ng-if="isAppliedVoucher(vPopup)">
+                                                        <img
+                                                                src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/ico_check.svg?q=10268">
+                                                        <span style="padding-left: 4px; color: #2F80ED;">Đã áp
+                                                            dụng</span>
+                                                    </div>
+
+                                                    <div ng-if="vPopup.moreAmount > 0">
+                                                        <div class="gh-event-promo-item-progress">
+                                                            <hr ng-style="{'width': vPopup.moreAmountPercents + '%'}">
+                                                            <img class="progress-cheat"
+                                                                 src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico-cheatprogresss.svg?q=10274">
+                                                        </div>
+                                                        <div class="gh-event-promo-item-minmax">
+                                                            <span>Mua thêm {{vPopup.moreAmount | number:'0' }} đ để nhận
+                                                                mã</span>
+                                                            <span>{{vPopup.minimumPurchaseAmount | number:'0' }}
+                                                                đ</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div ng-if="isEligibleVoucherPopup(vPopup)">
+                                                    <div ng-if="isAppliedVoucher(vPopup)">
+                                                        <button type="button" ng-click="toggleVoucherApplied(vPopup)"
+                                                                title="Bỏ chọn"
+                                                                class="gh-btn-view-promo-coupon applied"><span>Bỏ
+                                                                chọn</span></button>
+                                                    </div>
+                                                    <div ng-if="!isAppliedVoucher(vPopup)">
+                                                        <button type="button" ng-click="applyVoucher(vPopup)"
+                                                                title="Áp dụng" class="gh-btn-view-promo-coupon"><span>Áp
+                                                                dụng</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div><a href="/product" ng-if="!isEligibleVoucherPopup(vPopup)">
+                                                    <button type="button" title="Mua Thêm"
+                                                            class="gh-btn-view-promo"><span>Mua
+                                                                Thêm</span></button>
+                                                </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="label_expired"
+                                             ng-if="vPopup.totalQuantity - vPopup.usedQuantity <= 10">
+                                            <img
+                                                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/promotion/label_saphet.svg?q=10268">
+                                        </div>
+                                    </div>
+                                    <div class="gh-event-promo-list-viewmore">
+                                        <a href="">
+                                            <div ng-show="numViewPaymentVouchers == 2"
+                                                 ng-click="viewMorePaymentVouchers()">
+                                                <span class="text-viewmore">Xem
+                                                    thêm
+                                                </span>
+                                                <img
+                                                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_down_orange.svg?q=10272">
+                                            </div>
+
+                                            <div ng-show="numViewPaymentVouchers != 2"
+                                                 ng-click="viewLessPaymentVouchers()">
+                                                <span class="text-viewless">Rút gọn</span>
+                                                <img ng-class="{'rotate-icon': numViewPaymentVouchers != 2}"
+                                                     src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_down_orange.svg?q=10272">
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -441,33 +738,82 @@
                 <div class="popup-loading-event-cart-detail">
                     <div class="popup-loading-event-cart-title">
                         <div class="gh-event-promo-title">
-                            <div class="gh-event-promo-title-left" onclick="gh_promotion.closeEventCartDetail();">
+                            <div class="gh-event-promo-title-left" ng-click="backPopupVoucher()">
                                 <div><img
-                                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_back_blue.svg?q=102519" />
+                                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_back_blue.svg?q=102519"/>
                                 </div>
                             </div>
                             <div class="gh-event-promo-title-center">Điều kiện áp dụng</div>
-                            <div class="gh-event-promo-title-right lg-close" onclick="gh_promotion.closeEventCart();">
+                            <div class="gh-event-promo-title-right lg-close" ng-click="closeVoucherDetail()">
                                 <div><img
-                                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_delete_gray.svg?q=102519" />
+                                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_delete_gray.svg?q=102519"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="popup-loading-event-cart-content">
-                        <div class="gh-event-promo-list">
-                            <div id="gh-event-promo-list-detail" class="gh-event-promo-list-item">
-                            </div>
-                        </div>
                         <div id="gh-event-promo-list-detail-content" class="gh-event-promo-list-detail-content">
+                            <style>
+                                .gh-container {
+                                    padding: 5px 0;
+                                }
+
+                                .bold-text {
+                                    font-weight: bold;
+                                }
+                            </style>
+                            <div class="gh-container bold-text">
+                                {{getNameTypeOfVoucher(vDetail)}}
+                            </div>
+                            <div style="background-color: #f2ddc3ab;padding: 8px 16px; color: #ea7601;">
+                                {{vDetail.voucherName}}
+                            </div>
+                            <div class="gh-container"
+                                 ng-repeat="string in splitString(vDetail.description) track by $index">
+                                {{'- ' + string}}
+                            </div>
+                            <div class="gh-event-promo-item-progress-bar">
+                                <div ng-if="vDetail.moreAmount > 0">
+                                    <div class="gh-event-promo-item-progress">
+                                        <hr ng-style="{'width': vDetail.moreAmountPercents + '%'}">
+                                        <img class="progress-cheat"
+                                             src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico-cheatprogresss.svg?q=10274">
+                                    </div>
+                                    <div class="gh-event-promo-item-minmax">
+                                        <span>Mua thêm {{vDetail.moreAmount | number:'0' }} đ để nhận
+                                            mã</span>
+                                        <span>{{vDetail.minimumPurchaseAmount | number:'0' }}
+                                            đ</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="popup-loading-event-cart-bottom">
-                    <div id="popup_event_cart_info_close" class="close-popup-event">
+                    <div id="popup_event_cart_info_close" class="close-popup-event" style="display: none;">
                         <button type="button" title="Đóng" class="btn-close-popup-event"><span>Đóng</span></button>
                     </div>
-                    <div id="popup_event_cart_detail_close" class="close-popup-event">
+                    <div id="popup_event_cart_detail_close" class="close-popup-event" style="display: flex;"
+                         ng-if="isEligibleVoucherPopup(vDetail)">
+                        <a ng-if="isAppliedVoucher(vDetail)">
+                            <button type="button" ng-click="toggleVoucherApplied(vDetail)" title="Bỏ chọn"
+                                    class="btn-close-popup-event gh-btn-view-promo applied"><span>Bỏ
+                                    chọn</span></button>
+                        </a>
+                        <a ng-if="!isAppliedVoucher(vDetail)">
+                            <button type="button" ng-click="applyVoucher(vDetail)" title="Áp dụng"
+                                    class="btn-close-popup-event gh-btn-view-promo"><span>Áp dụng</span>
+                            </button>
+                        </a>
+                    </div>
+                    <div id="popup_event_cart_detail_close" class="close-popup-event" style="display: flex;"
+                         ng-if="!isEligibleVoucherPopup(vDetail)">
+                        <a href="/product">
+                            <button type="button" title="Mua Thêm"
+                                    class="btn-close-popup-event gh-btn-view-promo"><span>Mua Thêm</span>
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
