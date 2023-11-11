@@ -21,12 +21,15 @@ public class Notification implements Serializable {
 
     @Column(name = "Title")
     private String title;
-    
+
     @Column(name = "Message")
     private String message;
 
     @Column(name = "Create_At")
     private Date createAt;
+
+    @Column(name = "Status")
+    private boolean status;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

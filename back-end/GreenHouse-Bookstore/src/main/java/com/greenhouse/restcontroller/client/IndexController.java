@@ -15,12 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.model.Book_Authors;
 import com.greenhouse.model.Brands;
+import com.greenhouse.model.Categories;
+import com.greenhouse.model.CategoryTypes;
 import com.greenhouse.model.InvoiceDetails;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Product_Discount;
 import com.greenhouse.model.Product_Reviews;
 import com.greenhouse.repository.BookAuthorsRepository;
 import com.greenhouse.repository.BrandRepository;
+import com.greenhouse.repository.CategoriesRepository;
+import com.greenhouse.repository.CategoryTypesRepository;
 import com.greenhouse.repository.InvoiceDetailsRepository;
 import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.repository.ProductDiscountRepository;
@@ -47,6 +51,10 @@ public class IndexController {
     private BookAuthorsRepository bookAuthorsRepository;
     @Autowired
     private InvoiceDetailsRepository invoiceDetailRepository;
+    @Autowired
+    private CategoryTypesRepository categoryTypesRepository;
+    @Autowired
+    private CategoriesRepository categoriesRepository;
 
     @GetMapping("/rest/getDataIndex")
     public ResponseEntity<Map<String, Object>> getDataIndex() {
@@ -59,7 +67,13 @@ public class IndexController {
         List<Product_Reviews> listProductReviews = productReviewsRepository.findAll();
         List<Book_Authors> listBookAuthor = bookAuthorsRepository.findAll();
         List<InvoiceDetails> listInvoiceDetails = invoiceDetailRepository.findAll();
+        List<String> distinctParentCategoriesTypes = categoryTypesRepository.findDistinctParentCategoriesType();
+        List<CategoryTypes> listCategoryTypes = categoryTypesRepository.findAll();
+        List<Categories> listCategories = categoriesRepository.findAll();
 
+        resp.put("listCategories", listCategories);
+        resp.put("parentCategoriesTypes", distinctParentCategoriesTypes);
+        resp.put("listCategoryTypes", listCategoryTypes);
         resp.put("listInvoiceDetails", listInvoiceDetails);
         resp.put("listProduct_Details", listProduct_Details);
         resp.put("sellingBrands", sellingBrands);

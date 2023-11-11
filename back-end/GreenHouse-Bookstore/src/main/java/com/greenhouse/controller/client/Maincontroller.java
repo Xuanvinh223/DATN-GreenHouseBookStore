@@ -109,6 +109,11 @@ public class Maincontroller {
         return "client/layouts/account-review";
     }
 
+    @GetMapping(value = "/account/review-detail")
+    public String Review_Detail() {
+        return "client/layouts/review-detail";
+    }
+
     @GetMapping(value = "/account/voucher")
     public String account_Voucher() {
         return "client/layouts/account-voucher";

@@ -14,6 +14,50 @@ function indexClientController($scope, $http) {
     $scope.selectedBrand = null; // Thêm biến để theo dõi brand đang được chọn
     $scope.numStar = [1, 2, 3, 4, 5];
     $scope.quickViewProduct = null;
+    $scope.parentCategoriesTypes = [];
+    $scope.listCategories = [];
+    $scope.listCategoryTypes = [];
+    // Hàm để load dữ liệu ban đầu và hiển thị sản phẩm thương hiệu đầu tiên
+    $scope.redirectToProduct = function (categoryId, categoryName) {
+        // Chuyển cả categoryId và categoryName đến trang product
+        window.location.href = '/product?categoryId=' + categoryId + '&categoryName=' + categoryName;
+
+    };
+
+    $scope.loadIndex = function () {
+        var url = `${host}/getDataIndex`;
+        $http.get(url)
+            .then(function (response) {
+                $scope.sellingBrands = response.data.sellingBrands;
+                $scope.sellingProducts = response.data.sellingProducts;
+                $scope.listProductDiscount = response.data.listProductDiscount;
+                $scope.listProductReviews = response.data.listProductReviews;
+                $scope.listBookAuthor = response.data.listBookAuthor;
+                $scope.listInvoiceDetails = response.data.listInvoiceDetails;
+                $scope.listProductSelling = response.data.listProductSelling;
+                $scope.selectedBrandId = $scope.sellingBrands[0].brandId;
+                $scope.selectBrand($scope.selectedBrandId);
+                $scope.listProductDetails = response.data.listProduct_Details;
+
+                $scope.parentCategoriesTypes = response.data.parentCategoriesTypes;
+                $scope.listCategories = response.data.listCategories;
+                $scope.listCategoryTypes = response.data.listCategoryTypes;
+                $scope.getSubcategories = function (parentCategory, typeName) {
+                    return $scope.listCategories.filter(function (category) {
+                        return category.typeId.parentCategoriesType === parentCategory && category.typeId.typeName === typeName;
+                    });
+                };
+
+                console.log(" $scope.parentCategoriesTypes", $scope.parentCategoriesTypes);
+                console.log("Dữ Liệu SẢN PHẨM BÁN CHẠY: ", $scope.sellingProducts);
+                console.log("Dữ Liệu THƯƠNG HIỆU NỔI BẬT: ", $scope.sellingBrands);
+                console.log("Danh sách đánh giá sản phẩm: ", $scope.listProductReviews);
+
+            })
+            .catch(function (error) {
+                console.error('Error fetching data: ' + error);
+            });
+    }
     // Hàm để lấy sản phẩm chi tiết theo brandId
     $scope.loadSelectedBrandProducts = function (brandId) {
         var url = `${host}/getProductsByBrand/${brandId}`; // Điều này phụ thuộc vào API của bạn
@@ -71,33 +115,7 @@ function indexClientController($scope, $http) {
             return 0;
         }
     }
-    // Hàm để load dữ liệu ban đầu và hiển thị sản phẩm thương hiệu đầu tiên
 
-    $scope.loadIndex = function () {
-        var url = `${host}/getDataIndex`;
-        $http.get(url)
-            .then(function (response) {
-                $scope.sellingBrands = response.data.sellingBrands;
-                $scope.sellingProducts = response.data.sellingProducts;
-                $scope.listProductDiscount = response.data.listProductDiscount;
-                $scope.listProductReviews = response.data.listProductReviews;
-                $scope.listBookAuthor = response.data.listBookAuthor;
-                $scope.listInvoiceDetails = response.data.listInvoiceDetails;
-                $scope.listProductSelling = response.data.listProductSelling;
-                $scope.selectedBrandId = $scope.sellingBrands[0].brandId;
-                $scope.selectBrand($scope.selectedBrandId);
-                $scope.listProductDetails = response.data.listProduct_Details;
-                console.log($scope.listInvoiceDetails);
-                console.log($scope.listProductDetails);
-                console.log("Dữ Liệu SẢN PHẨM BÁN CHẠY: ", $scope.sellingProducts);
-                console.log("Dữ Liệu THƯƠNG HIỆU NỔI BẬT: ", $scope.sellingBrands);
-                console.log("Danh sách đánh giá sản phẩm: ", $scope.listProductReviews);
-
-            })
-            .catch(function (error) {
-                console.error('Error fetching data: ' + error);
-            });
-    }
 
     // xem nhanh thông tin sản phẩm
     $scope.quickView = function (productDetail) {
@@ -110,4 +128,3 @@ function indexClientController($scope, $http) {
     // Gọi hàm loadIndex để lấy dữ liệu ban đầu
     $scope.loadIndex();
 }
-

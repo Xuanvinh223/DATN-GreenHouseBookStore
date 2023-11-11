@@ -1,6 +1,6 @@
 app.controller("productPageController", productPageController);
 
-function productPageController($http, $scope, productPageAPI) {
+function productPageController($http, $scope, productPageAPI, sharedDataService) {
     const host = productPageAPI;
 
     //Phân trang
@@ -32,6 +32,9 @@ function productPageController($http, $scope, productPageAPI) {
     // DECLARE SCOPE FOR UI - END
     //=================================
     // SCOPE_FUNCTION GET DATA - START
+    var param = new URLSearchParams(location.search);
+    var categoryId = param.get('categoryId');
+    var categoryName = param.get('categoryName');
     $scope.getDataProductDetail = function () {
         var url = host + "/product-show";
         var params = {};
@@ -182,6 +185,7 @@ function productPageController($http, $scope, productPageAPI) {
             $scope.selectedCategoryId = null;
             $scope.selectedCategoryName = null;
         }
+
         $scope.getDataProductDetail();
     };
 
@@ -353,6 +357,9 @@ function productPageController($http, $scope, productPageAPI) {
 
     $scope.init = function () {
         $scope.getDataProductDetail();
+        if (categoryId !== null && categoryName !== null) {
+            $scope.selectCategory(categoryId, categoryName);
+        }
     }
 
     $scope.init();

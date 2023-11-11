@@ -127,7 +127,7 @@
               <div class="fhs_center_center" style="margin-bottom:3px;">
                 <div class="icon_nofi_gray">
                   <div class="top-notification-button-unseen top_menu_unseen fhs_center_center">
-                    {{ListNotifyUser.length > 50 ? '50+' : ListNotifyUser.length}}
+                    {{ListUnNotifyUser.length > 50 ? '50+' : ListUnNotifyUser.length}}
                   </div>
                 </div>
               </div>
@@ -141,16 +141,17 @@
                   <span class="icon_nofi_black" style="width:16px;height:16px;margin-right: 8px;"></span>
                   <span>Thông báo</span>
                   <span class="fhs_notification_unseen" style="margin-left:4px;">
-                    ({{ ListNotifyUser.length > 50 ? '50+' : ListNotifyUser.length }})
+                    ({{ ListUnNotifyUser.length > 50 ? '50+' : ListUnNotifyUser.length }})
                   </span>
                 </div>
-                <a href="/account/notification" class="fhs_center_left" style="color: #62ab00; font-size: 1em;">Xem tất cả</a>
+                <a href="/account/notification" class="fhs_center_left" style="color: #62ab00; font-size: 1em;">Xem tất
+                  cả</a>
               </div>
               <div class="top-notification-list fhs_scrollbar" style="display: block;">
-                <div ng-if="ListNotifyUser.length > 0" class="top-notification-list fhs_scrollbar"
-                  style="display: block;">
+                <div ng-if="ListUnNotifyUser.length > 0" class="top-notification-list fhs_scrollbar"
+                     style="display: block;">
                   <a class="top-notification-item fhs_column_left fhs_mouse_point clear"
-                    ng-repeat="notification in ListNotifyUser">
+                     ng-repeat="notification in ListUnNotifyUser" href="/account/notification">
                     <div class="fhs_top_stretch" style="width:100%;">
                       <div class="fhs_top_left" style="margin-right:12px;margin-top: 10px;">
                         <div class="ico_noti_other"></div>
@@ -163,8 +164,8 @@
                     </div>
                   </a>
                 </div>
-                <div ng-if="ListNotifyUser.length === 0" class="center_center"
-                  style="display: flex; align-items: center; margin-top: 20px;">
+                <div ng-if="ListUnNotifyUser.length === 0" class="center_center"
+                     style="display: flex; align-items: center; margin-top: 20px;">
                   <div class="icon_nofi_gray"></div>
                   <span style="margin-left: 5px; color: rgb(142, 141, 141)">Không Có Thông Báo Mới</span>
                 </div>
@@ -201,8 +202,7 @@
           </div>
 
           <div class="center_center mouse-hover cart-dropdown"><!--cart-icon-->
-            <a class="top-button-icon "
-               href="">
+            <a class="top-button-icon" href="">
               <div class="fhs_center_center" style="margin-bottom: 3px;">
                 <div class="icon_cart_gray">
                   <div class="top_menu_unseen fhs_center_center">
@@ -333,13 +333,23 @@
           <div class="top-bar-search-mobile" style="margin-left: 1%;">
             <input type="text" th:placeholder="#{lo.mn.search}" placeholder="Tìm kiếm sản phẩm mong muốn...">
           </div>
-
           <div class="top-bar-mobile-icon center_center">
-            <span class="icon_cart_white"></span>
+            <div class="icon_nofi_white">
+              <div class="top-notification-button-unseen top_menu_unseen fhs_center_center">
+                {{ListUnNotifyUser.length > 50 ? '50+' : ListUnNotifyUser.length}}
+              </div>
+            </div>
+          </div>
+          <div class="top-bar-mobile-icon center_center">
+            <div class="icon_cart_white">
+              <div class="top_menu_unseen fhs_center_center">
+                <span class="cartmini_qty">{{listCartHeader.length > 50 ? '50+' : listCartHeader.length}}</span>
+              </div>
+            </div>
           </div>
 
           <div class="top-bar-mobile-icon center_center">
-            <span class="login-cutomer-icon"></span>
+            <div class="login-cutomer-icon"></div>
           </div>
 
         </div>
@@ -349,134 +359,33 @@
 
   <div class="site-wrapper" id="top">
     <th-block th:fragment="menu">
-      <div class="site-header header-2 d-none d-lg-block">
+      <div class="site-header header-2 d-none d-lg-block" ng-controller="indexClientController">
         <div class="header-bottom bg-primary">
           <div class="container">
             <div class="row align-items-center">
               <div class="col-lg-3">
-                <nav class="category-nav white-nav ">
+                <nav class="category-nav white-nav">
                   <div>
                     <a class="category-trigger" th:text="#{lo.mn.dmsp}"><i class="fa fa-bars"></i>Danh mục sản phẩm</a>
                     <ul class="category-menu">
-                      <li class="cat-item has-children mega-menu">
-                        <a href="#" th:text="#{lo.mn.bookin}">Sách Trong Nước</a>
+                      <li class="cat-item has-children mega-menu" ng-repeat="parentCategory in parentCategoriesTypes">
+                        <a href="#">{{ parentCategory }}</a>
                         <ul class="sub-menu">
-                          <li class="single-block">
-                            <h3 class="title">Truyện</h3>
+                          <li class="single-block"
+                              ng-repeat="categoryType in listCategoryTypes | filter: {parentCategoriesType: parentCategory}">
+                            <h3 class="title">{{ categoryType.typeName }}</h3>
                             <ul>
-                              <li><a href="#">Tiểu Thuyết</a></li>
-                              <li><a href="#">Ngôn Tình</a></li>
-                              <li><a href="#">Khoa Học Viễn Tưởng</a></li>
-                              <li><a href="#">Kinh Dị</a></li>
-                              <li><a href="#">Đam Mỹ</a></li>
-                              <li><a href="#" class="title-last">Xem tất cả</a></li>
-                            </ul>
-                          </li>
-                          <li class="single-block">
-                            <h3 class="title">Giáo Khoa - Tham Khảo</h3>
-                            <ul>
-                              <li><a href="#">Sách Giáo Khoa</a></li>
-                              <li><a href="#">Sách Tham Khảo</a></li>
-                              <li><a href="#">Luyện Thi THPT Quốc Gia</a></li>
-                              <li><a href="#">Mẫu Giáo</a></li>
-                              <li><a href="#" class="title-last">Xem tất cả</a></li>
-                            </ul>
-                          </li>
-                          <li class="single-block">
-                            <h3 class="title">Sách Ngoại Ngữ</h3>
-                            <ul>
-                              <li><a href="#">Tiếng Anh</a></li>
-                              <li><a href="#">Tiếng Nhật</a></li>
-                              <li><a href="#">Tiếng Hoa</a></li>
-                              <li><a href="#">Tiếng Hàn</a></li>
-                              <li><a href="#" class="title-last">Xem tất cả</a></li>
-                            </ul>
-                          </li>
-
-                        </ul>
-                      </li>
-
-                      <li class="cat-item has-children"><a href="#" th:text="#{lo.mn.snuoc}">Sách Nước Ngoài</a>
-                        <ul class="sub-menu">
-                          <li><a href="">Brake Tools</a></li>
-                          <li><a href="">Driveshafts</a></li>
-                          <li><a href="">Emergency Brake</a></li>
-                          <li><a href="">Spools</a></li>
-                        </ul>
-                      </li>
-                      <li class="cat-item has-children mega-menu"><a href="#" th:text="#{lo.mn.dcu}">Dụng Cụ Học
-                        Sinh</a>
-                        <ul class="sub-menu">
-                          <li class="single-block">
-                            <h3 class="title">Bút - Viết</h3>
-                            <ul>
-                              <li><a href="#">Bút Chì</a></li>
-                              <li><a href="#">Bút Bi</a></li>
-                              <li><a href="#">Bút Dạ Quang</a></li>
-                              <li><a href="#" class="title-last">Xem tất cả</a></li>
-                            </ul>
-                          </li>
-                          <li class="single-block">
-                            <h3 class="title">Sản Phẩm Về Giấy</h3>
-                            <ul>
-                              <li><a href="#">Tập - Vở</a></li>
-                              <li><a href="#">Sổ Tay</a></li>
-                              <li><a href="#">Giất Note</a></li>
-                              <li><a href="#" class="title-last">Xem tất cả</a></li>
-                            </ul>
-                          </li>
-                          <li class="single-block">
-                            <h3 class="title">Dụng Cụ Khác</h3>
-                            <ul>
-                              <li><a href="#">Hồ Dán</a></li>
-                              <li><a href="#">Thước</a></li>
-                              <li><a href="#">Hộp Bút - Hộp Viết</a></li>
+                              <!--  | limitTo:5 -->
+                              <li ng-repeat="subcategory in getSubcategories(parentCategory, categoryType.typeName) ">
+                                <a ng-click="redirectToProduct(subcategory.categoryId,subcategory.categoryName)">{{
+                                  subcategory.categoryName }}</a>
+                              </li>
                               <li><a href="#" class="title-last">Xem tất cả</a></li>
                             </ul>
                           </li>
                         </ul>
                       </li>
-                      <li class="cat-item has-children mega-menu"><a href="#" th:text="#{lo.mn.htdt}">Hành Trang
-                        ĐếnTrường</a>
-                        <ul class="sub-menu">
-                          <li class="single-block">
-                            <h3 class="title">Sách Giáo Khoa - Tham Khảo</h3>
-                            <ul>
-                              <li><a href="#">Lớp 1</a></li>
-                              <li><a href="#">Lớp 2</a></li>
-                              <li><a href="#">Lớp 3</a></li>
-                              <li><a href="#">Lớp 4</a></li>
-                              <li><a href="#">Lớp 5</a></li>
-                              <li><a href="#">Lớp 6</a></li>
-                              <li><a href="#">Lớp 7</a></li>
-                              <li><a href="#">Lớp 8</a></li>
-                              <li><a href="#">Lớp 9</a></li>
-                              <li><a href="#">Lớp 10</a></li>
-                              <li><a href="#">Lớp 11</a></li>
-                              <li><a href="#">Lớp 12</a></li>
-                              <li><a href="#" class="title-last">Xem tất cả</a></li>
-                            </ul>
-                          </li>
-
-                          <li class="single-block">
-                            <h3 class="title">Luyện Thi THPTQG - Lớp 12</h3>
-                            <ul>
-                              <li><a href="#">Luyện Thi Môn Toán</a></li>
-                              <li><a href="#">Luyện Thi Môn Văn</a></li>
-                              <li><a href="#">Luyện Thi Môn Tiếng Anh</a></li>
-                              <li><a href="#">Luyện Thi Môn Hóa</a></li>
-                              <li><a href="#">Luyện Thi Môn Sinh Học</a></li>
-                              <li><a href="#">Luyện Thi Môn Lịch Sử</a></li>
-                              <li><a href="#">Luyện Thi Môn Địa Lý</a></li>
-                              <li><a href="#">Luyện Thi Môn Vật Lý</a></li>
-                              <li><a href="#" class="title-last">Xem tất cả</a></li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </li>
-
-                      <li class="cat-item"><a href="#" class="js-expand-hidden-menu" th:text="#{lo.mn.xnh}">Xem Nhiều
-                        Hơn</a></li>
+                      <li class="cat-item"><a href="#" class="js-expand-hidden-menu">Xem Nhiều Hơn</a></li>
                     </ul>
                   </div>
                 </nav>
@@ -518,7 +427,7 @@
 
     <!-- Menu cuộn -->
     <th-block th:fragment="menu-mobie">
-      <div class="site-mobile-menu">
+      <div class="site-mobile-menu" ng-controller="indexClientController">
         <!--Off Canvas Navigation Start-->
         <aside class="off-canvas-wrapper">
           <div class="btn-close-off-canvas">
@@ -544,103 +453,27 @@
                   <li class="menu-item-has-children">
                     <a href="#" th:text="#{lo.mn.product}">Sản Phẩm</a>
                     <ul class="sub-menu">
-                      <li class="menu-item-has-children">
-                        <a href="#" th:text="#{lo.mn.bookin}">Sách trong nước</a>
+                      <li class="menu-item-has-children" ng-repeat="parentCategory in parentCategoriesTypes">
+                        <a href="#">{{ parentCategory }}</a>
                         <ul class="sub-menu">
-                          <li class="menu-item-has-children">
-                            <a href="#">Giáo Khoa - Tham Khảo</a>
+                          <li class="menu-item-has-children"
+                              ng-repeat="categoryType in listCategoryTypes | filter: {parentCategoriesType: parentCategory}">
+                            <a href="#">{{ categoryType.typeName }}</a>
                             <ul class="sub-menu">
-                              <li><a href="#">Sách Giáo Khoa</a></li>
-                              <li><a href="#">Sách Tham Khảo</a></li>
-                              <li><a href="#">Luyện Thi THPT Quốc Gia</a></li>
-                              <li><a href="#">Mẫu Giáo</a></li>
-                              <li><a href="#" class="title-last">Xem tất cả</a></li>
-                            </ul>
-                          </li>
-                          <li class="menu-item-has-children">
-                            <a href="#">Sách Ngoại Ngữ</a>
-                            <ul class="sub-menu">
-                              <li><a href="#">Tiếng Anh</a></li>
-                              <li><a href="#">Tiếng Nhật</a></li>
-                              <li><a href="#">Tiếng Hoa</a></li>
-                              <li><a href="#">Tiếng Hàn</a></li>
-                              <li><a href="#" class="title-last">Xem tất cả</a></li>
-                            </ul>
-                          </li>
-                          <li class="menu-item-has-children">
-                            <a href="">Truyện</a>
-                            <ul class="sub-menu">
-                              <li><a href="#">Tiểu Thuyết</a></li>
-                              <li><a href="#">Ngôn Tình</a></li>
-                              <li><a href="#">Khoa Học Viễn Tưởng</a></li>
-                              <li><a href="#">Kinh Dị</a></li>
-                              <li><a href="#">Đam Mỹ</a></li>
-                              <li><a href="#" class="title-last">Xem tất cả</a></li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="menu-item-has-children">
-                        <a href="#" th:text="#{lo.mn.snuoc}">Sách nước ngoài</a>
-                        <ul class="sub-menu">
-                          <li><a href="">Brake Tools</a></li>
-                          <li><a href="">Driveshafts</a></li>
-                          <li><a href="">Emergency Brake</a></li>
-                          <li><a href="">Spools</a></li>
-                          <li><a href="#" class="title-last">Xem tất cả</a></li>
-                        </ul>
-                      </li>
-                      <li class="menu-item-has-children">
-                        <a href="#" th:text="#{lo.mn.dcu}">Dụng cụ học sinh</a>
-                        <ul class="sub-menu">
-                          <li><a href="#">Hồ Dán</a></li>
-                          <li><a href="#">Thước</a></li>
-                          <li><a href="#">Hộp Bút - Hộp Viết</a></li>
-                          <li><a href="#" class="title-last">Xem tất cả</a></li>
-                        </ul>
-                      </li>
-                      <li class="menu-item-has-children">
-                        <a href="#" th:text="#{lo.mn.htdt}">Hành trang đến trường</a>
-                        <ul class="sub-menu">
-                          <li class="menu-item-has-children">
-                            <a href="#">Giáo Khoa - Tham Khảo</a>
-                            <ul class="sub-menu">
-                              <li><a href="#">Lớp 1</a></li>
-                              <li><a href="#">Lớp 2</a></li>
-                              <li><a href="#">Lớp 3</a></li>
-                              <li><a href="#">Lớp 4</a></li>
-                              <li><a href="#">Lớp 5</a></li>
-                              <li><a href="#">Lớp 6</a></li>
-                              <li><a href="#">Lớp 7</a></li>
-                              <li><a href="#">Lớp 8</a></li>
-                              <li><a href="#">Lớp 9</a></li>
-                              <li><a href="#">Lớp 10</a></li>
-                              <li><a href="#">Lớp 11</a></li>
-                              <li><a href="#">Lớp 12</a></li>
-                              <li><a href="#" class="title-last">Xem tất cả</a></li>
-                            </ul>
-                          </li>
-                          <li class="menu-item-has-children">
-                            <a href="#">Luyện Thi THPTQG - Lớp 12</a>
-                            <ul class="sub-menu">
-                              <li><a href="#">Luyện Thi Môn Toán</a></li>
-                              <li><a href="#">Luyện Thi Môn Văn</a></li>
-                              <li><a href="#">Luyện Thi Môn Tiếng Anh</a></li>
-                              <li><a href="#">Luyện Thi Môn Hóa</a></li>
-                              <li><a href="#">Luyện Thi Môn Sinh Học</a></li>
-                              <li><a href="#">Luyện Thi Môn Lịch Sử</a></li>
-                              <li><a href="#">Luyện Thi Môn Địa Lý</a></li>
-                              <li><a href="#">Luyện Thi Môn Vật Lý</a></li>
-                              <li><a href="#" class="title-last">Xem tất cả</a></li>
+                              <li ng-repeat="subcategory in getSubcategories(parentCategory, categoryType.typeName) ">
+                                <a ng-click="redirectToProduct(subcategory.categoryId,subcategory.categoryName)">{{
+                                  subcategory.categoryName }}</a>
+                              </li>
+                              <li><a href="/product" class="title-last">Xem tất cả</a></li>
                             </ul>
                           </li>
                         </ul>
                       </li>
                     </ul>
                   </li>
-                  <li class="menu-item">
-                    <a href="#!flash-sale" th:text="#{lo.mn.sales}">Ưu Đãi</a>
-                  </li>
+                  <!-- <li class="menu-item">
+                    <a href="#!flash-sale">Ưu Đãi</a>
+                  </li> -->
                   <li class="menu-item">
                     <a href="/voucher" th:text="#{lo.mn.voucher}">Mã Khuyến Mãi</a>
                   </li>
@@ -904,29 +737,32 @@
     <script th:src="@{/client/controller/app.js}"></script>
     <script th:src="@{/client/controller/index.js}"></script>
     <script th:src="@{/client/controller/account-controller.js}"></script>
+    <script th:src="@{/client/controller/account-review.js}"></script>
+    <script th:src="@{/client/controller/index.js}"></script>
+    <script th:src="@{/client/controller/authenticate.js}"></script>
     <script th:src="@{/client/controller/signin.js}"></script>
     <script th:src="@{/client/controller/checkout.js}"></script>
-      <script th:src="@{/client/controller/header.js}"></script>
-      <script th:src="@{/client/controller/product-page.js}"></script>
-      <script th:src="@{/client/controller/flash-sale.js}"></script>
-      <script th:src="@{/client/controller/cart.js}"></script>
-      <script th:src="@{/client/controller/index.js}"></script>
-      <script th:src="@{/client/controller/change-password.js}"></script>
-      <script th:src="@{/client/controller/product-detail.js}"></script>
-      <script th:src="@{/client/controller/forgot-password.js}"></script>
-      <script th:src="@{/client/controller/voucher.js}"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
-      <script th:inline="javascript">
-          /*<![CDATA[*/
-          var loginMessage = /*[[${loginMessage}]]*/ null;
-          /*]]>*/
-          // Kiểm tra giá trị loginMessage
-          if (loginMessage) {
-              // Thực hiện các hành động với loginMessage ở đây
-              Swal.fire({
-                  title: "Thông báo",
-                  text: loginMessage,
-                  icon: "error",
+    <script th:src="@{/client/controller/header.js}"></script>
+    <script th:src="@{/client/controller/product-page.js}"></script>
+    <script th:src="@{/client/controller/flash-sale.js}"></script>
+    <script th:src="@{/client/controller/cart.js}"></script>
+    <script th:src="@{/client/controller/index.js}"></script>
+    <script th:src="@{/client/controller/change-password.js}"></script>
+    <script th:src="@{/client/controller/product-detail.js}"></script>
+    <script th:src="@{/client/controller/forgot-password.js}"></script>
+    <script th:src="@{/client/controller/voucher.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      var loginMessage = /*[[${loginMessage}]]*/ null;
+      /*]]>*/
+      // Kiểm tra giá trị loginMessage
+      if (loginMessage) {
+        // Thực hiện các hành động với loginMessage ở đây
+        Swal.fire({
+          title: "Thông báo",
+          text: loginMessage,
+          icon: "error",
                   confirmButtonText: "OK",
               });
           }

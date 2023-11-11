@@ -34,37 +34,40 @@
                                     <a href="/account/order"><i class="fa fa-cart-arrow-down"></i> Đơn hàng của tôi</a>
                                     <a href="/account/address"><i class="fa fa-map-marker"></i> Địa chỉ</a>
                                     <a href="/account/voucher"><i class="fa fa-percent"></i> Voucher của tôi</a>
-                                    <a href="/account/notification" class="active"><i class="fa fa-comment"></i> Thông báo</a>
+                                    <a href="/account/notification" class="active"><i class="fa fa-bell"></i> Thông báo</a>
                                     <a href="/account/review"><i class="fa fa-comment"></i> Nhận xét của tôi</a>
                                 </div>
                             </div>
                             <!-- My Account Tab Menu End -->
                             <!-- My Account Tab Content Start -->
                             <div class="col-lg-9 col-12 mt--30 mt-lg--0">
-                                <div class="tab-content" id="myaccountContent">
+                                <div class="tab-content" id="myNotifyContent">
                                     <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade show active" id="notify-method" role="tabpanel">
                                         <div class="myaccount-content">
                                             <div
-                                                class="d-flex justify-content-between align-items-center address-content">
+                                                    class="d-flex justify-content-between align-items-center address-content">
                                                 <h4 class="text-13 mb-2 fs-3">Thông Báo</h4>
                                             </div>
-                                            <ul class=" mt--20">
+                                            <ul class="mt--20">
                                                 <li class="list-group-item d-flex justify-content-between align-items-start remove-bg"
                                                     dir-paginate="notification in ListNotifyUser | itemsPerPage: 5"
-                                                    current-page="currentPage">
-
-                                                    <div>
+                                                    current-page="currentPage"
+                                                    ng-class="{'custom-green-bg': !notification.status, 'customClass': true}"
+                                                    ng-click="markNotificationAsRead(notification)">
+                                                    <div class="col-md-10">
                                                         <h6 class="mb-1"
-                                                            style="font-family: nunito-sans, sans-serif, Helvetica, Arial; color:rgb(77, 77, 77)">
+                                                            style="font-family: nunito-sans, sans-serif, Helvetica, Arial; color: rgb(77, 77, 77)">
                                                             <strong>{{ notification.title }}</strong>
                                                         </h6>
                                                         <p class="mb-1">{{ notification.message }}</p>
                                                     </div>
-                                                    <span class="span-notify-create ">{{ notification.createAt |
-                                                        date:'HH:mm dd-MM-yyyy' }}</span>
+                                                    <div class="col-md-2 d-flex justify-content-end">
+                                                        <span class="span-notify-create">{{ notification.createAt | date:'HH:mm dd-MM-yyyy' }}</span>
+                                                    </div>
                                                 </li>
                                             </ul>
+
                                             <div class="row pt--30" ng-show="ListNotifyUser.length > 0">
                                                 <div class="col-md-12">
                                                     <div class="product__pagination">
@@ -86,7 +89,7 @@
             </div>
 
 
-
+        </div>
 
 </main>
 

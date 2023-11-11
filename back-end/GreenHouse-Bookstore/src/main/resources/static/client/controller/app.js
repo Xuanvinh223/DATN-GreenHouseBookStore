@@ -7,7 +7,7 @@ app.constant('changePasswordAPI', 'http://localhost:8081/customer/rest/reset-pas
 app.constant('forgotPasswordAPI', 'http://localhost:8081/customer/rest/forgot-password');
 app.constant('productDetailAPI', 'http://localhost:8081/customer/rest/product-detail');
 app.constant('voucherAPI', 'http://localhost:8081/customer/rest/voucher');
-app.constant('notifyAPI', "http://localhost:8081/customer/notify")
+app.constant('customerAPI', "http://localhost:8081/customer/rest")
 app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
     var token = $cookies.get("token");
 
@@ -109,66 +109,100 @@ app.config(["$httpProvider", function ($httpProvider) {
 
 // ================= MAIN CONTROLLER ==================
 app.controller("MainController", function ($scope, CartService, $timeout, ProductDetailService, NotifyService, NotifyWebSocketService) {
-    var token = localStorage.getItem("token");
-    var username = localStorage.getItem("username");
-    $scope.token = token;
-    $scope.currentPage = 1;
-    $scope.ListNotifyUser = [];
+        var token = localStorage.getItem("token");
+        var username = localStorage.getItem("username");
+        $scope.token = token;
+        $scope.currentPage = 1;
+        $scope.ListNotifyUser = [];
+        $scope.ListUnNotifyUser = [];
+        $scope.getListNotification = function () {
+            // Sử dụng dịch vụ NotifyService để lấy danh sách thông báo
+            NotifyService.getNotificationsByUsername(username)
+                .then(function (ListNotifyUser) {
+                    // Lấy ngày hiện tại
+                    var currentDate = new Date();
 
-    $scope.getListNotification = function () {
-        // Sử dụng dịch vụ NotifyService để lấy danh sách thông báo
-        NotifyService.getNotificationsByUsername(username)
-            .then(function (ListNotifyUser) {
-                // Lấy ngày hiện tại
-                var currentDate = new Date();
-                // Lọc thông báo trong khoảng 7 ngày gần nhất
-                $scope.ListNotifyUser = ListNotifyUser.filter(function (notification) {
-                    var createAt = new Date(notification.createAt);
-                    var timeDiff = currentDate - createAt;
-                    var daysDiff = timeDiff / (1000 * 3600 * 24);
-                    return daysDiff <= 7;
+                    // Sắp xếp thông báo theo ưu tiên: status (false trước), ngày (thứ nhất và thứ hai)
+                    $scope.ListNotifyUser = ListNotifyUser
+                        .sort(function (a, b) {
+                            // Ưu tiên theo status
+                            if (a.status !== b.status) {
+                                return a.status ? 1 : -1; // false trước
+                            }
+
+                            // Ưu tiên theo ngày
+                            var createAtDiff = new Date(b.createAt) - new Date(a.createAt);
+                            if (createAtDiff !== 0) {
+                                return createAtDiff;
+                            }
+
+                            return 0; // Nếu status và ngày giống nhau, giữ nguyên vị trí
+                        });
+
+                    console.log("NOTIFY", $scope.ListNotifyUser);
+                })
+                .catch(function (error) {
+                    console.log("Error loading notifications:", error);
                 });
+        }
 
-                $scope.ListNotifyUser.sort(function (a, b) {
-                    return new Date(b.createAt) - new Date(a.createAt);
+
+        $scope.getUnreadNotifications = function () {
+            // Sử dụng dịch vụ NotifyService để lấy danh sách thông báo có status == 0
+            NotifyService.getNotificationsByUsername(username)
+                .then(function (ListUnNotifyUser) {
+                    // Lấy ngày hiện tại
+                    var currentDate = new Date();
+                    // Lọc thông báo trong khoảng 7 ngày gần nhất và status == 0
+                    $scope.ListUnNotifyUser = ListUnNotifyUser.filter(function (notification) {
+                        var createAt = new Date(notification.createAt);
+                        var timeDiff = currentDate - createAt;
+                        var daysDiff = timeDiff / (1000 * 3600 * 24);
+                        return daysDiff <= 7 && notification.status === false;
+                    });
+
+                    $scope.ListUnNotifyUser.sort(function (a, b) {
+                        return new Date(b.createAt) - new Date(a.createAt);
+                    });
+                    console.log("Unread Notifications", $scope.ListUnNotifyUser);
+                })
+                .catch(function (error) {
+                    console.log("Error loading unread notifications:", error);
                 });
-                console.log("NOTIFY", $scope.ListNotifyUser);
-            })
-            .catch(function (error) {
-                console.log("Error loading notifications:", error);
-            });
-    }
-    $scope.getListNotification();
-    // Khi trang được nạp, kết nối tới WebSocket
-    // NotifyWebSocketService.connect(function() {
-    //     loadNotifications();
-    // });
+        }
 
-    // // Thay thế REST API call bằng WebSocket call
-    // function loadNotifications() {
-    //     NotifyWebSocketService.getNotifications(function (ListNotifyUser) {
-    //         $scope.ListNotifyUser = ListNotifyUser;
+        $scope.markNotificationAsRead = function (notification) {
+            // Kiểm tra nếu thông báo chưa được đánh dấu là đã đọc
+            if (!notification.status) {
+                // Gọi API để đánh dấu thông báo là đã đọc
+                NotifyService.markNotificationAsRead(notification.notificationId)
+                    .then(function (response) {
 
-    //         $scope.$apply();
-    //     });
-    // }
+                        console.log('Notification marked as read.');
+                        // Cập nhật trạng thái của thông báo và màu sắc
+                        notification.status = true;
+                        // Đổi màu sắc thông báo
+                        notification.customClass = 'custom-green-bg';
+                        $scope.getListNotification();
+                    })
+                    .catch(function (error) {
+                        console.error('Error marking notification as read:', error);
+                    });
+            }
+        }
+
+        $scope.getListNotification();
+        $scope.getUnreadNotifications();
 
 
-    // $scope.sendNotification = function (title, message) {
-    //     NotifyWebSocketService.sendNotification(title, message);
-    //     NotifyWebSocketService.connect(function() {
-    //         loadNotifications();
-    //     });
-    // }
-
-    $scope.addToCart = function (productDetailId, quantity) {
-        CartService.addToCart(productDetailId, quantity, username)
-            .then(function (response) {
-                $scope.showNotification(response.status, response.message);
-                $scope.getCart();
-            })
-            .catch(function (error) {
-                console.log(
+        $scope.addToCart = function (productDetailId, quantity) {
+            CartService.addToCart(productDetailId, quantity, username)
+                .then(function (response) {
+                    $scope.showNotification(response.status, response.message);
+                    $scope.getCart();
+                })
+                .catch(function (error) {
+                    console.log(
                     "error",
                     "Lỗi trong quá trình gửi dữ liệu lên server: " + error
                 );
@@ -368,16 +402,22 @@ app.service('ProductDetailService', function ($http, productDetailAPI) {
     };
 });
 //=============== NOTIFY SERVICE  ===========
-app.service('NotifyService', function ($http) {
-    // Hàm để lấy danh sách thông báo cho người dùng cụ thể
+app.service('NotifyService', function ($http, customerAPI) {
     this.getNotificationsByUsername = function (username) {
-        return $http.get('/customer/rest/getNotifications/' + username)
+        return $http.get(customerAPI + '/notifications/' + username)
             .then(function (response) {
                 return response.data;
             });
     };
 
+    this.markNotificationAsRead = function (notificationId) {
+        return $http.put(customerAPI + '/notifications/' + notificationId + '/markAsRead')
+            .then(function (response) {
+                return response;
+            });
+    }
 });
+
 app.service('NotifyWebSocketService', function ($rootScope) {
     var stompClient = null;
     var isConnecting = false;
@@ -445,13 +485,24 @@ app.service('NotifyWebSocketService', function ($rootScope) {
         });
     };
 });
+// Khi trang được nạp, kết nối tới WebSocket
+// NotifyWebSocketService.connect(function() {
+//     loadNotifications();
+// });
+
+// // Thay thế REST API call bằng WebSocket call
+// function loadNotifications() {
+//     NotifyWebSocketService.getNotifications(function (ListNotifyUser) {
+//         $scope.ListNotifyUser = ListNotifyUser;
+
+//         $scope.$apply();
+//     });
+// }
 
 
-
-
-
-
-
-
-
-
+// $scope.sendNotification = function (title, message) {
+//     NotifyWebSocketService.sendNotification(title, message);
+//     NotifyWebSocketService.connect(function() {
+//         loadNotifications();
+//     });
+// }

@@ -2,23 +2,20 @@ package com.greenhouse.restcontroller.client;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.model.Notification;
-import com.greenhouse.model.Product_Detail;
 import com.greenhouse.repository.NotificationRepository;
 
 @CrossOrigin("*")
@@ -31,13 +28,28 @@ public class NotifyRestController {
 
     @Autowired
     private NotificationRepository notificationRepository;
-    
-    @GetMapping("/rest/getNotifications/{username}")
-    public ResponseEntity<List<Notification>> gegetNotificationstProductsByBrand(@PathVariable String username) {
-        List<Notification> notifications = notificationRepository.findByUsernameUsername(username);
+
+    @GetMapping("/rest/notifications/{username}")
+    public ResponseEntity<List<Notification>> getNotificationsByStatus(@PathVariable String username) {
+        List<Notification> notifications = notificationRepository.findByUsernameUsernameOrderByStatusAscCreateAtDesc(username);
         return ResponseEntity.ok(notifications);
     }
-    
+
+
+    @PutMapping("/rest/notifications/{notificationId}/markAsRead")
+    public ResponseEntity<String> markNotificationAsRead(@PathVariable int notificationId) {
+        Optional<Notification> optionalNotification = notificationRepository.findById(notificationId);
+
+        if (optionalNotification.isPresent()) {
+            Notification notification = optionalNotification.get();
+            notification.setStatus(true); // Đặt status thành true (đã đọc)
+            notificationRepository.save(notification);
+            return new ResponseEntity<>("Notification marked as read.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Notification not found.", HttpStatus.NOT_FOUND);
+        }
+    }
+
     // @MessageMapping("/notify/getNotifications/{username}")
     // public void getNotifications(@DestinationVariable String username) {
     // List<Notification> notifications =
