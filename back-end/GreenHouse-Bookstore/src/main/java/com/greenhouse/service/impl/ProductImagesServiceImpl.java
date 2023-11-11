@@ -27,13 +27,13 @@ public class ProductImagesServiceImpl implements ProductImagesService {
     }
 
     @Override
-    public void add(Product_Images productImages) {
-        productImagesRepository.save(productImages);
+    public Product_Images add(Product_Images productImages) {
+        return productImagesRepository.save(productImages);
     }
 
     @Override
-    public void update(Product_Images productImages) {
-        productImagesRepository.save(productImages);
+    public Product_Images update(Product_Images productImages) {
+        return productImagesRepository.save(productImages);
     }
 
     @Override

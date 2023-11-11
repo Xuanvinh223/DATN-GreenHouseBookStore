@@ -14,53 +14,56 @@
           <div class="card shadow">
             <div class="card-body">
               <div class="toolbar row mb-3">
-                  <div class="col-lg-7 col-12 ">
-                      <!-- Tim kiem -->
-                      <div class="form-inline mb-2">
-                          <div class="input-container">
-                              <div class="input-wrapper">
-                                  <i class="fe fe-search fe-18 icon"></i>
-                                  <!--  -->
-                                  <input class="form-control input" type="search" placeholder="Tìm kiếm..."
-                                         ng-model="searchText" ng-change="searchData()">
-                              </div>
-                          </div>
+                <div class="col-lg-7 col-12 ">
+                  <!-- Tim kiem -->
+                  <div class="form-inline mb-2">
+                    <div class="input-container">
+                      <div class="input-wrapper">
+                        <i class="fe fe-search fe-18 icon"></i>
+                        <!--  -->
+                        <input class="form-control input" type="search" placeholder="Tìm kiếm..." ng-model="searchText"
+                          ng-change="searchData()">
                       </div>
+                    </div>
                   </div>
-                  <div class="col ml-auto">
-                      <div class="dropdown float-right">
-                          <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle" type="button"
-                                  id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Tất cả trạng thái
-                          </button>
-                          <div class="dropdown-menu" aria-labelledby="btnnhaphang">
-                              <a class="dropdown-item" href="#"><i class='bx bxs-file-export mr-1'></i>Nhập File
-                                  Excel</a>
-                              <a class="dropdown-item" href="#"><i class='bx bxs-file-import mr-1'></i>Xuất File
-                                  Excel</a>
-                          </div>
-                          <a class="btn btn-info " href="#!/publisher-form"> <i class='bx bx-plus-medical mr-1'></i>Thêm
-                              nhà
-                              xuất bản
-                          </a>
-                      </div>
+                </div>
+                <div class="col ml-auto">
+                  <div class="dropdown float-right">
+                    <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle" type="button"
+                      id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Tất cả trạng thái
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnnhaphang">
+                      <a class="dropdown-item" href="#"><i class='bx bxs-file-import mr-1'></i>Nhập File
+                        Excel</a>
+                      <a class="dropdown-item" ng-click="printPDF()"><i class='bx bxs-file-export mr-1'></i>Xuất file
+                        PDF</a>
+                      <a class="dropdown-item" ng-click="exportToExcel();"><i class='bx bxs-file-export mr-1'></i>Xuất
+                        File Excel</a>
+                    </div>
+                    <a class="btn btn-info " href="#!/publisher-form"> <i class='bx bx-plus-medical mr-1'></i>Thêm
+                      nhà
+                      xuất bản
+                    </a>
                   </div>
+                </div>
               </div>
-                <table class="table table-hover table-hover-green">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>ID</th>
-                        <th>Tên nhà xuất bản</th>
-                        <th>Mô tả</th>
-                        <th>Địa chỉ</th>
-                        <th>Email</th>
-                        <th>Hình ảnh Logo</th>
-                        <th>Thao tác</th>
+              <table class="table table-hover table-hover-green">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Tên nhà xuất bản</th>
+                    <th>Mô tả</th>
+                    <th>Địa chỉ</th>
+                    <th>Email</th>
+                    <th>Hình ảnh Logo</th>
+                    <th>Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="publisher in publishers | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
+                  <tr
+                    ng-repeat="publisher in publishers | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
                     <td>{{$index + 1}}</td>
                     <td>{{publisher.publisherId}}</td>
                     <td>{{publisher.publisherName}}</td>
@@ -68,12 +71,11 @@
                     <td>{{publisher.address}}</td>
                     <td>{{publisher.email}}</td>
                     <td>
-                        <img ng-src="/images/{{publisher.image}}" alt="Chưa có ảnh"
-                             style="width: 50px; height: 50px; border-radius: 10%;">
+                      <img ng-src="/images/{{publisher.image}}" alt="Chưa có ảnh"
+                        style="width: 50px; height: 50px; border-radius: 10%;">
                     </td>
                     <td>
-                      <a ng-click="editPublisherAndRedirect(publisher.publisherId)"><i
-                          class="fe fe-edit fe-16 "></i></a>
+                      <a ng-click="editPublisherAndRedirect(publisher.publisherId)"><i class="fe fe-edit fe-16"></i></a>
                       <a ng-click="deletePublisher(publisher.publisherId)"><i class="fe fe-trash fe-16"></i></a>
                     </td>
                   </tr>
@@ -82,21 +84,21 @@
               <div class="toolbar">
                 <form class="form">
                   <div class="form-row">
-                      <div class="form-inline col-auto mr-auto">
-                          <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
-                          <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1" ng-model="itemsPerPage"
-                                  ng-options="option for option in itemsPerPageOptions" ng-change="currentPage = 1">
-                          </select>
-                      </div>
-                      <div class="form-group col-auto">
-                          <span>Đang xem {{ calculateRange() }}</span>
-                      </div>
+                    <div class="form-inline col-auto mr-auto">
+                      <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
+                      <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1" ng-model="itemsPerPage"
+                        ng-options="option for option in itemsPerPageOptions" ng-change="currentPage = 1">
+                      </select>
+                    </div>
+                    <div class="form-group col-auto">
+                      <span>Đang xem {{ calculateRange() }}</span>
+                    </div>
                   </div>
                 </form>
               </div>
-                <ul uib-pagination ng-model="currentPage" total-items="totalItems" items-per-page="itemsPerPage"
-                    max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" boundary-links="true"
-                    force-ellipses="true" previous-text="<" next-text=">" first-text="<<" last-text=">>"></ul>
+              <ul uib-pagination ng-model="currentPage" total-items="totalItems" items-per-page="itemsPerPage"
+                max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" boundary-links="true"
+                force-ellipses="true" previous-text="<" next-text=">" first-text="<<" last-text=">>"></ul>
             </div>
           </div>
         </div> <!-- simple table -->

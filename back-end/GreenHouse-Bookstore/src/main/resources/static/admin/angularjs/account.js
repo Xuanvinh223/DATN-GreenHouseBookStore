@@ -24,9 +24,9 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         var url = `${host}`;
         $http.get(url).then(resp => {
             $scope.accounts = resp.data;
+
             $scope.originalaccounts = $scope.accounts;
 
-            console.log("success", resp.data);
             $scope.totalItems = $scope.accounts.length;
         }).catch(error => {
             console.log("Error", error);
@@ -37,7 +37,7 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         // Lọc danh sách gốc bằng searchText
         $scope.accounts = $scope.originalaccounts.filter(function (account) {
             // Thực hiện tìm kiếm trong các thuộc tính cần thiết của item
-            if (account.fullname) {
+            if (account.username) {
                 return (
                     account.username.toString().includes($scope.searchText) ||
                     account.fullname.toLowerCase().includes($scope.searchText.toLowerCase()) ||
@@ -94,10 +94,10 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             $scope.errorMessages.birthday = 'Vui lòng không bỏ trống ngày sinh';
             return;
         }
-        
+
         var currentDate = new Date();
         var selectedDate = new Date(birthday);
-    
+
         if (selectedDate > currentDate) {
             $scope.errorMessages.birthday = 'Ngày sinh không được là ngày ở tương lai';
             return;
@@ -110,12 +110,13 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             return;
         }
 
-
-        // Kiểm tra mật khẩu
-        var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-        if (!passwordRegex.test(password)) {
-            $scope.errorMessages.password = 'Mật khẩu phải có ít nhất 6 kí tự, bao gồm kí tự hoa, kí tự đặc biệt và số';
-            return;
+        // Kiểm tra mật khẩu chỉ khi thêm mới
+        if (!$scope.isEditing) {
+            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+            if (!passwordRegex.test(password)) {
+                $scope.errorMessages.password = 'Mật khẩu phải có ít nhất 6 kí tự, bao gồm kí tự hoa, kí tự đặc biệt và số';
+                return;
+            }
         }
 
         // Kiểm tra số điện thoại là số Việt Nam
@@ -130,6 +131,12 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         if (!emailRegex.test(email)) {
             $scope.errorMessages.email = 'Địa chỉ email không hợp lệ';
             return;
+        }
+
+        if (!$scope.isEditing) {
+            if ($scope.checkDuplicateEmail(email)) {
+                return; // Hiển thị thông báo lỗi đã tồn tại
+            }
         }
 
         if (!$scope.isEditing) {
@@ -167,7 +174,6 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
                 transformRequest: angular.identity
             })
             .then(function (resp) {
-                console.log(resp);
                 $scope.loadAccount();
                 $scope.resetForm();
                 var action = $scope.isEditing ? 'Cập nhật' : 'Thêm';
@@ -180,17 +186,16 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             });
     };
 
+
     $scope.checkDuplicateUsername = function (username) {
         // Kiểm tra trùng lặp username
         var existingUsername = $scope.accounts.find(function (account) {
             return account.username === username;
         });
-
         if (existingUsername) {
             $scope.errorMessages.username = 'Tên tài khoản đã tồn tại.';
             return true; // Đã tồn tại
         }
-
         return false; // Chưa tồn tại
     };
 
@@ -199,12 +204,10 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         var existingEmail = $scope.accounts.find(function (account) {
             return account.email === email;
         });
-
         if (existingEmail) {
             $scope.errorMessages.email = 'Email đã tồn tại.';
             return true; // Đã tồn tại
         }
-
         return false; // Chưa tồn tại
     };
 
@@ -239,8 +242,25 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
 
     }
 
+    $scope.checkAccountHasAuthority = function (username) {
+
+        var url = `http://localhost:8081/rest/authorities/duplicate?username=${username}`;
+        return $http.get(url)
+            .then(resp => {
+                if (resp.data.authorities.length > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+            .catch(error => {
+                console.error("Error loading authorities", error);
+                throw error; // Ném lỗi để có thể xử lý ở nơi gọi hàm này
+            });
+    };
+
+
     $scope.deleteAccounts = function (username) {
-        var url = `${host}/${username}`;
         Swal.fire({
             title: "Bạn chắc chắn?",
             text: "Dữ liệu sẽ bị xóa vĩnh viễn.",
@@ -250,35 +270,48 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             cancelButtonText: "Hủy",
         }).then((result) => {
             if (result.isConfirmed) {
-                // Sử dụng $http để gửi yêu cầu DELETE đến API
-                $http.delete(url)
-                    .then((resp) => {
-                        $scope.loadAccount(); // Nạp lại danh sách tài khoản iệu sau khi xóa
+                console.log($scope.checkAccountHasAuthority(username));
+                $scope.checkAccountHasAuthority(username).then(hasAuthority => {
+                    if (hasAuthority) {
                         Swal.fire({
-                            icon: "success",
-                            title: "Thành công",
-                            text: `Xóa tài khoản ${username} thành công`,
+                            icon: "error",
+                            title: "Thất bại",
+                            text: `Tài khoản ${username} đã được phân quyền và không thể xóa.`,
                         });
-                    })
-                    .catch((error) => {
-                        if (error.status === 409) {
-                            // Kiểm tra mã trạng thái lỗi
-                            Swal.fire({
-                                icon: "error",
-                                title: "Thất bại",
-                                text: `Tài khoản ${username} đang được sử dụng và không thể xóa.`,
+                    } else {
+                        var deletedBy = localStorage.getItem("username");
+                        var url = `${host}/rest/account/${username}?deletedBy=${deletedBy}`;
+                        $http.delete(url)
+                            .then((resp) => {
+                                $scope.loadAccount(); // Nạp lại danh sách tài khoản sau khi xóa
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Thành công",
+                                    text: `Xóa tài khoản ${username} thành công`,
+                                });
+                            })
+                            .catch((error) => {
+                                if (error.status === 409) {
+                                    // Kiểm tra mã trạng thái lỗi
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Thất bại",
+                                        text: `Tài khoản ${username} đang được sử dụng và không thể xóa.`,
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Thất bại",
+                                        text: `Xóa tài khoản ${username} thất bại`,
+                                    });
+                                }
                             });
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Thất bại",
-                                text: `Xóa tài khoản ${username} thất bại`,
-                            });
-                        }
-                    });
+                    }
+                })
             }
         });
     };
+
 
     $scope.resetForm = function () {
         // Kiểm tra xem có tham số "id" và "data" trong URL không, và nếu có thì xóa chúng

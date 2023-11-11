@@ -18638,3 +18638,47 @@ a.uppy-Dashboard-poweredBy {
   text-align: center;
 }
 /* END */
+
+/*ZON*/
+/*Hiện doanh thu*/
+.table-hover-green tbody tr:hover {
+  background-color: #339900;
+  /* Màu nền hover mong muốn */
+  cursor: pointer;
+  /* Biểu tượng chuột thay đổi thành con trỏ */
+}
+
+.total-profit {
+  float: right;
+  margin-right: 50px;
+}
+
+.body-profit {
+  padding: 0 10px 10px 10px;
+  /* Padding top = 0px, Padding right = 10px, Padding bottom = 10px, Padding left = 10px */
+}
+
+.total {
+  float: right;
+  color: orangered;
+  margin-left: 20px;
+}
+
+.expense {
+  float: right;
+  color: #ff1a1a;
+  margin-left: 20px;
+}
+
+.profit {
+  float: right;
+  color: #62ab00;
+  margin-left: 20px;
+}
+
+.table-hr {
+  border: 1px solid #000;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+/* END */

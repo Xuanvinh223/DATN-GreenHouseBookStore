@@ -6,7 +6,7 @@ var test3 = 0;
 var form5 = {};
 
 //Table
-function flashsaleController($scope, $http, $location, $routeParams) {
+function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, $interval, $filter) {
     $scope.$on('$routeChangeSuccess', function (event, current, previous) {
         $scope.page.setTitle(current.$$route.title || ' Quản lý Flash-Sale');
         $scope.load_All();
@@ -31,8 +31,32 @@ function flashsaleController($scope, $http, $location, $routeParams) {
     $scope.maxSize = 5;
     $scope.itemsPerPageOptions = [5, 12, 24, 32, 64, 128];
     $scope.selectedItemsPerPage = 5; // Khởi tạo giá trị mặc định cho số mục trên mỗi trang
+
+    $scope.itemsPerPageOptions1 = [5, 12, 24, 32, 64, 128];
+    $scope.selectedItemsPerPage1 = 5; // Khởi tạo giá trị mặc định cho số mục trên mỗi trang
+    $scope.currentPage1 = 1;
+    $scope.itemsPerPage1 = 5;
+    // $scope.totalItems1 = $scope.listProductFlashSale.length;
+    $scope.maxSize1 = 5;
+
     let host = "http://localhost:8081/rest";
 
+    $scope.getNumOfPages1 = function () {
+        return Math.ceil($scope.totalItems1 / $scope.itemsPerPage1);
+    };
+    $scope.setPage1 = function (pageNo) {
+        $scope.currentPage1 = pageNo;
+    };
+    $scope.calculateRange1 = function () {
+        var startIndex1 = ($scope.currentPage1 - 1) * $scope.itemsPerPage1 + 1;
+        var endIndex1 = $scope.currentPage1 * $scope.itemsPerPage1;
+
+        if (endIndex1 > $scope.totalItems1) {
+            endIndex1 = $scope.totalItems1;
+        }
+
+        return startIndex1 + ' đến ' + endIndex1 + ' trên tổng số ' + $scope.totalItems1 + ' mục';
+    };
     // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
     $scope.getNumOfPages = function () {
         return Math.ceil($scope.totalItems / $scope.itemsPerPage);
@@ -76,14 +100,15 @@ function flashsaleController($scope, $http, $location, $routeParams) {
             $scope.productfsList = resp.data.productfsList;
             $scope.productDetailList = resp.data.productDetailList;
             $scope.productList = resp.data.productList;
-            console.log("List Product Detail List", resp.data.productList)
-            console.log("List FlashSAle List", resp.data.flashsalelist)
+            
             // Cập nhật trạng thái Flash Sale
 
             $scope.loadModelProduct();
             $scope.totalItems = $scope.originalFlashSaleList.length; // Tổng số mục
+            // $scope.totalItems1 = $scope.listProductFlashSale.length;
         }).catch(error => {
             console.log("Error", error);
+
         });
     }
 
@@ -237,7 +262,7 @@ function flashsaleController($scope, $http, $location, $routeParams) {
             .then(function (resp) {
                 $location
                     .path("/flashsale-form")
-                    .search({id: flashSaleId, data: resp.data});
+                    .search({ id: flashSaleId, data: resp.data });
                 console.log(resp.data);
             }).catch(function (error) {
                 console.log("Error", error);
@@ -352,6 +377,172 @@ function flashsaleController($scope, $http, $location, $routeParams) {
         $scope.setPageProFl(1);
     };
 
+    //Xuất EXCEL
+    $scope.exportToExcel = function () {
+        // Lấy toàn bộ dữ liệu từ server khi tải trang ban đầu
+        $scope.load_All();
+
+        // Tạo mảng dữ liệu cho tệp Excel
+        var excelData = [
+            ['BÁO CÁO - DANH SÁCH CHIẾN DỊCH FLASH SALE'], // Header
+            [], // Empty row for spacing
+            ['#', 'Mã Flash Sale', 'Tên Flash Sale', 'Bắt Đầu', 'Kết Thúc', 'Ngày Sale', 'Trạng Thái']
+        ];
+
+        // Sử dụng $filter để định dạng ngày
+        var dateFilter = $filter('date');
+
+        $scope.flashsalelist.forEach(function (item, index) {
+            excelData.push([
+                index + 1,
+                item.flashSaleId,
+                item.name,
+                item.startTime,
+                item.endTime,
+                dateFilter(item.userDate, 'dd/MM/yyyy'),
+                getStatusText(item.status)
+            ]);
+        });
+
+        // Đặt độ rộng cố định cho từng cột
+        var colWidths = [10, 20, 30, 30, 30, 50, 50];
+
+        // Sử dụng thư viện XLSX để tạo tệp Excel
+        var ws = XLSX.utils.aoa_to_sheet(excelData);
+
+        // Đặt độ rộng cố định cho các cột
+        for (var i = 0; i < colWidths.length; i++) {
+            ws['!cols'] = ws['!cols'] || [];
+            ws['!cols'].push({ wch: colWidths[i] });
+        }
+
+        // Căn giữa dữ liệu trong từng cột
+        for (var row = 0; row < excelData.length; row++) {
+            for (var col = 0; col < excelData[row].length; col++) {
+                ws[XLSX.utils.encode_cell({ r: row, c: col })].s = { alignment: { horizontal: 'center' } };
+            }
+        }
+
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Danh sách chiến dịch flash sale');
+
+        // Xuất tệp Excel
+        XLSX.writeFile(wb, 'danh_sach_chien_dich_flash_sale.xlsx');
+    }
+
+
+    // Định nghĩa hàm formatDate để định dạng ngày in
+    function formatDate(date) {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+
+        // Định dạng thời gian thành chuỗi 'HH:mm:ss'
+        var time = [hours, minutes, seconds].map(function (unit) {
+            return (unit < 10 ? '0' : '') + unit;
+        }).join(':');
+
+        // Định dạng ngày thành chuỗi 'dd/MM/yyyy'
+        var formattedDate = [(day < 10 ? '0' : '') + day, (month < 10 ? '0' : '') + month, year].join('/');
+
+        return formattedDate + ' ' + time;
+    }
+
+    $scope.printPDF = function () {
+        var headerTable = {
+            table: {
+                headerRows: 1,
+                widths: [20, 60, 100, 70, 70, 70, 80],
+                body: [
+                    [{ text: '#', alignment: 'center', fontSize: 11 }, // Căn giữa cột '#'
+                    { text: 'Mã Flash Sale', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Mã hóa đơn'
+                    { text: 'Tên Flash Sale', alignment: 'center', fontSize: 11 },
+                    { text: 'Bắt Đầu', alignment: 'center', fontSize: 11 },
+                    { text: 'Kết Thúc', alignment: 'center', fontSize: 11 },
+                    { text: 'Ngày Sale', alignment: 'center', fontSize: 11 },
+                    { text: 'Trạng Thái', alignment: 'center', fontSize: 11 },
+                    ]
+                ]
+            }
+        };
+
+        var bodyTable = {
+            table: {
+                widths: [20, 60, 100, 70, 70, 70, 80],
+                body: $scope.flashsalelist.map((item, index) => [
+                    { text: (index + 1).toString(), alignment: 'center', fontSize: 11 },
+                    { text: item.flashSaleId, alignment: 'center', fontSize: 11 },
+                    { text: item.name, fontSize: 11 },
+                    { text: item.startTime, alignment: 'center', fontSize: 11 },
+                    { text: item.endTime, alignment: 'center', fontSize: 11 },
+                    { text: moment(item.userDate).format('DD/MM/YYYY'), alignment: 'center', fontSize: 11 },
+                    { text: getStatusText(item.status), fontSize: 11 }
+                ])
+            }
+        };
+        var docDefinition = {
+            pageOrientation: 'portrait',
+            pageSize: 'A4',
+            content: [
+                { text: 'Danh sách chiến dịch flash sale', style: 'header' },
+                ' ',
+                { text: 'Ngày in: ' + moment().format('DD/MM/YYYY'), alignment: 'right', fontSize: 12 },
+                ' ',
+                headerTable,
+                bodyTable
+            ],
+            styles: {
+                header: { fontSize: 16, bold: true, alignment: 'center' },
+                default: { fontSize: 14 }
+            }
+        };
+
+        pdfMake.createPdf(docDefinition).open();
+
+        // var docDefinition = {
+        //     pageOrientation: 'portrait',
+        //     pageSize: 'A4',
+        //     content: [
+        //         { text: 'Danh sách hàng hóa trong kho', style: 'header' },
+        //         ' ',
+        //         { text: 'Ngày in: ' + moment().format('DD/MM/YYYY'), alignment: 'right', fontSize: 12 },
+        //         ' ',
+        //         headerTable,
+        //         bodyTable
+        //     ],
+        //     styles: {
+        //         header: { fontSize: 16, bold: true, alignment: 'center' },
+        //         default: { fontSize: 14 }
+        //     }
+        // };
+
+        // var pdfDoc = pdfMake.createPdf(docDefinition);
+
+        // // Đặt tên tệp PDF dựa trên tên tùy chỉnh, ví dụ: "danh_sach_flash_sale.pdf"
+        // var customFileName = "danh_sach_flash_sale.pdf";
+
+        // // Sử dụng FileSaver.js để tải về tệp PDF với tên tùy chỉnh
+        // pdfDoc.getBlob((blob) => {
+        //     saveAs(blob, customFileName);
+        // });
+    };
+
+    // Hàm để lấy văn bản dựa trên giá trị của item.status
+    function getStatusText(status) {
+        switch (status) {
+            case 1:
+                return 'Đã lên lịch';
+            case 2:
+                return 'Đang sử dụng';
+            case 3:
+                return 'Hết hạn';
+            default:
+                return 'Không xác định'; // Hoặc bạn có thể thay đổi văn bản mặc định theo nhu cầu
+        }
+    }
 
 }
 

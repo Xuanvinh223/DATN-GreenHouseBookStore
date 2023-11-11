@@ -1,20 +1,18 @@
 package com.greenhouse.restcontroller.admin;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.google.gson.Gson;
 import com.greenhouse.model.Authors;
 import com.greenhouse.service.AuthorsService;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.util.StringUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/rest/authors")
@@ -22,8 +20,10 @@ public class RestAuthorController {
 
     @Autowired
     private AuthorsService authorsService;
-    @Value("${upload.path}")
-    private String uploadPath;
+
+    private static final String CLOUDINARY_CLOUD_NAME = "dmbh3sz8s";
+    private static final String CLOUDINARY_API_KEY = "165312227781173";
+    private static final String CLOUDINARY_API_SECRET = "xcADjr7hxF6iXNMtsdf2CQAnbOI";
 
     @GetMapping
     public ResponseEntity<List<Authors>> getAllAuthors() {
@@ -42,26 +42,20 @@ public class RestAuthorController {
 
     @PostMapping
     public ResponseEntity<Object> create(@RequestParam(value = "image", required = false) MultipartFile file,
-                                         @RequestParam("authorJson") String authorJson) {
-        if (StringUtils.isEmpty(authorJson)) {
+                                         @RequestParam("authorJson") String authorJson) throws Exception {
+        if (authorJson.isEmpty()) {
             return new ResponseEntity<>("Thông tin tác giả không hợp lệ.", HttpStatus.BAD_REQUEST);
         }
 
-        String uploadedFileName = null;
+        String photoUrl = null;
         if (file != null && !file.isEmpty()) {
-            try {
-                String originalFileName = file.getOriginalFilename();
-                String fileExtension = FilenameUtils.getExtension(originalFileName);
-                uploadedFileName = "author_" + System.currentTimeMillis() + "." + fileExtension;
-                File uploadedFile = new File(uploadPath + File.separator + uploadedFileName);
-                FileUtils.writeByteArrayToFile(uploadedFile, file.getBytes());
-            } catch (IOException e) {
-                return new ResponseEntity<>("Lỗi khi tải ảnh lên.", HttpStatus.BAD_REQUEST);
-            }
+            photoUrl = uploadImageToCloudinary(file, "author_" + System.currentTimeMillis());
         }
 
         Authors author = new Gson().fromJson(authorJson, Authors.class);
-        author.setImage(uploadedFileName);
+        if (photoUrl != null) {
+            author.setImage(photoUrl);
+        }
 
         Authors existingAuthor = authorsService.findById(author.getAuthorId());
         if (existingAuthor != null) {
@@ -75,27 +69,22 @@ public class RestAuthorController {
     @PutMapping(value = "/{id}")
     public ResponseEntity<Authors> update(@PathVariable("id") String id,
                                           @RequestParam(value = "image", required = false) MultipartFile file,
-                                          @RequestParam("authorJson") String authorJson) {
+                                          @RequestParam("authorJson") String authorJson) throws Exception {
 
-        String uploadedFileName = null;
+        String photoUrl = null;
         if (file != null && !file.isEmpty()) {
-            try {
-                String originalFileName = file.getOriginalFilename();
-                String fileExtension = FilenameUtils.getExtension(originalFileName);
-                uploadedFileName = "author_" + System.currentTimeMillis() + "." + fileExtension;
-                File uploadedFile = new File(uploadPath + File.separator + uploadedFileName);
-                FileUtils.writeByteArrayToFile(uploadedFile, file.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-                return ResponseEntity.badRequest().build();
-            }
+            photoUrl = uploadImageToCloudinary(file, "author_" + System.currentTimeMillis());
         }
 
         Authors author = new Gson().fromJson(authorJson, Authors.class);
 
-        // Kiểm tra xem ảnh đã tải lên mới chưa
-        if (uploadedFileName != null) {
-            author.setImage(uploadedFileName);
+        if (photoUrl != null) {
+            author.setImage(photoUrl);
+        } else {
+            Authors existingAuthor = authorsService.findById(id);
+            if (existingAuthor != null) {
+                author.setImage(existingAuthor.getImage());
+            }
         }
 
         author.setAuthorId(id);
@@ -114,4 +103,30 @@ public class RestAuthorController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    private String uploadImageToCloudinary(MultipartFile imageFile, String imageName) throws Exception {
+        String photoUrl = null;
+
+        try {
+            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                    "cloud_name", CLOUDINARY_CLOUD_NAME,
+                    "api_key", CLOUDINARY_API_KEY,
+                    "api_secret", CLOUDINARY_API_SECRET));
+
+            byte[] imageBytes = imageFile.getBytes();
+
+            Map uploadResult = cloudinary.uploader().upload(imageBytes, ObjectUtils.asMap(
+                    "public_id", imageName, // Tên hình ảnh trên Cloudinary
+                    "folder", "authors", // Thư mục trên Cloudinary
+                    "overwrite", true // Ghi đè nếu hình ảnh đã tồn tại
+            ));
+
+            // Lấy URL của hình ảnh đã tải lên từ kết quả
+            photoUrl = (String) uploadResult.get("secure_url");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("Lỗi khi tải ảnh lên Cloudinary.");
+        }
+
+        return photoUrl;
+    }
 }

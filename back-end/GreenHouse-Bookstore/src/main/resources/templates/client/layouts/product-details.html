@@ -12,9 +12,9 @@
 				<div class="breadcrumb-contents">
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="/index">Trang Chủ</a></li>
-							<li class="breadcrumb-item active">Sản Phẩm Chi Tiết</li>
-						</ol>
+                            <li class="breadcrumb-item"><a href="/index" th:text="#{lo.mn.homecon}">Trang Chủ</a></li>
+                            <li class="breadcrumb-item active" th:text="#{lo.mn.dmsp}">Sản Phẩm Chi Tiết</li>
+                        </ol>
 					</nav>
 				</div>
 			</div>
@@ -35,6 +35,7 @@
 
 							<div class="single-slide" th:each="productImage : ${productImages}">
 								<img th:src="${productImage.image}" alt="Product Image">
+
 							</div>
 						</div>
 						<!-- Product Details Slider Nav -->
@@ -63,53 +64,55 @@
 								<div class="rating-block">
 									<div class="rating-star">
 										<span class="fas fa-star"
-										ng-class="{star_on: star <= calculateAverageRating() }"
-										ng-repeat="star in numStar track by $index"></span>
+                                              ng-class="{star_on: star <= calculateAverageRating() }"
+                                              ng-repeat="star in numStar track by $index"></span>
 									</div>
 								</div>
-								<div class="review-widget">
-									<a href="">({{ listProductReviews.length }} đánh giá)</a> 
-									
-								</div>
+                                <div class="review-widget">
+                                    <a href="">({{ productReviews.length }} đánh giá)</a>
+
+                                </div>
 							</div>
 							<ul class="list-unstyled">
-								<div class="row">
-									<div class="col-md-6">
-										<li>Nhà Cung Cấp: <span class="list-value mb--15">CTY Sách Việt Nam</span></li>
-										<li>Xuất Xứ: <span
-												class="list-value">{{productDetail.product.brand.countryOfOrigin}}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <li>Nhà Cung Cấp: <span class="list-value mb--15">CTY Sách Việt Nam</span></li>
+                                        <li>Xuất Xứ: <span
+                                                class="list-value">{{productDetail.product.brand.countryOfOrigin}}
 											</span></li>
-									</div>
-									<div class="col-md-6">
-										<li>Thương Hiệu: <a
-												class="list-value  mb--15 font-weight-bold">{{productDetail.product.brand.brandName}}</a>
-										</li>
-										<li>Nhà Xuất Bản: <span
-												class="list-value">{{productDetail.product.publisher.publisherName}}</span>
-										</li>
-									</div>
-								</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <li>Thương Hiệu: <a
+                                                class="list-value  mb--15 font-weight-bold">{{productDetail.product.brand.brandName}}</a>
+                                        </li>
+                                        <li>Nhà Xuất Bản: <span
+                                                class="list-value">{{productDetail.product.publisher.publisherName}}</span>
+                                        </li>
+                                    </div>
+                                </div>
 								<li> Sẵn Có: <span class="list-value mt--15 ">{{productDetail.quantityInStock}}</span>
 								</li>
 							</ul>
-							<div class="price-block">
-								<span class="price1">{{ productDetail.priceDiscount|number:'0'}}đ</span>
-								<del class="price-old" ng-if="productDetail.price - productDetail.priceDiscount> 0">{{
-									productDetail.price|number:'0'}}đ</del>
-								<span class="price-discount">30%</span>
-							</div>
+                            <div class="price-block">
+                                <span class="price1">{{ productDetail.priceDiscount|number:'0'}}đ</span>
+                                <del class="price-old" ng-if="productDetail.price - productDetail.priceDiscount> 0">{{
+                                    productDetail.price|number:'0'}}đ
+                                </del>
+                                <span class="price-discount"
+                                      ng-if="getDiscountValueByProductId(productDetail.productDetailId)">{{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
+                            </div>
 							<div class="add-to-cart-row">
 								<div class="count-input-block">
 									<span class="widget-label">Số Lượng</span>
 									<input type="number" class="form-control text-center" value="1" min="1">
 								</div>
-								<div class="add-cart-btn">
-									<a href="" class="btn btn-outlined--primary"><span class="plus-icon"></span>Thêm Vào
-										Giỏ
-										Hàng</a>
-									<a href="" class="btn btn-outlined--primary"><span class="plus-icon"></span>Mua
-										Ngay</a>
-								</div>
+                                <div class="add-cart-btn">
+                                    <a ng-click="addToCart(productDetail.productDetailId, 1)"
+                                       class="btn btn-outlined--primary">
+                                        <span class="plus-icon"></span>Thêm Vào Giỏ Hàng</a>
+                                    <a href="" class="btn btn-outlined--primary"><span class="plus-icon"></span>Mua
+                                        Ngay</a>
+                                </div>
 							</div>
 
 						</div>
@@ -126,8 +129,8 @@
 						<li class="nav-item">
 							<a class="nav-link" id="tab2" data-bs-toggle="tab" href="#tab-2" role="tab"
 								aria-controls="tab-2" aria-selected="true">
-								Đánh giá ({{ listProductReviews.length }})
-							</a>
+                                Đánh giá ({{ productReviews.length }})
+                            </a>
 						</li>
 					</ul>
 					<div class="tab-content space-db--20" id="myTabContent">
@@ -136,20 +139,20 @@
 								<h1 class="sr-only">Tab Article</h1>
 								<div class="product-info border-bottom">
 									<p><strong>Mã hàng:</strong> 8935235228351 </p>
-									<p><strong>Tên Nhà Cung Cấp:</strong> Nhã Nam</p>
-									<p><strong>Tác giả:</strong> José Mauro de Vasconcelos</p>
-									<p><strong>Người Dịch:</strong> Nguyễn Bích Lan, Tô Yến Ly</p>
-									<p><strong>NXB:</strong> NXB Hội Nhà Văn</p>
-									<p><strong>Năm XB:</strong> 2020</p>
-									<p><strong>Trọng lượng (gr):</strong> 280</p>
-									<p><strong>Kích Thước Bao Bì:</strong> 20 x 14.5 cm</p>
-									<p><strong>Số trang:</strong> 244</p>
-									<p><strong>Hình thức:</strong> Bìa Mềm</p>
-									<p><strong>Sản phẩm hiển thị trong:</strong> Đồ Chơi Cho Bé - Giá Cực Tốt</p>
-									<p><strong>Sản phẩm bán chạy nhất:</strong> Top 100 sản phẩm Tiểu thuyết bán chạy
-										của
-										tháng</p>
-								</div>
+                                    <p><strong>Tên Nhà Cung Cấp:</strong> Nhã Nam</p>
+                                    <p><strong>Tác giả:</strong> José Mauro de Vasconcelos</p>
+                                    <p><strong>Người Dịch:</strong> Nguyễn Bích Lan, Tô Yến Ly</p>
+                                    <p><strong>NXB:</strong> NXB Hội Nhà Văn</p>
+                                    <p><strong>Năm XB:</strong> 2020</p>
+                                    <p><strong>Trọng lượng (gr):</strong> 280</p>
+                                    <p><strong>Kích Thước Bao Bì:</strong> 20 x 14.5 cm</p>
+                                    <p><strong>Số trang:</strong> 244</p>
+                                    <p><strong>Hình thức:</strong> Bìa Mềm</p>
+                                    <p><strong>Sản phẩm hiển thị trong:</strong> Đồ Chơi Cho Bé - Giá Cực Tốt</p>
+                                    <p><strong>Sản phẩm bán chạy nhất:</strong> Top 100 sản phẩm Tiểu thuyết bán chạy
+                                        của
+                                        tháng</p>
+                                </div>
 								<div class="product-description mb--30">
 									<p ng-bind="getLimitedDescription()"></p>
 									<button class="btn-seemore" ng-click="toggleDescription()">
@@ -169,23 +172,24 @@
 										<div class="rating-block">
 											<div class="rating-star">
 												<span class="fas fa-star"
-												ng-class="{star_on: star <= calculateAverageRating() }"
-												ng-repeat="star in numStar track by $index"></span>
+                                                      ng-class="{star_on: star <= calculateAverageRating() }"
+                                                      ng-repeat="star in numStar track by $index"></span>
 											</div>
 										</div>
 										<div class="clear"></div>
-										<div class="rating-count">({{ listProductReviews.length }} đánh giá)</div>
+                                        <div class="rating-count">({{ productReviews.length }} đánh giá)</div>
 									</div>
 									<div class="rating-bars">
 										<div class="rating-bar" ng-repeat="starRating in [5, 4, 3, 2, 1]">
 											<span>{{ starRating }} sao</span>
-											<div class="review-rating">
-												<div ng-style="{ 'width': getRatingPercentage(starRating) + '%' }"></div>
-											</div>
+                                            <div class="review-rating">
+                                                <div ng-style="{ 'width': getRatingPercentage(starRating) + '%' }">
+                                                </div>
+                                            </div>
 											<span>{{ getRatingPercentage(starRating) | number:0 }}%</span>
 										</div>
 									</div>
-									
+
 									<div class="write-review-section">
 										<button class="btn-seemore" data-bs-toggle="modal"
 											data-bs-target="#popup_write_review">
@@ -195,55 +199,83 @@
 									</div>
 								</div>
 							</div>
-							<div class="review-wrapper mt--30">
-								<h2 class="title-lg mb--20" ng-show="listProductReviews.length > 0">ĐÁNH GIÁ SẢN PHẨM</h2>
-								<div class="review-comment mb--20" dir-paginate="review in listProductReviews | itemsPerPage: 5" current-page="currentPage">
-									<div class="avatar">
-										<div class="avatar">
-											<!-- Sử dụng biểu thức điều kiện để kiểm tra xem review.account.image có tồn tại hay không -->
-											<img ng-src="{{ review.account.image ? review.account.image : 'https://tse4.mm.bing.net/th/id/OIP.xYlggLnP3F7Q4vkWhzdG3AHaHa?pid=ImgDet&w=187&h=187&c=7&dpr=1.3' }}"
-												alt="avt">
-										</div>
-									</div>
-									<div class="text">
-										<div class="rating mb--15">
-											<div class="rating-block">
-												<span class="ion-android-star-outline"
-													ng-class="{ 'star_on': review.star >= 1 }"></span>
-												<span class="ion-android-star-outline"
-													ng-class="{ 'star_on': review.star >= 2 }"></span>
-												<span class="ion-android-star-outline"
-													ng-class="{ 'star_on': review.star >= 3 }"></span>
-												<span class="ion-android-star-outline"
-													ng-class="{ 'star_on': review.star >= 4 }"></span>
-												<span class="ion-android-star-outline"
-													ng-class="{ 'star_on': review.star >= 5 }"></span>
-											</div>
-											<div class="rating-cmt">{{ review.star === 5 ? 'Tuyệt Vời' : (review.star
-												=== 4 ? 'Hài Lòng' : (review.star === 3 ? 'Bình Thường' : (review.star
-												=== 2 ? 'Không Hài Lòng' : 'Rất Tệ'))) }}</div>
-										</div>
+                            <div class="review-wrapper mt--30">
+                                <h2 class="title-lg mb--20" ng-show="productReviews.length > 0">ĐÁNH GIÁ SẢN PHẨM
+                                </h2>
+                                <div class="review-comment mb--20"
+                                     dir-paginate="review in productReviews | itemsPerPage: 5"
+                                     current-page="currentPage">
+                                    <div class="avatar">
+                                        <div class="avatar">
+                                            <!-- Sử dụng biểu thức điều kiện để kiểm tra xem review.account.image có tồn tại hay không -->
+                                            <img ng-src="{{ review.account.image ? review.account.image : 'https://tse4.mm.bing.net/th/id/OIP.xYlggLnP3F7Q4vkWhzdG3AHaHa?pid=ImgDet&w=187&h=187&c=7&dpr=1.3' }}"
+                                                 alt="avt">
+                                        </div>
+                                    </div>
+                                    <div class="text">
+                                        <div class="row ">
+                                            <div class="col-md-6 ">
+                                                <div class="rating mb--15">
+                                                    <div class="rating-block">
+														<span class="ion-android-star-outline"
+                                                              ng-class="{ 'star_on': review.star >= 1 }"></span>
+                                                        <span class="ion-android-star-outline"
+                                                              ng-class="{ 'star_on': review.star >= 2 }"></span>
+                                                        <span class="ion-android-star-outline"
+                                                              ng-class="{ 'star_on': review.star >= 3 }"></span>
+                                                        <span class="ion-android-star-outline"
+                                                              ng-class="{ 'star_on': review.star >= 4 }"></span>
+                                                        <span class="ion-android-star-outline"
+                                                              ng-class="{ 'star_on': review.star >= 5 }"></span>
+                                                    </div>
+                                                    <div class="rating-cmt">{{ review.star === 5 ? 'Tuyệt Vời' :
+                                                        (review.star
+                                                        === 4 ? 'Hài Lòng' : (review.star === 3 ? 'Bình Thường' :
+                                                        (review.star
+                                                        === 2 ? 'Không Hài Lòng' : 'Rất Tệ'))) }}
+                                                    </div>
+                                                    <div class="edit-review-mobile" ng-if="isAdmin">
+                                                        <a class="edit-btn"
+                                                           ng-click="showConfirmAddress(review.reviewId)">
+                                                            <i class='bx bx-comment-x'></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 d-flex justify-content-end" ng-if="isAdmin">
+                                                <div class="edit-review "
+                                                     ng-click="showConfirmAddress(review.reviewId)">
+                                                    <a class="edit-btn">
+                                                        <i class='bx bx-comment-x'></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
 
-										<h6 class="author-authen">{{ review.account.username }} – <span
-												class="font-weight-400">{{ review.date| date:'dd/MM/yyyy' }}</span></h6>
-										</h6>
-										<p>{{review.comment}}
-										</p>
-										<div class="image-container-review"
-											ng-show="authenticPhotosForReview[review.reviewId].length > 0">
+                                        <h6 class="author-authen">{{ review.account.username }} – <span
+                                                class="font-weight-400">{{ review.date| date:'dd/MM/yyyy hh:mm'
+												}}</span></h6>
+                                        </h6>
+                                        <p>{{review.comment}}
+                                        </p>
+                                        <div class="image-container-review"
+                                             ng-show="authenticPhotosForReview[review.reviewId].length > 0">
 											<div ng-repeat="item in authenticPhotosForReview[review.reviewId]">
 												<img ng-src="{{ item.photoName }}" alt="Hình ảnh {{$index + 1}}">
 											</div>
 										</div>
 									</div>
+
 								</div>
-								<div class="row pt--30" ng-show="listProductReviews.length > 0">
-									<div class="col-md-12">
-										<div class="product__pagination">
-											<dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" auto-hide="false"></dir-pagination-controls>
-										</div>
-									</div>
-								</div>
+                                <div class="row pt--30" ng-show="productReviews.length > 0">
+                                    <div class="col-md-12">
+                                        <div class="product__pagination">
+                                            <dir-pagination-controls max-size="5" direction-links="true"
+                                                                     boundary-links="true"
+                                                                     auto-hide="false"></dir-pagination-controls>
+                                        </div>
+                                    </div>
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -252,56 +284,62 @@
 			<!--=================================
     RELATED PRODUCTS BOOKS
 ===================================== -->
-			<section class="">
-				<div class="container">
-					<div class="section-title section-title--bordered mt--50">
-						<h2>Sản Phẩm Tương Tự</h2>
-					</div>
-					<div class="shop-product-wrap grid-four shop-border row space-db--30 mt--10 mb--30">
-						<div class="col-lg-4 col-sm-6">
-							<div class="product-card">
-								<div class="product-card--body">
-									<div class="card-image">
-										<img ng-src="{{item[6]}}" alt="">
-										<div class="hover-contents">
-
-											<div class="hover-btns">
-												<a href="cart.html" class="single-btn">
-													<i class="fas fa-shopping-basket"></i>
-												</a>
-												<a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
-													class="single-btn">
-													<i class="fas fa-eye"></i>
-												</a>
-											</div>
-										</div>
+            <section>
+                <div class="container">
+                    <div class="section-title section-title--bordered mt--50">
+                        <h2>Sản Phẩm Tương Tự</h2>
+                    </div>
+                    <div class="shop-product-wrap grid-four shop-border row space-db--30 mt--10 mb--30">
+                        <div class="col-lg-4 col-sm-6" ng-repeat="item in relatedProducts">
+                            <div class="product-card">
+                                <div class="product-card--body">
+                                    <div class="card-image">
+                                        <img ng-src="{{item.image}}" alt="">
+                                        <div class="hover-contents">
+                                            <a ng-click="navigateToProductDetail(item.productDetailId)"
+                                               class="hover-image">
+                                                <img src="{{item.image}}" alt="">
+                                            </a>
+                                            <div class="hover-btns">
+                                                <a ng-click="addToCart(item.productDetailId, 1)" class="single-btn">
+                                                    <i class="fas fa-shopping-basket"></i>
+                                                </a>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
+                                                   class="single-btn">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </div>
 									</div>
-
 								</div>
 								<div class="product-header">
-									<h3><a href="/product-details">{{item[2]}}</a></h3>
+                                    <h3><a ng-click="navigateToProductDetail(item.productDetailId)">{{
+                                        item.product.productName }}</a></h3>
 								</div>
-								<div class="price-block">
-									<span class="price">{{ item[4]|number:'0'}}đ</span>
-									<del class="price-old" ng-if="item[3]-  item[4] > 0">{{ item[3]|number:'0'}}đ</del>
-									<span class="price-discount" ng-if="getDiscountValueByProductId(item[1])">
-										{{getDiscountValueByProductId(item[1])}}%</span>
-								</div>
+                                <div class="price-block">
+                                    <span class="price1">{{ item.priceDiscount|number:'0'}}đ</span>
+                                    <del class="price-old" ng-if="item.price - item.priceDiscount> 0">{{
+                                        item.price|number:'0'}}đ
+                                    </del>
+                                    <span class="price-discount"
+                                          ng-if="getDiscountValueByProductIdRelated(item.productDetailId)">{{getDiscountValueByProductIdRelated(item.productDetailId)}}%</span>
+                                </div>
 								<div class="rating-block">
 									<div class="rating-star">
 										<span class="fas fa-star"
-											ng-class="{star_on: star <= getStarRatingByProductId(item[0])}"
-											ng-repeat="star in numStar track by $index"></span>
+                                              ng-class="{star_on: star <= getStarRatingByProductIdRelated(item.productDetailId)}"
+                                              ng-repeat="star in numStar track by $index"></span>
 									</div>
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</section>
-			<!-- Modal -->
-			<div class="modal fade modal-quick-view" id="quickModal" tabindex="-1" role="dialog"
+
+            <!-- END RALATED PRODUCTS BOOK -->
+            <!-- Modal -->
+            <div class="modal fade modal-quick-view" id="quickModal" tabindex="-1" role="dialog"
 				aria-labelledby="quickModal" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -361,7 +399,7 @@
 											<img src="image/products/product-details-4.jpg" alt="">
 										</div>
 										<div class="single-slide">
-											<img src="image/products/product-details-5.jpg" alt="">
+                                            <img src="image/products/product-details-5.jpg" alt="">
 										</div>
 									</div>
 								</div>
@@ -425,20 +463,20 @@
 									<a href="#" class="single-icon"><i class="fab fa-youtube"></i></a>
 									<a href="#" class="single-icon"><i class="fab fa-google-plus-g"></i></a>
 								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</main>
-	</div>
-	<!--=================================
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!--=================================
   Brands Slider
 ===================================== -->
-	<section class="section-margin">
-		<h2 class="sr-only">Brand Slider</h2>
-		<div class="container">
-			<div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
+    <section class="section-margin">
+        <h2 class="sr-only">Brand Slider</h2>
+        <div class="container">
+            <div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
                                             "autoplay": true,
                                             "autoplaySpeed": 8000,
                                             "slidesToShow": 6
@@ -506,62 +544,118 @@
 									<label for="star3"></label>
 									<input type="radio" name="star" id="star2" ng-model="saveReview.star" ng-value="2">
 									<label for="star2"></label>
-									<input type="radio" name="star" id="star1" ng-model="saveReview.star" ng-value="1" ng-checked="saveReview.star === 1">
+									<input type="radio" name="star" id="star1" ng-model="saveReview.star" ng-value="1"
+                                           ng-checked="saveReview.star === 1">
 									<label for="star1"></label>
 								</span>
-							</div>
-							<!-- ảnh chi tiết -->
-							<div class="col-md-5 mb-3">
-								<label class="col-form-label"> (*) Thêm hình ảnh:</label>
-							  </div>
-							  <!-- Trong mã HTML của bạn -->
-							  <div class="row col-12">
-								<label class="custom-file-upload">
-									<input type="file" hidden accept="image/*" multiple name="images" onchange="angular.element(this).scope().onImageSelect(event)">
-									<div class="upload-icon">
-										<i class='bx bx-camera'></i>
-									</div>
-									<p>Chọn ảnh</p>
-								</label>
-								<!-- Hiển thị danh sách các ảnh đã chọn -->
-								<div class="col-4 text-center mb-3 position-relative" ng-repeat="image in selectedImages track by $index">
-									<label for="" class="detail-img-label">
-										<div class="image-container"> 
-											<img ng-src="{{  image.url  }}" class="img-fluid detail-img" alt="Ảnh chi tiết">
-											<button type="button" class="btn-danger btn-sm delete-btn" ng-click="deleteImage($index)">
-												X
-											</button>
-										</div>
-									</label>
+                            </div>
+                            <!-- ảnh chi tiết -->
+                            <div class="col-md-5 mb-3">
+                                <label class="col-form-label"> (*) Thêm hình ảnh:</label>
+                            </div>
+                            <!-- Trong mã HTML của bạn -->
+                            <div class="row col-12">
+                                <label class="custom-file-upload">
+                                    <input type="file" hidden accept="image/*" multiple name="images"
+                                           onchange="angular.element(this).scope().onImageSelect(event)">
+                                    <div class="upload-icon">
+                                        <i class='bx bx-camera'></i>
+                                    </div>
+                                    <p>Chọn ảnh</p>
+                                </label>
+                                <!-- Hiển thị danh sách các ảnh đã chọn -->
+                                <div class="col-4 text-center mb-3 position-relative"
+                                     ng-repeat="image in selectedImages track by $index">
+                                    <label for="" class="detail-img-label">
+                                        <div class="image-container">
+                                            <img ng-src="{{  image.url  }}" class="img-fluid detail-img"
+                                                 alt="Ảnh chi tiết">
+                                            <button type="button" class="btn-danger btn-sm delete-btn"
+                                                    ng-click="deleteImage($index)">
+                                                X
+                                            </button>
+                                        </div>
+                                    </label>
 								</div>
 							</div>
-							
-							<!-- end -->
-							
-							<div class="mt--15">
+
+                            <!-- end -->
+
+                            <div class="mt--15">
 								<label class="col-form-label mb-2"> (*) Thêm mô tả:</label>
-								<textarea class="form-control " ng-model="saveReview.comment"
-								placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này cho người mua khác nhé"
-								name="adr" 
-								></textarea>
+                                <textarea class="form-control " ng-model="saveReview.comment"
+                                          placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này cho người mua khác nhé"
+                                          name="adr"></textarea>
 								<span class="text-danger">{{errors.comment}}</span>
 							</div>
-							
-						</div>
-						<div class="fhs_center_right mt-2" >
-							<button type="button" class="fhs_btn_default cancel lg-close" style="margin-right: 20px;"
-							ng-click="clearReview()">
-								<span>Hủy</span>
-							</button>
-							<button type="button" class="fhs_btn_default active btn_post_review"
-							ng-click="saveReviewData ()"><span>Gửi nhận xét</span></button>
-						</div>
-					</div>
-				</div>
 
-			</div>
-		</div>
-		<!-- =============END MODEL COMMENT ====================== -->
+                        </div>
+                        <div class="fhs_center_right mt-2">
+                            <button type="button" class="fhs_btn_default cancel lg-close" style="margin-right: 20px;"
+                                    ng-click="clearReview()">
+                                <span>Hủy</span>
+                            </button>
+                            <button type="button" class="fhs_btn_default active btn_post_review"
+                                    ng-click="saveReviewData ()"><span>Gửi nhận xét</span></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- =============END MODEL COMMENT ====================== -->
+    <!-- =============MESSAGER COMMENT ========================-->
+
+    <!-- Model Delete Review -->
+    <div class="modal" id="addressDelete" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content shadow border-1 rounded">
+                <div class="modal-body text-center profile-account">
+                    <i class="far fa-question-circle text-warning" style='font-size: 60px;'></i>
+                    <p class='py-1'>Bạn có chắc chắn xóa bình luận này ?</p>
+                    <div class='d-flex justify-content-center'>
+                        <button class='btn btn-outline-primary mr--20' ng-click="deleteReview()">Có
+                        </button>
+                        <button class='btn btn-outline-dark mr-3' data-bs-dismiss="modal" aria-label="Close">Trở
+                            lại
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Model Delete Review  -->
+
+    <!-- Message  -->
+    <div class="modal fade " id="message" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content model-message">
+                <!-- Modal body -->
+                <div class="modal-body text-center">
+                    <i class="far fa-check-circle text-success mb-1" style="font-size: 50px;"></i>
+                    <p style="color: rgb(255, 255, 255);">{{ modalContent }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Message  -->
+
+    <div class="modal fade" id="popup-review-message" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body text-center">
+                    <img src="/client/image/logo-book.png" alt="">
+                    <p class="mt--10">Nhận xét của bạn sẽ được kiểm duyệt bởi người<br>
+                        quản trị trước khi hiển thị.</p>
+                    <button type="button" class="fhs_btn_default active btn_post_review"
+                            ng-click="closeReviewMessage()"><span>Đã
+							Hiểu</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
 </html>

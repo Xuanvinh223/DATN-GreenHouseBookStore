@@ -71,20 +71,26 @@
                       ng-model="edittingVoucher.voucherType" ng-value="'Loại sản phẩm'">
                     <label class="form-check-label" for="typeCategory">Loại sản phẩm</label>
                   </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="voucherType" id="typeProduct"
-                      ng-model="edittingVoucher.voucherType" ng-value="'Sản phẩm'">
-                    <label class="form-check-label" for="typeProduct">Sản phẩm</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="voucherType" id="typeShip"
-                      ng-model="edittingVoucher.voucherType" ng-value="'Ship'">
-                    <label class="form-check-label" for="typeShip">Phí ship</label>
-                  </div>
-                  <div>
-                    <small class="error-label text-danger"
-                      ng-show="errorMessages.voucherType">{{errorMessages.voucherType}}</small>
-                  </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="voucherType" id="typeProduct"
+                               ng-model="edittingVoucher.voucherType" ng-value="'Sản phẩm'">
+                        <label class="form-check-label" for="typeProduct">Sản phẩm</label>
+                    </div>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="voucherType" id="typeShip"
+                               ng-model="edittingVoucher.voucherType" ng-value="'Ship'">
+                        <label class="form-check-label" for="typeShip">Phí ship</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="voucherType" id="typeBill"
+                               ng-model="edittingVoucher.voucherType" ng-value="'Bill'">
+                        <label class="form-check-label" for="typeBill">Hóa đơn</label>
+                    </div>
+                    <div>
+                        <small class="error-label text-danger"
+                               ng-show="errorMessages.voucherType">{{errorMessages.voucherType}}</small>
+                    </div>
                 </div>
 
                 <div class="mb-3">
@@ -126,20 +132,21 @@
                 <div class="mb-3">
                   <p class="mb-2">Trạng thái(*)</p>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="status1" name="status"
-                      ng-model="edittingVoucher.status" ng-value="true">
-                    <label class="form-check-label" for="status1">Đã sử dụng</label>
+                      <input class="form-check-input" type="radio" id="status1" name="status"
+                             ng-model="edittingVoucher.status" ng-value="true" ng-checked="true">
+                      <label for="status1" class="form-check-label">Đã áp dụng</label>
                   </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="status2" name="status"
-                      ng-model="edittingVoucher.status" ng-value="false">
-                    <label class="form-check-label" for="status2">Chưa sử dụng</label>
-                  </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="status" name="status"
+                               ng-model="edittingVoucher.status" ng-value="false">
+                        <label for="status" class="form-check-label">Chưa áp dụng</label>
+                    </div>
                   <div>
                     <small class="error-label text-danger"
                       ng-show="errorMessages.status">{{errorMessages.status}}</small>
                   </div>
                 </div>
+
               </div>
 
               <div class="col-md-4">
@@ -303,8 +310,8 @@
                 </form>
                 <div class="product-cart-left" ng-if="searchProductKeyword">
                   <div class="item-product-cart d-flex my-2"
-                    ng-repeat="productDetail in searchProductResults track by $index"
-                    ng-click="selectedProductDetail(productDetail)">
+                       ng-repeat="productDetail in searchProductResults"
+                       ng-click="selectedProductDetail(productDetail)">
 
                     <div class="group-product-info col-md-11">
                       <div class="info-product-cart">
@@ -329,7 +336,7 @@
                     <tr ng-repeat="productDetail in selectedProductDetails track by $index">
                       <td>{{productDetail.productDetailId}}</td>
                       <td>{{productDetail.product.productName}}</td>
-                      <td> <a ng-click="removeProducts( $index)"><i class="fe fe-trash-2 fe-16"></i></a></td>
+                        <td><a ng-click="removeProducts($index)"><i class="fe fe-trash-2 fe-16"></i></a></td>
                     </tr>
                   </tbody>
                 </table>

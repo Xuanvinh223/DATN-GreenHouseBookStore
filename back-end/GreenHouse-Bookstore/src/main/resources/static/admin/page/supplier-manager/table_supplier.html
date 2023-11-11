@@ -28,10 +28,12 @@
                               Tất cả trạng thái
                           </button>
                           <div class="dropdown-menu" aria-labelledby="btnnhaphang">
-                              <a class="dropdown-item" href="#"><i class='bx bxs-file-export mr-1'></i>Nhập File
-                                  Excel</a>
-                              <a class="dropdown-item" href="#"><i class='bx bxs-file-import mr-1'></i>Xuất File
-                                  Excel</a>
+                            <a class="dropdown-item" href="#"><i class='bx bxs-file-import mr-1'></i>Nhập File
+                              Excel</a>
+                            <a class="dropdown-item" ng-click="printPDF()"><i class='bx bxs-file-export mr-1'></i>Xuất file
+                              PDF</a>
+                            <a class="dropdown-item" ng-click="exportToExcel();"><i class='bx bxs-file-export mr-1'></i>Xuất
+                              File Excel</a>
                           </div>
                     <a class="btn btn-info " href="#!/supplier-form"> <i class='bx bx-plus-medical mr-1'></i>Thêm nhà
                       cung cấp
@@ -64,7 +66,7 @@
                     <td>{{supplier.email}}</td>
                     <td>{{supplier.phone}}</td>
                     <td>
-                        <img ng-src="/images/{{supplier.image}}" alt="Chưa có ảnh"
+                        <img ng-src="{{supplier.image}}" alt="Chưa có ảnh"
                              style="width: 50px; height: 50px; border-radius: 10%;">
                     </td>
                     <td>

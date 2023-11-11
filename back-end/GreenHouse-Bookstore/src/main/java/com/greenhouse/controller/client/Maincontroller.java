@@ -73,14 +73,43 @@ public class Maincontroller {
     @GetMapping(value = "/product-details")
     public String productDetails(Model m, @RequestParam("id") Integer id) {
         List<Product_Images> productImages = productImagesReps.findByProductDetail_ProductDetailId(id);
-		m.addAttribute("productImages", productImages);
-
+        m.addAttribute("productImages", productImages);
         return "client/layouts/product-details";
     }
 
     @GetMapping(value = "/account")
     public String account() {
-        return "client/layouts/account";
+        return "client/layouts/account-doashboad";
+    }
+
+    @GetMapping(value = "/account/notification")
+    public String account_Notify() {
+        return "client/layouts/account-notify";
+    }
+
+    @GetMapping(value = "/account/address")
+    public String account_Address() {
+        return "client/layouts/account-address";
+    }
+
+    @GetMapping(value = "/account/info")
+    public String account_Info() {
+        return "client/layouts/account-info";
+    }
+
+    @GetMapping(value = "/account/order")
+    public String account_Order() {
+        return "client/layouts/account-order";
+    }
+
+    @GetMapping(value = "/account/review")
+    public String account_Review() {
+        return "client/layouts/account-review";
+    }
+
+    @GetMapping(value = "/account/voucher")
+    public String account_Voucher() {
+        return "client/layouts/account-voucher";
     }
 
     @GetMapping(value = "/cart")
@@ -144,7 +173,7 @@ public class Maincontroller {
             accounts.setFullname(fullname);
             accounts.setImage(image);
             accounts.setEmail(email);
-
+            accounts.setActive(true);
             accountRepository.save(accounts);
 
             if (authoritiesRepository.findByUsername(username).isEmpty()) {

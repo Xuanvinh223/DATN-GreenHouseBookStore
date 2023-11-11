@@ -2,13 +2,12 @@ app.controller('accountController', accountController);
 
 function accountController($http, $window, $scope, jwtHelper, $timeout) {
     let host = "http://localhost:8081/customer/rest";
-
     var token = localStorage.getItem('token');
     if (token) {
         var decodedToken = jwtHelper.decodeToken(token);
         $scope.username = decodedToken.sub;
         console.log($scope.username);
-        $scope.listAddress = [];// Khởi tạo biến để lưu trữ thông tin địa chỉ
+        $scope.listAddress = []; // Khởi tạo biến để lưu trữ thông tin địa chỉ
         $scope.listProvince = []; // Danh sách các tỉnh/thành phố
         $scope.listDistrict = []; // Danh sách các quận/huyện tương ứng với tỉnh/thành phố được chọn
         $scope.listWard = []; // Danh sách các phường/xã tương ứng với quận/huyện được chọn
@@ -16,9 +15,13 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
         $scope.isAddingAddress = true; // Trạng thái mặc định khi ban đầu vào trang là "Thêm địa chỉ"
         $scope.isEditingAddress = false;
         $scope.address = {};
+        $scope.account = {};
+        $scope.accounts = [];
+        $scope.uservoucher = {};
 
         // Gọi hàm loadData với tên người dùng hiện tại
         $scope.loadData = function (username) {
+
             var url = `${host}/address/${username}`;
             $http
                 .get(url)
@@ -38,8 +41,6 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
                 });
 
         }
-
-
         $scope.getProvince = function () {
             var url = "https://provinces.open-api.vn/api/?depth=3";
 
@@ -303,16 +304,192 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
             return !hasErrors;
         };
 
+        // UPDATE ACCOUNT --------------------------------------------------------
+        $scope.getAccountByUsername = function (username) {
+            var url = `${host}/profile_account/${username}`;
+
+            $http.get(url)
+                .then(function (response) {
+                    // Xử lý dữ liệu tài khoản ở đây
+                    $scope.account = response.data;
+                    console.log("Thông tin tài khoản: ", $scope.account);
+                })
+                .catch(function (error) {
+                    console.error("Lỗi khi lấy thông tin tài khoản: ", error);
+                });
+        }
+
+        $scope.saveAccount = function () {
+            var result = $scope.checkErrorAccount();
+            var formData = new FormData();
+            var fileInput = document.getElementById("fileInput");
+            if (fileInput && fileInput.files.length > 0) {
+                formData.append("image", fileInput.files[0]);
+            }
+
+            if (result.isError) {
+                $scope.errorMessages = result.errorMessages;
+            } else {
+                $scope.errorMessages = {}; // Xóa các thông báo lỗi
+
+                var url = `${host}/profile_account`;
+                var newAccount = {
+                    username: $scope.username,
+                    fullname: $scope.account.fullname,
+                    phone: $scope.account.phone,
+                    email: $scope.account.email,
+                    gender: $scope.account.gender,
+                    birthday: $scope.account.birthday,
+                    active: true,
+                    createdAt: new Date(),
+                    deletedAt: null,
+                    deletedBy: null,
+                };
+
+                formData.append("AccountJson", JSON.stringify(newAccount));
+
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: formData,
+                    headers: {
+                        'Content-Type': undefined
+                    },
+                    transformRequest: angular.identity
+                })
+                    .then(function (response) {
+                        $scope.getAccountByUsername($scope.username);
+                        $scope.modalContent = "Cập nhật tài khoản thành công";
+                        $('#message').modal('show');
+                        $timeout(function () {
+                            $('#message').modal('hide');
+                        }, 2000);
+                    })
+                    .catch(function (error) {
+                        $scope.modalContent = "Cập nhật tài khoản thất bại. Vui lòng thử lại.";
+                        $('#message').modal('show');
+                        $timeout(function () {
+                            $('#message').modal('hide');
+                        }, 2000);
+                    });
+            }
+        };
+
+
+        //Check error Account
+        $scope.checkErrorAccount = function () {
+            var isError = false;
+
+            var errorMessages = {
+                fullname: '',
+                phone: '',
+                email: '',
+                birthday: ''
+            };
+
+            if (!$scope.account.fullname) {
+                errorMessages.fullname = 'Vui lòng không bỏ trống họ và tên';
+                isError = true;
+            }
+
+            var phonePattern = /^(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/;
+
+            if (!$scope.account.phone) {
+                errorMessages.phone = 'Vui lòng không bỏ trống số điện thoại';
+                isError = true;
+            } else if (!phonePattern.test($scope.account.phone)) {
+                errorMessages.phone = 'Số điện thoại không đúng định dạng';
+                isError = true;
+            }
+
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!$scope.account.email) {
+                errorMessages.email = 'Vui lòng không bỏ trống email';
+                isError = true;
+            } else if (!emailPattern.test($scope.account.email)) {
+                errorMessages.email = 'Email không đúng định dạng';
+                isError = true;
+            }
+
+            var currentDate = new Date();
+            var selectedDate = new Date($scope.account.birthday);
+
+            if (selectedDate > currentDate) {
+                errorMessages.birthday = 'Ngày sinh không được là ngày ở tương lai';
+                isError = true;
+            }
+
+            var result = {
+                isError: isError,
+                errorMessages: errorMessages
+            }
+
+            return result;
+        };
+
+
+        $scope.checkDuplicateEmail = function (email) {
+            // Kiểm tra trùng lặp email
+            var existingEmail = $scope.accounts.find(function (account) {
+                return account.email === email;
+            });
+
+            if (existingEmail) {
+                return 'Email đã tồn tại.';
+            }
+
+            return null; // Chưa tồn tại
+        };
+
+        //Format Ngày 
+        $scope.formatDate = function (date) {
+            if (date == null) {
+                return "";
+            }
+            var formattedDate = new Date(date);
+            var year = formattedDate.getFullYear();
+            var month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
+            var day = formattedDate.getDate().toString().padStart(2, '0');
+
+            return `${year}-${month}-${day}`;
+        };
+
+        //GET VOUCHER-----------------------------------------------------------------------
+        $scope.getUserVoucherById = function (username) {
+            var url = `${host}/profile_voucher/${username}`;
+
+            $http.get(url)
+                .then(function (response) {
+                    if (response.data.userVouchersList) {
+                        // Kiểm tra nếu có danh sách địa chỉ
+                        $scope.uservoucher = response.data.userVouchersList;
+                        console.log("Danh Sách Voucher", $scope.uservoucher);
+                    } else {
+                        // Không tìm thấy địa chỉ hoặc danh sách địa chỉ trống
+                        $scope.uservoucher = [];
+                        console.log("Không tìm thấy Voucher cho người dùng này hoặc danh sách rỗng.");
+                    }
+                    // // Xử lý dữ liệu voucher ở đây
+                    // $scope.uservoucher = response.data;
+                    // console.log("Thông tin voucher: ", $scope.uservoucher);
+                })
+                .catch(function (error) {
+                    console.error("Lỗi khi lấy thông tin voucher: ", error);
+                });
+        }
 
     }
 
+
     function init() {
+        $scope.getAccountByUsername($scope.username);
+        $scope.getUserVoucherById($scope.username);
         $scope.loadData($scope.username);
         $scope.getProvince();
     }
 
     init();
-    initJavascript();
 }
 
 // Mã JavaScript cho Javasricpt
@@ -337,4 +514,20 @@ function initJavascript() {
             passwordFields.style.display = "none";
         }
     });
+
+}
+
+function displayImage(event) {
+    var imageElement = document.getElementById("uploadedImage");
+    var fileInput = event.target;
+
+    if (fileInput.files && fileInput.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            imageElement.src = e.target.result;
+        };
+
+        reader.readAsDataURL(fileInput.files[0]);
+    }
 }

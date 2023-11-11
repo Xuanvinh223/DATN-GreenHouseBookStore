@@ -1,12 +1,16 @@
 package com.greenhouse.model;
 
 import java.io.Serializable;
+
+import org.hibernate.annotations.Proxy;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "Product_Discount")
+@Proxy(lazy = false)
 public class Product_Discount implements Serializable {
 
     @Id

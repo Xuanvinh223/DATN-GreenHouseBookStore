@@ -55,8 +55,7 @@
                         <td>{{account.gender ? 'Nam' : 'Nữ'}}</td>
                         <td>{{account.active ? 'Hoạt động' : 'Chưa hoạt động'}}</td>
                         <td>
-                          <img ng-src="/images/{{account.image}}"
-                            style="width: 50px; height: 50px; border-radius: 10%;">
+                          <img ng-src="{{account.image}}" style="width: 50px; height: 50px; border-radius: 10%;">
                         </td>
                         <td>
                           <a ng-click="editAccountsAndRedirect(account.username)"><i class="fe fe-edit fe-16"></i></a>
@@ -85,6 +84,7 @@
                   <ul uib-pagination ng-model="currentPage" total-items="totalItems" items-per-page="itemsPerPage"
                     max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" boundary-links="true"
                     force-ellipses="true" previous-text="<" next-text=">" first-text="<<" last-text=">>"></ul>
+
                 </div>
               </div>
             </div>

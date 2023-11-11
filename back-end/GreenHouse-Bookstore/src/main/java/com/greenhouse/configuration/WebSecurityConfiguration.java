@@ -23,15 +23,15 @@ import com.greenhouse.filters.JwtRequestFilter;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration {
-
     @Autowired
     private JwtRequestFilter requestFilter;
 
     private final String[] apiEndpoints = {"/rest/**"}; // Danh sách các API bảo mật
-    private final String[] apiEndpointsPermit = {"/authenticate", "/resgister", "/index", "/login", "/404", "/sign-up",
-            "/account", "/contact", "/voucher", "/flash-sale", "/product", "/product-details", "/cart", "/checkout",
-            "/checkout-complete", "/forgot-password", "/change-password", "/customer/**", "/oauth2/authorization/google", "/logout", "/google-processing", "/google-success", "/client/**",
-            "/admin/**"}; // Danh sách các API cho phép truy cập
+    private final String[] apiEndpointsPermit = {"/authenticate", "/resgister", "/index", "/login", "/404",
+            "/sign-up/**", "/contact", "/voucher", "/flash-sale", "/product",
+            "/product-details", "/forgot-password", "/change-password", "/customer/**", "/oauth2/authorization/google",
+            "/logout", "/google-processing", "/google-success", "/client/**",
+            "/notify/**", "/topic/**", "/app/**"}; // Danh sách các API cho phép truy cập
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -41,7 +41,12 @@ public class WebSecurityConfiguration {
                 .permitAll().and()
                 .authorizeHttpRequests()
                 .requestMatchers(apiEndpoints)
-                .hasRole("ADMIN").and()
+                .hasRole("ADMIN")
+                .and()
+                .authorizeHttpRequests()
+                .requestMatchers("/account/**", "/cart/**", "/checkout/**", "/checkout-complete/**", "/admin/**")
+                .hasAnyRole("ADMIN", "CUSTOMER", "STAFF") // Định nghĩa quy tắc cho đường dẫn /account
+                .and()// Yêu cầu người dùng đã đăng nhập
                 .oauth2Login().loginPage("/login")
                 .defaultSuccessUrl("/google-processing", true)
                 .and()

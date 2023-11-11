@@ -26,7 +26,7 @@ public class RestInventoryStatic {
     public ResponseEntity<Map<String, List<Object[]>>> getAll() {
         Map<String, List<Object[]>> resp = new HashMap<>();
         List<Object[]> list1 = pd.findAllInventoryList();
-        List<Object[]> list2 = pd.findAllInventoryListDesc();
+        List<Object[]> list2 = pd.findAllInventoryListAsc();
         resp.put("list1", list1);
         resp.put("list2", list2);
         return ResponseEntity.ok(resp);

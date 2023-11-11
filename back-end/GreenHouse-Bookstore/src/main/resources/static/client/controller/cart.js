@@ -334,7 +334,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
     }
 
 
-
     //----------------------------------------------------------------
 
     $scope.$watch('listNormalVouchers', function (newListCart, oldListCart) {

@@ -1,32 +1,55 @@
-app.controller("productDetailController", function ($scope, $routeParams, $http, jwtHelper, ProductDetailService) {
+app.controller("productDetailController", function ($scope, $timeout, $routeParams, $http, jwtHelper, ProductDetailService) {
     let host = "http://localhost:8081/customer/rest/product-detail";
     var token = localStorage.getItem('token');
     if (token) {
         var decodedToken = jwtHelper.decodeToken(token);
         $scope.username = decodedToken.sub;
         console.log($scope.username);
+        $scope.isCustomer = false; // Mặc định không phải là khách hàng
+        $scope.roles = decodedToken.roles;
+        $scope.isCustomer = $scope.roles.some(function (role) {
+            return role.authority === "ROLE_CUSTOMER";
+        });
+
+        $scope.isAdmin = $scope.roles.some(function (role) {
+            return role.authority === "ROLE_ADMIN";
+        });
+        console.log($scope.roles);
     }
     // Trong trang product-details
     var params = new URLSearchParams(location.search);
     var productDetailId = params.get('id');
     //Phân trang
     $scope.currentPage = 1;
+    $scope.modalContent = "";
     // Khởi tạo hàm scope
     $scope.authenticPhotosForReview = {};
-    $scope.listProductReviews = [];
+    $scope.productReviews = [];
     $scope.productDetail = [];
     $scope.productImages = [];
+    $scope.productDiscounts = [];
+    $scope.listProductDiscounts = [];
+    $scope.listProductReviews = [];
     $scope.getProductDetail = function () {
         ProductDetailService.getProductDetailById(productDetailId)
             .then(function (response) {
                 $scope.productDetail = response.data.productDetail;
                 $scope.productImages = response.data.productImages;
-                $scope.listProductReviews = response.data.productReviews;
-                console.log('Dữ liệu Sản Phẩm đã được trả về:', $scope.productDetail);
-                console.log('Dữ liệu Hình ảnh đã được trả về:', $scope.productImages);
-                console.log('Dữ liệu SP TƯƠNG TỰ đã được trả về:', $scope.productImages);
-                console.log("Danh sách đánh giá sản phẩm: ", $scope.listProductReviews);
-                angular.forEach($scope.listProductReviews, function (review) {
+                $scope.productReviews = response.data.productReviews;
+                $scope.productDiscounts = response.data.productDiscounts;
+                $scope.relatedProducts = response.data.relatedProducts;
+                $scope.listProductDiscounts = response.data.listProductDiscounts;
+                $scope.listProductReviews = response.data.listProductReviews;
+                // console.log('Dữ liệu Discount trả về', $scope.productDiscounts)
+                // console.log('Dữ liệu Sản Phẩm đã được trả về:', $scope.productDetail);
+                // console.log('Dữ liệu Hình ảnh đã được trả về:', $scope.productImages);
+                console.log('Dữ liệu SP TƯƠNG TỰ đã được trả về:', $scope.relatedProducts);
+                // console.log("Danh sách đánh giá sản phẩm: ", $scope.productReviews);
+                $scope.productReviews.sort(function (a, b) {
+                    // Sắp xếp theo ngày giảm dần (mới nhất đầu tiên)
+                    return new Date(b.date) - new Date(a.date);
+                });
+                angular.forEach($scope.productReviews, function (review) {
                     $scope.getAuthenticPhotosForReview(review.reviewId);
                 });
             })
@@ -34,14 +57,27 @@ app.controller("productDetailController", function ($scope, $routeParams, $http,
                 console.log('Lỗi khi lấy chi tiết sản phẩm: ' + error);
             });
     };
+    //LẤY ẢNH CHI TIẾT CỦA REVIEW
+    $scope.getAuthenticPhotosForReview = function (reviewId) {
+        // Gọi REST endpoint để lấy danh sách ảnh chi tiết
+        $http.get(`${host}/reviews/${reviewId}`)
+            .then(function (response) {
+                // Gán danh sách ảnh chi tiết vào biến $scope cho mỗi bình luận
+                $scope.authenticPhotosForReview[reviewId] = response.data;
+                // console.log("Ảnh Review", response.data);
+            })
+            .catch(function (error) {
+                console.log('Lỗi khi lấy ảnh chi tiết: ' + error);
+            });
+    };
 
     $scope.getRatingPercentage = function (starRating) {
-       
-        var ratingCount = $scope.listProductReviews.filter(function (review) {
+
+        var ratingCount = $scope.productReviews.filter(function (review) {
             return review.star === starRating;
         }).length;
 
-        var totalReviews = $scope.listProductReviews.length;
+        var totalReviews = $scope.productReviews.length;
 
         // Tính tỷ lệ
         if (totalReviews > 0) {
@@ -54,7 +90,7 @@ app.controller("productDetailController", function ($scope, $routeParams, $http,
     //tính số sao của 1 sản phẩm
     $scope.calculateAverageRating = function () {
         var totalRatings = 0;
-        var totalReviews = $scope.listProductReviews.length;
+        var totalReviews = $scope.productReviews.length;
 
         if (totalReviews === 0) {
             return 0; // Tránh chia cho 0
@@ -62,7 +98,7 @@ app.controller("productDetailController", function ($scope, $routeParams, $http,
 
         // Tính tổng số sao từ tất cả đánh giá
         for (var i = 0; i < totalReviews; i++) {
-            totalRatings += $scope.listProductReviews[i].star;
+            totalRatings += $scope.productReviews[i].star;
         }
 
         // Tính trung bình số sao
@@ -70,19 +106,17 @@ app.controller("productDetailController", function ($scope, $routeParams, $http,
         return Math.round(avgRating);
     };
 
+    //Tính số phần trăm giảm giá
+    $scope.getDiscountValueByProductId = function (id) {
+        var discountValue = null;
+        $scope.productDiscounts.find(e => {
+            if (e.productDetail.productDetailId === id) {
+                discountValue = e.discount.value
+            }
+        });
+        return discountValue ? discountValue : 0;
+    }
 
-    $scope.getAuthenticPhotosForReview = function (reviewId) {
-        // Gọi REST endpoint để lấy danh sách ảnh chi tiết
-        $http.get(`${host}/reviews/${reviewId}`)
-            .then(function (response) {
-                // Gán danh sách ảnh chi tiết vào biến $scope cho mỗi bình luận
-                $scope.authenticPhotosForReview[reviewId] = response.data;
-                console.log("Ảnh Review", response.data);
-            })
-            .catch(function (error) {
-                console.log('Lỗi khi lấy ảnh chi tiết: ' + error);
-            });
-    };
     $scope.showFullDescription = false;
     $scope.wordsPerLine = 25; // Số từ trung bình trên mỗi dòng (tuỳ chỉnh)
 
@@ -124,12 +158,10 @@ app.controller("productDetailController", function ($scope, $routeParams, $http,
 
     };
 
-
     // Thêm biến selectedImages để lưu trữ các ảnh đã chọn
-
     $scope.saveReview = {
         comment: '',
-        star: 1
+        star: 4
     };
     $scope.errors = {};
     $scope.saveReviewData = function () {
@@ -137,6 +169,7 @@ app.controller("productDetailController", function ($scope, $routeParams, $http,
             $scope.errors.comment = '* Vui lòng nhập mô tả về sản phẩm';
             return;
         }
+
         var currentDate = new Date();
         var username = $scope.username;
         var reviewData = {
@@ -153,40 +186,85 @@ app.controller("productDetailController", function ($scope, $routeParams, $http,
             .then(function (response) {
                 console.log("Đánh giá đã được lưu:", response.data);
 
-
                 var reviewId = response.data.reviewId;
                 var url1 = `${host}/reviews/${reviewId}/images`;
-                // Lưu hình ảnh lên server và cập nhật URL thật của hình ảnh
+
+                var imageUploadPromises = [];
+
+                // Tạo mảng promises cho việc lưu hình ảnh
+                $scope.showLoading();
                 for (var i = 0; i < $scope.selectedImages.length; i++) {
                     (function (index) {
                         var file = $scope.selectedImages[index].file;
                         var formData = new FormData();
                         formData.append('file', file);
 
-                        $http.post(url1, formData, {
+                        var imageUploadPromise = $http.post(url1, formData, {
                             transformRequest: angular.identity,
-                            headers: { "Content-Type": undefined }
-                        })
-                            .then(function (response) {
-                                // Cập nhật URL thật của hình ảnh sau khi lưu thành công
-                                if ($scope.selectedImages[index]) {
-                                    var imageUrl = response.data.imageUrl;
-                                    $scope.selectedImages[index].url = imageUrl;
-                                }
-                            })
-                            .catch(function (error) {
-                                console.log("Lỗi khi lưu hình ảnh: " + error);
-                            });
+                            headers: {"Content-Type": undefined}
+                        });
+
+                        imageUploadPromises.push(imageUploadPromise);
                     })(i);
                 }
-                $scope.getProductDetail();
-                $scope.closeReview();
+
+                // Sử dụng Promise.all để đợi cho tất cả các promises hoàn thành
+                Promise.all(imageUploadPromises)
+                    .then(function (responses) {
+                        // Cập nhật URL thật của hình ảnh sau khi lưu thành công
+                        responses.forEach(function (response, index) {
+                            var imageUrl = response.data.imageUrl;
+                            $scope.selectedImages[index].url = imageUrl;
+                        });
+                        // Tiếp tục với các hành động tiếp theo
+                        $scope.hideLoading();
+                        $('#message').modal('show');
+                        $scope.modalContent = "Lưu bình luận thành công!";
+                        $timeout(function () {
+                            $('#message').modal('hide');
+                        }, 2000);
+                        $scope.getProductDetail();
+                        $scope.closeReview();
+                    })
+                    .catch(function (error) {
+                        console.log("Lỗi khi lưu hình ảnh: " + error);
+                    });
             })
             .catch(function (error) {
                 console.log("Lỗi khi lưu đánh giá: " + error);
             });
     };
 
+    //Hàm xóa
+    $scope.deleteReview = function () {
+        var url = `${host}/reviews/${$scope.productReviews.reviewId}`;
+        // Xóa hình ảnh của đánh giá dựa trên reviewId
+        $http.delete(url)
+            .then(function (response) {
+                console.log("Xóa thành công", $scope.productReviews.reviewId);
+                $('#addressDelete').modal('hide');
+                $('#message').modal('show');
+                $scope.modalContent = "Xóa bình luận thành công!";
+                $timeout(function () {
+                    $('#message').modal('hide');
+                }, 2000);
+                $scope.getProductDetail();
+            })
+            .catch(function (error) {
+                // Xảy ra lỗi khi xóa hình ảnh
+                console.error("Lỗi khi xóa hình ảnh: " + error);
+            });
+    };
+    /// Hàm hiển thị modal xác nhận
+    $scope.showConfirmAddress = function (id) {
+        $scope.productReviews.reviewId = id;
+        console.log($scope.productReviews.reviewId);
+        $('#addressDelete').modal('show'); // Hiển thị modal xác nhận
+    };
+    $scope.navigateToProductDetail = function (productDetailId) {
+        console.log("DÔ ĐÂY", productDetailId);
+        window.location.href = '/product-details?id=' + productDetailId;
+    }
     // Gọi hàm để lấy thông tin sản phẩm và tạo các slide
     $scope.getProductDetail();
     $scope.selectedImages = [];
@@ -206,7 +284,6 @@ app.controller("productDetailController", function ($scope, $routeParams, $http,
     };
 
 
-
     // Hàm xử lý khi người dùng xóa một ảnh
     $scope.deleteImage = function (index) {
         // Loại bỏ ảnh khỏi mảng selectedImages
@@ -219,13 +296,42 @@ app.controller("productDetailController", function ($scope, $routeParams, $http,
         $('#popup_write_review').modal('hide');
     };
 
+
     $scope.clearReview = function () {
         $scope.saveReview.comment = '';
-        $scope.saveReview.star = 1;
+        $scope.saveReview.star = 4;
         $scope.selectedImages = [];
         $scope.errors = {};
     };
 
+    // SẢN PHẨM TƯƠNG TỰ
+    $scope.getDiscountValueByProductIdRelated = function (id) {
+        var discountValue = null;
+        $scope.listProductDiscounts.find(e => {
+            if (e.productDetail.productDetailId === id) {
+                discountValue = e.discount.value
+            }
+        });
+        return discountValue ? discountValue : 0;
+    }
+
+    $scope.getStarRatingByProductIdRelated = function (productDetailId) {
+        var totalStars = 0;
+        var totalReviews = 0;
+
+        $scope.listProductReviews.forEach(review => {
+            if (review.productDetail.productDetailId === productDetailId) {
+                totalStars += review.star;
+                totalReviews++;
+            }
+        });
+        if (totalReviews > 0) {
+            var averageRating = totalStars / totalReviews;
+            return Math.round(averageRating);
+        } else {
+            return 0;
+        }
+    }
 
 });
 

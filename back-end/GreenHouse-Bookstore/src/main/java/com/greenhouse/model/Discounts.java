@@ -2,12 +2,19 @@ package com.greenhouse.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import jakarta.persistence.*;
+
+import org.hibernate.annotations.Proxy;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "Discounts")
+@Proxy(lazy = false)
 public class Discounts implements Serializable {
 
     @Id

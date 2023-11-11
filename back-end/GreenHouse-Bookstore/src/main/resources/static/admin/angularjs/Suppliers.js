@@ -370,5 +370,118 @@ function SuppliersController($scope, $location, $routeParams, $http) {
         $location.path('/supplier-form');
     };
 
+    $scope.exportToExcel = function () {
+        // Lấy toàn bộ dữ liệu từ server khi tải trang ban đầu
+        $scope.loadSuppliers();
+
+        // Bây giờ, $scope.invoice sẽ chứa toàn bộ dữ liệu từ tất cả các trang
+
+        // Tạo mảng dữ liệu cho tệp Excel
+        var excelData = [
+            ['BÁO CÁO - DANH SÁCH NHÀ CUNG CẤP'], // Header
+            [], // Empty row for spacing
+            ['#', 'ID', 'Tên nhà cung cấp', 'Mô tả', 'Địa chỉ', 'Email']
+        ];
+
+        $scope.suppliers.forEach(function (item, index) {
+            excelData.push([
+                index + 1,
+                item.supplierId,
+                item.supplierName,
+                item.description,
+                item.address,
+                item.email,
+            ]);
+        });
+        // Đặt độ rộng cố định cho từng cột
+        var colWidths = [10, 15, 30, 50, 15, 20];
+
+        // Sử dụng thư viện XLSX để tạo tệp Excel
+        var ws = XLSX.utils.aoa_to_sheet(excelData);
+
+        // Đặt độ rộng cố định cho các cột
+        for (var i = 0; i < colWidths.length; i++) {
+            ws['!cols'] = ws['!cols'] || [];
+            ws['!cols'].push({ wch: colWidths[i] });
+        }
+
+        // Căn giữa dữ liệu trong từng cột
+        for (var row = 0; row < excelData.length; row++) {
+            for (var col = 0; col < excelData[row].length; col++) {
+                ws[XLSX.utils.encode_cell({ r: row, c: col })].s = { alignment: { horizontal: 'center' } };
+            }
+        }
+
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Danh sách nhà cung cấp');
+
+        // Xuất tệp Excel
+        XLSX.writeFile(wb, 'danh_sach_nha_cung_cap.xlsx');
+    }
+
+
+    // Định nghĩa hàm formatDate để định dạng ngày in
+    function formatDate(date) {
+        var options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        };
+        return date.toLocaleString('en-US', options);
+    }
+
+
+    $scope.printPDF = function () {
+        var headerTable = {
+            table: {
+                headerRows: 1,
+                widths: [30, 60, 100, 100, 80, 90],
+                body: [
+                    [{ text: '#', alignment: 'center', fontSize: 11 }, // Căn giữa cột '#'
+                    { text: 'ID', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Mã hóa đơn'
+                    { text: 'Tên nhà cung cấp', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Tên khách hàng'
+                    { text: 'Mô tả', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Ngày tạo'
+                    { text: 'Địa chỉ', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Tổng tiền'
+                    { text: 'Email', alignment: 'center', fontSize: 11 }] // Căn giữa cột 'Phí ship'
+                ]
+            }
+        };
+
+        var bodyTable = {
+            table: {
+                widths: [30, 60, 100, 100, 80, 90],
+                body: $scope.suppliers.map((item, index) => [
+                    { text: (index + 1).toString(), alignment: 'center', fontSize: 11 }, // Đặt kích thước font cho cột '#'
+                    { text: item.supplierId, alignment: 'center', fontSize: 11 }, // Đặt kích thước font cho cột 'Mã hóa đơn'
+                    { text: item.supplierName, fontSize: 11 },
+                    { text: item.description, fontSize: 11 }, // Không đặt kích thước font cho cột 'Tên khách hàng'
+                    { text: item.address, fontSize: 11 },
+                    { text: item.email, fontSize: 11 },
+                ])
+            }
+        };
+
+        var docDefinition = {
+            pageOrientation: 'portrait',
+            pageSize: 'A4',
+            content: [
+                { text: 'Danh sách nhà cung cấp', style: 'header' },
+                ' ',
+                { text: 'Ngày in: ' + moment().format('DD/MM/YYYY'), alignment: 'right', fontSize: 12 },
+                ' ',
+                headerTable,
+                bodyTable
+            ],
+            styles: {
+                header: { fontSize: 16, bold: true, alignment: 'center' },
+                default: { fontSize: 14 }
+            }
+        };
+
+        pdfMake.createPdf(docDefinition).open();
+    };
     $scope.loadSuppliers();
 }

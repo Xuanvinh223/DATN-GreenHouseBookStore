@@ -120,8 +120,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="product in listProductFlashSale track by $index">
-                                        <td>{{ $index + 1 }}</td>
+                                    <tr ng-repeat="product in listProductFlashSale | startFrom:(currentPage1 - 1) * itemsPerPage1 | limitTo:itemsPerPage1">
+                                        <td class="text-center">{{$index + 1}}</td>
                                         <td class="row pr-2">
                                             <div class="col-md-4 " style="margin-right: 10px;">
                                                 <img ng-src="{{product.productDetail.image}}" alt=""
@@ -152,6 +152,28 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="toolbar">
+                                <form class="form">
+                                    <div class="form-row">
+                                        <div class="form-inline col-auto mr-auto">
+                                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
+                                            <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1"
+                                                    ng-model="itemsPerPage1"
+                                                    ng-options="option for option in itemsPerPageOptions1"
+                                                    ng-change="currentPage1 = 1">
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-auto">
+                                            <span>Đang xem {{ calculateRange1() }}</span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <ul uib-pagination ng-model="currentPage1" total-items="totalItems1"
+                                items-per-page="itemsPerPage1" max-size="maxSize1" class="pagination-sm"
+                                boundary-link-numbers="true" boundary-links="true" force-ellipses="true"
+                                previous-text="<" next-text=">" first-text="<<" last-text=">>">
+                            </ul>
                         </div>
 
                     </div>

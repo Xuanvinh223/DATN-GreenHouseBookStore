@@ -1,30 +1,31 @@
 package com.greenhouse.restcontroller.admin;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.google.gson.Gson;
 import com.greenhouse.model.Publishers;
 import com.greenhouse.service.PublishersService;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.util.StringUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/rest/publishers")
+@RequestMapping(value = "/rest/publishers") // Thay đổi đường dẫn
 public class RestPublishersController {
 
     @Autowired
     private PublishersService publishersService;
-    
-    @Value("${upload.path}")
-    private String uploadPath;
+
+    private static final String CLOUDINARY_CLOUD_NAME = "dmbh3sz8s";
+    private static final String CLOUDINARY_API_KEY = "165312227781173";
+    private static final String CLOUDINARY_API_SECRET = "xcADjr7hxF6iXNMtsdf2CQAnbOI";
+
 
     @GetMapping
     public ResponseEntity<List<Publishers>> getAllPublishers() {
@@ -32,8 +33,8 @@ public class RestPublishersController {
         return new ResponseEntity<>(publishers, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Publishers> getOne(@PathVariable("id") String id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Publishers> getPublisher(@PathVariable String id) {
         Publishers publisher = publishersService.findById(id);
         if (publisher == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -42,88 +43,85 @@ public class RestPublishersController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestParam(value = "image", required = false) MultipartFile file, @RequestParam("publisherJson") String publisherJson) {
+    public ResponseEntity<Object> createPublisher(@RequestParam(value = "image", required = false) MultipartFile file,
+                                                @RequestParam("publisherJson") String publisherJson) throws Exception {
         if (StringUtils.isEmpty(publisherJson)) {
             return new ResponseEntity<>("Thông tin nhà xuất bản không hợp lệ.", HttpStatus.BAD_REQUEST);
         }
-    
-        // Xử lý tải lên ảnh nếu có
-        String uploadedFileName = null;
+
+        String photoUrl = null;
         if (file != null && !file.isEmpty()) {
-            try {
-                String originalFileName = file.getOriginalFilename();
-                String fileExtension = FilenameUtils.getExtension(originalFileName);
-                uploadedFileName = "publisher_" + System.currentTimeMillis() + "." + fileExtension;
-                File uploadedFile = new File(uploadPath + File.separator + uploadedFileName);
-                FileUtils.writeByteArrayToFile(uploadedFile, file.getBytes());
-            } catch (IOException e) {
-                return new ResponseEntity<>("Lỗi khi tải ảnh lên.", HttpStatus.BAD_REQUEST);
-            }
+            photoUrl = uploadImageToCloudinary(file, "publisher_" + System.currentTimeMillis());
         }
-    
-        // Xử lý thông tin nhà xuất bản
+
         Publishers publisher = new Gson().fromJson(publisherJson, Publishers.class);
-    
-        // Kiểm tra xem ảnh đã tải lên mới chưa và ảnh không null
-        if (uploadedFileName != null) {
-            publisher.setImage(uploadedFileName);
-        } else {
-            publisher.setImage(null); // Đặt ảnh thành null nếu không có ảnh
+
+        if (photoUrl != null) {
+            publisher.setImage(photoUrl);
         }
-    
+
         Publishers existingPublisher = publishersService.findById(publisher.getPublisherId());
         if (existingPublisher != null) {
             return new ResponseEntity<>("Nhà xuất bản đã tồn tại.", HttpStatus.BAD_REQUEST);
         }
-    
+
         Publishers createdPublisher = publishersService.add(publisher);
         return new ResponseEntity<>(createdPublisher, HttpStatus.OK);
     }
-    
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<Publishers> update(@PathVariable("id") String id,
-                                            @RequestParam(value = "image", required = false) MultipartFile file,
-                                            @RequestParam("publisherJson") String publisherJson) {
-    
-        // Xử lý tải lên ảnh (nếu có)
-        String uploadedFileName = null;
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Publishers> updatePublisher(@PathVariable String id,
+                                                  @RequestParam(value = "image", required = false) MultipartFile file,
+                                                  @RequestParam("publisherJson") String publisherJson) throws Exception {
+        String photoUrl = null;
         if (file != null && !file.isEmpty()) {
-            try {
-                String originalFileName = file.getOriginalFilename();
-                String fileExtension = FilenameUtils.getExtension(originalFileName);
-                uploadedFileName = "publisher_" + System.currentTimeMillis() + "." + fileExtension;
-                File uploadedFile = new File(uploadPath + File.separator + uploadedFileName);
-                FileUtils.writeByteArrayToFile(uploadedFile, file.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-                return ResponseEntity.badRequest().build();
-            }
+            photoUrl = uploadImageToCloudinary(file, "publisher_" + System.currentTimeMillis());
         }
-    
-        // Chuyển đổi dữ liệu nhà xuất bản từ JSON thành đối tượng Publishers
+
         Publishers publisher = new Gson().fromJson(publisherJson, Publishers.class);
-    
-        // Kiểm tra xem ảnh đã tải lên mới chưa và ảnh không null
-        if (uploadedFileName != null) {
-            publisher.setImage(uploadedFileName);
-        } else {
-            publisher.setImage(null); // Đặt ảnh thành null nếu không có ảnh
+
+        if (photoUrl != null) {
+            publisher.setImage(photoUrl);
         }
-    
-        // Cập nhật thông tin nhà xuất bản
+
         publisher.setPublisherId(id);
-    
+
         Publishers updatedPublisher = publishersService.update(publisher);
         return ResponseEntity.ok(updatedPublisher);
     }
-    
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") String id) {
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePublisher(@PathVariable String id) {
         Publishers existingPublisher = publishersService.findById(id);
         if (existingPublisher == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         publishersService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    private String uploadImageToCloudinary(MultipartFile imageFile, String imageName) throws Exception {
+        String photoUrl = null;
+
+        try {
+            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                    "cloud_name", CLOUDINARY_CLOUD_NAME,
+                    "api_key", CLOUDINARY_API_KEY,
+                    "api_secret", CLOUDINARY_API_SECRET));
+
+            byte[] imageBytes = imageFile.getBytes();
+
+            Map uploadResult = cloudinary.uploader().upload(imageBytes, ObjectUtils.asMap(
+                    "public_id", imageName,
+                    "folder", "images", // Thư mục trên Cloudinary (có thể thay đổi)
+                    "overwrite", true
+            ));
+
+            photoUrl = (String) uploadResult.get("secure_url");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("Lỗi khi tải ảnh lên Cloudinary.");
+        }
+
+        return photoUrl;
     }
 }

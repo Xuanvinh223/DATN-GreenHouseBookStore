@@ -1,9 +1,13 @@
 package com.greenhouse.repository;
 
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.greenhouse.model.Accounts;
+
 
 public interface AccountRepository extends JpaRepository<Accounts, String> {
     Accounts findByUsername(String username);
@@ -16,11 +20,13 @@ public interface AccountRepository extends JpaRepository<Accounts, String> {
 
     Accounts findByUsernameOrEmailOrPhone(String username, String email, String phone);
 
-    boolean existsByUsername(String username);
+    boolean existsByUsernameAndActiveIsTrue(String username);
 
-    boolean existsByEmail(String username);
+    boolean existsByEmailAndActiveIsTrue(String email);
 
-    boolean existsByPhone(String username);
+    boolean existsByPhone(String phone);
+
+    boolean existsByEmail(String email);
 
     @Query(value = "SELECT COUNT(o.Order_Id) FROM Orders o " +
             "JOIN Order_Mapping_Status m ON o.Order_Id = m.Order_Id " +
@@ -39,5 +45,7 @@ public interface AccountRepository extends JpaRepository<Accounts, String> {
             "WHERE YEAR(Create_At) = YEAR(GETDATE()) - 1 AND Active = 1 " +
             "GROUP BY YEAR(Create_At)", nativeQuery = true)
     long countActiveUsersByPreviousYear();
+
+    List<Accounts> findByDeletedByIsNullAndDeletedAtIsNull();
 
 }

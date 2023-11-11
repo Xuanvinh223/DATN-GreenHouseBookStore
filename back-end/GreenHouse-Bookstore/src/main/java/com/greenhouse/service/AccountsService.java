@@ -1,5 +1,6 @@
 package com.greenhouse.service;
 
+import com.cloudinary.provisioning.Account;
 import com.greenhouse.model.Accounts;
 import java.util.List;
 
@@ -15,9 +16,18 @@ public interface AccountsService {
 
     void delete(String username);
 
+    boolean existsByEmail(String email);
+
+    boolean existsByPhone(String phone);
+
+    boolean existsById(String username);
+
+    int countOrdersWithStatus();
+
     int countByCustomer();
 
     int countByBrand();
 
-    int countOrdersWithStatus();
+    List<Accounts> findByDeletedByIsNullAndDeletedAtIsNull();
+
 }

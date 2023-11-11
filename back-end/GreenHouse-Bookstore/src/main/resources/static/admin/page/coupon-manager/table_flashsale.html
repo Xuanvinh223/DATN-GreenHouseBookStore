@@ -35,15 +35,17 @@
                               Tất cả trạng thái
                           </button>
                           <div class="dropdown-menu" aria-labelledby="btnnhaphang">
-                              <a class="dropdown-item" href="#">Nhập File Excel</a>
-                              <a class="dropdown-item" href="#">Nhập Mới</a>
-
+                              <a class="dropdown-item" href="#"><i class='bx bxs-file-import mr-1'></i>Nhập File Excel</a>
+                              <a class="dropdown-item" href="#"><i class='bx bx-plus-medical mr-1'></i>Nhập Mới</a>
+                              <a class="dropdown-item" ng-click="printPDF()"><i class='bx bxs-file-export mr-1'></i>Xuất file
+                                PDF</a>
+                              <a class="dropdown-item" ng-click="exportToExcel();"><i class='bx bxs-file-export mr-1'></i>Xuất
+                                File Excel</a>
                           </div>
                           <a class="btn btn-info " href="#!/flashsale-form"> <i class='bx bx-plus-medical mr-1'></i> Tạo
                               Chiến
                               Dịch
                           </a>
-
                       </div>
                 </div>
 
