@@ -115,7 +115,7 @@
                                 <label for="repassword" th:text="#{lo.mn.xacnhan}">*Xác Nhận Mật Khẩu </label></label>
                             </div>
                         </div>
-                        <div class="text-danger" ng-show="passwordError" th:text="#{lo.mn.check}">
+                        <div class="text-danger" ng-show="passwordError" th:text="#{lo.mn.checkPassword}">
                             Mật khẩu phải có ít nhất 8 ký tự, có ít nhất một chữ cái viết thường, một chữ cái viết hoa,
                             một số, và một ký tự đặc biệt.
                         </div>
@@ -132,8 +132,8 @@
                             </button>
                         </div>
                         <div class="dialog-footer d-flex justify-content-center align-items-center mt-3">
-                            <small th:text="#{lo.mn.co}">Bạn đã có tài khoản? </small>
-                            <a href="/login" class="text-green" th:text="#{lo.mn.login}">Đăng nhập</a>
+                            <small th:text="#{lo.mn.co}">Bạn đã có tài khoản?</small>
+                            <a href="/login" class="text-green mx-1" th:text="#{lo.mn.login}"> Đăng nhập</a>
                         </div>
                     </form>
         </div>

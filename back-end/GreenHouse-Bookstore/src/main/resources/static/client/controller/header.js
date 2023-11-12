@@ -1,6 +1,6 @@
 app.controller("headerController", headerController);
 
-function headerController($http, $window, $scope, jwtHelper, AuthService, $location, $window, $timeout) {
+function headerController($scope, jwtHelper, AuthService) {
     var token = localStorage.getItem("token");
     // Khởi tạo biến $scope.username với giá trị mặc định
     $scope.fullName = "Tài khoản";
@@ -29,8 +29,7 @@ function headerController($http, $window, $scope, jwtHelper, AuthService, $locat
     }
 
     $scope.admin = function () {
-        window.location.href =
-            "/admin/index?token=" + token;
+        window.location.href = "/admin/index";
     };
 
     $scope.logout = function () {

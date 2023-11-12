@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -20,8 +21,9 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtUtil {
 
-    // Khóa bí mật được sử dụng để ký và giải mã JWT
-    public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
+
+    @Value("${myapp.secret-key}")
+    private String SECRET;
 
     // Trích xuất tên người dùng từ JWT
     public String extractUsername(String token) {
@@ -78,7 +80,7 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 10000000 * 60 * 30))
+                .setExpiration(new Date(System.currentTimeMillis() + 6 * 60 * 60 * 1000)) // 6 giờ
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 

@@ -19,7 +19,7 @@ public class FileManagerService {
 
     private final ResourceLoader resourceLoader;
 
-    @Value("${upload.path}")
+//    @Value("${upload.path}")
     private String uploadPath;
 
     public FileManagerService(ResourceLoader resourceLoader) {

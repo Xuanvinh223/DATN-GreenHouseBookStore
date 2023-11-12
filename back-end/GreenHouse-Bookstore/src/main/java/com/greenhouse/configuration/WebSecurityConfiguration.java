@@ -1,5 +1,8 @@
 package com.greenhouse.configuration;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +10,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
@@ -19,6 +28,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.greenhouse.filters.JwtRequestFilter;
+import com.greenhouse.model.Accounts;
+import com.greenhouse.model.Authorities;
+import com.greenhouse.repository.AccountRepository;
+import com.greenhouse.repository.AuthoritiesRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -26,27 +39,68 @@ public class WebSecurityConfiguration {
     @Autowired
     private JwtRequestFilter requestFilter;
 
-    private final String[] apiEndpoints = {"/rest/**"}; // Danh sách các API bảo mật
-    private final String[] apiEndpointsPermit = {"/authenticate", "/resgister", "/index", "/login", "/404",
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
+    private AuthoritiesRepository authoritiesRepository;
+
+    private final String[] securedApiEndpoints = {"/admin/**", "/rest/**"};
+    private final String[] publicApiEndpoints = {"/authenticate", "/resgister", "/index", "/login", "/login-processing", "/login-error", "/404",
             "/sign-up/**", "/contact", "/voucher", "/flash-sale", "/product",
             "/product-details", "/forgot-password", "/change-password", "/customer/**", "/oauth2/authorization/google",
             "/logout", "/google-processing", "/google-success", "/client/**",
-            "/notify/**", "/topic/**", "/app/**"}; // Danh sách các API cho phép truy cập
+            "/notify/**", "/topic/**", "/app/**", "/admin/css/app-dark.css"};
+    private final String[] securedApiEndpointsAfterLogin = {"/account/**", "/cart/**", "/checkout/**", "/checkout-complete/**", "/admin/**"};
+
+    @Bean
+    UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                // Lấy thông tin người dùng từ cơ sở dữ liệu
+                Accounts accounts = accountRepository.findByUsernameAndActiveIsTrue(username);
+                List<Authorities> authorities = authoritiesRepository.findByUsername(username);
+
+                if (accounts == null) {
+                    throw new UsernameNotFoundException("Không tim thấy tài khoản");
+                }
+
+                // Tạo danh sách các quyền từ danh sách Authorities
+                List<GrantedAuthority> authoritiesList = authorities.stream()
+                        .map(authority -> new SimpleGrantedAuthority("ROLE_" + authority.getRole().getRole()))
+                        .collect(Collectors.toList());
+                return new User(accounts.getUsername(), accounts.getPassword(), authoritiesList);
+            }
+        };
+    }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(apiEndpointsPermit)
+                .requestMatchers(publicApiEndpoints)
                 .permitAll().and()
                 .authorizeHttpRequests()
-                .requestMatchers(apiEndpoints)
+                .requestMatchers(securedApiEndpoints)
                 .hasRole("ADMIN")
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/account/**", "/cart/**", "/checkout/**", "/checkout-complete/**", "/admin/**")
-                .hasAnyRole("ADMIN", "CUSTOMER", "STAFF") // Định nghĩa quy tắc cho đường dẫn /account
-                .and()// Yêu cầu người dùng đã đăng nhập
+                .requestMatchers(securedApiEndpointsAfterLogin)
+                .hasAnyRole("ADMIN", "CUSTOMER", "STAFF")
+                .and()
+                .formLogin(login -> {
+                    try {
+                        login.loginPage("/login")
+                                .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/login-processing", true)
+                                .failureUrl("/login-error")
+                                .and()
+                                .exceptionHandling(exception -> exception.accessDeniedPage("/404"));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                })
                 .oauth2Login().loginPage("/login")
                 .defaultSuccessUrl("/google-processing", true)
                 .and()

@@ -27,15 +27,10 @@ public class RestAccountController {
 
     @Autowired
     private AccountsService accountsService;
-
     @Autowired
     AccountRepository accountRepository;
     @Autowired
     AuthoritiesRepository authoritiesRepository;
-
-    @Value("${upload.path}")
-    private String uploadPath;
-
     private static final String CLOUDINARY_CLOUD_NAME = "dmbh3sz8s";
     private static final String CLOUDINARY_API_KEY = "165312227781173";
     private static final String CLOUDINARY_API_SECRET = "xcADjr7hxF6iXNMtsdf2CQAnbOI";

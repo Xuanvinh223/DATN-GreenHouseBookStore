@@ -133,7 +133,7 @@ app.config(function ($routeProvider) {
         })
 })
 
-app.run(['$rootScope', function ($rootScope) {
+app.run(['$rootScope', function ($rootScope, jwtHelper) {
     $rootScope.page = {
         setTitle: function (title) {
             this.title = 'GreenHouse |' + title;
@@ -147,7 +147,10 @@ app.factory('tokenInterceptor', ['$window', function ($window) {
         request: function (config) {
             var token = $window.localStorage.getItem('token');
             // Kiểm tra nếu URL của request bắt đầu bằng "/api/"
-            if (token && config.url.includes('/rest/')) {
+            // if (token && config.url.includes('/rest/')) {
+            //     config.headers['Authorization'] = 'Bearer ' + token;
+            // }
+            if (token) {
                 config.headers['Authorization'] = 'Bearer ' + token;
             }
             return config;
@@ -155,10 +158,13 @@ app.factory('tokenInterceptor', ['$window', function ($window) {
         responseError: function (response) {
             // Kiểm tra nếu mã trạng thái là 401 Unauthorized (token hết hạn)
             if (response.status === 401) {
-                // Xoá token khỏi local storage (hoặc nơi bạn lưu trữ token)
-                $window.localStorage.removeItem('token');
+                // Token đã hết hạn, xoá nó khỏi local storage
+                localStorage.removeItem("token");
+                localStorage.removeItem("fullName");
+                localStorage.removeItem("username");
+                localStorage.removeItem("image");
                 // Chuyển hướng đến trang /login
-                window.location.href = "/login";
+                window.location.href = "/logout";
             }
             return response;
         }

@@ -4,8 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -13,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.greenhouse.model.Accounts;
 import com.greenhouse.model.Authorities;
@@ -20,7 +26,6 @@ import com.greenhouse.model.Product_Images;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.AuthoritiesRepository;
 import com.greenhouse.repository.Product_ImagesRepository;
-import com.greenhouse.service.impl.UserDetailsServiceImpl;
 import com.greenhouse.util.JwtUtil;
 
 import jakarta.servlet.http.Cookie;
@@ -32,9 +37,6 @@ public class Maincontroller {
 
     @Autowired
     private JwtUtil jwtUtil;
-
-    @Autowired
-    UserDetailsServiceImpl detailsServiceImpl;
 
     @Autowired
     AccountRepository accountRepository;
@@ -129,6 +131,14 @@ public class Maincontroller {
 
     @GetMapping(value = "/login")
     public String login() {
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()
+                && !authentication.getName().equals("anonymousUser")) {
+            // Nếu đã đăng nhập, chuyển hướng đến trang khác, ví dụ trang chính
+            return "redirect:/index";
+        }
+        // Nếu chưa đăng nhập, hiển thị trang đăng nhập
         return "client/layouts/login";
     }
 
@@ -152,14 +162,30 @@ public class Maincontroller {
         return "client/layouts/404"; // Chuyển hướng đến trang 403
     }
 
+    @GetMapping("/login-processing")
+    public String loginProcessing(HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Trích xuất thông tin người dùng từ đối tượng Authentication
+        String username = authentication.getName();
+        Accounts accounts = accountRepository.findByUsername(username);
+        setCookie(response, username, accounts);
+        return "redirect:/index";
+    }
+
+    @GetMapping("/login-error")
+    public String loginError(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("loginMessage", "Sai tài khoản hoặc mật khẩu");
+        return "redirect:/login";
+    }
+
     @GetMapping("/google-processing")
     public String googleProcessing(OAuth2AuthenticationToken authenticationToken, HttpServletRequest request,
-            HttpServletResponse response) {
+                                   HttpServletResponse response) {
         // Lấy thông tin tài khoản Google đã đăng nhập từ authenticationToken
         OAuth2User oauth2User = authenticationToken.getPrincipal();
         Accounts accounts = new Accounts();
         Authorities authorities = new Authorities();
-
         String username = oauth2User.getAttribute("sub");
         String fullname = oauth2User.getAttribute("name");
         String image = oauth2User.getAttribute("picture");
@@ -198,6 +224,12 @@ public class Maincontroller {
         List<GrantedAuthority> authoritiesList = listAuthorities.stream()
                 .map(authority -> new SimpleGrantedAuthority("ROLE_" + authority.getRole().getRole()))
                 .collect(Collectors.toList());
+
+        UserDetails user = new User(username, account.getPassword(), authoritiesList);
+
+        Authentication newAuthentication = new UsernamePasswordAuthenticationToken(user, null,
+                user.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(newAuthentication);
 
         final String jwt = jwtUtil.generateToken(account, authoritiesList);
 

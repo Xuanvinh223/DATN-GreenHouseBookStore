@@ -1,5 +1,4 @@
 const app = angular.module("myApp", ["angular-jwt", "ngCookies", "ngRoute", "angularUtils.directives.dirPagination"]);
-app.constant('authenticateAPI', 'http://localhost:8081/authenticate');
 app.constant('signupAPI', 'http://localhost:8081/sign-up');
 app.constant('checkOutAPI', 'http://localhost:8081/customer/rest/check-out');
 app.constant('productPageAPI', 'http://localhost:8081/customer/rest/product-page');
@@ -40,12 +39,15 @@ app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
 
     function checkTokenExpiration() {
         var token = localStorage.getItem("token");
+
         if (token) {
             if (jwtHelper.isTokenExpired(token)) {
                 // Token đã hết hạn, xoá nó khỏi local storage
                 localStorage.removeItem("token");
-                // Chuyển hướng đến trang /login
-                window.location.href = "/login";
+                localStorage.removeItem("fullName");
+                localStorage.removeItem("username");
+                localStorage.removeItem("image");
+                window.location.href = "/logout";
             }
         }
     }
@@ -53,8 +55,12 @@ app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
     // Gọi hàm kiểm tra khi trang được tải lại và sau mỗi khoảng thời gian (ví dụ: mỗi 30 phút)
     window.onload = function () {
         checkTokenExpiration();
-        setInterval(checkTokenExpiration, 1000 * 30); // 30 phút
+        setInterval(checkTokenExpiration, 1000); // 1s
     };
+
+    window.addEventListener('storage', function (event) {
+        localStorage.setItem(event.key, event.oldValue);
+    });
 });
 
 // Tạo một interceptor
@@ -71,10 +77,11 @@ app.factory("tokenInterceptor", function () {
         responseError: function (response) {
             // Kiểm tra nếu mã trạng thái là 401 Unauthorized (token hết hạn)
             if (response.status === 401) {
-                // Token đã hết hạn, xoá nó khỏi local storage
-                window.localStorage.removeItem("token");
-                // Chuyển hướng đến trang /login
-                window.location.href = "/login";
+                $window.localStorage.removeItem("token");
+                $window.localStorage.removeItem("username");
+                $window.localStorage.removeItem("fullName");
+                $window.localStorage.removeItem("image");
+                window.location.href = "/logout";
             }
             return response;
         },
@@ -96,12 +103,9 @@ app.factory("AuthService", function ($window) {
 });
 
 // Đăng ký interceptor vào ứng dụng
-app.config([
-    "$httpProvider",
-    function ($httpProvider) {
-        $httpProvider.interceptors.push("tokenInterceptor");
-    },
-]);
+app.config(["$httpProvider", function ($httpProvider) {
+    $httpProvider.interceptors.push("tokenInterceptor");
+},]);
 
 // ================= MAIN CONTROLLER ==================
 app.controller("MainController", function ($scope, CartService, $timeout, ProductDetailService, NotifyService, NotifyWebSocketService) {
@@ -241,15 +245,15 @@ app.controller("MainController", function ($scope, CartService, $timeout, Produc
             }
         };
 
-    // =========== NOTIFICATION =============================
-    $scope.notifications = [];
+        // =========== NOTIFICATION =============================
+        $scope.notifications = [];
 
-    $scope.showNotification = function (type, message) {
-        var notification = { type: type, message: message };
-        $scope.notifications.push(notification);
-        $timeout(function () {
-            $scope.removeNotification(notification);
-        }, 3000);
+        $scope.showNotification = function (type, message) {
+            var notification = {type: type, message: message};
+            $scope.notifications.push(notification);
+            $timeout(function () {
+                $scope.removeNotification(notification);
+            }, 3000);
     };
 
     $scope.removeNotification = function (notification) {
