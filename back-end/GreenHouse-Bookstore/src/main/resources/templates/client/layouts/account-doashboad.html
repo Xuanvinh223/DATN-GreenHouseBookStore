@@ -27,24 +27,19 @@
                             <!-- My Account Tab Menu Start -->
                             <div class="col-lg-3 col-12">
                                 <div class="myaccount-tab-menu nav" role="tablist">
-                                    <a href="#dashboad" class="active" data-bs-toggle="tab" th:text="#{lo.mn.bdk}"><i
-                                            class="fas fa-tachometer-alt"></i>
-                                        Bảng điều khiển tài khoản</a>
-                                    <a href="#account-info" data-bs-toggle="tab" th:text="#{lo.mn.tttk}"><i
-                                            class="fa fa-user"></i> Thông tin
+                                    <a href="/account" th:text="#{lo.mn.bdk}">Bảng điều khiển tài khoản <i
+                                            class="fas fa-tachometer-alt"></i></a>
+                                    <a href="/account/info" th:text="#{lo.mn.tttk}"><i class="fa fa-user"></i> Thông tin
                                         tài khoản</a>
-                                    <a href="#orders" data-bs-toggle="tab" th:text="#{lo.mn.dhct}"><i
-                                            class="fa fa-cart-arrow-down"></i>
-                                        Đơn hàng của tôi</a>
-                                    <a href="#address-edit" data-bs-toggle="tab" th:text="#{lo.mn.tabaddress}"><i
-                                            class="fa fa-map-marker"></i>
-                                        Địa chỉ</a>
-                                    <a href="#download" data-bs-toggle="tab" th:text="#{lo.mn.tabvoucher}"><i
-                                            class="fa fa-percent"></i>
-                                        Voucher của tôi</a>
-                                    <a href="#payment-method" data-bs-toggle="tab" th:text="#{lo.mn.messenger}"><i
-                                            class="fa fa-comment"></i>
-                                        Thông báo</a>
+                                    <a href="/account/order" th:text="#{lo.mn.dhct}"><i
+                                            class="fa fa-cart-arrow-down"></i> Đơn hàng của tôi</a>
+                                    <a href="/account/address" th:text="#{lo.mn.tabaddress}"><i
+                                            class="fa fa-map-marker"></i> Địa chỉ</a>
+                                    <a href="/account/voucher" th:text="#{lo.mn.tabvoucher}"><i
+                                            class="fa fa-percent"></i> Voucher của tôi</a>
+                                    <a href="/account/notification" class="active" th:text="#{lo.mn.messenger}"><i
+                                            class="fa fa-bell"></i> Thông báo</a>
+                                    <a href="/account/review"><i class="fa fa-comment"></i> Nhận xét của tôi</a>
                                 </div>
                             </div>
                             <!-- My Account Tab Menu End -->

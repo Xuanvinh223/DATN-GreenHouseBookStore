@@ -1,6 +1,6 @@
 app.controller("productPageController", productPageController);
 
-function productPageController($http, $scope, productPageAPI, sharedDataService) {
+function productPageController($http, $scope, productPageAPI) {
     const host = productPageAPI;
 
     //Phân trang
