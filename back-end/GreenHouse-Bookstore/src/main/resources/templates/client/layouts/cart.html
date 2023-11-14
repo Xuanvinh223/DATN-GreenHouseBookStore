@@ -249,6 +249,27 @@
                                     </div>
                                 </div>
                                 <div style="clear:both;"></div>
+                                <div class="block-total-cart mb-3">
+                                    <div class="block-address p-3">
+                                        <div class="block-address-header mb-3">
+                                            <div class="title-address-checkout">Thông tin giao hàng</div>
+                                            <button class="btn btn-edit-address float-right shadow-none"
+                                                    data-bs-toggle="modal" data-bs-target="#chooseAddressModal">THAY ĐỔI
+                                                ĐỊA
+                                                CHỈ
+                                            </button>
+                                        </div>
+                                        <div class="border-product mb-3"></div>
+                                        <div class="info-receiver">
+                                            <div class="receiver-name-phone">
+                                                {{confirmAddress.fullname + ' | ' + confirmAddress.phone}}
+                                            </div>
+                                            <div class="receiver-address">
+                                                {{confirmAddress.address}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="block-total-cart">
                                     <div class="block-totals-cart-page">
                                         <div class="total-cart-page ">
@@ -257,11 +278,47 @@
                                                     class="price">{{totalBillAmount|number:'0'}} đ</span>
                                             </div>
                                         </div>
+                                        <div class="total-cart-page ">
+                                            <div class="title-cart-page-left">
+                                                Phí ship
+                                            </div>
+                                            <div class="number-cart-page-right"><span
+                                                    class="price">{{shippingFee | number:'0'}} đ</span>
+                                            </div>
+                                        </div>
+                                        <div class="total-cart-page " ng-if="voucherApplied.normalVoucherApplied">
+                                            <div class="title-cart-page-left">
+                                                {{voucherApplied.normalVoucherApplied.voucherName}}
+                                            </div>
+                                            <div class="number-cart-page-right"><span
+                                                    class="price">-{{getDiscountAmount(voucherApplied.normalVoucherApplied)
+                                                    | number:'0'}} đ</span>
+                                            </div>
+                                        </div>
+                                        <div class="total-cart-page " ng-if="voucherApplied.shippingVoucherApplied">
+                                            <div class="title-cart-page-left">
+                                                {{voucherApplied.shippingVoucherApplied.voucherName}}
+                                            </div>
+                                            <div class="number-cart-page-right"><span
+                                                    class="price">-{{getDiscountAmount(voucherApplied.shippingVoucherApplied)
+                                                    | number:'0'}} đ</span>
+                                            </div>
+                                        </div>
+                                        <div class="total-cart-page " ng-if="voucherApplied.paymentVoucherApplied">
+                                            <div class="title-cart-page-left">
+                                                {{voucherApplied.paymentVoucherApplied.voucherName}}
+                                            </div>
+                                            <div class="number-cart-page-right"><span class="price">-
+                                                    {{getDiscountAmount(voucherApplied.paymentVoucherApplied)
+                                                    | number:'0'}} đ</span>
+                                            </div>
+                                        </div>
                                         <div class="border-product"></div>
                                         <div class="total-cart-page title-final-total">
                                             <div class="title-cart-page-left">Thanh toán</div>
                                             <div class="number-cart-page-right"><span
-                                                    class="price">{{totalBillAmount|number:'0'}} đ</span>
+                                                    class="price">{{totalBillDiscountAmount > 0 ?
+                                                    totalBillDiscountAmount : totalBillAmount | number:'0'}} đ</span>
                                             </div>
                                         </div>
                                     </div>
@@ -276,8 +333,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="gh_error_message_cart"
-                                    style="margin-top:10px;background: white;padding:10px;display:none;"></div>
                             </div>
                         </div>
                     </div>
@@ -817,6 +872,188 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal Chọn Địa Chỉ Nhận Hàng Start -->
+            <div class="modal fade" id="chooseAddressModal" tabindex="-1" aria-labelledby="chooseAddressModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-16 ml--10">Chọn địa chỉ nhận hàng</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Hiển thị danh sách địa chỉ -->
+                            <div ng-repeat="address in listAddress" class="form-check">
+                                <label>
+                                    <input type="radio" name="chooseAddressModal" ng-model="selectedAddress"
+                                           ng-value="address" ng-click="selectAddress(address)">
+                                    <div class="info-receiver">
+                                        <div class="ship-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.13 56.58"
+                                                 id="truck">
+                                                <g data-name="Layer 2">
+                                                    <g data-name="Layer 1">
+                                                        <g opacity=".1">
+                                                            <path fill="#4b4868"
+                                                                  d="M23.65 4.15a10 10 0 00-8 9.8V44a2 2 0 002 2h38v-7.92h-12a20 20 0 01-20-20zM60.63 38.08V46h33a4 4 0 004-4v-3.92z">
+                                                            </path>
+                                                        </g>
+                                                        <path fill="#ffc599"
+                                                              d="M77.71 24.08h-8.06a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h4.49a1 1 0 0 1 .81.42l3.57 5a1 1 0 0 1-.81 1.58z">
+                                                        </path>
+                                                        <path fill="none" stroke="#ffc599" stroke-linecap="round"
+                                                              stroke-linejoin="round" stroke-width="3"
+                                                              d="M16.15 30.54h14M35.15 30.54h1"></path>
+                                                        <path fill="none" stroke="#4b4668" stroke-linecap="round"
+                                                              stroke-linejoin="round" stroke-width="3"
+                                                              d="M83.13 24l-6.9-9.2a2 2 0 0 0-1.6-.8h-12a2 2 0 0 0-2 2v30h33a4 4 0 0 0 4-4V30a4 4 0 0 0-4-4h-6.5a5 5 0 0 1-4-2z">
+                                                        </path>
+                                                        <circle cx="79.13" cy="46.08" r="9" fill="#fff" stroke="#4b4668"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="3"></circle>
+                                                        <path fill="none" stroke="#4b4668" stroke-linecap="round"
+                                                              stroke-linejoin="round" stroke-width="3"
+                                                              d="M66.15 30.54h4M57.4 55.08h35.43M21.05 55.08h29.38M16.15 55.08h.82M75.21 26.08h-8.06a1 1 0 01-1-1v-5a1 1 0 011-1h4.49a1 1 0 01.81.42l3.57 5a1 1 0 01-.81 1.58zM10.15 34.58h5M13.15 37.08h2M6.15 34.58">
+                                                        </path>
+                                                        <g opacity=".2">
+                                                            <path fill="none" stroke="#4b4668" stroke-linecap="round"
+                                                                  stroke-linejoin="round" stroke-width="3"
+                                                                  d="M64.24 1.5v5M66.74 4h-5"></path>
+                                                        </g>
+                                                        <g opacity=".2">
+                                                            <path fill="none" stroke="#4b4668" stroke-linecap="round"
+                                                                  stroke-linejoin="round" stroke-width="3"
+                                                                  d="M4 21.99v5M6.5 24.49h-5"></path>
+                                                        </g>
+                                                        <circle cx="88.65" cy="17.08" r="2.5" fill="none"
+                                                                stroke="#ffc599" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="3" opacity=".5">
+                                                        </circle>
+                                                        <path fill="none" stroke="#4b4668" stroke-linecap="round"
+                                                              stroke-linejoin="round" stroke-width="3"
+                                                              d="M15.63 14v30a2 2 0 0 0 2 2h38V6a2 2 0 0 0-2-2h-28a10 10 0 0 0-10 10z">
+                                                        </path>
+                                                        <circle cx="35.63" cy="46.08" r="9" fill="#fff" stroke="#4b4668"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="3"></circle>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div class="receiver-name-phone">
+                                            {{address.fullname + ' | ' + address.phone}}
+                                        </div>
+                                        <div class="receiver-address">
+                                            {{address.address}}
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#createAddressModal" ng-click="openModalCreateAddress()">Thêm địa
+                                chỉ
+                                mới
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Chọn Địa Chỉ Nhận Hàng End -->
+
+            <!-- Modal Address Start -->
+            <div class="modal fade" id="createAddressModal" tabindex="-1" aria-labelledby="createAddressModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable ">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-16 ml--10">Tạo địa chỉ </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    ng-click="closeModalCreateAddress()"></button>
+                        </div>
+                        <div class="modal-body ">
+                            <div class="container">
+                                <form method="post" class="position-relative">
+                                    <div class="row">
+                                        <input type="text" style="visibility: hidden;" ng-model="address.id">
+                                        <div class="form-group col-md-6">
+                                            <label for="lastname" class="text-bold text-dark">*Họ tên</label>
+                                            <input type="text" class="form-control" name="fullname" id="fullname"
+                                                   aria-describedby="fullnameHelp" ng-model="address.fullname"
+                                                   ng-required="reqFullname">
+                                            <span class="text-danger">{{errors.fullname}}</span>
+                                        </div>
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label for="phone" class="text-bold text-dark">*Số điện thoại</label>
+                                            <input type="text" class="form-control" name="phone" id="phone"
+                                                   aria-describedby="fullnameHelp" ng-model="address.phone"
+                                                   maxlength="10"
+                                                   ng-required="reqPhone" ng-attr-phone="reqPhone">
+                                            <span class="text-danger">{{errors.phone}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="form-group col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label class="text-bold text-dark">*Tỉnh/Thành phố</label>
+                                                <select class="form-control" title="Chọn Tỉnh" name="province"
+                                                        id="province" ng-model="selectedProvinceCode"
+                                                        ng-options="y.code as y.name for y in listProvince"
+                                                        ng-change="getListDistrict()"
+                                                        ng-required="reqProvince"></select>
+                                                <span class="text-danger">{{errors.province}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label class="text-bold text-dark">*Huyện/Quận</label>
+                                                <select class="form-control" title="Chọn Huyện"
+                                                        ng-model="selectedDistrictCode"
+                                                        ng-options="y.code as y.name for y in listDistrict"
+                                                        ng-change="getListWard()" name="district" id="district"
+                                                        ng-required="reqDistrict"></select>
+                                                <span class="text-danger">{{errors.district}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label class="text-bold text-dark">*Xã/Phường</label>
+                                                <select class="form-control" title="Chọn Xã" ng-model="selectedWardCode"
+                                                        ng-options="y.code as y.name for y in listWard" name="ward"
+                                                        id="ward" ng-required="reqWard"
+                                                        ng-change="refeshList()"></select>
+                                                <span class="text-danger">{{errors.ward}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label class="text-bold text-dark">*Địa chỉ cụ thể</label>
+                                            <textarea class="form-control " placeholder="Địa chỉ cụ thể"
+                                                      ng-model="address.adr" name="adr" id="adr"
+                                                      ng-required="reqAdr"></textarea>
+                                            <span class="text-danger">{{errors.adr}}</span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    ng-click="closeModalCreateAddress()">Đóng
+                            </button>
+                            <button type="button" class="btn btn-primary" ng-click="saveAddress()">Thêm
+                                địa chỉ
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Address End -->
         </main>
     </div>
 </main>

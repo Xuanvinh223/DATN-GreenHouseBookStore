@@ -135,7 +135,7 @@
                 <div class="top_menu_label" th:text="#{lo.mn.mess}"></div>
               </div>
             </a>
-            <div class="top-dropdown" ng-if="token" style="padding: 5px 10px 15px 10px;margin-top: -18px; width: 22%">
+            <div class="top-notification-dropdown" ng-if="token">
               <div style="padding:5px;border-bottom: 1px solid #F2F4F5; font-weight: bold;" class="fhs_center_space">
                 <div class="fhs_center_left" style="font-size: 1em; color: #0D0E0F;">
                   <span class="icon_nofi_black" style="width:16px;height:16px;margin-right: 8px;"></span>
@@ -241,7 +241,7 @@
             <!-- End model cart -->
           </div>
 
-          <div class="center_center mouse-hover top-account">
+          <div class="center_center mouse-hover top-account top-account-button">
             <a href="" class="top-button-icon">
               <div class="center_center" style="margin-bottom:3px;">
                 <div class="icon_account_gray"></div>
@@ -251,7 +251,7 @@
               </div>
             </a>
             <!-- Trong HTML template của bạn -->
-            <div class="top-dropdown" style="padding: 5px 10px 15px 10px; width: 16%">
+            <div class="top-account-dropdown p-3">
               <!-- Kiểm tra nếu người dùng có vai trò 'CUSTOMER' -->
               <div ng-if="isCustomer">
                 <a href="/account" style="margin-top: 5px;" class="button-default">

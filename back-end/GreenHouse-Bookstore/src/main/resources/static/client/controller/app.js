@@ -7,7 +7,8 @@ app.constant('changePasswordAPI', 'http://localhost:8081/customer/rest/reset-pas
 app.constant('forgotPasswordAPI', 'http://localhost:8081/customer/rest/forgot-password');
 app.constant('productDetailAPI', 'http://localhost:8081/customer/rest/product-detail');
 app.constant('voucherAPI', 'http://localhost:8081/customer/rest/voucher');
-app.constant('customerAPI', "http://localhost:8081/customer/rest")
+app.constant('customerAPI', "http://localhost:8081/customer/rest");
+app.constant('orderHistoryAPI', 'http://localhost:8081/customer/rest/order-history');
 app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
     var token = $cookies.get("token");
 
@@ -221,16 +222,7 @@ app.controller("MainController", function ($scope, CartService, $timeout, Produc
             });
     };
 
-        $scope.updateUserInfo = function () {
-            var username = localStorage.getItem("username");
-            if (username) {
-                $scope.getCart();
-            } else {
-                $scope.getCart();
-            }
-        };
-
-        $scope.updateUserInfo();
+        $scope.getCart();
         // ================ LANGUAGE =================================================================
         $scope.toggleLanguage = function () {
             let languageDropdown = document.getElementById("top-language-dropdown");
