@@ -10,7 +10,7 @@
 }
 
 .brand-footer {
-  width: auto !important ;
+  width: auto !important;
 }
 
 .center_center {
@@ -76,8 +76,7 @@
 
 .top-bar-category-menu {
   display: inline-block;
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_menu.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_menu.svg") no-repeat center center;
   background-size: contain;
   width: 40px;
   height: 40px;
@@ -85,8 +84,7 @@
 
 .top-bar-category-seemore {
   display: inline-block;
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/icon_seemore_gray.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/icon_seemore_gray.svg") no-repeat center center;
   background-size: contain;
   width: 16px;
   height: 16px;
@@ -115,8 +113,7 @@
 }
 
 .ico_lamdepsuckhoe {
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/category/ico_lamdepsuckhoe.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/category/ico_lamdepsuckhoe.svg") no-repeat center center;
   background-size: contain;
   height: 24px;
   width: 24px;
@@ -390,8 +387,7 @@
 
 .icon_nofi_black {
   display: inline-block;
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_noti_black.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_noti_black.svg") no-repeat center center;
   background-size: contain;
   height: 16px;
   width: 16px;
@@ -406,8 +402,7 @@
 }
 
 .icon_nofi_gray {
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_noti_gray.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_noti_gray.svg") no-repeat center center;
   background-size: contain;
   height: 24px;
   width: 24px;
@@ -455,8 +450,7 @@
 
 .icon_facebook {
   display: inline-block;
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/logo/facebook_logo.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/logo/facebook_logo.svg") no-repeat center center;
   background-size: contain;
   height: 16px;
   width: 16px;
@@ -464,8 +458,7 @@
 }
 
 .ico_notlogin {
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/customer/ico_login.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/customer/ico_login.svg") no-repeat center center;
   background-size: contain;
   height: 80px;
   width: 80px;
@@ -480,8 +473,7 @@
 }
 
 .icon_cart_gray {
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_cart_gray.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_cart_gray.svg") no-repeat center center;
   background-size: contain;
   height: 24px;
   width: 24px;
@@ -489,8 +481,7 @@
 }
 
 .icon_account_gray {
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_account_gray.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_account_gray.svg") no-repeat center center;
   background-size: contain;
   height: 24px;
   width: 24px;
@@ -508,8 +499,7 @@
 }
 
 .top-language-flag-icon {
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/default.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/default.svg") no-repeat center center;
   background-size: contain;
   height: 24px;
   width: 37px;
@@ -517,8 +507,7 @@
 }
 
 .top-language-flag-seemore {
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/icon_seemore_gray.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/icon_seemore_gray.svg") no-repeat center center;
 
   background-size: contain;
   width: 16px;
@@ -546,36 +535,35 @@
 }
 
 .top-language-flag-icon-eng {
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/store/english.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/store/english.svg") no-repeat center center;
   background-size: contain;
   height: 24px;
   width: 37px;
   display: inline-block;
 }
 
-.top-notif > .top-dropdown {
+.top-notif>.top-dropdown {
   display: none;
 }
 
-.top-notif:hover > .top-dropdown {
+.top-notif:hover>.top-dropdown {
   display: block;
 }
 
-.top-account > .top-dropdown {
+.top-account>.top-dropdown {
   display: none;
 }
 
-.top-account:hover > .top-dropdown {
+.top-account:hover>.top-dropdown {
   display: block;
 }
 
-.cart-dropdown > .top-dropdown {
-    display: none;
-    max-width: 550px;
+.cart-dropdown>.top-dropdown {
+  display: none;
+  max-width: 550px;
 }
 
-.cart-dropdown:hover > .top-dropdown {
+.cart-dropdown:hover>.top-dropdown {
   display: block;
 }
 
@@ -707,7 +695,7 @@
   height: 48px;
 }
 
-.container-category-child > a {
+.container-category-child>a {
   text-decoration: none;
   color: #333;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -732,8 +720,7 @@
 
 .ico_menu_red {
   display: inline-block;
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_menu_red.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_menu_red.svg") no-repeat center center;
   background-size: contain;
   height: 32px;
   width: 32px;
@@ -870,6 +857,7 @@
   width: 90%;
   height: 90%;
 }
+
 @media screen and (max-width: 320px) {
   .flashsale-header {
     margin-top: 30px;
@@ -889,6 +877,7 @@
     color: #1f1d1d;
   }
 }
+
 .best-sale span {
   font-size: 20px;
   font-weight: 700;
@@ -1024,25 +1013,35 @@
 }
 
 .flashsale-header-2 .brand-slider1 {
-  display: flex; /* Sử dụng Flexbox */
-  justify-content: space-between; /* Các phần tử con nằm ngang và có khoảng cách đều */
+  display: flex;
+  /* Sử dụng Flexbox */
+  justify-content: space-between;
+  /* Các phần tử con nằm ngang và có khoảng cách đều */
 }
 
 .flashsale-header-2 .brand-slider1 .single-slide {
-  flex: 1; /* Chia đều không gian ngang cho các phần tử con */
-  padding: 10px; /* Khoảng cách bên trong mỗi phần tử con */
-  text-align: center; /* Canh giữa nội dung trong phần tử con */
+  flex: 1;
+  /* Chia đều không gian ngang cho các phần tử con */
+  padding: 10px;
+  /* Khoảng cách bên trong mỗi phần tử con */
+  text-align: center;
+  /* Canh giữa nội dung trong phần tử con */
 }
 
 .flashsale-header-2 .brand-slider1 {
-  display: flex; /* Sử dụng Flexbox */
-  justify-content: space-between; /* Các phần tử con nằm ngang và có khoảng cách đều */
+  display: flex;
+  /* Sử dụng Flexbox */
+  justify-content: space-between;
+  /* Các phần tử con nằm ngang và có khoảng cách đều */
 }
 
 .flashsale-header-2 .brand-slider1 .single-slide {
-  flex: 1; /* Chia đều không gian ngang cho các phần tử con */
-  padding: 10px; /* Khoảng cách bên trong mỗi phần tử con */
-  text-align: center; /* Canh giữa nội dung trong phần tử con */
+  flex: 1;
+  /* Chia đều không gian ngang cho các phần tử con */
+  padding: 10px;
+  /* Khoảng cách bên trong mỗi phần tử con */
+  text-align: center;
+  /* Canh giữa nội dung trong phần tử con */
 }
 
 /* End Flash Sale */
@@ -1057,15 +1056,18 @@
   border: 1px solid #9aa19c;
   box-shadow: 0 10px 40px rgba(129, 243, 29, 0.1);
 }
+
 .nav-pills .nav-link.active {
   background-color: #fff;
   color: #26d94a;
   border: 1px solid #26d94a;
 }
+
 .nav-pills .nav-link:hover {
   color: #26d94a;
   border: 1px solid #26d94a;
 }
+
 @media screen and (max-width: 320px) {
   .nav-pills .nav-link {
     /* display: inline-block; */
@@ -1085,11 +1087,13 @@
     border: 1px solid #9aa19c;
   }
 }
+
 /* End Thương hiệu nổi bật */
 /* Footer */
 .site-footer {
   background-color: #fff;
 }
+
 /* End Footer */
 /* Mobile */
 @media screen and (max-width: 992px) {
@@ -1163,16 +1167,14 @@
 } */
 
 .ico_menu_white {
-  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_menu_white.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_menu_white.svg") no-repeat center center;
   background-size: contain;
   height: 34px;
   width: 34px;
 }
 
 .icon_cart_white {
-  background: url("https://cdn0.fahasa.com/skin/frontend/base/default/images/ico_shopping_cart_white.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/base/default/images/ico_shopping_cart_white.svg") no-repeat center center;
   background-size: contain;
   height: 24px;
   width: 24px;
@@ -1181,33 +1183,37 @@
 }
 
 .login-cutomer-icon {
-  background: url("https://cdn0.fahasa.com/skin/frontend/base/default/images/ico_thongtintk.svg")
-    no-repeat center center;
+  background: url("https://cdn0.fahasa.com/skin/frontend/base/default/images/ico_thongtintk.svg") no-repeat center center;
   background-size: contain;
   height: 24px;
   width: 24px;
   position: relative;
   margin-right: 10px;
 }
+
 /* End Mobile */
 .fill-white {
   fill: white !important;
 }
+
 .text-13 {
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
   font-family: "Open Sans", sans-serif;
 }
+
 .text-16 {
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
   font-family: "Open Sans", sans-serif;
 }
+
 .text-bold {
   font-weight: 500;
 }
+
 .border {
   border: 1px solid #e9ecef !important;
 }
@@ -1223,9 +1229,11 @@
 .border-bottom {
   border-bottom: 1px solid #e9ecef !important;
 }
+
 .mb-2 {
   margin-bottom: 20px;
 }
+
 .profile-account .btn {
   display: inline-block;
   font-weight: 400;
@@ -1243,48 +1251,60 @@
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
 .profile-account a.edit-address:hover {
   color: #26d94a;
 }
+
 .btn-edit-address {
   color: rgb(98, 171, 0) !important;
   border: 1px solid #43ca59 !important;
 }
+
 .btn-edit-address i {
   padding-right: 0.5rem;
   color: rgb(98, 171, 0);
 }
+
 .btn-edit-address:hover {
   color: rgb(255, 255, 255) !important;
   border-color: transparent;
   background-color: #26d94a !important;
 }
+
 .btn-edit-address i:hover {
   color: rgb(255, 255, 255) !important;
 }
+
 .profile-account.btn-primary {
   background-color: #fff;
   border-color: #040404;
 }
+
 .profile-account .btn-danger {
   background-color: #d83030;
   color: #e8e3e3;
   border-color: transparent;
 }
+
 .profile-account .btn-secondary {
   background-color: #e8e3e3;
   border-color: transparent;
 }
+
 .profile-account .text-danger {
   margin-top: 10px;
   color: red;
 }
+
 .profile-address .text-danger:hover {
   color: #342a2a;
 }
+
 .profile-account .profile-address h6 {
   font-weight: 550;
 }
+
 .profile-account .address-content {
   border-bottom: 1px dashed #cecece;
 }
@@ -1344,12 +1364,14 @@
   background-color: #fff;
   padding-top: 20px;
 }
+
 .product-description {
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 10px;
   text-align: center;
 }
+
 .product-description p {
   text-align: justify;
 }
@@ -1370,12 +1392,14 @@
   border-radius: 8px;
   transition: all 0.5s;
 }
+
 .btn-seemore i {
   font-size: 20px;
   margin-right: 5px;
   align-items: center;
   justify-content: center;
 }
+
 /* REVIEW BOOK */
 .image-container-review {
   display: flex;
@@ -1390,6 +1414,7 @@
   border: 1px solid #ddd;
   border-radius: 5px;
 }
+
 .review-comment .rating {
   display: flex;
   align-items: center;
@@ -1409,7 +1434,8 @@
 .edit-review a i {
   font-size: 1.2rem;
   color: #6c757d;
-  transition: all 0.3s; /* Thêm transition cho tất cả thuộc tính với thời gian 0.3 giây */
+  transition: all 0.3s;
+  /* Thêm transition cho tất cả thuộc tính với thời gian 0.3 giây */
 }
 
 .edit-review a i:hover {
@@ -1420,7 +1446,8 @@
 .edit-review-mobile a i {
   font-size: 1rem;
   color: #6c757d;
-  transition: all 0.3s; /* Thêm transition cho tất cả thuộc tính với thời gian 0.3 giây */
+  transition: all 0.3s;
+  /* Thêm transition cho tất cả thuộc tính với thời gian 0.3 giây */
 }
 
 .edit-review-mobile a i:hover {
@@ -1472,16 +1499,19 @@ ul.dropdown-menu.dropdown-menu-edit-review {
 }
 
 @media screen and (max-width: 1100px) {
-  .product-view-tab-content-rating-chart > div:nth-of-type(2),
-  .product-view-tab-content-rating-chart > div:nth-of-type(3) {
+
+  .product-view-tab-content-rating-chart>div:nth-of-type(2),
+  .product-view-tab-content-rating-chart>div:nth-of-type(3) {
     margin-top: 15px;
     width: 100%;
   }
+
   .product-view-tab-content-rating-chart {
     flex-direction: column;
     align-items: stretch;
   }
 }
+
 .product-view-tab-content-rating-chart {
   display: flex;
   align-items: center;
@@ -1532,21 +1562,28 @@ ul.dropdown-menu.dropdown-menu-edit-review {
   flex: 3;
 }
 
-.review-rating > div {
+.review-rating>div {
   background: #f6a500;
   height: 100%;
 }
+
 .write-review-section {
   flex: 1;
 }
+
 .write-review-section {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Căn giữa theo chiều ngang */
-  justify-content: center; /* Căn giữa theo chiều dọc */
-  text-align: center; /* Căn giữa nội dung bên trong */
-  height: 100%; /* Đảm bảo phần tử chiếm toàn bộ chiều cao của khung cha */
+  align-items: center;
+  /* Căn giữa theo chiều ngang */
+  justify-content: center;
+  /* Căn giữa theo chiều dọc */
+  text-align: center;
+  /* Căn giữa nội dung bên trong */
+  height: 100%;
+  /* Đảm bảo phần tử chiếm toàn bộ chiều cao của khung cha */
 }
+
 /* MODEL COMMENT */
 @media (min-width: 576px) {
   .modal-dialog.model-dialog-review {
@@ -1555,16 +1592,19 @@ ul.dropdown-menu.dropdown-menu-edit-review {
     top: 10%;
   }
 }
+
 .fhs_popup-default-info-detail {
   height: 90%;
   padding: 0 15px 20px;
   background-color: #fff;
 }
+
 #popup_write_review .fhs_popup-default-info-detail-title {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
 }
+
 .fhs_popup-default-info-detail-title {
   display: flex;
   display: -webkit-box;
@@ -1585,6 +1625,7 @@ ul.dropdown-menu.dropdown-menu-edit-review {
   padding: 10px;
   height: 50px;
 }
+
 .fhs_popup-default-info-detail-title-text {
   width: 100%;
   display: flex;
@@ -1602,6 +1643,7 @@ ul.dropdown-menu.dropdown-menu-edit-review {
   justify-content: space-between;
   position: relative;
 }
+
 .fhs_popup-default-info-detail-title-left {
   display: flex;
   display: -webkit-box;
@@ -1617,6 +1659,7 @@ ul.dropdown-menu.dropdown-menu-edit-review {
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
+
 .fhs_popup-default-info-detail-title-center {
   display: flex;
   display: -webkit-box;
@@ -1637,6 +1680,7 @@ ul.dropdown-menu.dropdown-menu-edit-review {
   font-size: 1.1em;
   text-align: center;
 }
+
 .fhs_popup-default-info-detail-title-right {
   display: flex;
   display: -webkit-box;
@@ -1660,9 +1704,9 @@ ul.dropdown-menu.dropdown-menu-edit-review {
   user-select: none;
   text-align: right;
 }
+
 .icon_close_gray {
-  background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_delete_gray.svg)
-    no-repeat center center;
+  background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_delete_gray.svg) no-repeat center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
   -o-background-size: contain;
@@ -1670,13 +1714,15 @@ ul.dropdown-menu.dropdown-menu-edit-review {
   width: 24px;
   height: 24px;
 }
+
 /* END MODEL COMMENT */
 /* END MODEL COMMENT */
 #popup_write_review .row.col-12 {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: flex-start; /* Để canh trên cùng */
+  align-items: flex-start;
+  /* Để canh trên cùng */
   margin-bottom: 10px;
 }
 
@@ -1687,8 +1733,10 @@ ul.dropdown-menu.dropdown-menu-edit-review {
 
 .custom-file-upload {
   position: relative;
-  display: flex; /* Sử dụng flex để canh các phần tử cùng hàng theo chiều ngang */
-  flex-direction: column; /* Để các phần tử nằm dọc khi tràn hàng */
+  display: flex;
+  /* Sử dụng flex để canh các phần tử cùng hàng theo chiều ngang */
+  flex-direction: column;
+  /* Để các phần tử nằm dọc khi tràn hàng */
   align-items: center;
   width: 100px;
   height: 100px;
@@ -1755,10 +1803,13 @@ ul.dropdown-menu.dropdown-menu-edit-review {
   top: 0;
   padding: 0;
 }
+
 .fhs_center_right {
   display: flex;
-  justify-content: flex-end; /* Để các nút được đẩy về bên phải */
-  align-items: center; /* Canh nút theo trục dọc giữa */
+  justify-content: flex-end;
+  /* Để các nút được đẩy về bên phải */
+  align-items: center;
+  /* Canh nút theo trục dọc giữa */
 }
 
 .fhs_btn_default {
@@ -2183,24 +2234,16 @@ html.bx-ios.bx-ios-fix-frame-focus {
   display: none;
 }
 
-.b24-widget-button-position-bottom-left
-  .b24-widget-button-social-item:hover
-  .b24-widget-button-social-tooltip,
-.b24-widget-button-position-top-left
-  .b24-widget-button-social-item:hover
-  .b24-widget-button-social-tooltip {
+.b24-widget-button-position-bottom-left .b24-widget-button-social-item:hover .b24-widget-button-social-tooltip,
+.b24-widget-button-position-top-left .b24-widget-button-social-item:hover .b24-widget-button-social-tooltip {
   left: 50px;
   -webkit-transform: translate(0, -50%);
   transform: translate(0, -50%);
   opacity: 1;
 }
 
-.b24-widget-button-position-bottom-right
-  .b24-widget-button-social-item:hover
-  .b24-widget-button-social-tooltip,
-.b24-widget-button-position-top-right
-  .b24-widget-button-social-item:hover
-  .b24-widget-button-social-tooltip {
+.b24-widget-button-position-bottom-right .b24-widget-button-social-item:hover .b24-widget-button-social-tooltip,
+.b24-widget-button-position-top-right .b24-widget-button-social-item:hover .b24-widget-button-social-tooltip {
   left: -5px;
   -webkit-transform: translate(-100%, -50%);
   transform: translate(-100%, -50%);
@@ -2281,32 +2324,26 @@ html.bx-ios.bx-ios-fix-frame-focus {
   animation: topOpen 0.3s;
 }
 
-.b24-widget-button-position-bottom-left.b24-widget-button-bottom
-  .b24-widget-button-social {
+.b24-widget-button-position-bottom-left.b24-widget-button-bottom .b24-widget-button-social {
   -ms-flex-line-pack: start;
   align-content: flex-start;
 }
 
-.b24-widget-button-position-top-left.b24-widget-button-top
-  .b24-widget-button-social {
+.b24-widget-button-position-top-left.b24-widget-button-top .b24-widget-button-social {
   -ms-flex-line-pack: start;
   align-content: flex-start;
 }
 
-.b24-widget-button-position-top-right.b24-widget-button-top
-  .b24-widget-button-social {
+.b24-widget-button-position-top-right.b24-widget-button-top .b24-widget-button-social {
   -ms-flex-line-pack: start;
   align-content: flex-start;
   -ms-flex-wrap: wrap-reverse;
   flex-wrap: wrap-reverse;
 }
 
-.b24-widget-button-position-bottom-left.b24-widget-button-bottom
-  .b24-widget-button-social,
-.b24-widget-button-position-bottom-middle.b24-widget-button-bottom
-  .b24-widget-button-social,
-.b24-widget-button-position-bottom-right.b24-widget-button-bottom
-  .b24-widget-button-social {
+.b24-widget-button-position-bottom-left.b24-widget-button-bottom .b24-widget-button-social,
+.b24-widget-button-position-bottom-middle.b24-widget-button-bottom .b24-widget-button-social,
+.b24-widget-button-position-bottom-right.b24-widget-button-bottom .b24-widget-button-social {
   -ms-flex-line-pack: start;
   align-content: flex-start;
   -ms-flex-wrap: wrap-reverse;
@@ -2314,8 +2351,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   order: 1;
 }
 
-.b24-widget-button-position-bottom-left.b24-widget-button-bottom
-  .b24-widget-button-social {
+.b24-widget-button-position-bottom-left.b24-widget-button-bottom .b24-widget-button-social {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
@@ -2348,8 +2384,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   align-content: flex-start;
 }
 
-.b24-widget-button-position-top-middle.b24-widget-button-top
-  .b24-widget-button-social {
+.b24-widget-button-position-top-middle.b24-widget-button-top .b24-widget-button-social {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
@@ -2779,9 +2814,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   text-align: center;
 }
 
-.bx-touch
-  .b24-widget-button-position-bottom-left
-  .b24-widget-button-popup-triangle {
+.bx-touch .b24-widget-button-position-bottom-left .b24-widget-button-popup-triangle {
   bottom: -6px;
   left: 25px;
   -webkit-transform: rotate(45deg);
@@ -2798,9 +2831,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   left: -160px;
 }
 
-.bx-touch
-  .b24-widget-button-position-bottom-right
-  .b24-widget-button-popup-triangle {
+.bx-touch .b24-widget-button-position-bottom-right .b24-widget-button-popup-triangle {
   bottom: -6px;
   right: 30px;
   -webkit-transform: rotate(-45deg);
@@ -2814,9 +2845,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   transform: translate(-50%, 0);
 }
 
-.bx-touch
-  .b24-widget-button-position-bottom-middle
-  .b24-widget-button-popup-triangle {
+.bx-touch .b24-widget-button-position-bottom-middle .b24-widget-button-popup-triangle {
   bottom: -6px;
   left: 108px;
   -webkit-transform: rotate(134deg);
@@ -2830,9 +2859,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   transform: translate(-50%, 0);
 }
 
-.bx-touch
-  .b24-widget-button-position-top-middle
-  .b24-widget-button-popup-triangle {
+.bx-touch .b24-widget-button-position-top-middle .b24-widget-button-popup-triangle {
   top: -7px;
   left: auto;
   right: 108px;
@@ -2845,9 +2872,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   left: 0;
 }
 
-.bx-touch
-  .b24-widget-button-position-top-left
-  .b24-widget-button-popup-triangle {
+.bx-touch .b24-widget-button-position-top-left .b24-widget-button-popup-triangle {
   left: 25px;
   top: -6px;
   -webkit-transform: rotate(-135deg);
@@ -2859,9 +2884,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   left: -150px;
 }
 
-.bx-touch
-  .b24-widget-button-position-top-right
-  .b24-widget-button-popup-triangle {
+.bx-touch .b24-widget-button-position-top-right .b24-widget-button-popup-triangle {
   top: -7px;
   right: 40px;
   -webkit-transform: rotate(-135deg);
@@ -2993,6 +3016,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
 }
 
 @media (min-height: 1024px) {
+
   .b24-widget-button-bottom .b24-widget-button-social,
   .b24-widget-button-top .b24-widget-button-social {
     max-height: 900px;
@@ -3000,6 +3024,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
 }
 
 @media (max-height: 768px) {
+
   .b24-widget-button-bottom .b24-widget-button-social,
   .b24-widget-button-top .b24-widget-button-social {
     max-height: 600px;
@@ -3007,6 +3032,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
 }
 
 @media (max-height: 667px) {
+
   .b24-widget-button-bottom .b24-widget-button-social,
   .b24-widget-button-top .b24-widget-button-social {
     max-height: 440px;
@@ -3014,6 +3040,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
 }
 
 @media (max-height: 568px) {
+
   .b24-widget-button-bottom .b24-widget-button-social,
   .b24-widget-button-top .b24-widget-button-social {
     max-height: 380px;
@@ -3021,6 +3048,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
 }
 
 @media (max-height: 480px) {
+
   .b24-widget-button-bottom .b24-widget-button-social,
   .b24-widget-button-top .b24-widget-button-social {
     max-height: 335px;
@@ -3434,6 +3462,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   -o-user-select: none;
   user-select: none;
 }
+
 .fhs_center_center {
   display: flex;
   display: -webkit-box;
@@ -3445,9 +3474,9 @@ html.bx-ios.bx-ios-fix-frame-focus {
   justify-content: center;
   text-align: center;
 }
+
 .icon_nofi_gray {
-  background: url(/skin/frontend/ma_vanese/fahasa/images/ico_noti_gray.svg)
-    no-repeat center center;
+  background: url(/skin/frontend/ma_vanese/fahasa/images/ico_noti_gray.svg) no-repeat center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
   -o-background-size: contain;
@@ -3456,6 +3485,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   width: 24px;
   position: relative;
 }
+
 .top_menu_unseen {
   background-color: #c92127;
   -webkit-border-radius: 10px;
@@ -3473,6 +3503,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   line-height: 0;
   border: 1px solid #fff;
 }
+
 .fhs_center_space {
   display: flex;
   display: -webkit-box;
@@ -3483,6 +3514,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
+
 .fhs_center_left {
   display: flex;
   display: -webkit-box;
@@ -3494,12 +3526,13 @@ html.bx-ios.bx-ios-fix-frame-focus {
   justify-content: flex-start;
   text-align: left;
 }
+
 .fhs_dropdown a {
   color: #7a7e7f;
 }
+
 .ico_noti_other {
-  background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/customer/ico_noti_other.svg)
-    no-repeat center center;
+  background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/customer/ico_noti_other.svg) no-repeat center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
   -o-background-size: contain;
@@ -3508,9 +3541,9 @@ html.bx-ios.bx-ios-fix-frame-focus {
   width: 32px;
   position: relative;
 }
+
 .icon_nofi_black {
-  background: url(/skin/frontend/ma_vanese/fahasa/images/ico_noti_black.svg)
-    no-repeat center center;
+  background: url(/skin/frontend/ma_vanese/fahasa/images/ico_noti_black.svg) no-repeat center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
   -o-background-size: contain;
@@ -3519,22 +3552,27 @@ html.bx-ios.bx-ios-fix-frame-focus {
   width: 24px;
   position: relative;
 }
+
 .top-notification-list {
   display: none;
   max-height: 200px;
   max-width: 100%;
   overflow-y: auto;
 }
+
 .top-notification-menu .top-notification-item {
   padding: 16px;
   transition: all 300ms ease-in 0s;
 }
+
 .top-notification-item:hover {
-   background: rgba(234, 234, 234, 0.5);
+  background: rgba(234, 234, 234, 0.5);
 }
+
 .fhs_dropdown a {
   color: #7a7e7f;
 }
+
 .fhs_mouse_point {
   cursor: pointer;
   -webkit-user-drag: none;
@@ -3544,6 +3582,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   -o-user-select: none;
   user-select: none;
 }
+
 .fhs_column_left {
   display: flex;
   display: -webkit-box;
@@ -3553,6 +3592,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   align-items: flex-start;
   -webkit-align-items: flex-start;
 }
+
 .fhs_top_stretch {
   display: flex;
   display: -webkit-box;
@@ -3563,6 +3603,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   -webkit-justify-content: stretch;
   justify-content: stretch;
 }
+
 .fhs_top_left {
   display: flex;
   display: -webkit-box;
@@ -3573,6 +3614,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
+
 .fhs_column_stretch {
   display: flex;
   display: -webkit-box;
@@ -3582,17 +3624,20 @@ html.bx-ios.bx-ios-fix-frame-focus {
   align-items: stretch;
   -webkit-align-items: stretch;
 }
+
 .fhs_nowrap_one {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .fhs_nowrap_one {
   font-size: 0.8rem;
   font-weight: bold;
   color: #7a7e7f;
   font-family: nunito-sans, sans-serif, Helvetica, Arial;
 }
+
 .fhs_nowrap_two {
   word-break: break-word;
   white-space: normal;
@@ -3602,6 +3647,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+
 .fhs_nowrap_two {
   line-height: 1.4em;
   min-height: 2.8em;
@@ -3614,11 +3660,13 @@ html.bx-ios.bx-ios-fix-frame-focus {
 .top-notification-footer {
   height: 16px;
 }
-.span-notify-create{
+
+.span-notify-create {
   font-style: italic;
   font-size: 0.75rem;
   color: #7a7e7f;
 }
+
 /* GIỎ HÀNG */
 .heading-custom {
   display: flex;
@@ -3646,4 +3694,51 @@ html.bx-ios.bx-ios-fix-frame-focus {
 
 .heading-custom div {
   text-align: center;
+}
+
+/* TOP ICON BUTTON */
+.top-notification-button,
+.top-cart-button,
+.top-account-button {
+  position: relative;
+}
+
+.top-notification-button .top-notification-dropdown,
+.top-cart-button .top-cart-dropdown,
+.top-account-button .top-account-dropdown {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  transform: translateY(50%);
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  transition: visibility 0s, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.top-notification-button:hover .top-notification-dropdown,
+.top-cart-button:hover .top-cart-dropdown,
+.top-account-button:hover .top-account-dropdown {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0%);
+}
+
+.top-notification-button .top-notification-dropdown {
+  padding: 5px 10px 15px 10px;
+  width: 400px;
+}
+
+.top-cart-button .top-cart-dropdown {
+  width: 600px;
+}
+
+.top-cart-button .top-cart-dropdown .cart-product:hover {
+  background-color: rgba(194, 250, 195, 0.356);
+}
+
+.top-account-button .top-account-dropdown {
+  width: 300px;
 }
