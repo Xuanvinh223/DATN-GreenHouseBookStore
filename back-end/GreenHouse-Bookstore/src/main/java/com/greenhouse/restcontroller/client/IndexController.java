@@ -5,22 +5,29 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.greenhouse.model.Accounts;
 import com.greenhouse.model.Book_Authors;
 import com.greenhouse.model.Brands;
 import com.greenhouse.model.Categories;
 import com.greenhouse.model.CategoryTypes;
 import com.greenhouse.model.InvoiceDetails;
+import com.greenhouse.model.Notification;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Product_Discount;
 import com.greenhouse.model.Product_Reviews;
+import com.greenhouse.model.Search_History;
+import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.BookAuthorsRepository;
 import com.greenhouse.repository.BrandRepository;
 import com.greenhouse.repository.CategoriesRepository;
@@ -30,7 +37,10 @@ import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.repository.ProductDiscountRepository;
 import com.greenhouse.repository.ProductReviewsRepository;
 import com.greenhouse.repository.ProductsRepository;
+import com.greenhouse.repository.SearchHistoryRepository;
 import com.greenhouse.service.ProductDetailService;
+
+import jakarta.transaction.Transactional;
 
 @CrossOrigin("*")
 @RestController
@@ -55,6 +65,10 @@ public class IndexController {
     private CategoryTypesRepository categoryTypesRepository;
     @Autowired
     private CategoriesRepository categoriesRepository;
+    @Autowired
+    SearchHistoryRepository searchHistoryRepository;
+    @Autowired
+    AccountRepository accountsRepository;
 
     @GetMapping("/rest/getDataIndex")
     public ResponseEntity<Map<String, Object>> getDataIndex() {
@@ -90,4 +104,32 @@ public class IndexController {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping("/rest/getSearchData")
+    public ResponseEntity<Map<String, Object>> getSearchData() {
+        Map<String, Object> resp = new HashMap<>();
+        List<Product_Detail> listProduct_Details = productDetailReps.findAll();
+        List<Product_Detail> listSearchInvoice = productDetailReps.findBySearchInvoice();
+        List<Search_History> listSearch_Histories = searchHistoryRepository.findAll();
+        resp.put("listSearch_Histories", listSearch_Histories);
+        resp.put("listSearch_Invoice", listSearchInvoice);
+        resp.put("listProduct_Details", listProduct_Details);
+        return ResponseEntity.ok(resp);
+    }
+
+    @GetMapping("/rest/getSearchDataUsername/{username}")
+    public ResponseEntity<List<Search_History>> getSearchHistory(@PathVariable String username) {
+        List<Search_History> search_Histories = searchHistoryRepository
+                .findByAccountUsernameOrderBySearchTimeDesc(username);
+        return ResponseEntity.ok(search_Histories);
+    }
+
+    @Transactional
+    @PostMapping("/rest/saveSearchHistory")
+    public ResponseEntity<Search_History> createAddress(@RequestBody Search_History search_History) {
+        // Lưu lịch sử tìm kiếm vào cơ sở dữ liệu
+        Search_History item = searchHistoryRepository.save(search_History);
+
+        return new ResponseEntity<>(item, HttpStatus.CREATED);
+        // Trả về lỗi nếu người dùng không tồn tại
+    }
 }

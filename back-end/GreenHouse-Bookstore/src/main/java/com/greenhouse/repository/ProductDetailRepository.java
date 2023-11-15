@@ -108,4 +108,17 @@ public interface ProductDetailRepository extends JpaRepository<Product_Detail, I
             +
             " d.Weight ORDER BY SUM(id.Quantity) DESC; ", nativeQuery = true)
     List<Product_Detail> SellingProduct();
+
+
+    @Query(value = "SELECT TOP 6 " +
+            "d.* " +
+            "FROM " +
+            "Product_Detail AS d " +
+            "JOIN Products AS p ON d.Product_Id = p.Product_Id " +
+            "JOIN Invoice_Details AS id ON d.Product_Detail_Id = id.Product_Detail_Id " +
+            "JOIN Search_History AS sh ON p.Product_Name LIKE CONCAT('%', sh.Keyword, '%') " +
+            "GROUP BY " +
+            "d.[Product_Id],d.Image,d.Price,d.Price_Discount,d.Product_Detail_Id,d.Quantity_In_Stock,d.Weight " +
+            "ORDER BY COUNT(id.Invoice_Detail_Id) DESC", nativeQuery = true)
+    List<Product_Detail> findBySearchInvoice();
 }

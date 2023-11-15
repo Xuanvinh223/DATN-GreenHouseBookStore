@@ -1142,7 +1142,7 @@
 .top-bar-search-mobile input {
   width: 100%;
   display: inline-block;
-  height: 40px;
+  height: 33px;
   padding: 0 80px 0 20px;
   border: 1px solid #fff;
   border-radius: 10px;
@@ -1165,15 +1165,15 @@
 .ico_menu_white {
   background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_menu_white.svg") no-repeat center center;
   background-size: contain;
-  height: 34px;
-  width: 34px;
+  height: 30px;
+  width: 30px;
 }
 
 .icon_cart_white {
   background: url("https://cdn0.fahasa.com/skin/frontend/base/default/images/ico_shopping_cart_white.svg") no-repeat center center;
   background-size: contain;
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
   position: relative;
   margin-right: 10px;
 }
@@ -1181,10 +1181,10 @@
 .login-cutomer-icon {
   background: url("https://cdn0.fahasa.com/skin/frontend/base/default/images/ico_thongtintk.svg") no-repeat center center;
   background-size: contain;
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
   position: relative;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 /* End Mobile */
 .fill-white {
@@ -3617,6 +3617,19 @@ html.bx-ios.bx-ios-fix-frame-focus {
   font-size: 0.75rem;
   color: #7a7e7f;
 }
+
+.custom-green-bg {
+  background-color: #89ffb878 !important;
+}
+
+.custom-green-bg:hover {
+  background-color: #03fe325e !important;
+}
+
+#myNotifyContent ul li.list-group-item:hover {
+  background-color: #03fe325e;
+}
+
 /* GIỎ HÀNG */
 .heading-custom {
   display: flex;
@@ -3814,3 +3827,85 @@ html.bx-ios.bx-ios-fix-frame-focus {
 .top-account-button .top-account-dropdown {
   width: 300px;
 }
+
+/* TÌM KIẾM */
+.form-search-form-title {
+  padding: 12px 12px 8px 12px;
+  color: #0d0e0f;
+}
+
+.his-delete-all {
+  font-size: 13px;
+  color: #cf1225;
+}
+
+.top-bar-search-info > .top-bar-search-info-headline > a {
+  font-size: 1em;
+}
+
+.form_search_form_keyhot_content,
+.form_search_form_cathot_content,
+.form-search-form-content {
+  padding: 0 12px 16px 12px;
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: row;
+  align-items: center;
+  -webkit-align-items: center;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.form-search-form-content > div {
+  margin: 3px 3px;
+  padding: 4px 8px;
+  background-color: #f2f4f5;
+  color: #7a7e7f;
+  border-radius: 1em;
+  -moz-border-radius: 1em;
+  -webkit-border-radius: 1em;
+  cursor: pointer;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-items: center;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+.form-search-form-content > div > span:first-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.form-search-form-content > div > span:first-child {
+  font-size: 0.8em;
+}
+
+.form-search-form-content > div > span:last-child {
+  text-align: center;
+  justify-content: center;
+  margin-left: 8px;
+  width: 24px;
+  height: auto;
+  color: #c8c8c8;
+}
+
+/* END TÌM KIẾM */

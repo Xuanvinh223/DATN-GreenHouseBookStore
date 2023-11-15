@@ -15,7 +15,7 @@
                             <li class="breadcrumb-item" th:text="#{lo.mn.homecon}"><a href="/index">Trang chủ</a></li>
                             <li class="breadcrumb-item" th:text="#{lo.mn.productcon}">Sản phẩm</li>
                             <li class="breadcrumb-item active">
-                                <a href="#" th:text="#{lo.mn.allproduct}">{{selectedCategoryName|| 'Tất cả sản
+                                <a href="#">{{selectedCategoryName|| 'Tất cả sản
                                     phẩm'}}</a>
                             </li>
                         </ol>
@@ -43,12 +43,16 @@
                                                 class="fas fa-list"></i></a>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-md-4 col-sm-6  mt--10 mt-sm--0">
-                                    <div class="toolbar-status">
+                                <div class="col-lg-5 col-md-4 col-sm-6  mt--10 mt-sm--0">
+                                    <div class="toolbar-status" ng-if="!keyword">
                                         <span>Hiển thị {{ calculateRange() }}</span>
                                     </div>
+                                    <div class="toolbar-status" ng-if="keyword">
+                                        <span>Kết quả tìm kiếm với: <strong>{{keyword}} ({{listProductDetail.length}} kết quả)</strong>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 mt--10 mt-md--0">
+                                <div class="col-lg-5 col-md-6 col-sm-6 mt--10 mt-md--0">
                                     <div class="d-flex justify-content-end">
                                         <div class="sorting-selection">
                                             <span th:text="#{lo.mn.sapxep}">Sắp xếp:</span>
@@ -91,6 +95,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="shop-toolbar d-none">
                             <div class="row align-items-center">
@@ -282,8 +287,7 @@
                                         <div class="row">
                                             <div class="col-lg-5">
                                                 <!-- Product Details Slider Big Image-->
-                                                <div class="product-details-slider sb-slick-slider arrow-type-two"
-                                                >
+                                                <div class="product-details-slider sb-slick-slider arrow-type-two">
                                                     <div class="single-slide">
                                                         <img ng-src="{{quickViewProduct.image}}" alt="Product Image">
 

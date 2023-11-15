@@ -32,10 +32,12 @@ function productPageController($http, $scope, productPageAPI) {
     // DECLARE SCOPE FOR UI - END
     //=================================
     // SCOPE_FUNCTION GET DATA - START
-    var param = new URLSearchParams(location.search);
-    var categoryId = param.get('categoryId');
-    var categoryName = param.get('categoryName');
+    // var param = new URLSearchParams(location.search);
+    // var categoryId = param.get('categoryId');
+    // var categoryName = param.get('categoryName');
+    // console.log(categoryId, categoryName);
     $scope.getDataProductDetail = function () {
+        $scope.showLoading();
         var url = host + "/product-show";
         var params = {};
 
@@ -88,8 +90,18 @@ function productPageController($http, $scope, productPageAPI) {
             $scope.listImportInvoiceDetail = response.data.listImportInvoiceDetail;
             $scope.listInvoiceDetails = response.data.listInvoiceDetails;
             var allProducts = response.data.listProductDetail;
-
-            if (selectedPriceRanges.length > 0) {
+            // $scope.filteredProducts =  allProducts;
+            if (localStorage.getItem("keyword")) {
+                var keyword = localStorage.getItem("keyword");
+                console.log(keyword);
+                keyword = keyword.toLowerCase();
+                allProducts.forEach(function (productD) {
+                    if (productD.product.productName.toLowerCase().includes(keyword)) {
+                        $scope.listProductDetail.push(productD);
+                    }
+                });
+                console.log("$scope.listProductDetail,", $scope.listProductDetail);
+            } else if (selectedPriceRanges.length > 0) {
                 // Nếu có khoảng giá được chọn, lọc danh sách theo nó
                 $scope.listProductDetail = allProducts.filter(product => {
                     var price = product.priceDiscount;
@@ -112,6 +124,13 @@ function productPageController($http, $scope, productPageAPI) {
             }
 
             $scope.totalItems = $scope.listProductDetail.length;
+            if (localStorage.getItem("categoryId")) {
+                localStorage.removeItem("categoryId");
+            }
+            if (localStorage.getItem("categoryName")) {
+                localStorage.removeItem("categoryName");
+            }
+            $scope.hideLoading();
         }).catch(function (error) {
             console.error("Lỗi call API: ", error);
         });
@@ -356,9 +375,18 @@ function productPageController($http, $scope, productPageAPI) {
     };
 
     $scope.init = function () {
-        $scope.getDataProductDetail();
+        var categoryId = null;
+        var categoryName = null;
+        if (localStorage.getItem("categoryId")) {
+            categoryId = localStorage.getItem("categoryId");
+        }
+        if (localStorage.getItem("categoryName")) {
+            categoryName = localStorage.getItem("categoryName");
+        }
         if (categoryId !== null && categoryName !== null) {
             $scope.selectCategory(categoryId, categoryName);
+        } else {
+            $scope.getDataProductDetail();
         }
     }
 

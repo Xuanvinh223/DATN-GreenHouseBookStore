@@ -20,8 +20,9 @@ function indexClientController($scope, $http) {
     // Hàm để load dữ liệu ban đầu và hiển thị sản phẩm thương hiệu đầu tiên
     $scope.redirectToProduct = function (categoryId, categoryName) {
         // Chuyển cả categoryId và categoryName đến trang product
-        window.location.href = '/product?categoryId=' + categoryId + '&categoryName=' + categoryName;
-
+        localStorage.setItem("categoryId", categoryId);
+        localStorage.setItem("categoryName", categoryName);
+        window.location.href = '/product';
     };
 
     $scope.loadIndex = function () {
