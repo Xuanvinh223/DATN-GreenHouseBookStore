@@ -60,6 +60,12 @@ public class voucherController {
     private ResponseEntity<Map<String, Object>> createVoucher(@RequestBody UserVoucherDTO UserVoucherDTO) {
         Map<String, Object> response = new HashMap<>();
 
+        if (UserVoucherDTO.getUsername() == null || UserVoucherDTO.getUsername().isEmpty()) {
+            response.put("message", "Vui lòng đăng nhập");
+            response.put("status", 400);
+            return ResponseEntity.ok(response);
+        }
+
         UserVoucher checkdulicaUserVoucher = userVoucherRepository
                 .findByUsernameAndVoucher(UserVoucherDTO.getUsername(), UserVoucherDTO.getVoucher());
 

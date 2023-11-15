@@ -5,7 +5,7 @@
             <div class="card shadow mb-4">
                 <div class="card-header">
                     <a type="button" class="btn btn-success" href="#!/discount-table">
-                        Danh Sách Giảm Giá
+                        <i class="fa fa-list"> </i> Danh Sách Giảm Giá
                     </a>
                 </div>
             </div>
@@ -27,42 +27,37 @@
                                     <label for="startDate">Ngày bắt đầu(*)</label>
                                     <input class="form-control" type="date" ng-model="editingDiscount.startDate"
                                            name="startDate">
+                                    <small class="text-danger">{{ errors.startDate }}</small>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="endDate">Ngày kết thúc(*)</label>
                                     <input class="form-control" type="date" ng-model="editingDiscount.endDate"
                                            name="endDate">
+                                    <small class="text-danger">{{ errors.endDate }}</small>
                                 </div>
-              </div>
-              <div class="form-row">
-                  <div class="col-md-4 mb-3">
-                      <label for="value">Giá Trị Giảm Giá(*)</label>
-                      <input class="form-control" type="number" ng-model="editingDiscount.value" name="value"
-                             placeholder="Nhập giá tiền">
-                  </div>
-                  <div class="col-md-4 mb-3">
-                      <label for="quantity">Tổng Số Lượng(*)</label>
-                      <input class="form-control" type="number" ng-model="editingDiscount.quantity" name="quantity"
-                             placeholder="Nhập số lượng">
-                  </div>
-                <div class="col-md-4 mb-3">
-                  <p class="mb-2">Trạng Thái(*)</p>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" ng-model="editingDiscount.active" value="true"
-                               id="active">
-                        <label class="form-check-label" for="active">Đã sử dụng</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" ng-model="editingDiscount.active" value="false"
-                               id="unactive">
-                        <label class="form-check-label" for="unactive">Chưa sử dụng</label>
-                    </div>
-                </div>
-              </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="value">Giá Trị Giảm Giá(*)</label>
+                                    <input class="form-control" type="number" ng-model="editingDiscount.value"
+                                           name="value"
+                                           placeholder="Nhập giá tiền">
+                                    <small class="text-danger">{{ errors.value }}</small>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="quantity">Tổng Số Lượng(*)</label>
+                                    <input class="form-control" type="number" ng-model="editingDiscount.quantity"
+                                           name="quantity"
+                                           placeholder="Nhập số lượng">
+                                    <small class="text-danger">{{ errors.quantity }}</small>
+                                </div>
+                            </div>
                             <button type="button" class="btn btn-primary" ng-click="saveDiscount()">
-                                {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Giảm Giá' }}
+                                <i class="fa fa-save"> </i> {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Giảm Giá' }}
                             </button>
-                            <button type="button" class="btn btn-primary" ng-click="resetForm()">Làm Mới</button>
+                            <button type="button" class="btn btn-primary" ng-click="resetForm()"><i
+                                    class="fa fa-undo"> </i> Làm Mới
+                            </button>
                         </div>
           </div>
         </div>

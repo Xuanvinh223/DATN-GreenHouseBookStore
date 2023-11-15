@@ -19,6 +19,10 @@ public class AttributeValue implements Serializable {
     @JoinColumn(name = "Attribute_Id")
     private ProductAttributes attributeId;
 
+    @ManyToOne
+    @JoinColumn(name = "Product_Detail_Id")
+    private Product_Detail productDetail;
+
     @Column(name = "Value")
     private String value;
 

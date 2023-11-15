@@ -1,6 +1,7 @@
 package com.greenhouse.repository;
 
 import com.greenhouse.model.Product_Detail;
+import com.greenhouse.model.Products;
 
 import java.util.List;
 
@@ -9,6 +10,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ProductDetailRepository extends JpaRepository<Product_Detail, Integer> {
+
+    List<Product_Detail> findByProduct(Products product);
+
     @Query(value = "SELECT " +
             "    p.Product_Id AS ID, " +
             "    p.Product_Name AS 'Tên sản phẩm', " +

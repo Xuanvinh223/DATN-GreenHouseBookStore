@@ -1,6 +1,7 @@
 package com.greenhouse.service;
 
 import com.greenhouse.model.Product_Detail;
+import com.greenhouse.model.Products;
 
 import java.util.List;
 
@@ -15,8 +16,10 @@ public interface ProductDetailService {
     Product_Detail update(Product_Detail entity);
 
     void delete(Integer productDetailId);
-    
+
     List<Object[]> findAllInventoryList();
 
     List<Product_Detail> findProductsByStatus();
+
+    List<Product_Detail> findByProduct(Products product);
 }

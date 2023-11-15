@@ -1,8 +1,12 @@
 package com.greenhouse.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.greenhouse.model.Categories;
 
 public interface CategoriesRepository extends JpaRepository<Categories, String> {
-    // Các phương thức truy vấn tùy chỉnh nếu cần
+
+    List<Categories> findByTypeId_TypeId(String typeId);
+
 }

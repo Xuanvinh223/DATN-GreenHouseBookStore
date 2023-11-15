@@ -1,13 +1,40 @@
-app.controller("CategoryController", function ($scope, $location, $routeParams, $http) {
+app.controller("CategoryController", function ($scope, $location, $routeParams, $http, $filter) {
     $scope.$on('$routeChangeSuccess', function (event, current, previous) {
         $scope.page.setTitle(current.$$route.title || ' Quản Lý Danh Mục');
     });
+
     let host = "http://localhost:8081/rest/categories";
     $scope.editingCategory = {};
     $scope.isEditing = false;
-
     $scope.categories = [];
     $scope.categoryTypes = [];
+    $scope.filteredCategories = [];
+    $scope.errors = "";
+    $scope.searchText = "";
+    $scope.noResults = false;
+    $scope.orderByField = "";
+    $scope.reverseSort = true;
+    $scope.itemsPerPageOptions = [5, 10, 20, 50];
+    $scope.itemsPerPage = 5;
+    $scope.currentPage = 1;
+
+
+    $scope.checkErrors = function () {
+        $scope.errors = {};
+
+        if (!$scope.editingCategory.typeId) {
+            $scope.errors.typeId = 'Vui lòng chọn loại danh mục.';
+        }
+
+        if (!$scope.editingCategory.categoryName) {
+            $scope.errors.categoryName = 'Vui lòng nhập tên danh mục.';
+        }
+
+
+        var hasErrors = Object.keys($scope.errors).length > 0;
+
+        return !hasErrors;
+    };
 
 
     $scope.loadCategories = function () {
@@ -16,26 +43,52 @@ app.controller("CategoryController", function ($scope, $location, $routeParams, 
             .get(url)
             .then((resp) => {
                 $scope.categories = resp.data;
+                $scope.searchData();
             })
-            .catch((Error) => {
-                console.log("Error", Error);
+            .catch((error) => {
+                console.log("Error", error);
             });
     };
+
     // Lấy dữ liệu loại danh mục
     $http
         .get("/rest/categoryTypes")
         .then((resp) => {
             $scope.categoryTypes = resp.data;
         })
-        .catch((Error) => {
-            console.log("Error", Error);
+        .catch((error) => {
+            console.log("Error", error);
         });
 
+    $scope.searchData = function () {
+        $scope.filteredCategories = $filter("filter")($scope.categories, $scope.searchText);
+        $scope.noResults = $scope.filteredCategories.length === 0;
+    };
+
+    $scope.sortBy = function (field) {
+        if ($scope.orderByField === field) {
+            $scope.reverseSort = !$scope.reverseSort;
+        } else {
+            $scope.orderByField = field;
+            $scope.reverseSort = true;
+        }
+    };
+
+    $scope.calculateRange = function () {
+        var start = ($scope.currentPage - 1) * $scope.itemsPerPage;
+        var end = Math.min(
+            start + $scope.itemsPerPage,
+            $scope.filteredCategories.length
+        );
+        return start + 1 + "-" + end + " of " + $scope.filteredCategories.length;
+    };
 
     $scope.saveCategory = function () {
-        // Tạo một id mới với kí tự "CAT" và 3 kí tự ngẫu nhiên
         if (!$scope.isEditing) {
             $scope.editingCategory.categoryId = "CAT00" + generateRandomId(3);
+        }
+        if (!$scope.checkErrors()) {
+            return;
         }
 
         var category = {
@@ -43,6 +96,11 @@ app.controller("CategoryController", function ($scope, $location, $routeParams, 
             categoryName: $scope.editingCategory.categoryName || "",
             typeId: $scope.editingCategory.typeId || "",
         };
+
+        if (isCategoryNameDuplicate($scope.editingCategory.categoryName, $scope.editingCategory.categoryId)) {
+            $scope.errors.categoryName = 'Tên danh mục đã tồn tại.';
+            return;
+        }
 
         if ($scope.isEditing) {
             var url = `${host}/${category.categoryId}`;
@@ -57,7 +115,7 @@ app.controller("CategoryController", function ($scope, $location, $routeParams, 
                         text: `Cập nhật danh mục ${category.categoryId}`,
                     });
                 })
-                .catch((Error) => {
+                .catch((error) => {
                     Swal.fire({
                         icon: "error",
                         title: "Thất bại",
@@ -65,6 +123,11 @@ app.controller("CategoryController", function ($scope, $location, $routeParams, 
                     });
                 });
         } else {
+
+            if (isCategoryNameDuplicate($scope.editingCategory.categoryName, null)) {
+                $scope.errors.categoryName = 'Tên danh mục đã tồn tại.';
+                return;
+            }
             var url = `${host}`;
             $http
                 .post(url, category)
@@ -77,9 +140,8 @@ app.controller("CategoryController", function ($scope, $location, $routeParams, 
                         text: `Thêm danh mục ` + category.categoryName,
                     });
                 })
-                .catch((Error) => {
-                    console.log(Error.data);
-                    if (Error.data) {
+                .catch((error) => {
+                    if (error.data) {
                         Swal.fire({
                             icon: "error",
                             title: "Thất bại",
@@ -90,11 +152,14 @@ app.controller("CategoryController", function ($scope, $location, $routeParams, 
         }
     };
 
-    // Hàm tạo mã ngẫu nhiên với 3 ký tự số
+    function isCategoryNameDuplicate(categoryName, categoryId) {
+        return $scope.categories.some(category => category.categoryName === categoryName && category.categoryId !== categoryId);
+    }
+
     function generateRandomId() {
         let result = "";
         for (let i = 0; i < 3; i++) {
-            result += Math.floor(Math.random() * 10); // Số ngẫu nhiên từ 0 đến 9
+            result += Math.floor(Math.random() * 10);
         }
         return result;
     }
@@ -107,8 +172,6 @@ app.controller("CategoryController", function ($scope, $location, $routeParams, 
                 $scope.editingCategory = angular.copy(resp.data);
                 $scope.isEditing = true;
 
-                // Chuyển hướng đến trang chỉnh sửa thông tin danh mục và truyền dữ liệu danh mục.
-                // Sử dụng $location.search để thiết lập tham số trong URL.
                 $location.path("/category-form").search({ id: categoryId, data: angular.toJson(resp.data) });
             })
             .catch(function (error) {
@@ -116,47 +179,57 @@ app.controller("CategoryController", function ($scope, $location, $routeParams, 
             });
     };
 
-    // Kiểm tra xem có tham số data trong URL không.
     if ($routeParams.data) {
-        // Parse dữ liệu từ tham số data và gán vào editingCategory.
         $scope.editingCategory = angular.fromJson($routeParams.data);
         $scope.isEditing = true;
     }
 
     $scope.deleteCategory = function (categoryId) {
-        var url = `${host}/${categoryId}`;
-
-        $http
-            .delete(url)
-            .then((resp) => {
-                $scope.loadCategories();
-                Swal.fire({
-                    icon: "success",
-                    title: "Thành công",
-                    text: `Xóa danh mục ${categoryId} thành công`,
-                });
-            })
-            .catch((Error) => {
-                if (Error.status === 409) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Thất bại",
-                        text: `Danh mục ${categoryId} đang được sử dụng và không thể xóa.`,
+        Swal.fire({
+            title: "Xóa Danh Mục?",
+            text: "Bạn có chắc chắn muốn xóa danh mục này?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var url = `${host}/${categoryId}`;
+                $http
+                    .delete(url)
+                    .then(function (resp) {
+                        if (resp.status === 200) {
+                            $scope.loadCategories();
+                            Swal.fire({
+                                icon: "success",
+                                title: "Thành công",
+                                text: `Xóa danh mục ${categoryId} thành công`,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Thất bại",
+                                text: `Danh mục ${categoryId} đang được sử dụng và không thể xóa.`,
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Thất bại",
+                            text: `Xóa danh mục ${categoryId} thất bại`,
+                        });
                     });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Thất bại",
-                        text: `Xóa danh mục ${categoryId} thất bại`,
-                    });
-                }
-            });
+            }
+        });
     };
+
 
     $scope.resetForm = function () {
         $scope.editingCategory = {};
         $scope.isEditing = false;
     };
+
 
     $scope.loadCategories();
 });

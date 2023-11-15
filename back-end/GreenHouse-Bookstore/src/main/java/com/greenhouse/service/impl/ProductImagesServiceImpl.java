@@ -1,5 +1,6 @@
 package com.greenhouse.service.impl;
 
+import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Product_Images;
 import com.greenhouse.repository.Product_ImagesRepository;
 import com.greenhouse.service.ProductImagesService;
@@ -40,4 +41,11 @@ public class ProductImagesServiceImpl implements ProductImagesService {
     public void delete(Integer id) {
         productImagesRepository.deleteById(id);
     }
+
+    @Override
+    public List<Product_Images> findByProductDetail(Product_Detail productDetail) {
+        return productImagesRepository.findByProductDetail(productDetail);
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.greenhouse.service.impl;
 
 import com.greenhouse.model.AttributeValue;
+import com.greenhouse.model.Product_Detail;
 import com.greenhouse.repository.AttributeValueRepository;
 import com.greenhouse.service.AttributeValueService;
 
@@ -39,5 +40,10 @@ public class AttributeValueServiceImpl implements AttributeValueService {
     @Override
     public void delete(Integer id) {
         attributeValueRepository.deleteById(id);
+    }
+
+    @Override
+    public List<AttributeValue> findByProductDetail(Product_Detail productDetail) {
+        return attributeValueRepository.findByProductDetail(productDetail);
     }
 }

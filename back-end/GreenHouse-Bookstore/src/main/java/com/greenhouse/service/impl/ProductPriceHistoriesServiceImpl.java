@@ -1,6 +1,7 @@
 package com.greenhouse.service.impl;
 
 import com.greenhouse.model.ProductPriceHistories;
+import com.greenhouse.model.Product_Detail;
 import com.greenhouse.repository.ProductPriceHistoriesRepository;
 import com.greenhouse.service.ProductPriceHistoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +28,22 @@ public class ProductPriceHistoriesServiceImpl implements ProductPriceHistoriesSe
     }
 
     @Override
-    public void add(ProductPriceHistories entity) {
-        productPriceHistoriesRepository.save(entity);
+    public ProductPriceHistories add(ProductPriceHistories entity) {
+        return productPriceHistoriesRepository.save(entity);
     }
 
     @Override
-    public void update(ProductPriceHistories entity) {
-        productPriceHistoriesRepository.save(entity);
+    public ProductPriceHistories update(ProductPriceHistories entity) {
+        return productPriceHistoriesRepository.save(entity);
     }
 
     @Override
     public void delete(Integer priceHistoriesId) {
         productPriceHistoriesRepository.deleteById(priceHistoriesId);
+    }
+
+    @Override
+    public ProductPriceHistories findByProductDetail(Product_Detail productDetail) {
+        return productPriceHistoriesRepository.findByProductDetail(productDetail);
     }
 }

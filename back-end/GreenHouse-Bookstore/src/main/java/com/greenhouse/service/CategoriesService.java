@@ -15,4 +15,6 @@ public interface CategoriesService {
     Categories update(Categories entity);
 
     void delete(String categoryId);
+
+    List<Categories> finByTypeId(String typeId);
 }

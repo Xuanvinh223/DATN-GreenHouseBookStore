@@ -16,9 +16,6 @@ public class ProductPriceHistories implements Serializable {
     @Column(name = "Price_Histories_Id")
     private int priceHistoriesId;
 
-    @Column(name = "Username", length = 50)
-    private String username;
-
     @ManyToOne
     @JoinColumn(name = "Product_Detail_Id")
     private Product_Detail productDetail;
@@ -30,7 +27,7 @@ public class ProductPriceHistories implements Serializable {
     private double priceNew;
 
     @Column(name = "Time_Change")
-   private Date  timeChange;
+    private Date timeChange;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

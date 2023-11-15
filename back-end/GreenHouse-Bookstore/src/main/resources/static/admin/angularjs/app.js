@@ -146,10 +146,6 @@ app.factory('tokenInterceptor', ['$window', function ($window) {
     return {
         request: function (config) {
             var token = $window.localStorage.getItem('token');
-            // Kiểm tra nếu URL của request bắt đầu bằng "/api/"
-            // if (token && config.url.includes('/rest/')) {
-            //     config.headers['Authorization'] = 'Bearer ' + token;
-            // }
             if (token) {
                 config.headers['Authorization'] = 'Bearer ' + token;
             }

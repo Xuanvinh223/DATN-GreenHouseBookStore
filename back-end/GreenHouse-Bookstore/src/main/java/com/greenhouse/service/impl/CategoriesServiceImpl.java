@@ -1,6 +1,7 @@
 package com.greenhouse.service.impl;
 
 import com.greenhouse.model.Categories;
+import com.greenhouse.model.CategoryTypes;
 import com.greenhouse.repository.CategoriesRepository;
 import com.greenhouse.service.CategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,4 +41,11 @@ public class CategoriesServiceImpl implements CategoriesService {
     public void delete(String categoryId) {
         categoriesRepository.deleteById(categoryId);
     }
+
+
+    @Override
+    public List<Categories> finByTypeId(String typeId) {
+        return categoriesRepository.findByTypeId_TypeId(typeId);
+    }
+
 }
