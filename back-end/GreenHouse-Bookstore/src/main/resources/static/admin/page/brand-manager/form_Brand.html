@@ -20,44 +20,48 @@
                 <div class="form-group mb-3">
                   <label for="BrandId">ID thương hiệu(*)</label>
                   <input type="text" class="form-control" id="BrandId" placeholder="Nhập ID thương hiệu"
-                         ng-model="editingBrand.brandId" ng-disabled="isEditing" required>
+                    ng-model="editingBrand.brandId" ng-disabled="isEditing" required>
                   <small class="error-label text-danger"
-                         ng-show="errorMessages.brandId">{{errorMessages.brandId}}</small>
+                    ng-show="errorMessages.brandId">{{errorMessages.brandId}}</small>
                 </div>
                 <div class="form-group mb-3">
                   <label for="brandname">Tên thương hiệu(*)</label>
                   <input type="text" name="brandname" class="form-control" id="brandname"
-                         placeholder="Nhập tên thương hiệu" ng-model="editingBrand.brandName" required>
+                    placeholder="Nhập tên thương hiệu" ng-model="editingBrand.brandName" required>
                   <small class="error-label text-danger"
-                         ng-show="errorMessages.brandName">{{errorMessages.brandName}}</small>
+                    ng-show="errorMessages.brandName">{{errorMessages.brandName}}</small>
                 </div>
                 <div class="form-group mb-3">
                   <label for="CountryOfOrigin">Nơi xuất xứ(*)</label>
                   <input type="text" class="form-control" placeholder="Nhập nơi xuất xứ" id="CountryOfOrigin"
-                         ng-model="editingBrand.countryOfOrigin" required>
-                  <small class="error-label text-danger" ng-show="errorMessages.countryOfOrigin">{{errorMessages.countryOfOrigin}}</small>
+                    ng-model="editingBrand.countryOfOrigin" required>
+                  <small class="error-label text-danger"
+                    ng-show="errorMessages.countryOfOrigin">{{errorMessages.countryOfOrigin}}</small>
                 </div>
               </div>
               <!-- /.col -->
-              <div class="col-md-2 Upload">
+              <div class="col-md-2 ">
                 <div class="form-label h5 text-center">
-                  <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh logo thương
-                    hiệu(*)</label>
+                    <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh Logo(*)</label>
                 </div>
                 <div class="row d-flex justify-content-center">
-                  <img class="object-fit"  ng-src="{{editingBrand.logo}}" alt="Uploaded Image" id="uploadedImage"
-                       name="logo" style="max-height: 250px; width: 100%; border-radius: 10%;">
+
+                    <img class="object-fit border border-light" ng-src="{{editingBrand.logo}}" alt=""
+                         id="uploadedImage" name="image" style="max-height: 250px; height: 130px; width: 150px;">
+
                 </div>
 
                 <div class="row d-flex justify-content-center">
-                  <label class="text-center mt-2 btn btn-dark w-100">
-                    <i class="fa fa-upload"></i>
-                    Tải ảnh logo
-                    <input type="file" name="file" style="object-fit: contain;" id="fileInput"
-                           ng-model="editingBrand.logo" onchange="displayImage(event)" hidden accept=".png,.jpg,.jpeg"/>
+                  <label class="text-center mt-2 btn btn-outline-secondary">
+                      <i class="fa fa-upload"></i>
+                      Tải ảnh lên
+                      <input type="file" name="file" style="object-fit: contain;" id="fileInput"
+                      ng-model="editingBrand.logo" onchange="displayImage(event)" hidden
+                             accept=".png,.jpg,.jpeg"/>
                   </label>
-                </div>
               </div>
+
+            </div>
 
             </div>
             <button type="button" class="btn btn-primary" ng-click="saveBrand()">

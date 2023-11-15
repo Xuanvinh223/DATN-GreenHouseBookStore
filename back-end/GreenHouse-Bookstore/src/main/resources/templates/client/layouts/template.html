@@ -366,7 +366,7 @@
               <div class="col-lg-3">
                 <nav class="category-nav white-nav">
                   <div>
-                    <a class="category-trigger" th:text="#{lo.mn.dmsp}"><i class="fa fa-bars"></i>Danh mục sản phẩm</a>
+                    <div class="category-trigger"><i class="fa fa-bars"></i><a th:text="#{lo.mn.dmsp}">Danh mục sản phẩm</a></div>
                     <ul class="category-menu">
                       <li class="cat-item has-children mega-menu" ng-repeat="parentCategory in parentCategoriesTypes">
                         <a href="#">{{ parentCategory }}</a>
