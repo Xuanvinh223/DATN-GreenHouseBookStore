@@ -81,7 +81,8 @@
                         <div class="col-md-12 mb-4">
                             <div class="card shadow">
                                 <div class="card-header">
-                                    <strong class="card-title mb-0">Biều đồ doanh thu trong năm {{selectedYear}}</strong>
+                                    <strong class="card-title mb-0">Biều đồ doanh thu trong năm
+                                        {{selectedYear}}</strong>
                                     <div class="dropdown float-right">
                                         <select ng-model="selectedYear" ng-change="updateSelectedYear()"
                                             class="btn btn-sm btn-link text-muted p-0" id="rangeDropdown">
@@ -129,12 +130,16 @@
                                 </div>
                                 <div class="col ml-auto">
                                     <div class="dropdown float-right">
-                                        <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle" type="button" id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle"
+                                            type="button" id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
                                             Tất cả trạng thái
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnnhaphang">
-                                            <a class="dropdown-item" ng-click="printPDF()"><i class='bx bxs-file-export mr-1'></i>Xuất file PDF</a>
-                                            <a class="dropdown-item"  ng-click="exportToExcel();"><i class='bx bxs-file-export mr-1'></i>Xuất File Excel</a>
+                                            <a class="dropdown-item" ng-click="printPDF()"><i
+                                                    class='bx bxs-file-export mr-1'></i>Xuất file PDF</a>
+                                            <a class="dropdown-item" ng-click="exportToExcel();"><i
+                                                    class='bx bxs-file-export mr-1'></i>Xuất File Excel</a>
                                         </div>
                                     </div>
                                 </div>
@@ -197,13 +202,18 @@
                                                 <tbody>
                                                     <tr
                                                         ng-repeat="invoiceDetail in getListInvoiceDetailByInvoiceId(item.invoiceId) track by $index">
-                                                        <td>{{invoiceDetail.productDetail.image}}</td>
-                                                        <td>{{invoiceDetail.productDetail.product.productId}}</td>
+                                                        <!-- <td>{{invoiceDetail.productDetail.image}}</td> -->
+                                                        <td class="text-center">
+                                                            <img ng-src="{{invoiceDetail.productDetail.image}}"
+                                                                alt="Chưa có ảnh"
+                                                                style="width: 50px; height: 50px; border-radius: 10%;">
+                                                        </td>
+                                                        <td class="text-center">{{invoiceDetail.productDetail.product.productId}}</td>
                                                         <td>{{invoiceDetail.productDetail.product.productName}}</td>
-                                                        <td>{{invoiceDetail.price | number:'0'}}</td>
-                                                        <td>{{invoiceDetail.priceDiscount | number:'0'}}</td>
-                                                        <td>{{invoiceDetail.quantity | number:'0'}}</td>
-                                                        <td>{{invoiceDetail.amount | number:'0'}}</td>
+                                                        <td class="text-center">{{invoiceDetail.price | number:'0'}}</td>
+                                                        <td class="text-center">{{invoiceDetail.priceDiscount | number:'0'}}</td>
+                                                        <td class="text-center">{{invoiceDetail.quantity | number:'0'}}</td>
+                                                        <td class="text-center">{{invoiceDetail.amount | number:'0'}}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

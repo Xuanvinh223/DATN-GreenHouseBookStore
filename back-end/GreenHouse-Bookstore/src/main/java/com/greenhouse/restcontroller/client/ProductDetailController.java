@@ -24,14 +24,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.greenhouse.model.Attribute_Value;
 import com.greenhouse.model.Authentic_Photos;
+import com.greenhouse.model.Book_Authors;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Product_Discount;
 import com.greenhouse.model.Product_Images;
 import com.greenhouse.model.Product_Reviews;
+import com.greenhouse.repository.AttributeValueRepository;
 import com.greenhouse.repository.AuthenticPhotosRepository;
 import com.greenhouse.repository.BookAuthorsRepository;
 import com.greenhouse.repository.BrandRepository;
+import com.greenhouse.repository.ProductAttributesRepository;
 import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.repository.ProductDiscountRepository;
 import com.greenhouse.repository.ProductReviewsRepository;
@@ -61,6 +65,10 @@ public class ProductDetailController {
     private Product_ImagesRepository productImagesReps;
     @Autowired
     private AuthenticPhotosRepository authenticPhotosRepository;
+    @Autowired
+    AttributeValueRepository av;
+    @Autowired
+    ProductAttributesRepository par;
 
     private static final String CLOUDINARY_CLOUD_NAME = "dmbh3sz8s";
     private static final String CLOUDINARY_API_KEY = "165312227781173";
@@ -86,9 +94,12 @@ public class ProductDetailController {
                     .findProductDiscountsByProductDetailIdAndDate(productDetailId);
             List<Product_Discount> listProductDiscounts = productDiscountRepository.findAll();
             List<Product_Reviews> listProductReviews = productReviewsRepository.findAll();
+            List<Attribute_Value> listAttributeValues = av.findByProductDetail_ProductDetailId(productDetailId);
+            List<Book_Authors> listBookAuthor = bookAuthorsRepository.findAll();
 
             // Tạo một map chứa thông tin
             Map<String, Object> productInfo = new HashMap<>();
+            productInfo.put("listBookAuthor", listBookAuthor);
             productInfo.put("productDetail", productDetail);
             productInfo.put("productImages", productImages);
             productInfo.put("relatedProducts", relatedProducts);
@@ -97,7 +108,7 @@ public class ProductDetailController {
 
             productInfo.put("productDiscounts", productDiscounts);
             productInfo.put("listProductDiscounts", listProductDiscounts);
-
+            productInfo.put("listAttributeValues", listAttributeValues);
             response.put("data", productInfo);
         } else {
             response.put("error", "Sản phẩm không tồn tại.");

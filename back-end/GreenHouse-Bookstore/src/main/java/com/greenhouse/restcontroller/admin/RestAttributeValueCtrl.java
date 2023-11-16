@@ -1,6 +1,6 @@
 package com.greenhouse.restcontroller.admin;
 
-import com.greenhouse.model.AttributeValue;
+import com.greenhouse.model.Attribute_Value;
 import com.greenhouse.service.AttributeValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,14 +17,14 @@ public class RestAttributeValueCtrl {
     private AttributeValueService attributeValueService;
 
     @GetMapping
-    public ResponseEntity<List<AttributeValue>> getAllAttributeValues() {
-        List<AttributeValue> attributeValues = attributeValueService.findAll();
+    public ResponseEntity<List<Attribute_Value>> getAllAttributeValues() {
+        List<Attribute_Value> attributeValues = attributeValueService.findAll();
         return new ResponseEntity<>(attributeValues, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<AttributeValue> getOne(@PathVariable("id") Integer id) {
-        AttributeValue attributeValue = attributeValueService.findById(id);
+    public ResponseEntity<Attribute_Value> getOne(@PathVariable("id") Integer id) {
+        Attribute_Value attributeValue = attributeValueService.findById(id);
         if (attributeValue == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -32,15 +32,15 @@ public class RestAttributeValueCtrl {
     }
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestBody AttributeValue attributeValue) {
+    public ResponseEntity<Object> create(@RequestBody Attribute_Value attributeValue) {
 
-        AttributeValue createdAttributeValue = attributeValueService.add(attributeValue);
+        Attribute_Value createdAttributeValue = attributeValueService.add(attributeValue);
         return new ResponseEntity<>(createdAttributeValue, HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<AttributeValue> update(@PathVariable("id") Integer id, @RequestBody AttributeValue attributeValue) {
-        AttributeValue existingAttributeValue = attributeValueService.findById(id);
+    public ResponseEntity<Attribute_Value> update(@PathVariable("id") Integer id, @RequestBody Attribute_Value attributeValue) {
+        Attribute_Value existingAttributeValue = attributeValueService.findById(id);
         if (existingAttributeValue == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -51,7 +51,7 @@ public class RestAttributeValueCtrl {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
-        AttributeValue existingAttributeValue = attributeValueService.findById(id);
+        Attribute_Value existingAttributeValue = attributeValueService.findById(id);
         if (existingAttributeValue == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

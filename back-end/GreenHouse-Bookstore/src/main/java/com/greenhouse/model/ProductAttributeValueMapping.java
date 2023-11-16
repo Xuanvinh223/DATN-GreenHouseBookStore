@@ -1,14 +1,13 @@
 package com.greenhouse.model;
 
-
 import java.io.Serializable;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "Attribute_Value")
-public class AttributeValue implements Serializable {
+@Table(name = "Product_Attribute_Value_Mapping")
+public class ProductAttributeValueMapping implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,16 +15,12 @@ public class AttributeValue implements Serializable {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "Attribute_Id")
-    private ProductAttributes attributeId;
-
-    @ManyToOne
     @JoinColumn(name = "Product_Detail_Id")
     private Product_Detail productDetail;
 
-    @Column(name = "Value")
-    private String value;
+    @ManyToOne
+    @JoinColumn(name = "Attribute_Value_Id")
+    private Attribute_Value attributeValue;
 
-
-    // Getters and setters
+    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

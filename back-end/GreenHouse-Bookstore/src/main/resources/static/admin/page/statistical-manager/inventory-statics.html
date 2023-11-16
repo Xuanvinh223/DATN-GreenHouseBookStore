@@ -22,17 +22,21 @@
                                 <div class="col">
                                     <form class="form-inline mr-auto  text-muted">
                                         <input class="form-control input" type="search" placeholder="Tìm kiếm..."
-                                               ng-model="searchText1" ng-change="searchData1()">
+                                            ng-model="searchText1" ng-change="searchData1()">
                                     </form>
                                 </div>
                                 <div class="col ml-auto">
                                     <div class="dropdown float-right">
-                                        <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle" type="button" id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle"
+                                            type="button" id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
                                             Tất cả trạng thái
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnnhaphang">
-                                            <a class="dropdown-item" ng-click="printPDF1()"><i class='bx bxs-file-export mr-1'></i>Xuất file PDF</a>
-                                            <a class="dropdown-item"  ng-click="exportToExcel1();"><i class='bx bxs-file-export mr-1'></i>Xuất File Excel</a>
+                                            <a class="dropdown-item" ng-click="printPDF1()"><i
+                                                    class='bx bxs-file-export mr-1'></i>Xuất file PDF</a>
+                                            <a class="dropdown-item" ng-click="exportToExcel1();"><i
+                                                    class='bx bxs-file-export mr-1'></i>Xuất File Excel</a>
                                         </div>
                                     </div>
                                 </div>
@@ -63,6 +67,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
+                                        <th>Hình ảnh</th>
                                         <th class="text-center">ID</th>
                                         <th class="text-center">Tên sản phẩm</th>
                                         <th class="text-center">Số lượng tồn</th>
@@ -73,17 +78,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="item in inventorystatics | startFrom:(currentPage1 - 1) * itemsPerPage1 | limitTo:itemsPerPage1"
-                                    data-toggle="collapse" data-target="#{{item[0]}}">
-                                    <td class="text-center">{{$index + 1}}</td>
-                                    <td class="text-center">{{item[0]}}</td>
-                                    <td>{{item[1]}}</td>
-                                    <td class="text-center">{{item[2] | number:'0'}}</td>
-                                    <td class="text-center">{{item[3] | number:'0'}}</td>
-                                    <td class="text-center">{{item[4] ? 'Đang bán' : 'Dừng kinh doanh'}}</td>
-                                    <td class="text-center">{{item[5]}}</td>
-                                    <td class="text-center">{{item[6] | date:'dd/MM/yyyy'}}</td>
-                                </tr>
+                                    <tr ng-repeat="item in inventorystatics | startFrom:(currentPage1 - 1) * itemsPerPage1 | limitTo:itemsPerPage1"
+                                        data-toggle="collapse" data-target="#{{item[0]}}">
+                                        <td class="text-center">{{$index + 1}}</td>
+                                        <td class="text-center">
+                                            <img ng-src="{{item[0]}}"
+                                                alt="Chưa có ảnh"
+                                                style="width: 50px; height: 50px; border-radius: 10%;">
+                                        </td>
+                                        <td class="text-center">{{item[1]}}</td>
+                                        <td>{{item[2]}}</td>
+                                        <td class="text-center">{{item[3] | number:'0'}}</td>
+                                        <td class="text-center">{{item[4] | number:'0'}}</td>
+                                        <td class="text-center">{{item[5] ? 'Đang bán' : 'Dừng kinh doanh'}}</td>
+                                        <td class="text-center">{{item[6]}}</td>
+                                        <td class="text-center">{{item[7] | date:'dd/MM/yyyy'}}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <div class="toolbar">
@@ -92,9 +102,9 @@
                                         <div class="form-inline col-auto mr-auto">
                                             <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Show</label>
                                             <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1"
-                                                    ng-model="itemsPerPage1"
-                                                    ng-options="option for option in itemsPerPageOptions1"
-                                                    ng-change="currentPage1 = 1">
+                                                ng-model="itemsPerPage1"
+                                                ng-options="option for option in itemsPerPageOptions1"
+                                                ng-change="currentPage1 = 1">
                                             </select>
                                         </div>
                                         <div class="form-group col-auto">
@@ -121,18 +131,22 @@
                                 <div class="col">
                                     <form class="form-inline mr-auto  text-muted">
                                         <input class="form-control input" type="search" placeholder="Tìm kiếm..."
-                                               ng-model="searchText2" ng-change="searchData2()">
+                                            ng-model="searchText2" ng-change="searchData2()">
                                     </form>
 
                                 </div>
                                 <div class="col ml-auto">
                                     <div class="dropdown float-right">
-                                        <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle" type="button" id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle"
+                                            type="button" id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
                                             Tất cả trạng thái
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnnhaphang">
-                                            <a class="dropdown-item" ng-click="printPDF2()"><i class='bx bxs-file-export mr-1'></i>Xuất file PDF</a>
-                                            <a class="dropdown-item"  ng-click="exportToExcel2();"><i class='bx bxs-file-export mr-1'></i>Xuất File Excel</a>
+                                            <a class="dropdown-item" ng-click="printPDF2()"><i
+                                                    class='bx bxs-file-export mr-1'></i>Xuất file PDF</a>
+                                            <a class="dropdown-item" ng-click="exportToExcel2();"><i
+                                                    class='bx bxs-file-export mr-1'></i>Xuất File Excel</a>
                                         </div>
                                     </div>
                                 </div>
@@ -164,6 +178,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
+                                        <th class="text-center">Hình ảnh</th>
                                         <th class="text-center">ID</th>
                                         <th class="text-center">Tên sản phẩm</th>
                                         <th class="text-center">Số lượng tồn</th>
@@ -174,18 +189,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="item in inventorystaticsasc | startFrom:(currentPage2 - 1) * itemsPerPage2 | limitTo:itemsPerPage2"
-                                    data-toggle="collapse" data-target="#desc{{item[0]}}">
-                                    <td class="text-center">{{$index + 1}}</td>
-                                    <td class="text-center">{{item[0]}}</td>
-                                    <td>{{item[1]}}</td>
-                                    <td class="text-center">{{item[2] | number:'0'}}</td>
-                                    <td class="text-center">{{item[3] | number:'0'}}</td>
-                                    <td class="text-center">{{item[4] ? 'Đang bán' : 'Dừng kinh doanh'}}</td>
-                                    <td class="text-center">{{item[5]}}</td>
-                                    <td class="text-center">{{item[6] | date:'dd/MM/yyyy'}}</td>
-                                </tr>
-                                <!-- <tr ng-repeat-end id="desc{{item[0]}}" class="collapse">
+                                    <tr ng-repeat="item in inventorystaticsasc | startFrom:(currentPage2 - 1) * itemsPerPage2 | limitTo:itemsPerPage2"
+                                        data-toggle="collapse" data-target="#desc{{item[0]}}">
+                                        <td class="text-center">{{$index + 1}}</td>
+                                        <td class="text-center">
+                                            <img ng-src="{{item[0]}}"
+                                                alt="Chưa có ảnh"
+                                                style="width: 50px; height: 50px; border-radius: 10%;">
+                                        </td>
+                                        <td class="text-center">{{item[1]}}</td>
+                                        <td>{{item[2]}}</td>
+                                        <td class="text-center">{{item[3] | number:'0'}}</td>
+                                        <td class="text-center">{{item[4] | number:'0'}}</td>
+                                        <td class="text-center">{{item[5] ? 'Đang bán' : 'Dừng kinh doanh'}}</td>
+                                        <td class="text-center">{{item[6]}}</td>
+                                        <td class="text-center">{{item[7] | date:'dd/MM/yyyy'}}</td>
+                                    </tr>
+                                    <!-- <tr ng-repeat-end id="desc{{item[0]}}" class="collapse">
                                     <td colspan="10">
                                         <table class="table table-bordered">
                                             <thead style="pointer-events: none;">
@@ -223,9 +243,9 @@
                                         <div class="form-inline col-auto mr-auto">
                                             <label class="my-1 mr-2" for="inlineFormCustomSelectPref2">Show</label>
                                             <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref2"
-                                                    ng-model="itemsPerPage2"
-                                                    ng-options="option for option in itemsPerPageOptions2"
-                                                    ng-change="currentPage2 = 1">
+                                                ng-model="itemsPerPage2"
+                                                ng-options="option for option in itemsPerPageOptions2"
+                                                ng-change="currentPage2 = 1">
                                             </select>
                                         </div>
                                         <div class="form-group col-auto">
@@ -235,7 +255,7 @@
                                 </form>
                             </div>
                             <ul uib-pagination ng-model="currentPage2" total-items="totalItems2"
-                                items-per-page="itemsPerPage2" max-size="maxSize2" class="pagination-sm"
+                                items-per-page="itemsPerPage2" max-size="maxSize1" class="pagination-sm"
                                 boundary-link-numbers="true" boundary-links="true" force-ellipses="true"
                                 previous-text="<" next-text=">" first-text="<<" last-text=">>">
                             </ul>

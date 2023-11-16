@@ -19,5 +19,5 @@ public class ProductDTO {
     private Product_Discount productDiscount;
     private List<Product_Images> productImages;
     private ProductAttributes productAttributes;
-    private List<AttributeValue> attributeValues;
+    private List<Attribute_Value> attributeValues;
 }
