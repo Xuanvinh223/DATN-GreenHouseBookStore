@@ -1,17 +1,20 @@
 package com.greenhouse.service;
 
-import com.greenhouse.model.AttributeValue;
+import com.greenhouse.model.Attribute_Value;
+import com.greenhouse.model.Product_Detail;
+
 import java.util.List;
 
 public interface AttributeValueService {
 
-    List<AttributeValue> findAll();
+    List<Attribute_Value> findAll();
 
-    AttributeValue findById(Integer id);
+    Attribute_Value findById(Integer id);
 
-    AttributeValue add(AttributeValue entity);
+    Attribute_Value add(Attribute_Value entity);
 
-    AttributeValue update(AttributeValue entity);
+    Attribute_Value update(Attribute_Value entity);
 
     void delete(Integer id);
+
 }

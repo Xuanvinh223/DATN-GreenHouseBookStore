@@ -1,16 +1,9 @@
 package com.greenhouse.dto;
 
-import com.greenhouse.model.Authors;
-import com.greenhouse.model.Book_Authors;
-import com.greenhouse.model.Categories;
-import com.greenhouse.model.Discounts;
-import com.greenhouse.model.Product_Category;
-import com.greenhouse.model.Product_Detail;
-import com.greenhouse.model.Product_Discount;
-import com.greenhouse.model.Product_Images;
-import com.greenhouse.model.Products;
-
+import com.greenhouse.model.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class ProductDTO {
@@ -19,19 +12,12 @@ public class ProductDTO {
     private Categories category;
     private Authors author;
     private Discounts discount;
-    private Product_Detail productDetail; // Thêm đối tượng ProductDetail
-    private Product_Category pCategory;
-    private Product_Discount pDiscount;
-    private Book_Authors bAuthors;
-    private Product_Images productImages;
-
-    private String images;
-
-    // Thêm các thuộc tính của ProductDetail
-
-    private double price;
-    private double priceDiscount;
-    private int quantityInStock;
-    private int weight;
-    private String image;
+    private Product_Detail productDetail;
+    private Book_Authors bookAuthors;
+    private ProductPriceHistories productPriceHistories;
+    private Product_Category productCategory;
+    private Product_Discount productDiscount;
+    private List<Product_Images> productImages;
+    private ProductAttributes productAttributes;
+    private List<Attribute_Value> attributeValues;
 }

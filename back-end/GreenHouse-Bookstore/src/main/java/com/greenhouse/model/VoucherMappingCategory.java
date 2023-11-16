@@ -19,4 +19,7 @@ public class VoucherMappingCategory {
 
     @Column(name = "Category_Id")
     private String categoryId;
+
+    @Column(name = "Status")
+    private Boolean status;
 }

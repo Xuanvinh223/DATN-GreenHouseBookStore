@@ -20,7 +20,7 @@ public class ProductAttributeValueMapping implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "Attribute_Value_Id")
-    private AttributeValue attributeValue;
+    private Attribute_Value attributeValue;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

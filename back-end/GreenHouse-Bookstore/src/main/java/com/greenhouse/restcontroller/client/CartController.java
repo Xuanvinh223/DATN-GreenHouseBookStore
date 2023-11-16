@@ -215,8 +215,7 @@ public class CartController {
         try {
             listUserVouchers = userVoucherRepository.findByUsernameAndStatus(username, false);
             for (UserVoucher item : listUserVouchers) {
-                if (isVoucherValid(item.getVoucher().getStartDate(),
-                        item.getVoucher().getEndDate())) {
+                if (isVoucherValid(item.getVoucher())) {
                     listVouchers.add(item.getVoucher());
 
                     List<VoucherMappingCategory> listVMC = new ArrayList<>();
@@ -244,9 +243,10 @@ public class CartController {
         return ResponseEntity.ok(response);
     }
 
-    private static boolean isVoucherValid(Date startDate, Date endDate) {
+    private static boolean isVoucherValid(Vouchers voucher) {
         Date currentDate = new Date();
-        if (currentDate.before(endDate) && currentDate.after(startDate)) {
+        int stock = voucher.getTotalQuantity() - voucher.getUsedQuantity();
+        if (currentDate.before(voucher.getEndDate()) && currentDate.after(voucher.getStartDate()) && stock > 0) {
             return true;
         } else {
             return false;

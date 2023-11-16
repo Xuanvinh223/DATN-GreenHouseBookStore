@@ -4,7 +4,14 @@ import java.io.Serializable;
 
 import org.hibernate.annotations.Proxy;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
@@ -32,10 +39,18 @@ public class Product_Detail implements Serializable {
     private int quantityInStock;
 
     @Column(name = "Weight")
-    private int weight;
+    private float weight;
+
+    @Column(name = "Length")
+    private float length;
+
+    @Column(name = "Width")
+    private float width;
+
+    @Column(name = "Height")
+    private float height;
 
     @Column(name = "Image")
     private String image;
-
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

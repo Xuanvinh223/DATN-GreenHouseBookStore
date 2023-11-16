@@ -30,6 +30,8 @@ app.controller("productDetailController", function ($scope, $timeout, $routePara
     $scope.productDiscounts = [];
     $scope.listProductDiscounts = [];
     $scope.listProductReviews = [];
+    $scope.listAttributeValues = [];
+    $scope.listBookAuthor = [];
     $scope.getProductDetail = function () {
         ProductDetailService.getProductDetailById(productDetailId)
             .then(function (response) {
@@ -40,9 +42,12 @@ app.controller("productDetailController", function ($scope, $timeout, $routePara
                 $scope.relatedProducts = response.data.relatedProducts;
                 $scope.listProductDiscounts = response.data.listProductDiscounts;
                 $scope.listProductReviews = response.data.listProductReviews;
-                // console.log('Dữ liệu Discount trả về', $scope.productDiscounts)
-                // console.log('Dữ liệu Sản Phẩm đã được trả về:', $scope.productDetail);
-                // console.log('Dữ liệu Hình ảnh đã được trả về:', $scope.productImages);
+                $scope.listAttributeValues = response.data.listAttributeValues;
+                $scope.listBookAuthor = response.data.listBookAuthor;
+                console.log('Dữ liệu Discount trả về', response.data.listBookAuthor)
+                console.log('Dữ liệu Discount trả về', $scope.productDiscounts)
+                console.log('Dữ liệu Sản Phẩm đã được trả về:', $scope.productDetail);
+                console.log('Dữ liệu Hình ảnh đã được trả về:', $scope.productImages);
                 console.log('Dữ liệu SP TƯƠNG TỰ đã được trả về:', $scope.relatedProducts);
                 // console.log("Danh sách đánh giá sản phẩm: ", $scope.productReviews);
                 $scope.productReviews.sort(function (a, b) {
@@ -331,6 +336,16 @@ app.controller("productDetailController", function ($scope, $timeout, $routePara
         } else {
             return 0;
         }
+    }
+
+    $scope.getAuthorNameByProductId = function (id) {
+        var bookAuthor = null;
+        $scope.listBookAuthor.find(e => {
+            if (e.product.productId === id) {
+                bookAuthor = e;
+            }
+        });
+        return bookAuthor ? bookAuthor.author.authorName : '';
     }
 
 });

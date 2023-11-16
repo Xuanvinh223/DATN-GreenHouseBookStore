@@ -1,10 +1,11 @@
 package com.greenhouse.repository;
 
-import com.greenhouse.model.AttributeValue;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.greenhouse.model.Attribute_Value;
+import com.greenhouse.model.Product_Detail;
 
-@Repository
-public interface AttributeValueRepository extends JpaRepository<AttributeValue, Integer> {
-    // Các phương thức tùy chỉnh có thể được thêm vào đây nếu cần
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+public interface AttributeValueRepository extends JpaRepository<Attribute_Value, Integer> {
+    List<Attribute_Value> findByProductDetail_ProductDetailId(int productDetailId);
 }

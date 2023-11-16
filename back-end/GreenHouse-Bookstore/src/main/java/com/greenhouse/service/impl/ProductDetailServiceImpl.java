@@ -1,6 +1,7 @@
 package com.greenhouse.service.impl;
 
 import com.greenhouse.model.Product_Detail;
+import com.greenhouse.model.Products;
 import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.service.ProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,13 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     public List<Object[]> findAllInventoryList() {
         return productDetailRepository.findAllInventoryList();
     }
+
     public List<Product_Detail> findProductsByStatus() {
         return productDetailRepository.findProductsByStatus();
+    }
+
+    @Override
+    public List<Product_Detail> findByProduct(Products product) {
+        return productDetailRepository.findByProduct(product);
     }
 }

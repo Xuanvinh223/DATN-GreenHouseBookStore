@@ -1,6 +1,7 @@
 package com.greenhouse.service;
 
 import com.greenhouse.model.ProductPriceHistories;
+import com.greenhouse.model.Product_Detail;
 
 import java.util.List;
 
@@ -10,9 +11,11 @@ public interface ProductPriceHistoriesService {
 
     ProductPriceHistories findById(Integer priceHistoriesId);
 
-    void add(ProductPriceHistories entity);
+    ProductPriceHistories add(ProductPriceHistories entity);
 
-    void update(ProductPriceHistories entity);
+    ProductPriceHistories update(ProductPriceHistories entity);
 
     void delete(Integer priceHistoriesId);
+
+    ProductPriceHistories findByProductDetail(Product_Detail existingProductDetail);
 }

@@ -18,4 +18,7 @@ public class VoucherMappingProduct {
 
     @Column(name = "Product_Detail_Id", length = 30)
     private int productDetailId;
+
+    @Column(name = "Status")
+    private Boolean status;
 }

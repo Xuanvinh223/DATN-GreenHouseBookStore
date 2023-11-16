@@ -520,16 +520,16 @@ input.qty-carts {
     justify-content: flex-start;
 }
 
-#popup-loading-event-cart .gh-event-promo-title>.gh-event-promo-title-left>span:first-of-type,
-.gh_checkout_block .gh-event-promo-title>.gh-event-promo-title-left>span:first-of-type,
-.gh-event-promo>.gh-event-promo-title>.gh-event-promo-title-left>span:first-of-type {
+#popup-loading-event-cart .gh-event-promo-title > .gh-event-promo-title-left > span:first-of-type,
+.gh_checkout_block .gh-event-promo-title > .gh-event-promo-title-left > span:first-of-type,
+.gh-event-promo > .gh-event-promo-title > .gh-event-promo-title-left > span:first-of-type {
     padding-right: 8px;
 }
 
-#popup-loading-event-cart>.popup-loading-event-cart-detail .gh-event-promo-title>.gh-event-promo-title-center,
-#popup-loading-event-cart .gh-event-promo-title>.gh-event-promo-title-left>span:nth-of-type(2),
-.gh_checkout_block .gh-event-promo-title>span:nth-of-type(2),
-.gh-event-promo>.gh-event-promo-title>.gh-event-promo-title-left>span:nth-of-type(2) {
+#popup-loading-event-cart > .popup-loading-event-cart-detail .gh-event-promo-title > .gh-event-promo-title-center,
+#popup-loading-event-cart .gh-event-promo-title > .gh-event-promo-title-left > span:nth-of-type(2),
+.gh_checkout_block .gh-event-promo-title > span:nth-of-type(2),
+.gh-event-promo > .gh-event-promo-title > .gh-event-promo-title-left > span:nth-of-type(2) {
     text-transform: uppercase;
     color: #2F80ED;
     font-weight: 600;
@@ -978,7 +978,7 @@ button.btn-checkout {
 #popup-loading-event-cart {
     opacity: 1;
     position: fixed;
-    z-index: 99999;
+    z-index: 999;
     width: 550px;
     height: 80%;
     max-height: 750px;
@@ -1666,3 +1666,107 @@ svg:not(:root) {
     align-items: flex-start;
     justify-content: center;
 }
+
+.swal2-container.swal2-center > .swal2-popup {
+    z-index: 2000;
+}
+
+.block-total-cart .block-address .block-address-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.block-total-cart .block-address .block-address-header .title-address-checkout {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.block-total-cart .block-address .block-address-header .btn {
+    width: 200px;
+    padding: 0;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.block-total-cart .block-address .info-receiver {
+    font-size: 14px;
+}
+
+.block-total-cart .block-address .info-receiver .receiver-name-phone {
+    font-weight: 600;
+}
+
+/* CSS cho modal danh sách địa chỉ */
+#createAddressModal,
+#chooseAddressModal {
+    margin-top: 5%;
+}
+
+#chooseAddressModal .modal-body {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#chooseAddressModal .form-check {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+#chooseAddressModal .form-check:last-child {
+    border-bottom: none;
+}
+
+#chooseAddressModal .form-check label {
+    width: 100%;
+    cursor: pointer;
+    padding: 5px;
+}
+
+#chooseAddressModal .form-check label .info-receiver {
+    font-size: 16px;
+    position: relative;
+    padding-left: 60px;
+}
+
+#chooseAddressModal .form-check label .info-receiver::after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    display: block;
+    height: 2px;
+    width: 0%;
+    border-radius: 8px;
+    background-color: #16c007;
+    transition: all 0.35s ease-in-out;
+}
+
+#chooseAddressModal .form-check label .info-receiver .ship-icon {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(-200%);
+    transition: all 0.45s ease-in-out;
+}
+
+#chooseAddressModal .form-check label .info-receiver .ship-icon svg {
+    width: 48px;
+}
+
+#chooseAddressModal .form-check label .info-receiver .receiver-name-phone {
+    font-weight: bold;
+}
+
+#chooseAddressModal .form-check input {
+    margin-bottom: 5px;
+    display: none;
+}
+
+#chooseAddressModal .form-check input[type="radio"]:checked ~ .info-receiver::after {
+    width: 100%;
+}
+
+#chooseAddressModal .form-check input[type="radio"]:checked ~ .info-receiver .ship-icon {
+    transform: translateY(-50%) translateX(0%);
+}
+
