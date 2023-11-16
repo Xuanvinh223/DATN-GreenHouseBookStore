@@ -3905,5 +3905,16 @@ html.bx-ios.bx-ios-fix-frame-focus {
   height: auto;
   color: #c8c8c8;
 }
-
+.toolbar-status span strong a{
+  word-break: break-word;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+.toolbar-status span strong a:hover{
+  color: rgb(122, 189, 55)
+}
 /* END TÌM KIẾM */

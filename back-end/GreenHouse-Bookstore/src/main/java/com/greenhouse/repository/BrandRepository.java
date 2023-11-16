@@ -4,10 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
 import com.greenhouse.model.Brands;
-import com.greenhouse.model.Product_Detail;
 
 public interface BrandRepository extends JpaRepository<Brands, String> {
         @Query(value = "SELECT B.* FROM Brands B " +

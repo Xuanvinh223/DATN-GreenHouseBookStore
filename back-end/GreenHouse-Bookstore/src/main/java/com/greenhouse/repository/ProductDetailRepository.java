@@ -1,13 +1,13 @@
 package com.greenhouse.repository;
 
-import com.greenhouse.model.Product_Detail;
-import com.greenhouse.model.Products;
-
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import com.greenhouse.model.Product_Detail;
+import com.greenhouse.model.Products;
 
 public interface ProductDetailRepository extends JpaRepository<Product_Detail, Integer> {
 
@@ -65,7 +65,7 @@ public interface ProductDetailRepository extends JpaRepository<Product_Detail, I
             "INNER JOIN Product_Detail pd ON p.Product_Id = pd.Product_Id  \r\n" + //
             "LEFT JOIN Invoice_Details id ON pd.Product_Detail_Id = id.Product_Detail_Id  \r\n" + //
             "LEFT JOIN Product_Reviews pr ON pd.Product_Detail_Id = pr.Product_Detail_Id  \r\n" + //
-            "GROUP BY p.Product_Id, p.Product_Name, pd.Product_Detail_Id, pd.Quantity_In_Stock  \r\n" + //
+            "GROUP BY p.Product_Id, p.Product_Name, pd.Product_Detail_Id, pd.Quantity_In_Stock, pd.Width, pd.Height ,d.Length, pd.Image  \r\n" + //
             "HAVING SUM(id.Quantity) > 0  \r\n" + //
             "ORDER BY Total_Sold_Quantity DESC, Average_Rating DESC", nativeQuery = true)
     List<Object[]> getBestSellingProducts();
@@ -104,7 +104,7 @@ public interface ProductDetailRepository extends JpaRepository<Product_Detail, I
     @Query(value = "SELECT TOP 10   d.* " +
             " FROM Product_Detail d " +
             "JOIN Invoice_Details id ON d.Product_Detail_Id = id.Product_Detail_Id " +
-            " GROUP BY d.[Product_Id],d.Image,d.Price,d.Price_Discount,d.Product_Detail_Id,d.Quantity_In_Stock, "
+            " GROUP BY d.[Product_Id],d.Image,d.Price,d.Price_Discount,d.Product_Detail_Id,d.Quantity_In_Stock,d.Width,d.Height,d.Length,d.Image, "
             +
             " d.Weight ORDER BY SUM(id.Quantity) DESC; ", nativeQuery = true)
     List<Product_Detail> SellingProduct();
@@ -118,7 +118,7 @@ public interface ProductDetailRepository extends JpaRepository<Product_Detail, I
             "JOIN Invoice_Details AS id ON d.Product_Detail_Id = id.Product_Detail_Id " +
             "JOIN Search_History AS sh ON p.Product_Name LIKE CONCAT('%', sh.Keyword, '%') " +
             "GROUP BY " +
-            "d.[Product_Id],d.Image,d.Price,d.Price_Discount,d.Product_Detail_Id,d.Quantity_In_Stock,d.Weight " +
+            "d.[Product_Id],d.Image,d.Price,d.Price_Discount,d.Product_Detail_Id,d.Quantity_In_Stock,d.Weight,d.Width,d.Height,d.Length,d.Image " +
             "ORDER BY COUNT(id.Invoice_Detail_Id) DESC", nativeQuery = true)
     List<Product_Detail> findBySearchInvoice();
 }
