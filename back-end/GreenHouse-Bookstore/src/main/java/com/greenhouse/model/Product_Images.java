@@ -19,7 +19,7 @@ public class Product_Images implements Serializable {
     private Product_Detail productDetail;
 
     @Column(name = "Image", columnDefinition = "nvarchar(200)")
-    private String images;
+    private String image;
 
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

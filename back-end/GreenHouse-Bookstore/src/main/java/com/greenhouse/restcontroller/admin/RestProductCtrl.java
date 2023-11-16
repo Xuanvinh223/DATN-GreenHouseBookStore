@@ -137,7 +137,7 @@ public class RestProductCtrl {
             for (String cloudinaryUrl : cloudinaryUrls) {
                 // Tạo đối tượng Product_Images và lưu thông tin
                 Product_Images pdImages = new Product_Images();
-                pdImages.setImages(cloudinaryUrl); // Lưu URL thật của ảnh
+                pdImages.setImage(cloudinaryUrl); // Lưu URL thật của ảnh
                 pdImages.setProductDetail(productDetail);
 
                 // Lưu đối tượng Product_Images vào cơ sở dữ liệu
