@@ -408,7 +408,8 @@
                                                             doanh' }}
                                                         </button>
                                                         <!-- Trong HTML của bạn -->
-                                                        <button class="btn btn-delete"
+                                                        <button ng-show="roleName !== 'Nhân viên'"
+                                                                class="btn btn-delete"
                                                                 ng-click="deleteProduct(item.product.productId)">
                                                             <i class="fas fa-trash-alt"></i> Xóa
                                                         </button>

@@ -83,7 +83,7 @@ public class WebSecurityConfiguration {
                 .permitAll().and()
                 .authorizeHttpRequests()
                 .requestMatchers(securedApiEndpoints)
-                .hasRole("ADMIN")
+                .hasAnyRole("ADMIN", "STAFF")
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(securedApiEndpointsAfterLogin)

@@ -75,8 +75,10 @@
                         style="width: 50px; height: 50px; border-radius: 10%;">
                     </td>
                     <td>
-                      <a ng-click="editPublisherAndRedirect(publisher.publisherId)"><i class="fe fe-edit fe-16"></i></a>
-                      <a ng-click="deletePublisher(publisher.publisherId)"><i class="fe fe-trash fe-16"></i></a>
+                        <a ng-click="editPublisherAndRedirect(publisher.publisherId)"><i
+                                class="fe fe-edit fe-16"></i></a>
+                        <a ng-show="roleName !== 'Nhân viên'" ng-click="deletePublisher(publisher.publisherId)"><i
+                                class="fe fe-trash fe-16"></i></a>
                     </td>
                   </tr>
                 </tbody>

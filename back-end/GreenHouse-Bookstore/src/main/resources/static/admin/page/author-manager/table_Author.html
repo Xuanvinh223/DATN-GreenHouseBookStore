@@ -176,7 +176,7 @@
                             <td>
                                 <a ng-click="editAuthorAndRedirect(author.authorId)"><i
                                         class="fe fe-edit fe-16"></i></a>
-                                <a ng-click="deleteAuthor(author.authorId)">
+                                <a ng-show="roleName !== 'Nhân viên'" ng-click="deleteAuthor(author.authorId)">
                                     <i class="fe fe-trash-2 fe-16"></i>
                                 </a>
                             </td>

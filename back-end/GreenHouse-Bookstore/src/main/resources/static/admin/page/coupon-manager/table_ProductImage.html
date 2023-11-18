@@ -125,7 +125,8 @@
                             </td>
                             <td>
                                 <a ng-click="editProductImageAndRedirect(pI.id)"><i class="fe fe-edit fe-16"></i></a>
-                                <a ng-click="deleteProductImage(pI.id)"><i class="fe fe-trash-2 fe-16"></i></a>
+                                <a ng-show="roleName !== 'Nhân viên'" ng-click="deleteProductImage(pI.id)"><i
+                                        class="fe fe-trash-2 fe-16"></i></a>
                             </td>
                         </tr>
                         </tbody>

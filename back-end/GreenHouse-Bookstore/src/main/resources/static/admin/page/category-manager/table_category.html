@@ -123,7 +123,8 @@
                                     <td>
                                         <a ng-click="editCategoryAndRedirect(category.categoryId)"><i
                                                 class="fe fe-edit fe-16"></i></a>
-                                        <a ng-click="deleteCategory(category.categoryId)"><i
+                                        <a ng-show="roleName !== 'Nhân viên'"
+                                           ng-click="deleteCategory(category.categoryId)"><i
                                                 class="fe fe-trash-2 fe-16"></i></a>
                                     </td>
                                 </tr>

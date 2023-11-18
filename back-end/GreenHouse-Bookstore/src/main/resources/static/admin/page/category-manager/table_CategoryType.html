@@ -125,7 +125,8 @@
                             <td>
                                 <a ng-click="editCategoryTypeAndRedirect(categoryType.typeId)"><i
                                         class="fe fe-edit fe-16"></i></a>
-                                <a ng-click="deleteCategoryType(categoryType.typeId)"><i
+                                <a ng-show="roleName !== 'Nhân viên'"
+                                   ng-click="deleteCategoryType(categoryType.typeId)"><i
                                         class="fe fe-trash-2 fe-16"></i></a>
                             </td>
                         </tr>
