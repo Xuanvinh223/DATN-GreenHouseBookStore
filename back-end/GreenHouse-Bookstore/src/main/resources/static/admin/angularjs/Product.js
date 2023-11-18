@@ -1,4 +1,4 @@
-app.controller("ProductController", function ($scope, $http, $filter) {
+app.controller("ProductController", function ($scope, $location, $routeParams, $http, $filter) {
         $scope.$on("$routeChangeSuccess", function (event, current, previous) {
             $scope.page.setTitle(current.$$route.title || " Quản Lý Sản Phẩm");
         });
@@ -38,86 +38,43 @@ app.controller("ProductController", function ($scope, $http, $filter) {
 
         $scope.combinedData = [];
 
+        $scope.exportToExcel = function () {
+            // Chuẩn bị dữ liệu
+            var dataToExport = $scope.combinedData.map(function (item) {
+                // Chuẩn bị dữ liệu thuộc tính và giá trị thuộc tính
+                var attributes = item.attributeValues.map(function (attribute) {
+                    return attribute.attributeId.nameAtributes + ': ' + attribute.value;
+                });
 
-        $scope.onCategoryChange = function () {
-            // Lấy typeID của danh mục được chọn
-            var selectedCategoryId = $scope.productCategory.category.categoryId;
-
-            // Tìm danh mục tương ứng để lấy typeID
-            var selectedCategory = $scope.categories.find(function (category) {
-                return category.categoryId === selectedCategoryId;
+                return {
+                    'Mã Sản Phẩm': item.product.productId,
+                    'Tên Sản Phẩm': item.product.productName,
+                    'Giá': $filter('currency')(item.productDetail.price, 'VND'),
+                    'Thương Hiệu': item.product.brand.brandName,
+                    'Tác Giả': item.bookAuthor ? (item.bookAuthor.author ? item.bookAuthor.author.authorName : '') : '',
+                    'NXB': item.product.publisher.publisherName,
+                    'Danh Mục': item.productCategory.category.categoryName,
+                    'NSX': $filter('date')(item.product.manufactureDate, 'dd/MM/yyyy'),
+                    'Ảnh': item.productDetail.image,
+                    'Ngày Tạo': $filter('date')(item.product.createAt, 'dd/MM/yyyy HH:mm:ss'),
+                    'Trạng Thái': item.product.status ? 'Đang kinh doanh' : 'Ngừng kinh doanh',
+                    'Mô Tả': item.product.description,
+                    'Số Lượng': item.productDetail.quantityInStock,
+                    'Khối Lượng': item.productDetail.weight,
+                    'Thuộc tính': attributes.join(', '), // Gộp tất cả thuộc tính thành một chuỗi
+                };
             });
 
-            // Kiểm tra nếu typeID của danh mục được chọn là 1
-            if (selectedCategory && selectedCategory.typeId && selectedCategory.typeId.typeId === "1") {
-                $scope.showAuthorSelect = true; // Hiển thị form chọn tên tác giả
-            } else {
-                $scope.showAuthorSelect = false; // Ẩn form chọn tên tác giả
-            }
-        };
+            // Tạo workbook và worksheet
+            var wb = XLSX.utils.book_new();
+            var ws = XLSX.utils.json_to_sheet(dataToExport);
 
-        $scope.openAddAuthorModal = function () {
-            $scope.editingAuthor = {};
-        }
-        $scope.saveAuthor = function (authorId) {
-            var formData = new FormData();
-            var fileInput = document.getElementById("fileInput");
+            // Thêm worksheet vào workbook
+            XLSX.utils.book_append_sheet(wb, ws, 'Products');
 
-            if (fileInput && fileInput.files.length > 0) {
-                formData.append("image", fileInput.files[0]);
-            }
-
-            if (!$scope.isEditing) {
-                $scope.editingAuthor.authorId = generateRandomId();
-            }
-
-            formData.append(
-                "authorJson",
-                JSON.stringify({
-                    authorId: $scope.editingAuthor.authorId || "",
-                    authorName: $scope.editingAuthor.authorName || "",
-                    gender: $scope.editingAuthor.gender || false,
-                    nation: $scope.editingAuthor.nation || "",
-                })
-            );
-
-            var url = "http://localhost:8081/rest/authors";
-            $http
-                .post(url, formData, {
-                    transformRequest: angular.identity,
-                    headers: {
-                        "Content-Type": undefined,
-                    },
-                })
-                .then((resp) => {
-                    // Thêm tác giả vào danh sách hiện có
-                    $scope.authors.push({
-                        authorId: $scope.editingAuthor.authorId,
-                        authorName: $scope.editingAuthor.authorName,
-                        gender: $scope.editingAuthor.gender || false,
-                        nation: $scope.editingAuthor.nation || "",
-                        image: resp.data.image || "", // Sử dụng ảnh từ phản hồi của server (nếu có)
-                    });
-
-                    // Đặt tên tác giả mới thêm vào combobox
-                    $scope.bookAuthor.author = $scope.editingAuthor.authorName;
-
-                    Swal.fire({
-                        icon: "success",
-                        title: "Thành công",
-                        text: `Thêm tác giả ${authorId} thành công `,
-                    });
-                })
-                .catch((error) => {
-                    console.log(error.data);
-                    if (error.data) {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Thất bại",
-                            text: `Thêm tác giả ${authorId} thất bại `,
-                        });
-                    }
-                });
+            // Xuất file Excel
+            var fileName = 'products.xlsx';
+            XLSX.writeFile(wb, fileName);
         };
 
 
@@ -172,6 +129,7 @@ app.controller("ProductController", function ($scope, $http, $filter) {
                                                                             // Tạo mảng combinedData bằng cách kết hợp dữ liệu từ tất cả các URL
                                                                             $scope.combinedData = products.map(function (product) {
                                                                                 var matchingDetail = productDetails.find(function (detail) {
+
                                                                                     return detail.product.productId === product.productId;
                                                                                 });
 
@@ -187,16 +145,26 @@ app.controller("ProductController", function ($scope, $http, $filter) {
                                                                                     return discount.productDetail.product.productId === product.productId;
                                                                                 });
 
-                                                                                var matchingAttributeValues = attributeValues.filter(function (value) {
-                                                                                    return value.productDetail.productDetailId === matchingDetail.productDetailId;
-                                                                                });
-                                                                                var matchingImages = productImages.filter(function (image) {
-                                                                                    return image.productDetail.productDetailId === matchingDetail.productDetailId;
-                                                                                });
+                                                                                var matchingAttributeValues = [];
+                                                                                var matchingImages = [];
 
-                                                                                var matchingPriceHistories = productPriceHistories.find(function (price) {
-                                                                                    return price.productDetail.product.productId === product.productId;
-                                                                                });
+                                                                                if (matchingDetail && matchingDetail.productDetailId) {
+                                                                                    matchingAttributeValues = attributeValues.filter(function (value) {
+                                                                                        return value.productDetail && value.productDetail.productDetailId === matchingDetail.productDetailId;
+                                                                                    });
+
+                                                                                    matchingImages = productImages.filter(function (image) {
+                                                                                        return image.productDetail && image.productDetail.productDetailId === matchingDetail.productDetailId;
+                                                                                    });
+                                                                                }
+
+                                                                                var matchingPriceHistories = null;
+
+                                                                                if (matchingDetail && matchingDetail.productDetailId) {
+                                                                                    matchingPriceHistories = productPriceHistories.find(function (price) {
+                                                                                        return price.productDetail && price.productDetail.product.productId === product.productId;
+                                                                                    });
+                                                                                }
 
 
                                                                                 return {
@@ -434,6 +402,88 @@ app.controller("ProductController", function ($scope, $http, $filter) {
         };
 
 
+        $scope.onCategoryChange = function () {
+            // Lấy typeID của danh mục được chọn
+            var selectedCategoryId = $scope.productCategory.category.categoryId;
+
+            // Tìm danh mục tương ứng để lấy typeID
+            var selectedCategory = $scope.categories.find(function (category) {
+                return category.categoryId === selectedCategoryId;
+            });
+
+            // Kiểm tra nếu typeID của danh mục được chọn là 1
+            if (selectedCategory && selectedCategory.typeId && selectedCategory.typeId.typeId === "1") {
+                $scope.showAuthorSelect = true; // Hiển thị form chọn tên tác giả
+            } else {
+                $scope.showAuthorSelect = false; // Ẩn form chọn tên tác giả
+            }
+        };
+
+        $scope.openAddAuthorModal = function () {
+            $scope.editingAuthor = {};
+        }
+        $scope.saveAuthor = function (authorId) {
+            var formData = new FormData();
+            var fileInput = document.getElementById("fileInput");
+
+            if (fileInput && fileInput.files.length > 0) {
+                formData.append("image", fileInput.files[0]);
+            }
+
+            if (!$scope.isEditing) {
+                $scope.editingAuthor.authorId = generateRandomId();
+            }
+
+            formData.append(
+                "authorJson",
+                JSON.stringify({
+                    authorId: $scope.editingAuthor.authorId || "",
+                    authorName: $scope.editingAuthor.authorName || "",
+                    gender: $scope.editingAuthor.gender || false,
+                    nation: $scope.editingAuthor.nation || "",
+                })
+            );
+
+            var url = "http://localhost:8081/rest/authors";
+            $http
+                .post(url, formData, {
+                    transformRequest: angular.identity,
+                    headers: {
+                        "Content-Type": undefined,
+                    },
+                })
+                .then((resp) => {
+                    // Thêm tác giả vào danh sách hiện có
+                    $scope.authors.push({
+                        authorId: $scope.editingAuthor.authorId,
+                        authorName: $scope.editingAuthor.authorName,
+                        gender: $scope.editingAuthor.gender || false,
+                        nation: $scope.editingAuthor.nation || "",
+                        image: resp.data.image || "", // Sử dụng ảnh từ phản hồi của server (nếu có)
+                    });
+
+                    // Đặt tên tác giả mới thêm vào combobox
+                    $scope.bookAuthor.author = $scope.editingAuthor.authorName;
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Thành công",
+                        text: `Thêm tác giả ${authorId} thành công `,
+                    });
+                })
+                .catch((error) => {
+                    console.log(error.data);
+                    if (error.data) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Thất bại",
+                            text: `Thêm tác giả ${authorId} thất bại `,
+                        });
+                    }
+                });
+        };
+
+
         $scope.calculateDiscountedPrice = function (item) {
             // Kiểm tra nếu ngày kết thúc lớn hơn ngày hiện tại
             if (new Date(item.productDiscount.discount.endDate) > new Date()) {
@@ -591,7 +641,6 @@ app.controller("ProductController", function ($scope, $http, $filter) {
             }
 
             if (!$scope.productCategory) {
-                $scope.errors.categoryName = 'Vui lòng chọn danh mục.';
             }
 
             if (!$scope.product.publisher) {
@@ -643,11 +692,7 @@ app.controller("ProductController", function ($scope, $http, $filter) {
             $scope.errors[brandName] = '';
 
         };
-        $scope.hideError = function (categoryName) {
-            // Ẩn thông báo lỗi cho trường fieldName
-            $scope.errors[categoryName] = '';
 
-        };
         $scope.hideError = function (publisherName) {
             // Ẩn thông báo lỗi cho trường fieldName
             $scope.errors[publisherName] = '';
@@ -754,7 +799,7 @@ app.controller("ProductController", function ($scope, $http, $filter) {
                 var file = files[i];
                 var imageUrl = URL.createObjectURL(file);
                 $scope.$apply(function () {
-                    $scope.selectedImages.push({file: file, images: imageUrl});
+                    $scope.selectedImages.push({file: file, image: imageUrl});
                 });
             }
             console.log(files);
@@ -807,7 +852,7 @@ app.controller("ProductController", function ($scope, $http, $filter) {
                 var file = files[i];
                 var imageUrl = URL.createObjectURL(file);
                 $scope.$apply(function () {
-                    $scope.editingProduct.productImages.push({file: file, images: imageUrl});
+                    $scope.editingProduct.productImages.push({file: file, image: imageUrl});
                 });
             }
         };
