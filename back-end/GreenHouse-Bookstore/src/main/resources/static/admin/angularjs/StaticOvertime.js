@@ -364,8 +364,8 @@ function StaticOvertime($scope, $http, $filter) {
                 bodyTable
             ],
             styles: {
-                header: { fontSize: 16, bold: true, alignment: 'center' },
-                default: { fontSize: 14 }
+                header: {fontSize: 16, bold: true, alignment: 'center'},
+                default: {fontSize: 14}
             }
         };
 
@@ -373,13 +373,13 @@ function StaticOvertime($scope, $http, $filter) {
     };
 
     // Xử lý sự kiện bấm nút "Hiện/Ẩn doanh thu"
-    const toggleButton = document.getElementById("toggleButtonText");
-    const bodyProfitCollapse = document.getElementById("bodyProfitCollapse");
-    toggleButton.addEventListener("click", function () {
-        if (bodyProfitCollapse.classList.contains("show")) {
-            toggleButton.textContent = "Hiện doanh thu";
-        } else {
-            toggleButton.textContent = "Ẩn doanh thu";
-        }
-    });
+    // const toggleButton = document.getElementById("toggleButtonText");
+    // const bodyProfitCollapse = document.getElementById("bodyProfitCollapse");
+    // toggleButton.addEventListener("click", function () {
+    //     if (bodyProfitCollapse.classList.contains("show")) {
+    //         toggleButton.textContent = "Hiện doanh thu";
+    //     } else {
+    //         toggleButton.textContent = "Ẩn doanh thu";
+    //     }
+    // });
 }

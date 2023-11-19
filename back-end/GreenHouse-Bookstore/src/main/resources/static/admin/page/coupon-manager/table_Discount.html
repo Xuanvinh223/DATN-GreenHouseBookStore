@@ -187,7 +187,7 @@
                                         <a ng-click="editDiscountAndRedirect(dis.discountId)">
                                             <i class="fe fe-edit fe-16"></i>
                                         </a>
-                                        <a ng-click="deleteDiscount(dis.discountId)">
+                                        <a ng-show="roleName !== 'Nhân viên'" ng-click="deleteDiscount(dis.discountId)">
                                             <i class="fe fe-trash-2 fe-16"></i>
                                         </a>
                                     </td>

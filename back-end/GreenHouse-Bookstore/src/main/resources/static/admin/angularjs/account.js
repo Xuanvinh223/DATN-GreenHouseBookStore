@@ -36,13 +36,14 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
     $scope.searchData = function () {
         // Lọc danh sách gốc bằng searchText
         $scope.accounts = $scope.originalaccounts.filter(function (account) {
+            console.log(account)
             // Thực hiện tìm kiếm trong các thuộc tính cần thiết của item
             if (account.username) {
                 return (
-                    account.username.toString().includes($scope.searchText) ||
-                    account.fullname.toLowerCase().includes($scope.searchText.toLowerCase()) ||
-                    account.email.toString().includes($scope.searchText) ||
-                    account.phone.toString().includes($scope.searchText)
+                    (account.username?.toString() ?? "").includes($scope.searchText) ||
+                    (account.fullname?.toLowerCase() ?? "").includes($scope.searchText.toLowerCase()) ||
+                    (account.email?.toString() ?? "").includes($scope.searchText) ||
+                    (account.phone?.toString() ?? "").includes($scope.searchText)
                 );
             }
             return false; // Bỏ qua mục này nếu fullname là null hoặc undefined

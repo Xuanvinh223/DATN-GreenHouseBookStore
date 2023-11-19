@@ -7,7 +7,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.0.6</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.greenhouse</groupId>
     <artifactId>GreenHouse-Bookstore</artifactId>
@@ -110,13 +110,6 @@
             <version>1.5</version> <!-- Thay thế 1.4 bằng phiên bản muốn sử dụng -->
         </dependency>
 
-        <!-- Các dependencies khác của dự án -->
-        <dependency>
-            <groupId>com.cloudinary</groupId>
-            <artifactId>cloudinary-http44</artifactId>
-            <version>1.35.0</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -130,11 +123,19 @@
         </dependency>
         <!-- Commons FileUpload -->
         <!-- Các dependencies khác của dự án -->
+
+
         <dependency>
-            <groupId>com.cloudinary</groupId>
-            <artifactId>cloudinary-http44</artifactId>
-            <version>1.35.0</version>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.4</version> <!-- hoặc phiên bản mới nhất -->
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.4</version> <!-- hoặc phiên bản mới nhất -->
+        </dependency>
+
         <!-- Thư viện Spring Boot Starter Thymeleaf cho xử lý template Thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -173,7 +174,7 @@
         <!-- <dependency>
             <groupId>com.corundumstudio.socketio</groupId>
             <artifactId>netty-socketio</artifactId>
-            <version>1.7.17</version> 
+            <version>1.7.17</version>
         </dependency> -->
 
     </dependencies>

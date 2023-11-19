@@ -24,7 +24,7 @@ function headerController($scope, jwtHelper, AuthService) {
         });
 
         $scope.isAdmin = $scope.roles.some(function (role) {
-            return role.authority === "ROLE_ADMIN";
+            return role.authority === "ROLE_ADMIN" || role.authority === "ROLE_STAFF";
         });
     }
 

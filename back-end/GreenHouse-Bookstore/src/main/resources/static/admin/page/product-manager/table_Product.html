@@ -13,6 +13,11 @@
                         {{ showActiveProducts ? 'Danh sách đang kinh doanh' : 'Danh sách ngừng kinh doanh' }}
                     </button>
 
+                    <button type="button" ng-click="exportToExcel()" class="btn btn-success">
+                        <i class="fa fa-file-excel"></i>
+                        xuất file excel
+                    </button>
+
 
                     <a type="button" class="btn btn-success" href="#!/product-form">
                         <i class="fa fa-plus"> </i> Thêm sản phẩm
@@ -77,10 +82,9 @@
                                                                     <div class="image-container"
                                                                          ng-repeat="image in item.productImages track by $index">
                                                                         <br>
-                                                                        <img class="object-fit"
-                                                                             ng-src="{{image.images}}"
+                                                                        <img class="object-fit" ng-src="{{image.image}}"
                                                                              style="max-height: 250px; width: 100%; border-radius: 5%;"
-                                                                             ng-click="showImage(image.images, item)">
+                                                                             ng-click="showImage(image.image, item)">
 
                                                                     </div>
                                                                 </div>
@@ -203,48 +207,7 @@
                                         first-text="<<"
                                         last-text=">>">
                                     </ul>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="addDescriptionModal" tabindex="-1" role="dialog"
-                                         aria-labelledby="addDescriptionModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-xl" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="addDescriptionModalLabel">
-                                                        Mô tả chi tiết
-                                                    </h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-row">
-                                                                    <div class="form-group">
-                                                                        <p>{{editingProduct.product.description}}</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Đóng
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                             </div>
                         </div>
                     </div>
@@ -348,9 +311,9 @@
                                                             <div class="image-container"
                                                                  ng-repeat="image in item.productImages track by $index">
                                                                 <br>
-                                                                <img class="object-fit" ng-src="{{image.images}}"
+                                                                <img class="object-fit" ng-src="{{image.image}}"
                                                                      style="max-height: 250px; width: 100%; border-radius: 5%;"
-                                                                     ng-click="showImage(image.images, item)">
+                                                                     ng-click="showImage(image.image, item)">
 
                                                             </div>
                                                         </div>
@@ -384,8 +347,9 @@
                                                                 {{ item.product.description.slice(0, 300)
                                                                 }} ... <a type="button" class="btn btn-seemore"
                                                                           data-toggle="modal"
-                                                                          data-target="#addDescriptionModal"> Xem
-                                                                thêm </a>
+                                                                          data-target="#addDescriptionModal">
+                                                                Xem thêm
+                                                            </a>
                                                             </p>
                                                             <div class="row">
                                                                 <div class="col-md-6">
@@ -444,7 +408,8 @@
                                                             doanh' }}
                                                         </button>
                                                         <!-- Trong HTML của bạn -->
-                                                        <button class="btn btn-delete"
+                                                        <button ng-show="roleName !== 'Nhân viên'"
+                                                                class="btn btn-delete"
                                                                 ng-click="deleteProduct(item.product.productId)">
                                                             <i class="fas fa-trash-alt"></i> Xóa
                                                         </button>
@@ -486,9 +451,9 @@
                             </ul>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="addDescriptionModal" tabindex="-1"
+                            <div class="modal fade" id="addDescriptionModal" tabindex="-1" role="dialog"
                                  aria-labelledby="addDescriptionModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-xl">
+                                <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="addDescriptionModalLabel">
@@ -694,7 +659,7 @@
                                                                 <div class="row col-12">
                                                                     <label class="custom-file-upload">
                                                                         <input type="file" hidden accept="image/*"
-                                                                               multiple name="images"
+                                                                               multiple name="image"
                                                                                onchange="angular.element(this).scope().onEditImageSelect(event)">
                                                                         <div class="upload-icon">
                                                                             <i class='bx bx-camera'></i>
@@ -708,7 +673,7 @@
                                                                         <label for="" class="detail-img-label">
                                                                             <div class="image-container">
                                                                                 <img
-                                                                                        ng-src="{{image ? image.images : 'https://res.cloudinary.com/dmbh3sz8s/image/upload/v1698734857/authors/author_1698734855371.jpg'}}"
+                                                                                        ng-src="{{image ? image.image : 'https://res.cloudinary.com/dmbh3sz8s/image/upload/v1698734857/authors/author_1698734855371.jpg'}}"
                                                                                         class="img-fluid detail-img">
                                                                                 <button type="button" class="delete-btn"
                                                                                         ng-click="deleteImageInEdit($index)">
@@ -931,6 +896,7 @@
         content: "\f33a";
     }
 </style>
+
 
 
 <style>

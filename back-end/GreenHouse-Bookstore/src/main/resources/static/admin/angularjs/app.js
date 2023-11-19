@@ -133,11 +133,31 @@ app.config(function ($routeProvider) {
         })
 })
 
-app.run(['$rootScope', function ($rootScope, jwtHelper) {
+app.run(['$rootScope', 'jwtHelper', function ($rootScope, jwtHelper) {
     $rootScope.page = {
         setTitle: function (title) {
-            this.title = 'GreenHouse |' + title;
+            this.title = 'GreenHouse | ' + title;
         }
+    };
+
+    var token = localStorage.getItem("token");
+
+    if (!token) {
+        console.error('Token not found');
+        return;
+    }
+
+    try {
+        // Giải mã token và lấy thông tin từ payload
+        var decodedToken = jwtHelper.decodeToken(token);
+        // Lấy danh sách vai trò từ decoded token
+        var roles = decodedToken.roles;
+        if (roles && Array.isArray(roles)) {
+            var isAdmin = roles.some(role => role.authority === 'ROLE_ADMIN');
+            $rootScope.roleName = isAdmin ? "Quản lý" : "Nhân viên";
+        }
+    } catch (error) {
+        console.error('Error decoding token:', error.message);
     }
 }]);
 

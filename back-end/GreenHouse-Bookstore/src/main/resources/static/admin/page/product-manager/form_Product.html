@@ -119,8 +119,6 @@
                                                 ng-options="category as category.categoryName for category in categories track by category.categoryId">
                                             <option value="">Chọn tên danh mục</option>
                                         </select>
-                                        <small class="text-danger" ng-show="errors.categoryName">{{ errors.categoryName
-                                            }}</small>
                                     </div>
 
                                     <div class="col-md-4 mb-3" ng-show="showAuthorSelect">
@@ -241,7 +239,7 @@
                                     <label for="images">Hình ảnh bổ sung:</label>
                                     <div class="row col-12">
                                         <label class="custom-file-upload">
-                                            <input type="file" hidden accept="image/*" multiple name="images"
+                                            <input type="file" hidden accept="image/*" multiple name="image"
                                                    onchange="angular.element(this).scope().onImageSelect(event)">
                                             <div class="upload-icon">
                                                 <i class='bx bx-camera'></i>
@@ -252,7 +250,7 @@
                                             <label for="" class="detail-img-label">
                                                 <div class="image-container">
                                                     <img
-                                                            ng-src="{{selectedImages[i] ? selectedImages[i].images : 'https://res.cloudinary.com/dmbh3sz8s/image/upload/v1698734857/authors/author_1698734855371.jpg'}}"
+                                                            ng-src="{{selectedImages[i] ? selectedImages[i].image : 'https://res.cloudinary.com/dmbh3sz8s/image/upload/v1698734857/authors/author_1698734855371.jpg'}}"
                                                             class="img-fluid detail-img">
                                                     <button type="button" class="delete-btn" ng-click="deleteImage(i)"
                                                             ng-if="selectedImages[i]">

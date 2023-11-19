@@ -47,7 +47,7 @@
                     </td>
                     <td>
                         <a ng-click="editBrandAndRedirect(brand.brandId)"><i class="fe fe-edit fe-16"></i></a>
-                        <a ng-click="deleteBrand(brand.brandId)">
+                        <a ng-show="roleName !== 'Nhân viên'" ng-click="deleteBrand(brand.brandId)">
                             <i class="fe fe-trash-2 fe-16"></i>
                     </td>
                 </tr>

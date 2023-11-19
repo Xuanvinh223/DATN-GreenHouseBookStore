@@ -21,5 +21,6 @@ public class CategoryTypes implements Serializable {
 
     @Column(name = "Parent_Categories_Type")
     private String parentCategoriesType;
+
     // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

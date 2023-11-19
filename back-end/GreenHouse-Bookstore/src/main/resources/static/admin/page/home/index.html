@@ -93,9 +93,6 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="row align-items-center mb-2">
-                        <div class="col">
-                            <h2 class="h5 page-title">Welcome!</h2>
-                        </div>
                         <div class="col-auto">
                             <form class="form-inline">
                                 <div class="form-group d-none d-lg-inline">
@@ -113,17 +110,31 @@
                             </form>
                         </div>
                     </div>
-                    <div class="mb-2 align-items-center">
-                        <div class="card shadow mb-4" style="height: 500px;">
-                            <div class="card-body">
-                                <div class="row mt-1 align-items-center">
-                                    <div class="col-12 col-lg-12 text-left pl-4">
-                                        <h1 class="mb-1  text-center mt-5">BIỂU ĐỒ DOANH THU</h1>
-                                    </div>
-                                </div> <!-- .card-body -->
-                            </div> <!-- .card -->
-                        </div>
+                    <div class="col-12" ng-controller="StaticOvertime">
+                        <div class="row">
+                            <div class="col-md-12 mb-4">
+                                <div class="card shadow">
+                                    <div class="card-header">
 
+                                        <div class="dropdown float-right">
+                                            <select ng-model="selectedYear" ng-change="updateSelectedYear()"
+                                                    class="btn btn-sm btn-link text-muted p-0" id="rangeDropdown">
+                                                <option value="{{selectedYear}}">{{selectedYear}}</option>
+                                                <option class="dropdown-item small text-muted"
+                                                        ng-repeat="year in years track by $index"
+                                                        ng-if="year[0] != selectedYear">{{year[0]}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="monthlyRevenueChart" width="300" height="100"></canvas>
+                                        <center><strong class="card-title mb-0">Biều đồ doanh thu trong năm
+                                            {{selectedYear}}</strong></center>
+                                    </div> <!-- /.card-body -->
+                                </div> <!-- /.card -->
+                            </div> <!-- /. col -->
+                        </div> <!-- end section -->
                     </div> <!-- .col-12 -->
                 </div> <!-- .row -->
 
