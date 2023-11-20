@@ -48,7 +48,8 @@
                                         <span>Hiển thị {{ calculateRange() }}</span>
                                     </div>
                                     <div class="toolbar-status" ng-if="keyword">
-                                        <span>Kết quả tìm kiếm với: <strong><a href="">{{keyword}}</a> ({{listProductDetail.length}} kết quả)</strong>
+                                        <span>Kết quả tìm kiếm với: <strong><a href="">{{keyword}}</a>
+                                                ({{listProductDetail.length}} kết quả)</strong>
                                         </span>
                                     </div>
                                 </div>
@@ -59,7 +60,7 @@
                                             <div class="sorting-selection">
                                                 <div class="custom-select">
                                                     <select class="form-control" ng-model="sortBy"
-                                                            ng-change="onSortChange()">
+                                                        ng-change="onSortChange()">
                                                         <option th:text="#{lo.mn.moinhat}" value="newest">Mới nhất
                                                         </option>
                                                         <option th:text="#{lo.mn.banchay}" value="bestSelling">Bán chạy
@@ -80,12 +81,14 @@
                                         <div class="sorting-selection">
                                             <div class="custom-select">
                                                 <select class="form-control " ng-model="itemsPerPage"
-                                                        id="itemsPerPageSelect" ng-change="changeItemsPerPage()"
-                                                        ng-init="itemsPerPage = '6'">
+                                                    id="itemsPerPageSelect" ng-change="changeItemsPerPage()"
+                                                    ng-init="itemsPerPage = '12'">
                                                     <option th:text="#{lo.mn.six }" value="6">6 sản phẩm</option>
-                                                    <option th:text="#{lo.mn.ten}" value="10">10 sản phẩm</option>
-                                                    <option th:text="#{lo.mn.fif}" value="15">15 sản phẩm</option>
-                                                    <option th:text="#{lo.mn.tew}" value="25">25 sản phẩm</option>
+                                                    <option th:text="#{lo.mn.twelve}" value="12">12 sản phẩm</option>
+                                                    <option th:text="#{lo.mn.twenty-four}" value="24">24 sản phẩm
+                                                    </option>
+                                                    <option th:text="#{lo.mn.forty-eight}" value="48">48 sản phẩm
+                                                    </option>
                                                 </select>
                                                 <i class='bx bx-chevron-down'></i>
                                             </div>
@@ -109,48 +112,70 @@
                                                 <i class="fas fa-grip-vertical"></i><i class="fas fa-grip-vertical"></i>
                                             </span>
                                         </a>
-                                        <a href="#" class="sorting-btn" data-target="list "><i
+                                        <a href="#" class="sorting-btn" data-target="list"><i
                                                 class="fas fa-list"></i></a>
                                     </div>
                                 </div>
-                                <div class="col-xl-5 col-md-4 col-sm-6  mt--10 mt-sm--0">
-                                    <span class="toolbar-status">
-                                        Hiển thị 1 đến 9 trong số 14
-                                    </span>
-                                </div>
-                                <div class="col-lg-2 col-md-2 col-sm-6  mt--10 mt-md--0">
-                                    <div class="sorting-selection">
-                                        <span>trang:</span>
-                                        <select class="form-control nice-select sort-select">
-                                            <option value="" selected="selected">3</option>
-                                            <option value="">9</option>
-                                            <option value="">5</option>
-                                            <option value="">10</option>
-                                            <option value="">12</option>
-                                        </select>
+                                <div class="col-lg-5 col-md-4 col-sm-6  mt--10 mt-sm--0">
+                                    <div class="toolbar-status" ng-if="!keyword">
+                                        <span>Hiển thị {{ calculateRange() }}</span>
+                                    </div>
+                                    <div class="toolbar-status" ng-if="keyword">
+                                        <span>Kết quả tìm kiếm với: <strong><a href="">{{keyword}}</a>
+                                                ({{listProductDetail.length}} kết quả)</strong>
+                                        </span>
                                     </div>
                                 </div>
-                                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
-                                    <div class="sorting-selection">
-                                        <span>Sắp xếp:</span>
-                                        <select class="form-control nice-select sort-select mr-0">
-                                            <option value="" selected="selected">mới nhất</option>
-                                            <option value="">Bán chạy nhất</option>
-                                            <option value="">Giá thấp nhất</option>
-                                            <option value="">Giá cao nhất</option>
-                                            <option value="">nổi bật tuần</option>
-                                            <option value="">nổi bật tháng</option>
-                                            <option value="">nổi bật năm</option>
+                                <div class="col-lg-5 col-md-6 col-sm-6 mt--10 mt-md--0">
+                                    <div class="d-flex justify-content-end">
+                                        <div class="sorting-selection">
+                                            <span th:text="#{lo.mn.sapxep}">Sắp xếp:</span>
+                                            <div class="sorting-selection">
+                                                <div class="custom-select">
+                                                    <select class="form-control" ng-model="sortBy"
+                                                        ng-change="onSortChange()">
+                                                        <option th:text="#{lo.mn.moinhat}" value="newest">Mới nhất
+                                                        </option>
+                                                        <option th:text="#{lo.mn.banchay}" value="bestSelling">Bán chạy
+                                                            nhất
+                                                        </option>
+                                                        <option th:text="#{lo.mn.thapnhat}" value="lowestPrice">Giá thấp
+                                                            nhất
+                                                        </option>
+                                                        <option th:text="#{lo.mn.caonhat}" value="highestPrice">Giá cao
+                                                            nhất
+                                                        </option>
+                                                    </select>
+                                                    <i class='bx bx-chevron-down'></i>
+                                                </div>
+                                            </div>
 
-                                        </select>
+                                        </div>
+                                        <div class="sorting-selection">
+                                            <div class="custom-select">
+                                                <select class="form-control " ng-model="itemsPerPage"
+                                                    id="itemsPerPageSelect" ng-change="changeItemsPerPage()"
+                                                    ng-init="itemsPerPage = '12'">
+                                                    <option th:text="#{lo.mn.six }" value="6">6 sản phẩm</option>
+                                                    <option th:text="#{lo.mn.twelve}" value="12">12 sản phẩm</option>
+                                                    <option th:text="#{lo.mn.twenty-four}" value="24">24 sản phẩm
+                                                    </option>
+                                                    <option th:text="#{lo.mn.forty-eight}" value="48">48 sản phẩm
+                                                    </option>
+                                                </select>
+                                                <i class='bx bx-chevron-down'></i>
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="shop-product-wrap grid with-pagination row space-db--30 shop-border">
                             <div class="col-lg-4 col-sm-6"
-                                 dir-paginate="productDetail in listProductDetail | itemsPerPage: itemsPerPage"
-                                 current-page="currentPage">
+                                dir-paginate="productDetail in listProductDetail | itemsPerPage: itemsPerPage"
+                                current-page="currentPage">
                                 <div class="product-card">
                                     <div class="product-grid-content">
                                         <div class="product-card--body">
@@ -159,17 +184,17 @@
                                                     <img src="{{productDetail.image}}" alt=""></a>
                                                 <div class="hover-contents">
                                                     <a ng-click="getProductDetail(productDetail.productDetailId)"
-                                                       class="hover-image">
+                                                        class="hover-image">
                                                         <img src="{{productDetail.image}}" alt="">
                                                     </a>
                                                     <div class="hover-btns">
                                                         <a href="" class="single-btn"
-                                                           ng-click="addToCart(productDetail.productDetailId, 1)">
+                                                            ng-click="addToCart(productDetail.productDetailId, 1)">
                                                             <i class="fas fa-shopping-basket"></i>
                                                         </a>
 
                                                         <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
-                                                           ng-click="quickView(productDetail)" class="single-btn">
+                                                            ng-click="quickView(productDetail)" class="single-btn">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
                                                     </div>
@@ -191,7 +216,7 @@
                                                     productDetail.priceDiscount : productDetail.price | number:'0'}}
                                                 </span>
                                                 <del class="price-old"
-                                                     ng-if="productDetail.price - productDetail.priceDiscount > 0">
+                                                    ng-if="productDetail.price - productDetail.priceDiscount > 0">
                                                     {{productDetail.price
                                                     |
                                                     number:'0'}}
@@ -272,7 +297,7 @@
                             <div class="col-md-12">
                                 <div class="product__pagination">
                                     <dir-pagination-controls max-size="6" direction-links="true" boundary-links="true"
-                                                             auto-hide="false"></dir-pagination-controls>
+                                        auto-hide="false"></dir-pagination-controls>
                                 </div>
                             </div>
                         </div>
@@ -332,8 +357,8 @@
                                                         <div class="rating-block">
                                                             <div class="rating-star">
                                                                 <span class="fas fa-star"
-                                                                      ng-class="{star_on: star <= getStarRatingByProductId(quickViewProduct.productDetailId)}"
-                                                                      ng-repeat="star in numStar track by $index"></span>
+                                                                    ng-class="{star_on: star <= getStarRatingByProductId(quickViewProduct.productDetailId)}"
+                                                                    ng-repeat="star in numStar track by $index"></span>
                                                             </div>
                                                         </div>
                                                         <div class="review-widget">
@@ -385,18 +410,26 @@
                                 <ul class="sidebar-menu--shop">
                                     <li class="sidebar-menu-01">
                                         <a ng-class="{active: !selectedCategoryId}"
-                                           ng-click="selectCategory(null, 'Tất cả sản phẩm')">Tất cả sản phẩm</a>
+                                            ng-click="selectCategory(null, 'Tất cả sản phẩm')">Tất cả sản phẩm</a>
                                     </li>
-                                    <li ng-repeat="cateType in listCategoryTypes track by $index">
+                                    <li ng-repeat="cateType in listCategoryTypes  | limitTo:numViewNormalCategories track by $index">
                                         <a href="#" ng-click="toggleCollapse(cateType.typeId)">{{cateType.typeName}}</a>
                                         <ul class="inner-cat-items" ng-show="isCollapsed(cateType.typeId)"
                                             ng-repeat="cate in getListCateByCateTypeId(cateType.typeId) track by $index">
                                             <li>
                                                 <a ng-class="{active: selectedCategoryId === cate.categoryId}"
-                                                   ng-click="selectCategory(cate.categoryId, cate.categoryName)">{{cate.categoryName}}</a>
+                                                    ng-click="selectCategory(cate.categoryId, cate.categoryName)">{{cate.categoryName}}</a>
                                             </li>
                                         </ul>
                                     </li>
+                                    <div class="m-more-less" id="m-more-less-left_category">
+                                        <a class="m-show-less-action" ng-show="numViewNormalCategories == 5"
+                                            ng-click="viewMoreNormalCategories()">Xem
+                                            thêm<i class='bx bxs-chevron-down'></i></a>
+                                        <a class="m-show-more-action" ng-show="numViewNormalCategories != 5"
+                                            ng-click="viewLessNormalCategories()">Rút gọn<i
+                                                class='bx bxs-chevron-up'></i></a>
+                                    </div>
                                 </ul>
                             </div>
                             <!-- Brand -->
@@ -404,13 +437,21 @@
                                 <h3 class="sidebar-title">Thương Hiệu</h3>
                                 <ul class="sidebar-menu--shop menu-type-2">
                                     <div class="filter-box">
-                                        <div class="option-checkbox" ng-repeat="brand in listBrands">
+                                        <div class="option-checkbox"
+                                            ng-repeat="brand in listBrands | limitTo: numViewNormalBrands">
                                             <input type="checkbox" id="{{brand.brandId}}" name="{{brand.brandName}}"
-                                                   value="{{brand.brandId}}"
-                                                   ng-checked="selectedBrand === brand.brandId"
-                                                   ng-click="toggleBrandSelection(brand.brandId)">
+                                                value="{{brand.brandId}}" ng-checked="selectedBrand === brand.brandId"
+                                                ng-click="toggleBrandSelection(brand.brandId)">
                                             <label for="{{brand.brandId}}">{{brand.brandName}}</label><br>
                                         </div>
+                                    </div>
+                                    <div class="m-more-less" id="m-more-less-left_brands">
+                                        <a class="m-show-less-action" ng-show="numViewNormalBrands == 5"
+                                            ng-click="viewMoreNormalBrands()">Xem
+                                            thêm<i class='bx bxs-chevron-down'></i></a>
+                                        <a class="m-show-more-action" ng-show="numViewNormalBrands != 5"
+                                            ng-click="viewLessNormalBrands()">Rút gọn<i
+                                                class='bx bxs-chevron-up'></i></a>
                                     </div>
                                 </ul>
                             </div>
@@ -422,31 +463,31 @@
                                     <div class="filter-box">
                                         <div class="option-checkbox">
                                             <input type="checkbox" id="gia1" name="gia1" ng-model="priceSelection.gia1"
-                                                   ng-click="togglePriceSelection('gia1')">
+                                                ng-click="togglePriceSelection('gia1')">
                                             <label for="gia1">0đ - 100.000đ</label><br>
                                         </div>
 
                                         <div class="option-checkbox">
                                             <input type="checkbox" id="gia2" name="gia2" ng-model="priceSelection.gia2"
-                                                   ng-click="togglePriceSelection('gia2')">
+                                                ng-click="togglePriceSelection('gia2')">
                                             <label for="gia2">100.000đ - 200.000đ</label><br>
                                         </div>
 
                                         <div class="option-checkbox">
                                             <input type="checkbox" id="gia3" name="gia3" ng-model="priceSelection.gia3"
-                                                   ng-click="togglePriceSelection('gia3')">
+                                                ng-click="togglePriceSelection('gia3')">
                                             <label for="gia3">200.000đ - 500.000đ</label><br>
                                         </div>
 
                                         <div class="option-checkbox">
                                             <input type="checkbox" id="gia4" name="gia4" ng-model="priceSelection.gia4"
-                                                   ng-click="togglePriceSelection('gia4')">
+                                                ng-click="togglePriceSelection('gia4')">
                                             <label for="gia4">500.000đ - 700.000đ</label><br>
                                         </div>
 
                                         <div class="option-checkbox">
                                             <input type="checkbox" id="gia5" name="gia5" ng-model="priceSelection.gia5"
-                                                   ng-click="togglePriceSelection('gia5')">
+                                                ng-click="togglePriceSelection('gia5')">
                                             <label for="gia5">700.000đ - Trở lên</label><br>
                                         </div>
                                     </div>

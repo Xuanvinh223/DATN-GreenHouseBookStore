@@ -26,7 +26,7 @@ function productPageController($http, $scope, productPageAPI) {
     $scope.currentPage = 1;
     $scope.totalItems = 0;
     $scope.maxSize = 5;
-    $scope.itemsPerPage = 6;
+    $scope.itemsPerPage = 12;
     // pagination - END
 
     // DECLARE SCOPE FOR UI - END
@@ -60,15 +60,15 @@ function productPageController($http, $scope, productPageAPI) {
         for (var priceRange in $scope.priceSelection) {
             if ($scope.priceSelection[priceRange]) {
                 if (priceRange === 'gia1') {
-                    selectedPriceRanges.push({min: 0, max: 100000});
+                    selectedPriceRanges.push({ min: 0, max: 100000 });
                 } else if (priceRange === 'gia2') {
-                    selectedPriceRanges.push({min: 100000, max: 200000});
+                    selectedPriceRanges.push({ min: 100000, max: 200000 });
                 } else if (priceRange === 'gia3') {
-                    selectedPriceRanges.push({min: 200000, max: 500000});
+                    selectedPriceRanges.push({ min: 200000, max: 500000 });
                 } else if (priceRange === 'gia4') {
-                    selectedPriceRanges.push({min: 500000, max: 700000});
+                    selectedPriceRanges.push({ min: 500000, max: 700000 });
                 } else if (priceRange === 'gia5') {
-                    selectedPriceRanges.push({min: 700000, max: Number.MAX_VALUE});
+                    selectedPriceRanges.push({ min: 700000, max: Number.MAX_VALUE });
                 }
             }
         }
@@ -78,7 +78,7 @@ function productPageController($http, $scope, productPageAPI) {
         }
 
         // Truy vấn API để lấy dữ liệu
-        $http.get(url, {params: params}).then(response => {
+        $http.get(url, { params: params }).then(response => {
             // $scope.listProductDetail = response.data.listProductDetail;
             $scope.listCategoryTypes = response.data.listCategoryTypes;
             $scope.listCategories = response.data.listCategories;
@@ -373,7 +373,24 @@ function productPageController($http, $scope, productPageAPI) {
     $scope.isCollapsed = function (typeId) {
         return $scope.collapsedTypes[typeId];
     };
-
+    // Xem thêm Câtegory
+    $scope.numViewNormalCategories = 5;
+    $scope.viewMoreNormalCategories = function () {
+        $scope.numViewNormalCategories = $scope.listCategoryTypes.length;
+    }
+    $scope.viewLessNormalCategories = function () {
+        $scope.numViewNormalCategories = 5;
+    }
+    // End Xem thêm category
+    // Xem thêm BRands
+    $scope.numViewNormalBrands = 5;
+    $scope.viewMoreNormalBrands = function () {
+        $scope.numViewNormalBrands = $scope.listBrands.length;
+    }
+    $scope.viewLessNormalBrands = function () {
+        $scope.numViewNormalBrands = 5;
+    }
+    // END Xem thêm BRands
     $scope.init = function () {
         var categoryId = null;
         var categoryName = null;

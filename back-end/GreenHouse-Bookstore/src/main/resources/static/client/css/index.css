@@ -3918,3 +3918,34 @@ html.bx-ios.bx-ios-fix-frame-focus {
   color: rgb(122, 189, 55)
 }
 /* END TÌM KIẾM */
+/* XEM THÊM  */
+.product-card .product-card--body .card-image img{
+  width: 203px;
+  height: 203px;
+}
+.m-more-less {
+  font-size: 11px;
+  text-align: center;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* .m-show-less-action {
+  background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_rutgon_cam.png) no-repeat right;
+} */
+.m-show-more-action, .m-show-less-action {
+  color: #5ba035;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  user-select: none;
+  padding-right: 20px;
+}
+/* .m-show-more-action {
+  background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_morong.png) no-repeat right;
+} */
+.m-show-more-action:hover, .m-show-less-action:hover{
+  color: #08a6d8;
+}
