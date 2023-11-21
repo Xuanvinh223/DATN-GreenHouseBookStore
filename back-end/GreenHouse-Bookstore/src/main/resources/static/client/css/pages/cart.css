@@ -344,7 +344,7 @@ input.qty-carts {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 48px;
+    width: 36px;
     cursor: pointer;
 }
 
@@ -892,13 +892,17 @@ hr {
 
 .title-cart-page-left {
     flex-basis: 65%;
-}
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}   
 
 .number-cart-page-right {
     flex-basis: 35%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .total-cart-page .number-cart-page-right .price {
@@ -908,10 +912,6 @@ hr {
 .title-final-total {
     font-weight: 650;
     font-size: 1.2em;
-}
-
-.title-cart-page-left {
-    flex-basis: 65%;
 }
 
 .title-final-total .number-cart-page-right .price {

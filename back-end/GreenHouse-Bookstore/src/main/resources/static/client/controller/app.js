@@ -163,7 +163,7 @@ app.controller("MainController", function ($scope, CartService, $timeout, Produc
         CartService.addToCart(productDetailId, quantity, username)
             .then(function (response) {
                 $scope.showNotification(response.status, response.message);
-                $scope.getCart();
+                $scope.getCartHeader();
             })
             .catch(function (error) {
                 console.log(
@@ -172,7 +172,7 @@ app.controller("MainController", function ($scope, CartService, $timeout, Produc
                 );
             });
     };
-    $scope.getCart = function () {
+    $scope.getCartHeader = function () {
         CartService.getCart(username)
             .then(function (response) {
                 $scope.listCartHeader = response.listCart;
@@ -185,7 +185,7 @@ app.controller("MainController", function ($scope, CartService, $timeout, Produc
             });
     };
 
-    $scope.getCart();
+    $scope.getCartHeader();
     // ================ LANGUAGE =================================================================
     $scope.toggleLanguage = function () {
         let languageDropdown = document.getElementById("top-language-dropdown");
@@ -280,23 +280,31 @@ app.controller("MainController", function ($scope, CartService, $timeout, Produc
 // =============== CART SERVICE =============
 app.service("CartService", function ($http, cartAPI) {
     this.addToCart = function (productDetailId, quantity, username) {
-        var url = cartAPI + "/add";
+        if (username) {
+            var url = cartAPI + "/add";
 
-        var data = {
-            productDetailId: productDetailId,
-            quantity: quantity,
-            username: username,
-        };
+            var data = {
+                productDetailId: productDetailId,
+                quantity: quantity,
+                username: username,
+            };
 
-        return $http
-            .post(url, data)
-            .then(function (response) {
-                return response.data;
-            })
-            .catch(function (error) {
-                return Promise.reject(error);
+            return $http
+                .post(url, data)
+                .then(function (response) {
+                    return response.data;
+                })
+                .catch(function (error) {
+                    return Promise.reject(error);
+                });
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Lưu ý!',
+                text: 'Vui lòng đăng nhập trước khi thêm sản phẩm vào giỏ hàng.',
             });
-    };
+        }
+    }
 
     this.getCart = function (username) {
         var url = cartAPI + "/getCart?username=" + username;
