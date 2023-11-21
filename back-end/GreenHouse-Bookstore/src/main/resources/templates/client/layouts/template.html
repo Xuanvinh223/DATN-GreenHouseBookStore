@@ -228,8 +228,9 @@
             </div>
           </div>
 
-          <div class="center_center mouse-hover cart-dropdown"><!--cart-icon-->
-            <a class="top-button-icon" href="">
+          <div class="center_center mouse-hover cart-dropdown top-cart-button"><!--cart-icon-->
+            <a class="top-button-icon "
+               href="">
               <div class="fhs_center_center" style="margin-bottom: 3px;">
                 <div class="icon_cart_gray">
                   <div class="top_menu_unseen fhs_center_center" ng-show="listCartHeader.length >0">
@@ -242,11 +243,11 @@
               </div>
             </a>
             <!-- Model cart -->
-            <div class="top-dropdown">
+            <div class="top-cart-dropdown p-3">
               <div class="single-cart-block">
-                <div class="cart-product mb-3 mt-3" ng-repeat="cart in listCartHeader track by $index">
+                <div class="cart-product mb-3 mt-3" ng-repeat="cart in listCartHeader | limitTo : 5 track by $index">
                   <a href="product-details.html" class="image">
-                    <img src="{{cart.productDetails.image}}" alt="">
+                    <img src="{{cart.productDetail.image}}" alt="">
                   </a>
                   <div class="content">
                     <h3 class="title"><a href="">{{cart.productDetail.product.productName}}</a>

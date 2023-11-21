@@ -7,8 +7,9 @@ app.constant('changePasswordAPI', 'http://localhost:8081/customer/rest/reset-pas
 app.constant('forgotPasswordAPI', 'http://localhost:8081/customer/rest/forgot-password');
 app.constant('productDetailAPI', 'http://localhost:8081/customer/rest/product-detail');
 app.constant('voucherAPI', 'http://localhost:8081/customer/rest/voucher');
-app.constant('customerAPI', "http://localhost:8081/customer/rest");
+app.constant('notifyAPI', "http://localhost:8081/customer/notify");
 app.constant('orderHistoryAPI', 'http://localhost:8081/customer/rest/order-history');
+
 app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
     var token = $cookies.get("token");
 
@@ -318,89 +319,87 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
         $scope.getUnreadNotifications();
 
 
-        $scope.addToCart = function (productDetailId, quantity) {
-            CartService.addToCart(productDetailId, quantity, username)
-                .then(function (response) {
-                    $scope.showNotification(response.status, response.message);
-                    $scope.getCart();
-                })
-                .catch(function (error) {
-                    console.log(
-                        "error",
-                        "Lỗi trong quá trình gửi dữ liệu lên server: " + error
-                    );
-                });
-        };
-        $scope.getCart = function () {
-            CartService.getCart(username)
-                .then(function (response) {
-                    $scope.listCartHeader = response.listCart;
-                })
-                .catch(function (error) {
-                    console.log(
-                        "error",
-                        "Lỗi trong quá trình gửi dữ liệu lên server: " + error
-                    );
-                });
-        };
+    // $scope.sendNotification = function (title, message) {
+    //     NotifyWebSocketService.sendNotification(title, message);
+    //     NotifyWebSocketService.connect(function() {
+    //         loadNotifications();
+    //     });
+    // }
 
-        $scope.updateUserInfo = function () {
-            var username = localStorage.getItem("username");
-            if (username) {
-                $scope.getCart();
-            } else {
-                $scope.getCart();
-            }
-        };
+    $scope.addToCart = function (productDetailId, quantity) {
+        CartService.addToCart(productDetailId, quantity, username)
+            .then(function (response) {
+                $scope.showNotification(response.status, response.message);
+                $scope.getCartHeader();
+            })
+            .catch(function (error) {
+                console.log(
+                    "error",
+                    "Lỗi trong quá trình gửi dữ liệu lên server: " + error
+                );
+            });
+    };
+    $scope.getCartHeader = function () {
+        CartService.getCart(username)
+            .then(function (response) {
+                $scope.listCartHeader = response.listCart;
+            })
+            .catch(function (error) {
+                console.log(
+                    "error",
+                    "Lỗi trong quá trình gửi dữ liệu lên server: " + error
+                );
+            });
+    };
 
-        $scope.updateUserInfo();
-        // ================ LANGUAGE =================================================================
-        $scope.toggleLanguage = function () {
-            let languageDropdown = document.getElementById("top-language-dropdown");
+    $scope.getCartHeader();
+    // ================ LANGUAGE =================================================================
+    $scope.toggleLanguage = function () {
+        let languageDropdown = document.getElementById("top-language-dropdown");
 
-            if (languageDropdown.style.display === "block") {
-                languageDropdown.style.display = "none";
-            } else {
-                languageDropdown.style.display = "block";
-            }
-        }
-
-        $scope.changeLanguage = function (lang) {
-            localStorage.setItem("lang", lang);
-            setLanguage();
-        }
-
-        function setLanguage() {
-            var lang = localStorage.getItem("lang");
-
-            let flagIcon = document.querySelector(".top-language-flag-icon");
-            let languageDropdown = document.getElementById("top-language-dropdown");
+        if (languageDropdown.style.display === "block") {
             languageDropdown.style.display = "none";
+        } else {
+            languageDropdown.style.display = "block";
+        }
+    }
 
-            let flagImage = "";
-            if (lang) {
-                if (lang == "en") {
-                    flagImage = "https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/store/english.svg"
-                } else if (lang == "vi") {
-                    flagImage = "https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/default.svg";
-                }
-            } else {
+    $scope.changeLanguage = function (lang) {
+        localStorage.setItem("lang", lang);
+        setLanguage();
+    }
+
+    function setLanguage() {
+        var lang = localStorage.getItem("lang");
+
+        let flagIcon = document.querySelector(".top-language-flag-icon");
+        let languageDropdown = document.getElementById("top-language-dropdown");
+        languageDropdown.style.display = "none";
+
+        let flagImage = "";
+        if (lang) {
+            if (lang == "en") {
+                flagImage = "https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/store/english.svg"
+            } else if (lang == "vi") {
                 flagImage = "https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/default.svg";
             }
-            flagIcon.style.backgroundImage = `url(${flagImage})`;
+        } else {
+            flagImage = "https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/default.svg";
         }
+        flagIcon.style.backgroundImage = `url(${flagImage})`;
+    }
 
-        setLanguage();
-        // ================ SHOW FULL TEXT OR COMPRESS =================================================================
-        $scope.showFullText = {};
+    setLanguage();
+    // ================ SHOW FULL TEXT OR COMPRESS =================================================================
+    $scope.showFullText = {};
 
-        $scope.toggleFullText = function (productId) {
-            if (!$scope.showFullText[productId]) {
-                $scope.showFullText[productId] = true;
-            } else {
-                $scope.showFullText[productId] = false;
-            }
-        };
+    $scope.toggleFullText = function (productId) {
+        if (!$scope.showFullText[productId]) {
+            $scope.showFullText[productId] = true;
+        } else {
+            $scope.showFullText[productId] = false;
+        }
+    };
 
         // =========== NOTIFICATION =============================
         $scope.notifications = [];
@@ -448,23 +447,31 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
 // =============== CART SERVICE =============
 app.service("CartService", function ($http, cartAPI) {
     this.addToCart = function (productDetailId, quantity, username) {
-        var url = cartAPI + "/add";
+        if (username) {
+            var url = cartAPI + "/add";
 
-        var data = {
-            productDetailId: productDetailId,
-            quantity: quantity,
-            username: username,
-        };
+            var data = {
+                productDetailId: productDetailId,
+                quantity: quantity,
+                username: username,
+            };
 
-        return $http
-            .post(url, data)
-            .then(function (response) {
-                return response.data;
-            })
-            .catch(function (error) {
-                return Promise.reject(error);
+            return $http
+                .post(url, data)
+                .then(function (response) {
+                    return response.data;
+                })
+                .catch(function (error) {
+                    return Promise.reject(error);
+                });
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Lưu ý!',
+                text: 'Vui lòng đăng nhập trước khi thêm sản phẩm vào giỏ hàng.',
             });
-    };
+        }
+    }
 
     this.getCart = function (username) {
         var url = cartAPI + "/getCart?username=" + username;
