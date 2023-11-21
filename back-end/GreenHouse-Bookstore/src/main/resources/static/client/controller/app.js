@@ -59,10 +59,6 @@ app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
         checkTokenExpiration();
         setInterval(checkTokenExpiration, 1000); // 1s
     };
-
-    window.addEventListener('storage', function (event) {
-        localStorage.setItem(event.key, event.oldValue);
-    });
 });
 
 // Tạo một interceptor
