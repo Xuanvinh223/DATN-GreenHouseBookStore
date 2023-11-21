@@ -1,4 +1,5 @@
 const app = angular.module("myApp", ["angular-jwt", "ngCookies", "ngRoute", "angularUtils.directives.dirPagination"]);
+app.constant('customerAPI', "http://localhost:8081/customer/rest");
 app.constant('signupAPI', 'http://localhost:8081/sign-up');
 app.constant('checkOutAPI', 'http://localhost:8081/customer/rest/check-out');
 app.constant('productPageAPI', 'http://localhost:8081/customer/rest/product-page');
@@ -351,7 +352,6 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
                 );
             });
     };
-
     $scope.getCartHeader();
     // ================ LANGUAGE =================================================================
     $scope.toggleLanguage = function () {

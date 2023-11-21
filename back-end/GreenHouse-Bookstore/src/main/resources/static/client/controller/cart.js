@@ -157,6 +157,9 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
         } else {
             $scope.totalPaymentAmount = $scope.totalCartAmount + $scope.shippingFee;
         }
+        if($scope.normalDiscount > 0){
+            $scope.totalPaymentAmount -= $scope.normalDiscount;
+        }
     };
     // ===========================================================================================
 
