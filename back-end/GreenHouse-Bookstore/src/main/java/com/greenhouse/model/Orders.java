@@ -1,33 +1,104 @@
 package com.greenhouse.model;
 
-import java.io.Serializable;
-import java.util.Date;
 import jakarta.persistence.*;
 import lombok.Data;
-
 @Entity
 @Data
 @Table(name = "Orders")
-public class Orders implements Serializable {
+public class Orders {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Order_Id")
-    private int orderId;
+    @Column(name = "Order_Code", length = 50, nullable = false)
+    private String orderCode;
 
-    @ManyToOne
-    @JoinColumn(name = "Invoice_Id")
-    private Invoices invoice;
+    @Column(name = "Username", length = 50, nullable = false)
+    private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "Username")
-    private Accounts username;
+    @Column(name = "to_name", length = 1024, nullable = false)
+    private String toName;
 
-    @Column(name = "Order_Date")
-    private Date orderDate;
+    @Column(name = "from_name", length = 1024, nullable = false)
+    private String fromName;
 
-    @Column(name = "Delivery_Date")
-    private Date deliveryDate;
+    @Column(name = "from_phone", length = 20, nullable = false)
+    private String fromPhone;
 
-    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
+    @Column(name = "from_address", length = 1024, nullable = false)
+    private String fromAddress;
+
+    @Column(name = "from_ward_name", length = 255, nullable = false)
+    private String fromWardName;
+
+    @Column(name = "from_district_name", length = 255, nullable = false)
+    private String fromDistrictName;
+
+    @Column(name = "from_province_name", length = 255, nullable = false)
+    private String fromProvinceName;
+
+    @Column(name = "to_phone", length = 20, nullable = false)
+    private String toPhone;
+
+    @Column(name = "to_address", length = 1024, nullable = false)
+    private String toAddress;
+
+    @Column(name = "to_ward_code", length = 20, nullable = false)
+    private String toWardCode;
+
+    @Column(name = "to_district_id", nullable = false)
+    private int toDistrictId;
+
+    @Column(name = "return_phone", length = 20)
+    private String returnPhone;
+
+    @Column(name = "return_address", length = 1024)
+    private String returnAddress;
+
+    @Column(name = "return_district_id")
+    private Integer returnDistrictId;
+
+    @Column(name = "return_ward_code", length = 20)
+    private String returnWardCode;
+
+    @Column(name = "client_order_code", length = 50)
+    private String clientOrderCode;
+
+    @Column(name = "cod_amount", nullable = false)
+    private int codAmount;
+
+    @Column(name = "content_order", columnDefinition = "nvarchar(2000)", nullable = false)
+    private String contentOrder;
+
+    @Column(name = "weight", nullable = false)
+    private int weight;
+
+    @Column(name = "length", nullable = false)
+    private int length;
+
+    @Column(name = "width", nullable = false)
+    private int width;
+
+    @Column(name = "height", nullable = false)
+    private int height;
+
+    @Column(name = "pick_station_id")
+    private Integer pickStationId;
+
+    @Column(name = "insurance_value", nullable = false)
+    private int insuranceValue;
+
+    @Column(name = "service_id")
+    private Integer serviceId;
+
+    @Column(name = "service_type_id", nullable = false)
+    private int serviceTypeId;
+
+    @Column(name = "payment_type_id", nullable = false)
+    private int paymentTypeId;
+
+    @Column(name = "note", columnDefinition = "nvarchar(MAX)", nullable = false)
+    private String note;
+
+    @Column(name = "required_note", columnDefinition = "nvarchar(500)", nullable = false)
+    private String requiredNote;
+
 }

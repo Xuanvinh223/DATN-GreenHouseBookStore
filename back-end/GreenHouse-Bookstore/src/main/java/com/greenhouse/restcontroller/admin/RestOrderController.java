@@ -14,14 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.greenhouse.model.Authorities;
 import com.greenhouse.model.InvoiceDetails;
 import com.greenhouse.model.InvoiceMappingVoucher;
-import com.greenhouse.model.OrderMappingStatus;
-import com.greenhouse.model.OrderStatus;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.repository.AuthoritiesRepository;
 import com.greenhouse.repository.InvoiceDetailsRepository;
 import com.greenhouse.repository.InvoiceMappingVoucherRepository;
-import com.greenhouse.repository.OrderMappingStatusRepository;
-import com.greenhouse.repository.OrderStatusRepository;
 import com.greenhouse.repository.ProductDetailRepository;
 
 @RestController
@@ -35,10 +31,7 @@ public class RestOrderController {
     private InvoiceDetailsRepository invoiceDetailsRepository;
     @Autowired
     private InvoiceMappingVoucherRepository invoiceMappingVoucherRepository;
-    @Autowired
-    private OrderMappingStatusRepository orderMappingStatusRepository;
-    @Autowired
-    private OrderStatusRepository orderStatusRepository;
+
     @Autowired
     private AuthoritiesRepository authoritiesRepository;
 
@@ -48,15 +41,13 @@ public class RestOrderController {
 
         List<InvoiceDetails> invoiceDetails = invoiceDetailsRepository.findAll();
         List<InvoiceMappingVoucher> invoiceMappingVoucher = invoiceMappingVoucherRepository.findAll();
-        List<OrderMappingStatus> orderMappingStatus = orderMappingStatusRepository.findAll();
-        List<OrderStatus> orderStatus = orderStatusRepository.findAll();
         List<Product_Detail> productDetails = productDetailRepository.findAll();
         List<Authorities> authorities = authoritiesRepository.findAll();
 
         responseData.put("invoiceDetails", invoiceDetails);
         responseData.put("invoiceMappingVoucher", invoiceMappingVoucher);
-        responseData.put("orderMappingStatus", orderMappingStatus);
-        responseData.put("orderStatus", orderStatus);
+        responseData.put("orderMappingStatus", null);
+        responseData.put("orderStatus", null);
         responseData.put("productDetails", productDetails);
         responseData.put("authorities", authorities);
 
