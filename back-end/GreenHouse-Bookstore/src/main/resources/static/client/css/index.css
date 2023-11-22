@@ -1322,7 +1322,9 @@
 #popup-review-message {
   z-index: 1000000;
 }
-
+#message-cart{
+  z-index: 99999;
+}
 #popup-review-message p {
   font-weight: 600;
   color: #000;
@@ -1330,7 +1332,7 @@
 }
 
 .model-message {
-  background: rgba(10, 10, 10, 0.5);
+  background: rgba(10, 10, 10, 0.712);
 }
 
 .btn-outline-primary {

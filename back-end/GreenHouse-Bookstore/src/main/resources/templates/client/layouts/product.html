@@ -412,7 +412,8 @@
                                         <a ng-class="{active: !selectedCategoryId}"
                                             ng-click="selectCategory(null, 'Tất cả sản phẩm')">Tất cả sản phẩm</a>
                                     </li>
-                                    <li ng-repeat="cateType in listCategoryTypes  | limitTo:numViewNormalCategories track by $index">
+                                    <li
+                                        ng-repeat="cateType in listCategoryTypes  | limitTo:numViewNormalCategories track by $index">
                                         <a href="#" ng-click="toggleCollapse(cateType.typeId)">{{cateType.typeName}}</a>
                                         <ul class="inner-cat-items" ng-show="isCollapsed(cateType.typeId)"
                                             ng-repeat="cate in getListCateByCateTypeId(cateType.typeId) track by $index">
@@ -602,6 +603,19 @@
         </div>
     </section>
 
+    <!-- Message Cart -->
+    <div class="modal fade " id="message-cart" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content model-message">
+                <!-- Modal body -->
+                <div class="modal-body text-center">
+                    <i class="far fa-check-circle text-success mb-1" style="font-size: 50px;"></i>
+                    <p class="mt--10" style="color: rgb(255, 255, 255);">{{ modalContent }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Message  -->
 </main>
 
 </html>

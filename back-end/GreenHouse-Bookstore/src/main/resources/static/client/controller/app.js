@@ -126,16 +126,16 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
 
     // Lấy lịch sử tìm kiếm từ localStorage khi controller khởi tạo
     $scope.updateSearchHistory = function () {
-            // Nếu không có token hoặc username, cập nhật từ LocalStorage
-            var searchHistory = SearchDataService.getSearchHistory();
+        // Nếu không có token hoặc username, cập nhật từ LocalStorage
+        var searchHistory = SearchDataService.getSearchHistory();
 
-            // Sắp xếp theo thời gian giảm dần
-            searchHistory.sort(function (a, b) {
-                return new Date(b.searchTime) - new Date(a.searchTime);
-            });
+        // Sắp xếp theo thời gian giảm dần
+        searchHistory.sort(function (a, b) {
+            return new Date(b.searchTime) - new Date(a.searchTime);
+        });
 
-            // Lấy 16 dòng đầu tiên
-            $scope.searchHistory = searchHistory.slice(0, 16);
+        // Lấy 16 dòng đầu tiên
+        $scope.searchHistory = searchHistory.slice(0, 16);
 
     };
 
@@ -169,6 +169,21 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
         $scope.updateSearchHistory();
         window.location.href = '/product';
     }
+    $scope.getSearchProductDetail = function (productDetailId) {
+        ProductDetailService.getProductDetailById(productDetailId)
+            .then(function (response) {
+                // Thực hiện các hành động cần thiết sau khi lấy dữ liệu sản phẩm
+                localStorage.setItem('keyword', '');
+                $scope.keyword = localStorage.getItem('keyword');
+                // Set lại giá trị của input thành rỗng
+                // (đảm bảo rằng có một ng-model trong HTML liên kết với input)
+                window.location.href = '/product-details?id=' + productDetailId;
+            })
+            .catch(function (error) {
+                console.log('Lỗi khi lấy dữ liệu sản phẩm: ' + error);
+            });
+    };
+
 
     // Hàm Xóa
     $scope.removeSearchHistory = function (index) {
@@ -286,8 +301,6 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
             });
     }
 
-
-
     $scope.markNotificationAsRead = function (notification) {
         // Kiểm tra nếu thông báo chưa được đánh dấu là đã đọc
         if (!notification.status) {
@@ -301,6 +314,7 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
                     // Đổi màu sắc thông báo
                     notification.customClass = 'custom-green-bg';
                     $scope.getListNotification();
+                    $scope.getUnreadNotifications();
                 })
                 .catch(function (error) {
                     console.error('Error marking notification as read:', error);
@@ -312,35 +326,36 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
     $scope.getUnreadNotifications();
 
 
-        $scope.addToCart = function (productDetailId, quantity) {
-            CartService.addToCart(productDetailId, quantity, username)
-                .then(function (response) {
-                    $scope.showNotification(response.status, response.message);
-                    $scope.getCartHeader();
-                })
-                .catch(function (error) {
-                    console.log(
-                        "error",
-                        "Lỗi trong quá trình gửi dữ liệu lên server: " + error
-                    );
-                });
-        };
-        $scope.getCartHeader = function () {
-            CartService.getCart(username)
-                .then(function (response) {
-                    $scope.listCartHeader = response.listCart;
-                })
-                .catch(function (error) {
-                    console.log(
-                        "error",
-                        "Lỗi trong quá trình gửi dữ liệu lên server: " + error
-                    );
-                });
-        };
-        $scope.getCartHeader();
-        // ================ LANGUAGE =================================================================
-        $scope.toggleLanguage = function () {
-            let languageDropdown = document.getElementById("top-language-dropdown");
+    $scope.addToCart = function (productDetailId, quantity) {
+        CartService.addToCart(productDetailId, quantity, username)
+            .then(function (response) {
+                // $scope.showNotification(response.status, response.message);
+                $scope.showNotifi();
+                $scope.getCartHeader();
+            })
+            .catch(function (error) {
+                console.log(
+                    "error",
+                    "Lỗi trong quá trình gửi dữ liệu lên server: " + error
+                );
+            });
+    };
+    $scope.getCartHeader = function () {
+        CartService.getCart(username)
+            .then(function (response) {
+                $scope.listCartHeader = response.listCart;
+            })
+            .catch(function (error) {
+                console.log(
+                    "error",
+                    "Lỗi trong quá trình gửi dữ liệu lên server: " + error
+                );
+            });
+    };
+    $scope.getCartHeader();
+    // ================ LANGUAGE =================================================================
+    $scope.toggleLanguage = function () {
+        let languageDropdown = document.getElementById("top-language-dropdown");
 
         if (languageDropdown.style.display === "block") {
             languageDropdown.style.display = "none";
@@ -389,6 +404,13 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
     // =========== NOTIFICATION =============================
     $scope.notifications = [];
 
+    $scope.showNotifi = function () {
+        $('#message-cart').modal('show');
+        $scope.modalContent = "Sản phẩm đã được thêm vào giỏ hàng!";
+        $timeout(function () {
+            $('#message-cart').modal('hide');
+        }, 2000);
+    }
     $scope.showNotification = function (type, message) {
         var notification = { type: type, message: message };
         $scope.notifications.push(notification);

@@ -23,6 +23,7 @@ app.controller("productDetailController", function ($scope, $timeout, $routePara
     $scope.currentPage = 1;
     $scope.modalContent = "";
     // Khởi tạo hàm scope
+    $scope.quickViewProduct = null;
     $scope.authenticPhotosForReview = {};
     $scope.productReviews = [];
     $scope.productDetail = [];
@@ -347,64 +348,12 @@ app.controller("productDetailController", function ($scope, $timeout, $routePara
         });
         return bookAuthor ? bookAuthor.author.authorName : '';
     }
-
+    
+    $scope.quickView = function (productDetail) {
+        // xem nhanh thông tin sản phẩm
+          $scope.quickViewProduct = productDetail;
+   
+           $scope.quantityQuickViewProduct = 1;
+       }
+   
 });
-
-
-
-//Ảnh
-// var urlImgs = "http://localhost:8081/customer/uploadmulti/products";
-
-// $scope.urldt = function (filename) {
-//     if (filename != null) {
-//         console.log(filename);
-//         return `http://localhost:8081/customer/images/products/${filename}`;
-//     } else {
-//         return 'asset/images/default.jpg';
-//     }
-// }
-// $scope.imgdt = [];
-// var urlImgs = "http://localhost:8081/customer/uploadmulti/images/products";
-
-// $scope.imgdt = [];
-
-// $scope.imgdts = function (files) {
-//     var formDatas = [];
-//     for (var i = 0; i < files.length; i++) {
-//         var form = new FormData();
-//         form.append("files", files[i]);
-//         formDatas.push(form);
-//     }
-
-//     formDatas.forEach(function (formData) {
-//         $http.post(urlImgs, formData, {
-//             transformRequest: angular.identity,
-//             headers: { 'Content-Type': undefined }
-//         }).then(function (resp) {
-//             if (Array.isArray(resp.data) && resp.data.length > 0) {
-//                 $scope.imgdt.push(...resp.data); // Thêm hình ảnh vào mảng imgdt
-//                 console.log("Success", resp.data);
-//             } else {
-//                 console.log("Phản hồi không chứa dữ liệu hình ảnh.");
-//             }
-//         }).catch(function (error) {
-//             console.log("Lỗi khi gửi yêu cầu POST: " + error);
-//         });
-//     });
-// }
-
-
-// $scope.deleteImage = function (imageName) {
-//     var index = -1;
-//     for (var i = 0; i < $scope.imgdt.length; i++) {
-//         if ($scope.imgdt[i].name === imageName) {
-//             index = i;
-//             break;
-//         }
-//     }
-
-//     if (index !== -1) {
-//         $scope.imgdt.splice(index, 1);
-//         console.log("Delete success");
-//     }
-// };

@@ -8,11 +8,12 @@ function IndexController($scope, $http) {
     $scope.getIndexCount = function () {
         var url = `${host}/getIndexCount`;
         $http.get(url).then(resp => {
-            $scope.countOrdersWithStatus = resp.data.countOrdersWithStatus;
+            // $scope.countOrdersWithStatus = resp.data.countOrdersWithStatus;
             $scope.countBrand = resp.data.countBrand;
 
             $scope.countUsersCurrentYear = resp.data.countUsersCurrentYear;
             $scope.percentageChange = resp.data.percentageChange;
+            console.log(" $scope.percentageChange", $scope.percentageChange);
         }).catch(error => {
             console.log("Error", error);
         });

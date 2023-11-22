@@ -80,7 +80,7 @@
 
               <div class="tu-khoa-hot-container" ng-if="!keyword">
                 <div class="tu-khoa-hot-item col-md-4" ng-repeat="item in listSearchInvoices">
-                  <a href="#" ng-click="getProductDetail(item.productDetailId)">
+                  <a href="#" ng-click="getSearchProductDetail(item.productDetailId)">
                     <img ng-src="{{item.image}}" alt="Hinh anh">
                     <span>{{item.product.productName}}</span></a>
                 </div>
@@ -110,7 +110,7 @@
               <div class="tu-khoa-hot-container" ng-if="keyword">
                 <div class="tu-khoa-hot-item col-md-4"
                   ng-repeat="item in searchProductResults | limitTo:6 track by $index">
-                  <a href="#" ng-click="getProductDetail(item.productDetailId)">
+                  <a href="#" ng-click="getSearchProductDetail(item.productDetailId)">
                     <img ng-src="{{item.image}}" alt="Hinh anh">
                     <span>{{item.product.productName}}</span></a>
                 </div>
