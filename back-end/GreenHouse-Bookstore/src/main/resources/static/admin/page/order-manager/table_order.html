@@ -1,4 +1,18 @@
 <div class="container-fluid order-page" ng-controller="OrderController">
+    <div>
+        <h3>Thông báo</h3>
+        <ul>
+            <li ng-repeat="notification in notifications">
+                {{ notification.title }}: {{ notification.message }} ({{ notification.createAt | date:'medium' }})
+            </li>
+        </ul>
+    </div>
+    
+    <div>
+        <h3>Gửi thông báo</h3>
+        <button ng-click="sendNotification()">Gửi thông báo</button>
+    </div>
+    
     <div class="row justify-content-center">
         <div class="col-12">
             <h2 class="mb-2 page-title">Danh Sách Đơn Hàng</h2>

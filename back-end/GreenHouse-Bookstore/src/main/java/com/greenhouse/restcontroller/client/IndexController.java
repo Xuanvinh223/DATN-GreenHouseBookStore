@@ -37,10 +37,6 @@ import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.repository.ProductDiscountRepository;
 import com.greenhouse.repository.ProductReviewsRepository;
 import com.greenhouse.repository.ProductsRepository;
-import com.greenhouse.repository.SearchHistoryRepository;
-import com.greenhouse.service.ProductDetailService;
-
-import jakarta.transaction.Transactional;
 
 @CrossOrigin("*")
 @RestController
@@ -65,8 +61,6 @@ public class IndexController {
     private CategoryTypesRepository categoryTypesRepository;
     @Autowired
     private CategoriesRepository categoriesRepository;
-    @Autowired
-    SearchHistoryRepository searchHistoryRepository;
     @Autowired
     AccountRepository accountsRepository;
 
@@ -109,27 +103,9 @@ public class IndexController {
         Map<String, Object> resp = new HashMap<>();
         List<Product_Detail> listProduct_Details = productDetailReps.findAll();
         List<Product_Detail> listSearchInvoice = productDetailReps.findBySearchInvoice();
-        List<Search_History> listSearch_Histories = searchHistoryRepository.findAll();
-        resp.put("listSearch_Histories", listSearch_Histories);
         resp.put("listSearch_Invoice", listSearchInvoice);
         resp.put("listProduct_Details", listProduct_Details);
         return ResponseEntity.ok(resp);
     }
 
-    @GetMapping("/rest/getSearchDataUsername/{username}")
-    public ResponseEntity<List<Search_History>> getSearchHistory(@PathVariable String username) {
-        List<Search_History> search_Histories = searchHistoryRepository
-                .findByAccountUsernameOrderBySearchTimeDesc(username);
-        return ResponseEntity.ok(search_Histories);
-    }
-
-    @Transactional
-    @PostMapping("/rest/saveSearchHistory")
-    public ResponseEntity<Search_History> createAddress(@RequestBody Search_History search_History) {
-        // Lưu lịch sử tìm kiếm vào cơ sở dữ liệu
-        Search_History item = searchHistoryRepository.save(search_History);
-
-        return new ResponseEntity<>(item, HttpStatus.CREATED);
-        // Trả về lỗi nếu người dùng không tồn tại
-    }
 }

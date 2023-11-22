@@ -1,5 +1,4 @@
 const app = angular.module("myApp", ["angular-jwt", "ngCookies", "ngRoute", "angularUtils.directives.dirPagination"]);
-app.constant('customerAPI', "http://localhost:8081/customer/rest");
 app.constant('signupAPI', 'http://localhost:8081/sign-up');
 app.constant('checkOutAPI', 'http://localhost:8081/customer/rest/check-out');
 app.constant('productPageAPI', 'http://localhost:8081/customer/rest/product-page');
@@ -8,7 +7,7 @@ app.constant('changePasswordAPI', 'http://localhost:8081/customer/rest/reset-pas
 app.constant('forgotPasswordAPI', 'http://localhost:8081/customer/rest/forgot-password');
 app.constant('productDetailAPI', 'http://localhost:8081/customer/rest/product-detail');
 app.constant('voucherAPI', 'http://localhost:8081/customer/rest/voucher');
-app.constant('notifyAPI', "http://localhost:8081/customer/notify");
+app.constant('customerAPI', "http://localhost:8081/customer/rest");
 app.constant('orderHistoryAPI', 'http://localhost:8081/customer/rest/order-history');
 
 app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
@@ -112,250 +111,236 @@ app.config(["$httpProvider", function ($httpProvider) {
 
 // ================= MAIN CONTROLLER ==================
 app.controller("MainController", function ($scope, CartService, $timeout, customerAPI, ProductDetailService, NotifyService, SearchDataService) {
-        var token = localStorage.getItem("token");
-        var username = localStorage.getItem("username");
-        $scope.token = token;
-        $scope.username = username;
-        $scope.currentPage = 1;
-        //======================   SEARCH ===============================//
-        $scope.listSearchHistories = [];
-        $scope.listSearchInvoices = [];
-        $scope.listProductDetails = [];
-        $scope.listProductDetailsResult = [];
-        $scope.listCategories = [];
-        $scope.keyword = null;
+    var token = localStorage.getItem("token");
+    var username = localStorage.getItem("username");
+    $scope.token = token;
+    $scope.username = username;
+    $scope.currentPage = 1;
+    //======================   SEARCH ===============================//
+    $scope.listSearchHistories = [];
+    $scope.listSearchInvoices = [];
+    $scope.listProductDetails = [];
+    $scope.listProductDetailsResult = [];
+    $scope.listCategories = [];
+    $scope.keyword = null;
 
-        // Lấy lịch sử tìm kiếm từ localStorage khi controller khởi tạo
-        $scope.updateSearchHistory = function () {
-            // Nếu có token hoặc username, cập nhật từ API
+    // Lấy lịch sử tìm kiếm từ localStorage khi controller khởi tạo
+    $scope.updateSearchHistory = function () {
+            // Nếu không có token hoặc username, cập nhật từ LocalStorage
+            var searchHistory = SearchDataService.getSearchHistory();
 
-            if (token || username) {
-                SearchDataService.getSearchHistoryByUsername(username)
-                    .then(function (response) {
-                        // Sắp xếp theo thời gian giảm dần
-                        response.sort(function (a, b) {
-                            return new Date(b.searchTime) - new Date(a.searchTime);
-                        });
+            // Sắp xếp theo thời gian giảm dần
+            searchHistory.sort(function (a, b) {
+                return new Date(b.searchTime) - new Date(a.searchTime);
+            });
 
-                        // Lấy 16 dòng đầu tiên
-                        $scope.searchHistory = response.slice(0, 16) || [];
-                        console.log($scope.searchHistory);
-                    })
-                    .catch(function (error) {
-                        console.error('Error fetching search history by username:', error);
-                    });
-            } else {
-                // Nếu không có token hoặc username, cập nhật từ LocalStorage
-                var searchHistory = SearchDataService.getSearchHistory();
+            // Lấy 16 dòng đầu tiên
+            $scope.searchHistory = searchHistory.slice(0, 16);
 
-                // Sắp xếp theo thời gian giảm dần
-                searchHistory.sort(function (a, b) {
-                    return new Date(b.searchTime) - new Date(a.searchTime);
-                });
+    };
 
-                // Lấy 16 dòng đầu tiên
-                $scope.searchHistory = searchHistory.slice(0, 16);
-            }
-        };
+    $scope.updateSearchHistory();
 
-        $scope.updateSearchHistory();
 
-        // if (token) {
-        //     var searchHistory = SearchDataService.getSearchHistory();
-        //     console.log( $scope.username);
-
-        //     searchHistory.forEach(function (item) {
-        //         item.username =  $scope.username;
-        //         // SearchDataService.saveSearchHistory(item);
-        //     });
-        //     $scope.updateSearchHistory();
-        // }
-        $scope.search = function (keyword) {
-            $scope.searchProductResults = [];
-            // $scope.keyword = keyword;
-            if (keyword) {
-                keyword = keyword.toLowerCase();
-                $scope.listProductDetailsResult.forEach(function (productD) {
-                    if (productD.product.productName.toLowerCase().includes(keyword)) {
-                        $scope.searchProductResults.push(productD);
-                    }
-                });
-            } else {
-                $scope.keyword = null;
-            }
-            // Sau khi tìm kiếm, thêm từ khóa vào lịch sử
-            // SearchDataService.addToSearchHistory(keyword);
-            // Cập nhật lại danh sách lịch sử tìm kiếm
-            console.log($scope.keyword);
-            $scope.updateSearchHistory();
-        };
-
-        $scope.searchData = function (keyword) {
-            SearchDataService.addToSearchHistory(keyword);
-            localStorage.setItem('keyword', keyword);
-            console.log($scope.keyword);
-            $scope.updateSearchHistory();
-            window.location.href = '/product';
-        }
-
-        // Hàm Xóa
-        $scope.removeSearchHistory = function (index) {
-            SearchDataService.removeFromSearchHistory(index);
-            $scope.updateSearchHistory();
-        };
-
-        // Hàm Xóa Tất Cả
-        $scope.clearSearchHistory = function () {
-            SearchDataService.clearSearchHistory();
-            $scope.updateSearchHistory();
-        };
-
-        $scope.getSearch = function () {
-            SearchDataService.getSearchData()
-                .then(function (response) {
-                    $scope.listSearchHistories = response.listSearch_Histories;
-                    $scope.listSearchInvoices = response.listSearch_Invoice;
-                    $scope.listProductDetails = response.listProduct_Details;
-                    $scope.loadModelProduct();
-                    // console.log('Search Histories:', $scope.listSearchHistories);
-                    // console.log('Search Invoices:', $scope.listSearchInvoices);
-                    // console.log('Product Details:', $scope.listProductDetails);
-
-                })
-                .catch(function (error) {
-                    console.error('Error fetching search data:', error);
-                });
-            $scope.keyword = localStorage.getItem('keyword') || null;
-        };
-        $scope.loadModelProduct = function () {
-            $scope.listProductDetailsResult = [];
-            $scope.listProductDetails.filter(function (item) {
-                if (item.product.status === true) {
-                    $scope.listProductDetailsResult.push(item);
+    $scope.search = function (keyword) {
+        $scope.searchProductResults = [];
+        // $scope.keyword = keyword;
+        if (keyword) {
+            keyword = keyword.toLowerCase();
+            $scope.listProductDetailsResult.forEach(function (productD) {
+                if (productD.product.productName.toLowerCase().includes(keyword)) {
+                    $scope.searchProductResults.push(productD);
                 }
             });
-            console.log("Danh sách sản phẩm có status = 1:", $scope.listProductDetailsResult);
-
+        } else {
+            $scope.keyword = null;
         }
-        $scope.getSearch();
-        //======================  NOTIFICATION HEADER  =====================//
-        $scope.ListNotifyUser = [];
-        $scope.ListUnNotifyUser = [];
-        $scope.getListNotification = function () {
-            // Sử dụng dịch vụ NotifyService để lấy danh sách thông báo
-            NotifyService.getNotificationsByUsername(username)
-                .then(function (ListNotifyUser) {
-                    // Lấy ngày hiện tại
-                    var currentDate = new Date();
+        // Sau khi tìm kiếm, thêm từ khóa vào lịch sử
+        // SearchDataService.addToSearchHistory(keyword);
+        // Cập nhật lại danh sách lịch sử tìm kiếm
+        console.log($scope.keyword);
+        $scope.updateSearchHistory();
+    };
 
-                    // Sắp xếp thông báo theo ưu tiên: status (false trước), ngày (thứ nhất và thứ hai)
-                    $scope.ListNotifyUser = ListNotifyUser
-                        .sort(function (a, b) {
-                            // Ưu tiên theo status
-                            if (a.status !== b.status) {
-                                return a.status ? 1 : -1; // false trước
-                            }
+    $scope.searchData = function (keyword) {
+        SearchDataService.addToSearchHistory(keyword);
+        localStorage.setItem('keyword', keyword);
+        console.log($scope.keyword);
+        $scope.updateSearchHistory();
+        window.location.href = '/product';
+    }
 
-                            // Ưu tiên theo ngày
-                            var createAtDiff = new Date(b.createAt) - new Date(a.createAt);
-                            if (createAtDiff !== 0) {
-                                return createAtDiff;
-                            }
+    // Hàm Xóa
+    $scope.removeSearchHistory = function (index) {
+        SearchDataService.removeFromSearchHistory(index);
+        $scope.updateSearchHistory();
+    };
 
-                            return 0; // Nếu status và ngày giống nhau, giữ nguyên vị trí
-                        });
+    // Hàm Xóa Tất Cả
+    $scope.clearSearchHistory = function () {
+        SearchDataService.clearSearchHistory();
+        $scope.updateSearchHistory();
+    };
 
-                    // console.log("NOTIFY", $scope.ListNotifyUser);
-                })
-                .catch(function (error) {
-                    console.log("Error loading notifications:", error);
-                });
-        }
+    $scope.getSearch = function () {
+        SearchDataService.getSearchData()
+            .then(function (response) {
+                $scope.listSearchInvoices = response.listSearch_Invoice;
+                $scope.listProductDetails = response.listProduct_Details;
+                $scope.loadModelProduct();
+                // console.log('Search Histories:', $scope.listSearchHistories);
+                // console.log('Search Invoices:', $scope.listSearchInvoices);
+                // console.log('Product Details:', $scope.listProductDetails);
 
-        $scope.getUnreadNotifications = function () {
-            // Sử dụng dịch vụ NotifyService để lấy danh sách thông báo có status == 0
-            NotifyService.getNotificationsByUsername(username)
-                .then(function (ListUnNotifyUser) {
-                    // Lấy ngày hiện tại
-                    var currentDate = new Date();
-                    // Lọc thông báo trong khoảng 7 ngày gần nhất và status == 0
-                    $scope.ListUnNotifyUser = ListUnNotifyUser.filter(function (notification) {
-                        var createAt = new Date(notification.createAt);
-                        var timeDiff = currentDate - createAt;
-                        var daysDiff = timeDiff / (1000 * 3600 * 24);
-                        return daysDiff <= 7 && notification.status === false;
-                    });
-
-                    $scope.ListUnNotifyUser.sort(function (a, b) {
-                        return new Date(b.createAt) - new Date(a.createAt);
-                    });
-                    // console.log("Unread Notifications", $scope.ListUnNotifyUser);
-                })
-                .catch(function (error) {
-                    console.log("Error loading unread notifications:", error);
-                });
-        }
-
-        $scope.markNotificationAsRead = function (notification) {
-            // Kiểm tra nếu thông báo chưa được đánh dấu là đã đọc
-            if (!notification.status) {
-                // Gọi API để đánh dấu thông báo là đã đọc
-                NotifyService.markNotificationAsRead(notification.notificationId)
-                    .then(function (response) {
-
-                        console.log('Notification marked as read.');
-                        // Cập nhật trạng thái của thông báo và màu sắc
-                        notification.status = true;
-                        // Đổi màu sắc thông báo
-                        notification.customClass = 'custom-green-bg';
-                        $scope.getListNotification();
-                    })
-                    .catch(function (error) {
-                        console.error('Error marking notification as read:', error);
-                    });
+            })
+            .catch(function (error) {
+                console.error('Error fetching search data:', error);
+            });
+        $scope.keyword = localStorage.getItem('keyword') || null;
+    };
+    $scope.loadModelProduct = function () {
+        $scope.listProductDetailsResult = [];
+        $scope.listProductDetails.filter(function (item) {
+            if (item.product.status === true) {
+                $scope.listProductDetailsResult.push(item);
             }
+        });
+        console.log("Danh sách sản phẩm có status = 1:", $scope.listProductDetailsResult);
+
+    }
+    $scope.getSearch();
+    //======================  NOTIFICATION HEADER  =====================//
+    var socket = new SockJS('/notify');
+    var userStompClient = Stomp.over(socket);
+    userStompClient.connect({}, function (frame) {
+        console.log("User Connected: " + frame);
+
+        // Subscribe để nhận thông báo từ admin
+        userStompClient.subscribe('/user/' + $scope.username + '/topic/notification', function (notification) {
+            console.log("Received Notification:", notification);
+            var receivedNotification = JSON.parse(notification.body);
+
+            // Xử lý thông báo khi nhận được
+            if (receivedNotification.username.username === $scope.username) {
+                $scope.$apply(function () {
+                    $scope.notifications.push(receivedNotification);
+                    $scope.getUnreadNotifications();
+                    $scope.getListNotification();
+                });
+            }
+        });
+    });
+    $scope.ListNotifyUser = [];
+    $scope.ListUnNotifyUser = [];
+    $scope.getUnreadNotifications = function () {
+        // Sử dụng dịch vụ NotifyService để lấy danh sách thông báo có status == 0
+        NotifyService.getNotificationsByUsername(username)
+            .then(function (ListUnNotifyUser) {
+                // Lấy ngày hiện tại
+                var currentDate = new Date();
+                // Lọc thông báo trong khoảng 7 ngày gần nhất và status == 0
+                $scope.ListUnNotifyUser = ListUnNotifyUser.filter(function (notification) {
+                    var createAt = new Date(notification.createAt);
+                    var timeDiff = currentDate - createAt;
+                    var daysDiff = timeDiff / (1000 * 3600 * 24);
+                    return daysDiff <= 7 && notification.status === false;
+                });
+
+                $scope.ListUnNotifyUser.sort(function (a, b) {
+                    return new Date(b.createAt) - new Date(a.createAt);
+                });
+                // console.log("Unread Notifications", $scope.ListUnNotifyUser);
+            })
+            .catch(function (error) {
+                console.log("Error loading unread notifications:", error);
+            });
+    }
+    $scope.getListNotification = function () {
+        // Sử dụng dịch vụ NotifyService để lấy danh sách thông báo
+        NotifyService.getNotificationsByUsername(username)
+            .then(function (ListNotifyUser) {
+                // Lấy ngày hiện tại
+                var currentDate = new Date();
+
+                // Sắp xếp thông báo theo ưu tiên: status (false trước), ngày (thứ nhất và thứ hai)
+                $scope.ListNotifyUser = ListNotifyUser
+                    .sort(function (a, b) {
+                        // Ưu tiên theo status
+                        if (a.status !== b.status) {
+                            return a.status ? 1 : -1; // false trước
+                        }
+
+                        // Ưu tiên theo ngày
+                        var createAtDiff = new Date(b.createAt) - new Date(a.createAt);
+                        if (createAtDiff !== 0) {
+                            return createAtDiff;
+                        }
+
+                        return 0; // Nếu status và ngày giống nhau, giữ nguyên vị trí
+                    });
+
+                // console.log("NOTIFY", $scope.ListNotifyUser);
+            })
+            .catch(function (error) {
+                console.log("Error loading notifications:", error);
+            });
+    }
+
+
+
+    $scope.markNotificationAsRead = function (notification) {
+        // Kiểm tra nếu thông báo chưa được đánh dấu là đã đọc
+        if (!notification.status) {
+            // Gọi API để đánh dấu thông báo là đã đọc
+            NotifyService.markNotificationAsRead(notification.notificationId)
+                .then(function (response) {
+
+                    console.log('Notification marked as read.');
+                    // Cập nhật trạng thái của thông báo và màu sắc
+                    notification.status = true;
+                    // Đổi màu sắc thông báo
+                    notification.customClass = 'custom-green-bg';
+                    $scope.getListNotification();
+                })
+                .catch(function (error) {
+                    console.error('Error marking notification as read:', error);
+                });
         }
+    }
 
-        $scope.getListNotification();
-        $scope.getUnreadNotifications();
+    $scope.getListNotification();
+    $scope.getUnreadNotifications();
 
 
-    // $scope.sendNotification = function (title, message) {
-    //     NotifyWebSocketService.sendNotification(title, message);
-    //     NotifyWebSocketService.connect(function() {
-    //         loadNotifications();
-    //     });
-    // }
-
-    $scope.addToCart = function (productDetailId, quantity) {
-        CartService.addToCart(productDetailId, quantity, username)
-            .then(function (response) {
-                $scope.showNotification(response.status, response.message);
-                $scope.getCartHeader();
-            })
-            .catch(function (error) {
-                console.log(
-                    "error",
-                    "Lỗi trong quá trình gửi dữ liệu lên server: " + error
-                );
-            });
-    };
-    $scope.getCartHeader = function () {
-        CartService.getCart(username)
-            .then(function (response) {
-                $scope.listCartHeader = response.listCart;
-            })
-            .catch(function (error) {
-                console.log(
-                    "error",
-                    "Lỗi trong quá trình gửi dữ liệu lên server: " + error
-                );
-            });
-    };
-    $scope.getCartHeader();
-    // ================ LANGUAGE =================================================================
-    $scope.toggleLanguage = function () {
-        let languageDropdown = document.getElementById("top-language-dropdown");
+        $scope.addToCart = function (productDetailId, quantity) {
+            CartService.addToCart(productDetailId, quantity, username)
+                .then(function (response) {
+                    $scope.showNotification(response.status, response.message);
+                    $scope.getCartHeader();
+                })
+                .catch(function (error) {
+                    console.log(
+                        "error",
+                        "Lỗi trong quá trình gửi dữ liệu lên server: " + error
+                    );
+                });
+        };
+        $scope.getCartHeader = function () {
+            CartService.getCart(username)
+                .then(function (response) {
+                    $scope.listCartHeader = response.listCart;
+                })
+                .catch(function (error) {
+                    console.log(
+                        "error",
+                        "Lỗi trong quá trình gửi dữ liệu lên server: " + error
+                    );
+                });
+        };
+        $scope.getCartHeader();
+        // ================ LANGUAGE =================================================================
+        $scope.toggleLanguage = function () {
+            let languageDropdown = document.getElementById("top-language-dropdown");
 
         if (languageDropdown.style.display === "block") {
             languageDropdown.style.display = "none";
@@ -401,25 +386,25 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
         }
     };
 
-        // =========== NOTIFICATION =============================
-        $scope.notifications = [];
+    // =========== NOTIFICATION =============================
+    $scope.notifications = [];
 
-        $scope.showNotification = function (type, message) {
-            var notification = {type: type, message: message};
-            $scope.notifications.push(notification);
-            $timeout(function () {
-                $scope.removeNotification(notification);
-            }, 3000);
-        };
+    $scope.showNotification = function (type, message) {
+        var notification = { type: type, message: message };
+        $scope.notifications.push(notification);
+        $timeout(function () {
+            $scope.removeNotification(notification);
+        }, 3000);
+    };
 
-        $scope.removeNotification = function (notification) {
-            var index = $scope.notifications.indexOf(notification);
-            if (index !== -1) {
-                $scope.notifications.splice(index, 1);
-            }
-        };
-        // =========== LOADER =============================
-        $scope.isLoading = false;
+    $scope.removeNotification = function (notification) {
+        var index = $scope.notifications.indexOf(notification);
+        if (index !== -1) {
+            $scope.notifications.splice(index, 1);
+        }
+    };
+    // =========== LOADER =============================
+    $scope.isLoading = false;
     // Hàm để hiển thị loading
     $scope.showLoading = function () {
         $scope.isLoading = true;
@@ -569,13 +554,6 @@ app.service('SearchDataService', function ($http, customerAPI) {
     };
 
 
-    this.getSearchHistoryByUsername = function (username) {
-        return $http.get(customerAPI + '/getSearchDataUsername/' + username)
-            .then(function (response) {
-                console.log(response.data);
-                return response.data;
-            });
-    }
     // Hàm để lấy lịch sử tìm kiếm từ localStorage
     this.getSearchHistory = function () {
         return JSON.parse(localStorage.getItem('searchHistory')) || [];
