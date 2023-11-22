@@ -776,16 +776,26 @@
     <script th:inline="javascript">
       /*<![CDATA[*/
       var loginMessage = /*[[${loginMessage}]]*/ null;
+      var infoMessage = /*[[${infoMessage}]]*/ null;
       /*]]>*/
       // Kiểm tra giá trị loginMessage
       if (loginMessage) {
-        // Thực hiện các hành động với loginMessage ở đây
-        Swal.fire({
-          title: "Thông báo",
-          text: loginMessage,
-          icon: "error",
-          confirmButtonText: "OK",
-        });
+          // Thực hiện các hành động với loginMessage ở đây
+          Swal.fire({
+              title: "Thông báo",
+              text: loginMessage,
+              icon: "error",
+              confirmButtonText: "OK",
+          });
+      }
+      if (infoMessage) {
+          // Thực hiện các hành động với loginMessage ở đây
+          Swal.fire({
+              title: "Thông báo",
+              text: infoMessage,
+              icon: "warning",
+              confirmButtonText: "OK",
+          });
       }
     </script>
   </th-block>

@@ -176,6 +176,11 @@
             <artifactId>netty-socketio</artifactId>
             <version>1.7.17</version>
         </dependency> -->
+        <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>8.1.0</version>
+        </dependency>
 
     </dependencies>
 
