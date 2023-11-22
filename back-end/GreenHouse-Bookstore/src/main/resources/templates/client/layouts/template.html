@@ -53,14 +53,14 @@
             </div>
             <div class="top-bar-search-info">
               <!-- Khi không có keyword -->
-              <div class="row mt--10 mb--10" ng-if="!keyword">
+              <div class="row mt--10 mb--10" ng-if="!keyword" ng-show="searchHistory.length>0">
                 <div class="col ">
                   <div class="tu-khoa-hot">
                     <span class="fa fa-history"></span>
                     <span th:text="#{lo.mn.searchhistory}"></span>
                   </div>
                 </div>
-                <div class="col-auto mr--20 mt--5">
+                <div class="col-auto mr--20 mt--5" >
                   <div class="fhs_center_right fhs_mouse_point his-delete-all" th:text="#{lo.mn.deleteall}"
                     ng-click="clearSearchHistory()">
                   </div>

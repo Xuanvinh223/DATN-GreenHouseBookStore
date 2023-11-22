@@ -61,12 +61,12 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             $scope.listProductDetails = resp.data.productDetails;
             $scope.listAuthorities = resp.data.authorities;
 
-            console.log("List invoice details: ", $scope.listInvoiceDetails);
-            console.log("List voucher mapping invoice: ", $scope.listInvoiceMappingVoucher);
-            console.log("List order mapping status: ", $scope.listOderMappingStatus);
-            console.log("List order status: ", $scope.listOrderStatus);
-            console.log("List product detail", $scope.listProductDetails);
-            console.log("List authorities: ", $scope.listAuthorities);
+            // console.log("List invoice details: ", $scope.listInvoiceDetails);
+            // console.log("List voucher mapping invoice: ", $scope.listInvoiceMappingVoucher);
+            // console.log("List order mapping status: ", $scope.listOderMappingStatus);
+            // console.log("List order status: ", $scope.listOrderStatus);
+            // console.log("List product detail", $scope.listProductDetails);
+            // console.log("List authorities: ", $scope.listAuthorities);
 
             $scope.setListCustomer();
         }).catch((Error) => {
@@ -163,7 +163,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             $scope.searchProductKeyword = null;
         }
     };
-    
+
 
     $scope.selectedProduct = function (product) {
         var existingProduct = $scope.selectedProducts.find(function (p) {
@@ -286,7 +286,61 @@ app.controller("OrderController", function ($scope, $http, $interval) {
     }
 
     // INVOICE -- END
+    // WEbsocket
 
+    // function loadNotifications() {
+    //     $http.get("http://localhost:8081/rest/notifications/" + username).then(function (response) {
+    //         $scope.notifications = response.data;
+    //         console.log(response.data);
+    //     });
+    // }
+    // WEbsocket
+    $scope.notifications = [];
+
+    var socket = new SockJS('/notify');
+    var stompClient = Stomp.over(socket);
+    $scope.username = localStorage.getItem("username");
+
+    $scope.username1 = '114069353350424347080';
+
+    // Kết nối đến WebSocket
+    stompClient.connect({}, function (frame) {
+        console.log("Admin Connected: " + frame);
+
+        // Hàm để gửi thông báo
+        $scope.sendNotification = function () {
+            var notification = {
+                username: { username: $scope.username1 },
+                title: "Thông báo giao hàng",
+                message: "Đơn hàng của bạn đã được GreenHouse gửi đến đơn vị vận chuyển",
+                createAt: new Date()
+            };
+
+            // Gửi thông báo đến phía server
+            stompClient.send("/app/notify/" + $scope.username1, {}, JSON.stringify(notification));
+        };
+
+        // Subscribe để nhận thông báo từ server
+        // stompClient.subscribe('/user/' + $scope.username1 + '/topic/notification', function (notification) {
+        //     console.log("Received Notification:", notification);
+
+        //     // Xử lý thông báo khi nhận được
+        //     var receivedNotification = JSON.parse(notification.body);
+        //     console.log("Received Notification:", receivedNotification);
+        //     console.log('receivedNotification.username.username', receivedNotification.username.username)
+        //     // Thêm thông báo vào danh sách chỉ nếu username trùng khớp
+        //     if (receivedNotification.username.username === $scope.username) {
+        //         $scope.$apply(function () {
+        //             $scope.notifications.push(receivedNotification);
+        //         });
+        //     }
+        // });
+
+
+    });
+
+
+    // END WEBSOCKET
 
     $scope.init = function () {
         $scope.getData().then(function () {
