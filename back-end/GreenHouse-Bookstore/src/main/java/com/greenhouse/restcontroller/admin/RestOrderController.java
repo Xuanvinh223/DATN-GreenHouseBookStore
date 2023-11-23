@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.greenhouse.model.Authorities;
 import com.greenhouse.model.InvoiceDetails;
 import com.greenhouse.model.InvoiceMappingVoucher;
+import com.greenhouse.model.Orders;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.repository.AuthoritiesRepository;
 import com.greenhouse.repository.InvoiceDetailsRepository;
 import com.greenhouse.repository.InvoiceMappingVoucherRepository;
+import com.greenhouse.repository.OrderDetailReponsitory;
+import com.greenhouse.repository.OrdersRepository;
 import com.greenhouse.repository.ProductDetailRepository;
 
 @RestController
@@ -31,10 +34,13 @@ public class RestOrderController {
     private InvoiceDetailsRepository invoiceDetailsRepository;
     @Autowired
     private InvoiceMappingVoucherRepository invoiceMappingVoucherRepository;
-
     @Autowired
     private AuthoritiesRepository authoritiesRepository;
-
+    @Autowired
+    private OrdersRepository ordersRepository;
+    @Autowired
+    private OrderDetailReponsitory OrderDetailReponsitory;
+    
     @GetMapping("/getData")
     private ResponseEntity<Map<String, Object>> getData() {
         Map<String, Object> responseData = new HashMap<>();
@@ -43,8 +49,8 @@ public class RestOrderController {
         List<InvoiceMappingVoucher> invoiceMappingVoucher = invoiceMappingVoucherRepository.findAll();
         List<Product_Detail> productDetails = productDetailRepository.findAll();
         List<Authorities> authorities = authoritiesRepository.findAll();
+        List<Orders> listOrders = ordersRepository.findAll();
 
-        responseData.put("invoiceDetails", invoiceDetails);
         responseData.put("invoiceMappingVoucher", invoiceMappingVoucher);
         responseData.put("orderMappingStatus", null);
         responseData.put("orderStatus", null);

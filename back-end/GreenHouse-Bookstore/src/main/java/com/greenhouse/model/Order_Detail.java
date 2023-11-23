@@ -47,11 +47,11 @@ public class Order_Detail implements Serializable {
     private double length;
 
     @ManyToOne
-    @JoinColumn(name = "Order_Code")
+    @JoinColumn(name = "Order_Code", referencedColumnName = "Order_Code", insertable = false, updatable = false)
     private Orders order;
 
     @ManyToOne
-    @JoinColumn(name = "Product_Detail_Id")
+    @JoinColumn(name = "Product_Detail_Id",referencedColumnName="Product_Detail_Id", insertable = false, updatable = false)
     private Product_Detail productDetail;
 
 }

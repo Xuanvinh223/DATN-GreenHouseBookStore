@@ -16949,6 +16949,12 @@ a.uppy-Dashboard-poweredBy {
   margin-bottom: 10px;
   margin-top: 5px;
 }
+.ellipsis {
+  max-width: 100px; /* Thiết lập chiều rộng tối đa của cột */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /* .nav-pills {
   display: flex !important;
   flex-wrap: nowrap !important;

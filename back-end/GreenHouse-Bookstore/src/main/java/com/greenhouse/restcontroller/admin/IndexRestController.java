@@ -33,9 +33,9 @@ public class IndexRestController {
 
         long countBrand = brandRepository.count();
         long countCustomer = authoritiesRepository.countByRoleId(Long.valueOf(3));
-        // long countOrdersWithStatus = accountRepository.countOrdersWithStatus();
+        int countOrdersWithStatus = accountRepository.countOrdersWithStatus();
         
-        // resp.put("countOrdersWithStatus", countOrdersWithStatus);
+        resp.put("countOrdersWithStatus", countOrdersWithStatus);
         resp.put("countBrand", countBrand);
         resp.put("countCustomer", countCustomer);
         // Lấy số lượng người dùng trong năm hiện tại và năm trước

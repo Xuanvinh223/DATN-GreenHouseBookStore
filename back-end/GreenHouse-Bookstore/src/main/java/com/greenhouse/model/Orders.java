@@ -111,6 +111,6 @@ public class Orders {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "Username")
+    @JoinColumn(name = "Username", referencedColumnName = "Username", insertable = false, updatable = false)
     private Accounts account;
 }
