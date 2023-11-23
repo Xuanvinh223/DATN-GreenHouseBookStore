@@ -96,7 +96,61 @@
                       </div>
           </form>
         </div>
+
+         <!-- Thêm phần tử HTML này nơi bạn muốn hiển thị hiệu ứng loading -->
+         <div id="loadingOverlay" class="loading-overlay">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+     /* CSS cho hiệu ứng loading */
+     .loading-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        z-index: 1000;
+    }
+
+    .loading-spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .loading-spinner i {
+        font-size: 50px;
+        /* Điều chỉnh kích thước của spinner */
+        color: #3498db;
+        /* Màu sắc cho spinner */
+        animation: spin 1s linear infinite;
+    }
+
+    .loading-text {
+        text-align: center;
+        font-size: 18px;
+        margin-top: 20px;
+        color: #3498db;
+        /* Màu sắc cho văn bản */
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>

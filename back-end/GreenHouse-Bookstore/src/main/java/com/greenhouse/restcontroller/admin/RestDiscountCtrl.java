@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/rest/discounts")
@@ -19,7 +23,16 @@ public class RestDiscountCtrl {
     @GetMapping
     public ResponseEntity<List<Discounts>> getAllDiscounts() {
         List<Discounts> discounts = discountsService.findAll();
-        return new ResponseEntity<>(discounts, HttpStatus.OK);
+
+        // Lọc các ưu đãi dựa trên điều kiện ngày, quantity và usedQuantity
+        Date currentDate = new Date();
+        List<Discounts> filteredDiscounts = discounts.stream()
+                .filter(discount -> discount.getEndDate().after(currentDate)
+                        && discount.getQuantity() > 0
+                        && discount.getUsedQuantity() < 100)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(filteredDiscounts, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
@@ -61,5 +74,18 @@ public class RestDiscountCtrl {
         }
         discountsService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/import")
+    public ResponseEntity<Object> importDiscounts(@RequestParam("file") MultipartFile file) {
+        try {
+            // Gọi phương thức service để xử lý việc nhập danh sách từ file Excel
+            List<Discounts> importedDiscounts = discountsService.importDiscounts(file);
+
+            return new ResponseEntity<>(importedDiscounts, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Lỗi khi đọc file Excel", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

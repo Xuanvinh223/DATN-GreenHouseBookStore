@@ -1,6 +1,7 @@
 package com.greenhouse.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,8 @@ public interface BrandRepository extends JpaRepository<Brands, String> {
                         "  GROUP BY P.Brand_Id " +
                         "  HAVING COUNT(ID.Invoice_Detail_Id) > 0)", nativeQuery = true)
         List<Brands> findBrandsWithSales();
+
+        Optional<Brands> findByBrandName(String brandName);
 
        
 }

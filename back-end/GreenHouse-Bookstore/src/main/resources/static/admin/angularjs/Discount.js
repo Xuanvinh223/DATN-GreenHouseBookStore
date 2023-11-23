@@ -14,7 +14,109 @@ app.controller("DiscountController", function ($scope, $location, $routeParams, 
     $scope.itemsPerPageOptions = [5, 10, 20, 50];
     $scope.itemsPerPage = 5;
     $scope.currentPage = 1;
+    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
 
+
+    // Thêm chức năng xuất file Excel
+    $scope.exportToExcel = function () {
+        // Tạo một mảng dữ liệu để chứa dữ liệu cần xuất
+        var dataToExport = [];
+        dataToExport.push(["Mã Giảm Giá", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Giá Trị Giảm Giá", "Số Lượng Sử Dụng", "Tổng Số Lượng", "Trạng Thái"]);
+
+        // Thêm dữ liệu từ danh sách giảm giá vào mảng dữ liệu
+        angular.forEach($scope.filteredDiscounts, function (dis) {
+            dataToExport.push([dis.discountId, $filter('date')(dis.startDate, 'dd/MM/yyyy'), $filter('date')(dis.endDate, 'dd/MM/yyyy '), dis.value, dis.usedQuantity, dis.quantity, dis.active ? 'Đã sử dụng' : 'Chưa sử dụng']);
+        });
+
+        // Tạo một đối tượng workbook từ dữ liệu
+        var wb = XLSX.utils.book_new();
+        var ws = XLSX.utils.aoa_to_sheet(dataToExport);
+        XLSX.utils.book_append_sheet(wb, ws, 'Discounts');
+
+        // Xuất file Excel
+        XLSX.writeFile(wb, 'Discounts.xlsx');
+    };
+
+    $scope.importDiscounts = function () {
+        var fileInput = document.getElementById('fileInputExcel');
+        var file = fileInput.files[0];
+    
+        if (!file) {
+            Swal.fire({
+                icon: "error",
+                title: "Lỗi",
+                text: "Vui lòng chọn file Excel.",
+            });
+            return;
+        }
+    
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var data = new Uint8Array(e.target.result);
+                var workbook = XLSX.read(data, { type: 'array' });
+    
+                // Kiểm tra tên cột ở đây
+                var sheet = workbook.Sheets[workbook.SheetNames[0]];
+                var expectedColumns = ["Mã Giảm Giá", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Giá Trị Giảm Giá", "Số Lượng Sử Dụng", "Tổng Số Lượng", "Trạng Thái"];
+                var headers = [];
+                for (var key in sheet) {
+                    if (key[0] === '!') continue;
+                    if (key[1] === '1') {
+                        headers.push(sheet[key].v.trim()); // Sử dụng trim để loại bỏ khoảng trắng ở đầu và cuối
+                    } else {
+                        break; // Chỉ kiểm tra dòng đầu tiên
+                    }
+                }
+    
+                var isValid = angular.equals(expectedColumns, headers);
+                if (!isValid) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Lỗi",
+                        text: "Tên cột không đúng. Vui lòng kiểm tra lại file Excel.",
+                    });
+                    return;
+                }
+    
+                // Tiếp tục với post request nếu tên cột đúng
+                var formData = new FormData();
+                formData.append('file', file);
+    
+                $http.post('http://localhost:8081/rest/discounts/import', formData, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                .then(function (response) {
+                    console.log('Import successful', response);
+                    $scope.loadDiscounts();
+                })
+                .catch(function (error) {
+                    console.error('Import failed', error);
+                });
+            };
+    
+            reader.readAsArrayBuffer(file);
+        }
+    };
+    
+    $scope.openFileInput = function () {
+        document.getElementById('fileInputExcel').click();
+    };
+    
+
+    $scope.loadDiscounts = function () {
+        var url = `${host}`;
+        $http
+            .get(url)
+            .then((resp) => {
+                $scope.discounts = resp.data;
+                $scope.searchData();
+            })
+            .catch((error) => {
+                console.log("Error", error);
+            });
+    };
 
     $scope.checkErrors = function () {
         $scope.errors = {};
@@ -51,19 +153,6 @@ app.controller("DiscountController", function ($scope, $location, $routeParams, 
     };
 
 
-    $scope.loadDiscounts = function () {
-        var url = `${host}`;
-        $http
-            .get(url)
-            .then((resp) => {
-                $scope.discounts = resp.data;
-                $scope.searchData();
-            })
-            .catch((error) => {
-                console.log("Error", error);
-            });
-    };
-
     $scope.searchData = function () {
         $scope.filteredDiscounts = $filter("filter")(
             $scope.discounts,
@@ -87,7 +176,7 @@ app.controller("DiscountController", function ($scope, $location, $routeParams, 
             start + $scope.itemsPerPage,
             $scope.filteredDiscounts.length
         );
-        return start + 1 + "-" + end + " of " + $scope.filteredDiscounts.length;
+        return start + 1 + "-" + end + " của " + $scope.filteredDiscounts.length;
     };
 
     function generateDiscountId() {
@@ -168,7 +257,7 @@ app.controller("DiscountController", function ($scope, $location, $routeParams, 
                 $scope.editingDiscount.active = String($scope.editingDiscount.active);
                 $scope.isEditing = true;
 
-                $location.path("/discount-form").search({id: discountId, data: angular.toJson(resp.data)});
+                $location.path("/discount-form").search({ id: discountId, data: angular.toJson(resp.data) });
             })
             .catch(function (error) {
                 console.log("Error", error);
