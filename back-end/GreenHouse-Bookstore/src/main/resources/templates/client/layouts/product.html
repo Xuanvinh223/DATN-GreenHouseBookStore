@@ -325,16 +325,20 @@
                                                     <h3 class="product-title">{{quickViewProduct.product.productName}}
                                                     </h3>
                                                     <ul class="list-unstyled">
-                                                        <li>Nhà Cung Cấp: <span
+                                                        <li ng-if="quickViewProduct.product.publisher.publisherName">Nhà
+                                                            Cung Cấp:
+                                                            <span
                                                                 class="list-value">{{quickViewProduct.product.publisher.publisherName}}</span>
                                                         </li>
-                                                        <li>Thương Hiệu: <a href="#"
-                                                                class="list-value font-weight-bold">
+                                                        <li ng-if="quickViewProduct.product.brand.brandName">Thương
+                                                            Hiệu: <a href="#" class="list-value font-weight-bold">
                                                                 {{quickViewProduct.product.brand.brandName}}</a></li>
                                                         <li>Mã hàng: <span
-                                                                class="list-value">{{quickViewProduct.productDetailId}}</span>
+                                                                class="list-value">SP-{{quickViewProduct.product.productId}}</span>
                                                         </li>
-                                                        <li>Nhà Xuất Bản: <span
+                                                        <li ng-if="quickViewProduct.product.publisher.publisherName">Nhà
+                                                            Xuất Bản:
+                                                            <span
                                                                 class="list-value">{{quickViewProduct.product.publisher.publisherName}}</span>
                                                         </li>
                                                     </ul>
@@ -342,13 +346,13 @@
                                                         <span class="price">{{quickViewProduct.price -
                                                             quickViewProduct.priceDiscount > 0 ?
                                                             quickViewProduct.priceDiscount : quickViewProduct.price |
-                                                            number:'0'}}
+                                                            number:'0'}}đ
                                                         </span>
                                                         <del class="price-old"
                                                             ng-if="quickViewProduct.price - quickViewProduct.priceDiscount > 0">
                                                             {{quickViewProduct.price
                                                             |
-                                                            number:'0'}}
+                                                            number:'0'}}đ
                                                         </del>
                                                         <span class="price-discount"
                                                             ng-if="getDiscountValueByProductId(quickViewProduct.productDetailId)">{{getDiscountValueByProductId(quickViewProduct.productDetailId)}}%</span>
@@ -363,8 +367,7 @@
                                                         </div>
                                                         <div class="review-widget">
                                                             <a href="">({{countReviewsOfProduct(quickViewProduct.productDetailId)}}
-                                                                đánh giá)</a> <span>|</span>
-                                                            <a href="">Viết đánh giá</a>
+                                                                đánh giá)</a>
                                                         </div>
                                                     </div>
                                                     <article class="product-details-article mb-4">
@@ -391,7 +394,8 @@
                                                                 ng-click="addToCart(quickViewProduct.productDetailId, quantityQuickViewProduct)"><span
                                                                     class="plus-icon"></span>Thêm vào giỏ hàng</a>
                                                             <a href="" class="btn btn-outlined--primary"><span
-                                                                    class="plus-icon"></span>Mua Ngay</a>
+                                                                    class="plus-icon"></span>Mua
+                                                                Ngay</a>
                                                         </div>
                                                     </div>
                                                 </div>

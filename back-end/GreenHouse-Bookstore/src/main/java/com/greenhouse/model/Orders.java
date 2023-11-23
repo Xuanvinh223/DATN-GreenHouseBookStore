@@ -1,7 +1,10 @@
 package com.greenhouse.model;
 
+import java.util.Date;
+
 import jakarta.persistence.*;
 import lombok.Data;
+
 @Entity
 @Data
 @Table(name = "Orders")
@@ -101,4 +104,13 @@ public class Orders {
     @Column(name = "required_note", columnDefinition = "nvarchar(500)", nullable = false)
     private String requiredNote;
 
+    @Column(name = "created_date")
+    private Date create_Date;
+
+    @Column(name = "status")
+    private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "Username")
+    private Accounts account;
 }
