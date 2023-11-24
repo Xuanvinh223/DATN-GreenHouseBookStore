@@ -55,7 +55,7 @@ public class ChangePasswordController {
 
         try {
             if (!jwtTokenEmail.isTokenExpired(dto.getToken())) {
-                Accounts accounts = accountRepository.findByEmail(jwtTokenEmail.getEmailFromToken(dto.getToken()));
+                Accounts accounts = accountRepository.findByEmailOrPhone(jwtTokenEmail.getEmailFromToken(dto.getToken()), jwtTokenEmail.getEmailFromToken(dto.getToken()));
                 accounts.setPassword(new BCryptPasswordEncoder().encode(dto.getNewPassword()));
                 accountRepository.save(accounts);
                 response.setStatus(200);

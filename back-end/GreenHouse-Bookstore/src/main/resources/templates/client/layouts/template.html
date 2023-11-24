@@ -53,16 +53,16 @@
             </div>
             <div class="top-bar-search-info">
               <!-- Khi không có keyword -->
-              <div class="row mt--10 mb--10" ng-if="!keyword">
+              <div class="row mt--10 mb--10" ng-if="!keyword" ng-show="searchHistory.length>0">
                 <div class="col ">
                   <div class="tu-khoa-hot">
                     <span class="fa fa-history"></span>
                     <span th:text="#{lo.mn.searchhistory}"></span>
                   </div>
                 </div>
-                <div class="col-auto mr--20 mt--5">
+                <div class="col-auto mr--20 mt--5" >
                   <div class="fhs_center_right fhs_mouse_point his-delete-all" th:text="#{lo.mn.deleteall}"
-                       ng-click="clearSearchHistory()">
+                    ng-click="clearSearchHistory()">
                   </div>
                 </div>
               </div>
@@ -74,13 +74,13 @@
               </div>
               <div class="tu-khoa-hot" ng-if="!keyword">
                 <span><img
-                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
+                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
                 <span th:text="#{lo.mn.hot}"></span>
               </div>
 
               <div class="tu-khoa-hot-container" ng-if="!keyword">
                 <div class="tu-khoa-hot-item col-md-4" ng-repeat="item in listSearchInvoices">
-                  <a href="#" ng-click="getProductDetail(item.productDetailId)">
+                  <a href="#" ng-click="getSearchProductDetail(item.productDetailId)">
                     <img ng-src="{{item.image}}" alt="Hinh anh">
                     <span>{{item.product.productName}}</span></a>
                 </div>
@@ -96,7 +96,7 @@
               </div>
               <div class="form-search-form-content form_search_history" ng-if="keyword">
                 <div ng-repeat="item in searchProductResults | limitTo:10 track by $index"
-                     ng-click="searchData(item.product.productName)">
+                  ng-click="searchData(item.product.productName)">
                   <span class="form_search_history_text">{{item.product.productName}}</span>
                   <span class="fa fa-times" ng-click="removeSearchHistory($index)"></span>
                 </div>
@@ -104,13 +104,13 @@
 
               <div class="tu-khoa-hot" ng-if="keyword">
                 <span><img
-                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
+                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
                 <span th:text="#{lo.mn.searchproduct}"></span>
               </div>
               <div class="tu-khoa-hot-container" ng-if="keyword">
                 <div class="tu-khoa-hot-item col-md-4"
-                     ng-repeat="item in searchProductResults | limitTo:6 track by $index">
-                  <a href="#" ng-click="getProductDetail(item.productDetailId)">
+                  ng-repeat="item in searchProductResults | limitTo:6 track by $index">
+                  <a href="#" ng-click="getSearchProductDetail(item.productDetailId)">
                     <img ng-src="{{item.image}}" alt="Hinh anh">
                     <span>{{item.product.productName}}</span></a>
                 </div>
@@ -125,7 +125,8 @@
             <a style="cursor:pointer;display:flex;flex-direction: column;">
               <div class="fhs_center_center" style="margin-bottom:3px;">
                 <div class="icon_nofi_gray">
-                  <div class="top-notification-button-unseen top_menu_unseen fhs_center_center">
+                  <div class="top-notification-button-unseen top_menu_unseen fhs_center_center"
+                    ng-show="ListUnNotifyUser.length>0">
                     {{ListUnNotifyUser.length > 50 ? '50+' : ListUnNotifyUser.length}}
                   </div>
                 </div>
@@ -149,9 +150,9 @@
               </div>
               <div class="top-notification-list fhs_scrollbar" style="display: block;">
                 <div ng-if="ListUnNotifyUser.length > 0" class="top-notification-list fhs_scrollbar"
-                     style="display: block;">
+                  style="display: block;">
                   <a class="top-notification-item fhs_column_left fhs_mouse_point clear"
-                     ng-repeat="notification in ListUnNotifyUser" href="/account/notification">
+                    ng-repeat="notification in ListUnNotifyUser" href="/account/notification">
                     <div class="fhs_top_stretch" style="width:100%;">
                       <div class="fhs_top_left" style="margin-right:12px;margin-top: 10px;">
                         <div class="ico_noti_other"></div>
@@ -165,7 +166,7 @@
                   </a>
                 </div>
                 <div ng-if="ListUnNotifyUser.length === 0" class="center_center"
-                     style="display: flex; align-items: center; margin-top: 20px;">
+                  style="display: flex; align-items: center; margin-top: 20px;">
                   <div class="icon_nofi_gray"></div>
                   <span style="margin-left: 5px; color: rgb(142, 141, 141)">Không Có Thông Báo Mới</span>
                 </div>
@@ -190,7 +191,7 @@
                 đăng nhập để
               </div>
               <div class="center_center" style="color: #0D0E0F; padding-bottom:24px; font-size: 1.23em;"
-                   th:text="#{lo.mn.messmeanu1}">xem
+                th:text="#{lo.mn.messmeanu1}">xem
                 thông báo
               </div>
               <a href="/login" style="margin-top: 5px;" class="button-default active">
@@ -202,11 +203,12 @@
             </div>
           </div>
 
-          <div class="center_center mouse-hover cart-dropdown"><!--cart-icon-->
-            <a class="top-button-icon" href="">
+          <div class="center_center mouse-hover cart-dropdown top-cart-button"><!--cart-icon-->
+            <a class="top-button-icon "
+               href="">
               <div class="fhs_center_center" style="margin-bottom: 3px;">
                 <div class="icon_cart_gray">
-                  <div class="top_menu_unseen fhs_center_center">
+                  <div class="top_menu_unseen fhs_center_center" ng-show="listCartHeader.length >0">
                     <span class="cartmini_qty">{{listCartHeader.length > 50 ? '50+' : listCartHeader.length}}</span>
                   </div>
                 </div>
@@ -216,11 +218,11 @@
               </div>
             </a>
             <!-- Model cart -->
-            <div class="top-dropdown">
+            <div class="top-cart-dropdown p-3">
               <div class="single-cart-block">
-                <div class="cart-product mb-3 mt-3" ng-repeat="cart in listCartHeader track by $index">
+                <div class="cart-product mb-3 mt-3" ng-repeat="cart in listCartHeader | limitTo : 5 track by $index">
                   <a href="product-details.html" class="image">
-                    <img src="{{cart.productDetails.image}}" alt="">
+                    <img src="{{cart.productDetail.image}}" alt="">
                   </a>
                   <div class="content">
                     <h3 class="title"><a href="">{{cart.productDetail.product.productName}}</a>
@@ -233,9 +235,9 @@
               <div class=" single-cart-block ">
                 <div class="btn-block">
                   <a href="/cart" class="btn" th:text="#{lo.mn.cartmenu}">Xem thêm <i
-                          class="fas fa-chevron-right"></i></a>
+                      class="fas fa-chevron-right"></i></a>
                   <a href="#!thanhtoan" class="btn btn--primary" th:text="#{lo.mn.cartmenu1}">Thanh toán <i
-                          class="fas fa-chevron-right"></i></a>
+                      class="fas fa-chevron-right"></i></a>
                 </div>
               </div>
             </div>
@@ -514,7 +516,7 @@
                         <a href="#">{{ parentCategory }}</a>
                         <ul class="sub-menu">
                           <li class="single-block"
-                              ng-repeat="categoryType in listCategoryTypes | filter: {parentCategoriesType: parentCategory}">
+                            ng-repeat="categoryType in listCategoryTypes | filter: {parentCategoriesType: parentCategory}">
                             <h3 class="title">{{ categoryType.typeName }}</h3>
                             <ul>
                               <!--  | limitTo:5 -->
@@ -527,7 +529,7 @@
                           </li>
                         </ul>
                       </li>
-                      <li class="cat-item"><a href="#" class="js-expand-hidden-menu">Xem Nhiều Hơn</a></li>
+                      <li class="cat-item"><a href="/product">Xem Nhiều Hơn</a></li>
                     </ul>
                   </div>
                 </nav>
@@ -544,14 +546,8 @@
                     </li>
                     <!-- Shop -->
                     <li class="menu-item">
-
                       <a href="/product" th:text="#{lo.mn.product}">Sản Phẩm </a>
-
                     </li>
-                    <li class="menu-item">
-                      <a href="/flash-sale" th:text="#{lo.mn.sales}">Ưu Đãi</a>
-                    </li>
-
                     <li class="menu-item">
                       <a href="/voucher" th:text="#{lo.mn.voucher}">Mã Khuyến Mãi</a>
                     </li>
@@ -599,7 +595,7 @@
                         <a href="#">{{ parentCategory }}</a>
                         <ul class="sub-menu">
                           <li class="menu-item-has-children"
-                              ng-repeat="categoryType in listCategoryTypes | filter: {parentCategoriesType: parentCategory}">
+                            ng-repeat="categoryType in listCategoryTypes | filter: {parentCategoriesType: parentCategory}">
                             <a href="#">{{ categoryType.typeName }}</a>
                             <ul class="sub-menu">
                               <li ng-repeat="subcategory in getSubcategories(parentCategory, categoryType.typeName) ">
@@ -698,7 +694,7 @@
                 <p><span class="label" th:text="#{lo.mn.address}">Địa chỉ:</span>
                   Toà nhà FPT Polytechnic, Đ. Số 22, Thường Thạnh, Cái Răng, Cần Thơ, Vietnam</p>
                 <p><span class="label" th:text="#{lo.mn.phone}">Điện thoại:</span><span
-                        class="text">1800.123.4569</span></p>
+                    class="text">1800.123.4569</span></p>
                 <p><span class="label">Email:</span><span class="text">greenhousebook@gmail.com</span></p>
 
               </div>
@@ -738,11 +734,11 @@
 
               <ul class="social-list list-inline">
                 <li class="single-social facebook"><a href="https://www.facebook.com/greenhouseteam"><i
-                        class="ion ion-social-facebook"></i></a></li>
+                      class="ion ion-social-facebook"></i></a></li>
                 <li class="single-social youtube"><a href="https://www.youtube.com/channel/UCcVno9Do_VIONEAf9QGzeQw"><i
-                        class="ion ion-social-youtube"></i></a></li>
+                      class="ion ion-social-youtube"></i></a></li>
                 <li class="single-social google"><a href="https://www.instagram.com/greenhousebookstrore/"><i
-                        class="ion ion-social-instagram"></i></a></li>
+                      class="ion ion-social-instagram"></i></a></li>
 
               </ul>
             </div>
@@ -845,15 +841,15 @@
       <script type="text/javascript">
         document.getElementById("sudovn-btn-icon-container").addEventListener("click", function () {
           document.getElementById("sudovn-btn-social").classList.remove("b24-widget-button-hide"), document
-                  .getElementById("sudovn-btn-social").classList.add("b24-widget-button-show"), document.getElementById(
-                  "sudovn-btn-shadow").classList.remove("b24-widget-button-hide"), document.getElementById(
-                  "sudovn-btn-shadow").classList.add("b24-widget-button-show"), document.getElementById(
+            .getElementById("sudovn-btn-social").classList.add("b24-widget-button-show"), document.getElementById(
+              "sudovn-btn-shadow").classList.remove("b24-widget-button-hide"), document.getElementById(
+                "sudovn-btn-shadow").classList.add("b24-widget-button-show"), document.getElementById(
                   "sudovn-btn-wrapper").classList.add("b24-widget-button-bottom")
         }), document.getElementById("sudovn-btn-close").addEventListener("click", function () {
           document.getElementById("sudovn-btn-social").classList.remove("b24-widget-button-show"), document
-                  .getElementById("sudovn-btn-social").classList.add("b24-widget-button-hide"), document.getElementById(
-                  "sudovn-btn-shadow").classList.remove("b24-widget-button-show"), document.getElementById(
-                  "sudovn-btn-shadow").classList.add("b24-widget-button-hide"), document.getElementById(
+            .getElementById("sudovn-btn-social").classList.add("b24-widget-button-hide"), document.getElementById(
+              "sudovn-btn-shadow").classList.remove("b24-widget-button-show"), document.getElementById(
+                "sudovn-btn-shadow").classList.add("b24-widget-button-hide"), document.getElementById(
                   "sudovn-btn-wrapper").classList.remove("b24-widget-button-bottom")
         });
       </script>
@@ -896,16 +892,26 @@
     <script th:inline="javascript">
       /*<![CDATA[*/
       var loginMessage = /*[[${loginMessage}]]*/ null;
+      var infoMessage = /*[[${infoMessage}]]*/ null;
       /*]]>*/
       // Kiểm tra giá trị loginMessage
       if (loginMessage) {
-        // Thực hiện các hành động với loginMessage ở đây
-        Swal.fire({
-          title: "Thông báo",
-          text: loginMessage,
-          icon: "error",
-          confirmButtonText: "OK",
-        });
+          // Thực hiện các hành động với loginMessage ở đây
+          Swal.fire({
+              title: "Thông báo",
+              text: loginMessage,
+              icon: "error",
+              confirmButtonText: "OK",
+          });
+      }
+      if (infoMessage) {
+          // Thực hiện các hành động với loginMessage ở đây
+          Swal.fire({
+              title: "Thông báo",
+              text: infoMessage,
+              icon: "warning",
+              confirmButtonText: "OK",
+          });
       }
     </script>
   </th-block>

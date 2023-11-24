@@ -91,52 +91,32 @@
             </div> <!-- end section -->
 
             <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="row align-items-center mb-2">
-                        <div class="col-auto">
-                            <form class="form-inline">
-                                <div class="form-group d-none d-lg-inline">
-                                    <label for="reportrange" class="sr-only">Date Ranges</label>
-                                    <div id="reportrange" class="px-2 py-2 text-muted">
-                                        <span class="small"></span>
+                <div class="col-12" ng-controller="StaticOvertime">
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <div class="card shadow">
+                                <div class="card-header">
+                                    <div class="dropdown float-right">
+                                        <select ng-model="selectedYear" ng-change="updateSelectedYear()"
+                                            class="btn btn-sm btn-link text-muted p-0" id="rangeDropdown">
+                                            <option value="{{selectedYear}}">{{selectedYear}}</option>
+                                            <option class="dropdown-item small text-muted"
+                                                ng-repeat="year in years track by $index"
+                                                ng-if="year[0] != selectedYear">{{year[0]}}
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-sm"><span
-                                            class="fe fe-refresh-ccw fe-18  text-muted"></span></button>
-                                    <button type="button" class="btn btn-sm mr-2"><span
-                                            class="fe fe-filter fe-18  text-muted"></span></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-12" ng-controller="StaticOvertime">
-                        <div class="row">
-                            <div class="col-md-12 mb-4">
-                                <div class="card shadow">
-                                    <div class="card-header">
-
-                                        <div class="dropdown float-right">
-                                            <select ng-model="selectedYear" ng-change="updateSelectedYear()"
-                                                    class="btn btn-sm btn-link text-muted p-0" id="rangeDropdown">
-                                                <option value="{{selectedYear}}">{{selectedYear}}</option>
-                                                <option class="dropdown-item small text-muted"
-                                                        ng-repeat="year in years track by $index"
-                                                        ng-if="year[0] != selectedYear">{{year[0]}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <canvas id="monthlyRevenueChart" width="300" height="100"></canvas>
-                                        <center><strong class="card-title mb-0">Biều đồ doanh thu trong năm
+                                <div class="card-body">
+                                    <canvas id="monthlyRevenueChart" width="300" height="100"></canvas>
+                                    <center><strong class="card-title mb-0 item-text">Biều đồ doanh thu trong năm
                                             {{selectedYear}}</strong></center>
-                                    </div> <!-- /.card-body -->
-                                </div> <!-- /.card -->
-                            </div> <!-- /. col -->
-                        </div> <!-- end section -->
-                    </div> <!-- .col-12 -->
-                </div> <!-- .row -->
+                                </div> <!-- /.card-body -->
+                            </div> <!-- /.card -->
+                        </div> <!-- /. col -->
+                    </div> <!-- end section -->
+                </div> <!-- .col-12 -->
+                <!-- .row -->
 
 
             </div> <!-- .container-fluid -->

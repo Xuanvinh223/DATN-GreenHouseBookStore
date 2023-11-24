@@ -22,6 +22,7 @@ import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.OTPRepository;
 import com.greenhouse.service.AuthService;
 import com.greenhouse.service.EmailService;
+import com.greenhouse.service.TwilioOTPService;
 
 @RestController
 @RequestMapping("/sign-up")
@@ -37,7 +38,10 @@ public class SignupController {
     private OTPRepository otpRepository;
 
     @Autowired
-    EmailService emailService;
+    private EmailService emailService;
+
+    @Autowired
+    private TwilioOTPService twilioOTPService;
 
     private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
 
@@ -72,6 +76,10 @@ public class SignupController {
                 response.setMessage("Mã xác nhận đã hết thời gian.");
                 return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
             }
+        } else {
+            response.setStatus(400);
+            response.setMessage("Vui lòng nhập đúng Email hoặc số điện thoại đã gửi mã OTP.");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
         // So sánh mật khẩu và xác nhận mật khẩu
@@ -84,21 +92,6 @@ public class SignupController {
             response.setMessage("Mật khẩu không hợp lệ.");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
-
-        // Kiểm tra số điện thoại hợp lệ
-        if (!isEmailValid(signupDTO.getEmailAndPhone())) {
-            response.setStatus(400);
-            response.setMessage("Email không hợp lệ.");
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-
-        // Kiểm tra tên đăng nhập và số điện thoại đã tồn tại
-        if (accountRepository.existsByEmailAndActiveIsTrue(signupDTO.getEmailAndPhone())) {
-            response.setStatus(400);
-            response.setMessage("Email đã tồn tại.");
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-
         // Đăng ký tài khoản
         authService.signup(signupDTO);
         response.setStatus(201);
@@ -110,21 +103,22 @@ public class SignupController {
     private ResponseEntity<Response> sendCode(@RequestBody SignupDTO signupDTO) {
         Response response = new Response();
         String code = generateRandomCode();
+
         if (isEmpty(signupDTO.getEmailAndPhone())) {
             response.setStatus(400);
-            response.setMessage("Email không được bỏ trống.");
+            response.setMessage("Email hoặc số điện thoại không được bỏ trống.");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
-        // Kiểm tra số điện thoại hợp lệ
-        if (!isEmailValid(signupDTO.getEmailAndPhone())) {
-            response.setStatus(400);
-            response.setMessage("Email không hợp lệ.");
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-        // Kiểm tra tên đăng nhập và số điện thoại đã tồn tại
+        // Kiểm tra tên đăng nhập và email đã tồn tại
         if (accountRepository.existsByEmailAndActiveIsTrue(signupDTO.getEmailAndPhone())) {
             response.setStatus(400);
             response.setMessage("Email đã tồn tại.");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        if (accountRepository.existsByPhoneAndActiveIsTrue(signupDTO.getEmailAndPhone())) {
+            response.setStatus(400);
+            response.setMessage("Số điện thoại đã tồn tại.");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
@@ -134,65 +128,93 @@ public class SignupController {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
-        if (!isEmailValid(signupDTO.getEmailAndPhone())) {
+        if (isPhoneNumber(signupDTO.getEmailAndPhone())) {
+            Accounts newAccounts = new Accounts();
+            newAccounts.setUsername(signupDTO.getEmailAndPhone());
+            newAccounts.setEmail(signupDTO.getEmailAndPhone());
+            newAccounts.setCreatedAt(new Date());
+            newAccounts.setActive(false);
+            accountRepository.save(newAccounts);
+            /////////////////////////////////////////
+            OTP otp = otpRepository.findByUsername(newAccounts);
+            if (otp != null) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new Date()); // Sử dụng thời gian hiện tại
+                cal.add(Calendar.MINUTE, 3); // Thêm 3 phút
+                OTP createOTP = new OTP();
+                createOTP.setId(otp.getId());
+                createOTP.setUsername(newAccounts);
+                createOTP.setOtpCode(code);
+                createOTP.setCreateTime(new Date());
+                createOTP.setExpiredTime(cal.getTime());
+                createOTP.setStatus(0);
+                otpRepository.save(createOTP);
+                twilioOTPService.sendOTP(signupDTO.getEmailAndPhone(), code);
+                response.setStatus(201);
+                response.setMessage("OTP đã được gửi.");
+                return new ResponseEntity<>(response, HttpStatus.CREATED);
+            } else {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new Date()); // Sử dụng thời gian hiện tại
+                cal.add(Calendar.MINUTE, 3); // Thêm 3 phút
+                OTP createOTP = new OTP();
+                createOTP.setUsername(newAccounts);
+                createOTP.setOtpCode(code);
+                createOTP.setCreateTime(new Date());
+                createOTP.setExpiredTime(cal.getTime());
+                createOTP.setStatus(0);
+                otpRepository.save(createOTP);
+                twilioOTPService.sendOTP(signupDTO.getEmailAndPhone(), code);
+                response.setStatus(201);
+                response.setMessage("OTP đã được gửi.");
+                return new ResponseEntity<>(response, HttpStatus.CREATED);
+            }
+        } else if (isEmail(signupDTO.getEmailAndPhone())) {
+            Accounts newAccounts = new Accounts();
+            newAccounts.setUsername(signupDTO.getEmailAndPhone());
+            newAccounts.setEmail(signupDTO.getEmailAndPhone());
+            newAccounts.setCreatedAt(new Date());
+            newAccounts.setActive(false);
+            accountRepository.save(newAccounts);
+            /////////////////////////////////////////
+            OTP otp = otpRepository.findByUsername(newAccounts);
+            if (otp != null) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new Date()); // Sử dụng thời gian hiện tại
+                cal.add(Calendar.MINUTE, 3); // Thêm 3 phút
+                OTP createOTP = new OTP();
+                createOTP.setId(otp.getId());
+                createOTP.setUsername(newAccounts);
+                createOTP.setOtpCode(code);
+                createOTP.setCreateTime(new Date());
+                createOTP.setExpiredTime(cal.getTime());
+                createOTP.setStatus(0);
+                otpRepository.save(createOTP);
+                emailService.sendEmailSigup(signupDTO.getEmailAndPhone(), "GreenHouse || Mã xác nhận", code);
+                response.setStatus(201);
+                response.setMessage("OTP đã được gửi.");
+                return new ResponseEntity<>(response, HttpStatus.CREATED);
+            } else {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new Date()); // Sử dụng thời gian hiện tại
+                cal.add(Calendar.MINUTE, 3); // Thêm 3 phút
+                OTP createOTP = new OTP();
+                createOTP.setUsername(newAccounts);
+                createOTP.setOtpCode(code);
+                createOTP.setCreateTime(new Date());
+                createOTP.setExpiredTime(cal.getTime());
+                createOTP.setStatus(0);
+                otpRepository.save(createOTP);
+                emailService.sendEmailSigup(signupDTO.getEmailAndPhone(), "GreenHouse || Mã xác nhận", code);
+                response.setStatus(201);
+                response.setMessage("OTP đã được gửi.");
+                return new ResponseEntity<>(response, HttpStatus.CREATED);
+            }
+        } else {
             response.setStatus(400);
-            response.setMessage("Email không hợp lệ.");
+            response.setMessage("Email hoặc số điện thoại không hợp lệ");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
-        Accounts newAccounts = new Accounts();
-        newAccounts.setUsername(signupDTO.getEmailAndPhone());
-        newAccounts.setEmail(signupDTO.getEmailAndPhone());
-        newAccounts.setCreatedAt(new Date());
-        newAccounts.setActive(false);
-        accountRepository.save(newAccounts);
-        /////////////////////////////////////////
-        OTP otp = otpRepository.findByUsername(newAccounts);
-        if (otp != null) {
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(new Date()); // Sử dụng thời gian hiện tại
-            cal.add(Calendar.MINUTE, 3); // Thêm 3 phút
-            OTP createOTP = new OTP();
-            createOTP.setId(otp.getId());
-            createOTP.setUsername(newAccounts);
-            createOTP.setOtpCode(code);
-            createOTP.setCreateTime(new Date());
-            createOTP.setExpiredTime(cal.getTime());
-            createOTP.setStatus(0);
-            otpRepository.save(createOTP);
-            emailService.sendEmailSigup(signupDTO.getEmailAndPhone(), "GreenHouse || Mã xác nhận", code);
-            response.setStatus(201);
-            response.setMessage("OTP đã được gửi.");
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        } else {
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(new Date()); // Sử dụng thời gian hiện tại
-            cal.add(Calendar.MINUTE, 3); // Thêm 3 phút
-            OTP createOTP = new OTP();
-            createOTP.setUsername(newAccounts);
-            createOTP.setOtpCode(code);
-            createOTP.setCreateTime(new Date());
-            createOTP.setExpiredTime(cal.getTime());
-            createOTP.setStatus(0);
-            otpRepository.save(createOTP);
-            emailService.sendEmailSigup(signupDTO.getEmailAndPhone(), "GreenHouse || Mã xác nhận", code);
-            response.setStatus(201);
-            response.setMessage("OTP đã được gửi.");
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        }
-
-    }
-
-    private boolean isValidPhoneNumber(String phoneNumber) {
-        // Sử dụng biểu thức chính quy để kiểm tra số điện thoại Việt Nam
-        String regex = "^0[0-9]{9}$"; // Định dạng số điện thoại Việt Nam
-        return phoneNumber.matches(regex);
-    }
-
-    private boolean isEmailValid(String email) {
-        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
 
     private boolean validatePassword(String password) {

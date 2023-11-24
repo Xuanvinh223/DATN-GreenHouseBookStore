@@ -5,11 +5,11 @@
 
 <body ng-app="myApp" ng-controller="MainController">
 <div class="notification-container">
-    <div class="notification" id="{{'notification-'+$index}}" ng-repeat="notification in notifications track by $index"
+    <!-- <div class="notification" id="{{'notification-'+$index}}" ng-repeat="notification in notifications track by $index"
          ng-class="notification.type">
         {{ notification.message }}
         <span class="close-button" ng-click="removeNotification(notification)">&times;</span>
-    </div>
+    </div> -->
 </div>
 <div class="loader-container" ng-show="isLoading">
     <div class="loader">

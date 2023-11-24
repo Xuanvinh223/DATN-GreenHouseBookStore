@@ -168,13 +168,17 @@ public class Maincontroller {
     }
 
     @GetMapping("/login-processing")
-    public String loginProcessing(HttpServletResponse response) {
+    public String loginProcessing(HttpServletResponse response, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         // Trích xuất thông tin người dùng từ đối tượng Authentication
         String username = authentication.getName();
         Accounts accounts = accountRepository.findByUsername(username);
         setCookie(response, username, accounts);
+        if (accounts.getEmail() == null || accounts.getFullname() == null || accounts.getPhone() == null) {
+            redirectAttributes.addFlashAttribute("infoMessage", "Vui lòng cập nhật thông tin tài khoản của bạn.");
+            return "redirect:/account/info";
+        }
         return "redirect:/index";
     }
 

@@ -118,9 +118,9 @@ function indexClientController($scope, $http) {
     }
 
 
-    // xem nhanh thông tin sản phẩm
     $scope.quickView = function (productDetail) {
-        $scope.quickViewProduct = productDetail;
+     // xem nhanh thông tin sản phẩm
+       $scope.quickViewProduct = productDetail;
 
         $scope.quantityQuickViewProduct = 1;
     }

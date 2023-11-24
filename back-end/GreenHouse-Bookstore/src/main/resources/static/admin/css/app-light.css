@@ -4553,6 +4553,7 @@ input[type="button"].btn-block {
 
 .card-title {
   margin-bottom: 0.75rem;
+  color: #6c757d;
 }
 
 .card-subtitle {
@@ -15862,8 +15863,8 @@ a.uppy-Dashboard-poweredBy {
   background-color: transparent;
   border: 1px solid transparent;
 }
-.pagination li:hover{
-  color:#343a40;
+.pagination li:hover {
+  color: #343a40;
 }
 .pagination .pagination-last a {
   margin-right: 0;
@@ -15947,7 +15948,7 @@ a.uppy-Dashboard-poweredBy {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background:  #30cf30;
+  background: #30cf30;
   border-radius: 10px;
 }
 
@@ -16418,7 +16419,11 @@ a.uppy-Dashboard-poweredBy {
   transition: transform var(--timing) ease;
 }
 
-.voucher-page #voucherModal .modal-body .search-box .form-modal-search:focus-within {
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  .form-modal-search:focus-within {
   border-radius: var(--after-border-radius);
 }
 
@@ -16426,7 +16431,11 @@ a.uppy-Dashboard-poweredBy {
   outline: none;
 }
 
-.voucher-page #voucherModal .modal-body .search-box .form-modal-search:focus-within:before {
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  .form-modal-search:focus-within:before {
   transform: scale(1);
 }
 
@@ -16437,7 +16446,12 @@ a.uppy-Dashboard-poweredBy {
   visibility: hidden;
 }
 
-.voucher-page #voucherModal .modal-body .search-box input:not(:placeholder-shown)~.reset {
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  input:not(:placeholder-shown)
+  ~ .reset {
   opacity: 1;
   visibility: visible;
 }
@@ -16493,7 +16507,13 @@ a.uppy-Dashboard-poweredBy {
   gap: 10px;
 }
 
-.voucher-page #voucherModal .modal-body .info-product-cart .cart-price .price-old .price {
+.voucher-page
+  #voucherModal
+  .modal-body
+  .info-product-cart
+  .cart-price
+  .price-old
+  .price {
   font-size: 1em;
 }
 
@@ -16513,22 +16533,44 @@ a.uppy-Dashboard-poweredBy {
   top: 50px;
 }
 
-.voucher-page #voucherModal .modal-body .search-box .product-cart-left .item-product-cart {
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart {
   background: #eaeaea;
   cursor: pointer;
   margin: 0 0.8rem;
   padding: 7px;
 }
 
-.voucher-page #voucherModal .modal-body .search-box .product-cart-left .item-product-cart .img-product-cart {
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart
+  .img-product-cart {
   padding: 0;
 }
 
-.voucher-page #voucherModal .modal-body .search-box .product-cart-left .item-product-cart:hover {
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart:hover {
   background: #d5f5d6;
 }
 
-.voucher-page #voucherModal .modal-body .search-box .product-cart-left .group-product-info .info-product-cart {
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  .product-cart-left
+  .group-product-info
+  .info-product-cart {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16552,7 +16594,12 @@ a.uppy-Dashboard-poweredBy {
   border-bottom-style: solid;
 }
 
-.voucher-page #voucherProduct .modal-body .search-box .form-modal-search button {
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .form-modal-search
+  button {
   border: none;
   background: none;
   color: #8b8ba7;
@@ -16588,7 +16635,11 @@ a.uppy-Dashboard-poweredBy {
   border: none;
 }
 
-.voucher-page #voucherProduct .modal-body .search-box .form-modal-search:before {
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .form-modal-search:before {
   content: "";
   position: absolute;
   background: var(--border-color);
@@ -16602,7 +16653,11 @@ a.uppy-Dashboard-poweredBy {
   transition: transform var(--timing) ease;
 }
 
-.voucher-page #voucherProduct .modal-body .search-box .form-modal-search:focus-within {
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .form-modal-search:focus-within {
   border-radius: var(--after-border-radius);
 }
 
@@ -16610,7 +16665,11 @@ a.uppy-Dashboard-poweredBy {
   outline: none;
 }
 
-.voucher-page #voucherProduct .modal-body .search-box .form-modal-search:focus-within:before {
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .form-modal-search:focus-within:before {
   transform: scale(1);
 }
 
@@ -16621,7 +16680,12 @@ a.uppy-Dashboard-poweredBy {
   visibility: hidden;
 }
 
-.voucher-page #voucherProduct .modal-body .search-box input:not(:placeholder-shown)~.reset {
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  input:not(:placeholder-shown)
+  ~ .reset {
   opacity: 1;
   visibility: visible;
 }
@@ -16677,7 +16741,13 @@ a.uppy-Dashboard-poweredBy {
   gap: 10px;
 }
 
-.voucher-page #voucherProduct .modal-body .info-product-cart .cart-price .price-old .price {
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .info-product-cart
+  .cart-price
+  .price-old
+  .price {
   font-size: 1em;
 }
 
@@ -16697,22 +16767,44 @@ a.uppy-Dashboard-poweredBy {
   top: 50px;
 }
 
-.voucher-page #voucherProduct .modal-body .search-box .product-cart-left .item-product-cart {
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart {
   background: #eaeaea;
   cursor: pointer;
   margin: 0 0.8rem;
   padding: 7px;
 }
 
-.voucher-page #voucherProduct .modal-body .search-box .product-cart-left .item-product-cart .img-product-cart {
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart
+  .img-product-cart {
   padding: 0;
 }
 
-.voucher-page #voucherProduct .modal-body .search-box .product-cart-left .item-product-cart:hover {
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart:hover {
   background: #d5f5d6;
 }
 
-.voucher-page #voucherProduct .modal-body .search-box .product-cart-left .group-product-info .info-product-cart {
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .product-cart-left
+  .group-product-info
+  .info-product-cart {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16804,7 +16896,6 @@ a.uppy-Dashboard-poweredBy {
   color: #f8f9fa;
 }
 
-
 /* Định dạng nút trang hiện tại */
 .pagination .active a {
   background-color: #62ab00;
@@ -16858,4 +16949,20 @@ a.uppy-Dashboard-poweredBy {
   margin-bottom: 10px;
   margin-top: 5px;
 }
+.ellipsis {
+  max-width: 100px; /* Thiết lập chiều rộng tối đa của cột */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* .nav-pills {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+}
+
+.nav-item {
+  white-space: nowrap !important;
+} */
+
 /* END */

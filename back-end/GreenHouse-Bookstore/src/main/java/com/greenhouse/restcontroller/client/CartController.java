@@ -213,7 +213,7 @@ public class CartController {
         List<VoucherMappingProduct> listVouchersMappingProduct = new ArrayList<>();
 
         try {
-            listUserVouchers = userVoucherRepository.findByUsernameAndStatus(username, false);
+            listUserVouchers = userVoucherRepository.findByUsernameAndStatus(username, true);
             for (UserVoucher item : listUserVouchers) {
                 if (isVoucherValid(item.getVoucher())) {
                     listVouchers.add(item.getVoucher());

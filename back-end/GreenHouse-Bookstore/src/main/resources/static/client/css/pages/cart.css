@@ -344,7 +344,7 @@ input.qty-carts {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 48px;
+    width: 36px;
     cursor: pointer;
 }
 
@@ -524,7 +524,7 @@ input.qty-carts {
 .gh_checkout_block .gh-event-promo-title > .gh-event-promo-title-left > span:first-of-type,
 .gh-event-promo > .gh-event-promo-title > .gh-event-promo-title-left > span:first-of-type {
     padding-right: 8px;
-}
+} 
 
 #popup-loading-event-cart > .popup-loading-event-cart-detail .gh-event-promo-title > .gh-event-promo-title-center,
 #popup-loading-event-cart .gh-event-promo-title > .gh-event-promo-title-left > span:nth-of-type(2),
@@ -892,13 +892,17 @@ hr {
 
 .title-cart-page-left {
     flex-basis: 65%;
-}
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}   
 
 .number-cart-page-right {
     flex-basis: 35%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .total-cart-page .number-cart-page-right .price {
@@ -908,10 +912,6 @@ hr {
 .title-final-total {
     font-weight: 650;
     font-size: 1.2em;
-}
-
-.title-cart-page-left {
-    flex-basis: 65%;
 }
 
 .title-final-total .number-cart-page-right .price {

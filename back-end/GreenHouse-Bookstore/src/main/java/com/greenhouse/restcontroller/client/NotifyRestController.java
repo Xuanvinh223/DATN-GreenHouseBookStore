@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,7 @@ import com.greenhouse.repository.NotificationRepository;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/customer")
+// @RequestMapping("/customer")
 public class NotifyRestController {
 
     @Autowired
@@ -29,14 +31,37 @@ public class NotifyRestController {
     @Autowired
     private NotificationRepository notificationRepository;
 
-    @GetMapping("/rest/notifications/{username}")
+    @GetMapping("/customer/rest/notifications/{username}")
     public ResponseEntity<List<Notification>> getNotificationsByStatus(@PathVariable String username) {
-        List<Notification> notifications = notificationRepository.findByUsernameUsernameOrderByStatusAscCreateAtDesc(username);
+        List<Notification> notifications = notificationRepository
+                .findByUsernameUsernameOrderByStatusAscCreateAtDesc(username);
         return ResponseEntity.ok(notifications);
     }
 
+    @MessageMapping("/notify/getNotifications/{username}")
+    public void getNotifications(@DestinationVariable String username) {
+        List<Notification> notifications = notificationRepository
+                .findByUsernameUsernameOrderByStatusAscCreateAtDesc(username);
 
-    @PutMapping("/rest/notifications/{notificationId}/markAsRead")
+        // Gửi thông báo đến người dùng
+        simpMessagingTemplate.convertAndSend("/topic/notifications", notifications);
+    }
+
+    @MessageMapping("/notify/{username}")
+    public void sendNotification(@DestinationVariable String username, Notification model) {
+        try {
+            // Lưu thông báo vào cơ sở dữ liệu
+            Notification savedNotification = notificationRepository.save(model);
+
+            // Gửi thông báo đến người dùng chỉ định thông qua WebSocket
+            simpMessagingTemplate.convertAndSendToUser(username, "/topic/notification", savedNotification);
+
+        } catch (Exception e) {
+            System.out.println("Error sendNotification: " + e);
+        }
+    }
+
+    @PutMapping("/customer/rest/notifications/{notificationId}/markAsRead")
     public ResponseEntity<String> markNotificationAsRead(@PathVariable int notificationId) {
         Optional<Notification> optionalNotification = notificationRepository.findById(notificationId);
 
@@ -49,15 +74,6 @@ public class NotifyRestController {
             return new ResponseEntity<>("Notification not found.", HttpStatus.NOT_FOUND);
         }
     }
-
-    // @MessageMapping("/notify/getNotifications/{username}")
-    // public void getNotifications(@DestinationVariable String username) {
-    // List<Notification> notifications =
-    // notificationRepository.findByUsernameUsername(username);
-
-    // // Gửi thông báo đến người dùng
-    // simpMessagingTemplate.convertAndSend("/topic/notifications", notifications);
-    // }
 
     // @MessageMapping("/notify")
     // public void sendNotification(Notification model) {
