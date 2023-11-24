@@ -14,6 +14,7 @@ app.controller("CategoryTypeController", function ($scope, $location, $routePara
     $scope.itemsPerPageOptions = [5, 10, 20, 50];
     $scope.itemsPerPage = 5;
     $scope.currentPage = 1;
+    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
 
 
     $scope.checkErrors = function () {

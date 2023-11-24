@@ -31,6 +31,7 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
         $scope.itemsPerPage = 5;
         $scope.currentPage = 1;
         $scope.orderByField = "";
+    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
         $scope.reverseSort = true;
         $scope.searchText = ""; // Thêm trường searchText cho ô tìm kiếm
         $scope.errors = "";
