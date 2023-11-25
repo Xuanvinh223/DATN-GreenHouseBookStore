@@ -23,7 +23,6 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
     $scope.currentPage = 1;
     $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
 
-
     $scope.checkErrors = function () {
         $scope.errors = {};
 

@@ -118,33 +118,6 @@
               <div class="block_line" style="margin-top: 10px;">
                 <div></div>
               </div>
-
-              <!-- <div class="tu-khoa-hot" style="margin-top: 10px;">
-                <span><img width="20px" height="20px"
-                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_menu.svg"></span>
-                <span th:text="#{lo.mn.nb}"></span>
-              </div> -->
-
-              <!-- <div class="tu-khoa-hot-container" style="margin-top: 20px; margin-bottom: 20px;">
-                <div class="tu-khoa-hot-item col-md-3">
-                  <a href="">
-                    <img src="/client/image/img/search3.jpg" alt="search3">
-                    <span>Cây cam chanh của tôi</span>
-                  </a>
-                </div>
-                <div class="tu-khoa-hot-item col-md-3">
-                  <a href=""><img src="/client/image/img/search4.jpg" alt="search4">
-                    <span>Thỏ tám màu</span></a>
-                </div>
-                <div class="tu-khoa-hot-item col-md-3">
-                  <a href=""> <img src="/client/image/img/search5.jpg" alt="search5">
-                    <span>Bói tarot cực chuẩn</span></a>
-                </div>
-                <div class="tu-khoa-hot-item col-md-3">
-                  <a href=""> <img src="/client/image/img/search6.jpg" alt="search6">
-                    <span>Sách tâm lý cực cuốn</span></a>
-                </div>
-              </div> -->
             </div>
           </div>
 
@@ -162,6 +135,7 @@
                 <div class="top_menu_label" th:text="#{lo.mn.mess}"></div>
               </div>
             </a>
+            
             <div class="top-notification-dropdown" ng-if="token">
               <div style="padding:5px;border-bottom: 1px solid #F2F4F5; font-weight: bold;" class="fhs_center_space">
                 <div class="fhs_center_left" style="font-size: 1em; color: #0D0E0F;">
@@ -201,6 +175,7 @@
 
               <div class="top-notification-footer"></div>
             </div>
+
             <div class="top-notification-dropdown" ng-if="!token">
               <div class="dropdown-pad">
                 <div class="center_center" style="font-size: 1.23em; color: #0D0E0F;">
@@ -346,6 +321,7 @@
           </div>
         </div>
       </div>
+
       <div class="top-bar-mobile">
         <div class="top-banner-mobile">
           <a>
@@ -358,16 +334,156 @@
             <a href="" class="link-icon hamburgur-icon off-canvas-btn"> <span class="ico_menu_white"></span></a>
           </div>
 
-          <div class="top-bar-search-mobile" style="margin-left: 1%;">
-            <input type="text" th:placeholder="#{lo.mn.search}" placeholder="Tìm kiếm sản phẩm mong muốn...">
+          <div class="top-bar-search-mobile">
+            <div class="top-bar-search">
+              <input type="text" th:placeholder="#{lo.mn.search}" ng-model="keyword" ng-change="search(keyword)">
+              <span class="button" ng-click="searchData(keyword)"><i class='bx bx-search'></i></span>
+            </div>
+            <div class="top-bar-search-info-mobile">
+              <!-- Khi không có keyword -->
+              <div class="row mt--10 mb--10" ng-if="!keyword">
+                <div class="col ">
+                  <div class="tu-khoa-hot">
+                    <span class="fa fa-history"></span>
+                    <span th:text="#{lo.mn.searchhistory}"></span>
+                  </div>
+                </div>
+                <div class="col-auto mr--20 mt--5">
+                  <div class="fhs_center_right fhs_mouse_point his-delete-all" th:text="#{lo.mn.deleteall}"
+                       ng-click="clearSearchHistory()">
+                  </div>
+                </div>
+              </div>
+              <div class="form-search-form-content form_search_history" ng-if="!keyword">
+                <div ng-repeat="history in searchHistory " ng-click="searchData(history.keyword)">
+                  <span class="form_search_history_text">{{history.keyword}}</span>
+                  <span class="fa fa-times" ng-click="removeSearchHistory($index)"></span>
+                </div>
+              </div>
+              <div class="tu-khoa-hot" ng-if="!keyword">
+                <span><img
+                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
+                <span th:text="#{lo.mn.hot}"></span>
+              </div>
+
+              <div class="tu-khoa-hot-container" ng-if="!keyword">
+                <div class="tu-khoa-hot-item col-md-4" ng-repeat="item in listSearchInvoices">
+                  <a href="#" ng-click="getProductDetail(item.productDetailId)">
+                    <img ng-src="{{item.image}}" alt="Hinh anh">
+                    <span>{{item.product.productName}}</span></a>
+                </div>
+              </div>
+              <!--Khi Có Keyword  -->
+              <div class="row mt--10  mb--10" ng-if="keyword">
+                <div class="col">
+                  <div class="tu-khoa-hot">
+                    <span class="fa fa-history"></span>
+                    <span th:text="#{lo.mn.suggest}"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-search-form-content-mobile form_search_history" ng-if="keyword">
+                <div ng-repeat="item in searchProductResults | limitTo:10 track by $index"
+                     ng-click="searchData(item.product.productName)">
+                  <span class="form_search_history_text">{{item.product.productName}}</span>
+                  <span class="fa fa-times" ng-click="removeSearchHistory($index)"></span>
+                </div>
+              </div>
+
+              <div class="tu-khoa-hot" ng-if="keyword">
+                <span><img
+                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
+                <span th:text="#{lo.mn.searchproduct}"></span>
+              </div>
+              <div class="tu-khoa-hot-container" ng-if="keyword">
+                <div class="tu-khoa-hot-item col-md-4"
+                     ng-repeat="item in searchProductResults | limitTo:6 track by $index">
+                  <a href="#" ng-click="getProductDetail(item.productDetailId)">
+                    <img ng-src="{{item.image}}" alt="Hinh anh">
+                    <span>{{item.product.productName}}</span></a>
+                </div>
+              </div>
+              <div class="block_line" style="margin-top: 10px;">
+                <div></div>
+              </div>
+            </div>
           </div>
+
+
           <div class="top-bar-mobile-icon center_center">
             <div class="icon_nofi_white">
               <div class="top-notification-button-unseen top_menu_unseen fhs_center_center">
                 {{ListUnNotifyUser.length > 50 ? '50+' : ListUnNotifyUser.length}}
               </div>
             </div>
+
+            <div class="top-notification-dropdown" ng-if="token">
+              <div style="padding:5px;border-bottom: 1px solid #F2F4F5; font-weight: bold;" class="fhs_center_space">
+                <div class="fhs_center_left" style="font-size: 1em; color: #0D0E0F;">
+                  <span class="icon_nofi_black" style="width:16px;height:16px;margin-right: 8px;"></span>
+                  <span>Thông báo</span>
+                  <span class="fhs_notification_unseen" style="margin-left:4px;">
+                    ({{ ListUnNotifyUser.length > 50 ? '50+' : ListUnNotifyUser.length }})
+                  </span>
+                </div>
+                <a href="/account/notification" class="fhs_center_left" style="color: #62ab00; font-size: 1em;">Xem tất
+                  cả</a>
+              </div>
+              <div class="top-notification-list fhs_scrollbar" style="display: block;">
+                <div ng-if="ListUnNotifyUser.length > 0" class="top-notification-list fhs_scrollbar"
+                     style="display: block;">
+                  <a class="top-notification-item fhs_column_left fhs_mouse_point clear"
+                     ng-repeat="notification in ListUnNotifyUser" href="/account/notification">
+                    <div class="fhs_top_stretch" style="width:100%;">
+                      <div class="fhs_top_left" style="margin-right:12px;margin-top: 10px;">
+                        <div class="ico_noti_other"></div>
+                      </div>
+                      <div class="fhs_column_stretch" style="width:calc(100% - 44px); text-align: left;">
+                        <div class="fhs_top_left fhs_nowrap_one" style="font-weight:bold;">{{ notification.title }}
+                        </div>
+                        <div class="fhs_top_left fhs_nowrap_two">{{ notification.message }}</div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div ng-if="ListUnNotifyUser.length === 0" class="center_center"
+                     style="display: flex; align-items: center; margin-top: 20px;">
+                  <div class="icon_nofi_gray"></div>
+                  <span style="margin-left: 5px; color: rgb(142, 141, 141)">Không Có Thông Báo Mới</span>
+                </div>
+
+              </div>
+
+              <div class="top-notification-footer"></div>
+            </div>
+
+            <div class="top-notification-dropdown" ng-if="!token">
+              <div class="dropdown-pad">
+                <div class="center_center" style="font-size: 1.23em; color: #0D0E0F;">
+                  <span class="icon_nofi_black" style="margin-right: 5px;"></span>
+                  <span th:text="#{lo.mn.mess}"></span>
+                </div>
+              </div>
+              <div class="center_center">
+                <span class="ico_notlogin"></span>
+              </div>
+              <div class="center_center" style="color: #0D0E0F; font-size: 1.23em; " th:text="#{lo.mn.messmeanu}">Vui
+                lòng
+                đăng nhập để
+              </div>
+              <div class="center_center" style="color: #0D0E0F; padding-bottom:24px; font-size: 1.23em;"
+                   th:text="#{lo.mn.messmeanu1}">xem
+                thông báo
+              </div>
+              <a href="/login" style="margin-top: 5px;" class="button-default active">
+                <span th:text="#{lo.mn.login}">Đăng nhập</span>
+              </a>
+              <a href="/resgister" style="margin-top: 10px;" class="button-default">
+                <span th:text="#{lo.mn.signup}">Đăng ký</span>
+              </a>
+            </div>
           </div>
+
           <div class="top-bar-mobile-icon center_center">
             <div class="icon_cart_white">
               <div class="top_menu_unseen fhs_center_center">
@@ -394,7 +510,7 @@
               <div class="col-lg-3">
                 <nav class="category-nav white-nav">
                   <div>
-                    <div class="category-trigger"><i class="fa fa-bars"></i><a th:text="#{lo.mn.dmsp}"></a></div>
+                    <div class="category-trigger"><i class="fa fa-bars"></i><a th:text="#{lo.mn.dmsp}">Danh mục sản phẩm</a></div>
                     <ul class="category-menu">
                       <li class="cat-item has-children mega-menu" ng-repeat="parentCategory in parentCategoriesTypes">
                         <a href="#">{{ parentCategory }}</a>
