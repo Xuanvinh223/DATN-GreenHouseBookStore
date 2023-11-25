@@ -21,7 +21,7 @@
                                                     number:'0'}}</span>
                                                 <span class="small"
                                                     ng-class="{'text-success': percent > 0, 'text-danger': percent < 0}">
-                                                    {{ percent }}%
+                                                    {{ percent |number:'2'}}%
                                                     <span ng-if="percent > 0"
                                                         class="fe fe-12 fe-arrow-up text-success"></span>
                                                     <span ng-if="percent < 0"

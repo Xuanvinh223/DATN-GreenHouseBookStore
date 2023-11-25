@@ -77,7 +77,7 @@ app.config(function ($routeProvider) {
         })
         .when("/inventory-form", {
             templateUrl: "page/inventory-manager/inventory_form.html",
-            controller: "inventoryCtrl"
+            controller: "InventoryStatic"
         })
         .when("/inventory-table", {
             templateUrl: "page/inventory-manager/inventory_table.html",

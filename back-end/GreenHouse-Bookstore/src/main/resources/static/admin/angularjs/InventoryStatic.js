@@ -28,7 +28,27 @@ function InventoryStatic($scope, $http, $filter) {
     $scope.totalItems1 = $scope.inventorystatics.length;
     $scope.totalItems2 = $scope.inventorystaticsasc.length;
     $scope.maxSize1 = 5;
-    $scope.maxSize1 = 5;
+    $scope.reverseSort = false; // Sắp xếp tăng dần
+    $scope.reverseSortTable2 = false; // Sắp xếp tăng dần
+
+    // Sắp xếp
+    $scope.sortBy = function (field) {
+        if ($scope.sortField === field) {
+            $scope.reverseSort = !$scope.reverseSort;
+        } else {
+            $scope.sortField = field;
+            $scope.reverseSort = false;
+        }
+    };
+
+    $scope.sortByTable2 = function (field) {
+        if ($scope.sortField1 === field) {
+            $scope.reverseSortTable2 = !$scope.reverseSortTable2;
+        } else {
+            $scope.sortField1 = field;
+            $scope.reverseSortTable2 = false;
+        }
+    };
 
     $scope.getNumOfPages1 = function () {
         return Math.ceil($scope.totalItems1 / $scope.itemsPerPage1);
@@ -176,7 +196,7 @@ function InventoryStatic($scope, $http, $filter) {
                 item[5],
                 $filter('date')(item[6], 'dd/MM/yyyy')
             ]);
-        });    
+        });
         // Đặt độ rộng cố định cho từng cột
         var colWidths = [10, 10, 50, 15, 15, 15, 15, 15];
 
@@ -296,7 +316,7 @@ function InventoryStatic($scope, $http, $filter) {
                 item[5],
                 $filter('date')(item[6], 'dd/MM/yyyy')
             ]);
-        });    
+        });
         // Đặt độ rộng cố định cho từng cột
         var colWidths = [10, 10, 50, 15, 15, 15, 15, 15];
 

@@ -1,22 +1,23 @@
 <div class="container-fluid" ng-controller="SuppliersController">
   <div class="row justify-content-center">
     <div class="col-12">
-      <div class="toolbar row mb-2">
-        <div class="col ml-auto">
-          <div class="float-right">
-            <form class="form-inline mr-auto  text-muted ">
-              <a type="button" class="btn btn-success " href="#!/supplier-table">
-                Danh Sách Nhà Cung Cấp
-              </a>
-            </form>
-          </div>
-        </div>
+      <div class="card ">
+        <h4 class="mt-3 ml-3 ">Thông Tin Nhà Cung Cấp</h4>
       </div>
     </div>
-    <div class="col-12">
+    <div class="col-12 my-4">
       <div class="card shadow mb-4">
         <div class="card-header">
-          <h4 class="card-title">Thông Tin Nhà Cung Cấp</h4>
+          <div class="toolbar row mb-2">
+            <div class="col ml-auto">
+              <div class="float-right">
+                <a class="btn btn-success mt-2 " href="#!/supplier-table">
+                  <i class="fa fa-list mr-1"></i>
+                  Danh Sách Nhà Cung Cấp
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="card-body">
           <form enctype="multipart/form-data">
@@ -48,8 +49,7 @@
                     <label for="email">Email(*)</label>
                     <input type="text" class="form-control" placeholder="Nhập email" id="email" name="email"
                       ng-model="editingSupplier.email" />
-                    <small class="error-label text-danger"
-                      ng-show="errorMessages.email">{{errorMessages.email}}</small>
+                    <small class="error-label text-danger" ng-show="errorMessages.email">{{errorMessages.email}}</small>
                   </div>
                   <div class="col-md-5 mb-3">
                     <label for="description">Mô Tả</label>
@@ -60,8 +60,7 @@
                     <label for="phone">Số Điện Thoại(*)</label>
                     <input type="text" class="form-control" placeholder="Nhập số điện thoại" id="phone" name="phone"
                       ng-model="editingSupplier.phone" />
-                    <small class="error-label text-danger"
-                      ng-show="errorMessages.phone">{{errorMessages.phone}}</small>
+                    <small class="error-label text-danger" ng-show="errorMessages.phone">{{errorMessages.phone}}</small>
                   </div>
                 </div>
                 <button type="button" class="btn btn-primary" ng-click="saveSupplier(editingSupplier.supplierName)">
@@ -72,11 +71,12 @@
               <!-- /.col -->
               <div class="col-md-2 Upload">
                 <div class="row d-flex justify-content-center">
-                  <img class="object-fit" ng-src="{{editingSupplier.image}}" alt="Chưa có ảnh nào được tải"
-                       id="uploadedImage" name="image" style="max-height: 250px; width: 100%; border-radius: 10%;"/>
+                  <img class="img-fluid w-100 h-100" ng-src="{{ editingSupplier.image || '/admin/assets/images/default.jpg' }}"
+                    alt="Ảnh đại diện" id="uploadedImage" name="image"
+                   />
                 </div>
                 <div class="form-label h5 text-center">
-                  <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại diện</label>
+                  <label for="price" class="form-label h6"><span class="text-danger">*</span> Ảnh đại diện</label>
                 </div>
                 <div class="row d-flex justify-content-center">
                   <label class="text-center mt-2 btn btn-dark w-100">

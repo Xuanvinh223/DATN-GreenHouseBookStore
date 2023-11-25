@@ -21,41 +21,39 @@
 
 <div class="container-fluid" ng-controller="BestSellerController">
     <div class="row justify-content-center">
-        <div class="col-md-12 mb-3">
+        <div class="col-md-12 ">
             <div class="card ">
                 <h5 class="mb-3 mt-3 ml-3 ">Danh Sách Sản Phẩm Bán Chạy</h5>
             </div>
         </div>
-        <div class="col-12">
+        <div class="col-12 my-4">
             <div class="row">
                 <div class="col-md-12">
 
                     <div class="card shadow">
                         <div class="card-body">
                             <div class="toolbar row mb-3">
-                                <div class="col">
-                                    <form class="form-inline mr-auto  text-muted">
-                                        <input class="form-control input" type="search" placeholder="Tìm kiếm..."
-                                            ng-model="searchText" ng-change="searchData()">
-                                    </form>
-
+                                <div class="col-md-6">
+                                  <form class="form-inline mr-auto border text-muted">
+                                    <input class="form-control input" type="search" placeholder="Tìm kiếm..." ng-model="searchText"
+                                      ng-change="searchData()">
+                                  </form>
                                 </div>
-                                <div class="col ml-auto">
-                                    <div class="dropdown float-right">
-                                        <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle"
-                                            type="button" id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            Tất cả trạng thái
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="btnnhaphang">
-                                            <a class="dropdown-item" ng-click="printPDF()"><i
-                                                    class='bx bxs-file-export mr-1'></i>Xuất file PDF</a>
-                                            <a class="dropdown-item" ng-click="exportToExcel();"><i
-                                                    class='bx bxs-file-export mr-1'></i>Xuất File Excel</a>
-                                        </div>
+                                <div class="col-md-6 ml-auto">
+                                  <div class="dropdown float-right">
+                                    <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle" type="button"
+                                      id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Tất cả trạng thái
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnnhaphang">
+                                      <a class="dropdown-item" ng-click="printPDF()"><i class='bx bxs-file-export mr-1'></i>Xuất file
+                                        PDF</a>
+                                      <a class="dropdown-item" ng-click="exportToExcel()"><i class='bx bxs-file-export mr-1'></i>Xuất
+                                        File Excel</a>
                                     </div>
+                                  </div>
                                 </div>
-                            </div>
+                              </div>
                             <!-- table -->
                             <table class="table table-hover table-hover-green">
                                 <thead>

@@ -3,10 +3,10 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card mb-2">
+                    <div class="card mb-4">
                         <h3 class="mb-3 mt-3 ml-3 page-title">Danh Sách Đơn Hàng</h3>
                     </div>
-                    <div class="card mb-2">
+                    <div class="card mb-4">
                         <div class="d-flex justify-content-between items-align-center mb-3 mt-3 ml-3">
                             <div>
                                 <ul class="nav nav-pills">
@@ -106,36 +106,30 @@
                     <div class="card shadow">
                         <div class="card-body">
                             <div class="toolbar row mb-3">
-                                <div class="col">
-                                    <div class="form-inline mb-3">
-                                        <div class="input-container">
-                                            <div class="input-wrapper">
-                                                <i class="fe fe-search fe-18 icon"></i>
-                                                <input class="form-control input" type="search"
-                                                    placeholder="Tìm kiếm..." ng-model="searchText"
-                                                    ng-change="searchData()">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6">
+                                  <form class="form-inline mr-auto border text-muted">
+                                    <input class="form-control input" type="search" placeholder="Tìm kiếm..." ng-model="searchText"
+                                      ng-change="searchData()">
+                                  </form>
                                 </div>
-                                <div class="col ml-auto">
-                                    <div class="dropdown float-right">
-                                        <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle"
-                                            type="button" id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            Tất cả trạng thái
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="btnnhaphang">
-                                            <a class="dropdown-item" ng-click="printPDF()"><i
-                                                    class='bx bxs-file-export mr-1'></i>Xuất file
-                                                PDF</a>
-                                            <a class="dropdown-item" ng-click="exportToExcel();"><i
-                                                    class='bx bxs-file-export mr-1'></i>Xuất
-                                                File Excel</a>
-                                        </div>
+                                <div class="col-md-6 ml-auto">
+                                  <div class="dropdown float-right">
+                                    <button class="btn btn-primary float-right ml-3" type="button" id="btnnhaphang" data-toggle="modal"
+                                      data-target="#inventoryModal">
+                                      <i class='bx bx-plus-medical mr-1 '></i>Nhập Hàng </button>
+                                    <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle" type="button"
+                                      id="btnnhaphang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Tất cả trạng thái
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnnhaphang">
+                                      <a class="dropdown-item" ng-click="printPDF()"><i class='bx bxs-file-export mr-1'></i>Xuất file
+                                        PDF</a>
+                                      <a class="dropdown-item" ng-click="exportToExcel();"><i class='bx bxs-file-export mr-1'></i>Xuất
+                                        File Excel</a>
                                     </div>
+                                  </div>
                                 </div>
-                            </div>
+                              </div>
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr role="row">

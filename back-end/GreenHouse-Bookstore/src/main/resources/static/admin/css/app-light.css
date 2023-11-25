@@ -15790,10 +15790,10 @@ a.uppy-Dashboard-poweredBy {
     top: -10px;
     right: -35px;
   }
-
+/* 
   .Upload {
     padding-top: 100px;
-  }
+  } */
 }
 
 /* Định dạng của container chứa icon và input */
@@ -16846,7 +16846,7 @@ a.uppy-Dashboard-poweredBy {
 
 .pagination li:not(.active):hover a {
   background-color: rgb(237, 237, 237, 0.3);
-  color:#20c997;
+  color: #20c997;
 }
 
 /* Định dạng nút trang hiện tại */
@@ -16903,8 +16903,8 @@ a.uppy-Dashboard-poweredBy {
   margin-top: 5px;
 }
 .online_animation {
-  display: inline-block; 
-  width: 10px ;
+  display: inline-block;
+  width: 10px;
   height: 10px;
   background: #1ed085;
   border-radius: 100%;
@@ -16919,19 +16919,19 @@ a.uppy-Dashboard-poweredBy {
 
 @-webkit-keyframes online {
   from {
-      opacity: 0;
+    opacity: 0;
   }
   to {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
 @keyframes online {
   from {
-      opacity: 0;
+    opacity: 0;
   }
   to {
-      opacity: 1;
+    opacity: 1;
   }
 }
 .ellipsis {
@@ -16950,20 +16950,20 @@ a.uppy-Dashboard-poweredBy {
   overflow-x: auto;
   max-width: 1100px;
 }
-.collapsed  .nav-pills {
+.collapsed .nav-pills {
   max-width: 1400px;
 }
 .nav-pills::-webkit-scrollbar {
-  width: 10px; 
+  width: 10px;
   height: 7px;
 }
 
 .nav-pills::-webkit-scrollbar-thumb {
-  background-color: #30cf30; 
+  background-color: #30cf30;
 }
 
 .nav-pills::-webkit-scrollbar-thumb:hover {
-  background-color: var(--green); 
+  background-color: var(--green);
 }
 
 .nav-item {
@@ -16973,12 +16973,15 @@ a.uppy-Dashboard-poweredBy {
   .nav-pills {
     max-width: 240px;
   }
+  .form-inline {
+    max-width: 100%;
+  }
 }
 @media (max-width: 1024px) {
   .nav-pills {
     max-width: 650px;
   }
-  .collapsed  .nav-pills {
+  .collapsed .nav-pills {
     max-width: 820px;
   }
 }
@@ -16987,11 +16990,31 @@ a.uppy-Dashboard-poweredBy {
   .nav-pills {
     max-width: 500px; /* Đặt giá trị max-width cho tablet tại đây */
   }
-  .collapsed  .nav-pills {
+  .collapsed .nav-pills {
     max-width: 750px;
   }
+  .toolbar .dropdown{
+    margin-top: 10px;
+  }
+  .pagination-sm{
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .dropdown .float-right {
+    float: none !important; /* Bỏ float-right */
+  }
+
+  .dropdown {
+    display: inline-block !important; /* Hiển thị như inline block */
+  }
+
+  .dropdown .btn {
+    margin-bottom: 5px; /* Thêm khoảng cách giữa nút */
+  }
 }
-.strong-order-detail{
+
+.strong-order-detail {
   font-weight: 450 !important;
   color: #1a3e5d;
 }
@@ -17004,7 +17027,7 @@ a.uppy-Dashboard-poweredBy {
 }
 .img-container-td {
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 .img-boder-td {
@@ -17026,7 +17049,8 @@ a.uppy-Dashboard-poweredBy {
   text-overflow: ellipsis;
 }
 .order-detail-modal-lg .modal-footer,
-.order-detail-modal-lg .modal-header{
+.order-detail-modal-lg .modal-header {
   border: none !important;
 }
+
 /* END */

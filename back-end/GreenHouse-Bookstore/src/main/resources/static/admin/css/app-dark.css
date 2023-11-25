@@ -18774,6 +18774,25 @@ a.uppy-Dashboard-poweredBy {
   .collapsed  .nav-pills {
     max-width: 750px;
   }
+  .toolbar .dropdown{
+    margin-top: 10px;
+  }
+  .pagination-sm{
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .dropdown .float-right {
+    float: none !important; /* Bỏ float-right */
+  }
+
+  .dropdown {
+    display: inline-block !important; /* Hiển thị như inline block */
+  }
+
+  .dropdown .btn {
+    margin-bottom: 5px; /* Thêm khoảng cách giữa nút */
+  }
 }
 .strong-order-detail{
   font-weight: 450 !important;

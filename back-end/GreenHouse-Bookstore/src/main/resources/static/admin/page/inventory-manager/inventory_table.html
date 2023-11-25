@@ -10,18 +10,13 @@
           <div class="card shadow">
             <div class="card-body">
               <div class="toolbar row mb-3">
-                <div class="col">
-                  <div class="form-inline mb-3">
-                    <div class="input-container">
-                      <div class="input-wrapper">
-                        <i class="fe fe-search fe-18 icon"></i>
-                        <input class="form-control input" type="search" placeholder="Tìm kiếm..." ng-model="searchText"
-                          ng-change="searchData()">
-                      </div>
-                    </div>
-                  </div>
+                <div class="col-md-6">
+                  <form class="form-inline mr-auto border text-muted">
+                    <input class="form-control input" type="search" placeholder="Tìm kiếm..." ng-model="searchText"
+                      ng-change="searchData()">
+                  </form>
                 </div>
-                <div class="col ml-auto">
+                <div class="col-md-6 ml-auto">
                   <div class="dropdown float-right">
                     <button class="btn btn-primary float-right ml-3" type="button" id="btnnhaphang" data-toggle="modal"
                       data-target="#inventoryModal">
