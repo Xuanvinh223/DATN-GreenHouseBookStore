@@ -1,12 +1,19 @@
 app.controller("cartController", cartController);
 
-function cartController($http, $scope, cartAPI, CartService, $filter) {
+function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAPI) {
     const username = localStorage.getItem("username");
     const tokenGHN = '7a77199f-6293-11ee-af43-6ead57e9219a';
     const shopIdGHN = 4586990;
     const provinceCodeGH = 220;
     const districtCodeGH = 1574;
     const wardCodeGH = 550307;
+
+    const from_name = 'Green House Store';
+    const from_phone = '0869150620';
+    const from_address = ' Toà nhà FPT Polytechnic, Đ. Số 22, Thường Thạnh, Cái Răng, Cần Thơ, Vietnam';
+    const from_ward_name = 'Phường Thường Thạnh';
+    const from_district_name = 'Quận Cái Răng';
+    const from_province_name = 'Thành Phố  Cần Thơ';
 
     $scope.listCartItem = [];
     $scope.listCartItemSelected = [];
@@ -19,7 +26,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
 
     $scope.listNormalVouchers = [];
     $scope.listShippingVouchers = [];
-    $scope.listPaymentVouchers = [];
 
     $scope.numViewNormalVouchers = 2;
     $scope.numViewShippingVouchers = 2;
@@ -27,8 +33,7 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
 
     $scope.voucherApplied = {
         normalVoucherApplied: null,
-        shippingVoucherApplied: null,
-        paymentVoucherApplied: null
+        shippingVoucherApplied: null
     }
 
     $scope.listProductCategory = [];
@@ -157,7 +162,7 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
         } else {
             $scope.totalPaymentAmount = $scope.totalCartAmount + $scope.shippingFee;
         }
-        if($scope.normalDiscount > 0){
+        if ($scope.normalDiscount > 0) {
             $scope.totalPaymentAmount -= $scope.normalDiscount;
         }
     };
@@ -183,8 +188,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
                             $scope.listNormalVouchers.push(v);
                         } else if (v.voucherType == "Ship") {
                             $scope.listShippingVouchers.push(v);
-                        } else if (v.voucherType == "Hóa đơn") {
-                            $scope.listPaymentVouchers.push(v);
                         }
                     }
                 })
@@ -198,7 +201,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
                 console.log("------------------------------------------------");
                 console.log("Voucher type = Sản phẩm / Loại sản phẩm", $scope.listNormalVouchers);
                 console.log("Voucher type = Ship", $scope.listShippingVouchers);
-                console.log("Voucher type = Hóa đơn", $scope.listPaymentVouchers);
                 console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
             })
             .catch(function (error) {
@@ -336,7 +338,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
 
             const isNormalVoucherApplied = $scope.listNormalVouchers.some(e => e.voucherId === voucherAppliedId);
             const isShippedVoucherApplied = $scope.listShippingVouchers.some(e => e.voucherId === voucherAppliedId);
-            const isPaymentVoucherApplied = $scope.listPaymentVouchers.some(e => e.voucherId === voucherAppliedId);
 
             if (isNormalVoucherApplied) {
                 $scope.voucherApplied.normalVoucherApplied = voucher;
@@ -345,9 +346,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
             } else if (isShippedVoucherApplied) {
                 $scope.voucherApplied.shippingVoucherApplied = voucher;
                 applyShippingDiscountVoucher(voucher);
-            } else if (isPaymentVoucherApplied) {
-                $scope.voucherApplied.paymentVoucherApplied = voucher;
-                console.log("chưa xử lí");
             }
 
             console.log("Voucher đã áp dụng: ", $scope.voucherApplied);
@@ -420,8 +418,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
             $scope.voucherApplied.shippingVoucherApplied = null;
             $scope.shippingFeeDiscount = 0;
             calculatePaymentTotal();
-        } else if ($scope.voucherApplied.paymentVoucherApplied && $scope.voucherApplied.paymentVoucherApplied.voucherId === voucher.voucherId) {
-            $scope.voucherApplied.paymentVoucherApplied = null;
         }
     }
 
@@ -491,36 +487,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
 
     }, true);
 
-    $scope.$watch('listPaymentVouchers', function (newListCart, oldListCart) {
-        $scope.listPaymentVouchers.sort(function (a, b) {
-            if (a.moreAmount <= 0 && b.moreAmount > 0) {
-                return -1;
-            } else if (a.moreAmount > 0 && b.moreAmount <= 0) {
-                return 1;
-            }
-
-            if (a.maximumDiscountAmount > b.maximumDiscountAmount) {
-                return -1;
-            } else if (a.maximumDiscountAmount < b.maximumDiscountAmount) {
-                return 1;
-            }
-
-            if (a.minimumPurchaseAmount < b.minimumPurchaseAmount) {
-                return -1;
-            } else if (a.minimumPurchaseAmount > b.minimumPurchaseAmount) {
-                return 1;
-            }
-
-            if (a.discountAmount > b.discountAmount) {
-                return -1;
-            } else if (a.discountAmount < b.discountAmount) {
-                return 1;
-            }
-
-            return 0;
-        });
-
-    }, true);
     //--------------------------------------------
     $scope.openEventCartPopup = function () {
         angular.element(document.querySelector('.background-popup')).addClass('background-behind-popup');
@@ -580,10 +546,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
         $scope.numViewShippingVouchers = $scope.listShippingVouchers.length;
     }
 
-    $scope.viewMorePaymentVouchers = function () {
-        $scope.numViewPaymentVouchers = $scope.listPaymentVouchers.length;
-    }
-
     $scope.viewLessNormalVouchers = function () {
         $scope.numViewNormalVouchers = 2;
     }
@@ -592,9 +554,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
         $scope.numViewShippingVouchers = 2;
     }
 
-    $scope.viewLessPaymentVouchers = function () {
-        $scope.numViewPaymentVouchers = 2;
-    }
     //==============================================================================================
     //==============================================================================================
 
@@ -603,8 +562,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
             return "MÃ GIẢM GIÁ";
         } else if ($scope.listShippingVouchers.includes(voucher)) {
             return "MÃ VẬN CHUYỂN";
-        } else if ($scope.listPaymentVouchers.includes(voucher)) {
-            return "ƯU ĐÃI THANH TOÁN";
         } else {
             return "";
         }
@@ -1026,7 +983,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
         if (!$scope.listCartItemSelected.length > 0) {
             $scope.voucherApplied.normalVoucherApplied = null;
             $scope.voucherApplied.shippingVoucherApplied = null;
-            $scope.voucherApplied.paymentVoucherApplied = null;
             $scope.shippingFee = 0;
             $scope.shippingFeeDiscount = 0;
             $scope.normalDiscount = 0;
@@ -1082,6 +1038,7 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
                     return getAvailableServiceGHN();
                 })
                 .then(function (availableServiceData) {
+                    $scope.availableServicesGHN = availableServiceData;
                     return calculateShippingFee($scope.listCartItemSelected, availableServiceData);
                 })
                 .then(function () {
@@ -1093,6 +1050,11 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
                     console.error("Lỗi:", error);
                     $scope.hideLoading();
                 });
+        } else if ($scope.listCartItemSelected) {
+            $scope.showLoading();
+            calculateTotal();
+            calculatePaymentTotal();
+            $scope.hideLoading();
         }
     });
 
@@ -1104,12 +1066,68 @@ function cartController($http, $scope, cartAPI, CartService, $filter) {
 
     //=========[CHECKOUT]===================[CHECKOUT]==========================[CHECKOUT]======================[CHECKOUT]==================================
 
-    $scope.checkout = function () {
-        var data = {
-            customer: username,
+    function getAccountByUsername(username) {
 
-        }
     }
+
+    $scope.checkout = function () {
+        // Thông tin người nhận
+        var to_name = $scope.selectedAddress.fullname;
+        var to_phone = $scope.selectedAddress.phone
+        var to_district_id = $scope.toDistrict.DistrictID;
+        var to_ward_code = $scope.toWard.WardCode;
+        var to_address = $scope.selectedAddress.address;
+        // Thông Tin Dịch Vụ
+        var service_id = $scope.availableServicesGHN[0].service_id;
+        var service_type_id = $scope.availableServicesGHN[0].service_type_id;
+        // Sản Phẩm trong Đơn Hàng
+        var carts = $scope.listCartItemSelected;
+        // Thông tin hóa đơn
+        var total_amount = $scope.totalCartAmount;
+        var shipping_fee = $scope.shippingFeeDiscount > 0 ? $scope.shippingFeeDiscount : $scope.shippingFee;
+        var normal_discount = $scope.normalDiscount;
+        var payment_total = $scope.totalPaymentAmount;
+        // Thông tin mã giảm
+        var voucher = $scope.voucherApplied;
+
+        var data = {
+            username: username,
+            // Thông tin người nhận
+            to_name: to_name,
+            to_phone: to_phone,
+            to_address: to_address,
+            to_ward_code: to_ward_code,
+            to_district_id: to_district_id,
+            // Thông Tin Dịch Vụ
+            service_type_id: service_type_id,
+            service_id: service_id,
+            // Sản Phẩm trong Đơn Hàng
+            carts: carts,
+            // Thông tin hóa đơn
+            total_amount: total_amount,
+            shipping_fee: shipping_fee,
+            normal_discount: normal_discount,
+            payment_total: payment_total,
+            //Thông tin mã giảm
+            voucher: voucher,
+        };
+
+        console.log(data);
+
+        var api = `${checkoutAPI}/setData`
+
+        $http.post(api, data)
+            .then(function (response) {
+                console.log(response.data);
+                if(response.data.status == "success") {
+                    window.location.href = "/checkout";
+                }
+            })
+            .catch(function (error) {
+                console.error('Error calling API:', error);
+            });
+    };
+
     //=========[CHECKOUT]===================[CHECKOUT]==========================[CHECKOUT]======================[CHECKOUT]==================================
 
     function init() {

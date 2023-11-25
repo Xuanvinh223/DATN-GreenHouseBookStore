@@ -1,9 +1,5 @@
 package com.greenhouse.dto.client;
 
-import java.util.List;
-
-import com.greenhouse.model.Product_Detail;
-
 import lombok.Data;
 
 @Data
