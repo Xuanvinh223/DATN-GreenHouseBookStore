@@ -77,7 +77,7 @@ app.config(function ($routeProvider) {
         })
         .when("/inventory-form", {
             templateUrl: "page/inventory-manager/inventory_form.html",
-            controller: ""
+            controller: "inventoryCtrl"
         })
         .when("/inventory-table", {
             templateUrl: "page/inventory-manager/inventory_table.html",
@@ -187,22 +187,20 @@ app.factory('tokenInterceptor', ['$window', function ($window) {
     };
 }]);
 
-app.filter('startFrom', function () {
-    return function (input, start) {
-        start = +start; // Chuyển đổi start thành số nguyên
-        return input.slice(start); // Trả về mảng con bắt đầu từ start
-    };
-});
-
 // Đăng ký interceptor vào ứng dụng
 app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('tokenInterceptor');
 }]);
 
-
 app.filter('startFrom', function () {
     return function (input, start) {
+        if (!input || !Array.isArray(input)) {
+            return [];
+        }
+
         start = +start; // Chuyển đổi start thành số nguyên
         return input.slice(start); // Trả về mảng con bắt đầu từ start
     };
 });
+
+

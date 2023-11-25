@@ -101,62 +101,60 @@
 					</p>
 					<ul class="navbar-nav flex-fill w-100 mb-2">
 						<li class="nav-item "><a href="#!/" class=" nav-link"> <i class="fe fe-home fe-18 "></i> <span
-								class="ml-3 item-text">Trang
+									class="ml-3 item-text">Trang
 									chủ</span><span class="sr-only">(current)</span>
-						</a></li>
+							</a></li>
 						<li ng-show="roleName !== 'Nhân viên'" class="nav-item dropdown"><a
-								data-target="#quanli-taikhoan" data-toggle="collapse"
-								aria-expanded="false" class="dropdown-toggle nav-link"> <i
-								class="fe fe-user fe-18 "></i>
-							<span class="ml-3 item-text">Quản
+								data-target="#quanli-taikhoan" data-toggle="collapse" aria-expanded="false"
+								class="dropdown-toggle nav-link"> <i class="fe fe-user fe-18 "></i>
+								<span class="ml-3 item-text">Quản
 									Lý Tài Khoản</span>
-						</a>
+							</a>
 							<ul class="collapse list-unstyled pl-4 w-100" id="quanli-taikhoan">
 								<li class="nav-item"><a class="nav-link pl-3" href="#!/account-form"><span
-										class="ml-1 item-text">Form
+											class="ml-1 item-text">Form
 											Cập Nhật</span></a></li>
 								<li class="nav-item"><a class="nav-link pl-3" href="#!/account-table"><span
-										class="ml-1 item-text">Danh
+											class="ml-1 item-text">Danh
 											Sách</span></a></li>
 								<li class="nav-item"><a class="nav-link pl-3" href="#!/role-form"><span
-										class="ml-1 item-text">Phân quyền</span></a></li>
+											class="ml-1 item-text">Phân quyền</span></a></li>
 							</ul>
 						</li>
 
 						<li class="nav-item dropdown"><a data-target="#quanli-danhmuc" data-toggle="collapse"
-														 aria-expanded="false" class="dropdown-toggle nav-link"> <i
-								class="fe fe-grid fe-18 "></i>
-							<span class="ml-3 item-text">Quản Lý Danh Mục</span>
-						</a>
+								aria-expanded="false" class="dropdown-toggle nav-link"> <i
+									class="fe fe-grid fe-18 "></i>
+								<span class="ml-3 item-text">Quản Lý Danh Mục</span>
+							</a>
 							<ul class="collapse list-unstyled pl-4 w-100" id="quanli-danhmuc">
 								<li class="nav-item"><a href="#!/category-form" class="nav-link  pl-3"> <span
-										class="ml-1 item-text">Cập
-										Nhật</span>
-								</a></li>
+											class="ml-1 item-text">Cập
+											Nhật</span>
+									</a></li>
 								<li class="nav-item"><a href="#!/category-table" class="nav-link  pl-3"> <span
-										class="ml-1 item-text">Danh
-										Sách</span>
-								</a></li>
+											class="ml-1 item-text">Danh
+											Sách</span>
+									</a></li>
 							</ul>
 
 						</li>
 						<li class="nav-item dropdown"><a data-target="#uudai" data-toggle="collapse"
-														 aria-expanded="false" class="dropdown-toggle nav-link"> <i
-								class="fe fe-book fe-18 "></i>
-							<span class="ml-3 item-text">Quản Lý Ưu Đãi</span>
-						</a>
+								aria-expanded="false" class="dropdown-toggle nav-link"> <i
+									class="fe fe-book fe-18 "></i>
+								<span class="ml-3 item-text">Quản Lý Ưu Đãi</span>
+							</a>
 							<ul class="collapse list-unstyled pl-4 w-100" id="uudai">
 								<li class="nav-item dropdown"><a data-target="#quanli-giamgia" data-toggle="collapse"
-																 aria-expanded="false"
-																 class="dropdown-toggle nav-link pl-3" href=""> <span
-										class="ml-1 item-text">Giảm Giá</span>
-								</a>
+										aria-expanded="false" class="dropdown-toggle nav-link pl-3" href=""> <span
+											class="ml-1 item-text">Giảm Giá</span>
+									</a>
 									<ul class="collapse list-unstyled pl-4 w-100" id="quanli-giamgia">
 										<li class="nav-item"><a class="nav-link pl-3" href="#!/discount-form"><span
-												class="ml-1 item-text">Cập
+													class="ml-1 item-text">Cập
 													Nhật</span></a></li>
 										<li class="nav-item"><a class="nav-link pl-3" href="#!/discount-table"><span
-												class="ml-1 item-text">Danh
+													class="ml-1 item-text">Danh
 													Sách</span></a></li>
 									</ul>
 								</li>
@@ -261,7 +259,7 @@
 							</a>
 							<ul class="collapse list-unstyled pl-4 w-100" id="quanli-donhang">
 								<li class="nav-item"><a class="nav-link pl-3" href="#!/order-manager"> <span
-											class="ml-1 item-text">Danh sách đơn hàng</span>
+											class="ml-1 item-text">Danh Sách Đơn Hàng</span>
 									</a></li>
 							</ul>
 						</li>
@@ -271,19 +269,21 @@
 									Kho</span>
 							</a>
 							<ul class="collapse list-unstyled pl-4 w-100" id="forms">
-								<li class="nav-item "><a class="nav-link pl-3" href="#!/inventory-table"><span
+								<li class="nav-item "><a class="nav-link pl-3" href="#!/inventory-form"><span
 											class="ml-1 item-text">Kho
 											Hàng</span></a></li>
+								<li class="nav-item "><a class="nav-link pl-3" href="#!/inventory-table"><span
+											class="ml-1 item-text">Danh Sách Hóa Đơn Kho</span></a></li>
 								<li class="nav-item dropdown"><a data-target="#forms-nhapkho" data-toggle="collapse"
 										aria-expanded="false" class="dropdown-toggle nav-link pl-3">
 										<span class="ml-1 item-text">Quản lý Nhà Cung Cấp</span>
 									</a>
 									<ul class="collapse list-unstyled pl-4 w-100" id="forms-nhapkho">
 										<li class="nav-item"><a class="nav-link pl-3" href="#!/supplier-form"><span
-												class="ml-1 item-text">Form
+													class="ml-1 item-text">Form
 													Cập Nhật</span></a></li>
 										<li class="nav-item"><a class="nav-link pl-3" href="#!/supplier-table"><span
-												class="ml-1 item-text">Danh
+													class="ml-1 item-text">Danh
 													Sách</span></a></li>
 									</ul>
 								</li>
@@ -291,20 +291,17 @@
 						</li>
 
 						<li ng-show="roleName !== 'Nhân viên'" class="nav-item dropdown"><a data-target="#charts"
-																							data-toggle="collapse"
-																							aria-expanded="false"
-																							class="dropdown-toggle nav-link">
-							<i
-									class="fe fe-pie-chart fe-18 "></i> <span class="ml-3 item-text">Thống
+								data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+								<i class="fe fe-pie-chart fe-18 "></i> <span class="ml-3 item-text">Thống
 									Kê</span></a>
 							<ul class="collapse list-unstyled pl-4 w-100" id="charts">
 								<li class="nav-item"><a class="nav-link pl-3" href="#!/inventory-statics"><span
-										class="ml-1 item-text">Hàng
+											class="ml-1 item-text">Hàng
 											Tồn Kho </span></a></li>
 								<li class="nav-item"><a class="nav-link pl-3" href="#!/revenue-static-overtime"><span
-										class="ml-1 item-text">Doanh Thu Theo Thời Gian </span></a></li>
+											class="ml-1 item-text">Doanh Thu Theo Thời Gian </span></a></li>
 								<li class="nav-item"><a class="nav-link pl-3" href="#!/static-best-seller"><span
-										class="ml-1 item-text">Sản
+											class="ml-1 item-text">Sản
 											Phẩm Bán Chạy</span></a></li>
 							</ul>
 						</li>
@@ -506,7 +503,7 @@
 	<script src='js/quill.min.js'></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 	<script>
 		$('.select2').select2(
 			{

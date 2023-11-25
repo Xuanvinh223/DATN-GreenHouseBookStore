@@ -2,12 +2,15 @@ package com.greenhouse.model;
 
 import java.util.Date;
 
+import org.hibernate.annotations.Proxy;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "Orders")
+@Proxy(lazy = false)
 public class Orders {
 
     @Id
@@ -109,6 +112,9 @@ public class Orders {
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "confirmed_by", nullable = true)
+    private String confirmed_By;
 
     @ManyToOne
     @JoinColumn(name = "Username", referencedColumnName = "Username", insertable = false, updatable = false)

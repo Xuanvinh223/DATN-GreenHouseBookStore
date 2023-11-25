@@ -15836,56 +15836,6 @@ a.uppy-Dashboard-poweredBy {
 .select2 {
   margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
 }
-/* Định dạng phần phân trang - start */
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  padding: 0;
-  margin: 20px 0;
-}
-
-/* Định dạng nút phân trang */
-.pagination .pagination-first a {
-  margin-left: 0;
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-}
-
-.pagination li a {
-  position: relative;
-  display: block;
-  padding: 0.5rem 0.75rem;
-  margin-left: -1px;
-  line-height: 1.25;
-  color: #adb5bd;
-  background-color: transparent;
-  border: 1px solid transparent;
-}
-.pagination li:hover {
-  color: #343a40;
-}
-.pagination .pagination-last a {
-  margin-right: 0;
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-}
-
-.pagination li:not(.active):hover a {
-  background-color: rgb(237, 237, 237, 0.3);
-  color: #343a40;
-}
-
-/* Định dạng nút trang hiện tại */
-.pagination .active a {
-  background-color: #62ab00;
-  border-color: #62ab00;
-  z-index: 3;
-  color: #f8f9fa;
-}
-
-/* Định dạng phần phân trang - end */
 /* Định dạng của container chứa icon và input */
 .input-container {
   width: 60%;
@@ -16347,6 +16297,9 @@ a.uppy-Dashboard-poweredBy {
   background-color: #3ad29f !important;
   bottom: 0;
   right: 0;
+  -webkit-animation: online 2s infinite;
+  /* Safari 4.0 - 8.0 */
+  animation: online 2s infinite;
 }
 .alert-product {
   color: #282726;
@@ -16893,7 +16846,7 @@ a.uppy-Dashboard-poweredBy {
 
 .pagination li:not(.active):hover a {
   background-color: rgb(237, 237, 237, 0.3);
-  color: #f8f9fa;
+  color:#20c997;
 }
 
 /* Định dạng nút trang hiện tại */
@@ -16949,20 +16902,131 @@ a.uppy-Dashboard-poweredBy {
   margin-bottom: 10px;
   margin-top: 5px;
 }
+.online_animation {
+  display: inline-block; 
+  width: 10px ;
+  height: 10px;
+  background: #1ed085;
+  border-radius: 100%;
+  margin-top: 0;
+  position: relative;
+  top: 1px;
+  -webkit-animation: online 2s infinite;
+  /* Safari 4.0 - 8.0 */
+  animation: online 2s infinite;
+}
+/* Safari 4.0 - 8.0 */
+
+@-webkit-keyframes online {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes online {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
 .ellipsis {
   max-width: 100px; /* Thiết lập chiều rộng tối đa của cột */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* .nav-pills {
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  overflow-x: auto !important;
+.nav-pills a.active {
+  color: #2a2a2a !important;
+}
+/* Thanh cuộn ngang order */
+.nav-pills {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  max-width: 1100px;
+}
+.collapsed  .nav-pills {
+  max-width: 1400px;
+}
+.nav-pills::-webkit-scrollbar {
+  width: 10px; 
+  height: 7px;
+}
+
+.nav-pills::-webkit-scrollbar-thumb {
+  background-color: #30cf30; 
+}
+
+.nav-pills::-webkit-scrollbar-thumb:hover {
+  background-color: var(--green); 
 }
 
 .nav-item {
-  white-space: nowrap !important;
-} */
+  white-space: nowrap;
+}
+@media (max-width: 320px) {
+  .nav-pills {
+    max-width: 240px;
+  }
+}
+@media (max-width: 1024px) {
+  .nav-pills {
+    max-width: 650px;
+  }
+  .collapsed  .nav-pills {
+    max-width: 820px;
+  }
+}
 
+@media (max-width: 768px) {
+  .nav-pills {
+    max-width: 500px; /* Đặt giá trị max-width cho tablet tại đây */
+  }
+  .collapsed  .nav-pills {
+    max-width: 750px;
+  }
+}
+.strong-order-detail{
+  font-weight: 450 !important;
+  color: #1a3e5d;
+}
+.invoice_blog h4 {
+  color: #15283c;
+  background: #f8f8f8;
+  padding: 15px 20px;
+  font-weight: 400;
+  font-size: 18px;
+}
+.img-container-td {
+  display: flex;
+  align-items: center; 
+}
+
+.img-boder-td {
+  width: 60px;
+  height: 60px;
+  border-radius: 5%;
+  border: 1px solid #6c757d;
+  margin-right: 10px;
+}
+
+.img-boder-td img {
+  max-width: 90%;
+}
+
+.td-span {
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.order-detail-modal-lg .modal-footer,
+.order-detail-modal-lg .modal-header{
+  border: none !important;
+}
 /* END */

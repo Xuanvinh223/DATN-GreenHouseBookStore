@@ -2,6 +2,8 @@ package com.greenhouse.model;
 
 import java.io.Serializable;
 
+import org.hibernate.annotations.Proxy;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -13,6 +15,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "Order_Detail")
+@Proxy(lazy = false)
 public class Order_Detail implements Serializable {
 
     @Id
@@ -34,17 +37,17 @@ public class Order_Detail implements Serializable {
     @Column(name = "Quantity")
     private int quantity;
 
-    @Column(name = "Weight")
-    private double weight;
+    @Column(name = "Weight", nullable = true)
+    private Double weight;
 
-    @Column(name = "Width")
-    private double width;
-
-    @Column(name = "Height")
-    private double height;
-
-    @Column(name = "Length")
-    private double length;
+    @Column(name = "Width", nullable = true)
+    private Double width; 
+    
+    @Column(name = "Height", nullable = true)
+    private Double height;
+    
+    @Column(name = "Length", nullable = true)
+    private Double length;
 
     @ManyToOne
     @JoinColumn(name = "Order_Code", referencedColumnName = "Order_Code", insertable = false, updatable = false)

@@ -3,17 +3,20 @@ package com.greenhouse.restcontroller.admin;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.model.Authorities;
 import com.greenhouse.model.InvoiceDetails;
 import com.greenhouse.model.InvoiceMappingVoucher;
+import com.greenhouse.model.Order_Detail;
 import com.greenhouse.model.Orders;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.repository.AuthoritiesRepository;
@@ -39,23 +42,33 @@ public class RestOrderController {
     @Autowired
     private OrdersRepository ordersRepository;
     @Autowired
-    private OrderDetailReponsitory OrderDetailReponsitory;
-    
+    private OrderDetailReponsitory orderDetailReponsitory;
+
     @GetMapping("/getData")
     private ResponseEntity<Map<String, Object>> getData() {
         Map<String, Object> responseData = new HashMap<>();
 
-        List<InvoiceDetails> invoiceDetails = invoiceDetailsRepository.findAll();
-        List<InvoiceMappingVoucher> invoiceMappingVoucher = invoiceMappingVoucherRepository.findAll();
         List<Product_Detail> productDetails = productDetailRepository.findAll();
         List<Authorities> authorities = authoritiesRepository.findAll();
         List<Orders> listOrders = ordersRepository.findAll();
-
-        responseData.put("invoiceMappingVoucher", invoiceMappingVoucher);
-        responseData.put("orderMappingStatus", null);
-        responseData.put("orderStatus", null);
+        responseData.put("listOrders", listOrders);
         responseData.put("productDetails", productDetails);
         responseData.put("authorities", authorities);
+
+        return ResponseEntity.ok(responseData);
+    }
+
+    @GetMapping("/getOrderInfo/{orderCode}")
+    private ResponseEntity<Map<String, Object>> getOrderInfo(@PathVariable String orderCode) {
+        Map<String, Object> responseData = new HashMap<>();
+
+        // Lấy thông tin đơn hàng
+        Optional<Orders> order = ordersRepository.findById(orderCode);
+        order.ifPresent(value -> responseData.put("order", value));
+
+        // Lấy thông tin đơn hàng chi tiết
+        List<Order_Detail> orderDetails = orderDetailReponsitory.findByOrderCode(orderCode);
+        responseData.put("orderDetails", orderDetails);
 
         return ResponseEntity.ok(responseData);
     }

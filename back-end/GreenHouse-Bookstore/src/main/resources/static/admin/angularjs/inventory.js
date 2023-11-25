@@ -51,27 +51,6 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
         $scope.currentPage = pageNo;
     };
 
-    $scope.updateVisibleData = function () {
-        var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage;
-        var endIndex = startIndex + $scope.itemsPerPage;
-        $scope.listImportInvoice = $scope.originalImportInvoiceList.slice(startIndex, endIndex);
-    };
-
-    $scope.isDataChanged = false;
-
-    $scope.$watch('listImportInvoice', function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-            $scope.isDataChanged = true;
-        }
-    }, true);
-
-    $scope.$watchGroup(['currentPage', 'itemsPerPage'], function () {
-        if ($scope.isDataChanged) {
-            $scope.updateVisibleData();
-            $scope.isDataChanged = false; // Đánh dấu đã xử lý sự thay đổi
-        }
-    });
-
     // Sắp xếp
     $scope.sortBy = function (field) {
         if ($scope.sortField === field) {
@@ -80,7 +59,6 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
             $scope.sortField = field;
             $scope.reverseSort = false;
         }
-        $scope.updateVisibleData();
     };
 
     $scope.calculateRange = function () {
@@ -221,22 +199,21 @@ function inventoryCtrl($scope, $http, jwtHelper, $location, $routeParams, $inter
         return !hasErrors
     };
 
-
-
     $scope.getData = function () {
 
         var url = `${host}/getInventory`;
         $http.get(url).then((resp) => {
             $scope.listSuppliers = resp.data.suppliers;
-            //
             $scope.originalImportInvoiceList = resp.data.listImportInvoice;
             $scope.listImportInvoice = $scope.originalImportInvoiceList;
 
             $scope.listProductDetails = resp.data.listProductDetails;
+            $scope.listImportInvoice.sort(function (a, b) {
+                return new Date(b.createDate) - new Date(a.createDate);
+            });
             console.log("", resp.data.listImportInvoice)
             $scope.loadModelProduct();
             $scope.totalItems = $scope.originalImportInvoiceList.length; // Tổng số mục
-
         }).catch((Error) => {
             console.log("Error: ", Error);
         });

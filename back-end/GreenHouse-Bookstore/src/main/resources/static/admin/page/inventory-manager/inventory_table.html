@@ -5,7 +5,7 @@
         <!-- Striped rows -->
         <div class="col-md-12">
           <div class="card mb-2">
-            <h5 class="mb-3 mt-3 ml-3 ">Danh Sách Hàng Hóa Kho</h5>
+            <h5 class="mb-3 mt-3 ml-3 ">Danh Sách Hóa Đơn Nhập Kho</h5>
           </div>
           <div class="card shadow">
             <div class="card-body">
@@ -14,10 +14,9 @@
                   <div class="form-inline mb-3">
                     <div class="input-container">
                       <div class="input-wrapper">
-                          <i class="fe fe-search fe-18 icon"></i>
-                          <input class="form-control input" type="search" placeholder="Tìm kiếm..."
-                                 ng-model="searchText"
-                                 ng-change="searchData()">
+                        <i class="fe fe-search fe-18 icon"></i>
+                        <input class="form-control input" type="search" placeholder="Tìm kiếm..." ng-model="searchText"
+                          ng-change="searchData()">
                       </div>
                     </div>
                   </div>
@@ -81,7 +80,7 @@
                         <i class="mdi mdi-swap-vertical"></i>
                       </a>
                     </th>
-                    <th><a href="">Action</a></th>
+                    <th><a href="">Thao Tác</a></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -90,16 +89,16 @@
                     <td>{{($index + 1)}}</td>
                     <td>{{item.importInvoiceId}}</td>
                     <td>{{item.username}}</td>
-                    <td>{{item.createDate | date:'dd/MM/yyyy'}}</td>
+                    <td>{{item.createDate | date:'yyyy/MM/dd HH:mm'}}</td>
                     <td>{{item.amount|number:'0'}} VND</td>
                     <td>{{item.suppliers.supplierName}}</td>
-                    <td>{{item.description}}</td>
+                    <td class="ellipsis" style="max-width: 200px;">{{item.description}}</td>
                     <td>
-                        <a data-toggle="modal" data-target="#inventoryModal" ng-click="edit(item.importInvoiceId)">
-                            <i class="fe fe-edit fe-16"></i>
-                        </a>
-                        <a ng-show="roleName !== 'Nhân viên'" ng-click="remove(item.importInvoiceId)"> <i
-                                class="fe fe-trash-2 fe-16"></i></a>
+                      <a data-toggle="modal" data-target="#inventoryModal" ng-click="edit(item.importInvoiceId)">
+                        <i class="fe fe-edit fe-16"></i>
+                      </a>
+                      <a ng-show="roleName !== 'Nhân viên'" ng-click="remove(item.importInvoiceId)"> <i
+                          class="fe fe-trash-2 fe-16"></i></a>
                     </td>
                   </tr>
                 </tbody>
@@ -313,11 +312,10 @@
         <div class="modal-footer">
           <div class="form-group text-center">
             <button type="button" class="btn mb-2 mr-2 btn-success" ng-click="saveImportInvoice(0)"
-              ng-disabled="item.importInvoice.status"><span class="fe fe-save arrow-right fe-16 mr-2"></span>Lưu
+              ng-disabled="form.status"><span class="fe fe-save arrow-right fe-16 mr-2"></span>Lưu
               Tạm</button>
             <button type="button" class="btn mb-2 btn-primary" ng-click="saveImportInvoice(1)"
-              ng-disabled="item.importInvoice.status">Hoàn Thành<span class="fe fe-check fe-16 ml-1"></span></button>
-
+              ng-disabled="form.status">Hoàn Thành<span class="fe fe-check fe-16 ml-1"></span></button>
           </div>
         </div>
       </div>

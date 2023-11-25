@@ -93,7 +93,6 @@ public class InventoryRestController {
             System.out.println("Không có sản phẩm bị xóa");
         } else {
             for (ImportInvoiceDetail item : deletedImportInvoiceDetails) {
-                System.out.println(item);
                 impInvoiceDetailRepository.delete(item);
             }
         }
