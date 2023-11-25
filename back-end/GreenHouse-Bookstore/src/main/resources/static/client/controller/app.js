@@ -3,6 +3,7 @@ app.constant('signupAPI', 'http://localhost:8081/sign-up');
 app.constant('checkOutAPI', 'http://localhost:8081/customer/rest/check-out');
 app.constant('productPageAPI', 'http://localhost:8081/customer/rest/product-page');
 app.constant('cartAPI', 'http://localhost:8081/customer/rest/cart');
+app.constant('checkoutAPI', 'http://localhost:8081/customer/rest/checkout')
 app.constant('changePasswordAPI', 'http://localhost:8081/customer/rest/reset-password');
 app.constant('forgotPasswordAPI', 'http://localhost:8081/customer/rest/forgot-password');
 app.constant('productDetailAPI', 'http://localhost:8081/customer/rest/product-detail');

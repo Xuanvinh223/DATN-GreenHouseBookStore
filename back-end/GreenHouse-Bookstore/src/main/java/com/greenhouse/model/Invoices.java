@@ -32,10 +32,6 @@ public class Invoices implements Serializable {
     @Column(name = "Total_Amount")
     private double totalAmount;
 
-    @ManyToOne
-    @JoinColumn(name = "Shipping_Partner")
-    private ShippingPartner shippingPartner;
-
     @Column(name = "Shipping_Fee")
     private double shippingFee;
 
