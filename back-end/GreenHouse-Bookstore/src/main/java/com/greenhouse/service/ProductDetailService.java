@@ -22,4 +22,6 @@ public interface ProductDetailService {
     List<Product_Detail> findProductsByStatus();
 
     List<Product_Detail> findByProduct(Products product);
+
+    boolean existsByProduct(Products product);
 }

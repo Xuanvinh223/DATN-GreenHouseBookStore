@@ -16,26 +16,11 @@ app.controller("CategoryController", function ($scope, $location, $routeParams, 
     $scope.reverseSort = true;
     $scope.itemsPerPageOptions = [5, 10, 20, 50];
     $scope.itemsPerPage = 5;
+    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
     $scope.currentPage = 1;
 
 
-    $scope.checkErrors = function () {
-        $scope.errors = {};
-
-        if (!$scope.editingCategory.typeId) {
-            $scope.errors.typeId = 'Vui lòng chọn loại danh mục.';
-        }
-
-        if (!$scope.editingCategory.categoryName) {
-            $scope.errors.categoryName = 'Vui lòng nhập tên danh mục.';
-        }
-
-
-        var hasErrors = Object.keys($scope.errors).length > 0;
-
-        return !hasErrors;
-    };
-
+    
 
     $scope.loadCategories = function () {
         var url = `${host}`;
@@ -60,6 +45,24 @@ app.controller("CategoryController", function ($scope, $location, $routeParams, 
             console.log("Error", error);
         });
 
+        $scope.checkErrors = function () {
+            $scope.errors = {};
+    
+            if (!$scope.editingCategory.typeId) {
+                $scope.errors.typeId = 'Vui lòng chọn loại danh mục.';
+            }
+    
+            if (!$scope.editingCategory.categoryName) {
+                $scope.errors.categoryName = 'Vui lòng nhập tên danh mục.';
+            }
+    
+    
+            var hasErrors = Object.keys($scope.errors).length > 0;
+    
+            return !hasErrors;
+        };
+    
+
     $scope.searchData = function () {
         $scope.filteredCategories = $filter("filter")($scope.categories, $scope.searchText);
         $scope.noResults = $scope.filteredCategories.length === 0;
@@ -80,7 +83,7 @@ app.controller("CategoryController", function ($scope, $location, $routeParams, 
             start + $scope.itemsPerPage,
             $scope.filteredCategories.length
         );
-        return start + 1 + "-" + end + " of " + $scope.filteredCategories.length;
+        return start + 1 + "-" + end + " của " + $scope.filteredCategories.length;
     };
 
     $scope.saveCategory = function () {

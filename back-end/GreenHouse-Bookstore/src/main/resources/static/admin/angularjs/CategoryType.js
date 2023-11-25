@@ -13,6 +13,7 @@ app.controller("CategoryTypeController", function ($scope, $location, $routePara
     $scope.reverseSort = true;
     $scope.itemsPerPageOptions = [5, 10, 20, 50];
     $scope.itemsPerPage = 5;
+    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
     $scope.currentPage = 1;
 
 
@@ -21,6 +22,9 @@ app.controller("CategoryTypeController", function ($scope, $location, $routePara
 
         if (!$scope.editingCategoryType.typeName) {
             $scope.errors.typeName = 'Vui lòng nhập tên loại danh mục.';
+        }
+        if (!$scope.editingCategoryType.parentCategoriesType) {
+            $scope.errors.parentCategoriesType = 'Vui lòng nhập phân loại danh mục.';
         }
 
 
@@ -65,7 +69,7 @@ app.controller("CategoryTypeController", function ($scope, $location, $routePara
             start + $scope.itemsPerPage,
             $scope.filteredCategoryTypes.length
         );
-        return start + 1 + "-" + end + " of " + $scope.filteredCategoryTypes.length;
+        return start + 1 + "-" + end + " của " + $scope.filteredCategoryTypes.length;
     };
 
     $scope.saveCategoryType = function () {
@@ -80,6 +84,7 @@ app.controller("CategoryTypeController", function ($scope, $location, $routePara
             typeId: $scope.editingCategoryType.typeId,
             typeName: $scope.editingCategoryType.typeName || "",
             description: $scope.editingCategoryType.description || "",
+            parentCategoriesType:  $scope.editingCategoryType.parentCategoriesType || "",
         };
 
         if (isCategoryTypeNameDuplicate($scope.editingCategoryType.typeName, $scope.editingCategoryType.typeId)) {

@@ -21,13 +21,13 @@ import com.greenhouse.service.ProductImagesService;
 import com.greenhouse.service.ProductPriceHistoriesService;
 import com.greenhouse.service.ProductsService;
 import com.greenhouse.util.ImageUploader;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -161,7 +161,7 @@ public class RestProductCtrl {
         }
         // Lưu giá trị thuộc tính vào bảng AttributeValue và liên kết với productDetail
         for (Attribute_Value attributeValue : data.getAttributeValues()) {
-            attributeValue.setAttributeId(attributeValue.getAttributeId());
+            attributeValue.setAttribute(attributeValue.getAttribute());
             attributeValue.setValue(attributeValue.getValue());
             attributeValue.setProductDetail(productDetail);
             attributeValueService.add(attributeValue);
@@ -174,9 +174,9 @@ public class RestProductCtrl {
 
     @PutMapping("/{productId}")
     public ResponseEntity<List<Products>> updateProduct(@PathVariable String productId,
-                                                        @RequestParam(value = "image", required = false) MultipartFile imageFile,
-                                                        @RequestParam(value = "file", required = false) MultipartFile[] files, // Chấp nhận nhiều hình ảnh
-                                                        @RequestParam(value = "dataJson") String dataJson) throws Exception {
+            @RequestParam(value = "image", required = false) MultipartFile imageFile,
+            @RequestParam(value = "file", required = false) MultipartFile[] files, // Chấp nhận nhiều hình ảnh
+            @RequestParam(value = "dataJson") String dataJson) throws Exception {
 
         if (dataJson.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -187,6 +187,10 @@ public class RestProductCtrl {
         Products existingProduct = productsService.findById(productId);
         if (existingProduct == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        String photoUrl = null;
+        if (imageFile != null && !imageFile.isEmpty()) {
+            photoUrl = ImageUploader.uploadImage(imageFile, "product_details" + System.currentTimeMillis());
         }
 
         // Update existing product details
@@ -225,7 +229,11 @@ public class RestProductCtrl {
 
         // Kiểm tra xem có productDetail cũ hay không
         if (existingProductDetails.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            // Nếu không có productDetail cũ, tạo mới và liên kết với sản phẩm
+            Product_Detail newProductDetail = new Product_Detail();
+            newProductDetail.setProduct(existingProduct);
+            newProductDetail.setImage(photoUrl);
+            existingProductDetails.add(newProductDetail);
         }
 
         // Chọn productDetail cần cập nhật (có thể chọn theo logic cụ thể của bạn)
@@ -235,11 +243,9 @@ public class RestProductCtrl {
         existingProductDetail.setPrice(data.getProductDetail().getPrice());
         existingProductDetail.setQuantityInStock(data.getProductDetail().getQuantityInStock());
         existingProductDetail.setWeight(data.getProductDetail().getWeight());
-
-        String photoUrl = null;
-        if (imageFile != null && !imageFile.isEmpty()) {
-            photoUrl = ImageUploader.uploadImage(imageFile, "product_details" + System.currentTimeMillis());
-        }
+        existingProductDetail.setHeight(data.getProductDetail().getHeight());
+        existingProductDetail.setLength(data.getProductDetail().getLength());
+        existingProductDetail.setWidth(data.getProductDetail().getWidth());
 
         // Tính toán priceDiscount
         double price = existingProductDetail.getPrice();
@@ -300,18 +306,23 @@ public class RestProductCtrl {
             if (attributeValue.getId() != 0) {
                 Attribute_Value existingAttributeValue = attributeValueService.findById(attributeValue.getId());
                 if (existingAttributeValue != null) {
-                    existingAttributeValue.setAttributeId(attributeValue.getAttributeId());
+                    if (attributeValue.getAttribute() != null) {
+                        existingAttributeValue.setAttribute(attributeValue.getAttribute());
+                    }
                     existingAttributeValue.setValue(attributeValue.getValue());
                     attributeValueService.update(existingAttributeValue);
                 }
             } else {
                 // Ngược lại, tạo mới attributeValue và liên kết với productDetail
-                attributeValue.setAttributeId(attributeValue.getAttributeId());
+                if (attributeValue.getAttribute() != null) {
+                    attributeValue.setAttribute(attributeValue.getAttribute());
+                }
                 attributeValue.setValue(attributeValue.getValue());
                 attributeValue.setProductDetail(existingProductDetail);
                 attributeValueService.add(attributeValue);
             }
         }
+
         System.out.println(dataJson);
 
         // Get the updated product information
@@ -356,6 +367,19 @@ public class RestProductCtrl {
 
         List<Products> updatedProducts = productsService.findAll();
         return new ResponseEntity<>(updatedProducts, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/import")
+    public ResponseEntity<Object> importProducts(@RequestParam("file") MultipartFile file) {
+        try {
+            // Gọi phương thức service để xử lý việc nhập danh sách từ file Excel
+            List<Products> importedProducts = productsService.importProducts(file);
+
+            return new ResponseEntity<>(importedProducts, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Lỗi khi đọc file Excel", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

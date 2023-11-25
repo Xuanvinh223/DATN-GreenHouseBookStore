@@ -102,15 +102,25 @@
                                 <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th ng-click="sortBy('categoryId')">Mã Danh Mục <i
-                                            ng-class="{'mdi mdi-swap-vertical': reverseSort === false, 'mdi mdi-swap-vertical-reverse': reverseSort === true}"></i>
+                                    <th>
+                                        <a ng-click="sortBy('categoryId')" href="" style="text-decoration: none;">
+                                            Mã Danh Mục
+                                            <i class="mdi mdi-swap-vertical"></i>
+                                        </a>
                                     </th>
-                                    <th ng-click="sortBy('typeId')">Loại Danh Mục <i
-                                            ng-class="{'mdi mdi-swap-vertical': reverseSort === false, 'mdi mdi-swap-vertical-reverse': reverseSort === true}"></i>
+                                    <th>
+                                        <a ng-click="sortBy('typeId')" href="" style="text-decoration: none;">
+                                            Loại Danh Mục
+                                            <i class="mdi mdi-swap-vertical"></i>
+                                        </a>
                                     </th>
-                                    <th ng-click="sortBy('categoryName')">Tên Danh Mục <i
-                                            ng-class="{'mdi mdi-swap-vertical': reverseSort === false, 'mdi mdi-swap-vertical-reverse': reverseSort === true}"></i>
+                                    <th>
+                                        <a ng-click="sortBy('categoryName')" href="" style="text-decoration: none;">
+                                            Tên Danh Mục
+                                            <i class="mdi mdi-swap-vertical"></i>
+                                        </a>
                                     </th>
+                                  <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -140,9 +150,10 @@
                                                     ng-model="itemsPerPage"
                                                     ng-options="option for option in itemsPerPageOptions"
                                                     ng-change="currentPage = 1"></select>
+                                                    <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">danh mục</label>
                                         </div>
                                         <div class="form-group col-auto">
-                                            <span>Đang xem {{ calculateRange() }}</span>
+                                            <span>Đang xem {{ calculateRange() }} danh mục</span>
                                         </div>
                                     </div>
                                 </form>

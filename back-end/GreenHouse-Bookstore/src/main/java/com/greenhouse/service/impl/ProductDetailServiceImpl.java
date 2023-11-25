@@ -55,4 +55,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     public List<Product_Detail> findByProduct(Products product) {
         return productDetailRepository.findByProduct(product);
     }
+
+    @Override
+    public boolean existsByProduct(Products product) {
+        return productDetailRepository.existsByProduct(product);
+    }
 }

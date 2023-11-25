@@ -12,6 +12,7 @@ import com.greenhouse.model.Products;
 public interface ProductDetailRepository extends JpaRepository<Product_Detail, Integer> {
 
         List<Product_Detail> findByProduct(Products product);
+        boolean existsByProduct(Products product);
 
         @Query(value = "SELECT " +
                         "    pd.Image AS 'Hình', " +

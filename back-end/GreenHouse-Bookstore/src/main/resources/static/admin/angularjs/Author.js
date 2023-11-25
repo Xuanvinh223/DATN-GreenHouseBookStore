@@ -21,6 +21,8 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
     $scope.itemsPerPageOptions = [5, 10, 20, 50];
     $scope.itemsPerPage = 5;
     $scope.currentPage = 1;
+    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
+
 
     $scope.checkErrors = function () {
         $scope.errors = {};
@@ -103,6 +105,9 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
             return;
         }
 
+         // Hiển thị hiệu ứng loading
+         var loadingOverlay = document.getElementById("loadingOverlay");
+         loadingOverlay.style.display = "block";
         if (!$scope.isEditing) {
             $scope.editingAuthor.authorId = generateRandomId();
         }
@@ -130,6 +135,9 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
                     headers: {"Content-Type": undefined},
                 })
                 .then((resp) => {
+                     // Ẩn hiệu ứng loading khi lưu thành công
+                loadingOverlay.style.display = "none";
+
                     $scope.loadAuthors();
                     $scope.resetForm();
                     Swal.fire({
@@ -140,6 +148,9 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
                     $scope.clearImage();
                 })
                 .catch((error) => {
+                     // Ẩn hiệu ứng loading khi lưu thành công
+                loadingOverlay.style.display = "none";
+
                     Swal.fire({
                         icon: "error",
                         title: "Thất bại",
