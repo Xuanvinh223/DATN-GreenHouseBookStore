@@ -3,15 +3,16 @@
     <div class="col-12">
       <div class="card shadow mb-4">
         <div class="card-header">
-          <a type="button" class="btn btn-success" href="#!/brand-table">
-            Danh sách thương hiệu
-          </a>
+          <h4 class="mb-3 mt-3 ml-3">Thông tin thương hiệu</h4>
         </div>
       </div>
 
       <div class="card shadow mb-4">
-        <div class="card-header">
-          <h4 class="card-title">Thông tin thương hiệu</h4>
+        
+        <div class="card-header d-flex justify-content-end">
+          <a type="button" class="btn btn-success" href="#!/brand-table">
+            <i class="fa fa-list"> </i> Danh sách thương hiệu
+          </a>
         </div>
         <div class="card-body">
           <form enctype="multipart/form-data">
@@ -65,9 +66,9 @@
 
             </div>
             <button type="button" class="btn btn-primary" ng-click="saveBrand()">
-              {{ isEditing ? 'Lưu sửa đổi' : 'Thêm mới' }}
+              <i class="fa fa-save"> </i> {{ isEditing ? 'Lưu sửa đổi' : 'Thêm mới' }}
             </button>
-            <button type="submit" class="btn btn-info" ng-click="resetForm()">Làm mới</button>
+            <button type="submit" class="btn btn-info" ng-click="resetForm()"> <i class="fa fa-undo"> </i> Làm mới</button>
           </form>
 
         </div>

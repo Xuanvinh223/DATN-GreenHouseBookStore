@@ -323,6 +323,8 @@
         </div>
       </div>
 
+
+
       <div class="top-bar-mobile">
         <div class="top-banner-mobile">
           <a>
@@ -335,6 +337,7 @@
             <a href="" class="link-icon hamburgur-icon off-canvas-btn"> <span class="ico_menu_white"></span></a>
           </div>
 
+<!--------------------------------- Search Mobile------------------------------- -->
           <div class="top-bar-search-mobile">
             <div class="top-bar-search">
               <input type="text" th:placeholder="#{lo.mn.search}" ng-model="keyword" ng-change="search(keyword)">
@@ -410,12 +413,13 @@
             </div>
           </div>
 
-
+<!------------------------------Thông báo Mobile----------------------------- -->
           <div class="top-bar-mobile-icon center_center">
             <div class="icon_nofi_white">
-              <div class="top-notification-button-unseen top_menu_unseen fhs_center_center">
-                {{ListUnNotifyUser.length > 50 ? '50+' : ListUnNotifyUser.length}}
-              </div>
+              <div class="top-notification-button-unseen top_menu_unseen fhs_center_center"
+              ng-show="ListUnNotifyUser.length>0">
+              {{ListUnNotifyUser.length > 50 ? '50+' : ListUnNotifyUser.length}}
+            </div>
             </div>
 
             <div class="top-notification-dropdown" ng-if="token">
@@ -432,9 +436,9 @@
               </div>
               <div class="top-notification-list fhs_scrollbar" style="display: block;">
                 <div ng-if="ListUnNotifyUser.length > 0" class="top-notification-list fhs_scrollbar"
-                     style="display: block;">
+                  style="display: block;">
                   <a class="top-notification-item fhs_column_left fhs_mouse_point clear"
-                     ng-repeat="notification in ListUnNotifyUser" href="/account/notification">
+                    ng-repeat="notification in ListUnNotifyUser" href="/account/notification">
                     <div class="fhs_top_stretch" style="width:100%;">
                       <div class="fhs_top_left" style="margin-right:12px;margin-top: 10px;">
                         <div class="ico_noti_other"></div>
@@ -448,7 +452,7 @@
                   </a>
                 </div>
                 <div ng-if="ListUnNotifyUser.length === 0" class="center_center"
-                     style="display: flex; align-items: center; margin-top: 20px;">
+                  style="display: flex; align-items: center; margin-top: 20px;">
                   <div class="icon_nofi_gray"></div>
                   <span style="margin-left: 5px; color: rgb(142, 141, 141)">Không Có Thông Báo Mới</span>
                 </div>
@@ -473,7 +477,7 @@
                 đăng nhập để
               </div>
               <div class="center_center" style="color: #0D0E0F; padding-bottom:24px; font-size: 1.23em;"
-                   th:text="#{lo.mn.messmeanu1}">xem
+                th:text="#{lo.mn.messmeanu1}">xem
                 thông báo
               </div>
               <a href="/login" style="margin-top: 5px;" class="button-default active">
@@ -485,16 +489,89 @@
             </div>
           </div>
 
-          <div class="top-bar-mobile-icon center_center">
+
+     <!--------------------- Giỏ hàng Mobile------------------------- -->
+          <div class="top-bar-mobile-icon center_center mouse-hover cart-dropdown top-cart-mobile">
             <div class="icon_cart_white">
-              <div class="top_menu_unseen fhs_center_center">
-                <span class="cartmini_qty">{{listCartHeader.length > 50 ? '50+' : listCartHeader.length}}</span>
+             <div class="top_menu_unseen fhs_center_center" ng-show="listCartHeader.length >0">
+                    <span class="cartmini_qty">{{listCartHeader.length > 50 ? '50+' : listCartHeader.length}}</span>
+                  </div>
+            </div>
+
+            <div class="top-cart-dropdown p-3">
+              <div class="single-cart-block">
+                <div class="cart-product mb-3 mt-3" ng-repeat="cart in listCartHeader | limitTo : 5 track by $index">
+                  <a href="product-details.html" class="image">
+                    <img src="{{cart.productDetail.image}}" alt="">
+                  </a>
+                  <div class="content">
+                    <h3 class="title"><a href="">{{cart.productDetail.product.productName}}</a>
+                    </h3>
+                    <p class="price"><span class="qty">{{cart.quantity}} ×</span> {{(cart.priceDiscount > 0 ?
+                      cart.priceDiscount : cart.price) | number:'0'}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class=" single-cart-block ">
+                <div class="btn-block">
+                  <a href="/cart" class="btn" th:text="#{lo.mn.cartmenu}">Xem thêm <i
+                      class="fas fa-chevron-right"></i></a>
+                  <a href="#!thanhtoan" class="btn btn--primary" th:text="#{lo.mn.cartmenu1}">Thanh toán <i
+                      class="fas fa-chevron-right"></i></a>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="top-bar-mobile-icon center_center">
+     <!------------------------- Tài khoản Mobile -------------------------->
+
+          <div class="top-bar-mobile-icon center_center mouse-hover top-account-mobile">
             <div class="login-cutomer-icon"></div>
+
+            <div class="top-account-dropdown p-3">
+              <!-- Kiểm tra nếu người dùng có vai trò 'CUSTOMER' -->
+              <div ng-if="isCustomer">
+                <a href="/account" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
+                </a>
+                <a href="/#" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.Order}">Đơn hàng của tôi</span>
+                </a>
+                <a href="/change-password" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.change}">Đổi mật khẩu</span>
+                </a>
+                <button type="button" ng-click="logout()" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-sign-out-alt"></i> <span th:text="#{lo.mn.logout}">Đăng xuất</span>
+                </button>
+              </div>
+              <!-- Kiểm tra nếu người dùng có vai trò 'ADMIN' -->
+              <div ng-if="isAdmin">
+                <a href="/admin/index" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-cogs"></i> <span th:text="#{lo.mn.ql}">Quản lý</span>
+                </a>
+                <a href="/account" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
+                </a>
+                <a href="/#" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.bc}">Báo cáo</span>
+                </a>
+                <button type="button" ng-click="logout()" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-sign-out-alt"></i> <span th:text="#{lo.mn.logout}">Đăng xuất</span>
+                </button>
+              </div>
+              <!-- Hiển thị nút đăng nhập, đăng ký, và quên mật khẩu cho người dùng chưa đăng nhập -->
+              <div ng-if="!isCustomer && !isAdmin">
+                <a href="/login" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-sign-in-alt"></i> <span th:text="#{lo.mn.login}">Đăng nhập</span>
+                </a>
+                <a href="/resgister" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-user-plus"></i> <span th:text="#{lo.mn.signup}">Đăng ký</span>
+                </a>
+                <a href="/forgot-password" style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-key"></i> <span th:text="#{lo.mn.forgot}">Quên mật khẩu</span>
+                </a>
+              </div>
+            </div>
           </div>
 
         </div>

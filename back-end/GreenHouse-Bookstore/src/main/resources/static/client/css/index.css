@@ -4086,6 +4086,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   visibility: visible;
   opacity: 1;
   transform: translateY(0%);
+  top: 38px;
 }
 
 .top-bar-mobile-icon .top-notification-dropdown {
@@ -4094,6 +4095,54 @@ html.bx-ios.bx-ios-fix-frame-focus {
   right: -54px;
   z-index: 1;
 }
+
+
+.top-notification-button,
+.top-cart-button,
+.top-account-mobile {
+  position: relative;
+}
+
+.top-notification-button .top-notification-dropdown,
+.top-cart-mobile .top-cart-dropdown,
+.top-account-mobile .top-account-dropdown {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 38px;
+  right: 0;
+  transform: translateY(50%);
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  transition: visibility 0s, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  width: 100vw;
+}
+
+.top-notification-button:hover .top-notification-dropdown,
+.top-cart-mobile:hover .top-cart-dropdown,
+.top-account-mobile:hover .top-account-dropdown {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0%);
+  z-index: 1;
+}
+
+.top-notification-button .top-notification-dropdown {
+  padding: 5px 10px 15px 10px;
+  width: 400px;
+}
+
+.top-cart-mobile .top-cart-dropdown {
+ z-index: 1;
+ width: 100vw;
+ right: -24px;
+}
+
+.top-cart-button .top-cart-dropdown .cart-product:hover {
+  background-color: rgba(194, 250, 195, 0.356);
+}
+
 /* XEM THÊM  */
 .product-card .product-card--body .card-image img{
   width: 203px;
