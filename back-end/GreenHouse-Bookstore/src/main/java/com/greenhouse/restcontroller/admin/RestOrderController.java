@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +27,7 @@ import com.greenhouse.repository.InvoiceMappingVoucherRepository;
 import com.greenhouse.repository.OrderDetailReponsitory;
 import com.greenhouse.repository.OrdersRepository;
 import com.greenhouse.repository.ProductDetailRepository;
+import com.greenhouse.service.EmailService;
 
 @RestController
 @CrossOrigin("*")
@@ -43,6 +46,8 @@ public class RestOrderController {
     private OrdersRepository ordersRepository;
     @Autowired
     private OrderDetailReponsitory orderDetailReponsitory;
+    @Autowired
+    EmailService sendEmail;
 
     @GetMapping("/getData")
     private ResponseEntity<Map<String, Object>> getData() {
@@ -71,6 +76,27 @@ public class RestOrderController {
         responseData.put("orderDetails", orderDetails);
 
         return ResponseEntity.ok(responseData);
+    }
+
+    @PutMapping("/cancelOrder/{orderCode}")
+    public ResponseEntity<String> cancelOrder(@PathVariable String orderCode, @RequestBody Orders updatedOrder) {
+        Optional<Orders> optionalOrder = ordersRepository.findById(orderCode);
+
+        if (optionalOrder.isPresent()) {
+            Orders existingOrder = optionalOrder.get();
+
+            // Update order status, confirmed_By, and save cancellation reason (note)
+            existingOrder.setStatus(updatedOrder.getStatus());
+            existingOrder.setConfirmed_By(updatedOrder.getConfirmed_By());
+            existingOrder.setNote(updatedOrder.getNote());
+            ordersRepository.save(existingOrder);
+            // Gửi email thông báo hủy đơn hàng
+            sendEmail.sendEmailOrderCancellation(existingOrder.getAccount().getEmail(), "GreenHouse | Hủy Đơn Hàng", orderCode,
+                    existingOrder.getNote());
+            return ResponseEntity.ok("Đã hủy đơn hàng");
+        } else {
+            return ResponseEntity.badRequest().body("Không thể hủy đơn hàng với trạng thái hiện tại");
+        }
     }
 
 }

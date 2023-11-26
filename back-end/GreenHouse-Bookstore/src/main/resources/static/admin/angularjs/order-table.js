@@ -5,7 +5,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
     });
 
     let host = "http://localhost:8081/rest/order";
-
+    $scope.username = localStorage.getItem("username");
     // List get data - start
     $scope.listInvoiceDetails = [];
     $scope.listInvoiceMappingVoucher = [];
@@ -199,7 +199,79 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             $scope.reverseSort = false;
         }
     };
+    //Hàm hủy
 
+    $scope.cacelOrder = [];
+    $scope.showCancelModal = function (item) {
+        $scope.cacelOrder.orderCode = item.orderCode;
+        $scope.cacelOrder.email = item.account.email;
+        $scope.cacelOrder.username = item.account.username;
+        $scope.cacelOrder.noteCancel = "";
+        $scope.cacelOrder.status = item.status;
+        $scope.errorsNoteCancel = "";
+    };
+
+    $scope.confirmCancel = function () {
+        if ($scope.cacelOrder.noteCancel == null || $scope.cacelOrder.noteCancel.length < 10) {
+            $scope.errorsNoteCancel = 'Vui lòng nhập lí do không ít hơn 10 kí tự!';
+        }
+        else {
+            var updatedOrder = {
+                status: 'Canceled',
+                confirmed_By: $scope.username,
+                note: $scope.cacelOrder.noteCancel
+            };
+
+            if ($scope.cacelOrder.status === 'Pending Handover') {
+                // Nếu đơn hàng ở trạng thái 'Pending Handover', thực hiện cuộc gọi API của Giao Hàng Nhanh
+                var ghnApiData = {
+                    order_codes: [$scope.cacelOrder.orderCode]
+                };
+
+                $http.post('https://online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel', ghnApiData, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'ShopId': '4586990',
+                        'Token': '7a77199f-6293-11ee-af43-6ead57e9219a'
+                    }
+                }).then(function (ghnResponse) {
+                    // Xử lý phản hồi từ Giao Hàng Nhanh (nếu cần)
+                    console.log('GHN API Response:', ghnResponse.data);
+                }).catch(function (ghnError) {
+                    // Xử lý lỗi từ Giao Hàng Nhanh (nếu cần)
+                    console.error('GHN API Error:', ghnError.data);
+                });
+            }
+
+            // Gọi API để hủy đơn hàng
+            $http.put('/rest/order/cancelOrder/' + $scope.cacelOrder.orderCode, updatedOrder)
+                .then(function (response) {
+                    // Xử lý khi hủy đơn hàng thành công
+                    console.log(response.data);
+                    $scope.sendNotification("Thông báo hủy đơn hàng", $scope.cacelOrder.orderCode, $scope.cacelOrder.username, "Lí do hủy đơn hàng: " + $scope.cacelOrder.noteCancel);
+                    $scope.getData();
+                    $scope.clearCacel();
+                    $('#order-cancel').modal('hide');
+                    Swal.fire({
+                        icon: "success",
+                        title: "Thành công",
+                        text: `Hủy đơn hàng ${$scope.cacelOrder.orderCode} thành công`,
+                    });
+                })
+                .catch(function (error) {
+                    // Xử lý khi có lỗi xảy ra
+                    console.error("Lỗi khi hủy đơn hàng:", error.data);
+                });
+        }
+
+    };
+
+    $scope.clearCacel = function () {
+        $scope.customerEmail = "";
+        $scope.noteCancel = "";
+        $scope.errorsNoteCancel = "";
+
+    };
     ////////=================WEBSOCKET NOTIFICATION==============///////
 
     // WEbsocket
@@ -207,44 +279,25 @@ app.controller("OrderController", function ($scope, $http, $interval) {
 
     var socket = new SockJS('/notify');
     var stompClient = Stomp.over(socket);
-    $scope.username = localStorage.getItem("username");
 
-    $scope.username1 = '114069353350424347080';
+    // $scope.username1 = '114069353350424347080';
 
     // Kết nối đến WebSocket
     stompClient.connect({}, function (frame) {
         console.log("Admin Connected: " + frame);
 
         // Hàm để gửi thông báo
-        $scope.sendNotification = function () {
+        $scope.sendNotification = function (title, orderCode, username, message) {
             var notification = {
-                username: { username: $scope.username1 },
-                title: "Thông báo giao hàng",
-                message: "Đơn hàng của bạn đã được GreenHouse gửi đến đơn vị vận chuyển",
+                username: { username: username },
+                title: title + " (" + orderCode + ")",
+                message: message,
                 createAt: new Date()
             };
 
             // Gửi thông báo đến phía server
-            stompClient.send("/app/notify/" + $scope.username1, {}, JSON.stringify(notification));
+            stompClient.send("/app/notify/" + username, {}, JSON.stringify(notification));
         };
-
-        // Subscribe để nhận thông báo từ server
-        // stompClient.subscribe('/user/' + $scope.username1 + '/topic/notification', function (notification) {
-        //     console.log("Received Notification:", notification);
-
-        //     // Xử lý thông báo khi nhận được
-        //     var receivedNotification = JSON.parse(notification.body);
-        //     console.log("Received Notification:", receivedNotification);
-        //     console.log('receivedNotification.username.username', receivedNotification.username.username)
-        //     // Thêm thông báo vào danh sách chỉ nếu username trùng khớp
-        //     if (receivedNotification.username.username === $scope.username) {
-        //         $scope.$apply(function () {
-        //             $scope.notifications.push(receivedNotification);
-        //         });
-        //     }
-        // });
-
-
     });
 
 
@@ -252,11 +305,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
 
     $scope.init = function () {
         $scope.getData();
-
-        console.log($scope.countOrderByStatus('Completed'));
-
     }
-
 
     $scope.init();
 
