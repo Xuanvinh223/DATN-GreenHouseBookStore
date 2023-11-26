@@ -1,0 +1,94 @@
+.order-content {
+  padding: 10px !important;
+}
+
+.order-body {
+  padding: 10px !important;
+}
+
+.order-hr {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.card-order {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #ffffff;
+  background-clip: border-box;
+  border: 1px solid #cecece;
+  border-radius: 0.25rem;
+}
+
+.card-order h5 {
+  margin-left: 10px;
+}
+
+.nav-tabs {
+  border-radius: 1px;
+  background-color: #fff;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #fff;
+  color: #ee4d2d;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid #ee4d2d;
+}
+
+.nav-tabs .nav-link {
+  color: black;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+/* Thêm định nghĩa cho hiệu ứng hover vào file CSS của bạn */
+.nav-tabs .nav-item:hover {
+  /* background-color: #eee; */
+  cursor: pointer;
+  /* Bạn có thể thay đổi con trỏ chuột thành mũi tên hoặc các giá trị khác tùy thuộc vào thiết kế của bạn */
+}
+
+/* Thêm định nghĩa cho màu chữ khi hover */
+.nav-tabs .nav-item:hover a {
+  color: #ee4d2d;
+  /* Màu chữ khi hover */
+}
+
+.card-height {
+  height: 500px;
+}
+
+.order-item {
+  padding: 0 12px 0 0;
+  flex: 1;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  margin-bottom: 10px;
+}
+
+.order-name {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.order-price {
+  font-size: 13px;
+}
+.order-btn{
+  text-align: right;
+}
+.btnspecial{
+  background-color: #30cf30 !important;
+  color: black !important;
+}
+.btnspecial:hover{
+  background-color: #3d464d !important;
+  color: #fff !important;
+}

@@ -110,6 +110,9 @@ public class Orders {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "confirmed_by", length = 50)
+    private String confirmedBy;
+
     @ManyToOne
     @JoinColumn(name = "Username", referencedColumnName = "Username", insertable = false, updatable = false)
     private Accounts account;
