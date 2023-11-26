@@ -31,6 +31,7 @@ import com.greenhouse.util.JwtUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class Maincontroller {
@@ -168,13 +169,13 @@ public class Maincontroller {
     }
 
     @GetMapping("/login-processing")
-    public String loginProcessing(HttpServletResponse response, RedirectAttributes redirectAttributes) {
+    public String loginProcessing(HttpServletResponse response, RedirectAttributes redirectAttributes, HttpSession session) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         // Trích xuất thông tin người dùng từ đối tượng Authentication
         String username = authentication.getName();
         Accounts accounts = accountRepository.findByUsername(username);
-        setCookie(response, username, accounts);
+        setCookie(response, session, username, accounts);
         if (accounts.getEmail() == null || accounts.getFullname() == null || accounts.getPhone() == null) {
             redirectAttributes.addFlashAttribute("infoMessage", "Vui lòng cập nhật thông tin tài khoản của bạn.");
             return "redirect:/account/info";
@@ -190,7 +191,7 @@ public class Maincontroller {
 
     @GetMapping("/google-processing")
     public String googleProcessing(OAuth2AuthenticationToken authenticationToken, HttpServletRequest request,
-                                   HttpServletResponse response) {
+                                   HttpServletResponse response, HttpSession session) {
         // Lấy thông tin tài khoản Google đã đăng nhập từ authenticationToken
         OAuth2User oauth2User = authenticationToken.getPrincipal();
         Accounts accounts = new Accounts();
@@ -217,16 +218,15 @@ public class Maincontroller {
                 authoritiesRepository.save(authorities);
             }
 
-            setCookie(response, username, accounts);
+            setCookie(response, session, username, accounts);
         } else {
-            setCookie(response, existAccountEmail.getUsername(), existAccountEmail);
+            setCookie(response, session, existAccountEmail.getUsername(), existAccountEmail);
         }
-
         return "redirect:/index";
 
     }
 
-    private void setCookie(HttpServletResponse response, String username, Accounts account) {
+    private void setCookie(HttpServletResponse response, HttpSession session, String username, Accounts account) {
 
         List<Authorities> listAuthorities = authoritiesRepository.findByUsername(username);
 
@@ -242,9 +242,12 @@ public class Maincontroller {
 
         final String jwt = jwtUtil.generateToken(account, authoritiesList);
 
-        Cookie cookie = new Cookie("token", jwt);
-        cookie.setMaxAge(3600);
-        cookie.setPath("/");
-        response.addCookie(cookie);
+        // Cookie cookie = new Cookie("token", jwt);
+        // cookie.setMaxAge(3600);
+        // cookie.setPath("/");
+        session.setAttribute("fullName", account.getFullname());
+        session.setAttribute("token", jwt);
+
+        // response.addCookie(cookie);
     }
 }

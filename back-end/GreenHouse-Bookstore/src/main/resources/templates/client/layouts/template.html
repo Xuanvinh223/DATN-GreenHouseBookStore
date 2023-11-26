@@ -251,13 +251,15 @@
                 <div class="icon_account_gray"></div>
               </div>
               <div class="center_center">
-                <div class="top_menu_label text-bo">{{ fullName }}</div>
+                <div class="top_menu_label text-bo"
+                     th:text="${session.fullName} ? ${session.fullName} : 'Tài khoản'">
+                </div>
               </div>
             </a>
             <!-- Trong HTML template của bạn -->
             <div class="top-account-dropdown p-3">
               <!-- Kiểm tra nếu người dùng có vai trò 'CUSTOMER' -->
-              <div ng-if="isCustomer">
+              <div sec:authorize="hasRole('CUSTOMER')">
                 <a href="/account" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
                 </a>
@@ -271,8 +273,9 @@
                   <i class="fas fa-sign-out-alt"></i> <span th:text="#{lo.mn.logout}">Đăng xuất</span>
                 </button>
               </div>
+
               <!-- Kiểm tra nếu người dùng có vai trò 'ADMIN' -->
-              <div ng-if="isAdmin">
+              <div sec:authorize="hasRole('ADMIN')">
                 <a href="/admin/index" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-cogs"></i> <span th:text="#{lo.mn.ql}">Quản lý</span>
                 </a>
@@ -286,12 +289,13 @@
                   <i class="fas fa-sign-out-alt"></i> <span th:text="#{lo.mn.logout}">Đăng xuất</span>
                 </button>
               </div>
+
               <!-- Hiển thị nút đăng nhập, đăng ký, và quên mật khẩu cho người dùng chưa đăng nhập -->
-              <div ng-if="!isCustomer && !isAdmin">
+              <div sec:authorize="isAnonymous()">
                 <a href="/login" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-sign-in-alt"></i> <span th:text="#{lo.mn.login}">Đăng nhập</span>
                 </a>
-                <a href="/resgister" style="margin-top: 5px;" class="button-default">
+                <a href="/register" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-user-plus"></i> <span th:text="#{lo.mn.signup}">Đăng ký</span>
                 </a>
                 <a href="/forgot-password" style="margin-top: 5px;" class="button-default">
@@ -984,14 +988,25 @@
           });
       }
       if (infoMessage) {
-          // Thực hiện các hành động với loginMessage ở đây
-          Swal.fire({
-              title: "Thông báo",
-              text: infoMessage,
-              icon: "warning",
-              confirmButtonText: "OK",
-          });
+        // Thực hiện các hành động với loginMessage ở đây
+        Swal.fire({
+          title: "Thông báo",
+          text: infoMessage,
+          icon: "warning",
+          confirmButtonText: "OK",
+        });
       }
+      var fullName = /*[[${session.fullName}]]*/ null;
+      var token = /*[[${session.token}]]*/ null;
+
+      if (token) {
+        localStorage.setItem('token', token);
+      } else {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        localStorage.removeItem('image');
+      }
+      /*]]*/
     </script>
   </th-block>
 </body>

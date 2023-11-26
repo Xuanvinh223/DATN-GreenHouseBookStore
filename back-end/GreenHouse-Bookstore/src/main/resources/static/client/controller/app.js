@@ -11,13 +11,7 @@ app.constant('voucherAPI', 'http://localhost:8081/customer/rest/voucher');
 app.constant('customerAPI', "http://localhost:8081/customer/rest");
 app.constant('orderHistoryAPI', 'http://localhost:8081/customer/rest/order-history');
 
-app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
-    var token = $cookies.get("token");
-
-    if (token) {
-        localStorage.setItem("token", token);
-        $cookies.remove("token");
-    }
+app.run(function ($rootScope, $http, $templateCache, jwtHelper) {
 
     var jsFiles = [
         "js/custom.js",

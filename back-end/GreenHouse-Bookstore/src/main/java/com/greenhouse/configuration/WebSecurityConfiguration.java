@@ -107,7 +107,7 @@ public class WebSecurityConfiguration {
                 .logout()
                 .logoutUrl("/logout") // Định nghĩa URL để thực hiện logout
                 .clearAuthentication(true) // Xóa thông tin xác thực
-                .invalidateHttpSession(true) // Huỷ phiên làm việc
+                // .invalidateHttpSession(true) // Huỷ phiên làm việc
                 .permitAll().and()
                 .exceptionHandling()
                 .accessDeniedPage("/404")
