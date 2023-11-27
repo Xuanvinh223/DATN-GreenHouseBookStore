@@ -772,7 +772,8 @@
 /* eND DANH MỤC SẢN PHẨM */
 /* Flash Sale */
 .flashsale-header {
-  background-color: rgb(157, 232, 59);
+  background-color: #4dff97;
+  /* background-color: rgb(157, 232, 59); */
   height: 50px;
   width: 100%;
   display: flex;

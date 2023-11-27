@@ -534,6 +534,17 @@ app.service('ProductDetailService', function ($http, productDetailAPI) {
                 return Promise.reject(error);
             });
     };
+    this.hasPurchasedProduct = function (username, productDetailId) {
+        var url = `${productDetailAPI}/hasPurchased/${username}/${productDetailId}`;
+        return $http.get(url)
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log('Lỗi khi kiểm tra đơn hàng:', error);
+                return Promise.reject(error);
+            });
+    };
 });
 //=============== NOTIFY SERVICE  ===========
 app.service('NotifyService', function ($http, customerAPI) {

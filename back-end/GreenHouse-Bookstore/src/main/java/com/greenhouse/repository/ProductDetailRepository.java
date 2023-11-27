@@ -12,6 +12,7 @@ import com.greenhouse.model.Products;
 public interface ProductDetailRepository extends JpaRepository<Product_Detail, Integer> {
 
         List<Product_Detail> findByProduct(Products product);
+
         boolean existsByProduct(Products product);
 
         @Query(value = "SELECT " +
@@ -123,4 +124,14 @@ public interface ProductDetailRepository extends JpaRepository<Product_Detail, I
                         " d.[Weight],d.[Width],d.[Height],d.[Length],d.[Image] " +
                         "  ORDER BY   SUM(id.Quantity) DESC;", nativeQuery = true)
         List<Product_Detail> findBySearchInvoice();
+
+        @Query("SELECT CASE WHEN COUNT(id) > 0 THEN true ELSE false END FROM InvoiceDetails WHERE invoice.account.username = :username AND productDetail.productDetailId = :productDetailId")
+        boolean hasPurchasedProduct(@Param("username") String username,
+                        @Param("productDetailId") Integer productDetailId);
+
+        @Query(value="SELECT  PD.* FROM Product_Detail PD " +
+                        "JOIN Product_Discount PDs ON PD.Product_Detail_Id = PDs.Product_Detail_Id " +
+                        "JOIN Discounts D ON PDs.Discount_Id = D.Discount_Id " +
+                        "WHERE GETDATE() BETWEEN D.Start_Date AND D.End_Date",nativeQuery = true)
+        List<Product_Detail> findProductsOnDiscount();
 }
