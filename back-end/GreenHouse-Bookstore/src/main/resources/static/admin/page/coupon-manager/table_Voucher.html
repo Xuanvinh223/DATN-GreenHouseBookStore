@@ -11,11 +11,12 @@
                         <div class="card-body">
                             <div class="form-inline mb-2 form-group">
                                 <div class="input-container ">
-                                    <div class="input-wrapper col-lg-9">
-                                        <i class="fe fe-search fe-18 icon"></i>
-                                        <input class="form-control input" type="search" placeholder="Tìm kiếm..."
-                                               aria-label="Search" ng-model="searchText" ng-change="searchData()">
-                                    </div>
+                                  <div class="col-md-6">
+                                    <form class="form-inline mr-auto border text-muted">
+                                      <input class="form-control input" type="search" placeholder="Tìm kiếm..." ng-model="searchText"
+                                        ng-change="searchData()">
+                                    </form>
+                                  </div>
 
                                 </div>
                                 <div class="button-add col-lg-3">
@@ -30,18 +31,70 @@
                                     <thead>
                                     <tr class="th-voucher">
                                         <th>#</th>
-                                        <th>Tên Voucher</th>
-                                        <th>Mã voucher</th>
-                                        <th>Hình thức khuyến mãi</th>
-                                        <th>Loại khuyến mãi</th>
-                                        <th>Số tiền chiết khấu tối đa</th>
-                                        <th>Số tiền giảm tối thiểu</th>
-                                        <th>Ngày bắt đầu</th>
-                                        <th>Ngày kết thúc</th>
-                                        <th>Trạng thái</th>
-                                        <th>Tổng số lượng</th>
+                                        <th>
+                                            <a ng-click="sortBy('voucherName')" href="" style="text-decoration: none;">
+                                                Tên Voucher
+                                              <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                          </th>
+                                          <th>
+                                            <a ng-click="sortBy('voucherId')" href="" style="text-decoration: none;">
+                                                Mã voucher
+                                              <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                          </th>
+                                          <th>
+                                            <a ng-click="sortBy('code')" href="" style="text-decoration: none;">
+                                                Hình thức khuyến mãi
+                                              <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                          </th>
+                                          <th>
+                                            <a ng-click="sortBy('discountType')" href="" style="text-decoration: none;">
+                                                Loại khuyến mãi
+                                              <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                          </th>
+                                          <th>
+                                            <a ng-click="sortBy('maximumDiscountAmount')" href="" style="text-decoration: none;">
+                                                Số tiền chiết khấu tối đa
+                                              <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                          </th>
+                                          <th>
+                                            <a ng-click="sortBy('minimumPurchaseAmount')" href="" style="text-decoration: none;">
+                                                Số tiền giảm tối thiểu
+                                              <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                          </th>
+                                          <th>
+                                            <a ng-click="sortBy('startDate')" href="" style="text-decoration: none;">
+                                                Ngày bắt đầu
+                                              <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                          </th>
+                                          <th>
+                                            <a ng-click="sortBy('endDate')" href="" style="text-decoration: none;">
+                                                Ngày kết thúc
+                                              <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                          </th>
+                                          <th>
+                                            <a ng-click="sortBy('status')" href="" style="text-decoration: none;">
+                                                Trạng thái
+                                              <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                          </th>
+                                          <th>
+                                            <a ng-click="sortBy('totalQuantity')" href="" style="text-decoration: none;">
+                                                Tổng số lượng
+                                              <i class="mdi mdi-swap-vertical"></i>
+                                            </a>
+                                          </th>
+                                      
                                         <th class="form-group">Mô tả<span class="text-white">...................................</span>
                                         </th>
+                                        
                                         <th>Thao tác</th>
                                     </tr>
                                     </thead>
@@ -49,7 +102,7 @@
 
                                     <tbody>
                                     <tr
-                                            ng-repeat="voucher in vouchers  | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
+                                            ng-repeat="voucher in vouchers   | orderBy:orderByField:reverseSort  | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
                                         <td>{{voucher.voucherId}}</td>
                                         <td>{{voucher.voucherName}}</td>
                                         <td>{{voucher.code}}</td>

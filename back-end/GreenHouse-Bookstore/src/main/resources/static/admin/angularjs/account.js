@@ -12,8 +12,17 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
     $scope.itemsPerPage = 5; // Số mục hiển thị trên mỗi trang
     $scope.totalItems = $scope.accounts.length; // Tổng số mục
     $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
-    $scope.reverseSort = false; // Sắp xếp tăng dần
+    $scope.orderByField = "";
+    $scope.reverseSort = true;
 
+    $scope.sortBy = function (field) {
+        if ($scope.orderByField === field) {
+            $scope.reverseSort = !$scope.reverseSort;
+        } else {
+            $scope.orderByField = field;
+            $scope.reverseSort = true;
+        }
+    };
     // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
     $scope.getNumOfPages = function () {
         return Math.ceil($scope.totalItems / $scope.itemsPerPage);
@@ -146,11 +155,15 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
                 return; // Hiển thị thông báo lỗi đã tồn tại
             }
         }
+          // Hiển thị hiệu ứng loading
+     var loadingOverlay = document.getElementById("loadingOverlay");
+     loadingOverlay.style.display = "block";
+
 
         if (fileInput && fileInput.files.length > 0) {
             formData.append("image", fileInput.files[0]);
         }
-
+   
         formData.append("AccountJson", JSON.stringify({
             username: username,
             password: password,
@@ -174,14 +187,16 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
                 },
                 transformRequest: angular.identity
             })
-            .then(function (resp) {
+            .then(function (resp) {   // Ẩn hiệu ứng loading khi lưu thành công
+                loadingOverlay.style.display = "none";
                 $scope.loadAccount();
                 $scope.resetForm();
                 var action = $scope.isEditing ? 'Cập nhật' : 'Thêm';
                 showSuccess(`${action} tài khoản ${resp.data.username}`);
                 $scope.clearImage(); // Xóa ảnh đại diện sau khi cập nhật hoặc thêm
             })
-            .catch(function (error) {
+            .catch(function (error) {   // Ẩn hiệu ứng loading khi lưu thành công
+                loadingOverlay.style.display = "none";
                 var action = $scope.isEditing ? 'Cập nhật' : 'Thêm';
                 showError(`${action} tài khoản thất bại`);
             });
