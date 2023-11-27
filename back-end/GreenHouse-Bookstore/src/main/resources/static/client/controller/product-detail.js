@@ -1,6 +1,9 @@
 app.controller("productDetailController", function ($scope, $timeout, $routeParams, $http, jwtHelper, ProductDetailService) {
     let host = "http://localhost:8081/customer/rest/product-detail";
-    var token = localStorage.getItem('token');
+    var token = localStorage.getItem('token');  
+    // Trong trang product-details
+    var params = new URLSearchParams(location.search);
+    var productDetailId = params.get('id');
     if (token) {
         var decodedToken = jwtHelper.decodeToken(token);
         $scope.username = decodedToken.sub;
@@ -15,10 +18,19 @@ app.controller("productDetailController", function ($scope, $timeout, $routePara
             return role.authority === "ROLE_ADMIN";
         });
         console.log($scope.roles);
+        ProductDetailService.hasPurchasedProduct($scope.username, productDetailId)
+        .then(function (response) {
+            $scope.hasPurchased = response.hasPurchased;
+            $scope.hasUserReviewed = response.hasUserReviewed;
+            console.log("$scope.hasUserReviewed",$scope.hasUserReviewed);
+
+            console.log($scope.hasPurchased);
+        })
+        .catch(function (error) {
+            console.log('Lỗi khi kiểm tra mua sản phẩm:', error);
+        });
     }
-    // Trong trang product-details
-    var params = new URLSearchParams(location.search);
-    var productDetailId = params.get('id');
+  
     //Phân trang
     $scope.currentPage = 1;
     $scope.modalContent = "";

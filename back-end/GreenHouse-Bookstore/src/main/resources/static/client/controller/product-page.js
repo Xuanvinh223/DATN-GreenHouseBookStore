@@ -89,7 +89,10 @@ function productPageController($http, $scope, productPageAPI) {
             $scope.listProductImages = response.data.listProductImages;
             $scope.listImportInvoiceDetail = response.data.listImportInvoiceDetail;
             $scope.listInvoiceDetails = response.data.listInvoiceDetails;
-            var allProducts = response.data.listProductDetail;
+            var allProducts = response.data.listProductDetail
+                .filter(function (productDetail) {
+                    return productDetail.product.status === true;
+                });
             // $scope.filteredProducts =  allProducts;
             if (localStorage.getItem("keyword")) {
                 var keyword = localStorage.getItem("keyword");
@@ -269,13 +272,14 @@ function productPageController($http, $scope, productPageAPI) {
     // RETURN SINGLE DATA - START
 
     $scope.getAuthorNameByProductId = function (id) {
-        var bookAuthor = null;
-        $scope.listBookAuthor.find(e => {
-            if (e.product.productId === id) {
-                bookAuthor = e;
-            }
-        });
-        return bookAuthor ? bookAuthor.author.authorName : '';
+        var bookAuthor = $scope.listBookAuthor.find(e => e.product.productId === id);
+
+        // Kiểm tra xem bookAuthor và author có tồn tại không trước khi truy cập thuộc tính
+        if (bookAuthor && bookAuthor.author) {
+            return bookAuthor.author.authorName;
+        } else {
+            return '';
+        }
     }
 
     $scope.getDiscountValueByProductId = function (id) {

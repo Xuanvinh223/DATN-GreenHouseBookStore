@@ -201,7 +201,7 @@
                                                 </div>
                                             </div>
                                             <div class="product-header">
-                                                <a class="author">
+                                                <a class="author" ng-if="getAuthorNameByProductId(productDetail.product.productId) !== ''">
                                                     {{getAuthorNameByProductId(productDetail.product.productId)}}
                                                 </a>
                                                 <h3>

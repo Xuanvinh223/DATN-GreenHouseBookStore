@@ -117,6 +117,20 @@ public class ProductDetailController {
         return response;
     }
 
+    @GetMapping("/hasPurchased/{username}/{productDetailId}")
+    public Map<String, Object> hasPurchasedProduct(@PathVariable String username,
+            @PathVariable Integer productDetailId) {
+        Map<String, Object> response = new HashMap<>();
+
+        // Kiểm tra xem người dùng có mua sản phẩm không
+        boolean hasPurchased = productDetailReps.hasPurchasedProduct(username, productDetailId);
+        boolean hasUserReviewed = productReviewsRepository.existsByAccount_UsernameAndProductDetail_ProductDetailId(username, productDetailId);
+
+        response.put("hasUserReviewed", hasUserReviewed);
+        response.put("hasPurchased", hasPurchased);
+        return response;
+    }
+
     @Transactional
     @GetMapping("/reviews/{reviewId}")
     public List<Authentic_Photos> getAuthenticPhotosForReview(@PathVariable Integer reviewId) {
