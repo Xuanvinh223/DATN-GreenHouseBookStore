@@ -20,4 +20,5 @@ public class CheckoutDTO {
     private Double normal_discount;
     private Double payment_total;
     private CartVoucherDTO voucher;
+    private String payment_method;
 }

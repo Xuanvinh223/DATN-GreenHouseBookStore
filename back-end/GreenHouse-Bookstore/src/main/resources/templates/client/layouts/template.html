@@ -61,7 +61,7 @@
                     <span th:text="#{lo.mn.searchhistory}"></span>
                   </div>
                 </div>
-                <div class="col-auto mr--20 mt--5" >
+                <div class="col-auto mr--20 mt--5">
                   <div class="fhs_center_right fhs_mouse_point his-delete-all" th:text="#{lo.mn.deleteall}"
                     ng-click="clearSearchHistory()">
                   </div>
@@ -136,7 +136,7 @@
                 <div class="top_menu_label" th:text="#{lo.mn.mess}"></div>
               </div>
             </a>
-            
+
             <div class="top-notification-dropdown" ng-if="token">
               <div style="padding:5px;border-bottom: 1px solid #F2F4F5; font-weight: bold;" class="fhs_center_space">
                 <div class="fhs_center_left" style="font-size: 1em; color: #0D0E0F;">
@@ -205,7 +205,7 @@
           </div>
 
           <div class="center_center mouse-hover cart-dropdown top-cart-button"><!--cart-icon-->
-            <a class="top-button-icon " href="">
+            <a class="top-button-icon " href="/cart">
               <div class="fhs_center_center" style="margin-bottom: 3px;">
                 <div class="icon_cart_gray">
                   <div class="top_menu_unseen fhs_center_center" ng-show="listCartHeader.length > 0">
@@ -218,9 +218,9 @@
               </div>
             </a>
             <!-- Model cart -->
-            <div class="top-cart-dropdown p-3">
+            <div class="top-cart-dropdown p-3" ng-if="listCartHeader.length > 0">
               <div class="single-cart-block">
-                <div class="cart-product mb-3 mt-3" ng-repeat="cart in listCartHeader | limitTo : 5 track by $index">
+                <div class="cart-product pb-3 pt-3" ng-repeat="cart in listCartHeader | limitTo : 5 track by $index">
                   <a href="product-details.html" class="image">
                     <img src="{{cart.productDetail.image}}" alt="">
                   </a>
@@ -234,12 +234,17 @@
               </div>
               <div class=" single-cart-block ">
                 <div class="btn-block">
-                  <a href="/cart" class="btn" th:text="#{lo.mn.cartmenu}">Xem thêm <i
-                      class="fas fa-chevron-right"></i></a>
-                  <a href="#!thanhtoan" class="btn btn--primary" th:text="#{lo.mn.cartmenu1}">Thanh toán <i
+                  <a href="/cart" class="btn btn-success" th:text="#{lo.mn.cartmenu}">Xem thêm <i
                       class="fas fa-chevron-right"></i></a>
                 </div>
               </div>
+            </div>
+
+            <div id="cartmini_page_content" ng-if="!listCartHeader.length > 0">
+             
+              <div class="fhs_center_center" style="padding: 16px;"><span class="ico_emptycart"></span></div>
+              <div class="fhs_center_center" style="color: #0D0E0F; padding-bottom:24px; font-size: 1.rem;">Chưa có sản
+                phẩm nào</div>
             </div>
             <!-- End model cart -->
           </div>
@@ -350,7 +355,7 @@
                 </div>
                 <div class="col-auto mr--20 mt--5">
                   <div class="fhs_center_right fhs_mouse_point his-delete-all" th:text="#{lo.mn.deleteall}"
-                       ng-click="clearSearchHistory()">
+                    ng-click="clearSearchHistory()">
                   </div>
                 </div>
               </div>
@@ -362,7 +367,7 @@
               </div>
               <div class="tu-khoa-hot" ng-if="!keyword">
                 <span><img
-                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
+                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
                 <span th:text="#{lo.mn.hot}"></span>
               </div>
 
@@ -384,7 +389,7 @@
               </div>
               <div class="form-search-form-content-mobile form_search_history" ng-if="keyword">
                 <div ng-repeat="item in searchProductResults | limitTo:10 track by $index"
-                     ng-click="searchData(item.product.productName)">
+                  ng-click="searchData(item.product.productName)">
                   <span class="form_search_history_text">{{item.product.productName}}</span>
                   <span class="fa fa-times" ng-click="removeSearchHistory($index)"></span>
                 </div>
@@ -392,12 +397,12 @@
 
               <div class="tu-khoa-hot" ng-if="keyword">
                 <span><img
-                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
+                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
                 <span th:text="#{lo.mn.searchproduct}"></span>
               </div>
               <div class="tu-khoa-hot-container" ng-if="keyword">
                 <div class="tu-khoa-hot-item col-md-4"
-                     ng-repeat="item in searchProductResults | limitTo:6 track by $index">
+                  ng-repeat="item in searchProductResults | limitTo:6 track by $index">
                   <a href="#" ng-click="getProductDetail(item.productDetailId)">
                     <img ng-src="{{item.image}}" alt="Hinh anh">
                     <span>{{item.product.productName}}</span></a>
@@ -431,9 +436,9 @@
               </div>
               <div class="top-notification-list fhs_scrollbar" style="display: block;">
                 <div ng-if="ListUnNotifyUser.length > 0" class="top-notification-list fhs_scrollbar"
-                     style="display: block;">
+                  style="display: block;">
                   <a class="top-notification-item fhs_column_left fhs_mouse_point clear"
-                     ng-repeat="notification in ListUnNotifyUser" href="/account/notification">
+                    ng-repeat="notification in ListUnNotifyUser" href="/account/notification">
                     <div class="fhs_top_stretch" style="width:100%;">
                       <div class="fhs_top_left" style="margin-right:12px;margin-top: 10px;">
                         <div class="ico_noti_other"></div>
@@ -447,7 +452,7 @@
                   </a>
                 </div>
                 <div ng-if="ListUnNotifyUser.length === 0" class="center_center"
-                     style="display: flex; align-items: center; margin-top: 20px;">
+                  style="display: flex; align-items: center; margin-top: 20px;">
                   <div class="icon_nofi_gray"></div>
                   <span style="margin-left: 5px; color: rgb(142, 141, 141)">Không Có Thông Báo Mới</span>
                 </div>
@@ -472,7 +477,7 @@
                 đăng nhập để
               </div>
               <div class="center_center" style="color: #0D0E0F; padding-bottom:24px; font-size: 1.23em;"
-                   th:text="#{lo.mn.messmeanu1}">xem
+                th:text="#{lo.mn.messmeanu1}">xem
                 thông báo
               </div>
               <a href="/login" style="margin-top: 5px;" class="button-default active">
@@ -510,7 +515,8 @@
               <div class="col-lg-3">
                 <nav class="category-nav white-nav">
                   <div>
-                    <div class="category-trigger"><i class="fa fa-bars"></i><a th:text="#{lo.mn.dmsp}">Danh mục sản phẩm</a></div>
+                    <div class="category-trigger"><i class="fa fa-bars"></i><a th:text="#{lo.mn.dmsp}">Danh mục sản
+                        phẩm</a></div>
                     <ul class="category-menu">
                       <li class="cat-item has-children mega-menu" ng-repeat="parentCategory in parentCategoriesTypes">
                         <a href="#">{{ parentCategory }}</a>
@@ -879,6 +885,7 @@
     <script th:src="@{/client/controller/index.js}"></script>
     <script th:src="@{/client/controller/signin.js}"></script>
     <script th:src="@{/client/controller/checkout.js}"></script>
+    <script th:src="@{/client/controller/checkout-complete.js}"></script>
     <script th:src="@{/client/controller/header.js}"></script>
     <script th:src="@{/client/controller/product-page.js}"></script>
     <script th:src="@{/client/controller/flash-sale.js}"></script>
@@ -897,22 +904,22 @@
       /*]]>*/
       // Kiểm tra giá trị loginMessage
       if (loginMessage) {
-          // Thực hiện các hành động với loginMessage ở đây
-          Swal.fire({
-              title: "Thông báo",
-              text: loginMessage,
-              icon: "error",
-              confirmButtonText: "OK",
-          });
+        // Thực hiện các hành động với loginMessage ở đây
+        Swal.fire({
+          title: "Thông báo",
+          text: loginMessage,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       }
       if (infoMessage) {
-          // Thực hiện các hành động với loginMessage ở đây
-          Swal.fire({
-              title: "Thông báo",
-              text: infoMessage,
-              icon: "warning",
-              confirmButtonText: "OK",
-          });
+        // Thực hiện các hành động với loginMessage ở đây
+        Swal.fire({
+          title: "Thông báo",
+          text: infoMessage,
+          icon: "warning",
+          confirmButtonText: "OK",
+        });
       }
     </script>
   </th-block>

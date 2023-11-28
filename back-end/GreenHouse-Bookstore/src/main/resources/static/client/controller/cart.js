@@ -8,13 +8,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
     const districtCodeGH = 1574;
     const wardCodeGH = 550307;
 
-    const from_name = 'Green House Store';
-    const from_phone = '0869150620';
-    const from_address = ' Toà nhà FPT Polytechnic, Đ. Số 22, Thường Thạnh, Cái Răng, Cần Thơ, Vietnam';
-    const from_ward_name = 'Phường Thường Thạnh';
-    const from_district_name = 'Quận Cái Răng';
-    const from_province_name = 'Thành Phố  Cần Thơ';
-
     $scope.listCartItem = [];
     $scope.listCartItemSelected = [];
 
@@ -48,7 +41,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
     $scope.confirmAddress = null;
 
     $scope.checkAll = false;
-    $scope.isEdit = false;
 
     // GHN - START
 
@@ -309,12 +301,12 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
     // ===========================================================================================
 
     $scope.toggleCheckAll = function () {
+        $scope.checkAll = !$scope.checkAll;
+
         angular.forEach($scope.listCartItem, function (cart) {
             cart.checked = $scope.checkAll;
         });
-        console.log($scope.shippingFee);
-        console.log($scope.shippingFeeDiscount);
-        console.log($scope.normalDiscount);
+        console.log($scope.listCartItem);
     };
 
     $scope.$watch('listCartItem', function (newListCart, oldListCart) {
@@ -1119,7 +1111,7 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
         $http.post(api, data)
             .then(function (response) {
                 console.log(response.data);
-                if(response.data.status == "success") {
+                if (response.data.status == "success") {
                     window.location.href = "/checkout";
                 }
             })

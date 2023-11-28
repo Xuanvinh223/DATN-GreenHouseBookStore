@@ -10,20 +10,22 @@ import java.util.Random;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.servlet.http.HttpServletRequest;
 
-
+@Component
 public class VNPayConfig {
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_TmnCode = "CKE2GIJC";
+    public static String vnp_TmnCode = "KREXKH16";
+    public static String vnp_HashSecret = "JGZLZJSOUFZBYREMNXPZJJBVFWYEYGFZ";
     public static String vnp_Version = "2.1.0";
     public static String vnp_Command = "pay";
-    public static String vnp_HashSecret = "FJBETRLMJONRKAZOWRRUEMUIJBPUOOTA";
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
     public static String vnp_OrderType = "other";
-    public static String vnp_ReturnUrl = "http://localhost:8081/client/checkout/done-pay";
+    public static String vnp_ReturnUrl = "http://localhost:8081/checkout/payment-callback";
 
-    //Util for VNPAY
+    // Util for VNPAY
     public static String hashAllFields(Map fields) {
         List fieldNames = new ArrayList(fields.keySet());
         Collections.sort(fieldNames);
@@ -33,7 +35,7 @@ public class VNPayConfig {
             String fieldName = (String) itr.next();
             String fieldValue = (String) fields.get(fieldName);
             if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                sb.append(fieldName); 
+                sb.append(fieldName);
                 sb.append("=");
                 sb.append(fieldValue);
             }
@@ -41,9 +43,9 @@ public class VNPayConfig {
                 sb.append("&");
             }
         }
-        return hmacSHA512(vnp_HashSecret,sb.toString());
+        return hmacSHA512(vnp_HashSecret, sb.toString());
     }
-    
+
     public static String hmacSHA512(final String key, final String data) {
         try {
             if (key == null || data == null) {

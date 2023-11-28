@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.greenhouse.model.Authorities;
 import com.greenhouse.model.InvoiceDetails;
 import com.greenhouse.model.InvoiceMappingVoucher;
-import com.greenhouse.model.Order_Detail;
+import com.greenhouse.model.OrderDetails;
 import com.greenhouse.model.Orders;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.repository.AuthoritiesRepository;
 import com.greenhouse.repository.InvoiceDetailsRepository;
 import com.greenhouse.repository.InvoiceMappingVoucherRepository;
-import com.greenhouse.repository.OrderDetailReponsitory;
+import com.greenhouse.repository.OrderDetailsRepository;
 import com.greenhouse.repository.OrdersRepository;
 import com.greenhouse.repository.ProductDetailRepository;
 
@@ -42,7 +42,7 @@ public class RestOrderController {
     @Autowired
     private OrdersRepository ordersRepository;
     @Autowired
-    private OrderDetailReponsitory orderDetailReponsitory;
+    private OrderDetailsRepository orderDetailsRepository;
 
     @GetMapping("/getData")
     private ResponseEntity<Map<String, Object>> getData() {
@@ -67,7 +67,7 @@ public class RestOrderController {
         order.ifPresent(value -> responseData.put("order", value));
 
         // Lấy thông tin đơn hàng chi tiết
-        List<Order_Detail> orderDetails = orderDetailReponsitory.findByOrderCode(orderCode);
+        List<OrderDetails> orderDetails = orderDetailsRepository.findByOrderCode(orderCode);
         responseData.put("orderDetails", orderDetails);
 
         return ResponseEntity.ok(responseData);
