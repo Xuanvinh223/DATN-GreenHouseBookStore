@@ -221,8 +221,10 @@ public class CartController {
                     List<VoucherMappingCategory> listVMC = new ArrayList<>();
                     List<VoucherMappingProduct> listVMP = new ArrayList<>();
 
-                    listVMP = voucherMappingProductRepository.findByVoucherId(item.getVoucher().getVoucherId());
-                    listVMC = voucherMappingCategoryRepository.findByVoucherId(item.getVoucher().getVoucherId());
+                    listVMP = voucherMappingProductRepository.findByVoucherIdAndStatus(item.getVoucher().getVoucherId(),
+                            true);
+                    listVMC = voucherMappingCategoryRepository
+                            .findByVoucherIdAndStatus(item.getVoucher().getVoucherId(), true);
 
                     listVouchersMappingCategories.addAll(listVMC);
                     listVouchersMappingProduct.addAll(listVMP);

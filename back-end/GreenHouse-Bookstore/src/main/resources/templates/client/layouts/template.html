@@ -62,7 +62,7 @@
                     <span th:text="#{lo.mn.searchhistory}"></span>
                   </div>
                 </div>
-                <div class="col-auto mr--20 mt--5" >
+                <div class="col-auto mr--20 mt--5">
                   <div class="fhs_center_right fhs_mouse_point his-delete-all" th:text="#{lo.mn.deleteall}"
                     ng-click="clearSearchHistory()">
                   </div>
@@ -137,7 +137,7 @@
                 <div class="top_menu_label" th:text="#{lo.mn.mess}"></div>
               </div>
             </a>
-            
+
             <div class="top-notification-dropdown" ng-if="token">
               <div style="padding:5px;border-bottom: 1px solid #F2F4F5; font-weight: bold;" class="fhs_center_space">
                 <div class="fhs_center_left" style="font-size: 1em; color: #0D0E0F;">
@@ -206,7 +206,7 @@
           </div>
 
           <div class="center_center mouse-hover cart-dropdown top-cart-button"><!--cart-icon-->
-            <a class="top-button-icon " href="">
+            <a class="top-button-icon " href="/cart">
               <div class="fhs_center_center" style="margin-bottom: 3px;">
                 <div class="icon_cart_gray">
                   <div class="top_menu_unseen fhs_center_center" ng-show="listCartHeader.length > 0">
@@ -219,9 +219,9 @@
               </div>
             </a>
             <!-- Model cart -->
-            <div class="top-cart-dropdown p-3">
+            <div class="top-cart-dropdown p-3" ng-if="listCartHeader.length > 0">
               <div class="single-cart-block">
-                <div class="cart-product mb-3 mt-3" ng-repeat="cart in listCartHeader | limitTo : 5 track by $index">
+                <div class="cart-product pb-3 pt-3" ng-repeat="cart in listCartHeader | limitTo : 5 track by $index">
                   <a href="product-details.html" class="image">
                     <img src="{{cart.productDetail.image}}" alt="">
                   </a>
@@ -233,14 +233,19 @@
                   </div>
                 </div>
               </div>
-              <div class=" single-cart-block ">
+              <div class=" single-cart-block mt-3">
                 <div class="btn-block">
-                  <a href="/cart" class="btn" th:text="#{lo.mn.cartmenu}">Xem thêm <i
-                      class="fas fa-chevron-right"></i></a>
-                  <a href="#!thanhtoan" class="btn btn--primary" th:text="#{lo.mn.cartmenu1}">Thanh toán <i
+                  <a href="/cart" class="btn btn-success" th:text="#{lo.mn.cartmenu}">Xem thêm <i
                       class="fas fa-chevron-right"></i></a>
                 </div>
               </div>
+            </div>
+
+            <div id="cartmini_page_content" ng-if="!listCartHeader.length > 0">
+             
+              <div class="fhs_center_center" style="padding: 16px;"><span class="ico_emptycart"></span></div>
+              <div class="fhs_center_center" style="color: #0D0E0F; padding-bottom:24px; font-size: 1.rem;">Chưa có sản
+                phẩm nào</div>
             </div>
             <!-- End model cart -->
           </div>
@@ -251,13 +256,15 @@
                 <div class="icon_account_gray"></div>
               </div>
               <div class="center_center">
-                <div class="top_menu_label text-bo">{{ fullName }}</div>
+                <div class="top_menu_label text-bo"
+                     th:text="${session.fullName} ? ${session.fullName} : 'Tài khoản'">
+                </div>
               </div>
             </a>
             <!-- Trong HTML template của bạn -->
             <div class="top-account-dropdown p-3">
               <!-- Kiểm tra nếu người dùng có vai trò 'CUSTOMER' -->
-              <div ng-if="isCustomer">
+              <div sec:authorize="hasRole('CUSTOMER')">
                 <a href="/account" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
                 </a>
@@ -271,8 +278,9 @@
                   <i class="fas fa-sign-out-alt"></i> <span th:text="#{lo.mn.logout}">Đăng xuất</span>
                 </button>
               </div>
+
               <!-- Kiểm tra nếu người dùng có vai trò 'ADMIN' -->
-              <div ng-if="isAdmin">
+              <div sec:authorize="hasRole('ADMIN')">
                 <a href="/admin/index" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-cogs"></i> <span th:text="#{lo.mn.ql}">Quản lý</span>
                 </a>
@@ -286,12 +294,13 @@
                   <i class="fas fa-sign-out-alt"></i> <span th:text="#{lo.mn.logout}">Đăng xuất</span>
                 </button>
               </div>
+
               <!-- Hiển thị nút đăng nhập, đăng ký, và quên mật khẩu cho người dùng chưa đăng nhập -->
-              <div ng-if="!isCustomer && !isAdmin">
+              <div sec:authorize="isAnonymous()">
                 <a href="/login" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-sign-in-alt"></i> <span th:text="#{lo.mn.login}">Đăng nhập</span>
                 </a>
-                <a href="/resgister" style="margin-top: 5px;" class="button-default">
+                <a href="/register" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-user-plus"></i> <span th:text="#{lo.mn.signup}">Đăng ký</span>
                 </a>
                 <a href="/forgot-password" style="margin-top: 5px;" class="button-default">
@@ -354,7 +363,7 @@
                 </div>
                 <div class="col-auto mr--20 mt--5">
                   <div class="fhs_center_right fhs_mouse_point his-delete-all" th:text="#{lo.mn.deleteall}"
-                       ng-click="clearSearchHistory()">
+                    ng-click="clearSearchHistory()">
                   </div>
                 </div>
               </div>
@@ -366,7 +375,7 @@
               </div>
               <div class="tu-khoa-hot" ng-if="!keyword">
                 <span><img
-                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
+                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
                 <span th:text="#{lo.mn.hot}"></span>
               </div>
 
@@ -388,7 +397,7 @@
               </div>
               <div class="form-search-form-content-mobile form_search_history" ng-if="keyword">
                 <div ng-repeat="item in searchProductResults | limitTo:10 track by $index"
-                     ng-click="searchData(item.product.productName)">
+                  ng-click="searchData(item.product.productName)">
                   <span class="form_search_history_text">{{item.product.productName}}</span>
                   <span class="fa fa-times" ng-click="removeSearchHistory($index)"></span>
                 </div>
@@ -396,12 +405,12 @@
 
               <div class="tu-khoa-hot" ng-if="keyword">
                 <span><img
-                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
+                    src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_searchtrending_black.svg"></span>
                 <span th:text="#{lo.mn.searchproduct}"></span>
               </div>
               <div class="tu-khoa-hot-container" ng-if="keyword">
                 <div class="tu-khoa-hot-item col-md-4"
-                     ng-repeat="item in searchProductResults | limitTo:6 track by $index">
+                  ng-repeat="item in searchProductResults | limitTo:6 track by $index">
                   <a href="#" ng-click="getProductDetail(item.productDetailId)">
                     <img ng-src="{{item.image}}" alt="Hinh anh">
                     <span>{{item.product.productName}}</span></a>
@@ -588,7 +597,8 @@
               <div class="col-lg-3">
                 <nav class="category-nav white-nav">
                   <div>
-                    <div class="category-trigger"><i class="fa fa-bars"></i><a th:text="#{lo.mn.dmsp}">Danh mục sản phẩm</a></div>
+                    <div class="category-trigger"><i class="fa fa-bars"></i><a th:text="#{lo.mn.dmsp}">Danh mục sản
+                        phẩm</a></div>
                     <ul class="category-menu">
                       <li class="cat-item has-children mega-menu" ng-repeat="parentCategory in parentCategoriesTypes">
                         <a href="#">{{ parentCategory }}</a>
@@ -957,6 +967,7 @@
     <script th:src="@{/client/controller/index.js}"></script>
     <script th:src="@{/client/controller/signin.js}"></script>
     <script th:src="@{/client/controller/checkout.js}"></script>
+    <script th:src="@{/client/controller/checkout-complete.js}"></script>
     <script th:src="@{/client/controller/header.js}"></script>
     <script th:src="@{/client/controller/product-page.js}"></script>
     <script th:src="@{/client/controller/flash-sale.js}"></script>
@@ -975,23 +986,34 @@
       /*]]>*/
       // Kiểm tra giá trị loginMessage
       if (loginMessage) {
-          // Thực hiện các hành động với loginMessage ở đây
-          Swal.fire({
-              title: "Thông báo",
-              text: loginMessage,
-              icon: "error",
-              confirmButtonText: "OK",
-          });
+        // Thực hiện các hành động với loginMessage ở đây
+        Swal.fire({
+          title: "Thông báo",
+          text: loginMessage,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       }
       if (infoMessage) {
-          // Thực hiện các hành động với loginMessage ở đây
-          Swal.fire({
-              title: "Thông báo",
-              text: infoMessage,
-              icon: "warning",
-              confirmButtonText: "OK",
-          });
+        // Thực hiện các hành động với loginMessage ở đây
+        Swal.fire({
+          title: "Thông báo",
+          text: infoMessage,
+          icon: "warning",
+          confirmButtonText: "OK",
+        });
       }
+      var fullName = /*[[${session.fullName}]]*/ null;
+      var token = /*[[${session.token}]]*/ null;
+
+      if (token) {
+        localStorage.setItem('token', token);
+      } else {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        localStorage.removeItem('image');
+      }
+      /*]]*/
     </script>
   </th-block>
 </body>

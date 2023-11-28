@@ -2,7 +2,6 @@ package com.greenhouse.repository;
 
 import java.util.List;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +20,6 @@ public interface UserVoucherRepository extends JpaRepository<UserVoucher, Intege
     List<Optional<UserVoucher>> findByUsername(String username);
 
     UserVoucher findByUsernameAndVoucher(String username, Vouchers vouchers);
+
+    UserVoucher findByUsernameAndVoucherAndStatus(String username, Vouchers vouchers, boolean b);
 }

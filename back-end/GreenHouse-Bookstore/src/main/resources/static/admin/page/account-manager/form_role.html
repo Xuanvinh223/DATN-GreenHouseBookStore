@@ -35,7 +35,7 @@
                                         </thead>
                                         <tbody>
                                            
-                                        <tr ng-repeat="account in filteredAccounts | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
+                                        <tr ng-repeat="account in filteredAccounts | limitTo:itemsPerPage">
                                             <th >{{$index + 1}}</th>
                                             <th >{{account.username}}</th>
                                             <th ng-repeat="role in db.roles" class="text-center col-3">
@@ -63,7 +63,7 @@
                                                     <span>Đang xem {{ calculateRange() }}</span>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </form> 
                                     </div>
                                     <ul uib-pagination ng-model="currentPage" total-items="totalItems"
                                         items-per-page="itemsPerPage" max-size="maxSize" class="pagination-sm"

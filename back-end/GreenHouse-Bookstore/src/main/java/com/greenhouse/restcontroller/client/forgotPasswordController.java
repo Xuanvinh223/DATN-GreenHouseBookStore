@@ -52,9 +52,11 @@ public class forgotPasswordController {
             if (isPhoneNumber(dto.getEmail())) {
                 twilioOTPService.sendOTPForgotPassword(dto.getEmail(), createAndSendToken(dto.getEmail()));
                 response.setStatus(200);
+                response.setMessage("Chúng tôi đã gửi một liên kết đổi mật khẩu đến số điện thoại của bạn.");
             } else if (isEmail(dto.getEmail())) {
                 sendEmail.sendEmailFogotPassword(account.getEmail(), subject, createAndSendToken(account.getEmail()));
                 response.setStatus(200);
+                response.setMessage("Chúng tôi đã gửi một liên kết đổi mật khẩu đến email của bạn.");
             } else {
 
             }

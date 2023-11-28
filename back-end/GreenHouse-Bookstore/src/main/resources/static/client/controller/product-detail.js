@@ -1,6 +1,9 @@
-app.controller("productDetailController", function ($scope, $timeout, $routeParams, $http, jwtHelper, ProductDetailService) {
+app.controller("productDetailController", function ($scope, $timeout, $routeParams, $http, jwtHelper, ProductDetailService, CartService) {
     let host = "http://localhost:8081/customer/rest/product-detail";
     var token = localStorage.getItem('token');
+    // Trong trang product-details
+    var params = new URLSearchParams(location.search);
+    var productDetailId = params.get('id');
     if (token) {
         var decodedToken = jwtHelper.decodeToken(token);
         $scope.username = decodedToken.sub;
@@ -15,10 +18,19 @@ app.controller("productDetailController", function ($scope, $timeout, $routePara
             return role.authority === "ROLE_ADMIN";
         });
         console.log($scope.roles);
+        ProductDetailService.hasPurchasedProduct($scope.username, productDetailId)
+            .then(function (response) {
+                $scope.hasPurchased = response.hasPurchased;
+                $scope.hasUserReviewed = response.hasUserReviewed;
+                console.log("$scope.hasUserReviewed", $scope.hasUserReviewed);
+
+                console.log($scope.hasPurchased);
+            })
+            .catch(function (error) {
+                console.log('Lỗi khi kiểm tra mua sản phẩm:', error);
+            });
     }
-    // Trong trang product-details
-    var params = new URLSearchParams(location.search);
-    var productDetailId = params.get('id');
+
     //Phân trang
     $scope.currentPage = 1;
     $scope.modalContent = "";
@@ -36,7 +48,9 @@ app.controller("productDetailController", function ($scope, $timeout, $routePara
     $scope.getProductDetail = function () {
         ProductDetailService.getProductDetailById(productDetailId)
             .then(function (response) {
-                $scope.productDetail = response.data.productDetail;
+                var productDetail = response.data.productDetail;
+                productDetail.quantity = 1;
+                $scope.productDetail = productDetail;
                 $scope.productImages = response.data.productImages;
                 $scope.productReviews = response.data.productReviews;
                 $scope.productDiscounts = response.data.productDiscounts;
@@ -207,7 +221,7 @@ app.controller("productDetailController", function ($scope, $timeout, $routePara
 
                         var imageUploadPromise = $http.post(url1, formData, {
                             transformRequest: angular.identity,
-                            headers: {"Content-Type": undefined}
+                            headers: { "Content-Type": undefined }
                         });
 
                         imageUploadPromises.push(imageUploadPromise);
@@ -348,12 +362,11 @@ app.controller("productDetailController", function ($scope, $timeout, $routePara
         });
         return bookAuthor ? bookAuthor.author.authorName : '';
     }
-    
+
     $scope.quickView = function (productDetail) {
         // xem nhanh thông tin sản phẩm
-          $scope.quickViewProduct = productDetail;
-   
-           $scope.quantityQuickViewProduct = 1;
-       }
-   
+        $scope.quickViewProduct = productDetail;
+        $scope.quickViewProduct.quantity = 1;
+    }
+
 });

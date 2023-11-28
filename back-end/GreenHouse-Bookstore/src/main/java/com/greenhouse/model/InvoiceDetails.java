@@ -34,5 +34,4 @@ public class InvoiceDetails implements Serializable {
     @Column(name = "Amount")
     private double amount;
 
-    // Các phương thức getters và setters đã được tự động tạo bởi Lombok.
 }

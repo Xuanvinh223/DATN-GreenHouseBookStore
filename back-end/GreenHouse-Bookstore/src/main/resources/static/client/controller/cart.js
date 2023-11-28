@@ -8,13 +8,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
     const districtCodeGH = 1574;
     const wardCodeGH = 550307;
 
-    const from_name = 'Green House Store';
-    const from_phone = '0869150620';
-    const from_address = ' Toà nhà FPT Polytechnic, Đ. Số 22, Thường Thạnh, Cái Răng, Cần Thơ, Vietnam';
-    const from_ward_name = 'Phường Thường Thạnh';
-    const from_district_name = 'Quận Cái Răng';
-    const from_province_name = 'Thành Phố  Cần Thơ';
-
     $scope.listCartItem = [];
     $scope.listCartItemSelected = [];
 
@@ -48,7 +41,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
     $scope.confirmAddress = null;
 
     $scope.checkAll = false;
-    $scope.isEdit = false;
 
     // GHN - START
 
@@ -71,7 +63,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
     function getCart() {
         CartService.getCart(username)
             .then(function (response) {
-                console.log("Danh sách giỏ hàng: ", response);
                 $scope.listCartItem = response.listCart;
             })
             .catch(function (error) {
@@ -84,7 +75,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
         $http.get(url)
             .then(function (response) {
                 $scope.listProductCategory = response.data.listProductCategory;
-                console.log("Danh sách sản phẩm đã phân loại: ", $scope.listProductCategory);
             })
             .catch(function (error) {
                 console.error('Lỗi kết nối đến API: ' + error);
@@ -191,17 +181,7 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                         }
                     }
                 })
-                console.log("Danh sách vouchers: ", $scope.listVouchersOriginal);
 
-                console.log("VOUCHER OF ", username);
-                console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-                console.log("Danh mục vouchers: ", $scope.listVouchersMappingCategories);
-                console.log("Sản phẩm vouchers: ", $scope.listVouchersMappingProducts);
-
-                console.log("------------------------------------------------");
-                console.log("Voucher type = Sản phẩm / Loại sản phẩm", $scope.listNormalVouchers);
-                console.log("Voucher type = Ship", $scope.listShippingVouchers);
-                console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
             })
             .catch(function (error) {
                 console.error('Lỗi kết nối đến API: ' + error);
@@ -250,10 +230,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                     }
                 }
             });
-            console.log("===============================");
-            console.log("Danh sách voucher gợi ý ( liên quan ): ", $scope.relatedVouchers);
-            console.log("Danh sách voucher đủ điều kiện: ", $scope.eligibleVouchers);
-            console.log("===============================");
         }
     };
     // ----------------------------------------------
@@ -309,12 +285,10 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
     // ===========================================================================================
 
     $scope.toggleCheckAll = function () {
+        $scope.checkAll = !$scope.checkAll;
         angular.forEach($scope.listCartItem, function (cart) {
             cart.checked = $scope.checkAll;
         });
-        console.log($scope.shippingFee);
-        console.log($scope.shippingFeeDiscount);
-        console.log($scope.normalDiscount);
     };
 
     $scope.$watch('listCartItem', function (newListCart, oldListCart) {
@@ -348,7 +322,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                 applyShippingDiscountVoucher(voucher);
             }
 
-            console.log("Voucher đã áp dụng: ", $scope.voucherApplied);
         } else {
             Swal.fire({
                 title: "Mã giảm đã hết",
@@ -575,7 +548,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 $scope.listProvince = JSON.parse(xhr.responseText);
-                console.log('Danh sách quận/huyện:', $scope.listProvince);
             }
         };
         xhr.send();
@@ -613,11 +585,9 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
             .then(function (resp) {
                 if (resp.data.listAddress) {
                     $scope.listAddress = resp.data.listAddress;
-                    console.log("Danh Sách Địa Chỉ", $scope.listAddress);
                     $scope.selectAddress($scope.listAddress[0]);
                 } else {
                     $scope.listAddress = [];
-                    console.log("Không tìm thấy địa chỉ cho người dùng này hoặc danh sách rỗng.");
                 }
             })
             .catch(function (error) {
@@ -1112,14 +1082,11 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
             voucher: voucher,
         };
 
-        console.log(data);
-
         var api = `${checkoutAPI}/setData`
 
         $http.post(api, data)
             .then(function (response) {
-                console.log(response.data);
-                if(response.data.status == "success") {
+                if (response.data.status == "success") {
                     window.location.href = "/checkout";
                 }
             })
