@@ -5,8 +5,8 @@
 <head>
     <title>Tài khoản</title>
 </head>
-<main id="layout">
-    <div class="site-wrapper profile-account" id="top" ng-controller="accountController">
+<main id="layout" ng-controller="OrderDetailController">
+    <div class="site-wrapper " id="top" ng-controller="accountController">
         <section class="breadcrumb-section">
             <div class="container">
                 <div class="breadcrumb-contents">
@@ -69,28 +69,39 @@
                                                 <!-- <ul class="nav nav-tabs" id="myTabs"> -->
                                                 <ul class="nav nav-tabs d-flex justify-content-center align-items-center"
                                                     id="myTabs">
-                                                    <li class="nav-item">
+                                                    <li ng-class="{active: selectedStatus === 'All'}" class="nav-item">
                                                         <a class="nav-link active" id="tab1" data-bs-toggle="tab"
-                                                            href="#content1">Tất cả</a>
+                                                            ng-click="setListOrderByStatus('All')" href="#content1">Tất
+                                                            cả</a>
                                                     </li>
-                                                    <li class="nav-item">
+                                                    <li ng-class="{active: selectedStatus === 'Pending Confirmation'}"
+                                                        class="nav-item">
                                                         <a class="nav-link" id="tab2" data-bs-toggle="tab"
+                                                            ng-click="setListOrderByStatus('Pending Confirmation')"
                                                             href="#content2">Chờ xác nhận</a>
                                                     </li>
-                                                    <li class="nav-item">
+                                                    <li ng-class="{active: selectedStatus === 'Pending Handover'}"
+                                                        class="nav-item">
                                                         <a class="nav-link" id="tab3" data-bs-toggle="tab"
-                                                            href="#content3">Chờ giao</a>
+                                                            ng-click="setListOrderByStatus('Pending Handover')"
+                                                            href="#content3">Chờ bàn giao</a>
                                                     </li>
-                                                    <li class="nav-item">
+                                                    <li ng-class="{active: selectedStatus === 'In Transit'}"
+                                                        class="nav-item">
                                                         <a class="nav-link" id="tab4" data-bs-toggle="tab"
+                                                            ng-click="setListOrderByStatus('In Transit')"
                                                             href="#content4">Đang giao</a>
                                                     </li>
-                                                    <li class="nav-item">
+                                                    <li ng-class="{active: selectedStatus === 'Completed'}"
+                                                        class="nav-item">
                                                         <a class="nav-link" id="tab5" data-bs-toggle="tab"
+                                                            ng-click="setListOrderByStatus('Completed')"
                                                             href="#content5">Hoàn thành</a>
                                                     </li>
-                                                    <li class="nav-item">
+                                                    <li ng-class="{active: selectedStatus === 'Canceled'}"
+                                                        class="nav-item">
                                                         <a class="nav-link" id="tab6" data-bs-toggle="tab"
+                                                            ng-click="setListOrderByStatus('Canceled')"
                                                             href="#content6">Đã hủy</a>
                                                     </li>
                                                 </ul>
@@ -101,460 +112,8 @@
                                             <div class="tab-content">
                                                 <!-- Tất cả -->
                                                 <div class="tab-pane fade show active" id="content1">
-                                                    <a class="card text-decoration-none text-dark">
-                                                        <div class="card-body order-body">
-                                                            <div class="row ">
-                                                                <div class="col-md-2 d-flex justify-content-start ">
-                                                                    HD00
-                                                                </div>
-                                                                <div class="col-md-10 d-flex justify-content-end ">
-                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn đã
-                                                                        được giao thành công |
-                                                                        <strong class="text-primary">HOÀNH
-                                                                            THÀNH</strong>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="order-hr">
-                                                            <div class="row order-item align-items-center">
-                                                                <div class="col-md-2">
-                                                                    <img src="/client/image/a.jpg"
-                                                                        style="width: 80px; height: 80px;"
-                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
-                                                                </div>
-                                                                <div
-                                                                    class="col-md-7 order-name d-flex justify-content-left">
-                                                                    <div>
-                                                                        <p class="fw-normal mb-0">Làm Dâu Nhà Sói - Tặng
-                                                                            Kèm Bookmark Bo Hình</p>
-                                                                        <p>x100</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3 d-flex justify-content-end">
-                                                                    <div class="order-price">
-                                                                        <p class="fw-normal mb-0">
-                                                                            <del><sup>đ</sup>199.000</del><sup>đ</sup>153.000
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="order-hr">
-                                                            <div class="row ">
-                                                                <div class="col-md-12 d-flex justify-content-end ">
-                                                                    <span class="lead fw-normal mb-0">Tổng tiền :
-                                                                        100.000.000</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mt-2">
-                                                                <div
-                                                                    class="col-md-4 d-flex justify-content-start align-items-center">
-                                                                    <small class="text-muted font-weight-bold">Ngày đặt
-                                                                        hàng: 20-11-2023</small>
-                                                                </div>
-                                                                <div class="order-btn col-md-8 ">
-                                                                    <button
-                                                                        class="btn btn-outline-primary btnspecial mr-4">Mua
-                                                                        lại</button>
-                                                                    <button
-                                                                        class="btn btn-outline-dark shadow-none mr-4">Liên
-                                                                        hệ</button>
-                                                                    <button
-                                                                        class="btn btn-outline-dark shadow-none ">Xem
-                                                                        đánh giá</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <!-- Chờ xác nhận -->
-                                                <div class="tab-pane fade" id="content2">
-                                                    <a class="card text-decoration-none text-dark">
-                                                        <div class="card-body order-body">
-                                                            <div class="row ">
-                                                                <div class="col-md-2 d-flex justify-content-start ">
-                                                                    HD00
-                                                                </div>
-                                                                <div class="col-md-10 d-flex justify-content-end ">
-                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn sẽ
-                                                                        chuyển đi trước 20-11-2023 |
-                                                                        <strong class="text-primary">CHỜ XÁC NHẬN
-                                                                        </strong>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="order-hr">
-                                                            <div class="row order-item align-items-center">
-                                                                <div class="col-md-2">
-                                                                    <img src="/client/image/a.jpg"
-                                                                        style="width: 80px; height: 80px;"
-                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
-                                                                </div>
-                                                                <div
-                                                                    class="col-md-7 order-name d-flex justify-content-left">
-                                                                    <div>
-                                                                        <p class="fw-normal mb-0">Làm Dâu Nhà Sói - Tặng
-                                                                            Kèm Bookmark Bo Hình</p>
-                                                                        <p>x100</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3 d-flex justify-content-end">
-                                                                    <div class="order-price">
-                                                                        <p class="fw-normal mb-0">
-                                                                            <del><sup>đ</sup>199.000</del><sup>đ</sup>153.000
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row order-item align-items-center">
-                                                                <div class="col-md-2">
-                                                                    <img src="/client/image/a.jpg"
-                                                                        style="width: 80px; height: 80px;"
-                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
-                                                                </div>
-                                                                <div
-                                                                    class="col-md-7 order-name d-flex justify-content-left">
-                                                                    <div>
-                                                                        <p class="fw-normal mb-0">Làm Dâu Nhà Sói - Tặng
-                                                                            Kèm Bookmark Bo Hình</p>
-                                                                        <p>x100</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3 d-flex justify-content-end">
-                                                                    <div class="order-price">
-                                                                        <p class="fw-normal mb-0">
-                                                                            <del><sup>đ</sup>199.000</del><sup>đ</sup>153.000
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="order-hr">
-                                                            <div class="row ">
-                                                                <div class="col-md-12 d-flex justify-content-end ">
-                                                                    <span class="lead fw-normal mb-0">Tổng tiền :
-                                                                        200.000.000</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mt-2">
-                                                                <div
-                                                                    class="col-md-4 d-flex justify-content-start align-items-center">
-                                                                    <small class="text-muted font-weight-bold">Ngày đặt
-                                                                        hàng: 20-11-2023</small>
-                                                                </div>
-                                                                <div class="order-btn col-md-8 ">
-                                                                    <button
-                                                                        class="btn btn-outline-dark shadow-none mr-4">Hủy
-                                                                        đơn</button>
-                                                                    <button
-                                                                        class="btn btn-outline-dark shadow-none mr-4">Liên
-                                                                        hệ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <hr>
-                                                    <a class="card text-decoration-none text-dark">
-                                                        <div class="card-body order-body">
-                                                            <div class="row ">
-                                                                <div class="col-md-2 d-flex justify-content-start ">
-                                                                    HD00
-                                                                </div>
-                                                                <div class="col-md-10 d-flex justify-content-end ">
-                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn sẽ
-                                                                        chuyển đi trước 20-11-2023 |
-                                                                        <strong class="text-primary">CHỜ XÁC NHẬN
-                                                                        </strong>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="order-hr">
-                                                            <div class="row order-item align-items-center">
-                                                                <div class="col-md-2">
-                                                                    <img src="/client/image/a.jpg"
-                                                                        style="width: 80px; height: 80px;"
-                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
-                                                                </div>
-                                                                <div
-                                                                    class="col-md-7 order-name d-flex justify-content-left">
-                                                                    <div>
-                                                                        <p class="fw-normal mb-0">Làm Dâu Nhà Sói - Tặng
-                                                                            Kèm Bookmark Bo Hình</p>
-                                                                        <p>x100</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3 d-flex justify-content-end">
-                                                                    <div class="order-price">
-                                                                        <p class="fw-normal mb-0">
-                                                                            <del><sup>đ</sup>199.000</del><sup>đ</sup>153.000
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row order-item align-items-center">
-                                                                <div class="col-md-2">
-                                                                    <img src="/client/image/a.jpg"
-                                                                        style="width: 80px; height: 80px;"
-                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
-                                                                </div>
-                                                                <div
-                                                                    class="col-md-7 order-name d-flex justify-content-left">
-                                                                    <div>
-                                                                        <p class="fw-normal mb-0">Làm Dâu Nhà Sói - Tặng
-                                                                            Kèm Bookmark Bo Hình</p>
-                                                                        <p>x100</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3 d-flex justify-content-end">
-                                                                    <div class="order-price">
-                                                                        <p class="fw-normal mb-0">
-                                                                            <del><sup>đ</sup>199.000</del><sup>đ</sup>153.000
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="order-hr">
-                                                            <div class="row ">
-                                                                <div class="col-md-12 d-flex justify-content-end ">
-                                                                    <span class="lead fw-normal mb-0">Tổng tiền :
-                                                                        200.000.000</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mt-2">
-                                                                <div
-                                                                    class="col-md-4 d-flex justify-content-start align-items-center">
-                                                                    <small class="text-muted font-weight-bold">
-                                                                        Ngày đặt hàng: 20-11-2023 <br>
-                                                                        Đã thanh toán: <sup>đ</sup>200.000.000
-                                                                    </small>
-
-                                                                </div>
-                                                                <div class="order-btn col-md-8 ">
-                                                                    <button
-                                                                        class="btn btn-outline-dark shadow-none mr-4">Hủy
-                                                                        đơn</button>
-                                                                    <button
-                                                                        class="btn btn-outline-dark shadow-none mr-4">Liên
-                                                                        hệ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <!-- CHỜ GIAO -->
-                                                <div class="tab-pane fade" id="content3">
-                                                    <a class="card text-decoration-none text-dark">
-                                                        <div class="card-body order-body">
-                                                            <div class="row ">
-                                                                <div class="col-md-2 d-flex justify-content-start ">
-                                                                    HD00
-                                                                </div>
-                                                                <div class="col-md-10 d-flex justify-content-end ">
-                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn sẽ
-                                                                        chuyển đi trước 20-11-2023 |
-                                                                        <strong class="text-primary">CHỜ XÁC NHẬN
-                                                                        </strong>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="order-hr">
-                                                            <div class="row order-item align-items-center">
-                                                                <div class="col-md-2">
-                                                                    <img src="/client/image/a.jpg"
-                                                                        style="width: 80px; height: 80px;"
-                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
-                                                                </div>
-                                                                <div
-                                                                    class="col-md-7 order-name d-flex justify-content-left">
-                                                                    <div>
-                                                                        <p class="fw-normal mb-0">Làm Dâu Nhà Sói - Tặng
-                                                                            Kèm Bookmark Bo Hình</p>
-                                                                        <p>x100</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3 d-flex justify-content-end">
-                                                                    <div class="order-price">
-                                                                        <p class="fw-normal mb-0">
-                                                                            <del><sup>đ</sup>199.000</del><sup>đ</sup>153.000
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row order-item align-items-center">
-                                                                <div class="col-md-2">
-                                                                    <img src="/client/image/a.jpg"
-                                                                        style="width: 80px; height: 80px;"
-                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
-                                                                </div>
-                                                                <div
-                                                                    class="col-md-7 order-name d-flex justify-content-left">
-                                                                    <div>
-                                                                        <p class="fw-normal mb-0">Làm Dâu Nhà Sói - Tặng
-                                                                            Kèm Bookmark Bo Hình</p>
-                                                                        <p>x100</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3 d-flex justify-content-end">
-                                                                    <div class="order-price">
-                                                                        <p class="fw-normal mb-0">
-                                                                            <del><sup>đ</sup>199.000</del><sup>đ</sup>153.000
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="order-hr">
-                                                            <div class="row ">
-                                                                <div class="col-md-12 d-flex justify-content-end ">
-                                                                    <span class="lead fw-normal mb-0">Tổng tiền :
-                                                                        200.000.000</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mt-2">
-                                                                <div
-                                                                    class="col-md-4 d-flex justify-content-start align-items-center">
-                                                                    <small class="text-muted font-weight-bold">Ngày đặt
-                                                                        hàng: 20-11-2023</small>
-                                                                </div>
-                                                                <div class="order-btn col-md-8 ">
-                                                                    <button
-                                                                        class="btn btn-outline-dark shadow-none mr-4">Hủy đơn</button>
-                                                                    <button
-                                                                        class="btn btn-outline-dark shadow-none mr-4">Liên
-                                                                        hệ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <!-- ĐANG GIAO -->
-                                                <div class="tab-pane fade" id="content4">
-                                                    <a class="card text-decoration-none text-dark">
-                                                        <div class="card-body order-body">
-                                                            <div class="row ">
-                                                                <div class="col-md-2 d-flex justify-content-start ">
-                                                                    HD00
-                                                                </div>
-                                                                <div class="col-md-10 d-flex justify-content-end ">
-                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn đã
-                                                                        được giao thành công |
-                                                                        <strong class="text-primary">HOÀNH
-                                                                            THÀNH</strong>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="order-hr">
-                                                            <div class="row order-item align-items-center">
-                                                                <div class="col-md-2">
-                                                                    <img src="/client/image/a.jpg"
-                                                                        style="width: 80px; height: 80px;"
-                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
-                                                                </div>
-                                                                <div
-                                                                    class="col-md-7 order-name d-flex justify-content-left">
-                                                                    <div>
-                                                                        <p class="fw-normal mb-0">Làm Dâu Nhà Sói - Tặng
-                                                                            Kèm Bookmark Bo Hình</p>
-                                                                        <p>x100</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3 d-flex justify-content-end">
-                                                                    <div class="order-price">
-                                                                        <p class="fw-normal mb-0">
-                                                                            <del><sup>đ</sup>199.000</del><sup>đ</sup>153.000
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="order-hr">
-                                                            <div class="row ">
-                                                                <div class="col-md-12 d-flex justify-content-end ">
-                                                                    <span class="lead fw-normal mb-0">Tổng tiền :
-                                                                        100.000.000</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mt-2">
-                                                                <div
-                                                                    class="col-md-4 d-flex justify-content-start align-items-center">
-                                                                    <small class="text-muted font-weight-bold">Ngày đặt
-                                                                        hàng: 20-11-2023</small>
-                                                                </div>
-                                                                <div class="order-btn col-md-8 ">
-                                                                    <button
-                                                                        class="btn btn-outline-dark shadow-none mr-4">Liên
-                                                                        hệ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <!-- HOÀNH THÀNH -->
-                                                <div class="tab-pane fade" id="content5">
-                                                    <a class="card text-decoration-none text-dark">
-                                                        <div class="card-body order-body">
-                                                            <div class="row ">
-                                                                <div class="col-md-2 d-flex justify-content-start ">
-                                                                    HD00
-                                                                </div>
-                                                                <div class="col-md-10 d-flex justify-content-end ">
-                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn đã
-                                                                        được giao thành công |
-                                                                        <strong class="text-primary">HOÀNH
-                                                                            THÀNH</strong>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="order-hr">
-                                                            <div class="row order-item align-items-center">
-                                                                <div class="col-md-2">
-                                                                    <img src="/client/image/a.jpg"
-                                                                        style="width: 80px; height: 80px;"
-                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
-                                                                </div>
-                                                                <div
-                                                                    class="col-md-7 order-name d-flex justify-content-left">
-                                                                    <div>
-                                                                        <p class="fw-normal mb-0">Làm Dâu Nhà Sói - Tặng
-                                                                            Kèm Bookmark Bo Hình</p>
-                                                                        <p>x100</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3 d-flex justify-content-end">
-                                                                    <div class="order-price">
-                                                                        <p class="fw-normal mb-0">
-                                                                            <del><sup>đ</sup>199.000</del><sup>đ</sup>153.000
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="order-hr">
-                                                            <div class="row ">
-                                                                <div class="col-md-12 d-flex justify-content-end ">
-                                                                    <span class="lead fw-normal mb-0">Tổng tiền :
-                                                                        100.000.000</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mt-2">
-                                                                <div
-                                                                    class="col-md-4 d-flex justify-content-start align-items-center">
-                                                                    <small class="text-muted font-weight-bold">Ngày đặt
-                                                                        hàng: 20-11-2023</small>
-                                                                </div>
-                                                                <div class="order-btn col-md-8 ">
-                                                                    <button
-                                                                        class="btn btn-outline-primary btnspecial mr-4">Đánh
-                                                                        giá</button>
-                                                                    <button
-                                                                        class="btn btn-outline-dark shadow-none mr-4">Mua
-                                                                        lại</button>
-                                                                    <button
-                                                                        class="btn btn-outline-dark shadow-none mr-4">Liên
-                                                                        hệ</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <!-- ĐÃ HỦY -->
-                                                <div class="tab-pane fade" id="content6">
-                                                    <!-- <div class="card card-height">
+                                                    <!-- Kiểm tra nếu không có đơn hàng -->
+                                                    <div ng-if="!hasOrders" class="card card-height">
                                                         <div
                                                             class="card-body p-4 d-flex align-items-center justify-content-center">
                                                             <div class="row">
@@ -567,40 +126,69 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div> -->
-                                                    <a class="card text-decoration-none text-dark">
+                                                    </div>
+                                                    <div ng-repeat="order in filteredOrders"
+                                                        class="card text-decoration-none text-dark"
+                                                        ng-if="shouldShowOrder(order)">
+                                                        <hr style="color: red;">
                                                         <div class="card-body order-body">
                                                             <div class="row ">
                                                                 <div class="col-md-2 d-flex justify-content-start ">
-                                                                    HD00
+                                                                    {{ order.orderCode }}
                                                                 </div>
                                                                 <div class="col-md-10 d-flex justify-content-end ">
                                                                     <span class="fw-normal mb-0">Đơn hàng của bạn đã
                                                                         được giao thành công |
-                                                                        <strong class="text-primary">HOÀNH
-                                                                            THÀNH</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Confirmation'">Chờ
+                                                                            Xác Nhận</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Handover'">Chờ
+                                                                            Bàn Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'In Transit'">Đang
+                                                                            Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Returning'">Đang
+                                                                            Hoàn Hàng</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Redelivery Confirmation'">Chờ
+                                                                            Xác Nhận Giao Lại</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Completed'">Hoàn
+                                                                            Thành</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Canceled'">Đã
+                                                                            Hủy</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Lost/Damaged Goods'">Hàng
+                                                                            Thất Lạc - Hư Hỏng</strong>
                                                                     </span>
                                                                 </div>
                                                             </div>
                                                             <hr class="order-hr">
-                                                            <div class="row order-item align-items-center">
+                                                            <div ng-repeat="orderDetail  in listOrderDetails[order.orderCode]"
+                                                                class="row order-item align-items-center">
                                                                 <div class="col-md-2">
-                                                                    <img src="/client/image/a.jpg"
+                                                                    <img ng-src="{{orderDetail.productDetail.image}}"
                                                                         style="width: 80px; height: 80px;"
                                                                         class="img-fluid" alt="Sản phẩm không có ảnh">
                                                                 </div>
                                                                 <div
                                                                     class="col-md-7 order-name d-flex justify-content-left">
                                                                     <div>
-                                                                        <p class="fw-normal mb-0">Làm Dâu Nhà Sói - Tặng
-                                                                            Kèm Bookmark Bo Hình</p>
-                                                                        <p>x100</p>
+                                                                        <p class="fw-normal mb-0">{{
+                                                                            orderDetail.productName }}</p>
+                                                                        <p>x{{ orderDetail.quantity }}</p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3 d-flex justify-content-end">
                                                                     <div class="order-price">
                                                                         <p class="fw-normal mb-0">
-                                                                            <del><sup>đ</sup>199.000</del><sup>đ</sup>153.000
+                                                                            <del class="order-price-origin"><sup>đ</sup>{{orderDetail.productDetail.price
+                                                                                | number:'0'}}</del>
+                                                                            <sup>đ</sup>{{orderDetail.productDetail.priceDiscount|
+                                                                            number:'0'}}
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -608,99 +196,679 @@
                                                             <hr class="order-hr">
                                                             <div class="row ">
                                                                 <div class="col-md-12 d-flex justify-content-end ">
-                                                                    <span class="lead fw-normal mb-0">Tổng tiền :
-                                                                        100.000.000</span>
+                                                                    <span class="lead fw-normal mb-0">Tổng tiền : {{
+                                                                        order.codAmount|number:'0' }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row ">
+                                                                <div class="col-md-6 d-flex justify-content-start align-items-center">
+                                                                    <small class="text-muted font-weight-bold">Ngày đặt hàng: {{ order.create_Date | date:' HH:mm dd/MM/yyyy ' }}</small>
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-2">
-                                                                <div
-                                                                    class="col-md-4 d-flex justify-content-start align-items-center">
-                                                                    <small class="text-muted font-weight-bold">Ngày đặt
-                                                                        hàng: 20-11-2023</small>
+                                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                    
                                                                 </div>
-                                                                <div class="order-btn col-md-8 ">
-                                                                    <button
-                                                                        class="btn btn-outline-dark shadow-none mr-4">Mua
-                                                                        lại</button>
-                                                                    <button
-                                                                        class="btn btn-outline-dark shadow-none mr-4">Liên
-                                                                        hệ</button>
+                                                                <div class="order-btn col-md-8">
+                                                                    <!-- Hủy Đơn -->
+                                                                    <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
+                                                                       ng-href="javascript:void(0)" 
+                                                                       ng-click="showCancelModal(order)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Hủy đơn</a>
+                                                                    <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
+                                                                    <a ng-if="order.status === 'Completed'"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh giá</a>
+                                                                    <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
+                                                                    <a ng-if="['Completed', 'Canceled'].includes(order.status)"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Mua lại</a>
+                                                                    <!-- Liên Hệ -->
+                                                                    <a ng-href="/lien-he"
+                                                                       class="btn btn-outline-dark shadow-none text-center mr-4">Liên hệ</a>
+                                                                    <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
+                                                                    <a ng-if="order.status === 'Completed'"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-dark shadow-none text-center">Xem đánh giá</a>
+                                                                </div>
+                                                            </div>                                                                                                        
+                                                        </div>
+                                                        <hr style="color: red;">
+                                                    </div>
+                                                </div>
+
+                                                <!-- Chờ xác nhận -->
+                                                <div class="tab-pane fade" id="content2">
+                                                    <!-- Kiểm tra nếu không có đơn hàng -->
+                                                    <div ng-if="!hasOrders" class="card card-height">
+                                                        <div
+                                                            class="card-body p-4 d-flex align-items-center justify-content-center">
+                                                            <div class="row">
+                                                                <div class="col-md-4 m-auto col-12 text-center">
+                                                                    <img src="/client/image/order.png" class="img-fluid"
+                                                                        alt="Không có đơn hàng nào">
+                                                                </div>
+                                                                <div class="col-md-12 text-center">
+                                                                    <strong>Huh!!! Bạn chưa có đơn hàng nào</strong>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <!-- <div class="row">
-                                                <div class="col-md-12 d-flex justify-content-center">
-                                                    <div class="btn-group order-status-buttons" role="group">
-                                                        <button type="button"
-                                                            class="btn btn-outline-primary order-status-button active"
-                                                            data-status="all">Tất cả
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-outline-primary order-status-button"
-                                                            data-status="pending">Chờ thanh toán
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-outline-primary order-status-button"
-                                                            data-status="on-hold">Đang chờ
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-outline-primary order-status-button"
-                                                            data-status="approved">Đã duyệt
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-outline-primary order-status-button"
-                                                            data-status="completed">Hoàn thành
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-outline-primary order-status-button"
-                                                            data-status="cancelled">Bị hủy
-                                                        </button>
+                                                    </div>
+                                                    <div ng-repeat="order in filteredOrders"
+                                                        class="card text-decoration-none text-dark"
+                                                        ng-if="shouldShowOrder(order)">
+                                                        <hr style="color: red;">
+                                                        <div class="card-body order-body">
+                                                            <div class="row ">
+                                                                <div class="col-md-2 d-flex justify-content-start ">
+                                                                    {{ order.orderCode }}
+                                                                </div>
+                                                                <div class="col-md-10 d-flex justify-content-end ">
+                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn đã
+                                                                        được giao thành công |
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Confirmation'">Chờ
+                                                                            Xác Nhận</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Handover'">Chờ
+                                                                            Bàn Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'In Transit'">Đang
+                                                                            Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Returning'">Đang
+                                                                            Hoàn Hàng</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Redelivery Confirmation'">Chờ
+                                                                            Xác Nhận Giao Lại</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Completed'">Hoàn
+                                                                            Thành</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Canceled'">Đã
+                                                                            Hủy</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Lost/Damaged Goods'">Hàng
+                                                                            Thất Lạc - Hư Hỏng</strong>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <hr class="order-hr">
+                                                            <div ng-repeat="orderDetail  in listOrderDetails[order.orderCode]"
+                                                                class="row order-item align-items-center">
+                                                                <div class="col-md-2">
+                                                                    <img ng-src="{{orderDetail.productDetail.image}}"
+                                                                        style="width: 80px; height: 80px;"
+                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
+                                                                </div>
+                                                                <div
+                                                                    class="col-md-7 order-name d-flex justify-content-left">
+                                                                    <div>
+                                                                        <p class="fw-normal mb-0">{{
+                                                                            orderDetail.productName }}</p>
+                                                                        <p>x{{ orderDetail.quantity }}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3 d-flex justify-content-end">
+                                                                    <div class="order-price">
+                                                                        <p class="fw-normal mb-0">
+                                                                            <del class="order-price-origin"><sup>đ</sup>{{orderDetail.productDetail.price
+                                                                                | number:'0'}}</del>
+                                                                            <sup>đ</sup>{{orderDetail.productDetail.priceDiscount|
+                                                                            number:'0'}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr class="order-hr">
+                                                            <div class="row ">
+                                                                <div class="col-md-12 d-flex justify-content-end ">
+                                                                    <span class="lead fw-normal mb-0">Tổng tiền : {{
+                                                                        order.codAmount|number:'0' }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row ">
+                                                                <div class="col-md-6 d-flex justify-content-start align-items-center">
+                                                                    <small class="text-muted font-weight-bold">Ngày đặt hàng: {{ order.create_Date | date:' HH:mm dd/MM/yyyy ' }}</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-2">
+                                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                    
+                                                                </div>
+                                                                <div class="order-btn col-md-8">
+                                                                    <!-- Hủy Đơn -->
+                                                                    <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
+                                                                       ng-href="javascript:void(0)" 
+                                                                       ng-click="showCancelModal(order)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Hủy đơn</a>
+                                                                    <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
+                                                                    <a ng-if="order.status === 'Completed'"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh giá</a>
+                                                                    <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
+                                                                    <a ng-if="['Completed', 'Canceled'].includes(order.status)"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Mua lại</a>
+                                                                    <!-- Liên Hệ -->
+                                                                    <a ng-href="/lien-he"
+                                                                       class="btn btn-outline-dark shadow-none text-center mr-4">Liên hệ</a>
+                                                                    <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
+                                                                    <a ng-if="order.status === 'Completed'"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-dark shadow-none text-center">Xem đánh giá</a>
+                                                                </div>
+                                                            </div>                                                                                                        
+                                                        </div>
+                                                        <hr style="color: red;">
                                                     </div>
                                                 </div>
+                                                <!-- CHỜ BÀN GIAO -->
+                                                <div class="tab-pane fade" id="content3">
+                                                    <!-- Kiểm tra nếu không có đơn hàng -->
+                                                    <div ng-if="!hasOrders" class="card card-height">
+                                                        <div
+                                                            class="card-body p-4 d-flex align-items-center justify-content-center">
+                                                            <div class="row">
+                                                                <div class="col-md-4 m-auto col-12 text-center">
+                                                                    <img src="/client/image/order.png" class="img-fluid"
+                                                                        alt="Không có đơn hàng nào">
+                                                                </div>
+                                                                <div class="col-md-12 text-center">
+                                                                    <strong>Huh!!! Bạn chưa có đơn hàng nào</strong>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-repeat="order in filteredOrders"
+                                                        class="card text-decoration-none text-dark"
+                                                        ng-if="shouldShowOrder(order)">
+                                                        <hr style="color: red;">
+                                                        <div class="card-body order-body">
+                                                            <div class="row ">
+                                                                <div class="col-md-2 d-flex justify-content-start ">
+                                                                    {{ order.orderCode }}
+                                                                </div>
+                                                                <div class="col-md-10 d-flex justify-content-end ">
+                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn đã
+                                                                        được giao thành công |
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Confirmation'">Chờ
+                                                                            Xác Nhận</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Handover'">Chờ
+                                                                            Bàn Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'In Transit'">Đang
+                                                                            Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Returning'">Đang
+                                                                            Hoàn Hàng</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Redelivery Confirmation'">Chờ
+                                                                            Xác Nhận Giao Lại</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Completed'">Hoàn
+                                                                            Thành</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Canceled'">Đã
+                                                                            Hủy</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Lost/Damaged Goods'">Hàng
+                                                                            Thất Lạc - Hư Hỏng</strong>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <hr class="order-hr">
+                                                            <div ng-repeat="orderDetail  in listOrderDetails[order.orderCode]"
+                                                                class="row order-item align-items-center">
+                                                                <div class="col-md-2">
+                                                                    <img ng-src="{{orderDetail.productDetail.image}}"
+                                                                        style="width: 80px; height: 80px;"
+                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
+                                                                </div>
+                                                                <div
+                                                                    class="col-md-7 order-name d-flex justify-content-left">
+                                                                    <div>
+                                                                        <p class="fw-normal mb-0">{{
+                                                                            orderDetail.productName }}</p>
+                                                                        <p>x{{ orderDetail.quantity }}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3 d-flex justify-content-end">
+                                                                    <div class="order-price">
+                                                                        <p class="fw-normal mb-0">
+                                                                            <del class="order-price-origin"><sup>đ</sup>{{orderDetail.productDetail.price
+                                                                                | number:'0'}}</del>
+                                                                            <sup>đ</sup>{{orderDetail.productDetail.priceDiscount|
+                                                                            number:'0'}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr class="order-hr">
+                                                            <div class="row ">
+                                                                <div class="col-md-12 d-flex justify-content-end ">
+                                                                    <span class="lead fw-normal mb-0">Tổng tiền : {{
+                                                                        order.codAmount|number:'0' }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row ">
+                                                                <div class="col-md-6 d-flex justify-content-start align-items-center">
+                                                                    <small class="text-muted font-weight-bold">Ngày đặt hàng: {{ order.create_Date | date:' HH:mm dd/MM/yyyy ' }}</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-2">
+                                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                    
+                                                                </div>
+                                                                <div class="order-btn col-md-8">
+                                                                    <!-- Hủy Đơn -->
+                                                                    <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
+                                                                       ng-href="javascript:void(0)" 
+                                                                       ng-click="showCancelModal(order)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Hủy đơn</a>
+                                                                    <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
+                                                                    <a ng-if="order.status === 'Completed'"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh giá</a>
+                                                                    <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
+                                                                    <a ng-if="['Completed', 'Canceled'].includes(order.status)"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Mua lại</a>
+                                                                    <!-- Liên Hệ -->
+                                                                    <a ng-href="/lien-he"
+                                                                       class="btn btn-outline-dark shadow-none text-center mr-4">Liên hệ</a>
+                                                                    <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
+                                                                    <a ng-if="order.status === 'Completed'"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-dark shadow-none text-center">Xem đánh giá</a>
+                                                                </div>
+                                                            </div>                                                                                                        
+                                                        </div>
+                                                        <hr style="color: red;">
+                                                    </div>
+                                                </div>
+                                                <!-- ĐANG GIAO -->
+                                                <div class="tab-pane fade" id="content4">
+                                                    <!-- Kiểm tra nếu không có đơn hàng -->
+                                                    <div ng-if="!hasOrders" class="card card-height">
+                                                        <div
+                                                            class="card-body p-4 d-flex align-items-center justify-content-center">
+                                                            <div class="row">
+                                                                <div class="col-md-4 m-auto col-12 text-center">
+                                                                    <img src="/client/image/order.png" class="img-fluid"
+                                                                        alt="Không có đơn hàng nào">
+                                                                </div>
+                                                                <div class="col-md-12 text-center">
+                                                                    <strong>Huh!!! Bạn chưa có đơn hàng nào</strong>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-repeat="order in filteredOrders"
+                                                        class="card text-decoration-none text-dark"
+                                                        ng-if="shouldShowOrder(order)">
+                                                        <hr style="color: red;">
+                                                        <div class="card-body order-body">
+                                                            <div class="row ">
+                                                                <div class="col-md-2 d-flex justify-content-start ">
+                                                                    {{ order.orderCode }}
+                                                                </div>
+                                                                <div class="col-md-10 d-flex justify-content-end ">
+                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn đã
+                                                                        được giao thành công |
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Confirmation'">Chờ
+                                                                            Xác Nhận</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Handover'">Chờ
+                                                                            Bàn Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'In Transit'">Đang
+                                                                            Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Returning'">Đang
+                                                                            Hoàn Hàng</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Redelivery Confirmation'">Chờ
+                                                                            Xác Nhận Giao Lại</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Completed'">Hoàn
+                                                                            Thành</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Canceled'">Đã
+                                                                            Hủy</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Lost/Damaged Goods'">Hàng
+                                                                            Thất Lạc - Hư Hỏng</strong>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <hr class="order-hr">
+                                                            <div ng-repeat="orderDetail  in listOrderDetails[order.orderCode]"
+                                                                class="row order-item align-items-center">
+                                                                <div class="col-md-2">
+                                                                    <img ng-src="{{orderDetail.productDetail.image}}"
+                                                                        style="width: 80px; height: 80px;"
+                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
+                                                                </div>
+                                                                <div
+                                                                    class="col-md-7 order-name d-flex justify-content-left">
+                                                                    <div>
+                                                                        <p class="fw-normal mb-0">{{
+                                                                            orderDetail.productName }}</p>
+                                                                        <p>x{{ orderDetail.quantity }}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3 d-flex justify-content-end">
+                                                                    <div class="order-price">
+                                                                        <p class="fw-normal mb-0">
+                                                                            <del class="order-price-origin"><sup>đ</sup>{{orderDetail.productDetail.price
+                                                                                | number:'0'}}</del>
+                                                                            <sup>đ</sup>{{orderDetail.productDetail.priceDiscount|
+                                                                            number:'0'}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr class="order-hr">
+                                                            <div class="row ">
+                                                                <div class="col-md-12 d-flex justify-content-end ">
+                                                                    <span class="lead fw-normal mb-0">Tổng tiền : {{
+                                                                        order.codAmount|number:'0' }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row ">
+                                                                <div class="col-md-6 d-flex justify-content-start align-items-center">
+                                                                    <small class="text-muted font-weight-bold">Ngày đặt hàng: {{ order.create_Date | date:' HH:mm dd/MM/yyyy ' }}</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-2">
+                                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                    
+                                                                </div>
+                                                                <div class="order-btn col-md-8">
+                                                                    <!-- Hủy Đơn -->
+                                                                    <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
+                                                                       ng-href="javascript:void(0)" 
+                                                                       ng-click="showCancelModal(order)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Hủy đơn</a>
+                                                                    <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
+                                                                    <a ng-if="order.status === 'Completed'"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh giá</a>
+                                                                    <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
+                                                                    <a ng-if="['Completed', 'Canceled'].includes(order.status)"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Mua lại</a>
+                                                                    <!-- Liên Hệ -->
+                                                                    <a ng-href="/lien-he"
+                                                                       class="btn btn-outline-dark shadow-none text-center mr-4">Liên hệ</a>
+                                                                    <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
+                                                                    <a ng-if="order.status === 'Completed'"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-dark shadow-none text-center">Xem đánh giá</a>
+                                                                </div>
+                                                            </div>                                                                                                        
+                                                        </div>
+                                                        <hr style="color: red;">
+                                                    </div>
+                                                </div>
+                                                <!-- HOÀNH THÀNH -->
+                                                <div class="tab-pane fade" id="content5">
+                                                    <!-- Kiểm tra nếu không có đơn hàng -->
+                                                    <div ng-if="!hasOrders" class="card card-height">
+                                                        <div
+                                                            class="card-body p-4 d-flex align-items-center justify-content-center">
+                                                            <div class="row">
+                                                                <div class="col-md-4 m-auto col-12 text-center">
+                                                                    <img src="/client/image/order.png" class="img-fluid"
+                                                                        alt="Không có đơn hàng nào">
+                                                                </div>
+                                                                <div class="col-md-12 text-center">
+                                                                    <strong>Huh!!! Bạn chưa có đơn hàng nào</strong>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-repeat="order in filteredOrders"
+                                                        class="card text-decoration-none text-dark"
+                                                        ng-if="shouldShowOrder(order)">
+                                                        <hr style="color: red;">
+                                                        <div class="card-body order-body">
+                                                            <div class="row ">
+                                                                <div class="col-md-2 d-flex justify-content-start ">
+                                                                    {{ order.orderCode }}
+                                                                </div>
+                                                                <div class="col-md-10 d-flex justify-content-end ">
+                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn đã
+                                                                        được giao thành công |
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Confirmation'">Chờ
+                                                                            Xác Nhận</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Handover'">Chờ
+                                                                            Bàn Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'In Transit'">Đang
+                                                                            Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Returning'">Đang
+                                                                            Hoàn Hàng</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Redelivery Confirmation'">Chờ
+                                                                            Xác Nhận Giao Lại</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Completed'">Hoàn
+                                                                            Thành</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Canceled'">Đã
+                                                                            Hủy</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Lost/Damaged Goods'">Hàng
+                                                                            Thất Lạc - Hư Hỏng</strong>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <hr class="order-hr">
+                                                            <div ng-repeat="orderDetail  in listOrderDetails[order.orderCode]"
+                                                                class="row order-item align-items-center">
+                                                                <div class="col-md-2">
+                                                                    <img ng-src="{{orderDetail.productDetail.image}}"
+                                                                        style="width: 80px; height: 80px;"
+                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
+                                                                </div>
+                                                                <div
+                                                                    class="col-md-7 order-name d-flex justify-content-left">
+                                                                    <div>
+                                                                        <p class="fw-normal mb-0">{{
+                                                                            orderDetail.productName }}</p>
+                                                                        <p>x{{ orderDetail.quantity }}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3 d-flex justify-content-end">
+                                                                    <div class="order-price">
+                                                                        <p class="fw-normal mb-0">
+                                                                            <del class="order-price-origin"><sup>đ</sup>{{orderDetail.productDetail.price
+                                                                                | number:'0'}}</del>
+                                                                            <sup>đ</sup>{{orderDetail.productDetail.priceDiscount|
+                                                                            number:'0'}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr class="order-hr">
+                                                            <div class="row ">
+                                                                <div class="col-md-12 d-flex justify-content-end ">
+                                                                    <span class="lead fw-normal mb-0">Tổng tiền : {{
+                                                                        order.codAmount|number:'0' }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row ">
+                                                                <div class="col-md-6 d-flex justify-content-start align-items-center">
+                                                                    <small class="text-muted font-weight-bold">Ngày đặt hàng: {{ order.create_Date | date:' HH:mm dd/MM/yyyy ' }}</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-2">
+                                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                    
+                                                                </div>
+                                                                <div class="order-btn col-md-8">
+                                                                    <!-- Hủy Đơn -->
+                                                                    <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
+                                                                       ng-href="javascript:void(0)" 
+                                                                       ng-click="showCancelModal(order)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Hủy đơn</a>
+                                                                    <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
+                                                                    <a ng-if="order.status === 'Completed'"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh giá</a>
+                                                                    <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
+                                                                    <a ng-if="['Completed', 'Canceled'].includes(order.status)"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Mua lại</a>
+                                                                    <!-- Liên Hệ -->
+                                                                    <a ng-href="/lien-he"
+                                                                       class="btn btn-outline-dark shadow-none text-center mr-4">Liên hệ</a>
+                                                                    <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
+                                                                    <a ng-if="order.status === 'Completed'"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-dark shadow-none text-center">Xem đánh giá</a>
+                                                                </div>
+                                                            </div>                                                                                                        
+                                                        </div>
+                                                        <hr style="color: red;">
+                                                    </div>
+                                                </div>
+                                                <!-- ĐÃ HỦY -->
+                                                <div class="tab-pane fade" id="content6">
+                                                    <!-- Kiểm tra nếu không có đơn hàng -->
+                                                    <div ng-if="!hasOrders" class="card card-height">
+                                                        <div
+                                                            class="card-body p-4 d-flex align-items-center justify-content-center">
+                                                            <div class="row">
+                                                                <div class="col-md-4 m-auto col-12 text-center">
+                                                                    <img src="/client/image/order.png" class="img-fluid"
+                                                                        alt="Không có đơn hàng nào">
+                                                                </div>
+                                                                <div class="col-md-12 text-center">
+                                                                    <strong>Huh!!! Bạn chưa có đơn hàng nào</strong>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-repeat="order in filteredOrders"
+                                                        class="card text-decoration-none text-dark"
+                                                        ng-if="shouldShowOrder(order)">
+                                                        <hr style="color: red;">
+                                                        <div class="card-body order-body">
+                                                            <div class="row ">
+                                                                <div class="col-md-2 d-flex justify-content-start ">
+                                                                    {{ order.orderCode }}
+                                                                </div>
+                                                                <div class="col-md-10 d-flex justify-content-end ">
+                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn đã
+                                                                        được giao thành công |
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Confirmation'">Chờ
+                                                                            Xác Nhận</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Handover'">Chờ
+                                                                            Bàn Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'In Transit'">Đang
+                                                                            Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Returning'">Đang
+                                                                            Hoàn Hàng</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Pending Redelivery Confirmation'">Chờ
+                                                                            Xác Nhận Giao Lại</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Completed'">Hoàn
+                                                                            Thành</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Canceled'">Đã
+                                                                            Hủy</strong>
+                                                                        <strong class="text-primary"
+                                                                            ng-if="order.status === 'Lost/Damaged Goods'">Hàng
+                                                                            Thất Lạc - Hư Hỏng</strong>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <hr class="order-hr">
+                                                            <div ng-repeat="orderDetail  in listOrderDetails[order.orderCode]"
+                                                                class="row order-item align-items-center">
+                                                                <div class="col-md-2">
+                                                                    <img ng-src="{{orderDetail.productDetail.image}}"
+                                                                        style="width: 80px; height: 80px;"
+                                                                        class="img-fluid" alt="Sản phẩm không có ảnh">
+                                                                </div>
+                                                                <div
+                                                                    class="col-md-7 order-name d-flex justify-content-left">
+                                                                    <div>
+                                                                        <p class="fw-normal mb-0">{{
+                                                                            orderDetail.productName }}</p>
+                                                                        <p>x{{ orderDetail.quantity }}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3 d-flex justify-content-end">
+                                                                    <div class="order-price">
+                                                                        <p class="fw-normal mb-0">
+                                                                            <del class="order-price-origin"><sup>đ</sup>{{orderDetail.productDetail.price
+                                                                                | number:'0'}}</del>
+                                                                            <sup>đ</sup>{{orderDetail.productDetail.priceDiscount|
+                                                                            number:'0'}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr class="order-hr">
+                                                            <div class="row ">
+                                                                <div class="col-md-12 d-flex justify-content-end ">
+                                                                    <span class="lead fw-normal mb-0">Tổng tiền : {{
+                                                                        order.codAmount|number:'0' }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row ">
+                                                                <div class="col-md-6 d-flex justify-content-start align-items-center">
+                                                                    <small class="text-muted font-weight-bold">Ngày đặt hàng: {{ order.create_Date | date:' HH:mm dd/MM/yyyy ' }}</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-2">
+                                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                    
+                                                                </div>
+                                                                <div class="order-btn col-md-8">
+                                                                    <!-- Hủy Đơn -->
+                                                                    <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
+                                                                       ng-href="javascript:void(0)" 
+                                                                       ng-click="showCancelModal(order)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Hủy đơn</a>
+                                                                    <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
+                                                                    <a ng-if="order.status === 'Completed'"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh giá</a>
+                                                                    <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
+                                                                    <a ng-if="['Completed', 'Canceled'].includes(order.status)"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Mua lại</a>
+                                                                    <!-- Liên Hệ -->
+                                                                    <a ng-href="/lien-he"
+                                                                       class="btn btn-outline-dark shadow-none text-center mr-4">Liên hệ</a>
+                                                                    <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
+                                                                    <a ng-if="order.status === 'Completed'"
+                                                                       ng-href="javascript:void(0)"
+                                                                       class="btn btn-outline-dark shadow-none text-center">Xem đánh giá</a>
+                                                                </div>
+                                                            </div>                                                                                                        
+                                                        </div>
+                                                        <hr style="color: red;">
+                                                    </div>
+                                                </div>
+
                                             </div>
-                                            <div class="myaccount-table table-responsive text-center">
-                                                <table class="table table-hover">
-                                                    <thead class="thead-light">
-                                                        <tr>
-                                                            <th>Mã đơn hàng</th>
-                                                            <th>Ngày mua</th>
-                                                            <th>Người nhận</th>
-                                                            <th>Tổng Tiền</th>
-                                                            <th>Trạng thái</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Aug 22, 2018</td>
-                                                            <td>Mostarizing Oil</td>
-                                                            <td>$45</td>
-                                                            <td>Pending</td>
-                                                            <td><a href="cart.html" class="btn">Xem chi tiết...</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Aug 22, 2018</td>
-                                                            <td>Mostarizing Oil</td>
-                                                            <td>$45</td>
-                                                            <td>Pending</td>
-                                                            <td><a href="cart.html" class="btn">Xem chi tiết...</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Aug 22, 2018</td>
-                                                            <td>Mostarizing Oil</td>
-                                                            <td>$45</td>
-                                                            <td>Pending</td>
-                                                            <td><a href="cart.html" class="btn">Xem chi tiết...</a></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div> -->
                                         </div>
                                     </div>
                                     <!-- Single Tab Content End -->
@@ -713,7 +881,41 @@
             </div>
 
 
-
+            <!-- Modal Cancel -->
+            <div class="modal fade order-cancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true" id="order-cancel">
+                <div class="modal-dialog text-left">
+                    <div class="modal-content pb-3">
+                        <div class="modal-header bg-danger">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">
+                                THÔNG BÁO - ĐƠN HÀNG <u>{{cacelOrder.orderCode}}</u>
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label h6 text-uppercase text-danger">Nội
+                                        dung (LÝ DO HỦY ĐƠN):</label>
+                                    <textarea ng-model="cacelOrder.noteCancel" name="message" class="form-control"
+                                        required style="height: 200px;" placeholder="Nhập nội dung ...."></textarea>
+                                    <span class="text-danger" ng-show="errorsNoteCancel">*{{errorsNoteCancel}}</span>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" ng-click="confirmCancel()">
+                                    Xác nhận
+                                </button>
+                                <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="clearCacel()">
+                                    Hủy bỏ
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
 </main>
 
