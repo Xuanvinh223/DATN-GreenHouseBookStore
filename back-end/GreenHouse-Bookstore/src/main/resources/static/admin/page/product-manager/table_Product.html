@@ -159,14 +159,14 @@
                                                                                         {{ "Giá bán: " +
                                                                                         (item.productDetail.price |
                                                                                         number)
-                                                                                        + " VND" }}
+                                                                                        + " VNĐ" }}
                                                                                     </p>
                                                                                     <p class="product-price-discount">
                                                                                         {{ "Giá bán sau giảm: " +
                                                                                         (item.productDetail.priceDiscount
                                                                                         |
                                                                                         number)
-                                                                                        + " VND" }}
+                                                                                        + " VNĐ" }}
                                                                                     </p>
                                                                                     <p class="product-quantity">
                                                                                         Số lượng:
@@ -417,7 +417,7 @@
                                                                             <p class="product-price">
                                                                                 {{ "Giá bán: " +
                                                                                 (item.productDetail.price |
-                                                                                number) + " VND" }}
+                                                                                number) + " VNĐ" }}
                                                                             </p>
                                                                             <p class="product-quantity">
                                                                                 Số lượng:
@@ -429,12 +429,14 @@
                                                                                 gam
                                                                             </p>
                                                                             <p class="product-price-discount"
-                                                                                ng-if="calculateDiscountedPrice(item)">
+                                                                                ng-if="item.productDiscount.discount.value > 1">
                                                                                 {{ "Giá bán sau giảm: " +
                                                                                 calculateDiscountedPrice(item) }}
                                                                             </p>
+
+
                                                                             <p class="product-discount"
-                                                                                ng-if="item.productDiscount.discount.value > 0">
+                                                                                ng-if="item.productDiscount.discount.value > 1">
                                                                                 Phần trăm giảm:
                                                                                 {{item.productDiscount.discount.value}}
                                                                                 %
@@ -605,8 +607,7 @@
                                                                     <label for="length">Chiều dài(*) CM</label>
                                                                     <input type="number" class="form-control"
                                                                         ng-model="editingProduct.productDetail.length"
-                                                                        name="length" min="10" required max="6000"
-                                                                        ng-change="hideError('length')"
+                                                                        name="length" ng-change="hideError('length')"
                                                                         placeholder="Nhập chiều dài sản phẩm">
                                                                     <small class="text-danger"
                                                                         ng-show="errors.length">{{ errors.length
@@ -617,8 +618,7 @@
                                                                     <label for="height">Chiều cao(*) CM</label>
                                                                     <input type="number" class="form-control"
                                                                         ng-model="editingProduct.productDetail.height"
-                                                                        name="height" min="50" required max="9000"
-                                                                        ng-change="hideError('height')"
+                                                                        name="height" ng-change="hideError('height')"
                                                                         placeholder="Nhập chiều cao sản phẩm">
                                                                     <small class="text-danger"
                                                                         ng-show="errors.height">{{ errors.height
@@ -630,7 +630,6 @@
                                                                     <label for="width">chiều rộng(*) CM</label>
                                                                     <input type number class="form-control"
                                                                         ng-model="editingProduct.productDetail.width"
-                                                                        min="1" max="1000" required
                                                                         ng-change="hideError('width')" name="width"
                                                                         placeholder="Nhập chiều rộng sản phẩm">
                                                                     <small class="text-danger" ng-show="errors.width">{{
@@ -678,18 +677,24 @@
                                                                     <label for="category">Tên Danh Mục(*)</label>
                                                                     <select class="form-control" id="category"
                                                                         ng-model="editingProduct.productCategory.category"
+                                                                        ng-change="onCategoryChanged()"
                                                                         ng-options="category as category.categoryName for category in categories track by category.categoryId">
                                                                         <option value="">Chọn tên danh mục</option>
                                                                     </select>
                                                                 </div>
-                                                                <div class="col-md-4 mb-3">
+
+                                                                <div class="col-md-4 mb-3" ng-show="showAuthorSelected">
                                                                     <label for="author">Tên Tác Giả(*)</label>
-                                                                    <select class="form-control" id="author"
-                                                                        ng-model="editingProduct.bookAuthor.author"
-                                                                        ng-options="author as author.authorName for author in authors track by author.authorId">
-                                                                        <option value="">Chọn tên tác giả</option>
-                                                                    </select>
+                                                                    <div class="input-group">
+                                                                        <select class="form-control" id="author"
+                                                                            ng-model="editingProduct.bookAuthor.author"
+                                                                            ng-options="author as author.authorName for author in authors track by author.authorId">
+                                                                            <option value="">Chọn tên tác giả</option>
+                                                                        </select>
+
+                                                                    </div>
                                                                 </div>
+
 
 
                                                                 <div class="col-md-6 mb-3"
@@ -730,9 +735,10 @@
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="description">Mô tả</label>
-                                                                <textarea id="description" class="form-control" ng-model="editingProduct.product.description"
+                                                                <textarea class="form-control"
+                                                                    ng-model="editingProduct.product.description"
                                                                     placeholder="Viết mô tả...." rows="6"></textarea>
-                            
+
                                                             </div>
 
                                                         </div>

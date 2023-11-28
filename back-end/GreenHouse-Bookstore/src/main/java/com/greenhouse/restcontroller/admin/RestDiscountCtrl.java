@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/rest/discounts")
@@ -24,15 +22,7 @@ public class RestDiscountCtrl {
     public ResponseEntity<List<Discounts>> getAllDiscounts() {
         List<Discounts> discounts = discountsService.findAll();
 
-        // Lọc các ưu đãi dựa trên điều kiện ngày, quantity và usedQuantity
-        Date currentDate = new Date();
-        List<Discounts> filteredDiscounts = discounts.stream()
-                .filter(discount -> discount.getEndDate().after(currentDate)
-                        && discount.getQuantity() > 0
-                        && discount.getUsedQuantity() < 100)
-                .collect(Collectors.toList());
-
-        return new ResponseEntity<>(filteredDiscounts, HttpStatus.OK);
+        return new ResponseEntity<>(discounts, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")

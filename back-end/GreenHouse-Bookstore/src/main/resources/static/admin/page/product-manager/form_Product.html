@@ -70,7 +70,7 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="length">Chiều dài(*) CM</label>
                                         <input type="number" class="form-control" ng-model="productDetail.length"
-                                            name="length" min="10" required max="6000" ng-change="hideError('length')"
+                                            name="length" min="10" required max="10000" ng-change="hideError('length')"
                                             placeholder="Nhập chiều dài sản phẩm">
                                         <small class="text-danger" ng-show="errors.length">{{ errors.length }}</small>
 
@@ -78,7 +78,7 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="height">Chiều cao(*) CM</label>
                                         <input type="number" class="form-control" ng-model="productDetail.height"
-                                            name="height" min="50" required max="9000" ng-change="hideError('height')"
+                                            name="height" min="10" required max="10000" ng-change="hideError('height')"
                                             placeholder="Nhập chiều cao sản phẩm">
                                         <small class="text-danger" ng-show="errors.height">{{ errors.height }}</small>
 
@@ -86,8 +86,8 @@
 
                                     <div class="col-md-4 mb-3">
                                         <label for="width">chiều rộng(*) CM</label>
-                                        <input type number class="form-control" ng-model="productDetail.width" min="1"
-                                            max="1000" required ng-change="hideError('width')" name="width"
+                                        <input type number class="form-control" ng-model="productDetail.width" min="10"
+                                            max="10000" required ng-change="hideError('width')" name="width"
                                             placeholder="Nhập chiều rộng sản phẩm">
                                         <small class="text-danger" ng-show="errors.width">{{
                                             errors.width }}</small>
@@ -107,7 +107,7 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="weight">Khối Lượng Sản Phẩm(*)</label>
                                         <input type="number" class="form-control" ng-model="productDetail.weight"
-                                            name="weight" min="50" required max="5000" ng-change="hideError('weight')"
+                                            name="weight" min="10" required max="10000" ng-change="hideError('weight')"
                                             placeholder="Nhập khối lượng sản phẩm">
                                         <small class="text-danger" ng-show="errors.weight">{{ errors.weight }}</small>
 
@@ -126,11 +126,9 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="discount">Phần Trăm Giảm(*)</label>
                                         <select class="form-control" id="discount" ng-model="productDiscount.discount"
-                                            ng-change="hideError('values')"
                                             ng-options="discount as discount.value for discount in discounts track by discount.discountId">
                                             <option value="">Chọn phần trăm giảm</option>
                                         </select>
-                                        <small class="text-danger" ng-show="errors.values">{{ errors.values }}</small>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="category">Tên Danh Mục(*)</label>
