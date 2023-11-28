@@ -331,6 +331,21 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
                 );
             });
     };
+
+    $scope.buyNow = function (productDetailId, quantity) {
+        CartService.buyNow(productDetailId, quantity, username)
+            .then(function (response) {
+                $scope.showNotifi();
+                $scope.getCartHeader();
+            })
+            .catch(function (error) {
+                console.log(
+                    "error",
+                    "Lỗi trong quá trình gửi dữ liệu lên server: " + error
+                );
+            });
+    }
+
     $scope.getCartHeader = function () {
         CartService.getCart(username)
             .then(function (response) {
@@ -469,6 +484,11 @@ app.service("CartService", function ($http, cartAPI) {
                 text: 'Vui lòng đăng nhập trước khi thêm sản phẩm vào giỏ hàng.',
             });
         }
+    }
+
+    this.buyNow = function (productDetailId, quantity, username) {
+        this.addToCart(productDetailId, quantity, username);
+        window.location.href = '/cart';
     }
 
     this.getCart = function (username) {
@@ -620,7 +640,6 @@ app.service('SearchDataService', function ($http, customerAPI) {
             });
     };
 });
-
 
 app.service('NotifyWebSocketService', function ($rootScope) {
     var stompClient = null;

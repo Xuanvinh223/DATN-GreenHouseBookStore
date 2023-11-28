@@ -133,7 +133,7 @@ function indexClientController($scope, $http) {
         // xem nhanh thông tin sản phẩm
         $scope.quickViewProduct = productDetail;
 
-        $scope.quantityQuickViewProduct = 1;
+        $scope.quickViewProduct.quantity = 1;
     }
     // Xem thêm
     $scope.loadMoreProductDiscountToday = function () {

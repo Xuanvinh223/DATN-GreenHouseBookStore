@@ -256,7 +256,8 @@
         </div>
         <div class="flashsale-section">
             <div class="shop-product-wrap grid-four shop-border row space-db--30 ">
-                <div class="col-lg-4 col-sm-6 mt--10" ng-repeat="productDetail in listProductDiscountToday.slice(0, visibleProductDiscountTodayCount)">
+                <div class="col-lg-4 col-sm-6 mt--10"
+                    ng-repeat="productDetail in listProductDiscountToday.slice(0, visibleProductDiscountTodayCount)">
                     <div class="product-card">
                         <div class="product-card--body">
                             <div class="card-image">
@@ -303,7 +304,8 @@
 
             </div>
             <div class="center_center mt--20">
-                <a class="flashsale-xemthem" ng-click="loadMoreProductDiscountToday()" th:text="#{lo.mn.flsee}">Xem thêm</a>
+                <a class="flashsale-xemthem" ng-click="loadMoreProductDiscountToday()" th:text="#{lo.mn.flsee}">Xem
+                    thêm</a>
             </div>
         </div>
     </section>
@@ -320,7 +322,8 @@
         </div>
         <div class="flashsale-section">
             <div class="shop-product-wrap grid-four shop-border row space-db--30 ">
-                <div class="col-lg-4 col-sm-6 mt--10" ng-repeat="productDetail in sellingProducts.slice(0, visibleSellingProductsCount)">
+                <div class="col-lg-4 col-sm-6 mt--10"
+                    ng-repeat="productDetail in sellingProducts.slice(0, visibleSellingProductsCount)">
                     <div class="product-card">
                         <div class="product-card--body">
                             <div class="card-image">
@@ -383,8 +386,8 @@
                 BẬT </span>
         </div>
         <div class="flashsale-section">
-            <ul class="nav nav-pills pt-2 mb-3 justify-content-md-left ml--10 pb-2 section-title--bordered" id="pills-tab"
-                role="tablist">
+            <ul class="nav nav-pills pt-2 mb-3 justify-content-md-left ml--10 pb-2 section-title--bordered"
+                id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation" ng-repeat="brand in sellingBrands">
                     <button class="nav-link" ng-class="{ 'active': brand.active }" ng-click="selectBrand(brand.brandId)"
                         aria-selected="true">
@@ -395,7 +398,8 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="shop" role="tabpanel" aria-labelledby="shop-tab">
                     <div class="shop-product-wrap grid-four shop-border row space-db--30">
-                        <div class="col-lg-4 col-sm-6" ng-repeat="productDetail in selectedBrandProducts.slice(0, visibleProductByBrandCount)">
+                        <div class="col-lg-4 col-sm-6"
+                            ng-repeat="productDetail in selectedBrandProducts.slice(0, visibleProductByBrandCount)">
                             <!-- Hiển thị thông tin sản phẩm chi tiết ở đây -->
                             <div class="product-card">
                                 <div class="product-card--body">
@@ -646,13 +650,14 @@
                                     <div class="count-input-block">
                                         <span class="widget-label">Số Lượng</span>
                                         <input type="number" class="form-control text-center"
-                                            ng-model="quantityQuickViewProduct">
+                                            ng-model="quickViewProduct.quantity">
                                     </div>
                                     <div class="add-cart-btn">
                                         <a href="" class="btn btn-outlined--primary"
-                                            ng-click="addToCart(quickViewProduct.productDetailId, quantityQuickViewProduct)"><span
+                                            ng-click="addToCart(quickViewProduct.productDetailId, quickViewProduct.quantity)"><span
                                                 class="plus-icon"></span>Thêm vào giỏ hàng</a>
-                                        <a href="" class="btn btn-outlined--primary"><span class="plus-icon"></span>Mua
+                                        <a ng-click="buyNow(quickViewProduct.productDetailId, quickViewProduct.quantity)"
+                                            class="btn btn-outlined--primary"><span class="plus-icon"></span>Mua
                                             Ngay</a>
                                     </div>
                                 </div>

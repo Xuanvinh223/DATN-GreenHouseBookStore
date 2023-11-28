@@ -15,7 +15,7 @@
                                             ng-class="{active: selectedStatus === 'All'}"
                                             ng-click="setListOrderByStatus('All')">
                                             Tất Cả
-                                            <span
+                                            <span 
                                                 class="badge badge-pill bg-white border text-muted ml-2">{{countAllOrders}}</span>
                                         </a>
                                     </li>
@@ -428,7 +428,7 @@
                         <button type="button" class="btn btn-danger" ng-click="confirmCancel()">
                             Xác nhận
                         </button>
-                        <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="clearCacel()">
+                        <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="clearCancel()">
                             Hủy bỏ
                         </button>
                     </div>

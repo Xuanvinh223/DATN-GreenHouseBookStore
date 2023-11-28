@@ -279,9 +279,10 @@ public class CheckoutService {
         Orders orders = new Orders();
 
         String orderCode = generateOrderCode();
-        if (ordersRepository.existsById(orderCode)) {
+        while (ordersRepository.existsById(orderCode)) {
             orderCode = generateOrderCode();
         }
+        
         orders.setOrderCode(orderCode);
         orders.setClientOrderCode(orderCode);
         orders.setUsername(data.getUsername());

@@ -199,33 +199,140 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             $scope.reverseSort = false;
         }
     };
-    //Hàm hủy
+    // duyệt đơn
+    $scope.acceptOrder = function () {
+        var apiUrl = 'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create';
 
-    $scope.cacelOrder = [];
+        var paymentTypeId = 2;
+        var note = "Tintest 123";
+        var requiredNote = "KHONGCHOXEMHANG";
+        var fromName = "TinTest124";
+        var fromPhone = "0987654321";
+        var fromAddress = "72 Thành Thái, Phường 14, Quận 10, Hồ Chí Minh, Vietnam";
+        var fromWardName = "Phường 14";
+        var fromDistrictName = "Quận 10";
+        var fromProvinceName = "HCM";
+        var returnPhone = "0332190444";
+        var returnAddress = "39 NTT";
+        var returnDistrictId = null;
+        var returnWardCode = "";
+        var clientOrderCode = "";
+        var toName = "TinTest124";
+        var toPhone = "0987654321";
+        var toAddress = "72 Thành Thái, Phường 14, Quận 10, Hồ Chí Minh, Vietnam";
+        var toWardCode = "20308";
+        var toDistrictId = 1444;
+        var codAmount = 200000;
+        var content = "Theo New York Times";
+        var weight = 200;
+        var length = 1;
+        var width = 19;
+        var height = 10;
+        var pickStationId = 1444;
+        var deliverStationId = null;
+        var insuranceValue = 10000000;
+        var serviceId = 0;
+        var serviceTypeId = 2;
+        var coupon = null;
+        var pickShift = [2];
+        var items = [
+            {
+                name: "Áo Polo",
+                code: "Polo123",
+                quantity: 1,
+                price: 200000,
+                length: 12,
+                width: 12,
+                height: 12,
+                weight: 1200,
+                category: {
+                    level1: "Áo"
+                }
+            }
+        ];
+
+        var requestBody = {
+            payment_type_id: paymentTypeId,
+            note: note,
+            required_note: requiredNote,
+            from_name: fromName,
+            from_phone: fromPhone,
+            from_address: fromAddress,
+            from_ward_name: fromWardName,
+            from_district_name: fromDistrictName,
+            from_province_name: fromProvinceName,
+            return_phone: returnPhone,
+            return_address: returnAddress,
+            return_district_id: returnDistrictId,
+            return_ward_code: returnWardCode,
+            client_order_code: clientOrderCode,
+            to_name: toName,
+            to_phone: toPhone,
+            to_address: toAddress,
+            to_ward_code: toWardCode,
+            to_district_id: toDistrictId,
+            cod_amount: codAmount,
+            content: content,
+            weight: weight,
+            length: length,
+            width: width,
+            height: height,
+            pick_station_id: pickStationId,
+            deliver_station_id: deliverStationId,
+            insurance_value: insuranceValue,
+            service_id: serviceId,
+            service_type_id: serviceTypeId,
+            coupon: coupon,
+            pick_shift: pickShift,
+            items: items
+        };
+
+
+        var requestConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                'ShopId': '885',
+                'Token': '285518-c4bb-11ea-be3a-f636b1deefb9'
+            }
+        };
+
+        $http.post(apiUrl, requestBody, requestConfig)
+            .then(function (response) {
+                // Xử lý response từ API
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                // Xử lý lỗi nếu có
+                console.error(error);
+            });
+    };
+
+    //Hàm hủy
+    $scope.cancelOrder = [];
     $scope.showCancelModal = function (item) {
-        $scope.cacelOrder.orderCode = item.orderCode;
-        $scope.cacelOrder.email = item.account.email;
-        $scope.cacelOrder.username = item.account.username;
-        $scope.cacelOrder.noteCancel = "";
-        $scope.cacelOrder.status = item.status;
+        $scope.cancelOrder.orderCode = item.orderCode;
+        $scope.cancelOrder.email = item.account.email;
+        $scope.cancelOrder.username = item.account.username;
+        $scope.cancelOrder.noteCancel = "";
+        $scope.cancelOrder.status = item.status;
         $scope.errorsNoteCancel = "";
     };
 
     $scope.confirmCancel = function () {
-        if ($scope.cacelOrder.noteCancel == null || $scope.cacelOrder.noteCancel.length < 10) {
+        if ($scope.cancelOrder.noteCancel == null || $scope.cancelOrder.noteCancel.length < 10) {
             $scope.errorsNoteCancel = 'Vui lòng nhập lí do không ít hơn 10 kí tự!';
         }
         else {
             var updatedOrder = {
                 status: 'Canceled',
                 confirmed_By: $scope.username,
-                note: $scope.cacelOrder.noteCancel
+                note: $scope.cancelOrder.noteCancel
             };
 
-            if ($scope.cacelOrder.status === 'Pending Handover') {
+            if ($scope.cancelOrder.status === 'Pending Handover') {
                 // Nếu đơn hàng ở trạng thái 'Pending Handover', thực hiện cuộc gọi API của Giao Hàng Nhanh
                 var ghnApiData = {
-                    order_codes: [$scope.cacelOrder.orderCode]
+                    order_codes: [$scope.cancelOrder.orderCode]
                 };
 
                 $http.post('https://online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel', ghnApiData, {
@@ -244,18 +351,18 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             }
 
             // Gọi API để hủy đơn hàng
-            $http.put('/rest/order/cancelOrder/' + $scope.cacelOrder.orderCode, updatedOrder)
+            $http.put('/rest/order/cancelOrder/' + $scope.cancelOrder.orderCode, updatedOrder)
                 .then(function (response) {
                     // Xử lý khi hủy đơn hàng thành công
                     console.log(response.data);
-                    $scope.sendNotification("Thông báo hủy đơn hàng", $scope.cacelOrder.orderCode, $scope.cacelOrder.username, "Lí do hủy đơn hàng: " + $scope.cacelOrder.noteCancel);
+                    $scope.sendNotification("Thông báo hủy đơn hàng", $scope.cancelOrder.orderCode, $scope.cancelOrder.username, "Lí do hủy đơn hàng: " + $scope.cancelOrder.noteCancel);
                     $scope.getData();
-                    $scope.clearCacel();
+                    $scope.clearCancel();
                     $('#order-cancel').modal('hide');
                     Swal.fire({
                         icon: "success",
                         title: "Thành công",
-                        text: `Hủy đơn hàng ${$scope.cacelOrder.orderCode} thành công`,
+                        text: `Hủy đơn hàng ${$scope.cancelOrder.orderCode} thành công`,
                     });
                 })
                 .catch(function (error) {
@@ -266,7 +373,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
 
     };
 
-    $scope.clearCacel = function () {
+    $scope.clearCancel = function () {
         $scope.customerEmail = "";
         $scope.noteCancel = "";
         $scope.errorsNoteCancel = "";
