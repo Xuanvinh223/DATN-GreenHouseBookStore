@@ -8,7 +8,7 @@
       </div>
 
       <div class="card shadow mb-4">
-        
+
         <div class="card-header d-flex justify-content-end">
           <a type="button" class="btn btn-success" href="#!/brand-table">
             <i class="fa fa-list"> </i> Danh sách thương hiệu
@@ -43,39 +43,46 @@
               <!-- /.col -->
               <div class="col-md-2 ">
                 <div class="form-label h5 text-center">
-                    <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh Logo(*)</label>
+                  <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh Logo(*)</label>
                 </div>
                 <div class="row d-flex justify-content-center">
-
-                    <img class="object-fit border border-light" ng-src="{{editingBrand.logo}}" alt=""
-                         id="uploadedImage" name="image" style="max-height: 250px; height: 130px; width: 150px;">
-
+                  <img class="img-fluid w-100 h-100"
+                    ng-src="{{ editingBrand.logo || '/admin/assets/images/default.jpg' }}" alt="Ảnh đại diện"
+                    id="uploadedImage" name="logo" />
                 </div>
 
                 <div class="row d-flex justify-content-center">
                   <label class="text-center mt-2 btn btn-outline-secondary">
-                      <i class="fa fa-upload"></i>
-                      Tải ảnh lên
-                      <input type="file" name="file" style="object-fit: contain;" id="fileInput"
-                      ng-model="editingBrand.logo" onchange="displayImage(event)" hidden
-                             accept=".png,.jpg,.jpeg"/>
-                  </label>
-              </div>
+                    <i class="fa fa-upload"></i>
+                    Tải ảnh lên
 
-            </div>
+                    <input type="file" name="file" style="object-fit: contain;" id="fileInput"
+                      ng-model="editingBrand.logo" onchange="displayImage(event)" hidden accept=".png,.jpg,.jpeg" />
+                  </label>
+                </div>
+
+              </div>
 
             </div>
             <button type="button" class="btn btn-primary" ng-click="saveBrand()">
               <i class="fa fa-save"> </i> {{ isEditing ? 'Lưu sửa đổi' : 'Thêm mới' }}
             </button>
-            <button type="submit" class="btn btn-info" ng-click="resetForm()"> <i class="fa fa-undo"> </i> Làm mới</button>
+            <button type="submit" class="btn btn-info" ng-click="resetForm()"> <i class="fa fa-undo"> </i> Làm
+              mới</button>
           </form>
 
         </div>
       </div> <!-- / .card -->
-
+  <!-- Thêm phần tử HTML này nơi bạn muốn hiển thị hiệu ứng loading -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+    </div>
+</div>
     </div> <!-- .col-12 -->
   </div> <!-- .row -->
 
 
 </div> <!-- .container-fluid -->
+
+
