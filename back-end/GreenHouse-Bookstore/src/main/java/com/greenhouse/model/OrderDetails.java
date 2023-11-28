@@ -41,5 +41,12 @@ public class OrderDetails {
     @Column(name = "Length")
     private double length;
 
+    @ManyToOne
+    @JoinColumn(name = "Order_Code", referencedColumnName = "Order_Code", insertable = false, updatable = false)
+    private Orders order;
+
+    @ManyToOne
+    @JoinColumn(name = "Product_Detail_Id",referencedColumnName="Product_Detail_Id", insertable = false, updatable = false)
+    private Product_Detail productDetail;
 }
 

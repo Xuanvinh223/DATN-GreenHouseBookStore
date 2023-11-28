@@ -6,7 +6,7 @@
 	<title>Thanh toán</title>
 </head>
 <main id="layout">
-	<div class="site-wrapper" id="top" ng-controller="checkOutController">
+	<div class="site-wrapper" id="top" ng-controller="checkoutController">
 		<section class="breadcrumb-section">
 			<div class="container">
 				<div class="breadcrumb-contents">
@@ -117,7 +117,7 @@
 													<label for="cod" class="payment-option mb-3 p-2">
 														<div class="form-group">
 															<input type="radio" id="cod" name="paymentMethod"
-																value="cod">
+																ng-model="paymentMethod" value="cod">
 															Thanh toán khi nhận hàng
 														</div>
 														<div class="payment-method-icon">
@@ -127,7 +127,7 @@
 													<label for="vnpay" class="payment-option mb-3 p-2">
 														<div class="form-group">
 															<input type="radio" id="vnpay" name="paymentMethod"
-																value="vnpay">
+																ng-model="paymentMethod" value="vnpay">
 															VNPay
 														</div>
 														<div class="payment-method-icon">
@@ -139,7 +139,7 @@
 													<label for="momo" class="payment-option mb-3 p-2">
 														<div class="form-group">
 															<input type="radio" id="momo" name="paymentMethod"
-																value="momo">
+																ng-model="paymentMethod" value="momo">
 															Momo
 														</div>
 														<div class="payment-method-icon">
@@ -148,7 +148,7 @@
 														</div>
 													</label>
 												</div>
-												<a class="place-order w-100">Thanh toán</a>
+												<a ng-click="checkout()" class="place-order w-100">Thanh toán</a>
 											</div>
 										</div>
 									</div>

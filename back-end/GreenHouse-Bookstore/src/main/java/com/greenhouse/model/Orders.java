@@ -101,7 +101,7 @@ public class Orders {
     @Column(name = "payment_type_id", nullable = false)
     private int paymentTypeId;
 
-    @Column(name = "note", columnDefinition = "nvarchar(MAX)", nullable = false)
+    @Column(name = "note", columnDefinition = "nvarchar(MAX)")
     private String note;
 
     @Column(name = "required_note", columnDefinition = "nvarchar(500)", nullable = false)

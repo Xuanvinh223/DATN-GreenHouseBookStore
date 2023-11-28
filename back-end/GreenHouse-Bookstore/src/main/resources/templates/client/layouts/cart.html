@@ -32,15 +32,15 @@
                         </span>
                     </div>
                 </div>
-                <div class="cart-ui-content row">
+                <div class="cart-ui-content row" ng-if="listCartItem.length > 0">
                     <div class="col-sm-8 col-xs-12">
                         <div>
                             <div class="header-cart-item ">
                                 <div class="check-all-product ">
                                     <div class="checkbox-wrapper-12 mx-2">
                                         <div class="cbx">
-                                            <input id="cbx-12" type="checkbox" ng-model="checkAll"
-                                                ng-change="toggleCheckAll()">
+                                            <input id="cbx-12" name="checkAll" type="checkbox"
+                                                ng-click="toggleCheckAll()">
                                             <label for="cbx-12"></label>
                                             <svg width="15" height="14" viewBox="0 0 15 14" fill="none">
                                                 <path d="M2 8.36364L6.23077 12L13 2"></path>
@@ -322,6 +322,23 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cart-ui-content row" ng-if="!listCartItem.length > 0">
+                    <div
+                        style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);padding: 50px;background-color: #fff;flex: 1; border-radius: 10px;">
+                        <div class="cart-empty body-mh-300"
+                            style="justify-content: center;display: flex;align-items: center;">
+                            <div style="text-align: center">
+                                <div class="icon-empty-cart"><img
+                                        src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/checkout_cart/ico_emptycart.svg"
+                                        class="center"></div>
+                                <p style="font-size:1.4rem;margin: 20px 0;">Chưa có sản phẩm trong giỏ hàng của bạn.</p><a
+                                    style="color: white;text-transform: uppercase;"
+                                    href="/product"><button class="button-shopping"
+                                        type="button" title="Mua sắm ngay" style="margin:auto">Mua sắm ngay</button></a>
                             </div>
                         </div>
                     </div>

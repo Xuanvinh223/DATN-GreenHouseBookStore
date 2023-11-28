@@ -1770,3 +1770,17 @@ svg:not(:root) {
     transform: translateY(-50%) translateX(0%);
 }
 
+
+.button-shopping {
+    cursor: pointer;
+    user-select: none;
+    padding: 10px 50px;
+    transition: all 0.3s;
+    box-shadow: 0px 4px 6px hsl(0, 0%, 90%);
+    border-radius: 8px;
+    color: #fff;
+    background: #C92127;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
