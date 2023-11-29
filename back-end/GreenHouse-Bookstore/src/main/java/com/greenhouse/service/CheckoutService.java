@@ -327,6 +327,7 @@ public class CheckoutService {
             orders.setPaymentTypeId(1);// cửa hàng trả
         } else {
             orders.setPaymentTypeId(2);// khách trả
+            orders.setCodAmount(data.getShipping_fee().intValue());
         }
         // Nội dung đơn hàng
         StringBuilder content = new StringBuilder("");

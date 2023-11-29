@@ -112,6 +112,24 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
             $scope.errorsNoteCancel = "";
 
         };
+        // Mua lại
+        $scope.buyAgain = function (orderCode) {
+            var listOrderDetails = $scope.listOrderDetails[orderCode];
+            
+            var addToCartPromises = listOrderDetails.map(function (item) {
+                return $scope.addToCart(item.productDetail.productDetailId, 1);
+            });
+        
+            Promise.all(addToCartPromises)
+                .then(function () {
+                    window.location.href = "/cart";
+                })
+                .catch(function (error) {
+                    console.error("Error adding to cart:", error);
+                });
+        }
+        
+
         // Thực hiện lấy danh sách đơn hàng khi controller khởi tạo
         $scope.getOrders();
     }
