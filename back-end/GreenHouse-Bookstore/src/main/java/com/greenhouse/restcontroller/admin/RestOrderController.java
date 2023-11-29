@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.CrossOrigin; 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,15 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.model.Authorities;
-import com.greenhouse.model.InvoiceDetails;
-import com.greenhouse.model.InvoiceMappingVoucher;
-import com.greenhouse.model.Order_Detail;
+import com.greenhouse.model.OrderDetails;
 import com.greenhouse.model.Orders;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.repository.AuthoritiesRepository;
-import com.greenhouse.repository.InvoiceDetailsRepository;
-import com.greenhouse.repository.InvoiceMappingVoucherRepository;
-import com.greenhouse.repository.OrderDetailReponsitory;
+import com.greenhouse.repository.OrderDetailsRepository;
 import com.greenhouse.repository.OrdersRepository;
 import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.service.EmailService;
@@ -37,17 +33,13 @@ public class RestOrderController {
     @Autowired
     private ProductDetailRepository productDetailRepository;
     @Autowired
-    private InvoiceDetailsRepository invoiceDetailsRepository;
-    @Autowired
-    private InvoiceMappingVoucherRepository invoiceMappingVoucherRepository;
-    @Autowired
     private AuthoritiesRepository authoritiesRepository;
     @Autowired
     private OrdersRepository ordersRepository;
     @Autowired
-    private OrderDetailReponsitory orderDetailReponsitory;
-    @Autowired
     EmailService sendEmail;
+    @Autowired
+    private OrderDetailsRepository orderDetailsRepository;
 
     @GetMapping("/getData")
     private ResponseEntity<Map<String, Object>> getData() {
@@ -72,9 +64,9 @@ public class RestOrderController {
         order.ifPresent(value -> responseData.put("order", value));
 
         // Lấy thông tin đơn hàng chi tiết
-        List<Order_Detail> orderDetails = orderDetailReponsitory.findByOrderCode(orderCode);
+        List<OrderDetails> orderDetails = orderDetailsRepository.findByOrderCode(orderCode);
         responseData.put("orderDetails", orderDetails);
-
+ 
         return ResponseEntity.ok(responseData);
     }
 
@@ -91,7 +83,8 @@ public class RestOrderController {
             existingOrder.setNote(updatedOrder.getNote());
             ordersRepository.save(existingOrder);
             // Gửi email thông báo hủy đơn hàng
-            sendEmail.sendEmailOrderCancellation(existingOrder.getAccount().getEmail(), "GreenHouse | Hủy Đơn Hàng", orderCode,
+            sendEmail.sendEmailOrderCancellation(existingOrder.getAccount().getEmail(), "GreenHouse | Hủy Đơn Hàng",
+                    orderCode,
                     existingOrder.getNote());
             return ResponseEntity.ok("Đã hủy đơn hàng");
         } else {
@@ -99,4 +92,5 @@ public class RestOrderController {
         }
     }
 
+    
 }

@@ -117,3 +117,51 @@
 .order-curr {
   text-decoration: underline;
 }
+
+/* ORDER REVIEW */
+.product-view-show {
+  display: flex;
+  align-items: center;
+}
+
+.product-name-review {
+  margin-left: 20px;
+}
+.product-name-review a {
+  text-align: center;
+  max-width: 500px;
+  word-wrap: break-word;
+  display: inline-block;
+}
+.product-button-review {
+  margin-left: auto; /* Chuyển chữ Đánh Giá sang bên phải */
+}
+.product-button-review {
+  border: 1px solid red;
+  text-align: center;
+  min-height: 35px;
+  padding: 0 15px;
+  min-width: 60px;
+  max-width: 190px;
+  color: red;
+}
+.product-view-show .image {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+.product-view-show .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.product-button-review-complead{
+  margin-left: auto;
+  text-align: center;
+  color: #30cf30 !important;
+}
+.product-button-review-complead i{
+  color: #34de34;
+  font-size: 1.2rem;
+}

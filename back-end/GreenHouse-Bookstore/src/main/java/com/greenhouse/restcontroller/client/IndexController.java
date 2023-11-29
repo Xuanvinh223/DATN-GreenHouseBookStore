@@ -78,7 +78,9 @@ public class IndexController {
         List<String> distinctParentCategoriesTypes = categoryTypesRepository.findDistinctParentCategoriesType();
         List<CategoryTypes> listCategoryTypes = categoryTypesRepository.findAll();
         List<Categories> listCategories = categoriesRepository.findAll();
+        List<Product_Detail> listProductDiscountToday = productDetailReps.findProductsOnDiscount();
 
+        resp.put("listProductDiscountToday", listProductDiscountToday);
         resp.put("listCategories", listCategories);
         resp.put("parentCategoriesTypes", distinctParentCategoriesTypes);
         resp.put("listCategoryTypes", listCategoryTypes);

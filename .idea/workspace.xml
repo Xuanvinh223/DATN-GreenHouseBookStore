@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Back-end] - authenticate">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_6_2023_2_36_PM_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_6_2023_2_36_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_6_2023_2_36_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_6_2023_2_36_PM__Changes_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/restcontroller/client/ProductPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/restcontroller/client/ProductPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/controller/product-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/controller/product-page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/css/voucher.css" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/css/voucher.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/flash-sale.html" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/flash-sale.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/product.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/template.html" afterDir="false" />
-    </list>
+    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Back-end] - merge dev/anhhtv" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -142,6 +130,7 @@
       <workItem from="1698558053284" duration="1199000" />
       <workItem from="1698827784832" duration="178000" />
       <workItem from="1698828014569" duration="187000" />
+      <workItem from="1700904705285" duration="184000" />
     </task>
     <task id="LOCAL-00001" summary="[Project] - Create packages">
       <created>1692841448096</created>

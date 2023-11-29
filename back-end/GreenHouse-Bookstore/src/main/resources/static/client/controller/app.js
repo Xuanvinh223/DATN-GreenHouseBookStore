@@ -11,13 +11,7 @@ app.constant('voucherAPI', 'http://localhost:8081/customer/rest/voucher');
 app.constant('customerAPI', "http://localhost:8081/customer/rest");
 app.constant('orderHistoryAPI', 'http://localhost:8081/customer/rest/order-history');
 
-app.run(function ($rootScope, $http, $templateCache, jwtHelper, $cookies) {
-    var token = $cookies.get("token");
-
-    if (token) {
-        localStorage.setItem("token", token);
-        $cookies.remove("token");
-    }
+app.run(function ($rootScope, $http, $templateCache, jwtHelper) {
 
     var jsFiles = [
         "js/custom.js",
@@ -337,6 +331,21 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
                 );
             });
     };
+
+    $scope.buyNow = function (productDetailId, quantity) {
+        CartService.buyNow(productDetailId, quantity, username)
+            .then(function (response) {
+                $scope.showNotifi();
+                $scope.getCartHeader();
+            })
+            .catch(function (error) {
+                console.log(
+                    "error",
+                    "Lỗi trong quá trình gửi dữ liệu lên server: " + error
+                );
+            });
+    }
+
     $scope.getCartHeader = function () {
         CartService.getCart(username)
             .then(function (response) {
@@ -477,6 +486,11 @@ app.service("CartService", function ($http, cartAPI) {
         }
     }
 
+    this.buyNow = function (productDetailId, quantity, username) {
+        this.addToCart(productDetailId, quantity, username);
+        window.location.href = '/cart';
+    }
+
     this.getCart = function (username) {
         var url = cartAPI + "/getCart?username=" + username;
 
@@ -513,6 +527,7 @@ app.service("CartService", function ($http, cartAPI) {
 
         return $http.post(url, cartId)
             .then(function (response) {
+                $scope.getCartHeader();
                 return response.data;
             })
             .catch(function (error) {
@@ -531,6 +546,17 @@ app.service('ProductDetailService', function ($http, productDetailAPI) {
             })
             .catch(function (error) {
                 console.log('Lỗi khi lấy dữ liệu:', error);
+                return Promise.reject(error);
+            });
+    };
+    this.hasPurchasedProduct = function (username, productDetailId) {
+        var url = `${productDetailAPI}/hasPurchased/${username}/${productDetailId}`;
+        return $http.get(url)
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log('Lỗi khi kiểm tra đơn hàng:', error);
                 return Promise.reject(error);
             });
     };
@@ -615,7 +641,6 @@ app.service('SearchDataService', function ($http, customerAPI) {
             });
     };
 });
-
 
 app.service('NotifyWebSocketService', function ($rootScope) {
     var stompClient = null;

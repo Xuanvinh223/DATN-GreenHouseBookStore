@@ -13,10 +13,14 @@ function indexClientController($scope, $http) {
     $scope.listProductDetails = [];
     $scope.selectedBrand = null; // Thêm biến để theo dõi brand đang được chọn
     $scope.numStar = [1, 2, 3, 4, 5];
+    $scope.visibleProductDiscountTodayCount = 8;
+    $scope.visibleProductByBrandCount = 8;
+    $scope.visibleSellingProductsCount = 8;
     $scope.quickViewProduct = null;
     $scope.parentCategoriesTypes = [];
     $scope.listCategories = [];
     $scope.listCategoryTypes = [];
+    $scope.listProductDiscountToday = [];
     // Hàm để load dữ liệu ban đầu và hiển thị sản phẩm thương hiệu đầu tiên
     $scope.redirectToProduct = function (categoryId, categoryName) {
         // Chuyển cả categoryId và categoryName đến trang product
@@ -30,7 +34,9 @@ function indexClientController($scope, $http) {
         $http.get(url)
             .then(function (response) {
                 $scope.sellingBrands = response.data.sellingBrands;
-                $scope.sellingProducts = response.data.sellingProducts;
+                $scope.sellingProducts = response.data.sellingProducts.filter(function (productDetail) {
+                    return productDetail.product.status === true;
+                });
                 $scope.listProductDiscount = response.data.listProductDiscount;
                 $scope.listProductReviews = response.data.listProductReviews;
                 $scope.listBookAuthor = response.data.listBookAuthor;
@@ -39,7 +45,10 @@ function indexClientController($scope, $http) {
                 $scope.selectedBrandId = $scope.sellingBrands[0].brandId;
                 $scope.selectBrand($scope.selectedBrandId);
                 $scope.listProductDetails = response.data.listProduct_Details;
-
+                $scope.listProductDiscountToday = response.data.listProductDiscountToday
+                    .filter(function (productDetail) {
+                        return productDetail.product.status === true;
+                    });
                 $scope.parentCategoriesTypes = response.data.parentCategoriesTypes;
                 $scope.listCategories = response.data.listCategories;
                 $scope.listCategoryTypes = response.data.listCategoryTypes;
@@ -48,7 +57,7 @@ function indexClientController($scope, $http) {
                         return category.typeId.parentCategoriesType === parentCategory && category.typeId.typeName === typeName;
                     });
                 };
-
+                console.log("listProductDiscountToday", $scope.listProductDiscountToday);
                 console.log(" $scope.parentCategoriesTypes", $scope.parentCategoriesTypes);
                 console.log("Dữ Liệu SẢN PHẨM BÁN CHẠY: ", $scope.sellingProducts);
                 console.log("Dữ Liệu THƯƠNG HIỆU NỔI BẬT: ", $scope.sellingBrands);
@@ -65,7 +74,9 @@ function indexClientController($scope, $http) {
         $http.get(url)
             .then(function (response) {
                 // Xử lý dữ liệu nhận được từ máy chủ
-                $scope.selectedBrandProducts = response.data;
+                $scope.selectedBrandProducts = response.data.filter(function (productDetail) {
+                    return productDetail.product.status === true;
+                });
                 console.log("DỮ LIỆU SẢN PHẨM CHI TIẾT THEO THƯƠNG HIỆU ", $scope.selectedBrandProducts);
 
             })
@@ -119,12 +130,21 @@ function indexClientController($scope, $http) {
 
 
     $scope.quickView = function (productDetail) {
-     // xem nhanh thông tin sản phẩm
-       $scope.quickViewProduct = productDetail;
+        // xem nhanh thông tin sản phẩm
+        $scope.quickViewProduct = productDetail;
 
-        $scope.quantityQuickViewProduct = 1;
+        $scope.quickViewProduct.quantity = 1;
     }
-
+    // Xem thêm
+    $scope.loadMoreProductDiscountToday = function () {
+        $scope.visibleProductDiscountTodayCount += 8;
+    };
+    $scope.loadMoreSellingProducts = function () {
+        $scope.visibleSellingProductsCount += 8;
+    };
+    $scope.loadMoreProductByBrand = function () {
+        $scope.visibleProductByBrandCount += 8;
+    };
 
     // Gọi hàm loadIndex để lấy dữ liệu ban đầu
     $scope.loadIndex();

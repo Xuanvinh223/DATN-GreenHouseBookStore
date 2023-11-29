@@ -143,8 +143,16 @@
     margin: 0px;
 }
 
-
 #billing-form .payment-option:hover {
     background-color: #86e6869c;
 }
 
+#billing-form .place-order {
+    cursor: pointer;
+}
+
+/* ORDER COMPLETE */
+.order-complete {
+    margin-top: 50px;
+    font-size: larger;
+}

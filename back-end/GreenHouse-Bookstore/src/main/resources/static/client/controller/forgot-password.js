@@ -16,7 +16,7 @@ function forgotPasswordController($http, $scope, forgotPasswordAPI) {
                 if (status === 200) {
                     Swal.fire({
                         title: "Thông báo",
-                        text: "Vui lòng kiểm tra Gmail của bạn.",
+                        text: message,
                         icon: "success",
                         confirmButtonText: "OK",
                     });

@@ -104,13 +104,15 @@
 							<div class="add-to-cart-row">
 								<div class="count-input-block">
 									<span class="widget-label">Số Lượng</span>
-									<input type="number" class="form-control text-center" value="1" min="1">
+									<input type="number" class="form-control text-center" value="1" min="1"
+										ng-model="productDetail.quantity">
 								</div>
 								<div class="add-cart-btn">
-									<a ng-click="addToCart(productDetail.productDetailId, 1)"
+									<a ng-click="addToCart(productDetail.productDetailId, productDetail.quantity)"
 										class="btn btn-outlined--primary">
 										<span class="plus-icon"></span>Thêm Vào Giỏ Hàng</a>
-									<a href="" class="btn btn-outlined--primary"><span class="plus-icon"></span>Mua
+									<a ng-click="buyNow(productDetail.productDetailId, productDetail.quantity)"
+										class="btn btn-outlined--primary"><span class="plus-icon"></span>Mua
 										Ngay</a>
 								</div>
 							</div>
@@ -191,7 +193,7 @@
 
 									<div class="write-review-section">
 										<button class="btn-seemore" data-bs-toggle="modal"
-											data-bs-target="#popup_write_review">
+											data-bs-target="#popup_write_review" ng-show="username && hasPurchased">
 											<i class='bx bx-message-rounded-edit'></i>
 											<span>Viết đánh giá</span>
 										</button>
@@ -400,7 +402,7 @@
 											</div>
 											<div class="review-widget">
 												<a href="">({{countReviewsOfProduct(quickViewProduct.productDetailId)}}
-													đánh giá)</a> 
+													đánh giá)</a>
 											</div>
 										</div>
 										<article class="product-details-article mb-4">
@@ -420,13 +422,13 @@
 											<div class="count-input-block">
 												<span class="widget-label">Số Lượng</span>
 												<input type="number" class="form-control text-center"
-													ng-model="quantityQuickViewProduct">
+													ng-model="quickViewProduct.quantity">
 											</div>
 											<div class="add-cart-btn">
 												<a href="" class="btn btn-outlined--primary"
-													ng-click="addToCart(quickViewProduct.productDetailId, quantityQuickViewProduct)"><span
+													ng-click="addToCart(quickViewProduct.productDetailId, quickViewProduct.quantity)"><span
 														class="plus-icon"></span>Thêm vào giỏ hàng</a>
-												<a href="" class="btn btn-outlined--primary"><span
+												<a ng-click="buyNow(quickViewProduct.productDetailId, quickViewProduct.quantity)" class="btn btn-outlined--primary"><span
 														class="plus-icon"></span>Mua
 													Ngay</a>
 											</div>

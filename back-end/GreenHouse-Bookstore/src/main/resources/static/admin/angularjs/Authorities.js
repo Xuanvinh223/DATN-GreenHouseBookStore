@@ -4,7 +4,7 @@ app.controller("AuthoritiesController", function ($scope, $http) {
     $scope.itemsPerPage = 12;
     $scope.originalAccountsList = [];
     $scope.maxSize = 5;
-
+ 
 
     $scope.getData = function () {
         $http.get("/rest/authorities").then(resp => {

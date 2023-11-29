@@ -3,17 +3,17 @@
     <div class="col-12">
       <div class="card shadow mb-4">
         <div class="card-header">
-          <a type="button" class="btn btn-success" href="#!/voucher-table">
-            Danh sách khuyến mãi
-          </a>
+          <h4 class="mb-3 mt-3 ml-3">Thông tin khuyến mãi</h4>
         </div>
       </div>
 
       <div class="card shadow mb-4">
-        <div class="card-header">
-          <h4 class="card-title">Thông tin khuyến mãi</h4>
+        
+        <div class="card-header d-flex justify-content-end">
+          <a type="button" class="btn btn-success" href="#!/voucher-table">
+            <i class="fa fa-list"> </i> Danh sách khuyến mãi
+          </a>
         </div>
-
         <div class="card-body">
           <form>
             <div class="row">
@@ -184,9 +184,9 @@
 
             <div class="mb-3 p-3">
               <button type="button" class="btn btn-primary" ng-click="saveVoucher()">
-                {{ isEditing ? 'Lưu sửa đổi' : 'Thêm mới' }}
+                <i class="fa fa-save"> </i> {{ isEditing ? 'Lưu sửa đổi' : 'Thêm mới' }}
               </button>
-              <button type="button" class="btn btn-info" ng-click="resetForm()">Làm mới</button>
+              <button type="button" class="btn btn-info" ng-click="resetForm()"> <i class="fa fa-undo"> </i> Làm mới</button>
             </div>
           </form>
         </div>

@@ -131,7 +131,7 @@ public class SignupController {
         if (isPhoneNumber(signupDTO.getEmailAndPhone())) {
             Accounts newAccounts = new Accounts();
             newAccounts.setUsername(signupDTO.getEmailAndPhone());
-            newAccounts.setEmail(signupDTO.getEmailAndPhone());
+            newAccounts.setPhone(signupDTO.getEmailAndPhone());
             newAccounts.setCreatedAt(new Date());
             newAccounts.setActive(false);
             accountRepository.save(newAccounts);

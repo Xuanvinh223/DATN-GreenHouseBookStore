@@ -9,7 +9,7 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
         $scope.vouchers = [];
         $scope.totalItems = $scope.vouchers.length; // Tổng số mục
         $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
-        $scope.reverseSort = false;
+       
 
         $scope.edittingVoucher = {};
         $scope.isEditing = false;
@@ -33,6 +33,18 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
         $scope.selectedProductDetails = [];
         $scope.searchProductKeyword = null;
         $scope.listdeletedProducts = [];
+
+        $scope.orderByField = "";
+        $scope.reverseSort = true;
+    
+        $scope.sortBy = function (field) {
+            if ($scope.orderByField === field) {
+                $scope.reverseSort = !$scope.reverseSort;
+            } else {
+                $scope.orderByField = field;
+                $scope.reverseSort = true;
+            }
+        };
 
         // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
         $scope.getNumOfPages = function () {

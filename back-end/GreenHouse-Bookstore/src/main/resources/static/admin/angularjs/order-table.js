@@ -6,13 +6,18 @@ app.controller("OrderController", function ($scope, $http, $interval) {
 
     let host = "http://localhost:8081/rest/order";
     $scope.username = localStorage.getItem("username");
+    const tokenGHN = '7a77199f-6293-11ee-af43-6ead57e9219a';
+    const shopIdGHN = 4586990;
+    const provinceCodeGH = 220;
+    const districtCodeGH = 1574;
+    const wardCodeGH = 550307;
     // List get data - start
     $scope.listInvoiceDetails = [];
     $scope.listInvoiceMappingVoucher = [];
     $scope.listOderMappingStatus = [];
     $scope.listProductDetails = [];
     $scope.listAuthorities = [];
-    // List get data - end
+    // List get data - end 
 
     // List for repeat - start
     $scope.listOrders = [];
@@ -175,6 +180,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
         angular.forEach($scope.selectedOrderDetails, function (detail) {
             $scope.totalOrderAmount += detail.price * detail.quantity;
         });
+        $scope.totalOrderAmount += $scope.selectedOrder.codAmount;
     };
 
     $scope.formatDate = function (date) {
@@ -199,33 +205,130 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             $scope.reverseSort = false;
         }
     };
-    //Hàm hủy
+    // duyệt đơn
+    $scope.acceptOrder = function (order) {
+        var apiUrl = 'https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create';
+        //================================================================
+        var paymentTypeId = order.paymentTypeId;
+        var note = order.note;
+        var requiredNote = order.requiredNote;
+        var fromName = order.fromName;
+        var fromPhone = order.fromPhone;
+        var fromAddress = order.fromAddress;
+        var fromWardName = order.fromWardName;
+        var fromDistrictName = order.fromDistrictName;
+        var fromProvinceName = order.fromProvinceName;
+        var returnPhone = order.returnPhone;
+        var returnAddress = order.returnAddress;
+        var returnDistrictId = order.returnDistrictId;
+        var returnWardCode = order.returnWardCode;
+        var clientOrderCode = order.clientOrderCode;
+        var toName = order.toName;
+        var toPhone = order.toPhone;
+        var toAddress = order.toAddress;
+        var toWardCode = order.toWardCode;
+        var toDistrictId = order.toDistrictId;
+        var codAmount = order.codAmount;
+        var content = order.content;
+        var weight = order.weight;
+        var length = order.length;
+        var width = order.width;
+        var height = order.height;
+        var insuranceValue = order.insuranceValue;
+        var serviceId = order.serviceId;
+        var serviceTypeId = order.serviceTypeId;
+        var items = [];
+        angular.forEach($scope.selectedOrderDetails, orderDetail => {
+            var item = {
+                name: orderDetail.productName,
+                code: orderDetail.productDetail.product.productId,
+                quantity: orderDetail.quantity,
+                price: orderDetail.price,
+                length: orderDetail.length,
+                width: orderDetail.width,
+                height: orderDetail.height,
+                weight: orderDetail.weight,
+            }
+            items.push(item);
+        })
+        //================================================
+        var requestBody = {
+            payment_type_id: paymentTypeId,
+            note: note,
+            required_note: requiredNote,
+            from_name: fromName,
+            from_phone: fromPhone,
+            from_address: fromAddress,
+            from_ward_name: fromWardName,
+            from_district_name: fromDistrictName,
+            from_province_name: fromProvinceName,
+            return_phone: returnPhone,
+            return_address: returnAddress,
+            return_district_id: returnDistrictId,
+            return_ward_code: returnWardCode,
+            client_order_code: clientOrderCode,
+            to_name: toName,
+            to_phone: toPhone,
+            to_address: toAddress,
+            to_ward_code: toWardCode,
+            to_district_id: toDistrictId,
+            cod_amount: codAmount,
+            content: content,
+            weight: weight,
+            length: length,
+            width: width,
+            height: height,
+            insurance_value: insuranceValue,
+            service_id: serviceId,
+            service_type_id: serviceTypeId,
+            items: items
+        };
 
-    $scope.cacelOrder = [];
+
+        var requestConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                'ShopId': shopIdGHN,
+                'Token': tokenGHN
+            }
+        };
+
+        $http.post(apiUrl, requestBody, requestConfig)
+            .then(function (response) {
+                $scope.getData();
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    };
+
+    //Hàm hủy
+    $scope.cancelOrder = [];
     $scope.showCancelModal = function (item) {
-        $scope.cacelOrder.orderCode = item.orderCode;
-        $scope.cacelOrder.email = item.account.email;
-        $scope.cacelOrder.username = item.account.username;
-        $scope.cacelOrder.noteCancel = "";
-        $scope.cacelOrder.status = item.status;
+        $scope.cancelOrder.orderCode = item.orderCode;
+        $scope.cancelOrder.email = item.account.email;
+        $scope.cancelOrder.username = item.account.username;
+        $scope.cancelOrder.noteCancel = "";
+        $scope.cancelOrder.status = item.status;
         $scope.errorsNoteCancel = "";
     };
 
     $scope.confirmCancel = function () {
-        if ($scope.cacelOrder.noteCancel == null || $scope.cacelOrder.noteCancel.length < 10) {
+        if ($scope.cancelOrder.noteCancel == null || $scope.cancelOrder.noteCancel.length < 10) {
             $scope.errorsNoteCancel = 'Vui lòng nhập lí do không ít hơn 10 kí tự!';
         }
         else {
             var updatedOrder = {
                 status: 'Canceled',
                 confirmed_By: $scope.username,
-                note: $scope.cacelOrder.noteCancel
+                note: $scope.cancelOrder.noteCancel
             };
 
-            if ($scope.cacelOrder.status === 'Pending Handover') {
+            if ($scope.cancelOrder.status === 'Pending Handover') {
                 // Nếu đơn hàng ở trạng thái 'Pending Handover', thực hiện cuộc gọi API của Giao Hàng Nhanh
                 var ghnApiData = {
-                    order_codes: [$scope.cacelOrder.orderCode]
+                    order_codes: [$scope.cancelOrder.orderCode]
                 };
 
                 $http.post('https://online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel', ghnApiData, {
@@ -244,18 +347,18 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             }
 
             // Gọi API để hủy đơn hàng
-            $http.put('/rest/order/cancelOrder/' + $scope.cacelOrder.orderCode, updatedOrder)
+            $http.put('/rest/order/cancelOrder/' + $scope.cancelOrder.orderCode, updatedOrder)
                 .then(function (response) {
                     // Xử lý khi hủy đơn hàng thành công
                     console.log(response.data);
-                    $scope.sendNotification("Thông báo hủy đơn hàng", $scope.cacelOrder.orderCode, $scope.cacelOrder.username, "Lí do hủy đơn hàng: " + $scope.cacelOrder.noteCancel);
+                    $scope.sendNotification("Thông báo hủy đơn hàng", $scope.cancelOrder.orderCode, $scope.cancelOrder.username, "Lí do hủy đơn hàng: " + $scope.cancelOrder.noteCancel);
                     $scope.getData();
-                    $scope.clearCacel();
+                    $scope.clearCancel();
                     $('#order-cancel').modal('hide');
                     Swal.fire({
                         icon: "success",
                         title: "Thành công",
-                        text: `Hủy đơn hàng ${$scope.cacelOrder.orderCode} thành công`,
+                        text: `Hủy đơn hàng ${$scope.cancelOrder.orderCode} thành công`,
                     });
                 })
                 .catch(function (error) {
@@ -266,7 +369,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
 
     };
 
-    $scope.clearCacel = function () {
+    $scope.clearCancel = function () {
         $scope.customerEmail = "";
         $scope.noteCancel = "";
         $scope.errorsNoteCancel = "";

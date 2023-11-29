@@ -13,6 +13,17 @@ app.controller("brandController", function ($scope, $location, $routeParams, $ht
     $scope.totalItems = $scope.brands.length; // Tổng số mục
     $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
     $scope.reverseSort = false; // Sắp xếp tăng dần
+    $scope.orderByField = "";
+    $scope.reverseSort = true;
+
+    $scope.sortBy = function (field) {
+        if ($scope.orderByField === field) {
+            $scope.reverseSort = !$scope.reverseSort;
+        } else {
+            $scope.orderByField = field;
+            $scope.reverseSort = true;
+        }
+    };
 
     // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
     $scope.getNumOfPages = function () {
@@ -94,6 +105,10 @@ app.controller("brandController", function ($scope, $location, $routeParams, $ht
             return;
         }
 
+           // Hiển thị hiệu ứng loading
+           var loadingOverlay = document.getElementById("loadingOverlay");
+           loadingOverlay.style.display = "block";
+
         if (fileInput && fileInput.files.length > 0) {
             formData.append("image", fileInput.files[0]);
         }
@@ -118,6 +133,8 @@ app.controller("brandController", function ($scope, $location, $routeParams, $ht
     })
     .then(function (resp) {
         console.log(resp);
+                  // Ẩn hiệu ứng loading khi lưu thành công
+                  loadingOverlay.style.display = "none";
         $scope.loadBrand();
         $scope.resetForm();
         var action = $scope.isEditing ? 'Cập nhật' : 'Thêm';
@@ -125,6 +142,8 @@ app.controller("brandController", function ($scope, $location, $routeParams, $ht
         $scope.clearImage();
     })
     .catch(function (error) {
+                  // Ẩn hiệu ứng loading khi lưu thành công
+                  loadingOverlay.style.display = "none";
         var action = $scope.isEditing ? 'Cập nhật' : 'Thêm';
         showError(`${action} thương hiệu thất bại`);
     });

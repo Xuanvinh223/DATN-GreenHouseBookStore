@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="OrderController">
+<div class="container-fluid order-page" ng-controller="OrderController">
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="row">
@@ -21,74 +21,74 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-muted px-2"
-                                            ng-class="{active: selectedStatus === 'Pending Confirmation'}"
-                                            ng-click="setListOrderByStatus('Pending Confirmation')">
+                                            ng-class="{active: selectedStatus === 'pending_confirmation'}"
+                                            ng-click="setListOrderByStatus('pending_confirmation')">
                                             Chờ Xác Nhận
                                             <span class="badge badge-pill bg-white border text-muted ml-2">
-                                                {{countOrderByStatus('Pending Confirmation')}}</span>
+                                                {{countOrderByStatus('pending_confirmation')}}</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-muted px-2"
-                                            ng-class="{active: selectedStatus === 'Pending Handover'}"
-                                            ng-click="setListOrderByStatus('Pending Handover')">
+                                            ng-class="{active: selectedStatus === 'pending'}"
+                                            ng-click="setListOrderByStatus('pending')">
                                             Chờ Bàn Giao
                                             <span class="badge badge-pill bg-white border text-muted ml-2">
-                                                {{countOrderByStatus('Pending Handover')}}</span>
+                                                {{countOrderByStatus('pending')}}</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-muted px-2"
-                                            ng-class="{active: selectedStatus === 'In Transit'}"
-                                            ng-click="setListOrderByStatus('In Transit')">
+                                            ng-class="{active: selectedStatus === 'transporting'}"
+                                            ng-click="setListOrderByStatus('transporting')">
                                             Đang Giao
                                             <span class="badge badge-pill bg-white border text-muted ml-2">
-                                                {{countOrderByStatus('In Transit')}}</span>
+                                                {{countOrderByStatus('transporting')}}</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-muted px-2"
-                                            ng-class="{active: selectedStatus === 'Returning'}"
-                                            ng-click="setListOrderByStatus('Returning')">
+                                            ng-class="{active: selectedStatus === 'return_transporting'}"
+                                            ng-click="setListOrderByStatus('return_transporting')">
                                             Đang Hoàn Hàng
                                             <span class="badge badge-pill bg-white border text-muted ml-2">
-                                                {{countOrderByStatus('Returning')}}</span>
+                                                {{countOrderByStatus('return_transporting')}}</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-muted px-2"
-                                            ng-class="{active: selectedStatus === 'Pending Redelivery Confirmation'}"
-                                            ng-click="setListOrderByStatus('Pending Redelivery Confirmation')">
+                                            ng-class="{active: selectedStatus === 'waiting_to_return'}"
+                                            ng-click="setListOrderByStatus('waiting_to_return')">
                                             Chờ Xác Nhận Giao Lại
                                             <span class="badge badge-pill bg-white border text-muted ml-2">
-                                                {{countOrderByStatus('Pending Redelivery Confirmation')}}</span>
+                                                {{countOrderByStatus('waiting_to_return')}}</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-muted px-2"
-                                            ng-class="{active: selectedStatus === 'Completed'}"
-                                            ng-click="setListOrderByStatus('Completed')">
+                                            ng-class="{active: selectedStatus === 'completed'}"
+                                            ng-click="setListOrderByStatus('completed')">
                                             Hoàn Tất
                                             <span class="badge badge-pill bg-white border text-muted ml-2">
-                                                {{countOrderByStatus('Completed')}}</span>
+                                                {{countOrderByStatus('completed')}}</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-muted px-2"
-                                            ng-class="{active: selectedStatus === 'Canceled'}"
-                                            ng-click="setListOrderByStatus('Canceled')">
+                                            ng-class="{active: selectedStatus === 'cancel'}"
+                                            ng-click="setListOrderByStatus('cancel')">
                                             Đã Hủy
                                             <span
-                                                class="badge badge-pill bg-white border text-muted ml-2">{{countOrderByStatus('Canceled')}}</span>
+                                                class="badge badge-pill bg-white border text-muted ml-2">{{countOrderByStatus('cancel')}}</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-muted px-2"
-                                            ng-class="{active: selectedStatus === 'Lost/Damaged Goods'}"
-                                            ng-click="setListOrderByStatus('Lost/Damaged Goods')">
+                                            ng-class="{active: selectedStatus === 'lost_damage'}"
+                                            ng-click="setListOrderByStatus('lost_damage')">
                                             Hàng Thất Lạc - Hư Hỏng
                                             <span class="badge badge-pill bg-white border text-muted ml-2">
-                                                {{countOrderByStatus('Lost/Damaged Goods')}}</span>
+                                                {{countOrderByStatus('lost_damage')}}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -163,36 +163,35 @@
                                         <td>{{item.codAmount |number:'0'}}VND</td>
                                         <td>Credit Card</td>
                                         <td>
-                                            <strong class="text-success" ng-if="item.status === 'Pending Confirmation'">
+                                            <strong class="text-success" ng-if="item.status === 'pending_confirmation'">
                                                 <span class="online_animation bg-success"></span>
                                                 Chờ Xác Nhận
                                             </strong>
-                                            <strong class="text-secondary" ng-if="item.status === 'Pending Handover'">
+                                            <strong class="text-secondary" ng-if="item.status === 'pending'">
                                                 <span class="online_animation bg-secondary"></span>
                                                 Chờ Bàn Giao
                                             </strong>
-                                            <strong class="text-warning" ng-if="item.status === 'In Transit'">
+                                            <strong class="text-warning" ng-if="item.status === 'transporting'">
                                                 <span class="online_animation bg-warning"></span>
                                                 Đang Giao
                                             </strong>
-                                            <strong class="text-danger" ng-if="item.status === 'Returning'">
+                                            <strong class="text-danger" ng-if="item.status === 'return_transporting'">
                                                 <span class="online_animation bg-danger"></span>
                                                 Đang Hoàn Hàng
                                             </strong>
-                                            <strong class="text-info"
-                                                ng-if="item.status === 'Pending Redelivery Confirmation'">
+                                            <strong class="text-info" ng-if="item.status === 'waiting_to_return'">
                                                 <span class="online_animation bg-info"></span>
                                                 Chờ Xác Nhận Giao Lại
                                             </strong>
-                                            <strong class="text-primary" ng-if="item.status === 'Completed'">
+                                            <strong class="text-primary" ng-if="item.status === 'completed'">
                                                 <span class="online_animation bg-primary"></span>
                                                 Hoàn Tất
                                             </strong>
-                                            <strong class="text-danger" ng-if="item.status === 'Canceled'">
+                                            <strong class="text-danger" ng-if="item.status === 'cancel'">
                                                 <span class="online_animation bg-danger"></span>
                                                 Đã Hủy
                                             </strong>
-                                            <strong class="text-danger" ng-if="item.status === 'Lost/Damaged Goods'">
+                                            <strong class="text-danger" ng-if="item.status === 'lost_damage'">
                                                 <span class="online_animation bg-danger"></span>
                                                 Hàng Thất Lạc - Hư Hỏng
                                             </strong>
@@ -203,7 +202,7 @@
                                                 <i class="fe fe-eye fe-16"></i></a>
                                             <a data-target=".order-cancel" data-toggle="modal"
                                                 ng-click="showCancelModal(item)"
-                                                ng-show="item.status === 'Pending Confirmation' || item.status==='Pending Handover'">
+                                                ng-show="item.status === 'pending_confirmation' || item.status==='pending'">
                                                 <i class="fe fe-slash fe-16"></i>
                                             </a>
                                         </td>
@@ -283,36 +282,35 @@
                                     date:'dd/MM/yyyy HH:mm'}}</strong><br>
                                 <strong>Trạng Thái: </strong> <br>
                                 <strong>Tình trạng:</strong>
-                                <strong class="text-success" ng-if="selectedOrder.status === 'Pending Confirmation'">
+                                <strong class="text-success" ng-if="selectedOrder.status === 'pending_confirmation'">
                                     <span class="online_animation bg-success"></span>
                                     Chờ Xác Nhận
                                 </strong>
-                                <strong class="text-secondary" ng-if="selectedOrder.status === 'Pending Handover'">
+                                <strong class="text-secondary" ng-if="selectedOrder.status === 'pending'">
                                     <span class="online_animation bg-secondary"></span>
                                     Chờ Bàn Giao
                                 </strong>
-                                <strong class="text-warning" ng-if="selectedOrder.status === 'In Transit'">
+                                <strong class="text-warning" ng-if="selectedOrder.status === 'transporting'">
                                     <span class="online_animation bg-warning"></span>
                                     Đang Giao
                                 </strong>
-                                <strong class="text-danger" ng-if="selectedOrder.status === 'Returning'">
+                                <strong class="text-danger" ng-if="selectedOrder.status === 'return_transporting'">
                                     <span class="online_animation bg-danger"></span>
                                     Đang Hoàn Hàng
                                 </strong>
-                                <strong class="text-info"
-                                    ng-if="selectedOrder.status === 'Pending Redelivery Confirmation'">
+                                <strong class="text-info" ng-if="selectedOrder.status === 'waiting_to_return'">
                                     <span class="online_animation bg-info"></span>
                                     Chờ Xác Nhận Giao Lại
                                 </strong>
-                                <strong class="text-primary" ng-if="selectedOrder.status === 'Completed'">
+                                <strong class="text-primary" ng-if="selectedOrder.status === 'completed'">
                                     <span class="online_animation bg-primary"></span>
                                     Hoàn Tất
                                 </strong>
-                                <strong class="text-danger" ng-if="selectedOrder.status === 'Canceled'">
+                                <strong class="text-danger" ng-if="selectedOrder.status === 'cancel'">
                                     <span class="online_animation bg-danger"></span>
                                     Đã Hủy
                                 </strong>
-                                <strong class="text-danger" ng-if="selectedOrder.status === 'Lost/Damaged Goods'">
+                                <strong class="text-danger" ng-if="selectedOrder.status === 'lost_damage'">
                                     <span class="online_animation bg-danger"></span>
                                     Hàng Thất Lạc - Hư Hỏng
                                 </strong>
@@ -380,6 +378,12 @@
                     <div class="col-md-12 text-right">
                         <hr>
                         <h6>
+                            Phí vận chuyển:
+                            <strong class="text-danger">
+                                {{selectedOrder.codAmount | number:'0'}} VND
+                            </strong>
+                        </h6>
+                        <h6>
                             TỔNG TIỀN:
                             <strong class="text-danger">
                                 {{totalOrderAmount | number:'0'}} VND
@@ -387,8 +391,8 @@
                         </h6>
                     </div>
                 </div>
-                <div class="modal-footer" ng-show="selectedOrder.status === 'Pending Confirmation'">
-                    <a href="" class="btn btn-primary">
+                <div class="modal-footer" ng-show="selectedOrder.status === 'pending_confirmation'">
+                    <a class="btn btn-primary" ng-click="acceptOrder(selectedOrder)">
                         <i class="fa fa-shopping-cart fe-16 mr-2"></i>Duyệt Đơn</a>
                 </div>
             </div>
@@ -421,14 +425,14 @@
                                 dung (LÝ DO HỦY ĐƠN):</label>
                             <textarea ng-model="cacelOrder.noteCancel" name="message" class="form-control" required
                                 style="height: 200px;" placeholder="Nhập nội dung ...."></textarea>
-                                <span class="text-danger">*{{errorsNoteCancel}}</span>
+                            <span class="text-danger">*{{errorsNoteCancel}}</span>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" ng-click="confirmCancel()">
                             Xác nhận
                         </button>
-                        <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="clearCacel()">
+                        <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="clearCancel()">
                             Hủy bỏ
                         </button>
                     </div>

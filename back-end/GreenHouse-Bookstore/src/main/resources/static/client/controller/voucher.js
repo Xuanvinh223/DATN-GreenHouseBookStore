@@ -28,9 +28,19 @@ function voucherController($http, $scope, voucherAPI) {
                 var message = response.data.message;
                 var status = response.data.status;
                 if (status == 200) {
-                    $scope.showNotification("success", message);
+                    Swal.fire({
+                        title: "Thông báo",
+                        text: message,
+                        icon: "success",
+                        confirmButtonText: "OK",
+                    });
                 } else {
-                    $scope.showNotification("error", message);
+                    Swal.fire({
+                        title: "Thông báo",
+                        text: message,
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    });
                 }
             })
             .catch(function (error) {
