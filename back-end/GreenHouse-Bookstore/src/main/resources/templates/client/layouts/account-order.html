@@ -215,18 +215,18 @@
                                                                 <div class="order-btn col-md-8">
                                                                     <!-- Hủy Đơn -->
                                                                     <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        ng-click="showCancelModal(order)"
                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Hủy
                                                                         đơn</a>
                                                                     <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <a ng-if="order.status === 'Completed'"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh
                                                                         giá</a>
                                                                     <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
                                                                     <a ng-if="['Completed', 'Canceled'].includes(order.status)"
-                                                                       ng-href="javascript:void(0)"
+                                                                       ng-click="buyAgain(order.orderCode)"
                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Mua
                                                                         lại</a>
                                                                     <!-- Liên Hệ -->
@@ -235,7 +235,7 @@
                                                                         hệ</a>
                                                                     <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <a ng-if="order.status === 'Completed'"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        class="btn btn-outline-dark shadow-none text-center">Xem
                                                                         đánh giá</a>
                                                                 </div>
@@ -350,18 +350,18 @@
                                                                 <div class="order-btn col-md-8">
                                                                     <!-- Hủy Đơn -->
                                                                     <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        ng-click="showCancelModal(order)"
                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Hủy
                                                                         đơn</a>
                                                                     <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <a ng-if="order.status === 'Completed'"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh
                                                                         giá</a>
                                                                     <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
                                                                     <a ng-if="['Completed', 'Canceled'].includes(order.status)"
-                                                                       ng-href="javascript:void(0)"
+                                                                    ng-click="buyAgain(order.orderCode)"
                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Mua
                                                                         lại</a>
                                                                     <!-- Liên Hệ -->
@@ -370,7 +370,7 @@
                                                                         hệ</a>
                                                                     <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <a ng-if="order.status === 'Completed'"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        class="btn btn-outline-dark shadow-none text-center">Xem
                                                                         đánh giá</a>
                                                                 </div>
@@ -451,7 +451,7 @@
                                                                         <p>x{{ orderDetail.quantity }}</p>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-3 d-flex justify-content-end">
+                                                                <div class="col-md-3 d-flex justify-content-end"> 
                                                                     <div class="order-price">
                                                                         <p class="fw-normal mb-0">
                                                                             <del class="order-price-origin"><sup>đ</sup>{{orderDetail.productDetail.price
@@ -484,18 +484,18 @@
                                                                 <div class="order-btn col-md-8">
                                                                     <!-- Hủy Đơn -->
                                                                     <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        ng-click="showCancelModal(order)"
                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Hủy
                                                                         đơn</a>
                                                                     <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <a ng-if="order.status === 'Completed'"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh
                                                                         giá</a>
                                                                     <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
                                                                     <a ng-if="['Completed', 'Canceled'].includes(order.status)"
-                                                                       ng-href="javascript:void(0)"
+                                                                    ng-click="buyAgain(order.orderCode)"
                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Mua
                                                                         lại</a>
                                                                     <!-- Liên Hệ -->
@@ -504,7 +504,7 @@
                                                                         hệ</a>
                                                                     <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <a ng-if="order.status === 'Completed'"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        class="btn btn-outline-dark shadow-none text-center">Xem
                                                                         đánh giá</a>
                                                                 </div>
@@ -618,18 +618,18 @@
                                                                 <div class="order-btn col-md-8">
                                                                     <!-- Hủy Đơn -->
                                                                     <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        ng-click="showCancelModal(order)"
                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Hủy
                                                                         đơn</a>
                                                                     <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <a ng-if="order.status === 'Completed'"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh
                                                                         giá</a>
                                                                     <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
                                                                     <a ng-if="['Completed', 'Canceled'].includes(order.status)"
-                                                                       ng-href="javascript:void(0)"
+                                                                    ng-click="buyAgain(order.orderCode)"
                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Mua
                                                                         lại</a>
                                                                     <!-- Liên Hệ -->
@@ -638,7 +638,7 @@
                                                                         hệ</a>
                                                                     <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <a ng-if="order.status === 'Completed'"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        class="btn btn-outline-dark shadow-none text-center">Xem
                                                                         đánh giá</a>
                                                                 </div>
@@ -752,18 +752,18 @@
                                                                 <div class="order-btn col-md-8">
                                                                     <!-- Hủy Đơn -->
                                                                     <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        ng-click="showCancelModal(order)"
                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Hủy
                                                                         đơn</a>
                                                                     <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <a ng-if="order.status === 'Completed'"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh
                                                                         giá</a>
                                                                     <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
                                                                     <a ng-if="['Completed', 'Canceled'].includes(order.status)"
-                                                                       ng-href="javascript:void(0)"
+                                                                    ng-click="buyAgain(order.orderCode)"
                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Mua
                                                                         lại</a>
                                                                     <!-- Liên Hệ -->
@@ -772,7 +772,7 @@
                                                                         hệ</a>
                                                                     <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <a ng-if="order.status === 'Completed'"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        class="btn btn-outline-dark shadow-none text-center">Xem
                                                                         đánh giá</a>
                                                                 </div>
@@ -886,18 +886,18 @@
                                                                 <div class="order-btn col-md-8">
                                                                     <!-- Hủy Đơn -->
                                                                     <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        ng-click="showCancelModal(order)"
                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Hủy
                                                                         đơn</a>
                                                                     <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <a ng-if="order.status === 'Completed'"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh
                                                                         giá</a>
                                                                     <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
                                                                     <a ng-if="['Completed', 'Canceled'].includes(order.status)"
-                                                                       ng-href="javascript:void(0)"
+                                                                    ng-click="buyAgain(order.orderCode)"
                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Mua
                                                                         lại</a>
                                                                     <!-- Liên Hệ -->
@@ -906,7 +906,7 @@
                                                                         hệ</a>
                                                                     <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <a ng-if="order.status === 'Completed'"
-                                                                       ng-href="javascript:void(0)"
+                                                                        
                                                                        class="btn btn-outline-dark shadow-none text-center">Xem
                                                                         đánh giá</a>
                                                                 </div>

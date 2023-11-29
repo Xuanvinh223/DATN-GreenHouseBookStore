@@ -1,6 +1,5 @@
 package com.greenhouse.restcontroller.client;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,13 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.greenhouse.model.Authentic_Photos;
 import com.greenhouse.model.OrderDetails;
-import com.greenhouse.model.Order_Detail;
 import com.greenhouse.model.Orders;
-import com.greenhouse.model.Suppliers;
 import com.greenhouse.repository.AccountRepository;
-import com.greenhouse.repository.OrderDetailReponsitory;
+import com.greenhouse.repository.OrderDetailsRepository;
 import com.greenhouse.repository.OrdersRepository;
 import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.repository.ProductsRepository;
@@ -33,7 +29,7 @@ import jakarta.transaction.Transactional;
 @RequestMapping("/customer/rest/order")
 public class OrderController {
     @Autowired
-    OrderDetailReponsitory od;
+    OrderDetailsRepository od;
     @Autowired
     OrdersRepository o;
     @Autowired
@@ -55,7 +51,7 @@ public class OrderController {
 
     @Transactional
     @GetMapping("/orderdetail/{orderCode}")
-    public List<Order_Detail> getOrderDetail(@PathVariable String orderCode) {
+    public List<OrderDetails> getOrderDetail(@PathVariable String orderCode) {
         return od.findByOrderCode(orderCode);
     }
 
@@ -73,6 +69,6 @@ public class OrderController {
         } else {
             return ResponseEntity.badRequest().body("Không thể hủy đơn hàng với trạng thái hiện tại");
         }
-    }
+    } 
 
 }

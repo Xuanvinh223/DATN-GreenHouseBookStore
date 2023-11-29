@@ -130,7 +130,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
             if (result.isConfirmed) {
                 CartService.removeCartItem($scope.listCartItem[index].cartId);
                 $scope.listCartItem.splice(index, 1);
-                $scope.getCartHeader();
             }
         });
 
