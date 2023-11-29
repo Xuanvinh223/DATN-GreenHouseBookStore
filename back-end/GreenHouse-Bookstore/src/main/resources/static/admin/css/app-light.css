@@ -3,7 +3,7 @@
 /* table */
 /* paging */
 /* tabs */
-/* dropdown */
+/* dropdown */ 
 /* list group */
 /* modal */
 /* tabs */
@@ -16941,14 +16941,18 @@ a.uppy-Dashboard-poweredBy {
   text-overflow: ellipsis;
 }
 .nav-pills a.active {
-  color: #2a2a2a !important;
+  color: #fff !important;
 }
 /* Thanh cuộn ngang order */
+.order-page .nav-pills a.active{
+  font-weight: bold;
+}
 .nav-pills {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  max-width: 1100px;
+  max-width: 100%;
+  font-size: larger;
 }
 .collapsed .nav-pills {
   max-width: 1400px;
