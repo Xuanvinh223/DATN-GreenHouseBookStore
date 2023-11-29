@@ -20,6 +20,7 @@ import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.OrderDetailsRepository;
 import com.greenhouse.repository.OrdersRepository;
 import com.greenhouse.repository.ProductDetailRepository;
+import com.greenhouse.repository.ProductReviewsRepository;
 import com.greenhouse.repository.ProductsRepository;
 import com.greenhouse.service.EmailService;
 
@@ -40,13 +41,34 @@ public class OrderController {
     ProductDetailRepository pd;
     @Autowired
     EmailService sendEmail;
+    @Autowired
+    ProductReviewsRepository productReviewsRepository;
 
     @GetMapping("/{username}")
     public Map<String, Object> getOrders(@PathVariable String username) {
         Map<String, Object> response = new HashMap<>();
         List<Orders> orders = o.findByUsername(username);
+        // Kiểm tra xem có bản ghi nào thỏa mãn các điều kiện đã cho hay không
         response.put("orders", orders);
         return response;
+    }
+
+    @GetMapping("/{username}/{productDetailId}/{orderCode}")
+    public ResponseEntity<Map<String, Object>> getOrders(
+            @PathVariable String username,
+            @PathVariable int productDetailId,
+            @PathVariable String orderCode) {
+
+        Map<String, Object> response = new HashMap<>();
+        // Kiểm tra xem có bản ghi nào thỏa mãn các điều kiện đã cho hay không
+        boolean productExists = productReviewsRepository
+                .existsByAccount_UsernameAndProductDetail_ProductDetailIdAndOrder_OrderCode(
+                        username,
+                        productDetailId,
+                        orderCode);
+        response.put("productExists", productExists);
+
+        return ResponseEntity.ok(response);
     }
 
     @Transactional
@@ -71,4 +93,20 @@ public class OrderController {
         }
     } 
 
+    @PutMapping("/confirmOrder/{orderCode}")
+    public ResponseEntity<String> confirmOrder(@PathVariable String orderCode) {
+        Optional<Orders> optionalOrder = o.findById(orderCode);
+
+        if (optionalOrder.isPresent()) {
+            Orders existingOrder = optionalOrder.get();
+
+            // Xác nhận đơn hàng (thay đổi status)
+            existingOrder.setStatus("Received");
+            o.save(existingOrder);
+
+            return ResponseEntity.ok("Đã xác nhận đơn hàng");
+        } else {
+            return ResponseEntity.badRequest().body("Không thể xác nhận đơn hàng với mã đơn hàng này");
+        }
+    }
 }

@@ -40,5 +40,8 @@ public class Product_Reviews implements Serializable {
     @Column(name = "Star")
     private int star;
 
+    @ManyToOne
+    @JoinColumn(name = "Order_Code")
+    private Orders order;
     // Constructors, getters, and setters.
 }
