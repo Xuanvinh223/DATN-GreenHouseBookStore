@@ -1599,6 +1599,10 @@ ul.dropdown-menu.dropdown-menu-edit-review {
   -moz-box-shadow: none;
   box-shadow: none;
 }
+.product-view-tab-content-rating-review {
+  max-height: 500px; /* Đặt chiều cao tối đa */
+  overflow-y: auto; /* Thêm thanh cuộn khi nội dung vượt quá chiều cao */
+}
 
 .fhs_popup-default-info-detail-title {
   display: flex;

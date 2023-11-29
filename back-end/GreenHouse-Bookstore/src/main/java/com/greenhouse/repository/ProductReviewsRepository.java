@@ -15,4 +15,10 @@ public interface ProductReviewsRepository extends JpaRepository<Product_Reviews,
     Product_Reviews findByReviewId(int reviewId);
 
     boolean existsByAccount_UsernameAndProductDetail_ProductDetailId(String username, Integer productDetailId);
+    
+    boolean existsByAccount_UsernameAndProductDetail_ProductDetailIdAndOrder_OrderCode(
+        String username, 
+        Integer productDetailId, 
+        String orderCode
+    );
 }
