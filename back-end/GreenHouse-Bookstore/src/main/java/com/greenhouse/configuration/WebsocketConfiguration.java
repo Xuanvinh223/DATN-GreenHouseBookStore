@@ -12,7 +12,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer {
 
-     @Value("${greenhouse.host}")
+    @Value("${greenhouse.host}")
     private String greenhouseHost;
 
     @Value("${greenhouse.port}")
@@ -22,6 +22,7 @@ public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer 
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/notify")
                 .withSockJS();
+        registry.addEndpoint("/rest/gs-guide-websocket").withSockJS();
     }
 
     @Override
@@ -29,5 +30,5 @@ public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer 
         registry.setApplicationDestinationPrefixes("/app");
         registry.enableSimpleBroker("/topic", "/user");
     }
-	
+
 }

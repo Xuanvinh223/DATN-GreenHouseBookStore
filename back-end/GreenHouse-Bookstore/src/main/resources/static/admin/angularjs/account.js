@@ -113,12 +113,7 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             return;
         }
 
-        // Kiểm tra tên tài khoản chỉ được nhập chữ và số
-        var usernameRegex = /^[a-zA-Z0-9]+$/;
-        if (!usernameRegex.test(username)) {
-            $scope.errorMessages.username = 'Tên tài khoản chỉ được nhập chữ và số';
-            return;
-        }
+     
 
         // Kiểm tra mật khẩu chỉ khi thêm mới
         if (!$scope.isEditing) {

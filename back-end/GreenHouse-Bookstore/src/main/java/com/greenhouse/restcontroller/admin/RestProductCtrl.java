@@ -24,6 +24,7 @@ import com.greenhouse.util.ImageUploader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -63,6 +64,8 @@ public class RestProductCtrl {
 
     @Autowired
     private ProductPriceHistoriesService productPriceHistoriesService;
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     @GetMapping
     public ResponseEntity<List<Products>> getAllProducts() {
@@ -77,7 +80,7 @@ public class RestProductCtrl {
     @PostMapping
     public ResponseEntity<List<Products>> create(
             @RequestParam(value = "image", required = false) MultipartFile imageFile,
-            @RequestParam(value = "file", required = false) MultipartFile[] files, // Chấp nhận nhiều hình ảnh
+            @RequestParam(value = "file", required = false) MultipartFile[] files,
             @RequestParam(value = "dataJson") String dataJson) throws Exception {
 
         if (dataJson.isEmpty()) {
@@ -103,14 +106,40 @@ public class RestProductCtrl {
         productCategoryService.add(productCategory);
 
         Book_Authors bookAuthor = new Book_Authors();
-        bookAuthor.setProduct(createdProduct);
-        bookAuthor.setAuthor(data.getAuthor());
-        bookAuthorsService.add(bookAuthor);
+
+        // Kiểm tra nếu setAuthor không phải là null mới thêm bookAuthor
+        if (data.getAuthor() != null) {
+            bookAuthor.setProduct(createdProduct);
+            bookAuthor.setAuthor(data.getAuthor());
+            bookAuthorsService.add(bookAuthor);
+        } else {
+            // Xử lý khi setAuthor là null (nếu cần)
+            System.out.println("Author is null. Book_Authors not added.");
+        }
 
         double price = data.getProductDetail().getPrice();
-        double discountPercentage = data.getDiscount().getValue() / 100.0;
-        double priceDiscount = price - (price * discountPercentage);
-        data.getProductDetail().setPriceDiscount(priceDiscount);
+
+        // Kiểm tra xem giảm giá có giá trị không
+        if (data.getDiscount() != null && data.getDiscount().getValue() != null) {
+            // Lấy thông tin về giảm giá
+            Discounts discount = data.getDiscount();
+
+            // Kiểm tra điều kiện với startDate và endDate
+            Date currentDate = new Date();
+            if (discount.getStartDate().before(currentDate) && discount.getEndDate().after(currentDate)) {
+                // Nếu giảm giá đang có hiệu lực, tính giảm giá
+                double discountPercentage = discount.getValue() / 100.0;
+                double priceDiscount = price - (price * discountPercentage);
+                data.getProductDetail().setPriceDiscount(priceDiscount);
+            } else {
+                // Nếu giảm giá không có hiệu lực, giữ nguyên giá sản phẩm
+                data.getProductDetail().setPriceDiscount(price);
+            }
+        } else {
+            // Nếu giảm giá là null, giữ nguyên giá sản phẩm
+            data.getProductDetail().setPriceDiscount(price);
+        }
+
         data.getProductDetail().setProduct(createdProduct);
         if (photoUrl != null) {
             data.getProductDetail().setImage(photoUrl);
@@ -118,20 +147,22 @@ public class RestProductCtrl {
         Product_Detail productDetail = productDetailService.add(data.getProductDetail());
 
         Product_Discount productDiscount = new Product_Discount();
-        productDiscount.setProductDetail(productDetail);
-        productDiscount.setDiscount(data.getDiscount());
-        productDiscountService.add(productDiscount);
+        // Kiểm tra nếu setAuthor không phải là null mới thêm bookAuthor
+        if (data.getDiscount() != null) {
+            productDiscount.setProductDetail(productDetail);
+            productDiscount.setDiscount(data.getDiscount());
+            productDiscountService.add(productDiscount);
+            // Lấy đối tượng Discount từ ProductDTO
+            Discounts discount = data.getDiscount();
+            // Cập nhật trạng thái và số lượng của đối tượng Discount
+            discount.setActive(true); // Đặt trạng thái là true
 
-        // Lấy đối tượng Discount từ ProductDTO
-        Discounts discount = data.getDiscount();
-
-        // Cập nhật trạng thái và số lượng của đối tượng Discount
-        discount.setActive(true); // Đặt trạng thái là true
-        discount.setQuantity(discount.getQuantity() - 1); // Giảm đi 1 quantity
-        discount.setUsedQuantity(discount.getUsedQuantity() + 1); // Tăng thêm 1 usedQuantity
-
-        // Lưu đối tượng Discount đã cập nhật
-        discountsService.update(discount);
+            // Lưu đối tượng Discount đã cập nhật
+            discountsService.update(discount);
+        } else {
+            // Xử lý khi setAuthor là null (nếu cần)
+            System.out.println("Discount is null. Product_Discount not added.");
+        }
 
         ProductPriceHistories productPriceHistories = new ProductPriceHistories();
         productPriceHistories.setProductDetail(productDetail);
@@ -167,6 +198,8 @@ public class RestProductCtrl {
             attributeValueService.add(attributeValue);
 
         }
+        // Sau khi tạo sản phẩm thành công, gửi thông báo đến client sử dụng WebSocket
+        messagingTemplate.convertAndSend("/topic/products", "update");
 
         List<Products> updatedProducts = productsService.findAll();
         return new ResponseEntity<>(updatedProducts, HttpStatus.OK);
@@ -247,11 +280,30 @@ public class RestProductCtrl {
         existingProductDetail.setLength(data.getProductDetail().getLength());
         existingProductDetail.setWidth(data.getProductDetail().getWidth());
 
-        // Tính toán priceDiscount
         double price = existingProductDetail.getPrice();
-        double discountValue = data.getDiscount().getValue() / 100.0;
-        double priceDiscount = price - (price * discountValue);
-        existingProductDetail.setPriceDiscount(priceDiscount);
+
+        // Kiểm tra xem giảm giá có giá trị không
+        if (data.getDiscount() != null && data.getDiscount().getValue() != null) {
+            // Lấy thông tin về giảm giá
+            Discounts discount = data.getDiscount();
+
+            // Kiểm tra điều kiện với startDate và endDate
+            Date currentDate = new Date();
+            if (discount.getStartDate() != null && discount.getEndDate() != null
+                    && discount.getStartDate().before(currentDate) && discount.getEndDate().after(currentDate)) {
+                // Nếu giảm giá đang có hiệu lực, tính giảm giá
+                double discountValue = discount.getValue() / 100.0;
+                double priceDiscount = price - (price * discountValue);
+                existingProductDetail.setPriceDiscount(priceDiscount);
+            } else {
+                // Nếu giảm giá không có hiệu lực, giữ nguyên giá sản phẩm
+                existingProductDetail.setPriceDiscount(price);
+            }
+        } else {
+            // Nếu giảm giá là null, giữ nguyên giá sản phẩm
+            existingProductDetail.setPriceDiscount(price);
+        }
+
         if (photoUrl != null) {
             existingProductDetail.setImage(photoUrl);
         }
@@ -273,12 +325,23 @@ public class RestProductCtrl {
         productPriceHistoriesService.update(exPriceHistories);
 
         Product_Discount existingProductDiscount = productDiscountService.findByProductDetail(existingProductDetail);
+
         if (existingProductDiscount == null) {
             existingProductDiscount = new Product_Discount();
             existingProductDiscount.setProductDetail(existingProductDetail);
-
         }
-        existingProductDiscount.setDiscount(data.getDiscount());
+
+        Discounts newDiscount = data.getDiscount();
+
+        // Kiểm tra nếu giảm giá đã hết hạn
+        if (newDiscount != null && newDiscount.getEndDate() != null && new Date().after(newDiscount.getEndDate())) {
+            // Nếu giảm giá đã hết hạn, cập nhật discount thành null
+            productDiscountService.update(existingProductDiscount);
+        } else {
+            // Nếu giảm giá còn hiệu lực, cập nhật discount thành giảm giá mới
+            existingProductDiscount.setDiscount(newDiscount);
+        }
+
         productDiscountService.update(existingProductDiscount);
 
         if (files != null && files.length > 0) {
@@ -322,6 +385,8 @@ public class RestProductCtrl {
                 attributeValueService.add(attributeValue);
             }
         }
+        // Sau khi tạo sản phẩm thành công, gửi thông báo đến client sử dụng WebSocket
+        messagingTemplate.convertAndSend("/topic/products", "update");
 
         System.out.println(dataJson);
 
@@ -361,7 +426,7 @@ public class RestProductCtrl {
 
         // Thực hiện xóa mềm
         existingProduct.setDeleteAt(new Date());
-        existingProduct.setDeleteBy("admin"); // Thay thế bằng người dùng thực hiện xóa mềm
+        existingProduct.setDeleteBy("Admin"); // Thay thế bằng người dùng thực hiện xóa mềm
 
         productsService.update(existingProduct);
 

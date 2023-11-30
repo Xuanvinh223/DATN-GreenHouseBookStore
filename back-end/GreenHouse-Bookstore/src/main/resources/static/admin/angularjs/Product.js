@@ -1,4 +1,7 @@
-app.controller("ProductController", function ($scope, $location, $routeParams, $http, $filter) {
+
+
+
+app.controller("ProductController", function ($scope, $http, $filter, WebSocketService) {
     $scope.$on("$routeChangeSuccess", function (event, current, previous) {
         $scope.page.setTitle(current.$$route.title || " Quản Lý Sản Phẩm");
     });
@@ -180,12 +183,11 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
     };
 
 
-    // Thêm hàm để cấu hình và kích hoạt trình soạn thảo TinyMCE
     $scope.initTinyMCE = function () {
         tinymce.init({
-            selector: '#description', // Chọn textarea có id là 'description'
+            selector: '#description',
             height: 300,
-            plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+            plugins: 'mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
             tinycomments_mode: 'embedded',
             tinycomments_author: 'Author name',
@@ -199,8 +201,29 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
     };
 
 
+
     // Gọi hàm initTinyMCE khi controller được khởi tạo
     $scope.initTinyMCE();
+
+
+    // Gọi API để lấy dữ liệu discounts
+    $http.get("/rest/discounts")
+        .then(function (response) {
+            // Lọc dữ liệu theo điều kiện endDate lớn hơn ngày hiện tại
+            $scope.discounts = filterDiscounts(response.data);
+        })
+        .catch(function (error) {
+            console.log("Error", error);
+        });
+
+    // Hàm để lọc dữ liệu discounts
+    function filterDiscounts(discounts) {
+        var currentDate = new Date();
+        return discounts.filter(function (discount) {
+            return new Date(discount.endDate) > currentDate;
+        });
+    }
+
 
 
     // Tạo một mảng chứa các promise
@@ -209,7 +232,6 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
         $http.get("/rest/attributeValues"),
         $http.get("/rest/categories"),
         $http.get("/rest/authors"),
-        $http.get("/rest/discounts"),
         $http.get("/rest/brand"),
         $http.get("/rest/publishers"),
         $http.get("/rest/productImages"),
@@ -225,10 +247,9 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
             $scope.attributeValues = responses[1].data;
             $scope.categories = responses[2].data;
             $scope.authors = responses[3].data;
-            $scope.discounts = responses[4].data;
-            $scope.brands = responses[5].data;
-            $scope.publishers = responses[6].data;
-            $scope.productImages = responses[7].data;
+            $scope.brands = responses[4].data;
+            $scope.publishers = responses[5].data;
+            $scope.productImages = responses[6].data;
 
         })
         .catch(function (error) {
@@ -403,7 +424,7 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
             status: $scope.product.status = true,
             category: $scope.productCategory.category || "",
             author: $scope.bookAuthor ? $scope.bookAuthor.author : null,
-            discount: $scope.productDiscount.discount || "",
+            discount: $scope.productDiscount ? $scope.productDiscount.discount : null,
             productDetail: $scope.productDetail || "",
             image: $scope.productDetail.image || "",
             attributeValues: attributeValues || "",
@@ -460,6 +481,11 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
         });
     };
 
+    $scope.connectWebSocket = function () {
+        WebSocketService.connect($scope.updateProduct);
+    };
+
+
 
     $scope.updateProduct = function () {
         var formData = new FormData();
@@ -486,8 +512,8 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
         var data = {
             product: $scope.editingProduct.product,
             category: $scope.editingProduct.productCategory.category,
-            author: $scope.bookAuthor ? $scope.bookAuthor.author : null,
-            discount: $scope.editingProduct.productDiscount.discount,
+            author: $scope.editingProduct.bookAuthor ? $scope.editingProduct.bookAuthor.author : null,
+            discount: $scope.editingProduct.productDiscount ? $scope.editingProduct.productDiscount.discount : null,
             productDetail: $scope.editingProduct.productDetail,
             attributeValues: $scope.editingProduct.attributeValues,
         };
@@ -535,7 +561,6 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
             });
     };
 
-
     $scope.onCategoryChange = function () {
         // Lấy typeID của danh mục được chọn
         var selectedCategoryId = $scope.productCategory.category.categoryId;
@@ -552,6 +577,25 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
             $scope.showAuthorSelect = false; // Ẩn form chọn tên tác giả
         }
     };
+
+
+    $scope.onCategoryChanged = function () {
+        // Lấy typeID của danh mục được chọn
+        var selectedCategoryId = $scope.editingProduct.productCategory.category.categoryId;
+
+        // Tìm danh mục tương ứng để lấy typeID
+        var selectedCategory = $scope.categories.find(function (category) {
+            return category.categoryId === selectedCategoryId;
+        });
+
+        // Kiểm tra nếu typeID của danh mục được chọn là 1
+        if (selectedCategory && selectedCategory.typeId && selectedCategory.typeId.typeId === "1") {
+            $scope.showAuthorSelected = true; // Hiển thị form chọn tên tác giả
+        } else {
+            $scope.showAuthorSelected = false; // Ẩn form chọn tên tác giả
+        }
+    };
+
 
     $scope.openAddAuthorModal = function () {
         $scope.editingAuthor = {};
@@ -618,17 +662,46 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
     };
 
 
+
     $scope.calculateDiscountedPrice = function (item) {
-        // Kiểm tra nếu ngày kết thúc lớn hơn ngày hiện tại
-        if (new Date(item.productDiscount.discount.endDate) > new Date()) {
-            // Nếu còn hiệu lực, giảm giá sẽ được áp dụng
-            return $filter("number")(item.productDetail.priceDiscount) + " VND";
+        // Kiểm tra nếu item.productDetail tồn tại và có thuộc tính 'price'
+        if (item.productDetail && item.productDetail.price) {
+            // Kiểm tra nếu item.productDiscount tồn tại và có thuộc tính 'discount'
+            if (item.productDiscount && item.productDiscount.discount) {
+                // Kiểm tra nếu thuộc tính 'startDate' và 'endDate' tồn tại
+                if (item.productDiscount.discount.startDate && item.productDiscount.discount.endDate) {
+                    // Lấy ngày hiện tại
+                    var currentDate = new Date();
+
+                    // Kiểm tra nếu startDate nhỏ hơn ngày hiện tại và endDate lớn hơn ngày hiện tại
+                    if (new Date(item.productDiscount.discount.startDate) <= currentDate &&
+                        new Date(item.productDiscount.discount.endDate) > currentDate) {
+                        // Nếu còn hiệu lực, giảm giá sẽ được áp dụng
+                        var discountedPrice = item.productDetail.price - (item.productDetail.price * (item.productDiscount.discount.value / 100));
+                        return $filter("number")(discountedPrice) + " VND";
+                    } else {
+                        // Nếu không còn hiệu lực, giá giảm trở thành giá ban đầu
+                        item.productDiscount.discount.value = 0;
+                        return item.productDetail.priceDiscount = 0;
+                    }
+                } else {
+                    // Xử lý nếu startDate hoặc endDate là null
+                    return item.productDetail.priceDiscount = 0;
+                }
+            } else {
+                // Xử lý nếu item.productDiscount hoặc item.productDiscount.discount là null
+                // Có thể trả về giá gốc hoặc giá có sự giảm giá (tùy thuộc vào yêu cầu của bạn)
+                return item.productDetail.priceDiscount = 0;
+            }
         } else {
-            item.productDiscount.discount.value = 0;
-            // Nếu không còn hiệu lực, giá giảm trở thành giá ban đầu
-            return $filter("number")(item.productDetail.price) + " VND";
+            // Xử lý nếu item.productDetail hoặc item.productDetail.price là null
+            // Có thể trả về giá gốc hoặc giá có sự giảm giá (tùy thuộc vào yêu cầu của bạn)
+            return "Price not available";
         }
     };
+
+
+
 
 
     $scope.toggleProductStatus = function (productId, isCurrentlyActive) {
@@ -777,18 +850,11 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
         if (!$scope.productCategory) {
         }
 
-        if (!$scope.product.publisher) {
-            $scope.errors.publisherName = 'Vui lòng chọn nhà xuất bản.';
-        }
 
         if (!$scope.product.manufactureDate) {
             $scope.errors.manufactureDate = 'Vui lòng chọn ngày sản xuất.';
         }
 
-
-        if (!$scope.productDiscount) {
-            $scope.errors.values = 'Vui lòng chọn phần trăm giảm giá.';
-        }
         if (!$scope.productDetail) {
             $scope.errors.width = 'Vui lòng nhập chiều rộng sản phẩm.';
         }
@@ -836,17 +902,8 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
 
     };
 
-    $scope.hideError = function (publisherName) {
-        // Ẩn thông báo lỗi cho trường fieldName
-        $scope.errors[publisherName] = '';
 
-    };
 
-    $scope.hideError = function (values) {
-        // Ẩn thông báo lỗi cho trường fieldName
-        $scope.errors[values] = '';
-
-    };
     $scope.hideError = function (price) {
         // Ẩn thông báo lỗi cho trường fieldName
         $scope.errors[price] = '';
@@ -959,7 +1016,7 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
     };
 
     $scope.selectedImages = [];
-    // // Hàm xử lý khi người dùng chọn nhiều ảnh
+    // Hàm xử lý khi người dùng chọn nhiều ảnh
     $scope.onImageSelect = function (event) {
         var files = event.target.files;
         for (var i = 0; i < files.length; i++) {
@@ -1047,6 +1104,9 @@ app.controller("ProductController", function ($scope, $location, $routeParams, $
         console.log(files);
     };
 
+
+    // Gọi hàm connectWebSocket khi controller được khởi tạo
+    $scope.connectWebSocket();
 
 
     $scope.loadProducts();
