@@ -36,7 +36,8 @@
     width: auto;
     margin: 0px 0 0;
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 550;
+    font-family: "Poppins", sans-serif !important;
     color: #333333 !important;
     line-height: 20px;
 }

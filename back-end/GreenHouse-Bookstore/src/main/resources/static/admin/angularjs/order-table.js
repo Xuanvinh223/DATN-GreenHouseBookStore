@@ -319,6 +319,8 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             $scope.errorsNoteCancel = 'Vui lòng nhập lí do không ít hơn 10 kí tự!';
         }
         else {
+            var loadingOverlay = document.getElementById("loadingOverlay");
+            loadingOverlay.style.display = "block";
             var updatedOrder = {
                 status: 'cancel',
                 confirmed_By: $scope.username,
@@ -350,11 +352,13 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             $http.put('/rest/order/cancelOrder/' + $scope.cancelOrder.orderCode, updatedOrder)
                 .then(function (response) {
                     // Xử lý khi hủy đơn hàng thành công
+                    $('#order-cancel').modal('hide');
                     console.log(response.data);
+                    loadingOverlay.style.display = "none";
                     $scope.sendNotification("Thông báo hủy đơn hàng", $scope.cancelOrder.orderCode, $scope.cancelOrder.username, "Lí do hủy đơn hàng: " + $scope.cancelOrder.noteCancel);
                     $scope.getData();
                     $scope.clearCancel();
-                    $('#order-cancel').modal('hide');
+                   
                     Swal.fire({
                         icon: "success",
                         title: "Thành công",

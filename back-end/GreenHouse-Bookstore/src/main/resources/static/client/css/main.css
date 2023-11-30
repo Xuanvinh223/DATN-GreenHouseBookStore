@@ -29985,18 +29985,18 @@ textarea.form-control {
   color: #1a1f2b;
   font-size: 20px;
   font-weight: 700;
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 @media (min-width: 480px) {
   .checkout-title {
-    font-size: 28px;
+    font-size: 1.1rem;
   }
 }
 
 @media (min-width: 992px) {
   .checkout-title {
-    font-size: 33px;
+    font-size: 1.2rem;
   }
 }
 
@@ -30144,7 +30144,7 @@ textarea.form-control {
   font-size: 24px;
   margin: 0 0 20px;
   padding-bottom: 10px;
-  text-transform: capitalize;
+  text-transform: uppercase;
   width: 100%;
   font-weight: 700;
 }
