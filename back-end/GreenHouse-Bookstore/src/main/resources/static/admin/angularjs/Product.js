@@ -485,8 +485,7 @@ app.controller("ProductController", function ($scope, $http, $filter, WebSocketS
         WebSocketService.connect($scope.updateProduct);
     };
 
-    // Gọi hàm connectWebSocket khi controller được khởi tạo
-    $scope.connectWebSocket();
+
 
     $scope.updateProduct = function () {
         var formData = new FormData();
@@ -851,9 +850,6 @@ app.controller("ProductController", function ($scope, $http, $filter, WebSocketS
         if (!$scope.productCategory) {
         }
 
-        if (!$scope.product.publisher) {
-            $scope.errors.publisherName = 'Vui lòng chọn nhà xuất bản.';
-        }
 
         if (!$scope.product.manufactureDate) {
             $scope.errors.manufactureDate = 'Vui lòng chọn ngày sản xuất.';
@@ -903,12 +899,6 @@ app.controller("ProductController", function ($scope, $http, $filter, WebSocketS
     $scope.hideError = function (brandName) {
         // Ẩn thông báo lỗi cho trường fieldName
         $scope.errors[brandName] = '';
-
-    };
-
-    $scope.hideError = function (publisherName) {
-        // Ẩn thông báo lỗi cho trường fieldName
-        $scope.errors[publisherName] = '';
 
     };
 
@@ -1026,7 +1016,7 @@ app.controller("ProductController", function ($scope, $http, $filter, WebSocketS
     };
 
     $scope.selectedImages = [];
-    // // Hàm xử lý khi người dùng chọn nhiều ảnh
+    // Hàm xử lý khi người dùng chọn nhiều ảnh
     $scope.onImageSelect = function (event) {
         var files = event.target.files;
         for (var i = 0; i < files.length; i++) {
@@ -1114,6 +1104,9 @@ app.controller("ProductController", function ($scope, $http, $filter, WebSocketS
         console.log(files);
     };
 
+
+    // Gọi hàm connectWebSocket khi controller được khởi tạo
+    $scope.connectWebSocket();
 
 
     $scope.loadProducts();

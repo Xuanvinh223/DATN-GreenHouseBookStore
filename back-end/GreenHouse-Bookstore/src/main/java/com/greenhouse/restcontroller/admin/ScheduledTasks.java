@@ -13,6 +13,7 @@ import com.greenhouse.model.Flash_Sales;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Product_Discount;
 import com.greenhouse.model.Product_Flash_Sale;
+import com.greenhouse.service.FlashSalesService;
 import com.greenhouse.service.ProductDetailService;
 import com.greenhouse.service.ProductDiscountService;
 import com.greenhouse.service.ProductFlashSaleService;
@@ -29,6 +30,9 @@ public class ScheduledTasks {
 
     @Autowired
     private ProductFlashSaleService productFlashSaleService;
+
+    @Autowired
+    private FlashSalesService flashSalesService;
 
     public ScheduledTasks(ProductDiscountService productDiscountService) {
         this.productDiscountService = productDiscountService;
@@ -57,7 +61,7 @@ public class ScheduledTasks {
         }
     }
 
-    @Scheduled(cron = "0 45 21 * * ?")
+    @Scheduled(cron = "0 15 17 * * ?")
     public void updateExpiredFlashSales() {
         List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
 
@@ -78,8 +82,12 @@ public class ScheduledTasks {
                         double discountPercentage = (double) productFlashSale.getDiscountPercentage() / 100;
                         double newPriceDiscount = exitPriceDiscount * (1 - discountPercentage);
                         productDetail.setPriceDiscount(newPriceDiscount);
-                    }
+                        flashSale.setStatus(2);
 
+                        
+
+                    }
+                    flashSalesService.update(flashSale);
                     // Cập nhật Product_Detail trong cơ sở dữ liệu
                     productDetailService.update(productDetail);
                 }
@@ -90,7 +98,7 @@ public class ScheduledTasks {
         }
     }
 
-    @Scheduled(cron = "0 46 21 * * ?")
+    @Scheduled(cron = "0 20 23 * * ?")
     public void updateExpiredFlashSalese() {
         List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
 
@@ -109,10 +117,14 @@ public class ScheduledTasks {
 
                         double exitPriceDiscount = productDetail.getPriceDiscount();
                         double discountPercentage = (double) productFlashSale.getDiscountPercentage() / 100;
-                        double newPriceDiscount = exitPriceDiscount / discountPercentage * 100;
+                        double newPriceDiscount = exitPriceDiscount / (1 - discountPercentage);
+
                         productDetail.setPriceDiscount(newPriceDiscount);
 
+                        flashSale.setStatus(3);
+
                     }
+                    flashSalesService.update(flashSale);
 
                     // Cập nhật Product_Detail trong cơ sở dữ liệu
                     productDetailService.update(productDetail);
