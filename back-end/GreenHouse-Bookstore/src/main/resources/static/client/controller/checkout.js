@@ -54,14 +54,7 @@ app.controller("checkoutController", function ($scope, $http, checkoutAPI, $time
         $http.post(api, data)
             .then(function (response) {
                 if (response.data.status == "success") {
-                    var invoice = response.data.invoices;
-                    var order = response.data.order;
-                    var payment_method = response.data.payment_method;
-                    if (payment_method == "cod") {
-                        checkoutCompleted(invoice, order);
-                    } else {
-                        window.location.href = response.data.url;
-                    }
+                    window.location.href = response.data.url;
                 } else if (response.data.status == "error-voucher") {
                     Swal.fire({
                         icon: "warring",
@@ -81,26 +74,6 @@ app.controller("checkoutController", function ($scope, $http, checkoutAPI, $time
     }
 
     // ----------------------------------------------------------------
-
-    function checkoutCompleted(invoice, order) {
-        var api = `${checkoutAPI}/setCheckoutCompleteData`
-
-        var data = {
-            invoices: invoice,
-            orders: order
-        }
-        $http.post(api, data)
-            .then(function (response) {
-                console.log(response.data);
-                if (response.data.status == "success") {
-                    var url = response.data;
-                    window.location.href = url;
-                }
-            })
-            .catch(function (error) {
-                console.error('Error calling API:', error);
-            });
-    }
 
     function init() {
         getData();
