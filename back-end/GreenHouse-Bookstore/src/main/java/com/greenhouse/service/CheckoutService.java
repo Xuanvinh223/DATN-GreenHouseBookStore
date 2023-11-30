@@ -100,7 +100,7 @@ public class CheckoutService {
     public void createInvoiceStatusMapping(Invoices invoices, int status) {
         InvoiceMappingStatus iMappingStatus = new InvoiceMappingStatus();
         iMappingStatus.setInvoice(invoices);
-        iMappingStatus.setPaymentStatus(paymentStatusRepository.findById(status).orElse(null));
+        iMappingStatus.setPaymentStatus(paymentStatusRepository.findById(status).orElse(null)); 
         iMappingStatus.setUpdateAt(new Date());
         invoiceMappingStatusRepository.save(iMappingStatus);
     }
