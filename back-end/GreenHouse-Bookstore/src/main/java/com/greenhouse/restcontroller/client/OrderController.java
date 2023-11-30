@@ -79,8 +79,7 @@ public class OrderController {
     }
 
     @GetMapping("/{username}/{productDetailId}/{orderCode}")
-    public ResponseEntity<Map<String, Object>> getOrders1(
-            @PathVariable String username,
+    public ResponseEntity<Map<String, Object>> getOrders1(@PathVariable String username,
             @PathVariable int productDetailId,
             @PathVariable String orderCode) {
 

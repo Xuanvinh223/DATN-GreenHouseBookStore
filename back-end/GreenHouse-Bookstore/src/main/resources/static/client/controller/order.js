@@ -6,6 +6,7 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
         var decodedToken = jwtHelper.decodeToken(token);
         $scope.username = decodedToken.sub;
         $scope.listOrders = [];
+        $scope.listReviews = {};
         $scope.listOrderDetails = {};
         $scope.filteredOrders = [];
         $scope.currentStatus = 'All';
@@ -18,9 +19,8 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
 
                     // Gọi hàm để lấy danh sách order details dựa trên danh sách order
                     $scope.listOrders.forEach(function (order) {
-                        $scope.getOrderDetails(order.orderCode);
+                        $scope.getOrderDetailsWithReviews(order.orderCode, order);
                     });
-
                     // Mặc định hiển thị tất cả đơn hàng
                     $scope.setListOrderByStatus('All');
                 })
@@ -29,20 +29,29 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
                 });
         };
 
-        $scope.getOrderDetails = async function (orderCode) {
-            try {
-                const response = await $http.get(host + '/orderdetail/' + orderCode);
-                $scope.listOrderDetails[orderCode] = response.data;
-            } catch (error) {
-                console.error('Error fetching order details:', error);
-            }
+        $scope.getOrderDetailsWithReviews = function (orderCode, order) {
+            $http.get(`${host}/orderdetails-with-reviews/${orderCode}`)
+                .then(function (response) {
+                    // Truy cập danh sách chi tiết đơn hàng
+                    $scope.listOrderDetails[orderCode] = response.data.orderDetails;
+                    console.log("data.orderDetails", response.data.orderDetails);
+                    // Truy cập danh sách đánh giá
+                    $scope.listReviews[orderCode] = response.data.reviews;
+                    console.log(" data.reviews", response.data.reviews);
+                    order.showReviewButton = $scope.listReviews[orderCode].length !== $scope.listOrderDetails[orderCode].length;
+
+                    console.log("    order.showReviewButton", order.showReviewButton + orderCode);
+                })
+                .catch(function (error) {
+                    console.log('Error fetching order details with reviews: ' + error);
+                });
         };
 
         // Hàm xử lý sự kiện khi người dùng chọn trạng thái từ thanh tab
         $scope.selectStatus = function (status) {
             $scope.setListOrderByStatus(status);
         };
-        // Trong controller của bạn
+
         $scope.hasOrders = false;
 
         // Hàm để lọc danh sách đơn hàng theo trạng thái đã chọn
@@ -52,10 +61,10 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
 
             if (statusId === 'All') {
                 $scope.filteredOrders = $scope.listOrders;
-            } else if (statusId === 'Completed') {
+            } else if (statusId === 'completed') {
                 // Lọc danh sách đơn hàng có trạng thái "Completed" hoặc "Received"
                 $scope.filteredOrders = $scope.listOrders.filter(function (item) {
-                    return item.status === 'Completed' || item.status === 'Received';
+                    return item.status === 'completed' || item.status === 'received';
                 });
             } else {
                 // Lọc theo trạng thái khác
@@ -67,10 +76,16 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
             // Kiểm tra xem có đơn hàng hay không
             $scope.hasOrders = $scope.filteredOrders.length > 0;
         };
+        //lấy những đơ hàng có status
         $scope.shouldShowOrder = function (order) {
-            const excludedStatuses = ['Returning', 'Pending Redelivery Confirmation', 'Lost/Damaged Goods'];
-            return excludedStatuses.indexOf(order.status) === -1;
+            const excludedStatuses = ['return_transporting', 'waiting_to_return', 'lost_damage'];
+            return excludedStatuses.indexOf(order.status) === -1 && $scope.isDesiredStatus(order.status);
         };
+
+        // $scope.isDesiredStatus = function (status) {
+        //     const desiredStatuses = ['pending_confirmation', 'pending', 'transporting', 'completed', 'cancel'];
+        //     return desiredStatuses.includes(status);
+        // };
 
 
         //Hủy đơn hàng
@@ -89,12 +104,12 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
                 $scope.errorsNoteCancel = 'Vui lòng nhập lí do không ít hơn 10 kí tự!';
             } else {
                 var updatedOrder = {
-                    status: 'Canceled',
+                    status: 'cancel',
                     confirmed_By: $scope.username,
                     note: $scope.cacelOrder.noteCancel
                 };
 
-                if ($scope.cancelOrder.status === 'Pending Handover') {
+                if ($scope.cancelOrder.status === 'pending') {
                     // Nếu đơn hàng ở trạng thái 'Pending Handover', thực hiện cuộc gọi API của Giao Hàng Nhanh
                     var ghnApiData = {
                         order_codes: [$scope.cancelOrder.orderCode]
@@ -172,6 +187,7 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
                 .then(function (response) {
                     $('#acceptOrderModal').modal('hide');
                     $('#message-order').modal('show');
+                    $scope.getOrders();
                     $scope.modalContentOrder = "Xác Nhận Thành Công!";
                     $timeout(function () {
                         $('#message-order').modal('hide');
@@ -343,15 +359,67 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
         $scope.closeReviewOk = function () {
             $('#popup_show_review').modal('hide');
         }
+
         $scope.clearReview = function () {
             $scope.saveReview.comment = '';
             $scope.saveReview.star = 5;
             $scope.selectedImages = [];
             $scope.errors = {};
         };
-        //=======================================//
-        // Thực hiện lấy danh sách đơn hàng khi controller khởi tạo
-        $scope.getOrders();
+
+        // Thêm hàm tìm kiếm vào controller
+        $scope.searchOrders = function (searchTerm) {
+            // Chuyển đổi searchTerm thành chữ thường để tìm kiếm không phân biệt chữ hoa chữ thường
+            searchTerm = searchTerm.toLowerCase();
+
+            // Lọc danh sách đơn hàng theo mã hóa đơn và tên sản phẩm
+            $scope.filteredOrders = $scope.listOrders.filter(function (order) {
+                // Kiểm tra xem mã hóa đơn hoặc tên sản phẩm có chứa searchTerm hay không
+                return order.orderCode.toLowerCase().includes(searchTerm) ||
+                    orderContainsProductName(order, searchTerm);
+            });
+
+            // Kiểm tra xem có đơn hàng hay không
+            $scope.hasOrders = $scope.filteredOrders.length > 0;
+        };
+
+        // Hàm hỗ trợ kiểm tra xem đơn hàng có chứa tên sản phẩm không
+        function orderContainsProductName(order, searchTerm) {
+            // Duyệt qua từng chi tiết đơn hàng của đơn hàng
+            for (var i = 0; i < $scope.listOrderDetails[order.orderCode].length; i++) {
+                var orderDetail = $scope.listOrderDetails[order.orderCode][i];
+
+                // Kiểm tra xem tên sản phẩm có chứa searchTerm hay không
+                if (orderDetail.productName.toLowerCase().includes(searchTerm)) {
+                    return true;
+                }
+            }
+
+            // Nếu không tìm thấy, trả về false
+            return false;
+        };
+
+
+        //Tính tổng tiền  =  (tổng tiền  sản phẩm += priceDiscount * quantity  ) + codAmount
+        $scope.calculateTotalAmount = function (order) {
+            let totalAmount = 0;
+
+            // Duyệt qua các chi tiết đơn hàng và tính tổng cho mỗi sản phẩm
+            angular.forEach($scope.listOrderDetails[order.orderCode], function (orderDetail) {
+                totalAmount += orderDetail.productDetail.priceDiscount * orderDetail.quantity;
+            });
+
+            // Thêm phí vận chuyển (codAmount) vào tổng số tiền
+            totalAmount += order.codAmount;
+
+            return totalAmount;
+        };
+        $scope.init = function () {
+            $scope.getOrders();
+
+        }
+
+        $scope.init();
     }
 });
 // $scope.callRestController = function (username, productDetailId, orderCode) {
