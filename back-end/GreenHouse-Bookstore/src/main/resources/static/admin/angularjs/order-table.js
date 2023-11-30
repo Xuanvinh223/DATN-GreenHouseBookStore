@@ -320,13 +320,13 @@ app.controller("OrderController", function ($scope, $http, $interval) {
         }
         else {
             var updatedOrder = {
-                status: 'Canceled',
+                status: 'cancel',
                 confirmed_By: $scope.username,
                 note: $scope.cancelOrder.noteCancel
             };
 
-            if ($scope.cancelOrder.status === 'Pending Handover') {
-                // Nếu đơn hàng ở trạng thái 'Pending Handover', thực hiện cuộc gọi API của Giao Hàng Nhanh
+            if ($scope.cancelOrder.status === 'pending') {
+                // Nếu đơn hàng ở trạng thái 'pending', thực hiện cuộc gọi API của Giao Hàng Nhanh
                 var ghnApiData = {
                     order_codes: [$scope.cancelOrder.orderCode]
                 };

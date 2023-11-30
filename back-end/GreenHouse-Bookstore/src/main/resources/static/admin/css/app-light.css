@@ -6330,7 +6330,9 @@ a.close.disabled {
 .bg-primary {
   background-color: #62ab00 !important;
 }
-
+.bg-default1{
+  background-color: #5da0f1 !important;
+}
 a.bg-primary:hover,
 a.bg-primary:focus,
 button.bg-primary:hover,
@@ -9509,6 +9511,10 @@ button.bg-dark:focus {
 
 .text-primary {
   color: #62ab00 !important;
+}
+
+.text-default1{
+  color: #5da0f1;
 }
 
 a.text-primary:hover,
@@ -16973,6 +16979,9 @@ a.uppy-Dashboard-poweredBy {
 .nav-item {
   white-space: nowrap;
 }
+/* .order-page .nav-pills .nav-item a.nav-link{
+  font-size: 0.9rem;
+} */
 @media (max-width: 320px) {
   .nav-pills {
     max-width: 240px;

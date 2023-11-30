@@ -68,9 +68,18 @@
                                         <a class="nav-link text-muted px-2"
                                             ng-class="{active: selectedStatus === 'completed'}"
                                             ng-click="setListOrderByStatus('completed')">
-                                            Hoàn Tất
+                                           Đã Giao
                                             <span class="badge badge-pill bg-white border text-muted ml-2">
                                                 {{countOrderByStatus('completed')}}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-muted px-2"
+                                            ng-class="{active: selectedStatus === 'received'}"
+                                            ng-click="setListOrderByStatus('received')">
+                                           Đã Nhận
+                                            <span class="badge badge-pill bg-white border text-muted ml-2">
+                                                {{countOrderByStatus('received')}}</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -186,6 +195,10 @@
                                             <strong class="text-primary" ng-if="item.status === 'completed'">
                                                 <span class="online_animation bg-primary"></span>
                                                 Hoàn Tất
+                                            </strong>
+                                            <strong class="text-default1" ng-if="item.status === 'received'">
+                                                <span class="online_animation bg-default1"></span>
+                                               Đã Nhận
                                             </strong>
                                             <strong class="text-danger" ng-if="item.status === 'cancel'">
                                                 <span class="online_animation bg-danger"></span>

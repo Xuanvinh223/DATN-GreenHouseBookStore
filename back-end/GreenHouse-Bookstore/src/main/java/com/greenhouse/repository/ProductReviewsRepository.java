@@ -21,4 +21,6 @@ public interface ProductReviewsRepository extends JpaRepository<Product_Reviews,
         Integer productDetailId, 
         String orderCode
     );
+
+    List<Product_Reviews> findByOrder_OrderCode(String OrderCode);
 }

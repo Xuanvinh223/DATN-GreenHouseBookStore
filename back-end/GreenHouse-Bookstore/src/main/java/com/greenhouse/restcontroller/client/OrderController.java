@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.model.OrderDetails;
 import com.greenhouse.model.Orders;
+import com.greenhouse.model.Product_Reviews;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.OrderDetailsRepository;
 import com.greenhouse.repository.OrdersRepository;
@@ -53,8 +54,32 @@ public class OrderController {
         return response;
     }
 
+    @GetMapping("/reviews/{orderCode}")
+    public List<Product_Reviews> getReviewsByOrderCode(@PathVariable String orderCode) {
+
+        List<Product_Reviews> reviews = productReviewsRepository.findByOrder_OrderCode(orderCode);
+
+        return reviews;
+    }
+
+    @Transactional
+    @GetMapping("/orderdetails-with-reviews/{orderCode}")
+    public Map<String, Object> getOrderDetailsWithReviews(@PathVariable String orderCode) {
+        Map<String, Object> result = new HashMap<>();
+
+        // Lấy danh sách chi tiết đơn hàng
+        List<OrderDetails> orderDetails = od.findByOrderCode(orderCode);
+        result.put("orderDetails", orderDetails);
+
+        // Lấy danh sách đánh giá
+        List<Product_Reviews> reviews = productReviewsRepository.findByOrder_OrderCode(orderCode);
+        result.put("reviews", reviews);
+
+        return result;
+    }
+
     @GetMapping("/{username}/{productDetailId}/{orderCode}")
-    public ResponseEntity<Map<String, Object>> getOrders(
+    public ResponseEntity<Map<String, Object>> getOrders1(
             @PathVariable String username,
             @PathVariable int productDetailId,
             @PathVariable String orderCode) {
@@ -77,7 +102,7 @@ public class OrderController {
         return od.findByOrderCode(orderCode);
     }
 
-    @PutMapping("/cancelOrder/{orderCode}")
+     @PutMapping("/cancelOrder/{orderCode}")
     public ResponseEntity<String> cancelOrder(@PathVariable String orderCode, @RequestBody Orders updatedOrder) {
         Optional<Orders> optionalOrder = o.findById(orderCode);
 
@@ -91,7 +116,7 @@ public class OrderController {
         } else {
             return ResponseEntity.badRequest().body("Không thể hủy đơn hàng với trạng thái hiện tại");
         }
-    } 
+    }
 
     @PutMapping("/confirmOrder/{orderCode}")
     public ResponseEntity<String> confirmOrder(@PathVariable String orderCode) {
@@ -101,7 +126,7 @@ public class OrderController {
             Orders existingOrder = optionalOrder.get();
 
             // Xác nhận đơn hàng (thay đổi status)
-            existingOrder.setStatus("Received");
+            existingOrder.setStatus("received");
             o.save(existingOrder);
 
             return ResponseEntity.ok("Đã xác nhận đơn hàng");
