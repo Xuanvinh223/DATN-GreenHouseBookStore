@@ -1,148 +1,157 @@
 <div class="container-fluid" ng-controller="DiscountController">
     <div class="row justify-content-center">
         <div class="col-12">
-            <div class="card-header">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addDiscountModal">
-                    <i class="fa fa-plus"> </i> Thêm Mã Giảm Giá
-                </button>
-                <button type="button" class="btn btn-success" ng-click="exportToExcel()"> <i class="fa fa-file-excel">
-                    </i> Xuất Excel</button>
+            <div class="card shadow">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="card-title mb-0">Thông Tin Giảm Giá</h4>
 
-                <input type="file" id="fileInputExcel" accept=".xls,.xlsx" style="display:none" />
-                <button type="button" class="btn btn-success" ng-click="openFileInput()">
-                    <i class="fas fa-file-excel"></i> Chọn File Excel
-                </button>
-
-                <button type="button" class="btn btn-success" ng-click="importDiscounts()">
-                    <i class="fas fa-save"></i> Lưu File Excel
-                </button>
-
+                        <a type="button" class="btn btn-success" href="#!/discount-form">
+                            <i class="fa fa-plus"> </i> Thêm Giảm Giá
+                        </a>
+                    </div>
+                </div>
 
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="addDiscountModal" tabindex="-1" role="dialog"
-                aria-labelledby="addDiscountModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addDiscountModalLabel">
-                                Thêm Mã Giảm Giá
-                            </h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-row">
-                                            <div class="col-md-4 mb-3">
-                                                <label for="discountId">Mã Giảm Giá(*)</label>
-                                                <input type="text" ng-model="editingDiscount.discountId"
-                                                    class="form-control" id="discountId" name="discountId"
-                                                    ng-disabled="isEditing" placeholder="Mã giảm giá tự động">
-                                            </div>
-                                            <div class="col-md-4 mb-3">
-                                                <label for="startDate">Ngày bắt đầu(*)</label>
-                                                <input class="form-control" type="date"
-                                                    ng-model="editingDiscount.startDate" name="startDate">
-                                                <small class="text-danger">{{ errors.startDate }}</small>
-                                            </div>
-                                            <div class="col-md-4 mb-3">
-                                                <label for="endDate">Ngày kết thúc(*)</label>
-                                                <input class="form-control" type="date"
-                                                    ng-model="editingDiscount.endDate" name="endDate">
-                                                <small class="text-danger">{{ errors.endDate }}</small>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-4 mb-3">
-                                                <label for="value">Giá Trị Giảm Giá(*)</label>
-                                                <input class="form-control" type="number"
-                                                    ng-model="editingDiscount.value" name="value"
-                                                    placeholder="Nhập giá tiền">
-                                                <small class="text-danger">{{ errors.value }}</small>
-                                            </div>
-                                            <div class="col-md-4 mb-3">
-                                                <label for="quantity">Tổng Số Lượng(*)</label>
-                                                <input class="form-control" type="number"
-                                                    ng-model="editingDiscount.quantity" name="quantity"
-                                                    placeholder="Nhập số lượng">
-                                                <small class="text-danger">{{ errors.quantity }}</small>
-                                            </div>
-                                            <div class="col-md-4 mb-3">
-                                                <p class="mb-2">Trạng Thái(*)</p>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        ng-model="editingDiscount.active" value="true" id="active">
-                                                    <label class="form-check-label" for="active">Đã sử dụng</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        ng-model="editingDiscount.active" value="false" id="unactive">
-                                                    <label class="form-check-label" for="unactive">Chưa sử dụng</label>
-                                                </div>
-                                                <small class="text-danger">{{ errors.active }}</small>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-primary" ng-click="saveDiscount()">
-                                            <i class="fa fa-save"> </i> {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Giảm Giá'
-                                            }}
-                                        </button>
-                                        <button type="button" class="btn btn-primary" ng-click="resetForm()"><i
-                                                class="fa fa-undo"> </i>
-                                            Làm Mới
-                                        </button>
+        </div>
+
+    </div>
+    <!-- .col-12 -->
+    <!-- Modal -->
+    <div class="modal fade" id="addDiscountModal" tabindex="-1" role="dialog" aria-labelledby="addDiscountModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDiscountModalLabel">
+                        Thêm Mã Giảm Giá
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="discountId">Mã Giảm Giá(*)</label>
+                                        <input type="text" ng-model="editingDiscount.discountId" class="form-control"
+                                               id="discountId" name="discountId" ng-disabled="isEditing"
+                                               placeholder="Mã giảm giá tự động">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="startDate">Ngày bắt đầu(*)</label>
+                                        <input class="form-control" type="date" ng-model="editingDiscount.startDate"
+                                               name="startDate">
+                                        <small class="text-danger">{{ errors.startDate }}</small>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="endDate">Ngày kết thúc(*)</label>
+                                        <input class="form-control" type="date" ng-model="editingDiscount.endDate"
+                                               name="endDate">
+                                        <small class="text-danger">{{ errors.endDate }}</small>
                                     </div>
                                 </div>
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="value">Giá Trị Giảm Giá(*)</label>
+                                        <input class="form-control" type="number" ng-model="editingDiscount.value"
+                                               name="value" placeholder="Nhập giá tiền">
+                                        <small class="text-danger">{{ errors.value }}</small>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="quantity">Tổng Số Lượng(*)</label>
+                                        <input class="form-control" type="number" ng-model="editingDiscount.quantity"
+                                               name="quantity" placeholder="Nhập số lượng">
+                                        <small class="text-danger">{{ errors.quantity }}</small>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <p class="mb-2">Trạng Thái(*)</p>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio"
+                                                   ng-model="editingDiscount.active" value="true" id="active">
+                                            <label class="form-check-label" for="active">Đã sử dụng</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio"
+                                                   ng-model="editingDiscount.active" value="false" id="unactive">
+                                            <label class="form-check-label" for="unactive">Chưa sử dụng</label>
+                                        </div>
+                                        <small class="text-danger">{{ errors.active }}</small>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" ng-click="saveDiscount()">
+                                    <i class="fa fa-save"> </i> {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Giảm Giá'
+                                    }}
+                                </button>
+                                <button type="button" class="btn btn-primary" ng-click="resetForm()"><i
+                                        class="fa fa-undo"> </i>
+                                    Làm Mới
+                                </button>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                Đóng
-                            </button>
-                        </div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Đóng
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- .col-12 -->
-
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="row my-4">
                 <!-- Small table -->
                 <div class="col-md-12">
                     <div class="card shadow">
-                        <div class="card-header">
-                            <h4 class="card-title">Danh Sách Giảm Giá</h4>
-                        </div>
                         <div class="card-body">
-                            <div class="col">
-                                <div class="form-inline mb-3">
-                                    <div class="input-container">
-                                        <div class="input-wrapper">
-                                            <i class="fe fe-search fe-18 icon"></i>
-                                            <input class="form-control input" type="search" placeholder="Tìm kiếm..."
-                                                ng-model="searchText" ng-change="searchData()">
-
-                                        </div>
+                            <div class="form-inline justify-content-between">
+                                <div class="input-container">
+                                    <div class="input-wrapper">
+                                        <i class="fe fe-search fe-18 icon"></i>
+                                        <input class="form-control input" type="search" placeholder="Tìm kiếm..."
+                                               ng-model="searchText" ng-change="searchData()">
                                     </div>
-                                    <div ng-if="noResults" class="alert alert-warning">
-                                        Không tìm thấy dữ liệu.
+                                </div>
+                                <div ng-if="noResults" class="alert alert-warning">
+                                    Không tìm thấy dữ liệu.
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle"
+                                            type="button" id="btn-products" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        Tất cả trạng thái
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btn-products">
+                                        <div style="margin: 1rem;">
+                                            <a type="button" class="dropdown-item" ng-click="exportToExcel()">
+                                                <i class="fa fa-file-excel"></i>
+                                                Xuất excel
+                                            </a>
+                                            <a type="button" class="dropdown-item" ng-click="openFileInput()">
+                                                <i class="fas fa-file-excel"></i> Chọn File Excel
+                                            </a>
+                                            <input type="file" id="fileInputExcel" accept=".xls,.xlsx"
+                                                   style="display:none"/>
+
+                                            <a type="button" class="dropdown-item" ng-click="importDiscounts()">
+                                                <i class="fas fa-save"></i> Lưu File Excel
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- table -->
                             <table class="table table-striped table-hover">
                                 <thead>
-                                    <tr>
-                                        <th>STT</th>
-
-                                        <th>
-                                            <a ng-click="sortBy('discountId')" href="" style="text-decoration: none;">
+                                <tr>
+                                    <th>STT</th>
+                                    <th>
+                                        <a ng-click="sortBy('discountId')" href="" style="text-decoration: none;">
                                                 Mã Giảm Giá
                                                 <i class="mdi mdi-swap-vertical"></i>
                                             </a>
@@ -183,7 +192,7 @@
                                                 <i class="mdi mdi-swap-vertical"></i>
                                             </a>
                                         </th>
-                                        <th></th>
+                                    <th>Thao Tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -263,5 +272,37 @@
         margin: 1rem;
 
 
+    }
+
+    .form-inline {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+
+    @media (max-width: 767px) {
+        .form-inline {
+            flex-direction: column;
+        }
+
+        .input-container {
+            max-width: 50%;
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
+    }
+
+    .table {
+        margin-top: 20px;
+    }
+
+    @media (max-width: 767px) {
+        .table {
+            width: 100%;
+            overflow-x: scroll;
+        }
     }
 </style>

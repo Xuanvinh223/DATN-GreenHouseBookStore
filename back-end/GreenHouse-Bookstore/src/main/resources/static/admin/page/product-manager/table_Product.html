@@ -1,219 +1,226 @@
 <div class="container-fluid" ng-controller="ProductController">
     <div class="row justify-content-center">
         <div class="col-12">
-            <div class="card  mb-4">
+            <div class="card shadow">
                 <div class="card-header">
-                    <h2 class="mb-2 page-title">Danh Sách Sản Phẩm</h2>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="page-title mb-0">Danh Sách Sản Phẩm</h4>
+
+                        <a type="button" class="btn btn-success" href="#!/product-form">
+                            <i class="fa fa-plus"> </i> Thêm sản phẩm
+                        </a>
+                    </div>
                 </div>
-                <!-- Modal -->
-                <div class="modal fade" id="addPriceHistorysModal" tabindex="-1" role="dialog"
-                    aria-labelledby="addPriceHistorysModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addPriceHistorysModalLabel">
-                                    Lịch sử giá
-                                </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="card-body">
-                                    <!-- table -->
-                                    <table class="table table-striped table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>STT</th>
-                                                <th colspan="2">Tên Sản Phẩm</th>
-                                                <th>Giá Cũ</th>
-                                                <th>Giá Mới</th>
-                                                <th>Ngày</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody
-                                            ng-repeat="item in combinedData | filter:{product: {status: showActiveProducts}}  | limitTo: itemsPerPage : (currentPage - 1) * itemsPerPage">
-                                            <!-- Thêm điều kiện ng-if để kiểm tra xem có dữ liệu từ productPriceHistories không -->
-                                            <tr data-toggle="collapse" data-target="#product{{product.productId}}"
-                                                ng-click="editProduct(item.product.productId,$index)"
-                                                ng-if="item.productPriceHistories">
-                                                <td>{{$index + 1}}</td>
-                                                <td><img class="object-fit"
-                                                        ng-src="{{item.productPriceHistories.productDetail.image}}"
-                                                        style="width: 50px; height: 50px; border-radius: 10%;"></td>
-                                                <td>{{item.productPriceHistories.productDetail.product.productName}}
-                                                </td>
-                                                <td>{{item.productPriceHistories.priceOld | number }} VNĐ</td>
-                                                <td>{{item.productPriceHistories.priceNew | number }} VNĐ</td>
-                                                <td>{{item.productPriceHistories.timeChange | date:'dd/MM/yyyy
-                                                    HH:mm:ss'}}</td>
-                                            </tr>
+
+            </div>
+        </div>
 
 
-                                            <tr id="product{{product.productId}}" class="collapse"
-                                                ng-if="$index === selectedItemIndex">
-                                                <td colspan="18">
-                                                    <div class="card-body">
-                                                        <form enctype="multipart/form-data">
-                                                            <div class="row">
-                                                                <div class="col-lg-3">
-                                                                    <div class="form-group">
-                                                                        <img class="product-image"
-                                                                            ng-src="{{item.productDetail.image}}">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-1" style=" margin-top: 30px;">
-                                                                    <div class="form-group">
-                                                                        <div class="image-container"
-                                                                            ng-repeat="image in item.productImages track by $index">
-                                                                            <br>
-                                                                            <img class="object-fit"
-                                                                                ng-src="{{image.image}}"
-                                                                                style="max-height: 250px; width: 100%; border-radius: 5%;"
-                                                                                ng-click="showImage(image.image, item)">
+    </div>
 
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+    <!-- Modal -->
+    <div class="modal fade" id="addPriceHistorysModal" tabindex="-1" role="dialog"
+         aria-labelledby="addPriceHistorysModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPriceHistorysModalLabel">
+                        Lịch sử giá
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <!-- table -->
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th colspan="2">Tên Sản Phẩm</th>
+                                <th>Giá Cũ</th>
+                                <th>Giá Mới</th>
+                                <th>Ngày</th>
+                            </tr>
+                            </thead>
+                            <tbody
+                                    ng-repeat="item in combinedData | filter:{product: {status: showActiveProducts}}  | limitTo: itemsPerPage : (currentPage - 1) * itemsPerPage">
+                            <!-- Thêm điều kiện ng-if để kiểm tra xem có dữ liệu từ productPriceHistories không -->
+                            <tr data-toggle="collapse" data-target="#product{{product.productId}}"
+                                ng-click="editProduct(item.product.productId,$index)"
+                                ng-if="item.productPriceHistories">
+                                <td>{{$index + 1}}</td>
+                                <td><img class="object-fit"
+                                         ng-src="{{item.productPriceHistories.productDetail.image}}"
+                                         style="width: 50px; height: 50px; border-radius: 10%;"></td>
+                                <td>{{item.productPriceHistories.productDetail.product.productName}}
+                                </td>
+                                <td>{{item.productPriceHistories.priceOld | number }} VNĐ</td>
+                                <td>{{item.productPriceHistories.priceNew | number }} VNĐ</td>
+                                <td>{{item.productPriceHistories.timeChange | date:'dd/MM/yyyy
+                                    HH:mm:ss'}}
+                                </td>
+                            </tr>
 
-                                                                <div class="col-lg-8">
-                                                                    <div class="product-details">
-                                                                        <h2 class="product-name">
-                                                                            {{item.product.productName
-                                                                            }}</h2>
-                                                                        <div class="product-info">
-                                                                            <p> Mã sản phẩm: {{item.product.productId}}
-                                                                            </p>
-                                                                            <p> Thương hiệu:
-                                                                                {{item.product.brand.brandName}} </p>
-                                                                            <p> Tên danh mục:
-                                                                                {{item.productCategory.category.categoryName}}
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="product-info">
-                                                                            <p> Tên tác giả:
-                                                                                {{item.bookAuthor.author.authorName}}
-                                                                            </p>
-                                                                            <p> Nhà xuất bản:
-                                                                                {{item.product.publisher.publisherName}}
-                                                                            </p>
-                                                                            <p> Ngày sản xuất:
-                                                                                {{item.product.manufactureDate |
-                                                                                date:'dd/MM/yyyy'}}
-                                                                        </div>
-                                                                        <div class="product-info">
-                                                                            <p> Ngày tạo: {{item.product.createAt |
-                                                                                date:'dd/MM/yyyy HH:mm:ss'}} </p>
-                                                                            <!-- Trong HTML của bạn -->
-                                                                            <p>Trạng thái: {{ item.product.status ?
-                                                                                'Đang
-                                                                                kinh doanh' : 'Ngừng kinh doanh' }}
-                                                                            </p>
 
-                                                                        </div>
-                                                                        <p class="product-description">
-                                                                            {{ item.product.description.slice(0, 300)
-                                                                            }} ... <a type="button"
-                                                                                class="btn btn-seemore"
-                                                                                data-toggle="modal"
-                                                                                data-target="#addDescriptionModal">
-                                                                                Xem thêm
-                                                                            </a>
-                                                                        </p>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <div class="product-attributes">
-                                                                                    <h4>Thông tin chi tiết:</h4>
-                                                                                    <ul>
-                                                                                        <li
-                                                                                            ng-repeat="attributeValue in item.attributeValues">
-                                                                                            {{
-                                                                                            attributeValue.attribute.nameAtributes
-                                                                                            }}: {{ attributeValue.value
-                                                                                            }}
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <div class="product-pricing">
-                                                                                    <p class="product-price">
-                                                                                        {{ "Giá bán: " +
-                                                                                        (item.productDetail.price |
-                                                                                        number)
-                                                                                        + " VNĐ" }}
-                                                                                    </p>
-                                                                                    <p class="product-price-discount">
-                                                                                        {{ "Giá bán sau giảm: " +
-                                                                                        (item.productDetail.priceDiscount
-                                                                                        |
-                                                                                        number)
-                                                                                        + " VNĐ" }}
-                                                                                    </p>
-                                                                                    <p class="product-quantity">
-                                                                                        Số lượng:
-                                                                                        {{item.productDetail.quantityInStock}}
-                                                                                    </p>
-                                                                                    <p class="product-weight">
-                                                                                        Khối lượng:
-                                                                                        {{item.productDetail.weight}}
-                                                                                        gam
-                                                                                    </p>
-                                                                                    <p class="product-discount">
-                                                                                        Phần trăm giảm:
-                                                                                        {{item.productDiscount.discount.value}}
-                                                                                        %
-                                                                                    </p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                            <tr id="product{{product.productId}}" class="collapse"
+                                ng-if="$index === selectedItemIndex">
+                                <td colspan="18">
+                                    <div class="card-body">
+                                        <form enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <div class="form-group">
+                                                        <img class="product-image"
+                                                             ng-src="{{item.productDetail.image}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-1" style=" margin-top: 30px;">
+                                                    <div class="form-group">
+                                                        <div class="image-container"
+                                                             ng-repeat="image in item.productImages track by $index">
+                                                            <br>
+                                                            <img class="object-fit" ng-src="{{image.image}}"
+                                                                 style="max-height: 250px; width: 100%; border-radius: 5%;"
+                                                                 ng-click="showImage(image.image, item)">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-8">
+                                                    <div class="product-details">
+                                                        <h2 class="product-name">
+                                                            {{item.product.productName
+                                                            }}</h2>
+                                                        <div class="product-info">
+                                                            <p> Mã sản phẩm: {{item.product.productId}}
+                                                            </p>
+                                                            <p> Thương hiệu:
+                                                                {{item.product.brand.brandName}} </p>
+                                                            <p> Tên danh mục:
+                                                                {{item.productCategory.category.categoryName}}
+                                                            </p>
+                                                        </div>
+                                                        <div class="product-info">
+                                                            <p> Tên tác giả:
+                                                                {{item.bookAuthor.author.authorName}}
+                                                            </p>
+                                                            <p> Nhà xuất bản:
+                                                                {{item.product.publisher.publisherName}}
+                                                            </p>
+                                                            <p> Ngày sản xuất:
+                                                                {{item.product.manufactureDate |
+                                                                date:'dd/MM/yyyy'}}
+                                                        </div>
+                                                        <div class="product-info">
+                                                            <p> Ngày tạo: {{item.product.createAt |
+                                                                date:'dd/MM/yyyy HH:mm:ss'}} </p>
+                                                            <!-- Trong HTML của bạn -->
+                                                            <p>Trạng thái: {{ item.product.status ?
+                                                                'Đang
+                                                                kinh doanh' : 'Ngừng kinh doanh' }}
+                                                            </p>
+
+                                                        </div>
+                                                        <p class="product-description">
+                                                            {{ item.product.description.slice(0, 300)
+                                                            }} ... <a type="button" class="btn btn-seemore"
+                                                                      data-toggle="modal"
+                                                                      data-target="#addDescriptionModal">
+                                                            Xem thêm
+                                                        </a>
+                                                        </p>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="product-attributes">
+                                                                    <h4>Thông tin chi tiết:</h4>
+                                                                    <ul>
+                                                                        <li
+                                                                                ng-repeat="attributeValue in item.attributeValues">
+                                                                            {{
+                                                                            attributeValue.attribute.nameAtributes
+                                                                            }}: {{ attributeValue.value
+                                                                            }}
+                                                                        </li>
+                                                                    </ul>
                                                                 </div>
                                                             </div>
-                                                        </form>
+                                                            <div class="col-md-6">
+                                                                <div class="product-pricing">
+                                                                    <p class="product-price">
+                                                                        {{ "Giá bán: " +
+                                                                        (item.productDetail.price |
+                                                                        number)
+                                                                        + " VNĐ" }}
+                                                                    </p>
+                                                                    <p class="product-price-discount">
+                                                                        {{ "Giá bán sau giảm: " +
+                                                                        (item.productDetail.priceDiscount
+                                                                        |
+                                                                        number)
+                                                                        + " VNĐ" }}
+                                                                    </p>
+                                                                    <p class="product-quantity">
+                                                                        Số lượng:
+                                                                        {{item.productDetail.quantityInStock}}
+                                                                    </p>
+                                                                    <p class="product-weight">
+                                                                        Khối lượng:
+                                                                        {{item.productDetail.weight}}
+                                                                        gam
+                                                                    </p>
+                                                                    <p class="product-discount">
+                                                                        Phần trăm giảm:
+                                                                        {{item.productDiscount.discount.value}}
+                                                                        %
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                    <!-- Thanh công cụ -->
-                                    <div class="toolbar">
-                                        <form class="form">
-                                            <div class="form-row">
-                                                <div class="form-inline col-auto mr-auto">
-                                                    <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Hiển
-                                                        thị</label>
-                                                    <select class="mr-sm-2 form-control"
-                                                        id="inlineFormCustomSelectPref1" ng-model="itemsPerPage"
-                                                        ng-options="option for option in itemsPerPageOptions"
-                                                        ng-change="updatePagination()">
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-auto">
-                                                    <span>Đang xem {{ calculateRange() }} {{ showActiveProducts ? 'đang
-                                                        kinh doanh' : 'ngừng kinh
-                                                        doanh' }}</span>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
 
-                                    <ul uib-pagination ng-model="currentPage" total-items="combinedData.length"
-                                        ng-if="item.productPriceHistories" items-per-page="itemsPerPage"
-                                        max-size="maxSize" class="pagination-sm" boundary-link-numbers="true"
-                                        boundary-links="true" force-ellipses="true" previous-text="<" next-text=">"
-                                        first-text="<<" last-text=">>">
-                                    </ul>
+                        <!-- Thanh công cụ -->
+                        <div class="toolbar">
+                            <form class="form">
+                                <div class="form-row">
+                                    <div class="form-inline col-auto mr-auto">
+                                        <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Hiển
+                                            thị</label>
+                                        <select class="mr-sm-2 form-control" id="inlineFormCustomSelectPref1"
+                                                ng-model="itemsPerPage"
+                                                ng-options="option for option in itemsPerPageOptions"
+                                                ng-change="updatePagination()">
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-auto">
+                                        <span>Đang xem {{ calculateRange() }} {{ showActiveProducts ? 'đang
+                                            kinh doanh' : 'ngừng kinh
+                                            doanh' }}</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
+
+                        <ul uib-pagination ng-model="currentPage" total-items="combinedData.length"
+                            ng-if="item.productPriceHistories" items-per-page="itemsPerPage" max-size="maxSize"
+                            class="pagination-sm" boundary-link-numbers="true" boundary-links="true"
+                            force-ellipses="true" previous-text="<" next-text=">" first-text="<<" last-text=">>">
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="row my-4">
@@ -238,11 +245,6 @@
                                 </div>
 
                                 <div class="btn-group">
-
-                                    <a type="button" class="btn btn-success" href="#!/product-form">
-                                        <i class="fa fa-plus"> </i> Thêm sản phẩm
-                                    </a>
-
                                     <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle"
                                         type="button" id="btn-products" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
@@ -764,9 +766,9 @@
 
                                                             <div class="form-group mb-3 text-center">
                                                                 <img class="img-responsive"
-                                                                    ng-src="{{editingProduct.productDetail.image || defaultImage}}"
-                                                                    alt="Uploaded Image" id="uploadedImage" name="image"
-                                                                    style="max-height: 250px; width: 60%; border-radius: 5%;">
+                                                                     ng-src="{{editingProduct.productDetail.image || '/admin/assets/images/default.jpg'}}"
+                                                                     alt="Uploaded Image" id="uploadedImage" name="image"
+                                                                     style="max-height: 250px; width: 60%; border-radius: 5%;">
                                                             </div>
                                                             <div class="form-group mb-3 text-center">
                                                                 <label class="btn btn-dark text-white">
@@ -797,8 +799,8 @@
                                                                         ng-repeat="image in editingProduct.productImages track by $index">
                                                                         <label for="" class="detail-img-label">
                                                                             <div class="image-container">
-                                                                                <img ng-src="{{image ? image.image : 'https://res.cloudinary.com/dmbh3sz8s/image/upload/v1698734857/authors/author_1698734855371.jpg'}}"
-                                                                                    class="img-fluid detail-img">
+                                                                                <img ng-src="{{image ? image.image : '/admin/assets/images/default.jpg'}}"
+                                                                                     class="img-fluid detail-img">
                                                                                 <button type="button" class="delete-btn"
                                                                                     ng-click="deleteImageInEdit($index)">
                                                                                     <i class='bx bx-x'></i>
@@ -1198,10 +1200,6 @@
         margin-bottom: 20px;
     }
 
-    .input-container {
-        flex: 1;
-        margin-right: 10px;
-    }
 
     @media (max-width: 767px) {
         .form-inline {

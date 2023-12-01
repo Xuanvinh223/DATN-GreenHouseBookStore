@@ -79,11 +79,6 @@ public class Maincontroller {
         return "client/layouts/product-details";
     }
 
-    @GetMapping(value = "/account")
-    public String account() {
-        return "client/layouts/account-doashboad";
-    }
-
     @GetMapping(value = "/account/notification")
     public String account_Notify() {
         return "client/layouts/account-notify";

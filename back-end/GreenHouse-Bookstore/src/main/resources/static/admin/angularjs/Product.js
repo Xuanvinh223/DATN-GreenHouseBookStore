@@ -1,39 +1,39 @@
 
 
 
-app.controller("ProductController", function ($scope, $http, $filter, WebSocketService) {
-    $scope.$on("$routeChangeSuccess", function (event, current, previous) {
-        $scope.page.setTitle(current.$$route.title || " Quản Lý Sản Phẩm");
-    });
-    let host = "http://localhost:8081/rest/products";
-    $scope.editingProduct = {};
-    $scope.isEditing = false;
-    $scope.products = [];
-    $scope.brands = [];
-    $scope.publishers = [];
-    $scope.categories = [];
+app.controller("ProductController", function ($scope, $http, $filter) {
+        $scope.$on("$routeChangeSuccess", function (event, current, previous) {
+            $scope.page.setTitle(current.$$route.title || " Quản Lý Sản Phẩm");
+        });
+        let host = "http://localhost:8081/rest/products";
+        $scope.editingProduct = {};
+        $scope.isEditing = false;
+        $scope.products = [];
+        $scope.brands = [];
+        $scope.publishers = [];
+        $scope.categories = [];
     $scope.authors = [];
-    $scope.bookAuthors = [];
-    $scope.productCategories = [];
-    $scope.productAttributes = [];
-    $scope.attributeValues = [];
-    $scope.productDetails = [];
-    $scope.productImages = [];
-    $scope.discounts = [];
-    $scope.productDiscounts = [];
-    $scope.productPriceHistories = [];
-    $scope.defaultImage =
-        "https://res.cloudinary.com/dmbh3sz8s/image/upload/v1698734857/authors/author_1698734855371.jpg"; // Thay thế đường dẫn thực bằng đường dẫn hình ảnh mặc định thực tế
-    $scope.product = {
-        createAt: new Date(),
-    };
+        $scope.bookAuthors = [];
+        $scope.productCategories = [];
+        $scope.productAttributes = [];
+        $scope.attributeValues = [];
+        $scope.productDetails = [];
+        $scope.productImages = [];
+        $scope.discounts = [];
+        $scope.productDiscounts = [];
+        $scope.productPriceHistories = [];
+        $scope.defaultImage =
+            "/admin/assets/images/default.jpg"; // Thay thế đường dẫn thực bằng đường dẫn hình ảnh mặc định thực tế
+        $scope.product = {
+            createAt: new Date(),
+        };
 
-    $scope.selectedItemIndex = -1; // Biến lưu trạng thái sản phẩm đang được chỉnh sửa
-    $scope.showActiveProducts = true; // Mặc định hiển thị danh sách đang kinh doanh
-    $scope.itemsPerPageOptions = [5, 10, 20, 50];
-    $scope.itemsPerPage = 5;
-    $scope.currentPage = 1;
-    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
+        $scope.selectedItemIndex = -1; // Biến lưu trạng thái sản phẩm đang được chỉnh sửa
+        $scope.showActiveProducts = true; // Mặc định hiển thị danh sách đang kinh doanh
+        $scope.itemsPerPageOptions = [5, 10, 20, 50];
+        $scope.itemsPerPage = 5;
+        $scope.currentPage = 1;
+        $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
     $scope.orderByField = "";
     $scope.reverseSort = true;
     $scope.searchText = ""; // Thêm trường searchText cho ô tìm kiếm
@@ -257,6 +257,7 @@ app.controller("ProductController", function ($scope, $http, $filter, WebSocketS
         });
 
 
+
         $scope.exportProductsToExcel = function () {
             // Lấy dữ liệu của trang hiện tại
             var filteredData = $scope.getFilteredData();
@@ -309,16 +310,16 @@ app.controller("ProductController", function ($scope, $http, $filter, WebSocketS
                     title: "Lỗi",
                     text: "Vui lòng chọn file Excel.",
                 });
-            return;
-        }
+                return;
+            }
 
-        if (file) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var data = new Uint8Array(e.target.result);
-                var workbook = XLSX.read(data, { type: 'array' });
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var data = new Uint8Array(e.target.result);
+                    var workbook = XLSX.read(data, {type: 'array'});
 
-                // Kiểm tra tên cột ở đây
+                    // Kiểm tra tên cột ở đây
                 var sheet = workbook.Sheets[workbook.SheetNames[0]];
                 var expectedColumns = ["Mã Sản Phẩm", "Tên Sản Phẩm", "Thương Hiệu", "Nhà Xuất Bản", "Giá Sản Phẩm", "số Lượng", "Ảnh"];
                 var headers = [];
@@ -494,10 +495,6 @@ app.controller("ProductController", function ($scope, $http, $filter, WebSocketS
             attribute: null, // Thiết lập giá trị mặc định là null
             value: ''
         });
-    };
-
-    $scope.connectWebSocket = function () {
-        WebSocketService.connect($scope.updateProduct);
     };
 
 
@@ -1001,10 +998,10 @@ app.controller("ProductController", function ($scope, $http, $filter, WebSocketS
 
     $scope.clearImage = function () {
         $scope.productDetail =
-            "https://res.cloudinary.com/dmbh3sz8s/image/upload/v1698734857/authors/author_1698734855371.jpg";
+            "/admin/assets/images/default.jpg";
         var imageElement = document.getElementById("uploadedImage");
         imageElement.src =
-            "https://res.cloudinary.com/dmbh3sz8s/image/upload/v1698734857/authors/author_1698734855371.jpg";
+            "/admin/assets/images/default.jpg";
         var fileInput = document.getElementById("fileInput");
         fileInput.value = null; // Đặt giá trị của input file thành null để xóa tệp đã chọn
     };
@@ -1119,9 +1116,6 @@ app.controller("ProductController", function ($scope, $http, $filter, WebSocketS
         console.log(files);
     };
 
-
-    // Gọi hàm connectWebSocket khi controller được khởi tạo
-    $scope.connectWebSocket();
 
 
     $scope.loadProducts();

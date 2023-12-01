@@ -23,6 +23,7 @@ import com.greenhouse.repository.OTPRepository;
 import com.greenhouse.service.AuthService;
 import com.greenhouse.service.EmailService;
 import com.greenhouse.service.TwilioOTPService;
+import com.twilio.exception.ApiException;
 
 @RestController
 @RequestMapping("/sign-up")
@@ -149,7 +150,13 @@ public class SignupController {
                 createOTP.setExpiredTime(cal.getTime());
                 createOTP.setStatus(0);
                 otpRepository.save(createOTP);
-                twilioOTPService.sendOTP(signupDTO.getEmailAndPhone(), code);
+                try {
+                    twilioOTPService.sendOTP(signupDTO.getEmailAndPhone(), code);
+                } catch (ApiException apiException) {
+                    response.setStatus(400);
+                    response.setMessage("Số điện thoại không hổ trợ.");
+                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+                }
                 response.setStatus(201);
                 response.setMessage("OTP đã được gửi.");
                 return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -164,7 +171,13 @@ public class SignupController {
                 createOTP.setExpiredTime(cal.getTime());
                 createOTP.setStatus(0);
                 otpRepository.save(createOTP);
-                twilioOTPService.sendOTP(signupDTO.getEmailAndPhone(), code);
+                try {
+                    twilioOTPService.sendOTP(signupDTO.getEmailAndPhone(), code);
+                } catch (ApiException apiException) {
+                    response.setStatus(400);
+                    response.setMessage("Số điện thoại không hổ trợ.");
+                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+                }
                 response.setStatus(201);
                 response.setMessage("OTP đã được gửi.");
                 return new ResponseEntity<>(response, HttpStatus.CREATED);

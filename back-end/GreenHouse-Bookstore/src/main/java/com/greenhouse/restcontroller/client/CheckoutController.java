@@ -123,7 +123,7 @@ public class CheckoutController {
             Orders order = checkoutService.createOrder(data);
 
             // Create order status history
-            checkoutService.createOrderStatusHistory(order.getOrderCode(), "pending-confirm");
+            checkoutService.createOrderStatusHistory(order.getOrderCode(), "pending_confirmation");
 
             // Create invoice
             Invoices invoices = checkoutService.createInvoice(data, order);

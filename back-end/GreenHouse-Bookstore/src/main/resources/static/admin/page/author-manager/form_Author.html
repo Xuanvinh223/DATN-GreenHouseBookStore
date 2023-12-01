@@ -3,24 +3,26 @@
       <div class="col-12">
           <div class="card shadow mb-4">
               <div class="card-header">
-                  <a type="button" class="btn btn-success" href="#!/author-table">
-                      <i class="fa fa-list"> </i> Danh Sách Tác Giả
-                  </a>
+                  <div class="d-flex justify-content-between align-items-center">
+                      <h4 class="card-title mb-0">Thông Tin Tác giả</h4>
+
+                      <a type="button" class="btn btn-success" href="#!/author-table">
+                          <i class="fa fa-list"> </i> Danh Sách Tác Giả
+                      </a>
+                  </div>
               </div>
+
           </div>
       </div>
       <div class="col-12">
           <div class="card shadow mb-4">
-              <div class="card-header">
-                  <h4 class="card-title">Thông Tin Tác Giả</h4>
-              </div>
               <div class="card-body">
                   <form enctype="multipart/form-data">
                       <div class="row">
                           <div class="col-md-8">
                               <div class="form-row">
                                   <div class="col-md-5 mb-3">
-                                      <label for="authorName">ID Tác Giả(*)</label>
+                                      <label for="authorId">ID Tác Giả(*)</label>
                                       <input type="text" class="form-control" placeholder="Nhập tên tác giả"
                                              id="authorId"
                                              ng-disabled="isEditing"
@@ -29,22 +31,24 @@
                                   <div class="col-md-5 mb-3">
                                       <label for="authorName">Tên Tác Giả(*)</label>
                                       <input type="text" class="form-control" placeholder="Nhập tên tác giả"
-                                             id="authorName"
+                                             id="authorName" ng-change="hideError('authorName')"
                                              name="authorName" ng-model="editingAuthor.authorName"/>
-                                      <small class="text-danger">{{ errors.authorName }}</small>
+                                      <small class="text-danger" ng-show="errors.authorName">{{ errors.authorName
+                                          }}</small>
                                   </div>
                               </div>
                               <div class="form-row">
                                   <div class="col-md-5 mb-3">
                                       <label for="nation">Quốc Tịch(*)</label>
-                                      <select class="form-control select2" id="nationSelect" name="nation"
+                                      <select class="form-control select2" id="nationSelect"
+                                              ng-change="hideError('nationality')" name="nation"
                                               ng-model="editingAuthor.nation">
                                           <option value="" disabled>Chọn quốc tịch</option>
                                           <option ng-repeat="nationality in nationalities" value="{{nationality}}">
                                               {{nationality}}
                                           </option>
                                       </select>
-                                      <small class="text-danger">{{ errors.nation }}</small>
+                                      <small class="text-danger" ng-show="errors.nation">{{ errors.nation }}</small>
 
                                   </div>
 
@@ -52,24 +56,25 @@
                                       <p class="mb-2">Giới Tính(*)</p>
                                       <div class="form-check form-check-inline">
                                           <input class="form-check-input" type="radio" name="gender" id="male"
-                                                 ng-value="true"
+                                                 ng-value="true" ng-change="hideError('gender')"
                                                  ng-model="editingAuthor.gender"/>
                                           <label class="form-check-label" for="male">Nam</label>
                                       </div>
                                       <div class="form-check form-check-inline">
                                           <input class="form-check-input" type="radio" name="gender" id="female"
-                                                 ng-value="false"
+                                                 ng-value="false" ng-change="hideError('gender')"
                                                  ng-model="editingAuthor.gender"/>
                                           <label class="form-check-label" for="female">Nữ</label>
                                       </div>
-                                      <small class="text-danger">{{ errors.gender }}</small>
+                                      <small class="text-danger" ng-show="errors.gender">{{ errors.gender }}</small>
 
                                   </div>
                               </div>
               </div>
                 <div class="col-md-4">
                     <div class="col-md-6 mb-3">
-                        <img class="object-fit" ng-src="{{editingAuthor.image || defaultImage}}" alt="Uploaded Image"
+                        <img class="object-fit" ng-src="{{editingAuthor.image || '/admin/assets/images/default.jpg' }}"
+                             alt="Uploaded Image"
                              id="uploadedImage" name="image" style="max-height: 250px; width: 100%; border-radius: 5%;">
                     </div>
                     <div class="col-md-6 mb-3">

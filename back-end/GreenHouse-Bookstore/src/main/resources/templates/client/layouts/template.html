@@ -265,7 +265,7 @@
             <div class="top-account-dropdown p-3">
               <!-- Kiểm tra nếu người dùng có vai trò 'CUSTOMER' -->
               <div>
-                <a sec:authorize="hasAnyRole('ADMIN','STAFF','CUSTOMER')" href="/account" style="margin-top: 5px;"
+                <a sec:authorize="hasAnyRole('ADMIN','STAFF','CUSTOMER')" href="/account/info" style="margin-top: 5px;"
                    class="button-default">
                     <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
                 </a>
@@ -550,9 +550,9 @@
                 <a href="/admin/index" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-cogs"></i> <span th:text="#{lo.mn.ql}">Quản lý</span>
                 </a>
-                <a href="/account" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
-                </a>
+                  <a href="/account/info" style="margin-top: 5px;" class="button-default">
+                      <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
+                  </a>
                   <a href="http://localhost:8081/admin/index.html#!/revenue-static-overtime" style="margin-top: 5px;"
                      class="button-default">
                       <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.bc}">Báo cáo</span>
@@ -775,14 +775,14 @@
               <div class="brand-footer footer-title">
                 <img src="/client/image/GreenHouse_Logo.png" alt="">
               </div>
-              <div class="footer-contact">
-                <p><span class="label" th:text="#{lo.mn.address}">Địa chỉ:</span>
-                  Toà nhà FPT Polytechnic, Đ. Số 22, Thường Thạnh, Cái Răng, Cần Thơ, Vietnam</p>
-                <p><span class="label" th:text="#{lo.mn.phone}">Điện thoại:</span><span
-                    class="text">1800.123.4569</span></p>
-                <p><span class="label">Email:</span><span class="text">greenhousebook@gmail.com</span></p>
+                <div class="footer-contact">
+                    <p><span class="label" th:text="#{lo.mn.address}">Địa chỉ:</span>
+                        Toà nhà FPT Polytechnic, Đ. Số 22, Thường Thạnh, Cái Răng, Cần Thơ, Vietnam</p>
+                    <p><span class="label" th:text="#{lo.mn.phone}">Điện thoại:</span><span
+                            class="text">088.6077.296</span></p>
+                    <p><span class="label">Email:</span><span class="text">greenhouse20033@gmail.com</span></p>
 
-              </div>
+                </div>
             </div>
           </div>
           <div class=" col-xl-4 col-lg-2 col-sm-6 border-end border-success text-center">
@@ -795,11 +795,10 @@
                 <li><a href="" th:text="#{lo.mn.thanhtoan}">Bảo mật thanh toán</a></li>
                 <li><a href="" th:text="#{lo.mn.hethong}">Hệ thống uy tín</a></li>
                 <li><a href="" th:text="#{lo.mn.dieukhoan}">Điều khoản sử dụng phù hợp</a></li>
-
               </ul>
             </div>
             <a href="#" class="payment-block">
-              <img class="footer-img" src="/client/image/icon/payment.png" alt="">
+                <img src="https://pay.vnpay.vn/images/brands/logo-en.svg" alt="">
             </a>
           </div>
 

@@ -14,8 +14,7 @@
                      alt="" style="border-radius: 5px;height: auto;max-width: 100%;">
             </div>
         </section>
-        <section class="section-margin container" ng-controller="flashSaleController"
-                 ng-show="showSection">
+        <section class="section-margin container" ng-controller="flashSaleController">
             <!-- Flash Sale Header -->
             <div class="flashsale-header section-title--bordered" ng-repeat="flash in flashSales"
                  ng-show="flash.showCountdown" ng-if="flash.status == 2">
