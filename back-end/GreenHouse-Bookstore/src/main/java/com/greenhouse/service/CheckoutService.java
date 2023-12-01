@@ -100,7 +100,7 @@ public class CheckoutService {
     public void createInvoiceStatusMapping(Invoices invoices, int status) {
         InvoiceMappingStatus iMappingStatus = new InvoiceMappingStatus();
         iMappingStatus.setInvoice(invoices);
-        iMappingStatus.setPaymentStatus(paymentStatusRepository.findById(status).orElse(null)); 
+        iMappingStatus.setPaymentStatus(paymentStatusRepository.findById(status).orElse(null));
         iMappingStatus.setUpdateAt(new Date());
         invoiceMappingStatusRepository.save(iMappingStatus);
     }
@@ -137,11 +137,11 @@ public class CheckoutService {
         return order;
     }
 
-    public void createOrderStatusHistory(String orderCode) {
+    public void createOrderStatusHistory(String orderCode, String status) {
         Order_Status_History orderStatusHistory = new Order_Status_History();
         orderStatusHistory.setOrderCode(orderCode);
         orderStatusHistory.setUpdateAt(new Date());
-        orderStatusHistory.setStatus("pending-confirm");
+        orderStatusHistory.setStatus(status);
         orderStatusHistoryRepository.save(orderStatusHistory);
     }
 
@@ -154,7 +154,7 @@ public class CheckoutService {
         }
     }
 
-    public void increaseDiscountProductQuantity(List<Carts> listCarts) {                    
+    public void increaseDiscountProductQuantity(List<Carts> listCarts) {
         for (Carts item : listCarts) {
             Product_Discount pDiscount = productDiscountRepository.findByProductDetail(item.getProductDetail());
             Discounts discount = pDiscount.getDiscount();
@@ -282,7 +282,7 @@ public class CheckoutService {
         while (ordersRepository.existsById(orderCode)) {
             orderCode = generateOrderCode();
         }
-        
+
         orders.setOrderCode(orderCode);
         orders.setClientOrderCode(orderCode);
         orders.setUsername(data.getUsername());
@@ -309,7 +309,7 @@ public class CheckoutService {
 
         // Thông tin đơn hàng
         // trạng thái
-        orders.setStatus("pending");
+        orders.setStatus("pending-confirm");
         // ngày tạo
         Date now = new Date();
         orders.setCreate_Date(now);
