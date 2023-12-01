@@ -527,7 +527,6 @@ app.service("CartService", function ($http, cartAPI) {
 
         return $http.post(url, cartId)
             .then(function (response) {
-                $scope.getCartHeader();
                 return response.data;
             })
             .catch(function (error) {

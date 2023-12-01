@@ -36,26 +36,26 @@
 										<td><a href="single-product.html">{{order.productName}}</a>
 											<strong>×{{order.quantity}}</strong>
 										</td>
-										<td><span>{{order.price | number:'0'}} đ</span></td>
+										<td class="money"><span>{{order.price | number:'0'}} đ</span></td>
 									</tr>
 								</tbody>
 								<tfoot>
 									<tr>
 										<th style="font-weight: bold">Thành tiền:</th>
-										<td><span>{{invoice.totalAmount | number:'0'}} đ</span></td>
+										<td class="money"><span>{{invoice.totalAmount | number:'0'}} đ</span></td>
 									</tr>
 									<tr>
 										<th>Phí ship:</th>
-										<td>{{invoice.shippingFee <= 0 ? "Miễn phí" : invoice.shippingFee | number:'0'}}
+										<td class="money">{{invoice.shippingFee <= 0 ? "Miễn phí" : invoice.shippingFee | number:'0'}}
 												đ</td>
 									</tr>
 									<tr ng-repeat="imv in invoiceMV track by $index">
 										<th>{{imv.voucher.voucherName}}</th>
-										<td>{{imv.discountAmount | number:'0'}} đ</td>
+										<td class="money">{{imv.discountAmount | number:'0'}} đ</td>
 									</tr>
 									<tr>
 										<th style="font-weight: bold">Thanh toán:</th>
-										<td><span>{{invoice.paymentAmount | number:'0'}} đ</span></td>
+										<td class="money"><span>{{invoice.paymentAmount | number:'0'}} đ</span></td>
 									</tr>
 								</tfoot>
 							</table>

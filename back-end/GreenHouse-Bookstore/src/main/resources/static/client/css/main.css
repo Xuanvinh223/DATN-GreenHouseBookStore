@@ -31349,6 +31349,10 @@ ul.main-menu .menu-title1:hover a {
   border-right: 1px solid #e5e5e5;
 }
 
+.order-details-table tbody tr .money {
+  text-align: right;
+}
+
 /*--
     Elements - Accordion
 ------------------------------------------------------*/
