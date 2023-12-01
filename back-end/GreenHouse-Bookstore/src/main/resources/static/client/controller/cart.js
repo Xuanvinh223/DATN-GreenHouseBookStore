@@ -118,6 +118,26 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
 
     }
 
+    $scope.removeCartSelected = function () {
+        Swal.fire({
+            title: "Xóa sản phẩm ?",
+            text: "Bạn có muốn xóa toàn bộ sản phẩm khỏi giỏ hàng.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Hủy",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $scope.listCartItemSelected.forEach(item => {
+                    CartService.removeCartItem(item.cartId);
+                })
+                $scope.getCartHeader();
+                getCart();
+            }
+        });
+
+    }
+
     $scope.removeFromCart = function (index) {
         Swal.fire({
             title: "Xóa sản phẩm?",
@@ -128,11 +148,13 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
             cancelButtonText: "Hủy",
         }).then((result) => {
             if (result.isConfirmed) {
-                CartService.removeCartItem($scope.listCartItem[index].cartId);
-                $scope.listCartItem.splice(index, 1);
+                CartService.removeCartItem($scope.listCartItem[index].cartId).then(() => {
+                    $scope.listCartItem.splice(index, 1);
+                    $scope.getCartHeader();
+                });
+                
             }
         });
-
     }
 
     function calculateTotal() {

@@ -62,7 +62,6 @@ function indexClientController($scope, $http) {
                 console.log("Dữ Liệu SẢN PHẨM BÁN CHẠY: ", $scope.sellingProducts);
                 console.log("Dữ Liệu THƯƠNG HIỆU NỔI BẬT: ", $scope.sellingBrands);
                 console.log("Danh sách đánh giá sản phẩm: ", $scope.listProductReviews);
-
             })
             .catch(function (error) {
                 console.error('Error fetching data: ' + error);
