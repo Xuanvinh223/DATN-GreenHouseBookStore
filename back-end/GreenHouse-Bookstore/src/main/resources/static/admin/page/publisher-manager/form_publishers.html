@@ -1,22 +1,20 @@
 <div class="container-fluid" ng-controller="PublishersController">
   <div class="row justify-content-center">
     <div class="col-12">
-      <div class="toolbar row mb-2">
-        <div class="col ml-auto">
-          <div class="float-right">
-            <form class="form-inline mr-auto  text-muted ">
-              <a type="button" class="btn btn-success " href="#!/publisher-table">
-                Danh Sách Nhà Xuất Bản
-              </a>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-12">
       <div class="card shadow mb-4">
         <div class="card-header">
-          <h4 class="card-title">Thông Tin Nhà Xuất Bản</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <h4 class="card-title">Thông Tin Nhà Xuất Bản</h4>
+            </div>
+            <div class="col-md-6">
+              <form class="form-inline mr-auto  text-muted  d-flex justify-content-end">
+                <a type="button" class="btn btn-success " href="#!/publisher-table">
+                  Danh Sách Nhà Xuất Bản
+                </a>
+              </form>
+            </div>
+          </div>
         </div>
         <div class="card-body">
           <form enctype="multipart/form-data">
@@ -26,7 +24,7 @@
                   <div class="col-md-5 mb-3">
                     <label for="publisherId">ID Nhà Xuất Bản(*)</label>
                     <input type="text" class="form-control" placeholder="Nhập mã nhà xuất bản" id="publisherId"
-                      name="publisherId" ng-model="editingPublisher.publisherId" ng-disabled="isEditing" />
+                           name="publisherId" ng-model="editingPublisher.publisherId" ng-disabled="isEditing"/>
                     <small class="error-label text-danger"
                       ng-show="errorMessages.publisherId">{{errorMessages.publisherId}}</small>
                   </div>
@@ -62,35 +60,30 @@
                 </button>
                 <button type="button" class="btn btn-primary" ng-click="resetForm()">Làm Mới</button>
               </div>
-              <!-- /.col -->
-              <div class="col-md-2 Upload">
-                <div class="row d-flex justify-content-center">
-                  <img class="object-fit" ng-src="/images/{{editingPublisher.image}}" alt="Chưa có ảnh nào được tải"
-                    id="uploadedImage" name="image" style="max-height: 250px; width: 100%; border-radius: 10%;" />
-                </div>
+              <div class="col-md-2 ">
                 <div class="form-label h5 text-center">
-                  <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại diện</label>
+                  <label for="price" class="form-label h6"><span class="text-danger"></span> Ảnh đại diện(*)</label>
                 </div>
                 <div class="row d-flex justify-content-center">
-                  <label class="text-center mt-2 btn btn-dark w-100">
+                  <img class="img-fluid w-100 h-100"
+                       ng-src="{{editingPublisher.image || '/admin/assets/images/default.jpg' }}" alt="Ảnh đại diện"
+                       id="uploadedImage" name="image"/>
+                </div>
+
+                <div class="row d-flex justify-content-center">
+                  <label class="text-center mt-2 btn btn-outline-secondary">
                     <i class="fa fa-upload"></i>
-                      Tải ảnh đại diện
-                      <input type="file" name="file" style="object-fit: contain;" id="fileInput"
-                             ng-model="editingPublisher.image" onchange="displayImage(event)" hidden
-                             accept=".png,.jpg,.jpeg"/>
+                    Tải ảnh lên
+                    <input type="file" name="file" style="object-fit: contain;" id="fileInput"
+                           ng-model="editingAccounts.image" onchange="displayImage(event)" hidden
+                           accept=".png,.jpg,.jpeg"/>
                   </label>
                 </div>
+
               </div>
             </div>
           </form>
         </div>
-
-          <!-- Thêm phần tử HTML này nơi bạn muốn hiển thị hiệu ứng loading -->
-          <div id="loadingOverlay" class="loading-overlay">
-              <div class="loading-spinner">
-                  <i class="fas fa-spinner fa-spin"></i>
-              </div>
-          </div>
       </div>
     </div>
   </div>

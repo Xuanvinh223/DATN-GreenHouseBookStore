@@ -98,19 +98,25 @@
                                                         <i class="bx bx-search search-icon"></i>
                                                         <input class="order-input" type="text" ng-model="searchTerm" ng-change="searchOrders(searchTerm)" placeholder="Tìm kiếm theo Mã hóa đơn, Tên sản phẩm">
                                                     </div>                                                      
-                                                    <div ng-repeat="order in filteredOrders" ng-show="shouldShowOrder(order)" class="card order-in-order text-decoration-none text-dark">
+                                                    <div ng-repeat="order in filteredOrders"
+                                                         class="card order-in-order text-decoration-none text-dark">
                                                         <div class="card-body order-body">
-                                                            <div class="row ">
+                                                            <div class="row mt-2">
                                                                 <div class="col-md-2 d-flex justify-content-start ">
                                                                     {{ order.orderCode }}
                                                                 </div>
                                                                 <div class="col-md-10 d-flex justify-content-end ">
                                                                     <span class="fw-normal mb-0">Trạng thái đơn hàng|
-                                                                        <strong class="text-primary" ng-if="order.status === 'pending_confirmation'">Chờ Xác Nhận</strong>
-                                                                        <strong class="text-primary" ng-if="order.status === 'pending'">Chờ Bàn Giao</strong>
-                                                                        <strong class="text-primary" ng-if="order.status === 'transporting'">Đang Giao</strong>
-                                                                        <strong class="text-primary" ng-if="order.status === 'return_transporting'">Đang Hoàn Hàng</strong>
-                                                                        <strong class="text-primary" ng-if="order.status === 'waiting_to_return'">Chờ Xác Nhận Giao Lại</strong>
+                                                                        <strong class="text-primary"
+                                                                                ng-if="order.status === 'pending_confirmation'">Chờ Xác Nhận</strong>
+                                                                        <strong class="text-primary"
+                                                                                ng-if="order.status === 'pending'">Chờ Bàn Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                                ng-if="order.status === 'transporting'">Đang Giao</strong>
+                                                                        <strong class="text-primary"
+                                                                                ng-if="order.status === 'return_transporting'">Đang Hoàn Hàng</strong>
+                                                                        <strong class="text-primary"
+                                                                                ng-if="order.status === 'waiting_to_return'">Chờ Xác Nhận Giao Lại</strong>
                                                                         <strong class="text-primary" ng-if="order.status === 'completed'">Hoàn Tất</strong>
                                                                         <strong class="text-primary" ng-if="order.status === 'cancel'">Đã Hủy</strong>
                                                                         <strong class="text-primary" ng-if="order.status === 'lost_damage'">Hàng Thất Lạc - Hư Hỏng</strong>
@@ -138,22 +144,25 @@
                                                                     <div class="order-price">
                                                                         <p class="fw-normal mb-0">
                                                                             <span ng-if="orderDetail.productDetail.price !== orderDetail.productDetail.priceDiscount">
-                                                                                <del class="order-price-origin">{{ orderDetail.productDetail.price | number:'0' }}<sup>đ</sup></del>
+                                                                                <del class="order-price-origin">{{ orderDetail.productDetail.price | number:'0' }} đ</del>
                                                                             </span>
-                                                                            {{ orderDetail.productDetail.priceDiscount | number:'0' }}<sup>đ</sup>
+                                                                            {{ orderDetail.productDetail.priceDiscount |
+                                                                            number:'0' }} đ
                                                                         </p>
                                                                     </div>                                                                    
                                                                 </div>
                                                             </div>
                                                             <div class="row order-item">
                                                                 <div class="col-md-12 d-flex justify-content-end align-items-center">
-                                                                    <small class="text-muted font-weight-bold">Phí ship: {{ order.codAmount | number:'0' }}<sup>đ</sup></small>
+                                                                    <small class="text-muted font-weight-bold">Phí ship:
+                                                                        {{ order.codAmount | number:'0' }} đ</small>
                                                                 </div>
                                                             </div>                                                                                                                    
                                                             <hr class="order-hr">
                                                             <div class="row">
                                                                 <div class="col-md-12 d-flex justify-content-end">
-                                                                    <span style="color: red;" class="lead fw-normal mb-0">Tổng tiền: {{ calculateTotalAmount(order) | number:'0' }}<sup>đ</sup></span>
+                                                                    <span style="color: red;"
+                                                                          class="lead fw-normal mb-0">Tổng tiền: {{ calculateTotalAmount(order) | number:'0' }} đ</span>
                                                                 </div>
                                                             </div>                                                            
                                                             <div class="row ">
@@ -169,26 +178,36 @@
                                                                     class="col-md-4 d-flex justify-content-start align-items-center">
 
                                                                 </div>
-                                                                <div class="order-btn col-md-8">
+                                                                <div class="order-btn col-md-8 mb">
                                                                     <!-- Hủy Đơn -->
                                                                     <a ng-if="['pending_confirmation', 'pending'].includes(order.status)"
-                                                                        ng-click="showCancelModal(order)"
-                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Hủy đơn</a>
+                                                                       ng-click="showCancelModal(order)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Hủy
+                                                                        đơn</a>
                                                                     <!-- Đánh Giá và Xác Nhận Đã Nhận Hàng (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <a ng-if="order.status === 'completed'"
-                                                                        ng-click="acceptOrderModal(order.orderCode)"
-                                                                        class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Xác Nhận Đã Nhận Hàng</a>
-                                                                    <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
-                                                                    <a ng-if="['completed', 'received'].includes(order.status)"
-                                                                        ng-click="buyAgain(order.orderCode)"
-                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Mua lại</a>
+                                                                       ng-click="acceptOrderModal(order.orderCode)"
+                                                                       class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Xác
+                                                                        Nhận Đã Nhận Hàng</a>
                                                                     <!-- Đánh Giá (Chỉ cho trạng thái Nhận Hàng và có nút đánh giá được hiển thị) -->
                                                                     <a ng-if="order.status === 'received' && order.showReviewButton"
-                                                                        ng-click="showModalReview(order, orderDetail.productDetail.productDetailId, order.orderCode)"
-                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Đánh Giá</a>
+                                                                       ng-click="showModalReview(order, orderDetail.productDetail.productDetailId, order.orderCode)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Đánh
+                                                                        Giá</a>
+                                                                    <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
+                                                                    <a ng-if="['completed', 'received'].includes(order.status)"
+                                                                       ng-click="buyAgain(order.orderCode)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Mua
+                                                                        lại</a>
                                                                     <!-- Liên Hệ -->
                                                                     <a ng-href="/contact"
-                                                                        class="btn btn-outline-dark shadow-none text-center mr-4">Liên hệ</a>
+                                                                       class="btn btn-outline-dark shadow-none text-center mr-4">Liên
+                                                                        hệ</a>
+
+                                                                    <a ng-if="order.status === 'cancel'"
+                                                                       ng-click="getOrderCode(order.orderCode)"
+                                                                       class="btn btn-outline-dark shadow-none text-center mr-4">Chi
+                                                                        tiết đơn hủy</a>
                                                                 </div>                                                                                                               
                                                             </div>
                                                         </div>
@@ -210,43 +229,17 @@
                                                 </div>
                                                 <!-- Chờ xác nhận -->
                                                 <div class="tab-pane fade" id="content2">
-                                                    <div class="order-search">
-                                                        <i class="bx bx-search search-icon"></i>
-                                                        <input class="order-input" type="text" ng-model="searchTerm" ng-change="searchOrders(searchTerm)" placeholder="Tìm kiếm theo Mã hóa đơn, Tên sản phẩm">
-                                                    </div>                       
-                                                    <div ng-repeat="order in filteredOrders" class="card order-in-order text-decoration-none text-dark">
+                                                    <div ng-repeat="order in filteredOrders"
+                                                         class="card order-in-order text-decoration-none text-dark">
                                                         <div class="card-body order-body">
-                                                            <div class="row ">
+                                                            <div class="row mt-2">
                                                                 <div class="col-md-2 d-flex justify-content-start ">
                                                                     {{ order.orderCode }}
                                                                 </div>
                                                                 <div class="col-md-10 d-flex justify-content-end ">
-                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn đã
-                                                                        được giao thành công |
+                                                                    <span class="fw-normal mb-0">Trạng thái đơn hàng|
                                                                         <strong class="text-primary"
-                                                                            ng-if="order.status === 'Pending Confirmation'">Chờ
-                                                                            Xác Nhận</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Pending Handover'">Chờ
-                                                                            Bàn Giao</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'In Transit'">Đang
-                                                                            Giao</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Returning'">Đang
-                                                                            Hoàn Hàng</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Pending Redelivery Confirmation'">Chờ
-                                                                            Xác Nhận Giao Lại</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Completed'">Hoàn
-                                                                            Thành</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Canceled'">Đã
-                                                                            Hủy</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Lost/Damaged Goods'">Hàng
-                                                                            Thất Lạc - Hư Hỏng</strong>
+                                                                                ng-if="order.status === 'pending_confirmation'">Chờ Xác Nhận</strong>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -270,22 +263,25 @@
                                                                     <div class="order-price">
                                                                         <p class="fw-normal mb-0">
                                                                             <span ng-if="orderDetail.productDetail.price !== orderDetail.productDetail.priceDiscount">
-                                                                                <del class="order-price-origin">{{ orderDetail.productDetail.price | number:'0' }}<sup>đ</sup></del>
+                                                                                <del class="order-price-origin">{{ orderDetail.productDetail.price | number:'0' }} đ</del>
                                                                             </span>
-                                                                            {{ orderDetail.productDetail.priceDiscount | number:'0' }}<sup>đ</sup>
+                                                                            {{ orderDetail.productDetail.priceDiscount |
+                                                                            number:'0' }} đ
                                                                         </p>
                                                                     </div>                                                                    
                                                                 </div>
                                                             </div>
                                                             <div class="row order-item">
                                                                 <div class="col-md-12 d-flex justify-content-end align-items-center">
-                                                                    <small class="text-muted font-weight-bold">Phí ship: {{ order.codAmount | number:'0' }}<sup>đ</sup></small>
+                                                                    <small class="text-muted font-weight-bold">Phí ship:
+                                                                        {{ order.codAmount | number:'0' }} đ</small>
                                                                 </div>
                                                             </div> 
                                                             <hr class="order-hr">
                                                             <div class="row">
                                                                 <div class="col-md-12 d-flex justify-content-end">
-                                                                    <span style="color: red;" class="lead fw-normal mb-0">Tổng tiền: {{ calculateTotalAmount(order) | number:'0' }}<sup>đ</sup></span>
+                                                                    <span style="color: red;"
+                                                                          class="lead fw-normal mb-0">Tổng tiền: {{ calculateTotalAmount(order) | number:'0' }} đ</span>
                                                                 </div>
                                                             </div>   
                                                             <div class="row ">
@@ -303,27 +299,14 @@
                                                                 </div>
                                                                 <div class="order-btn col-md-8">
                                                                     <!-- Hủy Đơn -->
-                                                                    <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
-                                                                        ng-click="showCancelModal(order)"
-                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Hủy
+                                                                    <a ng-if="['pending_confirmation', 'pending'].includes(order.status)"
+                                                                       ng-click="showCancelModal(order)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Hủy
                                                                         đơn</a>
-                                                                    <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
-                                                                    <a ng-if="order.status === 'Completed'"
-                                                                        class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh
-                                                                        giá</a>
-                                                                    <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
-                                                                    <a ng-if="['Completed', 'Canceled'].includes(order.status)"
-                                                                        ng-click="buyAgain(order.orderCode)"
-                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Mua
-                                                                        lại</a>
                                                                     <!-- Liên Hệ -->
-                                                                    <a ng-href="/lien-he"
-                                                                        class="btn btn-outline-dark shadow-none text-center mr-4">Liên
+                                                                    <a ng-href="/contact"
+                                                                       class="btn btn-outline-dark shadow-none text-center mr-4">Liên
                                                                         hệ</a>
-                                                                    <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
-                                                                    <a ng-if="order.status === 'Completed'"
-                                                                        class="btn btn-outline-dark shadow-none text-center">Xem
-                                                                        đánh giá</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -345,43 +328,18 @@
                                                     </div>
                                                 </div>
                                                 <!-- CHỜ BÀN GIAO -->
-                                                <div class="tab-pane fade" id="content3">                                                   
-                                                    <div class="order-search">
-                                                        <i class="bx bx-search search-icon"></i><input class="order-input" type="text" name="" id="" placeholder="Bạn có thể tìm kiếm theo tên Shop, ID đơn hàng hoặc Tên Sản phẩm">
-                                                    </div>                     
-                                                    <div ng-repeat="order in filteredOrders" class="card order-in-order text-decoration-none text-dark">
+                                                <div class="tab-pane fade" id="content3">
+                                                    <div ng-repeat="order in filteredOrders"
+                                                         class="card order-in-order text-decoration-none text-dark">
                                                         <div class="card-body order-body">
-                                                            <div class="row ">
+                                                            <div class="row mt-2">
                                                                 <div class="col-md-2 d-flex justify-content-start ">
                                                                     {{ order.orderCode }}
                                                                 </div>
                                                                 <div class="col-md-10 d-flex justify-content-end ">
-                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn đã
-                                                                        được giao thành công |
+                                                                    <span class="fw-normal mb-0">Trạng thái đơn hàng|
                                                                         <strong class="text-primary"
-                                                                            ng-if="order.status === 'Pending Confirmation'">Chờ
-                                                                            Xác Nhận</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Pending Handover'">Chờ
-                                                                            Bàn Giao</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'In Transit'">Đang
-                                                                            Giao</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Returning'">Đang
-                                                                            Hoàn Hàng</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Pending Redelivery Confirmation'">Chờ
-                                                                            Xác Nhận Giao Lại</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Completed'">Hoàn
-                                                                            Thành</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Canceled'">Đã
-                                                                            Hủy</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Lost/Damaged Goods'">Hàng
-                                                                            Thất Lạc - Hư Hỏng</strong>
+                                                                                ng-if="order.status === 'pending'">Chờ Bàn Giao</strong>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -405,22 +363,25 @@
                                                                     <div class="order-price">
                                                                         <p class="fw-normal mb-0">
                                                                             <span ng-if="orderDetail.productDetail.price !== orderDetail.productDetail.priceDiscount">
-                                                                                <del class="order-price-origin">{{ orderDetail.productDetail.price | number:'0' }}<sup>đ</sup></del>
+                                                                                <del class="order-price-origin">{{ orderDetail.productDetail.price | number:'0' }} đ</del>
                                                                             </span>
-                                                                            {{ orderDetail.productDetail.priceDiscount | number:'0' }}<sup>đ</sup>
+                                                                            {{ orderDetail.productDetail.priceDiscount |
+                                                                            number:'0' }} đ
                                                                         </p>
                                                                     </div>                                                                    
                                                                 </div>
                                                             </div>
                                                             <div class="row order-item">
                                                                 <div class="col-md-12 d-flex justify-content-end align-items-center">
-                                                                    <small class="text-muted font-weight-bold">Phí ship: {{ order.codAmount | number:'0' }}<sup>đ</sup></small>
+                                                                    <small class="text-muted font-weight-bold">Phí ship:
+                                                                        {{ order.codAmount | number:'0' }} đ</small>
                                                                 </div>
                                                             </div>   
                                                             <hr class="order-hr">
                                                             <div class="row">
                                                                 <div class="col-md-12 d-flex justify-content-end">
-                                                                    <span style="color: red;" class="lead fw-normal mb-0">Tổng tiền: {{ calculateTotalAmount(order) | number:'0' }}<sup>đ</sup></span>
+                                                                    <span style="color: red;"
+                                                                          class="lead fw-normal mb-0">Tổng tiền: {{ calculateTotalAmount(order) | number:'0' }} đ</span>
                                                                 </div>
                                                             </div>
                                                             <div class="row ">
@@ -438,27 +399,15 @@
                                                                 </div>
                                                                 <div class="order-btn col-md-8">
                                                                     <!-- Hủy Đơn -->
-                                                                    <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
-                                                                        ng-click="showCancelModal(order)"
-                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Hủy
+                                                                    <a ng-if="['pending_confirmation', 'pending'].includes(order.status)"
+                                                                       ng-click="showCancelModal(order)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Hủy
                                                                         đơn</a>
-                                                                    <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
-                                                                    <a ng-if="order.status === 'Completed'"
-                                                                        class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh
-                                                                        giá</a>
-                                                                    <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
-                                                                    <a ng-if="['Completed', 'Canceled'].includes(order.status)"
-                                                                        ng-click="buyAgain(order.orderCode)"
-                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Mua
-                                                                        lại</a>
+                                                                    <!-- Đánh Giá và Xác Nhận Đã Nhận Hàng (Chỉ cho trạng thái Hoàn Thành) -->
                                                                     <!-- Liên Hệ -->
-                                                                    <a ng-href="/lien-he"
-                                                                        class="btn btn-outline-dark shadow-none text-center mr-4">Liên
+                                                                    <a ng-href="/contact"
+                                                                       class="btn btn-outline-dark shadow-none text-center mr-4">Liên
                                                                         hệ</a>
-                                                                    <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
-                                                                    <a ng-if="order.status === 'Completed'"
-                                                                        class="btn btn-outline-dark shadow-none text-center">Xem
-                                                                        đánh giá</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -480,43 +429,18 @@
                                                     </div>
                                                 </div>
                                                 <!-- ĐANG GIAO -->
-                                                <div class="tab-pane fade" id="content4">                                                  
-                                                    <div class="order-search">
-                                                        <i class="bx bx-search search-icon"></i><input class="order-input" type="text" name="" id="" placeholder="Bạn có thể tìm kiếm theo tên Shop, ID đơn hàng hoặc Tên Sản phẩm">
-                                                    </div>                     
-                                                    <div ng-repeat="order in filteredOrders" class="card order-in-order text-decoration-none text-dark">
+                                                <div class="tab-pane fade" id="content4">
+                                                    <div ng-repeat="order in filteredOrders"
+                                                         class="card order-in-order text-decoration-none text-dark">
                                                         <div class="card-body order-body">
-                                                            <div class="row ">
+                                                            <div class="row mt-2">
                                                                 <div class="col-md-2 d-flex justify-content-start ">
                                                                     {{ order.orderCode }}
                                                                 </div>
                                                                 <div class="col-md-10 d-flex justify-content-end ">
-                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn đã
-                                                                        được giao thành công |
+                                                                    <span class="fw-normal mb-0">Trạng thái đơn hàng|
                                                                         <strong class="text-primary"
-                                                                            ng-if="order.status === 'Pending Confirmation'">Chờ
-                                                                            Xác Nhận</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Pending Handover'">Chờ
-                                                                            Bàn Giao</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'In Transit'">Đang
-                                                                            Giao</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Returning'">Đang
-                                                                            Hoàn Hàng</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Pending Redelivery Confirmation'">Chờ
-                                                                            Xác Nhận Giao Lại</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Completed'">Hoàn
-                                                                            Thành</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Canceled'">Đã
-                                                                            Hủy</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Lost/Damaged Goods'">Hàng
-                                                                            Thất Lạc - Hư Hỏng</strong>
+                                                                                ng-if="order.status === 'transporting'">Đang Giao</strong>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -540,22 +464,25 @@
                                                                     <div class="order-price">
                                                                         <p class="fw-normal mb-0">
                                                                             <span ng-if="orderDetail.productDetail.price !== orderDetail.productDetail.priceDiscount">
-                                                                                <del class="order-price-origin">{{ orderDetail.productDetail.price | number:'0' }}<sup>đ</sup></del>
+                                                                                <del class="order-price-origin">{{ orderDetail.productDetail.price | number:'0' }} đ</del>
                                                                             </span>
-                                                                            {{ orderDetail.productDetail.priceDiscount | number:'0' }}<sup>đ</sup>
+                                                                            {{ orderDetail.productDetail.priceDiscount |
+                                                                            number:'0' }} đ
                                                                         </p>
                                                                     </div>                                                                    
                                                                 </div>
                                                             </div>
                                                             <div class="row order-item">
                                                                 <div class="col-md-12 d-flex justify-content-end align-items-center">
-                                                                    <small class="text-muted font-weight-bold">Phí ship: {{ order.codAmount | number:'0' }}<sup>đ</sup></small>
+                                                                    <small class="text-muted font-weight-bold">Phí ship:
+                                                                        {{ order.codAmount | number:'0' }} đ</small>
                                                                 </div>
                                                             </div>                                                                                                                    
                                                             <hr class="order-hr">
                                                             <div class="row">
                                                                 <div class="col-md-12 d-flex justify-content-end">
-                                                                    <span style="color: red;" class="lead fw-normal mb-0">Tổng tiền: {{ calculateTotalAmount(order) | number:'0' }}<sup>đ</sup></span>
+                                                                    <span style="color: red;"
+                                                                          class="lead fw-normal mb-0">Tổng tiền: {{ calculateTotalAmount(order) | number:'0' }} đ</span>
                                                                 </div>
                                                             </div>          
                                                             <div class="row ">
@@ -572,28 +499,10 @@
 
                                                                 </div>
                                                                 <div class="order-btn col-md-8">
-                                                                    <!-- Hủy Đơn -->
-                                                                    <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
-                                                                        ng-click="showCancelModal(order)"
-                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Hủy
-                                                                        đơn</a>
-                                                                    <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
-                                                                    <a ng-if="order.status === 'Completed'"
-                                                                        class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh
-                                                                        giá</a>
-                                                                    <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
-                                                                    <a ng-if="['Completed', 'Canceled'].includes(order.status)"
-                                                                        ng-click="buyAgain(order.orderCode)"
-                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Mua
-                                                                        lại</a>
                                                                     <!-- Liên Hệ -->
-                                                                    <a ng-href="/lien-he"
-                                                                        class="btn btn-outline-dark shadow-none text-center mr-4">Liên
+                                                                    <a ng-href="/contact"
+                                                                       class="btn btn-outline-dark shadow-none text-center mr-4">Liên
                                                                         hệ</a>
-                                                                    <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
-                                                                    <a ng-if="order.status === 'Completed'"
-                                                                        class="btn btn-outline-dark shadow-none text-center">Xem
-                                                                        đánh giá</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -615,21 +524,21 @@
                                                     </div>
                                                 </div>
                                                 <!-- HOÀNH THÀNH -->
-                                                <div class="tab-pane fade" id="content5">                                                 
-                                                    <div class="order-search">
-                                                        <i class="bx bx-search search-icon"></i><input class="order-input" type="text" name="" id="" placeholder="Bạn có thể tìm kiếm theo tên Shop, ID đơn hàng hoặc Tên Sản phẩm">
-                                                    </div>                     
-                                                    <div ng-repeat="order in filteredOrders" class="card order-in-order text-decoration-none text-dark">
+                                                <div class="tab-pane fade" id="content5">
+                                                    <div ng-repeat="order in filteredOrders"
+                                                         class="card order-in-order text-decoration-none text-dark">
                                                         <div class="card-body order-body">
-                                                            <div class="row ">
+                                                            <div class="row mt-2">
                                                                 <div class="col-md-2 d-flex justify-content-start ">
                                                                     {{ order.orderCode }}
                                                                 </div>
                                                                 <div class="col-md-10 d-flex justify-content-end ">
                                                                     <span class="fw-normal mb-0">Trạng thái đơn hàng| 
-                                                                        <strong class="text-primary" ng-if="order.status === 'completed'">Hoàn thành</strong>
-                                                                        <strong class="text-primary" ng-if="order.status === 'received'">Đã Nhận Hàng</strong>
-                                                                    </span>        
+                                                                        <strong class="text-primary"
+                                                                                ng-if="order.status === 'completed'">Hoàn thành</strong>
+                                                                        <strong class="text-primary"
+                                                                                ng-if="order.status === 'received'">Đã Nhận Hàng</strong>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                             <hr class="order-hr">
@@ -652,22 +561,25 @@
                                                                     <div class="order-price">
                                                                         <p class="fw-normal mb-0">
                                                                             <span ng-if="orderDetail.productDetail.price !== orderDetail.productDetail.priceDiscount">
-                                                                                <del class="order-price-origin">{{ orderDetail.productDetail.price | number:'0' }}<sup>đ</sup></del>
+                                                                                <del class="order-price-origin">{{ orderDetail.productDetail.price | number:'0' }} đ</del>
                                                                             </span>
-                                                                            {{ orderDetail.productDetail.priceDiscount | number:'0' }}<sup>đ</sup>
+                                                                            {{ orderDetail.productDetail.priceDiscount |
+                                                                            number:'0' }} đ
                                                                         </p>
                                                                     </div>                                                                    
                                                                 </div>
                                                             </div>
                                                             <div class="row order-item">
                                                                 <div class="col-md-12 d-flex justify-content-end align-items-center">
-                                                                    <small class="text-muted font-weight-bold">Phí ship: {{ order.codAmount | number:'0' }}<sup>đ</sup></small>
+                                                                    <small class="text-muted font-weight-bold">Phí ship:
+                                                                        {{ order.codAmount | number:'0' }} đ</small>
                                                                 </div>
                                                             </div>                                                                                                                    
                                                             <hr class="order-hr">
                                                             <div class="row">
                                                                 <div class="col-md-12 d-flex justify-content-end">
-                                                                    <span style="color: red;" class="lead fw-normal mb-0">Tổng tiền: {{ calculateTotalAmount(order) | number:'0' }}<sup>đ</sup></span>
+                                                                    <span style="color: red;"
+                                                                          class="lead fw-normal mb-0">Tổng tiền: {{ calculateTotalAmount(order) | number:'0' }} đ</span>
                                                                 </div>
                                                             </div>               
                                                             <div class="row ">
@@ -725,43 +637,18 @@
                                                     </div>
                                                 </div>
                                                 <!-- ĐÃ HỦY -->
-                                                <div class="tab-pane fade" id="content6">                                                    
-                                                    <div class="order-search">
-                                                        <i class="bx bx-search search-icon"></i><input class="order-input" type="text" name="" id="" placeholder="Bạn có thể tìm kiếm theo tên Shop, ID đơn hàng hoặc Tên Sản phẩm">
-                                                    </div>                     
-                                                    <div ng-repeat="order in filteredOrders" class="card order-in-order text-decoration-none text-dark">
+                                                <div class="tab-pane fade" id="content6">
+                                                    <div ng-repeat="order in filteredOrders"
+                                                         class="card order-in-order text-decoration-none text-dark">
                                                         <div class="card-body order-body">
-                                                            <div class="row ">
+                                                            <div class="row mt-2">
                                                                 <div class="col-md-2 d-flex justify-content-start ">
                                                                     {{ order.orderCode }}
                                                                 </div>
                                                                 <div class="col-md-10 d-flex justify-content-end ">
-                                                                    <span class="fw-normal mb-0">Đơn hàng của bạn đã
-                                                                        được giao thành công |
+                                                                    <span class="fw-normal mb-0">Trạng thái đơn hàng|
                                                                         <strong class="text-primary"
-                                                                            ng-if="order.status === 'Pending Confirmation'">Chờ
-                                                                            Xác Nhận</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Pending Handover'">Chờ
-                                                                            Bàn Giao</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'In Transit'">Đang
-                                                                            Giao</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Returning'">Đang
-                                                                            Hoàn Hàng</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Pending Redelivery Confirmation'">Chờ
-                                                                            Xác Nhận Giao Lại</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Completed'">Hoàn
-                                                                            Thành</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Canceled'">Đã
-                                                                            Hủy</strong>
-                                                                        <strong class="text-primary"
-                                                                            ng-if="order.status === 'Lost/Damaged Goods'">Hàng
-                                                                            Thất Lạc - Hư Hỏng</strong>
+                                                                                ng-if="order.status === 'cancel'">Đã Hủy</strong>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -785,22 +672,25 @@
                                                                     <div class="order-price">
                                                                         <p class="fw-normal mb-0">
                                                                             <span ng-if="orderDetail.productDetail.price !== orderDetail.productDetail.priceDiscount">
-                                                                                <del class="order-price-origin">{{ orderDetail.productDetail.price | number:'0' }}<sup>đ</sup></del>
+                                                                                <del class="order-price-origin">{{ orderDetail.productDetail.price | number:'0' }} đ</del>
                                                                             </span>
-                                                                            {{ orderDetail.productDetail.priceDiscount | number:'0' }}<sup>đ</sup>
+                                                                            {{ orderDetail.productDetail.priceDiscount |
+                                                                            number:'0' }} đ
                                                                         </p>
                                                                     </div>                                                                    
                                                                 </div>
                                                             </div>
                                                             <div class="row order-item">
                                                                 <div class="col-md-12 d-flex justify-content-end align-items-center">
-                                                                    <small class="text-muted font-weight-bold">Phí ship: {{ order.codAmount | number:'0' }}<sup>đ</sup></small>
+                                                                    <small class="text-muted font-weight-bold">Phí ship:
+                                                                        {{ order.codAmount | number:'0' }} đ</small>
                                                                 </div>
                                                             </div>                                                                                                                    
                                                             <hr class="order-hr">
                                                             <div class="row">
                                                                 <div class="col-md-12 d-flex justify-content-end">
-                                                                    <span style="color: red;" class="lead fw-normal mb-0">Tổng tiền: {{ calculateTotalAmount(order) | number:'0' }}<sup>đ</sup></span>
+                                                                    <span style="color: red;"
+                                                                          class="lead fw-normal mb-0">Tổng tiền: {{ calculateTotalAmount(order) | number:'0' }} đ</span>
                                                                 </div>
                                                             </div>                                 
                                                             <div class="row ">
@@ -817,29 +707,19 @@
 
                                                                 </div>
                                                                 <div class="order-btn col-md-8">
-                                                                    <!-- Hủy Đơn -->
-                                                                    <a ng-if="['Pending Confirmation', 'Pending Handover'].includes(order.status)"
-                                                                        ng-click="showCancelModal(order)"
-                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Hủy
-                                                                        đơn</a>
-                                                                    <!-- Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
-                                                                    <a ng-if="order.status === 'Completed'"
-                                                                        class="btn btn-outline-primary btnspecial shadow-none text-center mr-4">Đánh
-                                                                        giá</a>
                                                                     <!-- Mua Lại (Chỉ cho trạng thái Hoàn Thành hoặc Đã Hủy) -->
-                                                                    <a ng-if="['Completed', 'Canceled'].includes(order.status)"
-                                                                        ng-click="buyAgain(order.orderCode)"
-                                                                        class="btn btn-outline-primary btnspecial text-center mr-4">Mua
+                                                                    <a ng-if="['completed', 'received'].includes(order.status)"
+                                                                       ng-click="buyAgain(order.orderCode)"
+                                                                       class="btn btn-outline-primary btnspecial text-center mr-4">Mua
                                                                         lại</a>
                                                                     <!-- Liên Hệ -->
-                                                                    <a ng-href="/lien-he"
-                                                                        class="btn btn-outline-dark shadow-none text-center mr-4">Liên
+                                                                    <a ng-href="/contact"
+                                                                       class="btn btn-outline-dark shadow-none text-center mr-4">Liên
                                                                         hệ</a>
-                                                                    <!-- Xem Đánh Giá (Chỉ cho trạng thái Hoàn Thành) -->
-                                                                    <a ng-if="order.status === 'Completed'"
-                                                                        ng-href="javascript:void(0)"
-                                                                        class="btn btn-outline-dark shadow-none text-center">Xem
-                                                                        đánh giá</a>
+
+                                                                    <a ng-click="getOrderCode(order.orderCode)"
+                                                                       class="btn btn-outline-dark shadow-none text-center mr-4">Chi
+                                                                        tiết đơn hủy</a>
                                                                 </div>
                                                             </div>
                                                         </div>

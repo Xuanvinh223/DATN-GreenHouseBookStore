@@ -109,6 +109,11 @@ public class Maincontroller {
         return "client/layouts/account-review";
     }
 
+    @GetMapping(value = "/account/order-cancel")
+    public String oderCancel() {
+        return "client/layouts/order-cancel";
+    }
+
     @GetMapping(value = "/account/review-detail")
     public String Review_Detail() {
         return "client/layouts/review-detail";

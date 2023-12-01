@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrdersRepository extends JpaRepository<Orders, String> {
     List<Orders> findByUsername(String username);
+
+    Orders findByOrderCode(String orderCode);
 }

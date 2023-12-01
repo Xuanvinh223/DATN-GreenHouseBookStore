@@ -133,4 +133,10 @@ public class OrderController {
             return ResponseEntity.badRequest().body("Không thể xác nhận đơn hàng với mã đơn hàng này");
         }
     }
+
+    @GetMapping("/orderCancel/{orderCode}")
+    public Orders getOrder_Cancel(@PathVariable String orderCode) {
+        Orders order = o.findByOrderCode(orderCode);
+        return order;
+    }
 }
