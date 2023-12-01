@@ -42,11 +42,17 @@ function BestSellerController($scope, $location, $routeParams, $http) {
     $scope.loadBestSellers = function () {
         var url = `${host}`;
         $http.get(url).then(resp => {
+            // Hiển thị hiệu ứng loading khi người dùng xác nhận cập nhật
+            loadingOverlay.style.display = "block";
             $scope.originalBestseller = $scope.bestsellers;
             $scope.bestsellers = resp.data;
             console.log("success", resp.data);
             $scope.totalItems = $scope.bestsellers.length;
+            // Ẩn hiệu ứng loading khi lưu thành công
+            loadingOverlay.style.display = "none";
         }).catch(error => {
+            // Ẩn hiệu ứng loading khi lưu thành công
+            loadingOverlay.style.display = "none";
             console.log("Error", error);
         });
     };

@@ -80,9 +80,7 @@ function SuppliersController($scope, $location, $routeParams, $http) {
         };
         var formData = new FormData();
         var fileInput = document.getElementById("fileInput");
-        if (fileInput && fileInput.files.length > 0) {
-            formData.append("image", fileInput.files[0]);
-        }
+
         var supplierId = $scope.editingSupplier.supplierId;
         var supplierName = $scope.editingSupplier.supplierName;
         var address = $scope.editingSupplier.address;
@@ -150,7 +148,7 @@ function SuppliersController($scope, $location, $routeParams, $http) {
 
         // Kiểm tra định dạng email Gmail
         function isGmail(email) {
-            var emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         }
         if (!isGmail($scope.editingSupplier.email)) {
@@ -158,6 +156,7 @@ function SuppliersController($scope, $location, $routeParams, $http) {
             $scope.errorMessages.email = `Email "${$scope.editingSupplier.email}" không đúng định dạng Gmail. Vui lòng kiểm tra lại.`;
             return; // Không tiếp tục lưu nếu có lỗi
         }
+
         // Kiểm tra trùng lặp email trước khi thêm
         var existingEmail = $scope.suppliers.find(function (supplier) {
             return (
@@ -198,6 +197,15 @@ function SuppliersController($scope, $location, $routeParams, $http) {
         }
 
 
+        // Hiển thị hiệu ứng loading
+        var loadingOverlay = document.getElementById("loadingOverlay");
+        loadingOverlay.style.display = "block";
+
+        if (fileInput && fileInput.files.length > 0) {
+            formData.append("image", fileInput.files[0]);
+        }
+
+
         formData.append(
             "supplierJson",
             JSON.stringify({
@@ -212,6 +220,8 @@ function SuppliersController($scope, $location, $routeParams, $http) {
         );
 
         if ($scope.isEditing) {
+            // Ẩn hiệu ứng loading khi lưu thành công
+            loadingOverlay.style.display = "none";
             // Sử dụng hộp thoại xác nhận từ thư viện Swal
             Swal.fire({
                 title: 'Xác nhận cập nhật',
@@ -222,13 +232,17 @@ function SuppliersController($scope, $location, $routeParams, $http) {
                 cancelButtonText: 'Hủy',
             }).then((result) => {
                 if (result.isConfirmed) {
+                    // Hiển thị hiệu ứng loading khi người dùng xác nhận cập nhật
+                    loadingOverlay.style.display = "block";
                     var url = `${host}/${$scope.editingSupplier.supplierId}`;
                     $http
                         .put(url, formData, {
                             transformRequest: angular.identity,
-                            headers: { "Content-Type": undefined },
+                            headers: {"Content-Type": undefined},
                         })
                         .then((resp) => {
+                            // Ẩn hiệu ứng loading khi lưu thành công
+                            loadingOverlay.style.display = "none";
                             $scope.loadSuppliers();
                             $scope.resetForm();
                             Swal.fire({
@@ -239,6 +253,8 @@ function SuppliersController($scope, $location, $routeParams, $http) {
                             $scope.clearImage(); // Xóa ảnh đại diện sau khi cập nhật
                         })
                         .catch((error) => {
+                            // Ẩn hiệu ứng loading khi lưu thành công
+                            loadingOverlay.style.display = "none";
                             Swal.fire({
                                 icon: "error",
                                 title: "Thất bại",
@@ -259,6 +275,8 @@ function SuppliersController($scope, $location, $routeParams, $http) {
                 },
             })
                 .then((resp) => {
+                    // Ẩn hiệu ứng loading khi lưu thành công
+                    loadingOverlay.style.display = "none";
                     $scope.loadSuppliers();
                     $scope.resetForm();
                     Swal.fire({
@@ -269,6 +287,8 @@ function SuppliersController($scope, $location, $routeParams, $http) {
                     $scope.clearImage(); // Xóa ảnh đại diện sau khi thêm
                 })
                 .catch((error) => {
+                    // Ẩn hiệu ứng loading khi lưu thành công
+                    loadingOverlay.style.display = "none";
                     console.log(error.data);
                     if (error.data) {
                         Swal.fire({

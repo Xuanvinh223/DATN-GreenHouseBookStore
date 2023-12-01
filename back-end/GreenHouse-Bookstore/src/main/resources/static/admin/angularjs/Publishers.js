@@ -79,9 +79,7 @@ function PublishersController($scope, $location, $routeParams, $http) {
 
     var formData = new FormData();
     var fileInput = document.getElementById("fileInput");
-    if (fileInput && fileInput.files.length > 0) {
-      formData.append("image", fileInput.files[0]);
-    }
+
     var publisherId = $scope.editingPublisher.publisherId;
     var publisherName = $scope.editingPublisher.publisherName;
     var address = $scope.editingPublisher.address;
@@ -155,63 +153,82 @@ function PublishersController($scope, $location, $routeParams, $http) {
     // Kiểm tra trùng lặp email trước khi thêm
     var existingEmail = $scope.publishers.find(function (publisher) {
       return (
-        publisher.email === $scope.editingPublisher.email &&
-        publisher.publisherId !== $scope.editingPublisher.publisherId
+          publisher.email === $scope.editingPublisher.email &&
+          publisher.publisherId !== $scope.editingPublisher.publisherId
       );
     });
-    if (existingEmail) {
-      // Hiển thị thông báo lỗi nếu email đã tồn tại
-      $scope.errorMessages.email = `Email "${$scope.editingPublisher.email}" đã tồn tại. Vui lòng chọn email khác.`;
-      return; // Không tiếp tục lưu nếu có lỗi
-    }
+      if (existingEmail) {
+          // Hiển thị thông báo lỗi nếu email đã tồn tại
+          $scope.errorMessages.email = `Email "${$scope.editingPublisher.email}" đã tồn tại. Vui lòng chọn email khác.`;
+          return; // Không tiếp tục lưu nếu có lỗi
+      }
+
+      // Hiển thị hiệu ứng loading
+      var loadingOverlay = document.getElementById("loadingOverlay");
+      loadingOverlay.style.display = "block";
 
 
+      if (fileInput && fileInput.files.length > 0) {
+          formData.append("image", fileInput.files[0]);
+      }
 
-    formData.append(
-      "publisherJson",
-      JSON.stringify({
-        publisherId: $scope.editingPublisher.publisherId || "",
-        publisherName: $scope.editingPublisher.publisherName || "",
-        description: $scope.editingPublisher.description || "",
-        address: $scope.editingPublisher.address || "",
-        email: $scope.editingPublisher.email || "",
+
+      formData.append(
+          "publisherJson",
+          JSON.stringify({
+              publisherId: $scope.editingPublisher.publisherId || "",
+              publisherName: $scope.editingPublisher.publisherName || "",
+              description: $scope.editingPublisher.description || "",
+              address: $scope.editingPublisher.address || "",
+              email: $scope.editingPublisher.email || "",
         image: $scope.editingPublisher.image || "",
       })
     );
 
     if ($scope.isEditing) {
-      // Sử dụng hộp thoại xác nhận từ thư viện Swal
-      Swal.fire({
-        title: 'Xác nhận cập nhật',
-        text: `Bạn có muốn cập nhật nhà xuất bản "${publisherId}" không?`,
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Cập nhật',
-        cancelButtonText: 'Hủy',
-      }).then((result) => {
+        // Ẩn hiệu ứng loading khi lưu thành công
+        loadingOverlay.style.display = "none";
+
+        // Sử dụng hộp thoại xác nhận từ thư viện Swal
+        Swal.fire({
+            title: 'Xác nhận cập nhật',
+            text: `Bạn có muốn cập nhật nhà xuất bản "${publisherId}" không?`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Cập nhật',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
         if (result.isConfirmed) {
-          var url = `${host}/${$scope.editingPublisher.publisherId}`;
-          $http
-            .put(url, formData, {
-              transformRequest: angular.identity,
-              headers: { "Content-Type": undefined },
-            })
-            .then((resp) => {
-              $scope.loadPublishers();
-              $scope.resetForm();
-              Swal.fire({
-                icon: "success",
-                title: "Thành công",
-                text: `Cập nhật nhà xuất bản "${publisherId}" thành công`,
-              });
-              $scope.clearImage(); // Xóa ảnh đại diện sau khi cập nhật
-            })
+            // Hiển thị hiệu ứng loading khi người dùng xác nhận cập nhật
+            loadingOverlay.style.display = "block";
+            var url = `${host}/${$scope.editingPublisher.publisherId}`;
+            $http
+                .put(url, formData, {
+                    transformRequest: angular.identity,
+                    headers: {"Content-Type": undefined},
+                })
+                .then((resp) => {
+                    // Ẩn hiệu ứng loading khi lưu thành công
+                    loadingOverlay.style.display = "none";
+
+                    $scope.loadPublishers();
+                    $scope.resetForm();
+                    Swal.fire({
+                        icon: "success",
+                        title: "Thành công",
+                        text: `Cập nhật nhà xuất bản "${publisherId}" thành công`,
+                    });
+                    $scope.clearImage(); // Xóa ảnh đại diện sau khi cập nhật
+                })
             .catch((error) => {
-              Swal.fire({
-                icon: "error",
-                title: "Thất bại",
-                text: `Cập nhật nhà xuất bản "${publisherId}" thất bại`,
-              });
+                // Ẩn hiệu ứng loading khi lưu thành công
+                loadingOverlay.style.display = "none";
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Thất bại",
+                    text: `Cập nhật nhà xuất bản "${publisherId}" thất bại`,
+                });
             });
         } else {
           // Nếu người dùng chọn Hủy, bạn có thể thực hiện hành động nào đó, hoặc không làm gì cả.
@@ -227,24 +244,30 @@ function PublishersController($scope, $location, $routeParams, $http) {
         },
       })
         .then((resp) => {
-          $scope.loadPublishers();
-          $scope.resetForm();
-          Swal.fire({
-            icon: "success",
-            title: "Thành công",
-            text: `Thêm nhà xuất bản "${publisherId}"`,
-          });
-          $scope.clearImage(); // Xóa ảnh đại diện sau khi thêm
+            // Ẩn hiệu ứng loading khi lưu thành công
+            loadingOverlay.style.display = "none";
+
+            $scope.loadPublishers();
+            $scope.resetForm();
+            Swal.fire({
+                icon: "success",
+                title: "Thành công",
+                text: `Thêm nhà xuất bản "${publisherId}"`,
+            });
+            $scope.clearImage(); // Xóa ảnh đại diện sau khi thêm
         })
         .catch((error) => {
-          console.log(error.data);
-          if (error.data) {
-            Swal.fire({
-              icon: "error",
-              title: "Thất bại",
-              text: `Thêm nhà xuất bản "${publisherId}" thất bại`,
-            });
-          }
+            // Ẩn hiệu ứng loading khi lưu thành công
+            loadingOverlay.style.display = "none";
+
+            console.log(error.data);
+            if (error.data) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Thất bại",
+                    text: `Thêm nhà xuất bản "${publisherId}" thất bại`,
+                });
+            }
         });
     }
   };
