@@ -141,7 +141,7 @@ public class CheckoutService {
         Order_Status_History orderStatusHistory = new Order_Status_History();
         orderStatusHistory.setOrderCode(orderCode);
         orderStatusHistory.setUpdateAt(new Date());
-        orderStatusHistory.setStatus("pending");
+        orderStatusHistory.setStatus("pending-confirm");
         orderStatusHistoryRepository.save(orderStatusHistory);
     }
 
