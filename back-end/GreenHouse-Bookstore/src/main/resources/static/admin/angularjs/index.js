@@ -13,7 +13,6 @@ function IndexController($scope, $http) {
 
             $scope.countUsersCurrentYear = resp.data.countUsersCurrentYear;
             $scope.percentageChange = resp.data.percentageChange;
-            console.log(" $scope.percentageChange", $scope.percentageChange);
         }).catch(error => {
             console.log("Error", error);
         });

@@ -194,10 +194,6 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
                 $scope.listSearchInvoices = response.listSearch_Invoice;
                 $scope.listProductDetails = response.listProduct_Details;
                 $scope.loadModelProduct();
-                // console.log('Search Histories:', $scope.listSearchHistories);
-                // console.log('Search Invoices:', $scope.listSearchInvoices);
-                // console.log('Product Details:', $scope.listProductDetails);
-
             })
             .catch(function (error) {
                 console.error('Error fetching search data:', error);
@@ -255,7 +251,6 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
                 $scope.ListUnNotifyUser.sort(function (a, b) {
                     return new Date(b.createAt) - new Date(a.createAt);
                 });
-                // console.log("Unread Notifications", $scope.ListUnNotifyUser);
             })
             .catch(function (error) {
                 console.log("Error loading unread notifications:", error);
@@ -285,7 +280,6 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
                         return 0; // Nếu status và ngày giống nhau, giữ nguyên vị trí
                     });
 
-                // console.log("NOTIFY", $scope.ListNotifyUser);
             })
             .catch(function (error) {
                 console.log("Error loading notifications:", error);

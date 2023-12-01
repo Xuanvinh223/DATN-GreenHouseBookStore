@@ -125,14 +125,14 @@
                                             <label for="lastname" class="text-bold text-dark" th:text="#{lo.mn.full}">*Họ tên</label>
                                             <input type="text" class="form-control" name="fullname" id="fullname"
                                                 aria-describedby="fullnameHelp" ng-model="address.fullname"
-                                                ng-required="reqFullname">
+                                                ng-required="reqFullname" placeholder="Nhập họ tên người nhận">
                                             <span class="text-danger">{{errors.fullname}}</span>
                                         </div>
                                         <div class="form-group col-md-6 mb-2">
                                             <label for="phone" class="text-bold text-dark" th:text="#{lo.mn.phoneadd}">*Số điện thoại</label>
                                             <input type="text" class="form-control" name="phone" id="phone"
                                                 aria-describedby="fullnameHelp" ng-model="address.phone" maxlength="10"
-                                                ng-required="reqPhone" ng-attr-phone="reqPhone">
+                                                ng-required="reqPhone" ng-attr-phone="reqPhone" placeholder="Nhập số điện thoại">
                                             <span class="text-danger">{{errors.phone}}</span>
                                         </div>
                                     </div>

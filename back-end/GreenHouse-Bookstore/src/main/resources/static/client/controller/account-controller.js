@@ -29,7 +29,6 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
                     if (resp.data.listAddress) {
                         // Kiểm tra nếu có danh sách địa chỉ
                         $scope.listAddress = resp.data.listAddress;
-                        console.log("Danh Sách Địa Chỉ", $scope.listAddress);
                     } else {
                         // Không tìm thấy địa chỉ hoặc danh sách địa chỉ trống
                         $scope.listAddress = [];
@@ -49,8 +48,6 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     $scope.listProvince = JSON.parse(xhr.responseText);
-                    console.log('Danh sách quận/huyện:', $scope.listProvince);
-
                 }
             };
             xhr.send();
@@ -69,8 +66,6 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
             $timeout(function () {
                 // Thực hiện cập nhật giao diện sau khi thay đổi $scope.listDistrict và $scope.listWard
             });
-
-            console.log(provinceCodeSelected);
         };
 
         $scope.getListWard = function () {
@@ -86,8 +81,6 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
             $timeout(function () {
                 // Thực hiện cập nhật giao diện sau khi thay đổi $scope.listDistrict và $scope.listWard
             });
-
-            console.log(selectedDistrict);
         };
         //Hàm lưu địa chỉ
         $scope.saveAddress = function () {
@@ -120,7 +113,6 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
                     .then(function (resp) {
 
                         $scope.loadData($scope.username);
-                        console.log("Địa chỉ đã được lưu thành công:", resp.data);
                         $('#createAddressModal').modal('hide');
                         // Hiển thị modal "message"
                         if ($scope.isAddingAddress) {
@@ -172,12 +164,6 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
                 var selectedDistrictName = addressParts[2].trim();
                 var selectedWardName = addressParts[1].trim();
                 var detailedAddress = addressParts[0].trim();
-
-                console.log("Đâu RÒI '", selectedProvinceName, "'");
-                console.log("Đâu RÒI '", selectedDistrictName, "'");
-                console.log("Đâu RÒI '", selectedWardName, "'");
-                console.log("Đâu RÒI '", detailedAddress, "'");
-
 
                 // Gán giá trị cho fullname và phone từ đối tượng địa chỉ
                 $scope.address = {
@@ -242,7 +228,6 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
             $('#createAddressModal').modal('hide'); // Đóng modal xác nhận trước (nếu đã mở)
             $http.delete(url)
                 .then(function (response) {
-                    console.log('Xóa thành công');
                     init();
 
                     $scope.modalContent = "Xóa địa chỉ thành công";
