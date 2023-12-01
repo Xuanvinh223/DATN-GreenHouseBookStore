@@ -1,12 +1,11 @@
 package com.greenhouse.restcontroller.client;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.greenhouse.configuration.VNPayConfig;
 import com.greenhouse.dto.client.CheckoutCompleteDTO;
 import com.greenhouse.dto.client.CheckoutDTO;
 import com.greenhouse.model.InvoiceDetails;
@@ -30,10 +28,10 @@ import com.greenhouse.repository.OrdersRepository;
 import com.greenhouse.service.CheckoutService;
 import com.greenhouse.service.VNPayService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/customer/rest/checkout")
 public class CheckoutController {
 
@@ -54,9 +52,6 @@ public class CheckoutController {
     private InvoicesRepository invoicesRepository;
     @Autowired
     private OrdersRepository ordersRepository;
-
-    @Autowired
-    private HttpServletRequest request;
 
     @GetMapping("/getData")
     public ResponseEntity<Map<String, Object>> getData() {
@@ -154,7 +149,11 @@ public class CheckoutController {
             response.put("payment_method", data.getPayment_method());
             // Create url for payment
             if (data.getPayment_method().equalsIgnoreCase("cod")) {
-                response.put("url", "/checkout-complete");
+                CheckoutCompleteDTO temp = new CheckoutCompleteDTO();
+                temp.setInvoices(invoices);
+                temp.setOrders(order);
+                checkoutCompleteData = temp;
+                response.put("url", "http://localhost:8081/checkout-complete");
             } else if (data.getPayment_method().equalsIgnoreCase("vnpay")) {
                 Map<String, Object> vnpayData = vnPayService.createVNPayUrl(invoices, order);
                 String vnPayUrl = vnpayData.get("data").toString();
@@ -181,7 +180,7 @@ public class CheckoutController {
             Invoices invoices = invoicesRepository.findById(Integer.parseInt(invoiceId)).orElse(null);
             Orders orders = ordersRepository.findById(orderCode).orElse(null);
             String bankCode = request.get("vnp_BankCode");
-            if(bankCode != null && !bankCode.equals("")){
+            if (bankCode != null && !bankCode.equals("")) {
                 invoices.setBankCode(bankCode);
                 invoicesRepository.save(invoices);
             }
@@ -192,8 +191,6 @@ public class CheckoutController {
                 checkoutCompleteDTO.setInvoices(invoices);
                 checkoutCompleteDTO.setOrders(orders);
                 checkoutCompleteData = checkoutCompleteDTO;
-
-                response.sendRedirect("http://localhost:8081/checkout-complete");
             } else {
                 // Update status of invoice
                 checkoutService.createInvoiceStatusMapping(invoices, 3);
@@ -205,27 +202,6 @@ public class CheckoutController {
         }
     }
 
-    // ==================================================================================================
-    @PostMapping("/setCheckoutCompleteData")
-    public ResponseEntity<Map<String, Object>> setCheckoutCompleteData(@RequestBody CheckoutCompleteDTO data) {
-        Map<String, Object> response = new HashMap<String, Object>();
-        String status = "";
-        String message = "";
-        // -----------------------------------------
-        try {
-            checkoutCompleteData = data;
-        } catch (Exception e) {
-            System.out.println(e);
-            status = "error";
-            message = "Lỗi set data checkout";
-        }
-        // -----------------------------------------
-        status = "success";
-        message = "Set data checkout-complete thành công";
-        response.put("status", status);
-        response.put("message", message);
-        return ResponseEntity.ok(response);
-    }
     // ==================================================================================================
 
     @GetMapping("/getCheckoutCompleteData")

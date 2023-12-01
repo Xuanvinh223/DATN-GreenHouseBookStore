@@ -770,7 +770,7 @@
 }
 
 /* eND DANH MỤC SẢN PHẨM */
-/* Flash Sale */
+
 .flashsale-header {
   background-color: #4dff97;
   /* background-color: rgb(157, 232, 59); */
@@ -1043,7 +1043,7 @@
   /* Canh giữa nội dung trong phần tử con */
 }
 
-/* End Flash Sale */
+/* End Flash Sale
 /* Thương hiệu nổi bật */
 .nav-pills .nav-link {
   background-color: #fff;
@@ -1598,6 +1598,10 @@ ul.dropdown-menu.dropdown-menu-edit-review {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+}
+.product-view-tab-content-rating-review {
+  max-height: 500px; /* Đặt chiều cao tối đa */
+  overflow-y: auto; /* Thêm thanh cuộn khi nội dung vượt quá chiều cao */
 }
 
 .fhs_popup-default-info-detail-title {
@@ -4158,7 +4162,6 @@ html.bx-ios.bx-ios-fix-frame-focus {
   width: 260px;
   padding: 10px 20px;
   font-size: 1.2rem;
-  visibility: visible;
 }
 
 #cartmini_page_content .fhs_center_left {

@@ -41,7 +41,8 @@ public interface ProductDetailRepository extends JpaRepository<Product_Detail, I
                         "FROM Products p " +
                         "INNER JOIN Product_Detail pd ON p.Product_Id = pd.Product_Id " +
                         "INNER JOIN Brands b ON p.Brand_Id = b.Brand_Id " +
-                        "ORDER BY pd.Quantity_In_Stock ASC", nativeQuery = true)
+                        "WHERE pd.Quantity_In_Stock <= 10 " +
+                        "ORDER BY pd.Quantity_In_Stock DESC", nativeQuery = true)
         List<Object[]> findAllInventoryListAsc();
 
         @Query(value = "SELECT p.Product_Id, p.Product_Name, pd.Image, id.Quantity AS Quantity_Invoice, pd.Price AS Product_Price, pd.Price_Discount AS Product_Discount, id.Amount "

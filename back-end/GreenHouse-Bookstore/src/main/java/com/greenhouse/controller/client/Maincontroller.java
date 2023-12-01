@@ -28,7 +28,6 @@ import com.greenhouse.repository.AuthoritiesRepository;
 import com.greenhouse.repository.Product_ImagesRepository;
 import com.greenhouse.util.JwtUtil;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -135,6 +134,11 @@ public class Maincontroller {
         return "client/layouts/checkout-complete";
     }
 
+    @GetMapping(value = "/checkout-complete/payment-callback")
+    public String checkoutCallback() {
+        return "client/layouts/checkout-complete";
+    }
+
     @GetMapping(value = "/login")
     public String login() {
         // Kiểm tra xem người dùng đã đăng nhập chưa
@@ -169,7 +173,8 @@ public class Maincontroller {
     }
 
     @GetMapping("/login-processing")
-    public String loginProcessing(HttpServletResponse response, RedirectAttributes redirectAttributes, HttpSession session) {
+    public String loginProcessing(HttpServletResponse response, RedirectAttributes redirectAttributes,
+            HttpSession session) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         // Trích xuất thông tin người dùng từ đối tượng Authentication
@@ -191,7 +196,7 @@ public class Maincontroller {
 
     @GetMapping("/google-processing")
     public String googleProcessing(OAuth2AuthenticationToken authenticationToken, HttpServletRequest request,
-                                   HttpServletResponse response, HttpSession session) {
+            HttpServletResponse response, HttpSession session) {
         // Lấy thông tin tài khoản Google đã đăng nhập từ authenticationToken
         OAuth2User oauth2User = authenticationToken.getPrincipal();
         Accounts accounts = new Accounts();

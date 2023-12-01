@@ -1,44 +1,112 @@
-app.controller("flashSaleController", function ($scope, $timeout, $http, jwtHelper) {
-    let host = "http://localhost:8081/customer/rest/flashsale";
+// Thêm 'WebSocketService' vào danh sách dependencies của controller
+app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocketService',
+    function ($http, $scope, $interval, WebSocketService) {
+        let host = "http://localhost:8081/customer/rest/productFlashSales";
 
-    // Hàm để lấy dữ liệu từ REST API và hiển thị Flash Sales có 'userDate' trong ngày hiện tại
- // Hàm để lấy dữ liệu từ REST API và hiển thị Flash Sales có 'userDate' và 'startTime' trong ngày hiện tại
-// Hàm để lấy dữ liệu từ REST API và hiển thị Flash Sales có 'userDate' trong ngày hiện tại
-function getDataFlashSale() {
-    $http.get(host).then(function(response) {
-        $scope.listFlash_Sales = response.data.listFlash_Sales;
+        // Gọi hàm connectWebSocket khi controller được khởi tạo
+        $scope.connectWebSocket = function () {
+            WebSocketService.connect($scope.loadData);
+        };
+        $scope.visibleFlashSaleCount = 8;
 
-        // Lấy ngày hiện tại
-        var currentDate = new Date();
+        $scope.loadMoreFlashSaleToday = function () {
+            $scope.visibleFlashSaleCount += 8;
+        };
+        // Hàm load dữ liệu
+        $scope.loadData = function () {
+            // Tạo mảng promise cho cả hai yêu cầu HTTP
+            var promises = [
+                $http.get(`${host}`),
+                $http.get("http://localhost:8081/customer/rest/flashSales")
+            ];
 
-        // Lọc các Flash Sales theo 'userDate' trong ngày hiện tại và kiểm tra khung giờ
-        $scope.filteredFlashSales = $scope.listFlash_Sales.filter(function(flashSale) {
-            var userDate = new Date(flashSale.userDate);
-            userDate.setHours(0, 0, 0, 0); // Đặt giờ, phút, giây và mili giây của 'userDate' thành 0
+            // Sử dụng Promise.all để chờ cả hai promise hoàn thành
+            Promise.all(promises)
+                .then((responses) => {
+                    // responses[0] chứa kết quả của yêu cầu đầu tiên
+                    // responses[1] chứa kết quả của yêu cầu thứ hai
+                    $scope.productFlashSales = filterData(responses[0].data);
+                    $scope.flashSales = responses[1].data;
+                    if ( !$scope.flashSales.some(flash => flash.status === 2)) {
+                        $scope.showSection = false;
+                    } else {
+                        $scope.showSection = true;
+                        console.log("DỮ LIỆU SẢN PHẨM FLASH SALES ");
+                        startCountdown();
+                    }
+                })
+                .catch((error) => {
+                    console.log("Error", error);
+                });
+        };
 
-            // So sánh 'userDate' với ngày hiện tại
-            if (userDate.getTime() === currentDate.getTime()) {
-                var startTime = new Date(flashSale.startTime);
-                var endTime = new Date(flashSale.endTime);
+        // Hàm lọc dữ liệu
+        function filterData(data) {
+            return data.filter((proFlaSal) => {
+                return checkDateAndTime(proFlaSal.flashSaleId.userDate);
+            });
+        }
 
-                // So sánh khung giờ hiện tại với startTime và endTime
-                if (currentDate >= startTime && currentDate <= endTime) {
-                    flashSale.saleStatus = "Đang diễn ra";
-                } else if (currentDate < startTime) {
-                    flashSale.saleStatus = "Sắp diễn ra";
-                }
-                return true;
-            }
-            return false;
-        });
-        console.log($scope.filteredFlashSales);
-    }, function(error) {
-        console.error("Lỗi khi gọi API: " + error);
-    });
-}
+        // Hàm kiểm tra điều kiện ngày và thời gian
+        function checkDateAndTime(userDate) {
+            // Lấy ngày hiện tại
+            var currentDate = new Date();
+            // Lấy ngày từ userDate của Flash_Sales
+            var flashSaleDate = new Date(userDate);
+            return flashSaleDate.toDateString() === currentDate.toDateString();
+        }
+        function startCountdown() {
+            $interval(function () {
+                angular.forEach($scope.flashSales, function (flash) {
+                    var currentTime = new Date();
+                    var formattedStartTime = moment(flash.startTime, 'HH:mm:ss').toISOString();
+                    var formattedEndTime = moment(flash.endTime, 'HH:mm:ss').toISOString();
+
+                    var startTime = new Date(formattedStartTime);
+                    var endTime = new Date(formattedEndTime);
+                    var userDate = new Date(flash.userDate);
+
+                    if (userDate > currentTime || startTime > currentTime) {
+                        flash.showCountdown = false;
+
+                        // Nếu userDate hoặc startTime lớn hơn currentTime, không bắt đầu đếm ngược
+                        return;
+                    }
+
+                    if (endTime < currentTime) {
+                        flash.showCountdown = false;
+
+                        // Nếu endTime nhỏ hơn currentTime, ngừng đếm ngược
+                        flash.hours = '00';
+                        flash.minutes = '00';
+                        flash.seconds = '00';
+                        return;
+                    }
+
+                    flash.showCountdown = true;
+
+                    var timeDiff = endTime - currentTime;
+                    var seconds = Math.floor((timeDiff / 1000) % 60);
+                    var minutes = Math.floor((timeDiff / 1000 / 60) % 60);
+                    var hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+
+                    // Gán giá trị cho các biến thời gian đếm ngược trong $scope
+                    flash.hours = hours < 10 ? '0' + hours : hours;
+                    flash.minutes = minutes < 10 ? '0' + minutes : minutes;
+                    flash.seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                    console.log('flash.endTime:', flash.endTime);
+                    console.log('timeDiff:', timeDiff);
+                });
+            }, 1000);
+        }
+
+        // Gọi hàm connectWebSocket khi controller được khởi tạo
+        $scope.connectWebSocket();
+
+        // Gọi hàm load dữ liệu khi controller được khởi tạo
+        $scope.loadData();
 
 
-    // Hàm để tính toán trạng thái của Flash Sale (Đang diễn ra hoặc Sắp diễn ra)
 
-    getDataFlashSale();
-});
+    }]);

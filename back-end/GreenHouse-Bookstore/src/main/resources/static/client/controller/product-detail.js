@@ -1,4 +1,5 @@
 app.controller("productDetailController", function ($scope, $timeout, $routeParams, $http, jwtHelper, ProductDetailService, CartService) {
+app.controller("productDetailController", function ($scope, $timeout, $routeParams, $http, jwtHelper, ProductDetailService,WebSocketService) {
     let host = "http://localhost:8081/customer/rest/product-detail";
     var token = localStorage.getItem('token');
     // Trong trang product-details
@@ -77,6 +78,14 @@ app.controller("productDetailController", function ($scope, $timeout, $routePara
                 console.log('Lỗi khi lấy chi tiết sản phẩm: ' + error);
             });
     };
+
+    $scope.connectWebSocket = function () {
+        WebSocketService.connect($scope.getProductDetail);
+    };
+
+    // Gọi hàm connectWebSocket khi controller được khởi tạo
+    $scope.connectWebSocket();
+
     //LẤY ẢNH CHI TIẾT CỦA REVIEW
     $scope.getAuthenticPhotosForReview = function (reviewId) {
         // Gọi REST endpoint để lấy danh sách ảnh chi tiết

@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Back-end] - merge dev/anhhtv" />
+    <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Back-end] - merge dev/anhhtv">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_6_2023_2_36_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_6_2023_2_36_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/admin/angularjs/account.js" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/admin/angularjs/account.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/admin/angularjs/order-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/admin/angularjs/order-table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/admin/css/app-dark.css" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/admin/css/app-dark.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/admin/css/app-light.css" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/admin/css/app-light.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/admin/page/order-manager/table_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/admin/page/order-manager/table_order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/css/pages/cart.css" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/css/pages/cart.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/checkout.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,7 +34,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev/anth" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -131,6 +142,7 @@
       <workItem from="1698827784832" duration="178000" />
       <workItem from="1698828014569" duration="187000" />
       <workItem from="1700904705285" duration="184000" />
+      <workItem from="1701343640615" duration="3000000" />
     </task>
     <task id="LOCAL-00001" summary="[Project] - Create packages">
       <created>1692841448096</created>
@@ -237,7 +249,14 @@
       <option name="project" value="LOCAL" />
       <updated>1695264653943</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="[BE-FE] - update review for account-order">
+      <created>1701343789462</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1701343789462</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,6 +300,7 @@
     <MESSAGE value="[Font-end] - thymeleaf GUI" />
     <MESSAGE value="[Front-End] Admin - Update UI Cart-page" />
     <MESSAGE value="[BE-FE] - fix bug authorization." />
-    <option name="LAST_COMMIT_MESSAGE" value="[BE-FE] - fix bug authorization." />
+    <MESSAGE value="[BE-FE] - update review for account-order" />
+    <option name="LAST_COMMIT_MESSAGE" value="[BE-FE] - update review for account-order" />
   </component>
 </project>

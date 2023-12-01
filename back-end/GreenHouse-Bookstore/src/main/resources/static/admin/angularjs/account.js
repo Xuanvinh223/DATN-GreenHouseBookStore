@@ -113,12 +113,7 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
             return;
         }
 
-        // Kiểm tra tên tài khoản chỉ được nhập chữ và số
-        var usernameRegex = /^[a-zA-Z0-9]+$/;
-        if (!usernameRegex.test(username)) {
-            $scope.errorMessages.username = 'Tên tài khoản chỉ được nhập chữ và số';
-            return;
-        }
+     
 
         // Kiểm tra mật khẩu chỉ khi thêm mới
         if (!$scope.isEditing) {
@@ -155,15 +150,15 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
                 return; // Hiển thị thông báo lỗi đã tồn tại
             }
         }
-          // Hiển thị hiệu ứng loading
-     var loadingOverlay = document.getElementById("loadingOverlay");
-     loadingOverlay.style.display = "block";
+        // Hiển thị hiệu ứng loading
+        var loadingOverlay = document.getElementById("loadingOverlay");
+        loadingOverlay.style.display = "block";
 
 
         if (fileInput && fileInput.files.length > 0) {
             formData.append("image", fileInput.files[0]);
         }
-   
+
         formData.append("AccountJson", JSON.stringify({
             username: username,
             password: password,
@@ -179,14 +174,14 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
         var url = $scope.isEditing ? `${host}/${username}` : host;
 
         $http({
-                method: $scope.isEditing ? 'PUT' : 'POST',
-                url: url,
-                data: formData,
-                headers: {
-                    'Content-Type': undefined
-                },
-                transformRequest: angular.identity
-            })
+            method: $scope.isEditing ? 'PUT' : 'POST',
+            url: url,
+            data: formData,
+            headers: {
+                'Content-Type': undefined
+            },
+            transformRequest: angular.identity
+        })
             .then(function (resp) {   // Ẩn hiệu ứng loading khi lưu thành công
                 loadingOverlay.style.display = "none";
                 $scope.loadAccount();

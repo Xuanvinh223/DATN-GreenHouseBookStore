@@ -312,7 +312,7 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
                 .then(function (response) {
                     // Xử lý dữ liệu tài khoản ở đây
                     $scope.account = response.data;
-                    console.log("Thông tin tài khoản: ", $scope.account);
+                    // console.log("Thông tin tài khoản: ", $scope.account);
                 })
                 .catch(function (error) {
                     console.error("Lỗi khi lấy thông tin tài khoản: ", error);

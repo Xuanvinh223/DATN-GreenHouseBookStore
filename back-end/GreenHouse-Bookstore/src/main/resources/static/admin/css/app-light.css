@@ -3,7 +3,7 @@
 /* table */
 /* paging */
 /* tabs */
-/* dropdown */
+/* dropdown */ 
 /* list group */
 /* modal */
 /* tabs */
@@ -6330,7 +6330,9 @@ a.close.disabled {
 .bg-primary {
   background-color: #62ab00 !important;
 }
-
+.bg-default1{
+  background-color: #5da0f1 !important;
+}
 a.bg-primary:hover,
 a.bg-primary:focus,
 button.bg-primary:hover,
@@ -9509,6 +9511,10 @@ button.bg-dark:focus {
 
 .text-primary {
   color: #62ab00 !important;
+}
+
+.text-default1{
+  color: #5da0f1;
 }
 
 a.text-primary:hover,
@@ -16941,14 +16947,18 @@ a.uppy-Dashboard-poweredBy {
   text-overflow: ellipsis;
 }
 .nav-pills a.active {
-  color: #2a2a2a !important;
+  color: #fff !important;
 }
 /* Thanh cuộn ngang order */
+.order-page .nav-pills a.active{
+  font-weight: bold;
+}
 .nav-pills {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  max-width: 1100px;
+  max-width: 100%;
+  font-size: larger;
 }
 .collapsed .nav-pills {
   max-width: 1400px;
@@ -16969,6 +16979,9 @@ a.uppy-Dashboard-poweredBy {
 .nav-item {
   white-space: nowrap;
 }
+/* .order-page .nav-pills .nav-item a.nav-link{
+  font-size: 0.9rem;
+} */
 @media (max-width: 320px) {
   .nav-pills {
     max-width: 240px;
@@ -17066,7 +17079,7 @@ a.uppy-Dashboard-poweredBy {
      width: 100%;
      height: 100%;
      background-color: rgba(255, 255, 255, 0.8);
-     z-index: 1000;
+     z-index: 99999;
  }
 
  .loading-spinner {

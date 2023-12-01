@@ -100,7 +100,7 @@ public class CheckoutService {
     public void createInvoiceStatusMapping(Invoices invoices, int status) {
         InvoiceMappingStatus iMappingStatus = new InvoiceMappingStatus();
         iMappingStatus.setInvoice(invoices);
-        iMappingStatus.setPaymentStatus(paymentStatusRepository.findById(status).orElse(null));
+        iMappingStatus.setPaymentStatus(paymentStatusRepository.findById(status).orElse(null)); 
         iMappingStatus.setUpdateAt(new Date());
         invoiceMappingStatusRepository.save(iMappingStatus);
     }
@@ -141,7 +141,7 @@ public class CheckoutService {
         Order_Status_History orderStatusHistory = new Order_Status_History();
         orderStatusHistory.setOrderCode(orderCode);
         orderStatusHistory.setUpdateAt(new Date());
-        orderStatusHistory.setStatus("pending");
+        orderStatusHistory.setStatus("pending-confirm");
         orderStatusHistoryRepository.save(orderStatusHistory);
     }
 
@@ -327,6 +327,7 @@ public class CheckoutService {
             orders.setPaymentTypeId(1);// cửa hàng trả
         } else {
             orders.setPaymentTypeId(2);// khách trả
+            orders.setCodAmount(data.getShipping_fee().intValue());
         }
         // Nội dung đơn hàng
         StringBuilder content = new StringBuilder("");

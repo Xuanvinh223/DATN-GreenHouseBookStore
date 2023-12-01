@@ -34,7 +34,7 @@
       <div class="top-bar-desktop">
         <div class="top-banner center_center">
           <a>
-            <img src="https://cdn0.fahasa.com/media/wysiwyg/Thang-11-2023/FahasaSaleThu3T1123_W1_Header_1263x60.jpg"
+            <img src="https://cdn0.fahasa.com/media/wysiwyg/Thang-12-2023/YearEndSaleT1223_Banner_An%20resize%20-1_Header_1263x60.jpg"
               alt="tophead">
           </a>
         </div>
@@ -242,7 +242,7 @@
             </div>
 
             <div id="cartmini_page_content" ng-if="!listCartHeader.length > 0">
-             
+
               <div class="fhs_center_center" style="padding: 16px;"><span class="ico_emptycart"></span></div>
               <div class="fhs_center_center" style="color: #0D0E0F; padding-bottom:24px; font-size: 1.rem;">Chưa có sản
                 phẩm nào</div>
@@ -264,48 +264,41 @@
             <!-- Trong HTML template của bạn -->
             <div class="top-account-dropdown p-3">
               <!-- Kiểm tra nếu người dùng có vai trò 'CUSTOMER' -->
-              <div sec:authorize="hasRole('CUSTOMER')">
-                <a href="/account" style="margin-top: 5px;" class="button-default">
+              <div>
+                <a sec:authorize="hasAnyRole('ADMIN','STAFF','CUSTOMER')" href="/account" style="margin-top: 5px;"
+                   class="button-default">
                   <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
                 </a>
-                <a href="/#" style="margin-top: 5px;" class="button-default">
+                <a sec:authorize="hasRole('CUSTOMER')" href="/#" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.Order}">Đơn hàng của tôi</span>
                 </a>
-                <a href="/change-password" style="margin-top: 5px;" class="button-default">
+                <a sec:authorize="hasRole('CUSTOMER')" href="/change-password" style="margin-top: 5px;"
+                   class="button-default">
                   <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.change}">Đổi mật khẩu</span>
                 </a>
-                <button type="button" ng-click="logout()" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-sign-out-alt"></i> <span th:text="#{lo.mn.logout}">Đăng xuất</span>
-                </button>
-              </div>
-
-              <!-- Kiểm tra nếu người dùng có vai trò 'ADMIN' -->
-              <div sec:authorize="hasRole('ADMIN')">
-                <a href="/admin/index" style="margin-top: 5px;" class="button-default">
+                <!-- Kiểm tra nếu người dùng có vai trò 'ADMIN' -->
+                <a sec:authorize="hasAnyRole('ADMIN','STAFF')" href="/admin/index" style="margin-top: 5px;"
+                   class="button-default">
                   <i class="fas fa-cogs"></i> <span th:text="#{lo.mn.ql}">Quản lý</span>
                 </a>
-                <a href="/account" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
-                </a>
-                <a href="/#" style="margin-top: 5px;" class="button-default">
+                <a sec:authorize="hasRole('ADMIN')" href="/#" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.bc}">Báo cáo</span>
                 </a>
-                <button type="button" ng-click="logout()" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-sign-out-alt"></i> <span th:text="#{lo.mn.logout}">Đăng xuất</span>
-                </button>
-              </div>
-
-              <!-- Hiển thị nút đăng nhập, đăng ký, và quên mật khẩu cho người dùng chưa đăng nhập -->
-              <div sec:authorize="isAnonymous()">
-                <a href="/login" style="margin-top: 5px;" class="button-default">
+                <!-- Hiển thị nút đăng nhập, đăng ký, và quên mật khẩu cho người dùng chưa đăng nhập -->
+                <a sec:authorize="isAnonymous()" href="/login" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-sign-in-alt"></i> <span th:text="#{lo.mn.login}">Đăng nhập</span>
                 </a>
-                <a href="/register" style="margin-top: 5px;" class="button-default">
+                <a sec:authorize="isAnonymous()" href="/register" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-user-plus"></i> <span th:text="#{lo.mn.signup}">Đăng ký</span>
                 </a>
-                <a href="/forgot-password" style="margin-top: 5px;" class="button-default">
+                <a sec:authorize="isAnonymous()" href="/forgot-password" style="margin-top: 5px;"
+                   class="button-default">
                   <i class="fas fa-key"></i> <span th:text="#{lo.mn.forgot}">Quên mật khẩu</span>
                 </a>
+                <button type="button" sec:authorize="hasAnyRole('ADMIN','STAFF','CUSTOMER')" ng-click="logout()"
+                        style="margin-top: 5px;" class="button-default">
+                  <i class="fas fa-sign-out-alt"></i> <span th:text="#{lo.mn.logout}">Đăng xuất</span>
+                </button>
               </div>
             </div>
           </div>
@@ -331,9 +324,6 @@
           </div>
         </div>
       </div>
-
-
-
       <div class="top-bar-mobile">
         <div class="top-banner-mobile">
           <a>
@@ -354,7 +344,7 @@
             </div>
             <div class="top-bar-search-info-mobile">
               <!-- Khi không có keyword -->
-              <div class="row mt--10 mb--10" ng-if="!keyword">
+              <div class="row mt--10 mb--10" ng-show="searchHistory.length>0" ng-if="!keyword">
                 <div class="col ">
                   <div class="tu-khoa-hot">
                     <span class="fa fa-history"></span>
@@ -363,7 +353,7 @@
                 </div>
                 <div class="col-auto mr--20 mt--5">
                   <div class="fhs_center_right fhs_mouse_point his-delete-all" th:text="#{lo.mn.deleteall}"
-                    ng-click="clearSearchHistory()">
+                       ng-click="clearSearchHistory()">
                   </div>
                 </div>
               </div>
@@ -636,6 +626,10 @@
                     <li class="menu-item">
                       <a href="/product" th:text="#{lo.mn.product}">Sản Phẩm </a>
                     </li>
+                    <li class="menu-item">
+                      <a href="/flash-sale" th:text="#{lo.mn.sales}">Ưu Đãi</a>
+                    </li>
+
                     <li class="menu-item">
                       <a href="/voucher" th:text="#{lo.mn.voucher}">Mã Khuyến Mãi</a>
                     </li>
@@ -978,6 +972,7 @@
     <script th:src="@{/client/controller/forgot-password.js}"></script>
     <script th:src="@{/client/controller/voucher.js}"></script>
     <script th:src="@{/client/controller/order.js}"></script>
+    <script th:src="@{/client/service/WebSocketService.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/linhpn96/VNnum2words/src/index.js"></script>
     <script th:inline="javascript">

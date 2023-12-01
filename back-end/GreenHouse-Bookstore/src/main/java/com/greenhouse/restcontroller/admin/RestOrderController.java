@@ -16,14 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.model.Authorities;
-import com.greenhouse.model.InvoiceDetails;
-import com.greenhouse.model.InvoiceMappingVoucher;
 import com.greenhouse.model.OrderDetails;
 import com.greenhouse.model.Orders;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.repository.AuthoritiesRepository;
-import com.greenhouse.repository.InvoiceDetailsRepository;
-import com.greenhouse.repository.InvoiceMappingVoucherRepository;
 import com.greenhouse.repository.OrderDetailsRepository;
 import com.greenhouse.repository.OrdersRepository;
 import com.greenhouse.repository.ProductDetailRepository;
@@ -36,10 +32,6 @@ public class RestOrderController {
 
     @Autowired
     private ProductDetailRepository productDetailRepository;
-    @Autowired
-    private InvoiceDetailsRepository invoiceDetailsRepository;
-    @Autowired
-    private InvoiceMappingVoucherRepository invoiceMappingVoucherRepository;
     @Autowired
     private AuthoritiesRepository authoritiesRepository;
     @Autowired
@@ -74,7 +66,7 @@ public class RestOrderController {
         // Lấy thông tin đơn hàng chi tiết
         List<OrderDetails> orderDetails = orderDetailsRepository.findByOrderCode(orderCode);
         responseData.put("orderDetails", orderDetails);
-
+ 
         return ResponseEntity.ok(responseData);
     }
 
@@ -100,4 +92,5 @@ public class RestOrderController {
         }
     }
 
+    
 }

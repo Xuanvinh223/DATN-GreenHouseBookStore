@@ -13,7 +13,7 @@
 
 .top-banner {
     text-align: center;
-    background-color: #98CD7B;
+    background-color: #10935F;
 }
 
 .site-banner {
@@ -846,13 +846,14 @@
 
 .progress span {
     position: absolute;
-    top: 0;
+    top: 50%; /* Di chuyển lên giữa */
     left: 0;
     width: 100%;
-    line-height: 10px;
+    line-height: 20px; /* Đặt chiều cao giống với chiều cao của phần tử cha */
     color: black;
     font-size: 10px;
     font-weight: 600;
+    transform: translateY(-50%); 
 }
 
 
