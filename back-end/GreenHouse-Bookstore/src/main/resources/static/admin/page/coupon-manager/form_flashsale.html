@@ -81,9 +81,15 @@
                                         <br>
                                         <small class="mt-1 text-danger" ng-show="errors.status">{{ errors.status
                                             }}</small>
+
+                                        <small class="mt-1 text-danger" ng-show="errors.quantityOutOfStock">{{
+                                            errors.quantityOutOfStock
+                                            }}</small>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr-2" ng-click="create()">Lưu</button>
+                                <button type="submit" class="btn btn-primary mr-2" ng-click="create()"
+                                        ng-disabled="disableSaveButton">Lưu
+                                </button>
                                 <button type="reset" class="btn btn-info" ng-click="clearTable()">Làm Mới</button>
                                 <form>
                         </div>

@@ -57,11 +57,6 @@ function indexClientController($scope, $http) {
                         return category.typeId.parentCategoriesType === parentCategory && category.typeId.typeName === typeName;
                     });
                 };
-                console.log("listProductDiscountToday", $scope.listProductDiscountToday);
-                console.log(" $scope.parentCategoriesTypes", $scope.parentCategoriesTypes);
-                console.log("Dữ Liệu SẢN PHẨM BÁN CHẠY: ", $scope.sellingProducts);
-                console.log("Dữ Liệu THƯƠNG HIỆU NỔI BẬT: ", $scope.sellingBrands);
-                console.log("Danh sách đánh giá sản phẩm: ", $scope.listProductReviews);
             })
             .catch(function (error) {
                 console.error('Error fetching data: ' + error);
@@ -76,8 +71,6 @@ function indexClientController($scope, $http) {
                 $scope.selectedBrandProducts = response.data.filter(function (productDetail) {
                     return productDetail.product.status === true;
                 });
-                console.log("DỮ LIỆU SẢN PHẨM CHI TIẾT THEO THƯƠNG HIỆU ", $scope.selectedBrandProducts);
-
             })
             .catch(function (error) {
                 console.error('Error fetching data: ' + error);
