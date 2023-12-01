@@ -31,6 +31,7 @@ function indexClientController($scope, $http) {
 
     $scope.loadIndex = function () {
         var url = `${host}/getDataIndex`;
+        $scope.showLoading();
         $http.get(url)
             .then(function (response) {
                 $scope.sellingBrands = response.data.sellingBrands;
@@ -60,7 +61,9 @@ function indexClientController($scope, $http) {
             })
             .catch(function (error) {
                 console.error('Error fetching data: ' + error);
-            });
+            }).finally(() => {
+            $scope.hideLoading();
+        });
     }
     // Hàm để lấy sản phẩm chi tiết theo brandId
     $scope.loadSelectedBrandProducts = function (brandId) {

@@ -71,7 +71,7 @@ public class voucherController {
 
         if (checkdulicaUserVoucher != null) {
             response.put("message", "Voucher " + UserVoucherDTO.getVoucher().getVoucherName() + " đã có trong kho của bạn");
-            response.put("status", 400);
+            response.put("status", 403);
             return ResponseEntity.ok(response);
         }
 

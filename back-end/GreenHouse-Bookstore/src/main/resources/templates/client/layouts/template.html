@@ -267,32 +267,34 @@
               <div>
                 <a sec:authorize="hasAnyRole('ADMIN','STAFF','CUSTOMER')" href="/account" style="margin-top: 5px;"
                    class="button-default">
-                  <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
+                    <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
                 </a>
-                <a sec:authorize="hasRole('CUSTOMER')" href="/#" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.Order}">Đơn hàng của tôi</span>
-                </a>
-                <a sec:authorize="hasRole('CUSTOMER')" href="/change-password" style="margin-top: 5px;"
-                   class="button-default">
-                  <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.change}">Đổi mật khẩu</span>
-                </a>
-                <!-- Kiểm tra nếu người dùng có vai trò 'ADMIN' -->
-                <a sec:authorize="hasAnyRole('ADMIN','STAFF')" href="/admin/index" style="margin-top: 5px;"
-                   class="button-default">
-                  <i class="fas fa-cogs"></i> <span th:text="#{lo.mn.ql}">Quản lý</span>
-                </a>
-                <a sec:authorize="hasRole('ADMIN')" href="/#" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.bc}">Báo cáo</span>
-                </a>
-                <!-- Hiển thị nút đăng nhập, đăng ký, và quên mật khẩu cho người dùng chưa đăng nhập -->
-                <a sec:authorize="isAnonymous()" href="/login" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-sign-in-alt"></i> <span th:text="#{lo.mn.login}">Đăng nhập</span>
-                </a>
-                <a sec:authorize="isAnonymous()" href="/register" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-user-plus"></i> <span th:text="#{lo.mn.signup}">Đăng ký</span>
-                </a>
-                <a sec:authorize="isAnonymous()" href="/forgot-password" style="margin-top: 5px;"
-                   class="button-default">
+                  <a sec:authorize="hasRole('CUSTOMER')" href="http://localhost:8081/account/order"
+                     style="margin-top: 5px;" class="button-default">
+                      <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.Order}">Đơn hàng của tôi</span>
+                  </a>
+                  <a sec:authorize="hasAnyRole('ADMIN','STAFF')" href="/admin/index" style="margin-top: 5px;"
+                     class="button-default">
+                      <i class="fas fa-cogs"></i> <span th:text="#{lo.mn.ql}">Quản lý</span>
+                  </a>
+                  <a sec:authorize="hasAnyRole('ADMIN','STAFF','CUSTOMER')" href="/change-password"
+                     style="margin-top: 5px;"
+                     class="button-default">
+                      <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.change}">Đổi mật khẩu</span>
+                  </a>
+                  <a sec:authorize="hasRole('ADMIN')"
+                     href="http://localhost:8081/admin/index.html#!/revenue-static-overtime" style="margin-top: 5px;"
+                     class="button-default">
+                      <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.bc}">Báo cáo</span>
+                  </a>
+                  <a sec:authorize="isAnonymous()" href="/login" style="margin-top: 5px;" class="button-default">
+                      <i class="fas fa-sign-in-alt"></i> <span th:text="#{lo.mn.login}">Đăng nhập</span>
+                  </a>
+                  <a sec:authorize="isAnonymous()" href="/register" style="margin-top: 5px;" class="button-default">
+                      <i class="fas fa-user-plus"></i> <span th:text="#{lo.mn.signup}">Đăng ký</span>
+                  </a>
+                  <a sec:authorize="isAnonymous()" href="/forgot-password" style="margin-top: 5px;"
+                     class="button-default">
                   <i class="fas fa-key"></i> <span th:text="#{lo.mn.forgot}">Quên mật khẩu</span>
                 </a>
                 <button type="button" sec:authorize="hasAnyRole('ADMIN','STAFF','CUSTOMER')" ng-click="logout()"
@@ -551,9 +553,10 @@
                 <a href="/account" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-user"></i> <span th:text="#{lo.mn.account}">Tài khoản</span>
                 </a>
-                <a href="/#" style="margin-top: 5px;" class="button-default">
-                  <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.bc}">Báo cáo</span>
-                </a>
+                  <a href="http://localhost:8081/admin/index.html#!/revenue-static-overtime" style="margin-top: 5px;"
+                     class="button-default">
+                      <i class="fas fa-file-alt"></i> <span th:text="#{lo.mn.bc}">Báo cáo</span>
+                  </a>
                 <button type="button" ng-click="logout()" style="margin-top: 5px;" class="button-default">
                   <i class="fas fa-sign-out-alt"></i> <span th:text="#{lo.mn.logout}">Đăng xuất</span>
                 </button>

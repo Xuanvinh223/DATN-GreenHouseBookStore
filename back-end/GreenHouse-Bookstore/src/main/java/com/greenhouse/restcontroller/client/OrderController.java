@@ -18,7 +18,7 @@ import com.greenhouse.model.OrderDetails;
 import com.greenhouse.model.Orders;
 import com.greenhouse.model.Product_Reviews;
 import com.greenhouse.repository.AccountRepository;
-import com.greenhouse.repository.OrderDetailsReponsitory;
+import com.greenhouse.repository.OrderDetailsRepository;
 import com.greenhouse.repository.OrdersRepository;
 import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.repository.ProductReviewsRepository;
@@ -31,7 +31,7 @@ import jakarta.transaction.Transactional;
 @RequestMapping("/customer/rest/order")
 public class OrderController {
     @Autowired
-    OrderDetailsReponsitory od;
+    OrderDetailsRepository od;
     @Autowired
     OrdersRepository o;
     @Autowired

@@ -1,4 +1,3 @@
-app.controller("productDetailController", function ($scope, $timeout, $routeParams, $http, jwtHelper, ProductDetailService, CartService) {
 app.controller("productDetailController", function ($scope, $timeout, $routeParams, $http, jwtHelper, ProductDetailService,WebSocketService) {
     let host = "http://localhost:8081/customer/rest/product-detail";
     var token = localStorage.getItem('token');
@@ -379,3 +378,4 @@ app.controller("productDetailController", function ($scope, $timeout, $routePara
     }
 
 });
+

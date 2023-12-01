@@ -34,6 +34,13 @@ function voucherController($http, $scope, voucherAPI) {
                         icon: "success",
                         confirmButtonText: "OK",
                     });
+                } else if (status == 403) {
+                    Swal.fire({
+                        title: "Thông báo",
+                        text: message,
+                        icon: "warning",
+                        confirmButtonText: "OK",
+                    });
                 } else {
                     Swal.fire({
                         title: "Thông báo",
