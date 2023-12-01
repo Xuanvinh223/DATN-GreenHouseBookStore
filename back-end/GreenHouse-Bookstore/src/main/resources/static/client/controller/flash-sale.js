@@ -7,9 +7,11 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
         $scope.connectWebSocket = function () {
             WebSocketService.connect($scope.loadData);
         };
+        $scope.visibleFlashSaleCount = 8;
 
-
-
+        $scope.loadMoreFlashSaleToday = function () {
+            $scope.visibleFlashSaleCount += 8;
+        };
         // Hàm load dữ liệu
         $scope.loadData = function () {
             // Tạo mảng promise cho cả hai yêu cầu HTTP
@@ -25,8 +27,13 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
                     // responses[1] chứa kết quả của yêu cầu thứ hai
                     $scope.productFlashSales = filterData(responses[0].data);
                     $scope.flashSales = responses[1].data;
-                    console.log("DỮ LIỆU SẢN PHẨM FLASH SALES ");
-                    startCountdown();
+                    if ( !$scope.flashSales.some(flash => flash.status === 2)) {
+                        $scope.showSection = false;
+                    } else {
+                        $scope.showSection = true;
+                        console.log("DỮ LIỆU SẢN PHẨM FLASH SALES ");
+                        startCountdown();
+                    }
                 })
                 .catch((error) => {
                     console.log("Error", error);
