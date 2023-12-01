@@ -199,29 +199,28 @@ app.controller("brandController", function ($scope, $location, $routeParams, $ht
             if (result.isConfirmed) {
                 // Sử dụng $http để gửi yêu cầu DELETE đến API
                 $http.delete(url)
-                    .then((resp) => {
-                        $scope.loadBrand(); // Nạp lại danh sách thương hiệu sau khi xóa
-                        Swal.fire({
-                            icon: "success",
-                            title: "Thành công",
-                            text: `Xóa thương hiệu ${brandId} thành công`,
-                        });
-                    })
-                    .catch((error) => {
-                        if (error.status === 409) {
-                            // Kiểm tra mã trạng thái lỗi
+                    .then(function (resp) {
+                        if (resp.status === 200) {
+                            $scope.loadBrand();
                             Swal.fire({
-                                icon: "error",
-                                title: "Thất bại",
-                                text: `Thương hiệu mã ${brandId} đang được sử dụng và không thể xóa.`,
+                                icon: "success",
+                                title: "Thành công",
+                                text: `Xóa ID ${brandId} thành công `,
                             });
                         } else {
                             Swal.fire({
                                 icon: "error",
                                 title: "Thất bại",
-                                text: `Xóa thương hiệu ${brandId} thất bại`,
+                                text: `Không thể xóa thương hiệu ${brandId} đang sử dụng `,
                             });
                         }
+                    })
+                    .catch(function (error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Thất bại",
+                            text: `Xóa ID ${brandId} thất bại `,
+                        });
                     });
             }
         });
@@ -246,9 +245,9 @@ app.controller("brandController", function ($scope, $location, $routeParams, $ht
 
 
     $scope.clearImage = function () {
-        $scope.editingBrand.logo = ""; // Xóa đường dẫn ảnh đại diện
+        $scope.editingBrand.logo = "/admin/assets/images/default.jpg"; // Xóa đường dẫn ảnh đại diện
         var imageElement = document.getElementById("uploadedImage");
-        imageElement.src = ""; // Xóa hiển thị ảnh đại diện
+        imageElement.src = "/admin/assets/images/default.jpg"; // Xóa hiển thị ảnh đại diện
         var fileInput = document.getElementById("fileInput");
         fileInput.value = null; // Đặt giá trị của input file thành null để xóa tệp đã chọn
     };

@@ -341,9 +341,9 @@ app.controller("AccountController", function ($scope, $location, $routeParams, $
     };
 
     $scope.clearImage = function () {
-        $scope.editingAccounts.image = ""; // Xóa đường dẫn ảnh đại diện
+        $scope.editingAccounts.image = "/admin/assets/images/default.jpg"; // Xóa đường dẫn ảnh đại diện
         var imageElement = document.getElementById("uploadedImage");
-        imageElement.src = ""; // Xóa hiển thị ảnh đại diện
+        imageElement.src = "/admin/assets/images/default.jpg"; // Xóa hiển thị ảnh đại diện
         var fileInput = document.getElementById("fileInput");
         fileInput.value = null; // Đặt giá trị của input file thành null để xóa tệp đã chọn
     };

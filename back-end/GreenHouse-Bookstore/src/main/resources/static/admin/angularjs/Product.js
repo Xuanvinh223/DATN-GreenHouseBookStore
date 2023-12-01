@@ -257,43 +257,58 @@ app.controller("ProductController", function ($scope, $http, $filter, WebSocketS
         });
 
 
+        $scope.exportProductsToExcel = function () {
+            // Lấy dữ liệu của trang hiện tại
+            var filteredData = $scope.getFilteredData();
 
-    $scope.exportProductsToExcel = function () {
-        // Lấy dữ liệu của trang hiện tại
-        var filteredData = $scope.getFilteredData();
+            // Tính toán chỉ mục bắt đầu và kết thúc của trang hiện tại
+            var end = filteredData.length - ($scope.currentPage - 1) * $scope.itemsPerPage;
+            var start = Math.max(0, end - $scope.itemsPerPage);
 
-        // Tính toán chỉ mục bắt đầu và kết thúc của trang hiện tại
-        var end = filteredData.length - ($scope.currentPage - 1) * $scope.itemsPerPage;
-        var start = Math.max(0, end - $scope.itemsPerPage);
+            // Tạo mảng dữ liệu cho tệp Excel
+            var excelData = [
+                ['BÁO CÁO - DANH SÁCH SẢN PHẨM'], // Header
+                [], // Empty row for spacing
+                ['#', 'ID', 'Tên sản phẩm', 'Thương hiệu', 'Nhà xuất bản', 'Giá sản phẩm', 'Số lượng', 'Ảnh']
+            ];
 
-        // Tạo mảng dữ liệu để chứa dữ liệu cần xuất
-        var dataToExport = [];
-        dataToExport.push(["Mã Sản Phẩm", "Tên Sản Phẩm", "Thương Hiệu", "Nhà Xuất Bản", "Giá Sản Phẩm", "số Lượng", "Ảnh"]);
+            // Tạo mảng dữ liệu để chứa dữ liệu cần xuất
+            var dataToExport = [];
+            dataToExport.push(["Mã Sản Phẩm", "Tên Sản Phẩm", "Thương Hiệu", "Nhà Xuất Bản", "Giá Sản Phẩm", "Số Lượng", "Ảnh"]);
 
-        // Thêm dữ liệu từ danh sách sản phẩm vào mảng dữ liệu
-        for (var i = start; i < end; i++) {
-            var item = filteredData[i];
-            dataToExport.push([item.product.productId, item.product.productName, item.product.brand.brandName, item.product.publisher.publisherName, item.productDetail.price, item.productDetail.quantityInStock, item.productDetail.image]);
-        }
+            // Thêm dữ liệu từ danh sách sản phẩm vào mảng dữ liệu
+            for (var i = start; i < end; i++) {
+                var item = filteredData[i];
+                dataToExport.push([
+                    item.product.productId || '',  // Sử dụng '' nếu giá trị là null
+                    item.product.productName || '',
+                    item.product.brand ? item.product.brand.brandName || '' : '',  // Kiểm tra brand có tồn tại trước khi truy cập property
+                    item.product.publisher ? item.product.publisher.publisherName || '' : '',  // Kiểm tra publisher có tồn tại trước khi truy cập property
+                    item.productDetail ? item.productDetail.price || '' : '',  // Kiểm tra productDetail có tồn tại trước khi truy cập property
+                    item.productDetail ? item.productDetail.quantityInStock || '' : '',  // Kiểm tra productDetail có tồn tại trước khi truy cập property
+                    item.productDetail ? item.productDetail.image || '' : ''  // Kiểm tra productDetail có tồn tại trước khi truy cập property
+                ]);
+            }
 
-        // Tạo một đối tượng workbook từ dữ liệu
-        var wb = XLSX.utils.book_new();
-        var ws = XLSX.utils.aoa_to_sheet(dataToExport);
-        XLSX.utils.book_append_sheet(wb, ws, 'Products');
+            // Tạo một đối tượng workbook từ dữ liệu
+            var wb = XLSX.utils.book_new();
+            var ws = XLSX.utils.aoa_to_sheet(dataToExport);
+            XLSX.utils.book_append_sheet(wb, ws, 'Products');
 
-        // Xuất file Excel
-        XLSX.writeFile(wb, 'Products_Page_' + $scope.currentPage + '.xlsx');
-    };
-    $scope.importProductsToExcel = function () {
-        var fileInput = document.getElementById('fileInputExcel');
-        var file = fileInput.files[0];
+            // Xuất file Excel
+            XLSX.writeFile(wb, 'Products_Page_' + $scope.currentPage + '.xlsx');
+        };
 
-        if (!file) {
-            Swal.fire({
-                icon: "error",
-                title: "Lỗi",
-                text: "Vui lòng chọn file Excel.",
-            });
+        $scope.importProductsToExcel = function () {
+            var fileInput = document.getElementById('fileInputExcel');
+            var file = fileInput.files[0];
+
+            if (!file) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi",
+                    text: "Vui lòng chọn file Excel.",
+                });
             return;
         }
 

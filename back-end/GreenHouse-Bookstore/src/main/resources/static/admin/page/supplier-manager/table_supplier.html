@@ -23,8 +23,6 @@
                       Tất cả trạng thái
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnnhaphang">
-                      <a class="dropdown-item" href="#"><i class='bx bxs-file-import mr-1'></i>Nhập File
-                        Excel</a>
                       <a class="dropdown-item" ng-click="printPDF()"><i class='bx bxs-file-export mr-1'></i>Xuất file
                         PDF</a>
                       <a class="dropdown-item" ng-click="exportToExcel();"><i class='bx bxs-file-export mr-1'></i>Xuất
@@ -40,20 +38,66 @@
               <table class="table table-hover table-hover-green">
                 <thead>
                   <tr>
-                    <th>STT</th>
-                    <th>ID Nhà Cung Cấp</th>
-                    <th>Tên Nhà Cung Cấp</th>
-                    <th>Mô tả</th>
-                    <th>Địa chỉ</th>
-                    <th>Email</th>
-                    <th>Số Điện Thoại</th>
-                    <th>Hình Ảnh</th>
-                    <th>Thao Tác</th>
+                      <th>
+                          <a href="" style="text-decoration: none;">
+                              STT
+                              <i class="mdi mdi-swap-vertical"></i>
+                          </a>
+                      </th>
+                      <th>
+                          <a ng-click="sortBy('supplierId')" href="" style="text-decoration: none;">
+                              ID Nhà Cung Cấp
+                              <i class="mdi mdi-swap-vertical"></i>
+                          </a>
+                      </th>
+                      <th>
+                          <a ng-click="sortBy('supplierName')" href="" style="text-decoration: none;">
+                              Tên Nhà Cung Cấp
+                              <i class="mdi mdi-swap-vertical"></i>
+                          </a>
+                      </th>
+                      <th>
+                          <a ng-click="sortBy('description')" href="" style="text-decoration: none;">
+                              Mô tả
+                              <i class="mdi mdi-swap-vertical"></i>
+                          </a>
+                      </th>
+                      <th>
+                          <a ng-click="sortBy('address')" href="" style="text-decoration: none;">
+                              Địa chỉ
+                              <i class="mdi mdi-swap-vertical"></i>
+                          </a>
+                      </th>
+                      <th>
+                          <a ng-click="sortBy('email')" href="" style="text-decoration: none;">
+                              Email
+                              <i class="mdi mdi-swap-vertical"></i>
+                          </a>
+                      </th>
+                      <th>
+                          <a ng-click="sortBy('phone')" href="" style="text-decoration: none;">
+                              Số điện thoại
+                              <i class="mdi mdi-swap-vertical"></i>
+                          </a>
+                      </th>
+                      <th>
+                          <a href="" style="text-decoration: none;">
+                              Hình ảnh
+                              <i class="mdi mdi-swap-vertical"></i>
+                          </a>
+                      </th>
+                      <th>
+                          <a href="" style="text-decoration: none;">
+                              Thao tác
+                              <i class="mdi mdi-swap-vertical"></i>
+                          </a>
+                      </th>
+
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    ng-repeat="supplier in suppliers | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
+                <tr
+                        ng-repeat="supplier in suppliers  | orderBy:orderByField:reverseSort | startFrom:(currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
                     <td>{{$index + 1}}</td>
                     <td>{{supplier.supplierId}}</td>
                     <td>{{supplier.supplierName}}</td>
@@ -62,8 +106,8 @@
                     <td>{{supplier.email}}</td>
                     <td>{{supplier.phone}}</td>
                     <td>
-                      <img ng-src="{{supplier.image}}" alt="Chưa có ảnh"
-                        style="width: 50px; height: 50px; border-radius: 10%;">
+                        <img ng-src="{{supplier.image}}" alt="Chưa có ảnh"
+                             style="width: 50px; height: 50px; border-radius: 10%;">
                     </td>
                     <td>
                       <a ng-click="editSupplierAndRedirect(supplier.supplierId)"><i class="fe fe-edit fe-16"></i></a>

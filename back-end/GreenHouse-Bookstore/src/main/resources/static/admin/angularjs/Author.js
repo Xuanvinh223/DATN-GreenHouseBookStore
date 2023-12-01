@@ -16,7 +16,7 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
     $scope.orderByField = "";
     $scope.reverseSort = true;
     $scope.defaultImage =
-        "https://res.cloudinary.com/dmbh3sz8s/image/upload/v1698734857/authors/author_1698734855371.jpg"; // Thay thế đường dẫn thực bằng đường dẫn hình ảnh mặc định thực tế
+        "/admin/assets/images/default.jpg"; // Thay thế đường dẫn thực bằng đường dẫn hình ảnh mặc định thực tế
 
     $scope.itemsPerPageOptions = [5, 10, 20, 50];
     $scope.itemsPerPage = 5;
@@ -42,6 +42,25 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
 
 
         return !hasErrors;
+    };
+
+
+    $scope.hideError = function (authorName) {
+        // Ẩn thông báo lỗi cho trường fieldName
+        $scope.errors[authorName] = '';
+
+    };
+
+
+    $scope.hideError = function (nation) {
+        // Ẩn thông báo lỗi cho trường fieldName
+        $scope.errors[nation] = '';
+
+    };
+    $scope.hideError = function (gender) {
+        // Ẩn thông báo lỗi cho trường fieldName
+        $scope.errors[gender] = '';
+
     };
 
 
@@ -96,17 +115,17 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
         var formData = new FormData();
         var fileInput = document.getElementById("fileInput");
 
-        if (fileInput && fileInput.files.length > 0) {
-            formData.append("image", fileInput.files[0]);
-        }
 
         if (!$scope.checkErrors()) {
             return;
         }
 
-         // Hiển thị hiệu ứng loading
-         var loadingOverlay = document.getElementById("loadingOverlay");
-         loadingOverlay.style.display = "block";
+        // Hiển thị hiệu ứng loading
+        var loadingOverlay = document.getElementById("loadingOverlay");
+        loadingOverlay.style.display = "block";
+        if (fileInput && fileInput.files.length > 0) {
+            formData.append("image", fileInput.files[0]);
+        }
         if (!$scope.isEditing) {
             $scope.editingAuthor.authorId = generateRandomId();
         }
@@ -123,10 +142,18 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
 
         if (isAuthorNameDuplicate($scope.editingAuthor.authorName, $scope.editingAuthor.authorId)) {
             $scope.errors.authorName = 'Tác giả đã tồn tại.';
+            // Ẩn hiệu ứng loading khi lưu thành công
+            loadingOverlay.style.display = "none";
             return;
         }
 
+
         if ($scope.isEditing) {
+            // Ẩn hiệu ứng loading khi lưu thành công
+            loadingOverlay.style.display = "none";
+            var loadingOverlay = document.getElementById("loadingOverlay");
+            loadingOverlay.style.display = "block";
+
             var url = `${host}/${$scope.editingAuthor.authorId}`;
             $http
                 .put(url, formData, {
@@ -134,8 +161,8 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
                     headers: {"Content-Type": undefined},
                 })
                 .then((resp) => {
-                     // Ẩn hiệu ứng loading khi lưu thành công
-                loadingOverlay.style.display = "none";
+                    // Ẩn hiệu ứng loading khi lưu thành công
+                    loadingOverlay.style.display = "none";
 
                     $scope.loadAuthors();
                     $scope.resetForm();
@@ -147,8 +174,8 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
                     $scope.clearImage();
                 })
                 .catch((error) => {
-                     // Ẩn hiệu ứng loading khi lưu thành công
-                loadingOverlay.style.display = "none";
+                    // Ẩn hiệu ứng loading khi lưu thành công
+                    loadingOverlay.style.display = "none";
 
                     Swal.fire({
                         icon: "error",
@@ -157,11 +184,13 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
                     });
                 });
         } else {
+
             if (isAuthorNameDuplicate($scope.editingAuthor.authorName, null)) {
                 $scope.errors.authorName = 'Tác giả đã tồn tại.';
+                // Ẩn hiệu ứng loading khi lưu thành công
+                loadingOverlay.style.display = "none";
                 return;
             }
-
             var url = `${host}`;
             $http
                 .post(url, formData, {
@@ -171,6 +200,8 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
                     },
                 })
                 .then((resp) => {
+                    // Ẩn hiệu ứng loading khi lưu thành công
+                    loadingOverlay.style.display = "none";
                     $scope.loadAuthors();
                     $scope.resetForm();
                     Swal.fire({
@@ -181,6 +212,9 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
                     $scope.clearImage();
                 })
                 .catch((error) => {
+                    // Ẩn hiệu ứng loading khi lưu thành công
+                    loadingOverlay.style.display = "none";
+
                     console.log(error.data);
                     if (error.data) {
                         Swal.fire({
@@ -282,7 +316,7 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
                             Swal.fire({
                                 icon: "error",
                                 title: "Thất bại",
-                                text: `Không thể xóa ID ${authorId} vì có khóa ngoại với sách `,
+                                text: `Không thể xóa tác giả ${authorId} đang sử dụng `,
                             });
                         }
                     })
@@ -300,10 +334,10 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
 
     $scope.clearImage = function () {
         $scope.editingAuthor.image =
-            "https://res.cloudinary.com/dmbh3sz8s/image/upload/v1698734857/authors/author_1698734855371.jpg";
+            "/admin/assets/images/default.jpg";
         var imageElement = document.getElementById("uploadedImage");
         imageElement.src =
-            "https://res.cloudinary.com/dmbh3sz8s/image/upload/v1698734857/authors/author_1698734855371.jpg";
+            "/admin/assets/images/default.jpg";
         var fileInput = document.getElementById("fileInput");
         fileInput.value = null; // Đặt giá trị của input file thành null để xóa tệp đã chọn
     };

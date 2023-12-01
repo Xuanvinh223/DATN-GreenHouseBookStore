@@ -20,8 +20,18 @@ function SuppliersController($scope, $location, $routeParams, $http) {
     $scope.itemsPerPage = 5; // Số mục hiển thị trên mỗi trang
     $scope.totalItems = $scope.suppliers.length; // Tổng số mục
     $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
-    $scope.reverseSort = false; // Sắp xếp tăng dần
+    $scope.orderByField = "";
+    $scope.reverseSort = true;
 
+
+    $scope.sortBy = function (field) {
+        if ($scope.orderByField === field) {
+            $scope.reverseSort = !$scope.reverseSort;
+        } else {
+            $scope.orderByField = field;
+            $scope.reverseSort = true;
+        }
+    };
     // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
     $scope.getNumOfPages = function () {
         return Math.ceil($scope.totalItems / $scope.itemsPerPage);
@@ -342,28 +352,28 @@ function SuppliersController($scope, $location, $routeParams, $http) {
                 var url = `${host}/${supplierId}`;
                 $http
                     .delete(url)
-                    .then((resp) => {
-                        $scope.loadSuppliers();
-                        Swal.fire({
-                            icon: "success",
-                            title: "Thành công",
-                            text: `Xóa nhà cung cấp "${supplierId}" thành công`,
-                        });
-                    })
-                    .catch((error) => {
-                        if (error.status === 409) {
+                    .then(function (resp) {
+                        if (resp.status === 200) {
+                            $scope.loadSuppliers();
                             Swal.fire({
-                                icon: "error",
-                                title: "Thất bại",
-                                text: `Nhà cung cấp mã "${supplierId}" đang được sử dụng và không thể xóa.`,
+                                icon: "success",
+                                title: "Thành công",
+                                text: `Xóa ID ${supplierId} thành công `,
                             });
                         } else {
                             Swal.fire({
                                 icon: "error",
                                 title: "Thất bại",
-                                text: `Xóa nhà cung cấp "${supplierId}" thất bại`,
+                                text: `Không thể xóa NCC ${supplierId} đang sử dụng `,
                             });
                         }
+                    })
+                    .catch(function (error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Thất bại",
+                            text: `Xóa ID ${supplierId} thất bại `,
+                        });
                     });
             }
         });
@@ -371,9 +381,9 @@ function SuppliersController($scope, $location, $routeParams, $http) {
 
     // Xóa ảnh đại diện và làm mới form
     $scope.clearImage = function () {
-        $scope.editingSupplier.image = ""; // Xóa đường dẫn ảnh đại diện
+        $scope.editingSupplier.image = "/admin/assets/images/default.jpg"; // Xóa đường dẫn ảnh đại diện
         var imageElement = document.getElementById("uploadedImage");
-        imageElement.src = ""; // Xóa hiển thị ảnh đại diện
+        imageElement.src = "/admin/assets/images/default.jpg"; // Xóa hiển thị ảnh đại diện
         var fileInput = document.getElementById("fileInput");
         fileInput.value = null; // Đặt giá trị của input file thành null để xóa tệp đã chọn
     };
