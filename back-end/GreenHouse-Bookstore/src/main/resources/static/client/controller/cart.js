@@ -128,8 +128,10 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
             cancelButtonText: "Hủy",
         }).then((result) => {
             if (result.isConfirmed) {
-                $scope.listCartItemSelected.forEach(item => {
+                angular.forEach($scope.listCartItemSelected, item => {
+                    console.log(item);
                     CartService.removeCartItem(item.cartId);
+                    $scope.getCartHeader();
                 })
                 $scope.getCartHeader();
                 getCart();
@@ -152,7 +154,7 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                     $scope.listCartItem.splice(index, 1);
                     $scope.getCartHeader();
                 });
-                
+
             }
         });
     }
@@ -1056,64 +1058,83 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
     //=========[API GHN]===================[API GHN]==========================[API GHN]======================[API GHN]==================================
 
     //=========[CHECKOUT]===================[CHECKOUT]==========================[CHECKOUT]======================[CHECKOUT]==================================
-
-    function getAccountByUsername(username) {
-
-    }
-
     $scope.checkout = function () {
-        // Thông tin người nhận
-        var to_name = $scope.selectedAddress.fullname;
-        var to_phone = $scope.selectedAddress.phone
-        var to_district_id = $scope.toDistrict.DistrictID;
-        var to_ward_code = $scope.toWard.WardCode;
-        var to_address = $scope.selectedAddress.address;
-        // Thông Tin Dịch Vụ
-        var service_id = $scope.availableServicesGHN[0].service_id;
-        var service_type_id = $scope.availableServicesGHN[0].service_type_id;
-        // Sản Phẩm trong Đơn Hàng
-        var carts = $scope.listCartItemSelected;
-        // Thông tin hóa đơn
-        var total_amount = $scope.totalCartAmount;
-        var shipping_fee = $scope.shippingFeeDiscount > 0 ? $scope.shippingFeeDiscount : $scope.shippingFee;
-        var normal_discount = $scope.normalDiscount;
-        var payment_total = $scope.totalPaymentAmount;
-        // Thông tin mã giảm
-        var voucher = $scope.voucherApplied;
-
-        var data = {
-            username: username,
+        if ($scope.selectedAddress && $scope.listCartItemSelected.length > 0) {
             // Thông tin người nhận
-            to_name: to_name,
-            to_phone: to_phone,
-            to_address: to_address,
-            to_ward_code: to_ward_code,
-            to_district_id: to_district_id,
+            var to_name = $scope.selectedAddress.fullname;
+            var to_phone = $scope.selectedAddress.phone
+            var to_district_id = $scope.toDistrict.DistrictID;
+            var to_ward_code = $scope.toWard.WardCode;
+            var to_address = $scope.selectedAddress.address;
             // Thông Tin Dịch Vụ
-            service_type_id: service_type_id,
-            service_id: service_id,
+            var service_id = $scope.availableServicesGHN[0].service_id;
+            var service_type_id = $scope.availableServicesGHN[0].service_type_id;
             // Sản Phẩm trong Đơn Hàng
-            carts: carts,
+            var carts = $scope.listCartItemSelected;
             // Thông tin hóa đơn
-            total_amount: total_amount,
-            shipping_fee: shipping_fee,
-            normal_discount: normal_discount,
-            payment_total: payment_total,
-            //Thông tin mã giảm
-            voucher: voucher,
-        };
+            var total_amount = $scope.totalCartAmount;
+            var shipping_fee = $scope.shippingFeeDiscount > 0 ? $scope.shippingFeeDiscount : $scope.shippingFee;
+            var normal_discount = $scope.normalDiscount;
+            var payment_total = $scope.totalPaymentAmount;
+            // Thông tin mã giảm
+            var voucher = $scope.voucherApplied;
 
-        var api = `${checkoutAPI}/setData`
+            var data = {
+                username: username,
+                // Thông tin người nhận
+                to_name: to_name,
+                to_phone: to_phone,
+                to_address: to_address,
+                to_ward_code: to_ward_code,
+                to_district_id: to_district_id,
+                // Thông Tin Dịch Vụ
+                service_type_id: service_type_id,
+                service_id: service_id,
+                // Sản Phẩm trong Đơn Hàng
+                carts: carts,
+                // Thông tin hóa đơn
+                total_amount: total_amount,
+                shipping_fee: shipping_fee,
+                normal_discount: normal_discount,
+                payment_total: payment_total,
+                //Thông tin mã giảm
+                voucher: voucher,
+            };
 
-        $http.post(api, data)
-            .then(function (response) {
-                if (response.data.status == "success") {
-                    window.location.href = "/checkout";
-                }
-            })
-            .catch(function (error) {
-                console.error('Error calling API:', error);
-            });
+            var api = `${checkoutAPI}/setData`
+
+            $http.post(api, data)
+                .then(function (response) {
+                    if (response.data.status == "success") {
+                        window.location.href = "/checkout";
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error calling API:', error);
+                });
+        } else {
+            if ($scope.listCartItemSelected.length <= 0) {
+                Swal.fire({
+                    title: "Bạn muốn mua gì ?",
+                    text: "Hãy cho chọn sản phẩm để mua!",
+                    icon: "question",
+                })
+            } else if (!$scope.selectedAddress) {
+                Swal.fire({
+                    title: "Bạn ở đâu ?",
+                    text: "Hãy cho chúng tôi biết địa chỉ bạn ở để giao hàng nào!",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonText: "Thêm địa chỉ",
+                    cancelButtonText: "Hủy",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $scope.openModalCreateAddress();
+                    }
+                });
+            }
+        }
+
     };
 
     //=========[CHECKOUT]===================[CHECKOUT]==========================[CHECKOUT]======================[CHECKOUT]==================================
