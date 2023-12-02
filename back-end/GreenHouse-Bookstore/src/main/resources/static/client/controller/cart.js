@@ -258,7 +258,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
             if ($scope.relatedVouchers.length <= 0) {
                 var count = 0;
                 var exitLoop = false; // Cờ để kiểm soát thoát khỏi vòng lặp
-
                 angular.forEach($scope.listVouchersOriginal, voucher => {
                     if (!exitLoop) {
                         var kt = $scope.eligibleVouchers.some(item => {
