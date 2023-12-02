@@ -25,28 +25,15 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="address">Giờ bắt đầu(*)</label>
-                                        <div class="input-group">
-                                            <input type="time" ng-model="item.startTime" class="form-control"
-                                                   ng-value="item.startTime" placeholder=""
-                                                   aria-describedby="button-addon2">
-                                        </div>
-                                        <small class="mt-1 text-danger" ng-show="errors.startTime">{{ errors.startTime
-                                            }}</small>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="timeRange">Thời gian(*)</label>
+                                        <select class="form-control" ng-model="item.timeRange"
+                                                ng-options="range for range in timeRanges">
+                                            <option value="" disabled selected>Chọn thời gian</option>
+                                        </select>
+                                        <small class="mt-1 text-danger" ng-show="errors.timeRange">{{
+                                            errors.timeRange }}</small>
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="address">Giờ kết thúc(*)</label>
-                                        <div class="input-group">
-                                            <input type="time" ng-model="item.endTime" class="form-control "
-                                                   ng-value="item.endTime" placeholder=""
-                                                   aria-describedby="button-addon2">
-                                        </div>
-                                        <small class="mt-1 text-danger" ng-show="errors.endTime">{{ errors.endTime
-                                            }}</small>
-                                    </div>
-                                    <small class="text-danger" ng-show="errors.failTime" style="margin-top: -13px;">{{
-                                        errors.failTime}}</small>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
@@ -58,6 +45,8 @@
                                         </div>
                                         <small class="mt-1 text-danger" ng-show="errors.userDate">{{ errors.userDate
                                             }}</small>
+                                        <small class="mt-1 text-danger" ng-show="errors.duplicateFlashSale">{{
+                                            errors.duplicateFlashSale }}</small>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -119,11 +108,11 @@
                                     <th>Hình ảnh</th>
                                     <th>Giá thường</th>
                                     <th>%(Chiếc khấu)</th>
-                                        <th>Giá giảm</th>
-                                        <th>SL giảm</th>
-                                        <th>Giới hạn SL mua</th>
-                                        <th>Active</th>
-                                    </tr>
+                                    <th>Giá giảm</th>
+                                    <th>SL giảm</th>
+                                    <th>Giới hạn SL mua</th>
+                                    <th>Active</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="product in listProductFlashSale">
@@ -205,7 +194,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="item in listModelProduct | startFrom:(currentPageProFl - 1) * itemsPerPageProFl | limitTo:itemsPerPageProFl">
+                                <tr
+                                        ng-repeat="item in listModelProduct | startFrom:(currentPageProFl - 1) * itemsPerPageProFl | limitTo:itemsPerPageProFl">
                                     <td>
                                         <div class="custom-control custom-checkbox">
                                             <input class="custom-control-input" type="checkbox" id="item{{$index}}"
@@ -245,10 +235,9 @@
                                 </form>
                             </div>
                             <ul uib-pagination ng-model="currentPageProFl" total-items="totalItemsProFl"
-                                items-per-page="itemsPerPageProFl"
-                                max-size="maxSizeProFl" class="pagination-sm" boundary-link-numbers="true"
-                                boundary-links="true"
-                                force-ellipses="true" previous-text="<" next-text=">" first-text="<<" last-text=">>">
+                                items-per-page="itemsPerPageProFl" max-size="maxSizeProFl" class="pagination-sm"
+                                boundary-link-numbers="true" boundary-links="true" force-ellipses="true"
+                                previous-text="<" next-text=">" first-text="<<" last-text=">>">
                             </ul>
 
                         </div>

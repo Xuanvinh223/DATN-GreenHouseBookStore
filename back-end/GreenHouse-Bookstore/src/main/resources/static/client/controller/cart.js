@@ -273,7 +273,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                         }
                     }
                 });
-
             }
         }
     };

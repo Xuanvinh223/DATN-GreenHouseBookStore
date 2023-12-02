@@ -170,7 +170,9 @@
                                         <td>{{item.toPhone}}</td>
                                         <td class="ellipsis" style="max-width: 200px;">{{item.toAddress}}</td>
                                         <td>{{item.codAmount |number:'0'}}VND</td>
-                                        <td>Credit Card</td>
+                                        <td>{{item.invoices.paymentMethod == 'cod' ? 'Thanh toán khi nhận hàng' :
+                                            item.invoices.paymentMethod}}
+                                        </td>
                                         <td>
                                             <strong class="text-success" ng-if="item.status === 'pending_confirmation'">
                                                 <span class="online_animation bg-success"></span>
@@ -292,8 +294,9 @@
                                 <strong class="strong-order-detail">{{selectedOrder.orderCode}}</strong><br>
                                 <strong>Ngày tạo đơn :
                                 </strong> <strong class="strong-order-detail">{{selectedOrder.create_Date |
-                                    date:'dd/MM/yyyy HH:mm'}}</strong><br>
-                                <strong>Trạng Thái: </strong> <br>
+                                date:'dd/MM/yyyy HH:mm'}}</strong><br>
+                                <strong>Trạng Thái: <strong>{{selectedOrder.invoices.paymentMethod == 'cod' ? 'Thanh
+                                    toán khi nhận hàng' : selectedOrder.invoices.paymentMethod}}</strong> </strong> <br>
                                 <strong>Tình trạng:</strong>
                                 <strong class="text-success" ng-if="selectedOrder.status === 'pending_confirmation'">
                                     <span class="online_animation bg-success"></span>
