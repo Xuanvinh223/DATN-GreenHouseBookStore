@@ -153,6 +153,29 @@ app.controller("DiscountController", function ($scope, $location, $routeParams, 
     };
 
 
+    $scope.hideError = function (startDate) {
+        // Ẩn thông báo lỗi cho trường fieldName
+        $scope.errors[startDate] = '';
+
+    };
+
+
+    $scope.hideError = function (endDate) {
+        // Ẩn thông báo lỗi cho trường fieldName
+        $scope.errors[endDate] = '';
+
+    };
+    $scope.hideError = function (value) {
+        // Ẩn thông báo lỗi cho trường fieldName
+        $scope.errors[value] = '';
+
+    };
+    $scope.hideError = function (quantity) {
+        // Ẩn thông báo lỗi cho trường fieldName
+        $scope.errors[quantity] = '';
+
+    };
+
     $scope.searchData = function () {
         $scope.filteredDiscounts = $filter("filter")(
             $scope.discounts,

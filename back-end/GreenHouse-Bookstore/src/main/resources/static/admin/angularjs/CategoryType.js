@@ -34,6 +34,18 @@ app.controller("CategoryTypeController", function ($scope, $location, $routePara
         return !hasErrors;
     };
 
+    $scope.hideError = function (typeName) {
+        // Ẩn thông báo lỗi cho trường fieldName
+        $scope.errors[typeName] = '';
+
+    };
+    $scope.hideError = function (parentCategoriesType) {
+        // Ẩn thông báo lỗi cho trường fieldName
+        $scope.errors[parentCategoriesType] = '';
+
+    };
+    
+
     $scope.loadCategoryTypes = function () {
         var url = `${host}`;
         $http

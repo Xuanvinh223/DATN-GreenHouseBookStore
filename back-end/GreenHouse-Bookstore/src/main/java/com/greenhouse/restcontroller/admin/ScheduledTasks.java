@@ -61,7 +61,8 @@ public class ScheduledTasks {
         }
     }
 
-    @Scheduled(cron = "0 15 17 * * ?")
+    // bắt đầu
+    @Scheduled(cron = "0 0 9 * * ?")
     public void updateExpiredFlashSales() {
         List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
 
@@ -84,7 +85,80 @@ public class ScheduledTasks {
                         productDetail.setPriceDiscount(newPriceDiscount);
                         flashSale.setStatus(2);
 
-                        
+                    }
+                    flashSalesService.update(flashSale);
+                    // Cập nhật Product_Detail trong cơ sở dữ liệu
+                    productDetailService.update(productDetail);
+                }
+
+                productFlashSaleService.update(productFlashSale);
+                messagingTemplate.convertAndSend("/topic/products", "update");
+            }
+        }
+    }
+
+    // kết thúc
+    @Scheduled(cron = "59 59 11 * * ?")
+    public void updateExpiredFlashSales1() {
+        List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
+
+        for (Product_Flash_Sale productFlashSale : allProductFlashSales) {
+            Flash_Sales flashSale = productFlashSale.getFlashSaleId();
+
+            if (flashSale != null && flashSale.getEndTime() != null && flashSale.getEndTime().before(new Date())) {
+                Product_Detail productDetail = productFlashSale.getProductDetail();
+
+                if (productDetail != null) {
+                    Date currentTime = new Date();
+
+                    if (flashSale.getStartTime().before(currentTime) && flashSale.getEndTime().after(currentTime)) {
+
+                    } else {
+
+                        double exitPriceDiscount = productDetail.getPriceDiscount();
+                        double discountPercentage = (double) productFlashSale.getDiscountPercentage() / 100;
+                        double newPriceDiscount = exitPriceDiscount / (1 - discountPercentage);
+
+                        productDetail.setPriceDiscount(newPriceDiscount);
+
+                        flashSale.setStatus(3);
+
+                    }
+                    flashSalesService.update(flashSale);
+
+                    // Cập nhật Product_Detail trong cơ sở dữ liệu
+                    productDetailService.update(productDetail);
+                }
+
+                productFlashSaleService.update(productFlashSale);
+                messagingTemplate.convertAndSend("/topic/products", "update");
+            }
+        }
+    }
+
+    // bắt đầu
+    @Scheduled(cron = "0 0 12 * * ?")
+    public void updateExpiredFlashSales2() {
+        List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
+
+        for (Product_Flash_Sale productFlashSale : allProductFlashSales) {
+            Flash_Sales flashSale = productFlashSale.getFlashSaleId();
+
+            if (flashSale != null && flashSale.getEndTime() != null && flashSale.getEndTime().before(new Date())) {
+                Product_Detail productDetail = productFlashSale.getProductDetail();
+
+                if (productDetail != null) {
+                    Date currentTime = new Date();
+
+                    if (flashSale.getStartTime().before(currentTime) && flashSale.getEndTime().after(currentTime)) {
+
+                    } else {
+                        double exitPriceDiscount = productDetail.getPriceDiscount();
+                        // Nếu đang trong khoảng thời gian flash sale, cập nhật giá giảm giá mới
+                        double discountPercentage = (double) productFlashSale.getDiscountPercentage() / 100;
+                        double newPriceDiscount = exitPriceDiscount * (1 - discountPercentage);
+                        productDetail.setPriceDiscount(newPriceDiscount);
+                        flashSale.setStatus(2);
 
                     }
                     flashSalesService.update(flashSale);
@@ -98,8 +172,234 @@ public class ScheduledTasks {
         }
     }
 
-    @Scheduled(cron = "0 20 23 * * ?")
-    public void updateExpiredFlashSalese() {
+    // kết thúc
+    @Scheduled(cron = "59 59 14 * * ?")
+    public void updateExpiredFlashSales3() {
+        List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
+
+        for (Product_Flash_Sale productFlashSale : allProductFlashSales) {
+            Flash_Sales flashSale = productFlashSale.getFlashSaleId();
+
+            if (flashSale != null && flashSale.getEndTime() != null && flashSale.getEndTime().before(new Date())) {
+                Product_Detail productDetail = productFlashSale.getProductDetail();
+
+                if (productDetail != null) {
+                    Date currentTime = new Date();
+
+                    if (flashSale.getStartTime().before(currentTime) && flashSale.getEndTime().after(currentTime)) {
+
+                    } else {
+
+                        double exitPriceDiscount = productDetail.getPriceDiscount();
+                        double discountPercentage = (double) productFlashSale.getDiscountPercentage() / 100;
+                        double newPriceDiscount = exitPriceDiscount / (1 - discountPercentage);
+
+                        productDetail.setPriceDiscount(newPriceDiscount);
+
+                        flashSale.setStatus(3);
+
+                    }
+                    flashSalesService.update(flashSale);
+
+                    // Cập nhật Product_Detail trong cơ sở dữ liệu
+                    productDetailService.update(productDetail);
+                }
+
+                productFlashSaleService.update(productFlashSale);
+                messagingTemplate.convertAndSend("/topic/products", "update");
+            }
+        }
+    }
+
+    // bắt đầu
+    @Scheduled(cron = "0 0 15 * * ?")
+    public void updateExpiredFlashSales4() {
+        List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
+
+        for (Product_Flash_Sale productFlashSale : allProductFlashSales) {
+            Flash_Sales flashSale = productFlashSale.getFlashSaleId();
+
+            if (flashSale != null && flashSale.getEndTime() != null && flashSale.getEndTime().before(new Date())) {
+                Product_Detail productDetail = productFlashSale.getProductDetail();
+
+                if (productDetail != null) {
+                    Date currentTime = new Date();
+
+                    if (flashSale.getStartTime().before(currentTime) && flashSale.getEndTime().after(currentTime)) {
+
+                    } else {
+                        double exitPriceDiscount = productDetail.getPriceDiscount();
+                        // Nếu đang trong khoảng thời gian flash sale, cập nhật giá giảm giá mới
+                        double discountPercentage = (double) productFlashSale.getDiscountPercentage() / 100;
+                        double newPriceDiscount = exitPriceDiscount * (1 - discountPercentage);
+                        productDetail.setPriceDiscount(newPriceDiscount);
+                        flashSale.setStatus(2);
+
+                    }
+                    flashSalesService.update(flashSale);
+                    // Cập nhật Product_Detail trong cơ sở dữ liệu
+                    productDetailService.update(productDetail);
+                }
+
+                productFlashSaleService.update(productFlashSale);
+                messagingTemplate.convertAndSend("/topic/products", "update");
+            }
+        }
+    }
+
+    // kết thúc
+    @Scheduled(cron = "59 59 17 * * ?")
+    public void updateExpiredFlashSales5() {
+        List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
+
+        for (Product_Flash_Sale productFlashSale : allProductFlashSales) {
+            Flash_Sales flashSale = productFlashSale.getFlashSaleId();
+
+            if (flashSale != null && flashSale.getEndTime() != null && flashSale.getEndTime().before(new Date())) {
+                Product_Detail productDetail = productFlashSale.getProductDetail();
+
+                if (productDetail != null) {
+                    Date currentTime = new Date();
+
+                    if (flashSale.getStartTime().before(currentTime) && flashSale.getEndTime().after(currentTime)) {
+
+                    } else {
+
+                        double exitPriceDiscount = productDetail.getPriceDiscount();
+                        double discountPercentage = (double) productFlashSale.getDiscountPercentage() / 100;
+                        double newPriceDiscount = exitPriceDiscount / (1 - discountPercentage);
+
+                        productDetail.setPriceDiscount(newPriceDiscount);
+
+                        flashSale.setStatus(3);
+
+                    }
+                    flashSalesService.update(flashSale);
+
+                    // Cập nhật Product_Detail trong cơ sở dữ liệu
+                    productDetailService.update(productDetail);
+                }
+
+                productFlashSaleService.update(productFlashSale);
+                messagingTemplate.convertAndSend("/topic/products", "update");
+            }
+        }
+    }
+
+    // bắt đầu
+    @Scheduled(cron = "0 0 18 * * ?")
+    public void updateExpiredFlashSales6() {
+        List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
+
+        for (Product_Flash_Sale productFlashSale : allProductFlashSales) {
+            Flash_Sales flashSale = productFlashSale.getFlashSaleId();
+
+            if (flashSale != null && flashSale.getEndTime() != null && flashSale.getEndTime().before(new Date())) {
+                Product_Detail productDetail = productFlashSale.getProductDetail();
+
+                if (productDetail != null) {
+                    Date currentTime = new Date();
+
+                    if (flashSale.getStartTime().before(currentTime) && flashSale.getEndTime().after(currentTime)) {
+
+                    } else {
+                        double exitPriceDiscount = productDetail.getPriceDiscount();
+                        // Nếu đang trong khoảng thời gian flash sale, cập nhật giá giảm giá mới
+                        double discountPercentage = (double) productFlashSale.getDiscountPercentage() / 100;
+                        double newPriceDiscount = exitPriceDiscount * (1 - discountPercentage);
+                        productDetail.setPriceDiscount(newPriceDiscount);
+                        flashSale.setStatus(2);
+
+                    }
+                    flashSalesService.update(flashSale);
+                    // Cập nhật Product_Detail trong cơ sở dữ liệu
+                    productDetailService.update(productDetail);
+                }
+
+                productFlashSaleService.update(productFlashSale);
+                messagingTemplate.convertAndSend("/topic/products", "update");
+            }
+        }
+    }
+
+    // kết thúc
+    @Scheduled(cron = "59 59 20 * * ?")
+    public void updateExpiredFlashSales7() {
+        List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
+
+        for (Product_Flash_Sale productFlashSale : allProductFlashSales) {
+            Flash_Sales flashSale = productFlashSale.getFlashSaleId();
+
+            if (flashSale != null && flashSale.getEndTime() != null && flashSale.getEndTime().before(new Date())) {
+                Product_Detail productDetail = productFlashSale.getProductDetail();
+
+                if (productDetail != null) {
+                    Date currentTime = new Date();
+
+                    if (flashSale.getStartTime().before(currentTime) && flashSale.getEndTime().after(currentTime)) {
+
+                    } else {
+
+                        double exitPriceDiscount = productDetail.getPriceDiscount();
+                        double discountPercentage = (double) productFlashSale.getDiscountPercentage() / 100;
+                        double newPriceDiscount = exitPriceDiscount / (1 - discountPercentage);
+
+                        productDetail.setPriceDiscount(newPriceDiscount);
+
+                        flashSale.setStatus(3);
+
+                    }
+                    flashSalesService.update(flashSale);
+
+                    // Cập nhật Product_Detail trong cơ sở dữ liệu
+                    productDetailService.update(productDetail);
+                }
+
+                productFlashSaleService.update(productFlashSale);
+                messagingTemplate.convertAndSend("/topic/products", "update");
+            }
+        }
+    }
+
+    // bắt đầu
+    @Scheduled(cron = "0 0 21 * * ?")
+    public void updateExpiredFlashSales8() {
+        List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
+
+        for (Product_Flash_Sale productFlashSale : allProductFlashSales) {
+            Flash_Sales flashSale = productFlashSale.getFlashSaleId();
+
+            if (flashSale != null && flashSale.getEndTime() != null && flashSale.getEndTime().before(new Date())) {
+                Product_Detail productDetail = productFlashSale.getProductDetail();
+
+                if (productDetail != null) {
+                    Date currentTime = new Date();
+
+                    if (flashSale.getStartTime().before(currentTime) && flashSale.getEndTime().after(currentTime)) {
+
+                    } else {
+                        double exitPriceDiscount = productDetail.getPriceDiscount();
+                        // Nếu đang trong khoảng thời gian flash sale, cập nhật giá giảm giá mới
+                        double discountPercentage = (double) productFlashSale.getDiscountPercentage() / 100;
+                        double newPriceDiscount = exitPriceDiscount * (1 - discountPercentage);
+                        productDetail.setPriceDiscount(newPriceDiscount);
+                        flashSale.setStatus(2);
+
+                    }
+                    flashSalesService.update(flashSale);
+                    // Cập nhật Product_Detail trong cơ sở dữ liệu
+                    productDetailService.update(productDetail);
+                }
+
+                productFlashSaleService.update(productFlashSale);
+                messagingTemplate.convertAndSend("/topic/products", "update");
+            }
+        }
+    }
+
+    // kết thúc
+    @Scheduled(cron = "59 59 23 * * ?")
+    public void updateExpiredFlashSales9() {
         List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
 
         for (Product_Flash_Sale productFlashSale : allProductFlashSales) {

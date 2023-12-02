@@ -5,6 +5,8 @@ import com.cloudinary.utils.ObjectUtils;
 import com.google.gson.Gson;
 import com.greenhouse.model.Publishers;
 import com.greenhouse.service.PublishersService;
+import com.greenhouse.util.ImageUploader;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +24,7 @@ public class RestPublishersController {
     @Autowired
     private PublishersService publishersService;
 
-    private static final String CLOUDINARY_CLOUD_NAME = "dmbh3sz8s";
-    private static final String CLOUDINARY_API_KEY = "165312227781173";
-    private static final String CLOUDINARY_API_SECRET = "xcADjr7hxF6iXNMtsdf2CQAnbOI";
-
-
+ 
     @GetMapping
     public ResponseEntity<List<Publishers>> getAllPublishers() {
         List<Publishers> publishers = publishersService.findAll();
@@ -51,8 +49,8 @@ public class RestPublishersController {
 
         String photoUrl = null;
         if (file != null && !file.isEmpty()) {
-            photoUrl = uploadImageToCloudinary(file, "publisher_" + System.currentTimeMillis());
-        }
+                  photoUrl = ImageUploader.uploadImage(file, "publishers_" + System.currentTimeMillis());
+   }
 
         Publishers publisher = new Gson().fromJson(publisherJson, Publishers.class);
 
@@ -75,7 +73,7 @@ public class RestPublishersController {
                                                   @RequestParam("publisherJson") String publisherJson) throws Exception {
         String photoUrl = null;
         if (file != null && !file.isEmpty()) {
-            photoUrl = uploadImageToCloudinary(file, "publisher_" + System.currentTimeMillis());
+            photoUrl = ImageUploader.uploadImage(file, "publishers_" + System.currentTimeMillis());
         }
 
         Publishers publisher = new Gson().fromJson(publisherJson, Publishers.class);
@@ -99,29 +97,5 @@ public class RestPublishersController {
         publishersService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    private String uploadImageToCloudinary(MultipartFile imageFile, String imageName) throws Exception {
-        String photoUrl = null;
-
-        try {
-            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                    "cloud_name", CLOUDINARY_CLOUD_NAME,
-                    "api_key", CLOUDINARY_API_KEY,
-                    "api_secret", CLOUDINARY_API_SECRET));
-
-            byte[] imageBytes = imageFile.getBytes();
-
-            Map uploadResult = cloudinary.uploader().upload(imageBytes, ObjectUtils.asMap(
-                    "public_id", imageName,
-                    "folder", "images", // Thư mục trên Cloudinary (có thể thay đổi)
-                    "overwrite", true
-            ));
-
-            photoUrl = (String) uploadResult.get("secure_url");
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new Exception("Lỗi khi tải ảnh lên Cloudinary.");
-        }
-
-        return photoUrl;
-    }
+ 
 }

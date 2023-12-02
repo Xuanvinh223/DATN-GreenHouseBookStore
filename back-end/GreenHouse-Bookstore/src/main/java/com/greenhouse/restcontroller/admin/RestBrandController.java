@@ -5,6 +5,8 @@ import com.cloudinary.utils.ObjectUtils;
 import com.google.gson.Gson;
 import com.greenhouse.model.Brands;
 import com.greenhouse.service.BrandService;
+import com.greenhouse.util.ImageUploader;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +25,7 @@ public class RestBrandController {
     @Autowired
     private BrandService brandService;
 
-    private static final String CLOUDINARY_CLOUD_NAME = "dmbh3sz8s";
-    private static final String CLOUDINARY_API_KEY = "165312227781173";
-    private static final String CLOUDINARY_API_SECRET = "xcADjr7hxF6iXNMtsdf2CQAnbOI";
-
+ 
     @GetMapping
     public ResponseEntity<List<Brands>> getAllBrand() {
         List<Brands> brand = brandService.findAll();
@@ -51,8 +50,8 @@ public class RestBrandController {
 
         String photoUrl = null;
         if (file != null && !file.isEmpty()) {
-            photoUrl = uploadImageToCloudinary(file, "brand_" + System.currentTimeMillis());
-        }
+                  photoUrl = ImageUploader.uploadImage(file, "brand_" + System.currentTimeMillis());
+   }
 
         Brands brand = new Gson().fromJson(brandJson, Brands.class);
         if (photoUrl != null) {
@@ -74,7 +73,7 @@ public class RestBrandController {
                                          @RequestParam("brandJson") String brandJson) throws Exception {
         String photoUrl = null;
         if (file != null && !file.isEmpty()) {
-            photoUrl = uploadImageToCloudinary(file, "brand_" + System.currentTimeMillis());
+            photoUrl = ImageUploader.uploadImage(file, "brand_" + System.currentTimeMillis());
         }
 
         Brands brand = new Gson().fromJson(brandJson, Brands.class);
@@ -104,29 +103,5 @@ public class RestBrandController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private String uploadImageToCloudinary(MultipartFile imageFile, String imageName) throws Exception {
-        String photoUrl = null;
 
-        try {
-            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                    "cloud_name", CLOUDINARY_CLOUD_NAME,
-                    "api_key", CLOUDINARY_API_KEY,
-                    "api_secret", CLOUDINARY_API_SECRET));
-
-            byte[] imageBytes = imageFile.getBytes();
-
-            Map uploadResult = cloudinary.uploader().upload(imageBytes, ObjectUtils.asMap(
-                    "public_id", imageName,
-                    "folder", "brands",
-                    "overwrite", true
-            ));
-
-            photoUrl = (String) uploadResult.get("secure_url");
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new Exception("Lỗi khi tải ảnh lên Cloudinary.");
-        }
-
-        return photoUrl;
-    }
 }

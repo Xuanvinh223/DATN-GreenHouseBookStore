@@ -63,7 +63,19 @@ app.controller("CategoryController", function ($scope, $location, $routeParams, 
     
             return !hasErrors;
         };
+
+
+        $scope.hideError = function (typeId) {
+            // Ẩn thông báo lỗi cho trường fieldName
+            $scope.errors[typeId] = '';
     
+        };
+        $scope.hideError = function (categoryName) {
+            // Ẩn thông báo lỗi cho trường fieldName
+            $scope.errors[categoryName] = '';
+    
+        };
+        
 
     $scope.searchData = function () {
         $scope.filteredCategories = $filter("filter")($scope.categories, $scope.searchText);

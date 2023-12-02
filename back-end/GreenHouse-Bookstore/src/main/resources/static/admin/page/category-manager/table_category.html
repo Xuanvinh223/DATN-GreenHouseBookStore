@@ -48,24 +48,26 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="typeId">Tên Loại Danh Mục(*)</label>
                                         <select class="form-control " id="typeId" ng-model="editingCategory.typeId"
+                                                ng-change="hideError('typeId')"
                                                 ng-options="typeId as typeId.typeName for typeId in categoryTypes track by typeId.typeName">
                                             <option value="">Chọn loại danh mục</option>
                                         </select>
-                                        <small class="text-danger">{{ errors.typeId }}</small>
+                                        <small class="text-danger" ng-show="errors.typeId">{{ errors.typeId }}</small>
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="categoryName">Tên Danh Mục(*)</label>
                                     <input type="text" class="form-control" placeholder="Nhập tên danh mục"
-                                           id="categoryName" name="categoryName"
+                                           ng-change="hideError('categoryName')" id="categoryName" name="categoryName"
                                            ng-model="editingCategory.categoryName"/>
-                                    <small class="text-danger">{{ errors.categoryName }}</small>
+                                    <small class="text-danger" ng-show="errors.categoryName">{{ errors.categoryName
+                                        }}</small>
                                 </div>
                                 <button type="button" class="btn btn-primary" ng-click="saveCategory()">
-                                    <i class="fa fa-save"> </i> {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Danh Mục' }}
+                                    <i class="fa fa-save"> </i> {{ isEditing ? ' Lưu Sửa Đổi' : ' Thêm Danh Mục' }}
                                 </button>
-                                <button type="button" class="btn btn-primary" ng-click="resetForm()"><i
-                                        class="fa fa-undo"> </i>Làm
+                                <button type="button" class="btn btn-primary" ng-click="resetForm()"><i class="fa fa-undo">
+                                </i>Làm
                                     Mới
                                 </button>
                             </div>

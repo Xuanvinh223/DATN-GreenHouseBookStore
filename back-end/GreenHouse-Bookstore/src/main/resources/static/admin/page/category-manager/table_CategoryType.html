@@ -39,7 +39,7 @@
                 <div class="modal-body">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="form-row">
                                     <div class="col-md-4 mb-3">
                                         <label for="categoryName">ID Loại Danh Mục(*)</label>
@@ -50,30 +50,31 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="typeName">Tên Loại Danh Mục(*)</label>
                                         <input type="text" class="form-control" placeholder="Nhập tên loại danh mục"
-                                               id="typeName" name="typeName" ng-model="editingCategoryType.typeName"/>
-                                        <small class="text-danger">{{ errors.typeName }}</small>
+                                               ng-change="hideError('typeName')" id="typeName" name="typeName"
+                                               ng-model="editingCategoryType.typeName"/>
+                                        <small class="text-danger" ng-show="errors.typeName">{{ errors.typeName }}</small>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="parentCategoriesType">Phân Loại Danh Mục(*)</label>
                                         <input type="text" class="form-control" placeholder="Nhập Phân Loại Danh Mục"
-                                               id="parentCategoriesType" name="parentCategoriesType"
+                                               ng-change="hideError('parentCategoriesType')" id="parentCategoriesType"
+                                               name="parentCategoriesType"
                                                ng-model="editingCategoryType.parentCategoriesType"/>
-                                        <small class="text-danger">{{ errors.parentCategoriesType }}</small>
+                                        <small class="text-danger" ng-show="errors.parentCategoriesType">{{
+                                            errors.parentCategoriesType }}</small>
                                     </div>
                                 </div>
+    
                                 <div class="form-group mb-3">
                                     <label for="description">Mô tả</label>
-                                    <textarea class="form-control" placeholder="Viết mô tả...." id="description"
-                                              rows="8" name="description"
-                                              ng-model="editingCategoryType.description"></textarea>
+                                    <textarea class="form-control" placeholder="Viết mô tả...." id="description" rows="4"
+                                              name="description" ng-model="editingCategoryType.description"></textarea>
                                 </div>
                                 <button type="button" class="btn btn-primary" ng-click="saveCategoryType()">
-                                    <i class="fa fa-save"> </i> {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Loại Danh
-                                    Mục'
-                                    }}
+                                    <i class="fa fa-save"> </i> {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Loại Danh Mục' }}
                                 </button>
-                                <button type="button" class="btn btn-primary" ng-click="resetForm()"><i
-                                        class="fa fa-undo"> </i>Làm
+                                <button type="button" class="btn btn-primary" ng-click="resetForm()"><i class="fa fa-undo">
+                                    </i>Làm
                                     Mới
                                 </button>
                             </div>

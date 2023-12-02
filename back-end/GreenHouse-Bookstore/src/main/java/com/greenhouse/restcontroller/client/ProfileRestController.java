@@ -31,6 +31,7 @@ import com.greenhouse.model.Address;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.AddressRepository;
 import com.greenhouse.repository.UserVoucherRepository;
+import com.greenhouse.util.ImageUploader;
 
 @CrossOrigin("*")
 @RestController
@@ -48,10 +49,6 @@ public class ProfileRestController {
 
     @Autowired
     UserVoucherRepository userVoucherRepository;
-
-    private static final String CLOUDINARY_CLOUD_NAME = "dmbh3sz8s";
-    private static final String CLOUDINARY_API_KEY = "165312227781173";
-    private static final String CLOUDINARY_API_SECRET = "xcADjr7hxF6iXNMtsdf2CQAnbOI";
 
     @GetMapping("/rest/address/{username}")
     public ResponseEntity<Map<String, Object>> getAddressByUsername(@PathVariable String username) {
@@ -118,8 +115,8 @@ public class ProfileRestController {
 
         if (file != null && !file.isEmpty()) {
             try {
-                photoUrl = uploadImageToCloudinary(file, "Account_" + System.currentTimeMillis());
-            } catch (Exception e) {
+              photoUrl = ImageUploader.uploadImage(file, "account_" + System.currentTimeMillis());
+         } catch (Exception e) {
                 e.printStackTrace();
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
@@ -157,29 +154,6 @@ public class ProfileRestController {
         }
     }
 
-    private String uploadImageToCloudinary(MultipartFile imageFile, String imageName) throws Exception {
-        String photoUrl = null;
-
-        try {
-            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                    "cloud_name", CLOUDINARY_CLOUD_NAME,
-                    "api_key", CLOUDINARY_API_KEY,
-                    "api_secret", CLOUDINARY_API_SECRET));
-
-            byte[] imageBytes = imageFile.getBytes();
-
-            Map uploadResult = cloudinary.uploader().upload(imageBytes, ObjectUtils.asMap(
-                    "public_id", imageName,
-                    "folder", "accounts",
-                    "overwrite", true));
-
-            photoUrl = (String) uploadResult.get("secure_url");
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new Exception("Lỗi khi tải ảnh lên Cloudinary.");
-        }
-
-        return photoUrl;
-    }
+ 
 
 }

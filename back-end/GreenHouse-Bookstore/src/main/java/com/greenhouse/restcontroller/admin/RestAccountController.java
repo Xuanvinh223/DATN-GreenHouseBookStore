@@ -6,6 +6,7 @@ import com.greenhouse.model.Authorities;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.AuthoritiesRepository;
 import com.greenhouse.service.AccountsService;
+import com.greenhouse.util.ImageUploader;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,7 @@ public class RestAccountController {
     AccountRepository accountRepository;
     @Autowired
     AuthoritiesRepository authoritiesRepository;
-    private static final String CLOUDINARY_CLOUD_NAME = "dmbh3sz8s";
-    private static final String CLOUDINARY_API_KEY = "165312227781173";
-    private static final String CLOUDINARY_API_SECRET = "xcADjr7hxF6iXNMtsdf2CQAnbOI";
+ 
 
     @GetMapping
     public ResponseEntity<List<Accounts>> getAllAccount() {
@@ -58,8 +57,8 @@ public class RestAccountController {
         String photoUrl = null;
         if (file != null && !file.isEmpty()) {
             try {
-                photoUrl = uploadImageToCloudinary(file, "Account_" + System.currentTimeMillis());
-            } catch (Exception e) {
+                      photoUrl = ImageUploader.uploadImage(file, "account_" + System.currentTimeMillis());
+   } catch (Exception e) {
                 e.printStackTrace();
                 return new ResponseEntity<>("Lỗi khi tải ảnh lên Cloudinary.", HttpStatus.BAD_REQUEST);
             }
@@ -88,7 +87,7 @@ public class RestAccountController {
         String photoUrl = null;
         if (file != null && !file.isEmpty()) {
             try {
-                photoUrl = uploadImageToCloudinary(file, "Account_" + System.currentTimeMillis());
+                photoUrl = ImageUploader.uploadImage(file, "account_" + System.currentTimeMillis());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -123,28 +122,5 @@ public class RestAccountController {
         }
     }
 
-    private String uploadImageToCloudinary(MultipartFile imageFile, String imageName) throws Exception {
-        String photoUrl = null;
-
-        try {
-            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                    "cloud_name", CLOUDINARY_CLOUD_NAME,
-                    "api_key", CLOUDINARY_API_KEY,
-                    "api_secret", CLOUDINARY_API_SECRET));
-
-            byte[] imageBytes = imageFile.getBytes();
-
-            Map uploadResult = cloudinary.uploader().upload(imageBytes, ObjectUtils.asMap(
-                    "public_id", imageName,
-                    "folder", "accounts",
-                    "overwrite", true));
-
-            photoUrl = (String) uploadResult.get("secure_url");
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new Exception("Lỗi khi tải ảnh lên Cloudinary.");
-        }
-
-        return photoUrl;
-    }
+  
 }

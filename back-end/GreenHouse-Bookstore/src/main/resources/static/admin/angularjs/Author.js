@@ -250,7 +250,7 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
 
 
     function getNationalities() {
-        var url = "https://restcountries.com/v3.1/all?fields=name";
+        var url = "/admin/js/nationalities.json";
         return $http.get(url);
     }
 
@@ -259,7 +259,7 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
     getNationalities()
         .then(function (resp) {
             $scope.nationalities = resp.data.map(function (nationality) {
-                return nationality.name.common;
+                return nationality.name;
             });
         })
         .catch(function (error) {

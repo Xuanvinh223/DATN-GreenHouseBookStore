@@ -6,9 +6,11 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="card-title mb-0">Thông Tin Giảm Giá</h4>
 
-                        <a type="button" class="btn btn-success" href="#!/discount-form">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addDiscountModal">
                             <i class="fa fa-plus"> </i> Thêm Giảm Giá
-                        </a>
+
+                        </button>
+                       
                     </div>
                 </div>
 
@@ -44,55 +46,41 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="startDate">Ngày bắt đầu(*)</label>
                                         <input class="form-control" type="date" ng-model="editingDiscount.startDate"
-                                               name="startDate">
-                                        <small class="text-danger">{{ errors.startDate }}</small>
+                                               ng-change="hideError('startDate')" name="startDate">
+                                        <small class="text-danger" ng-show="errors.startDate">{{ errors.startDate }}</small>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="endDate">Ngày kết thúc(*)</label>
                                         <input class="form-control" type="date" ng-model="editingDiscount.endDate"
-                                               name="endDate">
-                                        <small class="text-danger">{{ errors.endDate }}</small>
+                                               ng-change="hideError('endDate')" name="endDate">
+                                        <small class="text-danger" ng-show="errors.endDate">{{ errors.endDate }}</small>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-4 mb-3">
                                         <label for="value">Giá Trị Giảm Giá(*)</label>
                                         <input class="form-control" type="number" ng-model="editingDiscount.value"
-                                               name="value" placeholder="Nhập giá tiền">
-                                        <small class="text-danger">{{ errors.value }}</small>
+                                               name="value" ng-change="hideError('value')"
+                                               placeholder="Nhập giá tiền">
+                                        <small class="text-danger" ng-show="errors.value">{{ errors.value }}</small>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="quantity">Tổng Số Lượng(*)</label>
                                         <input class="form-control" type="number" ng-model="editingDiscount.quantity"
-                                               name="quantity" placeholder="Nhập số lượng">
-                                        <small class="text-danger">{{ errors.quantity }}</small>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <p class="mb-2">Trạng Thái(*)</p>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio"
-                                                   ng-model="editingDiscount.active" value="true" id="active">
-                                            <label class="form-check-label" for="active">Đã sử dụng</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio"
-                                                   ng-model="editingDiscount.active" value="false" id="unactive">
-                                            <label class="form-check-label" for="unactive">Chưa sử dụng</label>
-                                        </div>
-                                        <small class="text-danger">{{ errors.active }}</small>
+                                               name="quantity" ng-change="hideError('quantity')"
+                                               placeholder="Nhập số lượng">
+                                        <small class="text-danger" ng-show="errors.quantity">{{ errors.quantity }}</small>
                                     </div>
                                 </div>
                                 <button type="button" class="btn btn-primary" ng-click="saveDiscount()">
-                                    <i class="fa fa-save"> </i> {{ isEditing ? 'Lưu Sửa Đổi' : 'Thêm Giảm Giá'
-                                    }}
+                                    <i class="fa fa-save"> </i> {{ isEditing ? ' Lưu Sửa Đổi' : ' Thêm Giảm Giá' }}
                                 </button>
                                 <button type="button" class="btn btn-primary" ng-click="resetForm()"><i
-                                        class="fa fa-undo"> </i>
-                                    Làm Mới
+                                        class="fa fa-undo"> </i> Làm Mới
                                 </button>
                             </div>
-                        </div>
-                    </div>
+              </div>
+            </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
