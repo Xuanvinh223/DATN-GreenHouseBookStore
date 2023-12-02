@@ -20,6 +20,9 @@ public class Orders {
     @Column(name = "Username", length = 50, nullable = false)
     private String username;
 
+    @Column(name = "invoice_id", nullable = false)
+    private int invoiceId;
+
     @Column(name = "to_name", length = 1024, nullable = false)
     private String toName;
 
@@ -119,4 +122,8 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name = "Username", referencedColumnName = "Username", insertable = false, updatable = false)
     private Accounts account;
+
+    @ManyToOne
+    @JoinColumn(name = "invoice_id", referencedColumnName = "invoice_id", insertable = false, updatable = false)
+    private Invoices invoices;
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.model.Orders;
+import com.greenhouse.repository.InvoicesRepository;
 import com.greenhouse.repository.OrdersRepository;
 import com.greenhouse.service.CheckoutService;
 
@@ -35,6 +36,9 @@ public class GHNWebhook {
                 orders.setStatus(status);
                 ordersRepository.saveAndFlush(orders);
                 checkoutService.createOrderStatusHistory(orderCode, status);
+                if("delivered".equalsIgnoreCase(status)) {
+                    checkoutService.createInvoiceStatusMapping(orders.getInvoices(), 1);// status = 1 : đã thanh toán
+                }
             }
         }
     }

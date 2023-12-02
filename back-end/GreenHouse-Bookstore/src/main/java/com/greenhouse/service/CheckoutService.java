@@ -80,7 +80,7 @@ public class CheckoutService {
     private VouchersRepository vouchersRepository;
 
     // ================================================================================================
-    public Invoices createInvoice(CheckoutDTO data, Orders order) {
+    public Invoices createInvoice(CheckoutDTO data) {
         Accounts username = accountRepository.findById(data.getUsername()).orElse(null);
         Invoices invoices = new Invoices();
         invoices.setAccount(username);
@@ -128,10 +128,77 @@ public class CheckoutService {
     }
 
     // ================================================================================================
-    public Orders createOrder(CheckoutDTO data) {
-        Orders order = setDataOrders(data);
-        ordersRepository.save(order);
-        return order;
+    public Orders createOrder(CheckoutDTO data, Invoices invoice) {
+        Orders orders = new Orders();
+
+        String orderCode = generateOrderCode();
+        while (ordersRepository.existsById(orderCode)) {
+            orderCode = generateOrderCode();
+        }
+
+        orders.setOrderCode(orderCode);
+        orders.setClientOrderCode(orderCode);
+        orders.setUsername(data.getUsername());
+        orders.setInvoiceId(invoice.getInvoiceId());
+
+        // Thông tin người gửi từ OrderInfo
+        orders.setFromName(OrderInfo.FROM_NAME);
+        orders.setFromPhone(OrderInfo.FROM_PHONE);
+        orders.setFromAddress(OrderInfo.FROM_ADDRESS);
+        orders.setFromWardName(OrderInfo.FROM_WARD_NAME);
+        orders.setFromDistrictName(OrderInfo.FROM_DISTRICT_NAME);
+        orders.setFromProvinceName(OrderInfo.FROM_PROVINCE_NAME);
+
+        // Thông tin người nhận
+        orders.setToName(data.getTo_name());
+        orders.setToPhone(data.getTo_phone());
+        orders.setToAddress(data.getTo_address());
+        orders.setToWardCode(data.getTo_ward_code());
+        orders.setToDistrictId(data.getTo_district_id());
+
+        // Thông tin dịch vụ GHN
+        orders.setServiceId(data.getService_id());
+        orders.setServiceTypeId(data.getService_type_id());
+        orders.setRequiredNote(OrderInfo.REQUIRED_NOTE);
+
+        // Thông tin đơn hàng
+        // trạng thái
+        orders.setStatus("pending_confirmation");
+        // ngày tạo
+        Date now = new Date();
+        orders.setCreate_Date(now);
+        // cân nặng
+        int weight = 0;
+        for (Carts item : data.getCarts()) {
+            weight += item.getQuantity() * item.getProductDetail().getWeight();
+        }
+        orders.setWeight(weight);
+        // giá trị tổng thể để có gì GHN bồi thường nếu hàng bị gì đó
+        int insuranceValue = data.getPayment_total().intValue();
+        orders.setInsuranceValue(insuranceValue);
+        // xem ai là người trả tiền ship
+        if (data.getShipping_fee() == 0) {
+            orders.setPaymentTypeId(1);// cửa hàng trả
+        } else {
+            orders.setPaymentTypeId(2);// khách trả
+            orders.setCodAmount(data.getShipping_fee().intValue());
+        }
+        // Nội dung đơn hàng
+        StringBuilder content = new StringBuilder("");
+        for (Carts cartItem : data.getCarts()) {
+            Products product = cartItem.getProductDetail().getProduct();
+            NumberStyleFormatter numberFormatter = new NumberStyleFormatter("#,###");
+            content.append("\r\n").append(product.getProductName()).append(",")
+                    .append(cartItem.getQuantity()).append("x")
+                    .append(numberFormatter.print(cartItem.getPrice(), Locale.getDefault()))
+                    .append(" VND,")
+                    .append(numberFormatter.print(cartItem.getAmount(), Locale.getDefault()))
+                    .append(" VND");
+        }
+
+        orders.setContentOrder(content.toString());
+        ordersRepository.save(orders);
+        return orders;
     }
 
     public void createOrderStatusHistory(String orderCode, String status) {
@@ -241,76 +308,6 @@ public class CheckoutService {
         } else {
             return false;
         }
-    }
-
-    private Orders setDataOrders(CheckoutDTO data) {
-        Orders orders = new Orders();
-
-        String orderCode = generateOrderCode();
-        while (ordersRepository.existsById(orderCode)) {
-            orderCode = generateOrderCode();
-        }
-
-        orders.setOrderCode(orderCode);
-        orders.setClientOrderCode(orderCode);
-        orders.setUsername(data.getUsername());
-
-        // Thông tin người gửi từ OrderInfo
-        orders.setFromName(OrderInfo.FROM_NAME);
-        orders.setFromPhone(OrderInfo.FROM_PHONE);
-        orders.setFromAddress(OrderInfo.FROM_ADDRESS);
-        orders.setFromWardName(OrderInfo.FROM_WARD_NAME);
-        orders.setFromDistrictName(OrderInfo.FROM_DISTRICT_NAME);
-        orders.setFromProvinceName(OrderInfo.FROM_PROVINCE_NAME);
-
-        // Thông tin người nhận
-        orders.setToName(data.getTo_name());
-        orders.setToPhone(data.getTo_phone());
-        orders.setToAddress(data.getTo_address());
-        orders.setToWardCode(data.getTo_ward_code());
-        orders.setToDistrictId(data.getTo_district_id());
-
-        // Thông tin dịch vụ GHN
-        orders.setServiceId(data.getService_id());
-        orders.setServiceTypeId(data.getService_type_id());
-        orders.setRequiredNote(OrderInfo.REQUIRED_NOTE);
-
-        // Thông tin đơn hàng
-        // trạng thái
-        orders.setStatus("pending_confirmation");
-        // ngày tạo
-        Date now = new Date();
-        orders.setCreate_Date(now);
-        // cân nặng
-        int weight = 0;
-        for (Carts item : data.getCarts()) {
-            weight += item.getQuantity() * item.getProductDetail().getWeight();
-        }
-        orders.setWeight(weight);
-        // giá trị tổng thể để có gì GHN bồi thường nếu hàng bị gì đó
-        int insuranceValue = data.getPayment_total().intValue();
-        orders.setInsuranceValue(insuranceValue);
-        // xem ai là người trả tiền ship
-        if (data.getShipping_fee() == 0) {
-            orders.setPaymentTypeId(1);// cửa hàng trả
-        } else {
-            orders.setPaymentTypeId(2);// khách trả
-            orders.setCodAmount(data.getShipping_fee().intValue());
-        }
-        // Nội dung đơn hàng
-        StringBuilder content = new StringBuilder("");
-        for (Carts cartItem : data.getCarts()) {
-            Products product = cartItem.getProductDetail().getProduct();
-            NumberStyleFormatter numberFormatter = new NumberStyleFormatter("#,###");
-            content.append("\r\n").append(product.getProductName()).append(",")
-                    .append(cartItem.getQuantity()).append("x")
-                    .append(numberFormatter.print(cartItem.getPrice(), Locale.getDefault()))
-                    .append(" VND,")
-                    .append(numberFormatter.print(cartItem.getAmount(), Locale.getDefault()))
-                    .append(" VND");
-        }
-        orders.setContentOrder(content.toString());
-        return orders;
     }
 
     private String generateOrderCode() {

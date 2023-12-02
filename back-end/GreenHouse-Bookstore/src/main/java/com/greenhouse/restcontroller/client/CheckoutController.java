@@ -119,17 +119,18 @@ public class CheckoutController {
                 response.put("message", message);
                 return ResponseEntity.ok(response);
             }
-            // Create order
-            Orders order = checkoutService.createOrder(data);
-
-            // Create order status history
-            checkoutService.createOrderStatusHistory(order.getOrderCode(), "pending_confirmation");
 
             // Create invoice
-            Invoices invoices = checkoutService.createInvoice(data, order);
+            Invoices invoices = checkoutService.createInvoice(data);
 
             // Create invoice status mapping with id = 2
             checkoutService.createInvoiceStatusMapping(invoices, 2); // id:2 = chưa thanh toán
+
+            // Create order
+            Orders order = checkoutService.createOrder(data, invoices);
+
+            // Create order status history
+            checkoutService.createOrderStatusHistory(order.getOrderCode(), "pending_confirmation");
 
             // Create invoice details and order details
             checkoutService.createInvoiceDetailsAndOrderDetails(data.getCarts(), invoices, order);
