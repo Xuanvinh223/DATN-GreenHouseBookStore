@@ -163,29 +163,28 @@ function PublishersController($scope, $location, $routeParams, $http) {
     // Kiểm tra trùng lặp email trước khi thêm
     var existingEmail = $scope.publishers.find(function (publisher) {
       return (
-        publisher.email === $scope.editingPublisher.email &&
-        publisher.publisherId !== $scope.editingPublisher.publisherId
+          publisher.email === $scope.editingPublisher.email &&
+          publisher.publisherId !== $scope.editingPublisher.publisherId
       );
     });
-    if (existingEmail) {
-      // Hiển thị thông báo lỗi nếu email đã tồn tại
-      $scope.errorMessages.email = `Email "${$scope.editingPublisher.email}" đã tồn tại. Vui lòng chọn email khác.`;
-      return; // Không tiếp tục lưu nếu có lỗi
-    }
+      if (existingEmail) {
+          // Hiển thị thông báo lỗi nếu email đã tồn tại
+          $scope.errorMessages.email = `Email "${$scope.editingPublisher.email}" đã tồn tại. Vui lòng chọn email khác.`;
+          return; // Không tiếp tục lưu nếu có lỗi
+      }
 
-    // Hiển thị hiệu ứng loading
-    document.addEventListener("DOMContentLoaded", function () {
-      // Đoạn mã JavaScript của bạn ở đây
-      var loadingOverlay = document.getElementById("loadingOverlay");
-      loadingOverlay.style.display = "block";
+      // // Hiển thị hiệu ứng loading
+      // document.addEventListener("DOMContentLoaded", function () {
+      //   // Đoạn mã JavaScript của bạn ở đây
+      //   var loadingOverlay = document.getElementById("loadingOverlay");
+      //   loadingOverlay.style.display = "block";
 
-    });
+      // });
 
 
-
-    if (fileInput && fileInput.files.length > 0) {
-      formData.append("image", fileInput.files[0]);
-    }
+      if (fileInput && fileInput.files.length > 0) {
+          formData.append("image", fileInput.files[0]);
+      }
 
 
     formData.append(
@@ -201,8 +200,8 @@ function PublishersController($scope, $location, $routeParams, $http) {
     );
 
     if ($scope.isEditing) {
-      // Ẩn hiệu ứng loading khi lưu thành công
-      loadingOverlay.style.display = "none";
+        // Ẩn hiệu ứng loading khi lưu thành công
+        // loadingOverlay.style.display = "none";
 
       // Sử dụng hộp thoại xác nhận từ thư viện Swal
       Swal.fire({
@@ -214,8 +213,8 @@ function PublishersController($scope, $location, $routeParams, $http) {
         cancelButtonText: 'Hủy',
       }).then((result) => {
         if (result.isConfirmed) {
-          // Hiển thị hiệu ứng loading khi người dùng xác nhận cập nhật
-          loadingOverlay.style.display = "block";
+            // Hiển thị hiệu ứng loading khi người dùng xác nhận cập nhật
+            // loadingOverlay.style.display = "block";
           var url = `${host}/${$scope.editingPublisher.publisherId}`;
           $http
             .put(url, formData, {
@@ -223,8 +222,8 @@ function PublishersController($scope, $location, $routeParams, $http) {
               headers: { "Content-Type": undefined },
             })
             .then((resp) => {
-              // Ẩn hiệu ứng loading khi lưu thành công
-              loadingOverlay.style.display = "none";
+                // Ẩn hiệu ứng loading khi lưu thành công
+                // loadingOverlay.style.display = "none";
 
               $scope.loadPublishers();
               $scope.resetForm();
@@ -236,8 +235,8 @@ function PublishersController($scope, $location, $routeParams, $http) {
               $scope.clearImage(); // Xóa ảnh đại diện sau khi cập nhật
             })
             .catch((error) => {
-              // Ẩn hiệu ứng loading khi lưu thành công
-              loadingOverlay.style.display = "none";
+                // Ẩn hiệu ứng loading khi lưu thành công
+                // loadingOverlay.style.display = "none";
 
               Swal.fire({
                 icon: "error",
@@ -259,8 +258,8 @@ function PublishersController($scope, $location, $routeParams, $http) {
         },
       })
         .then((resp) => {
-          // Ẩn hiệu ứng loading khi lưu thành công
-          loadingOverlay.style.display = "none";
+            // Ẩn hiệu ứng loading khi lưu thành công
+            // loadingOverlay.style.display = "none";
 
           $scope.loadPublishers();
           $scope.resetForm();
@@ -272,8 +271,8 @@ function PublishersController($scope, $location, $routeParams, $http) {
           $scope.clearImage(); // Xóa ảnh đại diện sau khi thêm
         })
         .catch((error) => {
-          // Ẩn hiệu ứng loading khi lưu thành công
-          loadingOverlay.style.display = "none";
+            // Ẩn hiệu ứng loading khi lưu thành công
+            // loadingOverlay.style.display = "none";
 
           console.log(error.data);
           if (error.data) {
