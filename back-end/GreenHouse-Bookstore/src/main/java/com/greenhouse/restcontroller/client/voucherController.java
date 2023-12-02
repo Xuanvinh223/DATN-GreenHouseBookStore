@@ -78,7 +78,7 @@ public class voucherController {
         UserVoucher newUserVoucher = new UserVoucher();
         newUserVoucher.setUsername(UserVoucherDTO.getUsername());
         newUserVoucher.setVoucher(UserVoucherDTO.getVoucher());
-        newUserVoucher.setStatus(false);
+        newUserVoucher.setStatus(true);
         userVoucherRepository.save(newUserVoucher);
         response.put("message", "Đã lưu voucher " + UserVoucherDTO.getVoucher().getVoucherName());
         response.put("status", 200);
