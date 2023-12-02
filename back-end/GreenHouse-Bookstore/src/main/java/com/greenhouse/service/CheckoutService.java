@@ -26,8 +26,6 @@ import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Product_Discount;
 import com.greenhouse.model.Products;
 import com.greenhouse.model.UserVoucher;
-import com.greenhouse.model.VoucherMappingCategory;
-import com.greenhouse.model.VoucherMappingProduct;
 import com.greenhouse.model.Vouchers;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.CartsRepository;
@@ -45,6 +43,7 @@ import com.greenhouse.repository.ProductDiscountRepository;
 import com.greenhouse.repository.UserVoucherRepository;
 import com.greenhouse.repository.VoucherMappingCategoryRepository;
 import com.greenhouse.repository.VoucherMappingProductRepository;
+import com.greenhouse.repository.VouchersRepository;
 
 @Service
 public class CheckoutService {
@@ -70,10 +69,6 @@ public class CheckoutService {
     @Autowired
     private ProductDetailRepository productDetailsRepository;
     @Autowired
-    private VoucherMappingCategoryRepository voucherMappingCategoryRepository;
-    @Autowired
-    private VoucherMappingProductRepository voucherMappingProductRepository;
-    @Autowired
     private UserVoucherRepository userVoucherRepository;
     @Autowired
     private CartsRepository cartsRepository;
@@ -81,6 +76,8 @@ public class CheckoutService {
     private ProductDiscountRepository productDiscountRepository;
     @Autowired
     private DiscountsRepository discountsRepository;
+    @Autowired
+    private VouchersRepository vouchersRepository;
 
     // ================================================================================================
     public Invoices createInvoice(CheckoutDTO data, Orders order) {
@@ -186,26 +183,12 @@ public class CheckoutService {
                 UserVoucher userVoucher = userVoucherRepository.findByUsernameAndVoucherAndStatus(username, vouchers,
                         true);
                 userVoucher.setStatus(false);
-                vouchers.setUsedQuantity(vouchers.getUsedQuantity() + 1);
+                userVoucherRepository.save(userVoucher);
 
+                vouchers.setUsedQuantity(vouchers.getUsedQuantity() + 1);
                 if (vouchers.getTotalQuantity() - vouchers.getUsedQuantity() <= 0) {
                     vouchers.setStatus(false);
-                    List<VoucherMappingCategory> listVMC = voucherMappingCategoryRepository
-                            .findByVoucherId(vouchers.getVoucherId());
-                    if (listVMC.size() > 0) {
-                        for (VoucherMappingCategory item : listVMC) {
-                            item.setStatus(false);
-                            voucherMappingCategoryRepository.save(item);
-                        }
-                    }
-                    List<VoucherMappingProduct> listVMP = voucherMappingProductRepository
-                            .findByVoucherId(vouchers.getVoucherId());
-                    if (listVMP.size() > 0) {
-                        for (VoucherMappingProduct item : listVMP) {
-                            item.setStatus(false);
-                            voucherMappingProductRepository.save(item);
-                        }
-                    }
+
                 }
             }
             if (voucherDTO.getShippingVoucherApplied() != null) {
@@ -224,22 +207,7 @@ public class CheckoutService {
 
                 if (vouchers.getTotalQuantity() - vouchers.getUsedQuantity() <= 0) {
                     vouchers.setStatus(false);
-                    List<VoucherMappingCategory> listVMC = voucherMappingCategoryRepository
-                            .findByVoucherId(vouchers.getVoucherId());
-                    if (listVMC.size() > 0) {
-                        for (VoucherMappingCategory item : listVMC) {
-                            item.setStatus(false);
-                            voucherMappingCategoryRepository.save(item);
-                        }
-                    }
-                    List<VoucherMappingProduct> listVMP = voucherMappingProductRepository
-                            .findByVoucherId(vouchers.getVoucherId());
-                    if (listVMP.size() > 0) {
-                        for (VoucherMappingProduct item : listVMP) {
-                            item.setStatus(false);
-                            voucherMappingProductRepository.save(item);
-                        }
-                    }
+                    vouchersRepository.save(vouchers);
                 }
             }
         }
@@ -309,7 +277,7 @@ public class CheckoutService {
 
         // Thông tin đơn hàng
         // trạng thái
-        orders.setStatus("pending-confirm");
+        orders.setStatus("pending_confirmation");
         // ngày tạo
         Date now = new Date();
         orders.setCreate_Date(now);

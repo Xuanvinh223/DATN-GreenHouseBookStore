@@ -16,5 +16,4 @@ public interface VoucherMappingCategoryRepository extends JpaRepository<VoucherM
 
     VoucherMappingCategory findByVoucherIdAndCategoryId(int voucherId, String categoryId);
 
-    List<VoucherMappingCategory> findByVoucherIdAndStatus(int voucherId, boolean b);
 }

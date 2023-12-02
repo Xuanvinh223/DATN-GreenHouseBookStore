@@ -1,10 +1,8 @@
 package com.greenhouse.restcontroller.client;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.HashMap; 
 import java.util.List;
 import java.util.Map;
 
@@ -221,10 +219,9 @@ public class CartController {
                     List<VoucherMappingCategory> listVMC = new ArrayList<>();
                     List<VoucherMappingProduct> listVMP = new ArrayList<>();
 
-                    listVMP = voucherMappingProductRepository.findByVoucherIdAndStatus(item.getVoucher().getVoucherId(),
-                            true);
+                    listVMP = voucherMappingProductRepository.findByVoucherId(item.getVoucher().getVoucherId());
                     listVMC = voucherMappingCategoryRepository
-                            .findByVoucherIdAndStatus(item.getVoucher().getVoucherId(), true);
+                            .findByVoucherId(item.getVoucher().getVoucherId());
 
                     listVouchersMappingCategories.addAll(listVMC);
                     listVouchersMappingProduct.addAll(listVMP);

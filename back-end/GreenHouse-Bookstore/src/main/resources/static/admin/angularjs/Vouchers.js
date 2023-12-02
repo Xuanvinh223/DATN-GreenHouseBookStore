@@ -94,7 +94,7 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
                     $scope.listCategories = resp.data;
                 })
                 .catch((error) => {
-                    console.log("Error", error);
+                    console.log("Error", error); 
                 });
         };
 

@@ -22963,8 +22963,8 @@ input[type=number] {
 }
 
 .product-card h3 a:hover {
-    color: #62ab00;
-    cursor: pointer;
+  color: #62ab00;
+  cursor: pointer;
 }
 
 .product-card .price-block {
@@ -23092,9 +23092,9 @@ input[type=number] {
 }
 
 .product-card .product-list-content .card-image {
-    width: 210px;
-    height: 210px;
-    margin-bottom: 30px;
+  width: 210px;
+  height: 210px;
+  margin-bottom: 30px;
 }
 
 @media (min-width: 480px) {
@@ -23105,8 +23105,8 @@ input[type=number] {
 }
 
 .product-card .product-list-content .card-image img {
-    width: 210px;
-    height: 210px;
+  width: 210px;
+  height: 210px;
 }
 
 .product-card .product-list-content .rating-block {
@@ -24449,11 +24449,11 @@ input[type=number] {
 }
 
 .cart-product .content {
-    width: 100%;
-    overflow: hidden;
-    text-align: left;
-    padding-left: 10px;
-    padding-right: 30px;
+  width: 100%;
+  overflow: hidden;
+  text-align: left;
+  padding-left: 10px;
+  padding-right: 30px;
 }
 
 .cart-product .content .title {
@@ -26687,7 +26687,7 @@ input[type=number] {
 }
 
 .breadcrumb-contents .breadcrumb .breadcrumb-item.active {
-    color: #62ab00;
+  color: #62ab00;
 }
 
 /*>>>>>>>> Sidebar <<<<<<<<<*/
@@ -27773,8 +27773,8 @@ input[type=number] {
 }
 
 .toolbar-status {
-    color: #555;
-    font-size: 0.85rem;
+  color: #555;
+  font-size: 0.85rem;
 }
 
 .sorting-selection {
@@ -31349,7 +31349,8 @@ ul.main-menu .menu-title1:hover a {
   border-right: 1px solid #e5e5e5;
 }
 
-.order-details-table tbody tr .money {
+.order-details-table tr .money,
+.order-details-table tr .money {
   text-align: right;
 }
 
