@@ -44,6 +44,16 @@ public class RestStaticOverTime {
 
         // Tính tỉ lệ phần trăm chênh lệch
         double percent = 0.0;
+        if (calculateTotalRevenueForLastYear == null) {
+            calculateTotalRevenueForLastYear = 0.0; // hoặc giá trị mặc định khác tùy ý
+        }
+        if (calculateTotalRevenueForCurrentYear == null) {
+            calculateTotalRevenueForCurrentYear = 0.0; // hoặc giá trị mặc định khác tùy ý
+
+        }
+        if (calculateTotalRevenueForCurrentMonth == null) {
+            calculateTotalRevenueForCurrentMonth = 0.0; // hoặc giá trị mặc định khác tùy ý
+        }
         if (calculateTotalRevenueForLastYear != 0) {
             percent = ((calculateTotalRevenueForCurrentYear - calculateTotalRevenueForLastYear) * 100.0)
                     / calculateTotalRevenueForLastYear;

@@ -124,11 +124,11 @@ function SuppliersController($scope, $location, $routeParams, $http) {
         }
 
         // Kiểm tra định dạng mã
-        var supllierIdRegex = /^[A-Z0-9]{4,}$/;
-        if (!supllierIdRegex.test(supplierId)) {
-            $scope.errorMessages.supplierId = 'Mã nhà cung cấp phải chứa ít nhất 4 ký tự và chỉ được điền kí tự HOA và số';
-            return;
-        }
+        // var supllierIdRegex = /^[A-Z0-9]{4,}$/;
+        // if (!supllierIdRegex.test(supplierId)) {
+        //     $scope.errorMessages.supplierId = 'Mã nhà cung cấp phải chứa ít nhất 4 ký tự và chỉ được điền kí tự HOA và số';
+        //     return;
+        // }
 
         // Kiểm tra trùng lặp supplierId trước khi thêm
         if (!$scope.isEditing) {
