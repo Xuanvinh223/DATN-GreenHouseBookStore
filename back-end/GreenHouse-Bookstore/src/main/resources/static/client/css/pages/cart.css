@@ -903,17 +903,18 @@ hr {
     display: flex;
     font-size: 1.2em;
     padding: 10px 16px;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .title-cart-page-left {
-    flex-basis: 65%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    margin-right: 10px;
 }
 
 .number-cart-page-right {
-    flex-basis: 35%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
