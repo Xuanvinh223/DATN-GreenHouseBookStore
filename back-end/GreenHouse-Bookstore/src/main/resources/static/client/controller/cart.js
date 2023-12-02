@@ -249,10 +249,33 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                     if (voucher.moreAmountPercents < 100 && voucher.moreAmountPercents >= 0) {
                         $scope.relatedVouchers.push(voucher);
                     } else {
+                        voucher.moreAmount = 0;
+                        voucher.moreAmountPercents = 100;
                         $scope.eligibleVouchers.push(voucher);
                     }
                 }
             });
+            if ($scope.relatedVouchers.length <= 0) {
+                var count = 0;
+                var exitLoop = false; // Cờ để kiểm soát thoát khỏi vòng lặp
+
+                angular.forEach($scope.listVouchersOriginal, voucher => {
+                    if (!exitLoop) {
+                        var kt = $scope.eligibleVouchers.some(item => {
+                            return item == voucher;
+                        });
+                        if (!kt) {
+                            $scope.relatedVouchers.push(voucher);
+                            count++;
+
+                            if (count >= 4) {
+                                exitLoop = true; // Đặt cờ để thoát khỏi vòng lặp
+                            }
+                        }
+                    }
+                });
+
+            }
         }
     };
     // ----------------------------------------------
