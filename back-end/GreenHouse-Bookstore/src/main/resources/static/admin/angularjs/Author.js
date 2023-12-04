@@ -158,7 +158,7 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
             $http
                 .put(url, formData, {
                     transformRequest: angular.identity,
-                    headers: {"Content-Type": undefined},
+                    headers: { "Content-Type": undefined },
                 })
                 .then((resp) => {
                     // Ẩn hiệu ứng loading khi lưu thành công
@@ -278,7 +278,7 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
                 // Sử dụng $location.search để thiết lập tham số trong URL.
                 $location
                     .path("/author-form")
-                    .search({id: authorId, data: angular.toJson(resp.data)});
+                    .search({ id: authorId, data: angular.toJson(resp.data) });
             })
             .catch(function (error) {
                 console.log("Error", error);
@@ -346,6 +346,10 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
     $scope.resetForm = function () {
         $scope.editingAuthor = {};
         $scope.isEditing = false;
+
+
+
+
         $scope.clearNationalitySearch();
         $scope.clearImage();
         $scope.errors = {};

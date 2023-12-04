@@ -95,8 +95,6 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
                     flash.minutes = minutes < 10 ? '0' + minutes : minutes;
                     flash.seconds = seconds < 10 ? '0' + seconds : seconds;
 
-                    console.log('flash.endTime:', flash.endTime);
-                    console.log('timeDiff:', timeDiff);
                 });
             }, 1000);
         }
