@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,20 +15,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.greenhouse.dto.client.CheckoutCompleteDTO;
 import com.greenhouse.dto.client.CheckoutDTO;
 import com.greenhouse.model.InvoiceDetails;
+import com.greenhouse.model.InvoiceMappingStatus;
 import com.greenhouse.model.InvoiceMappingVoucher;
 import com.greenhouse.model.Invoices;
 import com.greenhouse.model.OrderDetails;
 import com.greenhouse.model.Orders;
 import com.greenhouse.repository.InvoiceDetailsRepository;
+import com.greenhouse.repository.InvoiceMappingStatusRepository;
 import com.greenhouse.repository.InvoiceMappingVoucherRepository;
 import com.greenhouse.repository.InvoicesRepository;
 import com.greenhouse.repository.OrderDetailsRepository;
 import com.greenhouse.repository.OrdersRepository;
 import com.greenhouse.service.CheckoutService;
+import com.greenhouse.service.PayOSService;
 import com.greenhouse.service.VNPayService;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -49,7 +56,11 @@ public class CheckoutController {
     @Autowired
     private VNPayService vnPayService;
     @Autowired
+    private PayOSService payOSService;
+    @Autowired
     private InvoicesRepository invoicesRepository;
+    @Autowired
+    private InvoiceMappingStatusRepository invoiceMappingStatusRepository;
     @Autowired
     private OrdersRepository ordersRepository;
 
@@ -150,16 +161,21 @@ public class CheckoutController {
             response.put("payment_method", data.getPayment_method());
             // Create url for payment
             if (data.getPayment_method().equalsIgnoreCase("cod")) {
+                checkoutService.createInvoiceStatusMapping(invoices, 1); // id:1 = đã thanh toán
                 CheckoutCompleteDTO temp = new CheckoutCompleteDTO();
                 temp.setInvoices(invoices);
                 temp.setOrders(order);
                 checkoutCompleteData = temp;
                 response.put("url", "http://localhost:8081/checkout-complete");
-            } else if (data.getPayment_method().equalsIgnoreCase("vnpay")) {
+            } else if (data.getPayment_method().equalsIgnoreCase("vnPay")) {
                 Map<String, Object> vnpayData = vnPayService.createVNPayUrl(invoices, order);
                 String vnPayUrl = vnpayData.get("data").toString();
                 response.put("url", vnPayUrl);
+            } else if (data.getPayment_method().equalsIgnoreCase("payOS")) {
+                String payOSUrl = payOSService.sendPaymentRequest(invoices, order);
+                response.put("url", payOSUrl);
             }
+
             // ----------------------------------------------------------------
         } catch (Exception e) {
             status = "error";
@@ -172,7 +188,7 @@ public class CheckoutController {
     }
 
     // ==================================================================================================
-    @PostMapping("/payment-callback")
+    @PostMapping("/vnPay-payment-callback")
     public void paymentCallback(@RequestBody Map<String, String> request, HttpServletResponse response) {
         try {
             // Begin process return from VNPAY
@@ -185,19 +201,51 @@ public class CheckoutController {
                 invoices.setBankCode(bankCode);
                 invoicesRepository.save(invoices);
             }
+            CheckoutCompleteDTO checkoutCompleteDTO = new CheckoutCompleteDTO();
+            checkoutCompleteDTO.setInvoices(invoices);
+            checkoutCompleteDTO.setOrders(orders);
+            checkoutCompleteData = checkoutCompleteDTO;
             if ("00".equals(request.get("vnp_ResponseCode"))) {
                 // Update status of invoice
                 checkoutService.createInvoiceStatusMapping(invoices, 1);
-                CheckoutCompleteDTO checkoutCompleteDTO = new CheckoutCompleteDTO();
-                checkoutCompleteDTO.setInvoices(invoices);
-                checkoutCompleteDTO.setOrders(orders);
-                checkoutCompleteData = checkoutCompleteDTO;
             } else {
                 // Update status of invoice
                 checkoutService.createInvoiceStatusMapping(invoices, 3);
+                orders.setStatus("cancel");
+                ordersRepository.save(orders);
+                checkoutService.createOrderStatusHistory(orders.getOrderCode(), "cancel");
             }
-            System.out.println("{\"RspCode\":\"00\",\"Message\":\"Confirm Success\"}");
+        } catch (Exception e) {
+            System.out.println("{\"RspCode\":\"99\",\"Message\":\"Unknow error\"}");
+        }
+    }
 
+    // ==================================================================================================
+    @PostMapping("/payOS-payment-callback")
+    public void payOSpaymentCallback(@RequestBody Map<String, String> request, HttpServletResponse response) {
+        try {
+            // Begin process return from VNPAY
+            String code = request.get("code");
+            String status = request.get("status");
+            String orderCode = request.get("orderCode");
+
+            Invoices invoices = invoicesRepository.findById(Integer.parseInt(orderCode)).orElse(null);
+            Orders orders = ordersRepository.findByInvoices(invoices);
+            CheckoutCompleteDTO checkoutCompleteDTO = new CheckoutCompleteDTO();
+            checkoutCompleteDTO.setInvoices(invoices);
+            checkoutCompleteDTO.setOrders(orders);
+            checkoutCompleteData = checkoutCompleteDTO;
+            if ("00".equals(code)) {
+                // Update status of invoice
+                if ("PAID".equalsIgnoreCase(status)) {
+                    checkoutService.createInvoiceStatusMapping(invoices, 1);
+                } else {
+                    checkoutService.createInvoiceStatusMapping(invoices, 3);
+                    orders.setStatus("cancel");
+                    ordersRepository.save(orders);
+                    checkoutService.createOrderStatusHistory(orders.getOrderCode(), "cancel");
+                }
+            }
         } catch (Exception e) {
             System.out.println("{\"RspCode\":\"99\",\"Message\":\"Unknow error\"}");
         }
@@ -211,7 +259,10 @@ public class CheckoutController {
         String status = "";
         String message = "";
         // ----------------------------------------------------------------
+
         if (checkoutCompleteData != null) {
+            InvoiceMappingStatus statusInvoice = invoiceMappingStatusRepository
+                    .findTopByInvoiceOrderByUpdateAtDesc(checkoutCompleteData.getInvoices());
             Invoices invoices = checkoutCompleteData.getInvoices();
             Orders orders = checkoutCompleteData.getOrders();
             List<InvoiceDetails> invoiceDetails = invoiceDetailsRepository
@@ -227,12 +278,18 @@ public class CheckoutController {
             response.put("invoiceDetails", invoiceDetails);
             response.put("invoiceMV", imv);
             // -----------------------------------------
-            // Create invoice status mapping with id = 1
-            checkoutService.createInvoiceStatusMapping(invoices, 1); // id:1 = đã thanh toán
+            if (statusInvoice.getPaymentStatus().getStatusId() == 1) {
+                status = "success";
+                message = "Đơn hàng đã được thanh toán thành công";
+                System.out.println("success");
+            } else {
+                status = "error";
+                message = "Đơn hàng chưa được thanh toán";
+                System.out.println("error");
+            }
         }
         // -----------------------------------------
-        status = "success";
-        message = "Get data checkout-complete thành công";
+
         response.put("status", status);
         response.put("message", message);
         // ----------------------------------------------------------------

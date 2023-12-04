@@ -201,7 +201,8 @@
                                                 </div>
                                             </div>
                                             <div class="product-header">
-                                                <a class="author" ng-if="getAuthorNameByProductId(productDetail.product.productId) !== ''">
+                                                <a class="author"
+                                                    ng-if="getAuthorNameByProductId(productDetail.product.productId) !== ''">
                                                     {{getAuthorNameByProductId(productDetail.product.productId)}}
                                                 </a>
                                                 <h3>
@@ -280,8 +281,10 @@
                                                 </div>
                                             </div>
                                             <div class="btn-block">
-                                                <a href="" class="btn btn-outlined">Thêm vào giỏ hàng</a>
-                                                <a href="" class="btn btn-outlined">Mua ngay</a>
+                                                <a ng-click="addToCart(productDetail.productDetailId, 1)"
+                                                    class="btn btn-outlined">Thêm vào giỏ hàng</a>
+                                                <a ng-click="buyNow(productDetail.productDetailId, 1)"
+                                                    class="btn btn-outlined">Mua ngay</a>
                                             </div>
                                         </div>
                                     </div>
@@ -390,10 +393,11 @@
                                                                 ng-model="quantityQuickViewProduct">
                                                         </div>
                                                         <div class="add-cart-btn">
-                                                            <a href="" class="btn btn-outlined--primary"
+                                                            <a class="btn btn-outlined--primary"
                                                                 ng-click="addToCart(quickViewProduct.productDetailId, quantityQuickViewProduct)"><span
                                                                     class="plus-icon"></span>Thêm vào giỏ hàng</a>
-                                                            <a href="" class="btn btn-outlined--primary"><span
+                                                            <a ng-click="buyNow(quickViewProduct.productDetailId, quantityQuickViewProduct)"
+                                                                class="btn btn-outlined--primary"><span
                                                                     class="plus-icon"></span>Mua
                                                                 Ngay</a>
                                                         </div>

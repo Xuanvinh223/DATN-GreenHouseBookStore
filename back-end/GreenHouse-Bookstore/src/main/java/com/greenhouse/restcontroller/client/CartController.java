@@ -214,7 +214,6 @@ public class CartController {
             listUserVouchers = userVoucherRepository.findByUsernameAndStatus(username, true);
             for (UserVoucher item : listUserVouchers) {
                 if (isVoucherValid(item.getVoucher())) {
-                    System.out.println(item.getVoucher().getVoucherId());
                     listVouchers.add(item.getVoucher());
 
                     List<VoucherMappingCategory> listVMC = new ArrayList<>();
