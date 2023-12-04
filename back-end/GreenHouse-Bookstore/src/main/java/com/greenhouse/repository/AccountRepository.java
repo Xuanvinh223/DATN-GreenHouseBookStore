@@ -42,12 +42,14 @@ public interface AccountRepository extends JpaRepository<Accounts, String> {
                         "GROUP BY YEAR(Create_At)", nativeQuery = true)
         long countActiveUsersByYear();
 
-        @Query(value = "SELECT COUNT(*) AS UsersCount " +
-                        "FROM Accounts " +
-                        "WHERE YEAR(Create_At) = YEAR(GETDATE()) - 1 AND Active = 1", nativeQuery = true)
-        Long countActiveUsersByPreviousYear();
+    @Query(value = "SELECT COUNT(*) AS UsersCount " +
+            "FROM Accounts " +
+            "WHERE YEAR(Create_At) = YEAR(GETDATE()) - 1 AND Active = 1", nativeQuery = true)
+    Long countActiveUsersByPreviousYear();
 
 
-        List<Accounts> findByDeletedByIsNullAndDeletedAtIsNull();
+    List<Accounts> findByDeletedByIsNullAndDeletedAtIsNull();
+
+    List<Accounts> findAllByActiveTrue();
 
 }
