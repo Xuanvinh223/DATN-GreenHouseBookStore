@@ -38,7 +38,7 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
     $scope.itemsPerPage1 = 5;
     // $scope.totalItems1 = $scope.listProductFlashSale.length;
     $scope.maxSize1 = 5;
-    $scope.timeRanges = ["00:00-02:00", "02:00-04:00", "04:00-06:00", "06:00-08:00", "08:00-10:00", "10:00-12:00", "12:00-14:00", "14:00-16:00", "16:00-18:00", "18:00-20:00", "20:00-22:00", "22:00-23:59"];
+    $scope.timeRanges = ["00:00-02:00", "02:00-04:00", "04:00-06:00", "06:00-08:00", "08:00-10:00", "10:00-12:00", "12:00-14:00", "14:00-16:00", "16:00-18:00", "18:00-20:00", "20:00-22:00", "22:00-00:"];
 
     let host = "http://localhost:8081/rest";
 
@@ -200,7 +200,7 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
                     name: $scope.item.name,
                     startTime: startTime,
                     endTime: endTime,
-                    userDate: formatUserDate,
+                    userDate: $scope.item.userDate,
                     status: $scope.item.status
                 },
                 productFlashSales: $scope.listProductFlashSale,
@@ -210,7 +210,7 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
             console.log(requestData);
             $http.post(url, requestData).then(resp => {
                 console.log("Thêm Flashsale thành công", resp);
-                // $scope.clearTable();
+                $scope.clearTable();
                 Swal.fire({
                     icon: "success",
                     title: "Thành công",
@@ -256,6 +256,8 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
             });
     }
 
+    
+
     if ($routeParams.data) {
         // Parse dữ liệu từ tham số data và gán vào $scope.item.
         $scope.item = angular.fromJson($routeParams.data.flashSale);
@@ -265,6 +267,7 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
         } else {
             $scope.disableSaveButton = false;
         }
+       
         if (!moment($scope.item.startTime).isValid() || !moment($scope.item.endTime).isValid()) {
             // Chuyển đổi chuỗi thời gian thành đối tượng Date
             $scope.item.startTime = moment($scope.item.startTime, 'HH:mm:ss').toDate();
@@ -287,8 +290,9 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
 
         return `${year}-${month}-${day}`;
     };
+   // $scope.isUpdating = $scope.item.flashSaleId !== null;
     $scope.checkTimeRangeOverlap = function () {
-        if ($scope.flashsalelist && $scope.item) {
+        if ($scope.flashsalelist && $scope.item && !$scope.item.flashSaleId) {
             var existingFlashSales = $scope.flashsalelist.filter(function (flashSale) {
                 var formatTime = function (time) {
                     return moment(time, 'HH:mm:ss.SSSSSSS').format('HH:mm');
@@ -302,9 +306,6 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
                 var flashSaleUserDate = formatUserDate(flashSale.userDate);
                 var itemUserDate = formatUserDate($scope.item.userDate);
 
-                // console.log('flashSaleTimeRange:', flashSaleTimeRange);
-                console.log("flashSale.userDate", flashSale.userDate);
-                console.log("$scope.item.$scope.item.userDate", itemUserDate);
                 return (
                     flashSaleUserDate === itemUserDate &&
                     flashSaleTimeRange === $scope.item.timeRange
