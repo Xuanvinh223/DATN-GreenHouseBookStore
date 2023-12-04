@@ -5,6 +5,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.greenhouse.dto.client.ContactDTO;
+
 import jakarta.mail.internet.MimeMessage;
 
 @Service
@@ -104,6 +106,37 @@ public class EmailService {
                 "        <p style=\"color: gray;\">GreenHouse©2023, Designed & Developed By Team GreenHouse</p>\r\n" +
                 "        </div>\r\n" +
                 "    </div>\r\n" + //
+                "</body>\r\n" + //
+                "</html>\r\n" + //
+                "";
+        sendEmail(to, subject, html);
+    }
+
+    public void sendEmailContact(String to, String subject, ContactDTO contactDTO) {
+        String html = "<!DOCTYPE html>\r\n" + //
+                "<html lang=\"en\">\r\n" + //
+                "<head>\r\n" + //
+                "    <meta charset=\"UTF-8\">\r\n" + //
+                "    <title>Phản Hồi về Dịch Vụ/Sản Phẩm</title>\r\n" + //
+                "    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css\">\r\n" + //
+                "</head>\r\n" + //
+                "<body style=\"background-color: #f4f4f4; font-family: Arial, sans-serif; padding: 20px; text-align: center;\">\r\n" + //
+                "\r\n" + //
+                "    <div style=\"max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\">\r\n" + //
+                "        <img src=\"https://down-ws-vn.img.susercontent.com/87ec164c0d56e1d4c58487973017ed3f_tn\" alt=\"Logo\" width=\"150\" height=\"150\">\r\n" + //
+                "        <h2>Phản hồi về dịch vụ/Sản phẩm</h2>\r\n" + //
+                "        <p>Xin chào GreenHouse,</p>\r\n" + //
+                "        <p> \"Tôi " + contactDTO.getFullName() + ", muốn chia sẻ ý kiến của mình về dịch vụ hoặc sản phẩm mà tôi đã sử dụng.</p>\r\n" + //
+                "        <label for=\"feedback\">Ý Kiến của tôi</label><br>\r\n" + //
+                "        <p>" + contactDTO.getContent() + ".</p>\r\n" + //
+                "        \r\n" + //
+                "        <div style=\"background-color: #ffffff; padding: 20px; text-align: center;\">\r\n" + //
+                "            <span style=\"color: gray;\">Email: </span><a href=\"mailto:" + contactDTO.getEmail() + "; \" style=\"color: #007bff; text-decoration: none;\"><i class=\"fas fa-envelope\"></i>" + contactDTO.getEmail() + "</a>\r\n" + //
+                "        </div>\r\n" + //
+                "        \r\n" + //
+                "        <p style=\"color: gray;\">GreenHouse©2023, Designed & Developed By Team GreenHouse</p>\r\n" + //
+                "    </div>\r\n" + //
+                "\r\n" + //
                 "</body>\r\n" + //
                 "</html>\r\n" + //
                 "";
