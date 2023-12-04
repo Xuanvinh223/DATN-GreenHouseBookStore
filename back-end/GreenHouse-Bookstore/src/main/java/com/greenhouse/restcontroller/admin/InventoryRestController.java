@@ -104,13 +104,16 @@ public class InventoryRestController {
             Product_Detail productDetail = importInvoiceDetail.getProductDetail();
 
             // Cập nhật số lượng tồn kho của Product_Detail
-            int currentQuantityInStock = productDetail.getQuantityInStock();
-            int quantityToAdd = importInvoiceDetail.getQuantity();
-            int newQuantityInStock = currentQuantityInStock + quantityToAdd;
-            productDetail.setQuantityInStock(newQuantityInStock);
-
-            // Lưu lại thông tin Product_Detail sau khi cập nhật
-            productDetailRepository.save(productDetail);
+            if (importInvoice.isStatus()) {
+                // Nếu status của ImportInvoice là true, thì cập nhật số lượng tồn kho của Product_Detail
+                int currentQuantityInStock = productDetail.getQuantityInStock();
+                int quantityToAdd = importInvoiceDetail.getQuantity();
+                int newQuantityInStock = currentQuantityInStock + quantityToAdd;
+                productDetail.setQuantityInStock(newQuantityInStock);
+    
+                // Lưu lại thông tin Product_Detail sau khi cập nhật
+                productDetailRepository.save(productDetail);
+            }
         }
 
         return ResponseEntity.ok(null);
