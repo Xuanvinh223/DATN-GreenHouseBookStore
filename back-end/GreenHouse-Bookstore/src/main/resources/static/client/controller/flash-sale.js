@@ -26,6 +26,7 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
                     // responses[0] chứa kết quả của yêu cầu đầu tiên
                     // responses[1] chứa kết quả của yêu cầu thứ hai
                     $scope.productFlashSales = filterData(responses[0].data);
+                    console.log(  $scope.productFlashSales );
                     $scope.flashSales = responses[1].data;
                     if ( !$scope.flashSales.some(flash => flash.status === 2)) {
                         $scope.showSection = false;
@@ -42,19 +43,41 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
 
         // Hàm lọc dữ liệu
         function filterData(data) {
+            var currentDate = new Date();
+        
             return data.filter((proFlaSal) => {
-                return checkDateAndTime(proFlaSal.flashSaleId.userDate);
+                // Lấy ngày từ userDate của Flash_Sales
+                var flashSaleDate = new Date(proFlaSal.flashSaleId.userDate);
+        
+                // Kiểm tra ngày và giờ
+                return (
+                    flashSaleDate.toDateString() === currentDate.toDateString() &&
+                    isWithinTimeFrame(proFlaSal.flashSaleId.startTime, proFlaSal.flashSaleId.endTime) &&
+                    proFlaSal.flashSaleId.status === 2
+                );
             });
         }
-
-        // Hàm kiểm tra điều kiện ngày và thời gian
-        function checkDateAndTime(userDate) {
-            // Lấy ngày hiện tại
-            var currentDate = new Date();
-            // Lấy ngày từ userDate của Flash_Sales
-            var flashSaleDate = new Date(userDate);
-            return flashSaleDate.toDateString() === currentDate.toDateString();
+        
+        function isWithinTimeFrame(startTime, endTime) {
+            var currentTime = new Date();
+            var formattedStartTime = moment(startTime, 'HH:mm:ss').toISOString();
+            var formattedEndTime = moment(endTime, 'HH:mm:ss').toISOString();
+        
+            var startDate = new Date(formattedStartTime);
+            var endDate = new Date(formattedEndTime);
+        
+            // Kiểm tra nếu currentTime nằm trong khoảng thời gian của flash sale
+            return startDate <= currentTime && currentTime <= endDate;
         }
+        
+        // Hàm kiểm tra điều kiện ngày và thời gian
+        // function checkDateAndTime(userDate) {
+        //     // Lấy ngày hiện tại
+        //     var currentDate = new Date();
+        //     // Lấy ngày từ userDate của Flash_Sales
+        //     var flashSaleDate = new Date(userDate);
+        //     return flashSaleDate.toDateString() === currentDate.toDateString();
+        // }
         function startCountdown() {
             $interval(function () {
                 angular.forEach($scope.flashSales, function (flash) {

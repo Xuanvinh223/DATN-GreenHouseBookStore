@@ -32,13 +32,7 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
     $scope.itemsPerPageOptions = [5, 12, 24, 32, 64, 128];
     $scope.selectedItemsPerPage = 5; // Khởi tạo giá trị mặc định cho số mục trên mỗi trang
 
-    $scope.itemsPerPageOptions1 = [5, 12, 24, 32, 64, 128];
-    $scope.selectedItemsPerPage1 = 5; // Khởi tạo giá trị mặc định cho số mục trên mỗi trang
-    $scope.currentPage1 = 1;
-    $scope.itemsPerPage1 = 5;
-    // $scope.totalItems1 = $scope.listProductFlashSale.length;
-    $scope.maxSize1 = 5;
-    $scope.timeRanges = ["00:00-02:00", "02:00-04:00", "04:00-06:00", "06:00-08:00", "08:00-10:00", "10:00-12:00", "12:00-14:00", "14:00-16:00", "16:00-18:00", "18:00-20:00", "20:00-22:00", "22:00-00:"];
+    $scope.timeRanges = ["00:00-02:00", "02:00-04:00", "04:00-06:00", "06:00-08:00", "08:00-10:00", "10:00-12:00", "12:00-14:00", "14:00-16:00", "16:00-18:00", "18:00-20:00", "20:00-22:00", "22:00-23:59"];
 
     let host = "http://localhost:8081/rest";
 
@@ -85,7 +79,9 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
             $scope.productfsList = resp.data.productfsList;
             $scope.productDetailList = resp.data.productDetailList;
             $scope.productList = resp.data.productList;
-
+            $scope.flashsalelist.sort(function (a, b) {
+                return new Date(b.userDate) - new Date(a.userDate);
+            });
             // Cập nhật trạng thái Flash Sale
 
             $scope.loadModelProduct();
