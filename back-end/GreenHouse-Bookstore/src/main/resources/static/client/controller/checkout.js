@@ -53,8 +53,10 @@ app.controller("checkoutController", function ($scope, $http, checkoutAPI, $time
         console.log("Dữ liệu gửi về API để thanh toán: ", data);
         $http.post(api, data)
             .then(function (response) {
-                if (response.data.status == "success") {
-                    window.location.href = response.data.url;
+                if (response.data.status == "success") { 
+                    if(response.data.url){
+                        window.location.href = response.data.url;
+                    }
                 } else if (response.data.status == "error-voucher") {
                     Swal.fire({
                         icon: "warring",

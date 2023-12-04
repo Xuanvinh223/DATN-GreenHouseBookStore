@@ -49,7 +49,7 @@ public class WebSecurityConfiguration {
     private final String[] publicApiEndpoints = {"/authenticate", "/resgister", "/index", "/login", "/login-processing", "/login-error", "/404",
             "/sign-up/**", "/contact", "/voucher", "/flash-sale", "/product",
             "/product-details", "/forgot-password", "/change-password", "/customer/**", "/oauth2/authorization/google", "/account/**",
-            "/logout", "/google-processing", "/google-success", "/client/**",
+            "/logout", "/google-processing", "/google-success", "/client/**", "/send/**",
             "/notify/**", "/topic/**", "/app/**", "/admin/css/app-dark.css", "/ghn/**", "/websocket/**",};
     private final String[] securedApiEndpointsAfterLogin = {"/account/**", "/cart/**", "/checkout/**", "/checkout-complete/**", "/admin/**"};
 

@@ -16,17 +16,19 @@
 
         </section>
         <section class="container mt--15" ng-controller="flashSaleController">
-            <div class="flashsale_header_page" ng-repeat="flash in flashSales"
-                        ng-show="flash.showCountdown" ng-if="flash.status == 2">
-                <div class="FlashDealHeader__DealHeaderWrapper-sc-d9oaqg-0 jRDvca"><img width="89" height="28"
-                        src="https://frontend.tikicdn.com/_desktop-next/static/img/giasoc-white.svg"
-                        alt="flash deal"><img width="21" height="28"
+            <div class="flashsale_header_page">
+                <div class="FlashDealHeader__DealHeaderWrapper-sc-d9oaqg-0 jRDvca pb--10"><img width="89" height="28"
+                                                                                               src="https://frontend.tikicdn.com/_desktop-next/static/img/giasoc-white.svg"
+                                                                                               alt="flash deal"><img
+                        width="21" height="28"
                         src="https://frontend.tikicdn.com/_desktop-next/static/img/dealFlashIcon.svg" alt="flash deal"
                         class="styles__Flash-sc-1466pn8-3 dGmJRE"><img width="114" height="28"
-                        src="https://frontend.tikicdn.com/_desktop-next/static/img/homnay-white.svg" alt="flash deal">
+                                                                       src="https://frontend.tikicdn.com/_desktop-next/static/img/homnay-white.svg"
+                                                                       alt="flash deal">
                 </div>
-                <div class="styles__TimesFilterWrapper-sc-uzc22w-0 bKdraK" >
-                    <div class="styles__DealTimeItemWrapper-sc-uzc22w-1 eHXojR" >
+                <div class="styles__TimesFilterWrapper-sc-uzc22w-0 bKdraK" ng-repeat="flash in flashSales"
+                     ng-show="flash.showCountdown" ng-if="flash.status == 2">
+                    <div class="styles__DealTimeItemWrapper-sc-uzc22w-1 eHXojR">
                         <div class="ends-in">Kết thúc sau</div>
                         <div class="styles__CountdownTime-sc-uzc22w-2 gOiqrt">
                             <div>{{ flash.hours }}</div>
@@ -38,6 +40,9 @@
                     </div>
 
                 </div>
+
+            </div>
+            <div class="flashsale-section mt--15" ng-if="productFlashSales.length > 0">
                 <div class="flashsale-container pt-3">
                     <div class="shop-product-wrap grid-four row space-db--30 ">
 
@@ -82,7 +87,7 @@
                                 </div>
                                 <div class="progress mt--10">
                                     <div class="progress-bar"
-                                        ng-style="{'width': proFlaSal.usedQuantity / proFlaSal.quantity * 100 + '%'}">
+                                         ng-style="{'width': proFlaSal.usedQuantity / proFlaSal.quantity * 100 + '%'}">
                                     </div>
                                     <span class="progress-label">Đã bán {{ proFlaSal.usedQuantity }}</span>
                                 </div>
@@ -90,6 +95,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="flashsale-section mt--15" ng-if="productFlashSales.length === 0">
+                <p class="note-msg">Không có sản phẩm đang FLASH SALE .</p>
             </div>
         </section>
         <!-- Modal -->
@@ -211,39 +219,39 @@
             <h2 class="sr-only">Brand Slider</h2>
             <div class="container">
                 <div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
-                                                "autoplay": true,
-                                                "autoplaySpeed": 8000,
-                                                "slidesToShow": 6
-                                                }' data-slick-responsive='[
-                    {"breakpoint":992, "settings": {"slidesToShow": 4} },
-                    {"breakpoint":768, "settings": {"slidesToShow": 3} },
-                    {"breakpoint":575, "settings": {"slidesToShow": 3} },
-                    {"breakpoint":480, "settings": {"slidesToShow": 2} },
-                    {"breakpoint":320, "settings": {"slidesToShow": 1} }
-                ]'>
+                                                                "autoplay": true,
+                                                                "autoplaySpeed": 8000,
+                                                                "slidesToShow": 6
+                                                                }' data-slick-responsive='[
+                                    {"breakpoint":992, "settings": {"slidesToShow": 4} },
+                                    {"breakpoint":768, "settings": {"slidesToShow": 3} },
+                                    {"breakpoint":575, "settings": {"slidesToShow": 3} },
+                                    {"breakpoint":480, "settings": {"slidesToShow": 2} },
+                                    {"breakpoint":320, "settings": {"slidesToShow": 1} }
+                                ]'>
                     <div class="single-slide">
-                        <img src="image/others/lh1.jfif" alt="">
+                        <img src="https://htmldemo.net/pustok/pustok/image/others/brand-1.jpg" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="image/others/lh2.jfif" alt="">
+                        <img src="https://htmldemo.net/pustok/pustok/image/others/brand-2.jpg" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="image/others/lh3.jpg" alt="">
+                        <img src="https://htmldemo.net/pustok/pustok/image/others/brand-3.jpg" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="image/others/lh4.jpeg" alt="">
+                        <img src="https://htmldemo.net/pustok/pustok/image/others/brand-4.jpg" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="image/others/lh5.jpg" alt="">
+                        <img src="https://htmldemo.net/pustok/pustok/image/others/brand-5.jpg" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="image/others/lh6.avif" alt="">
+                        <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="image/others/lh7.jpg" alt="">
+                        <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="image/others/lh8.webp" alt="">
+                        <img src="https://htmldemo.net/pustok/pustok/image/others/brand-6.jpg" alt="">
                     </div>
                 </div>
             </div>

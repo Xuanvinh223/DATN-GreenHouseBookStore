@@ -23,50 +23,74 @@ app.controller("checkoutCompleteController", function ($scope, $http, checkoutAP
             var api = `${checkoutAPI}/getCheckoutCompleteData`;
             $http.get(api)
                 .then(function (response) {
+                    console.log("Dữ liệu CHECKOUT COMPLETE từ API:", response.data);
+                    $scope.invoice = response.data.invoice;
+                    $scope.order = response.data.order;
+                    $scope.invoiceDetails = response.data.invoiceDetails;
+                    $scope.orderDetails = response.data.orderDetails;
+                    $scope.invoiceMV = response.data.invoiceMV;
                     if (response.data.status == "success") {
-                        console.log("Dữ liệu CHECKOUT COMPLETE từ API:", response.data);
-                        $scope.invoice = response.data.invoice;
-                        $scope.order = response.data.order;
-                        $scope.invoiceDetails = response.data.invoiceDetails;
-                        $scope.orderDetails = response.data.orderDetails;
-                        $scope.invoiceMV = response.data.invoiceMV;
+                        $scope.payment_status = true;
                     } else {
-                        console.log(response.data.message);
+                        $scope.payment_status = false;
                     }
                 })
                 .catch(function (error) {
                     console.error('Error calling API:', error);
                 });
         } else {
-            var vnPayData = {
-                vnp_Amount: getParameterByName('vnp_Amount'),
-                vnp_BankCode: getParameterByName('vnp_BankCode'),
-                vnp_BankTranNo: getParameterByName('vnp_BankTranNo'),
-                vnp_CardType: getParameterByName('vnp_CardType'),
-                vnp_OrderInfo: getParameterByName('vnp_OrderInfo'),
-                vnp_PayDate: getParameterByName('vnp_PayDate'),
-                vnp_ResponseCode: getParameterByName('vnp_ResponseCode'),
-                vnp_TmnCode: getParameterByName('vnp_TmnCode'),
-                vnp_TransactionNo: getParameterByName('vnp_TransactionNo'),
-                vnp_TransactionStatus: getParameterByName('vnp_TransactionStatus'),
-                vnp_TxnRef: getParameterByName('vnp_TxnRef'),
-                vnp_SecureHash: getParameterByName('vnp_SecureHash')
-            };
+            if (currentURL.indexOf("vnp_TxnRef") > -1) {
+                var vnPayData = {
+                    vnp_Amount: getParameterByName('vnp_Amount'),
+                    vnp_BankCode: getParameterByName('vnp_BankCode'),
+                    vnp_BankTranNo: getParameterByName('vnp_BankTranNo'),
+                    vnp_CardType: getParameterByName('vnp_CardType'),
+                    vnp_OrderInfo: getParameterByName('vnp_OrderInfo'),
+                    vnp_PayDate: getParameterByName('vnp_PayDate'),
+                    vnp_ResponseCode: getParameterByName('vnp_ResponseCode'),
+                    vnp_TmnCode: getParameterByName('vnp_TmnCode'),
+                    vnp_TransactionNo: getParameterByName('vnp_TransactionNo'),
+                    vnp_TransactionStatus: getParameterByName('vnp_TransactionStatus'),
+                    vnp_TxnRef: getParameterByName('vnp_TxnRef'),
+                    vnp_SecureHash: getParameterByName('vnp_SecureHash')
+                };
 
-            var url = `${checkoutAPI}/payment-callback`;
-            console.log(vnPayData);
-            $http({
-                method: 'POST',
-                url: url,
-                data: vnPayData,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(function (response) {
-                window.location.href="/checkout-complete";
-            }).catch(function (error) {
-                console.error("Lỗi khi gọi API:", error);
-            });
+                var url = `${checkoutAPI}/vnPay-payment-callback`;
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: vnPayData,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function (response) {
+                    window.location.href = "/checkout-complete";
+                }).catch(function (error) {
+                    console.error("Lỗi khi gọi API:", error);
+                });
+            } else {
+                var payOSData = {
+                    code: getParameterByName('code'),
+                    id: getParameterByName('id'),
+                    cancel: getParameterByName('cancel'),
+                    status: getParameterByName('status'),
+                    orderCode: getParameterByName('orderCode')
+                };
+
+                var url = `${checkoutAPI}/payOS-payment-callback`;
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: payOSData,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function (response) {
+                    window.location.href = "/checkout-complete";
+                }).catch(function (error) {
+                    console.error("Lỗi khi gọi API:", error);
+                });
+            }
         }
     }
     //----------------------------------------------------------------

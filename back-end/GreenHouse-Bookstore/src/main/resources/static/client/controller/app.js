@@ -10,6 +10,7 @@ app.constant('productDetailAPI', 'http://localhost:8081/customer/rest/product-de
 app.constant('voucherAPI', 'http://localhost:8081/customer/rest/voucher');
 app.constant('customerAPI', "http://localhost:8081/customer/rest");
 app.constant('orderHistoryAPI', 'http://localhost:8081/customer/rest/order-history');
+app.constant('contactAPI', 'http://localhost:8081/send/send-contact');
 
 app.run(function ($rootScope, $http, $templateCache, jwtHelper) {
 
