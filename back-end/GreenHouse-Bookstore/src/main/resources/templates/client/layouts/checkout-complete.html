@@ -11,9 +11,13 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
-						<div class="order-complete-message text-center">
+						<div class="order-complete-message text-center" ng-if="payment_status">
 							<h1>CẢM ƠN BẠN ĐÃ MUA HÀNG !</h1>
 							<p>Đơn hàng của bạn đang được xác nhận.</p>
+						</div>
+						<div class="order-complete-message text-center" ng-if="!payment_status">
+							<h1>THANH TOÁN CHƯA THÀNH CÔNG !</h1>
+							<p>Đơn hàng của bạn sẽ bị hủy bỏ.</p>
 						</div>
 						<ul class="order-details-list">
 							<li>Mã đơn hàng: <strong>{{order.orderCode}}</strong></li>
@@ -46,8 +50,8 @@
 									</tr>
 									<tr>
 										<th>Phí ship:</th>
-										<td class="money">{{invoice.shippingFee <= 0 ? "Miễn phí" : invoice.shippingFee | number:'0'}}
-												đ</td>
+										<td class="money">{{invoice.shippingFee <= 0 ? "Miễn phí" : invoice.shippingFee
+												| number:'0'}} đ</td>
 									</tr>
 									<tr ng-repeat="imv in invoiceMV track by $index">
 										<th>{{imv.voucher.voucherName}}</th>
