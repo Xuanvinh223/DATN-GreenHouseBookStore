@@ -2,38 +2,38 @@
 
 
 app.controller("ProductController", function ($scope, $http, $filter) {
-        $scope.$on("$routeChangeSuccess", function (event, current, previous) {
-            $scope.page.setTitle(current.$$route.title || " Quản Lý Sản Phẩm");
-        });
-        let host = "http://localhost:8081/rest/products";
-        $scope.editingProduct = {};
-        $scope.isEditing = false;
-        $scope.products = [];
-        $scope.brands = [];
-        $scope.publishers = [];
-        $scope.categories = [];
+    $scope.$on("$routeChangeSuccess", function (event, current, previous) {
+        $scope.page.setTitle(current.$$route.title || " Quản Lý Sản Phẩm");
+    });
+    let host = "http://localhost:8081/rest/products";
+    $scope.editingProduct = {};
+    $scope.isEditing = false;
+    $scope.products = [];
+    $scope.brands = [];
+    $scope.publishers = [];
+    $scope.categories = [];
     $scope.authors = [];
-        $scope.bookAuthors = [];
-        $scope.productCategories = [];
-        $scope.productAttributes = [];
-        $scope.attributeValues = [];
-        $scope.productDetails = [];
-        $scope.productImages = [];
-        $scope.discounts = [];
-        $scope.productDiscounts = [];
-        $scope.productPriceHistories = [];
-        $scope.defaultImage =
-            "/admin/assets/images/default.jpg"; // Thay thế đường dẫn thực bằng đường dẫn hình ảnh mặc định thực tế
-        $scope.product = {
-            createAt: new Date(),
-        };
+    $scope.bookAuthors = [];
+    $scope.productCategories = [];
+    $scope.productAttributes = [];
+    $scope.attributeValues = [];
+    $scope.productDetails = [];
+    $scope.productImages = [];
+    $scope.discounts = [];
+    $scope.productDiscounts = [];
+    $scope.productPriceHistories = [];
+    $scope.defaultImage =
+        "/admin/assets/images/default.jpg"; // Thay thế đường dẫn thực bằng đường dẫn hình ảnh mặc định thực tế
+    $scope.product = {
+        createAt: new Date(),
+    };
 
-        $scope.selectedItemIndex = -1; // Biến lưu trạng thái sản phẩm đang được chỉnh sửa
-        $scope.showActiveProducts = true; // Mặc định hiển thị danh sách đang kinh doanh
-        $scope.itemsPerPageOptions = [5, 10, 20, 50];
-        $scope.itemsPerPage = 5;
-        $scope.currentPage = 1;
-        $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
+    $scope.selectedItemIndex = -1; // Biến lưu trạng thái sản phẩm đang được chỉnh sửa
+    $scope.showActiveProducts = true; // Mặc định hiển thị danh sách đang kinh doanh
+    $scope.itemsPerPageOptions = [5, 10, 20, 50];
+    $scope.itemsPerPage = 5;
+    $scope.currentPage = 1;
+    $scope.maxSize = 5; // Số lượng nút phân trang tối đa hiển thị
     $scope.orderByField = "";
     $scope.reverseSort = true;
     $scope.searchText = ""; // Thêm trường searchText cho ô tìm kiếm
@@ -258,68 +258,68 @@ app.controller("ProductController", function ($scope, $http, $filter) {
 
 
 
-        $scope.exportProductsToExcel = function () {
-            // Lấy dữ liệu của trang hiện tại
-            var filteredData = $scope.getFilteredData();
+    $scope.exportProductsToExcel = function () {
+        // Lấy dữ liệu của trang hiện tại
+        var filteredData = $scope.getFilteredData();
 
-            // Tính toán chỉ mục bắt đầu và kết thúc của trang hiện tại
-            var end = filteredData.length - ($scope.currentPage - 1) * $scope.itemsPerPage;
-            var start = Math.max(0, end - $scope.itemsPerPage);
+        // Tính toán chỉ mục bắt đầu và kết thúc của trang hiện tại
+        var end = filteredData.length - ($scope.currentPage - 1) * $scope.itemsPerPage;
+        var start = Math.max(0, end - $scope.itemsPerPage);
 
-            // Tạo mảng dữ liệu cho tệp Excel
-            var excelData = [
-                ['BÁO CÁO - DANH SÁCH SẢN PHẨM'], // Header
-                [], // Empty row for spacing
-                ['#', 'ID', 'Tên sản phẩm', 'Thương hiệu', 'Nhà xuất bản', 'Giá sản phẩm', 'Số lượng', 'Ảnh']
-            ];
+        // Tạo mảng dữ liệu cho tệp Excel
+        var excelData = [
+            ['BÁO CÁO - DANH SÁCH SẢN PHẨM'], // Header
+            [], // Empty row for spacing
+            ['#', 'ID', 'Tên sản phẩm', 'Thương hiệu', 'Nhà xuất bản', 'Giá sản phẩm', 'Số lượng', 'Ảnh']
+        ];
 
-            // Tạo mảng dữ liệu để chứa dữ liệu cần xuất
-            var dataToExport = [];
-            dataToExport.push(["Mã Sản Phẩm", "Tên Sản Phẩm", "Thương Hiệu", "Nhà Xuất Bản", "Giá Sản Phẩm", "Số Lượng", "Ảnh"]);
+        // Tạo mảng dữ liệu để chứa dữ liệu cần xuất
+        var dataToExport = [];
+        dataToExport.push(["Mã Sản Phẩm", "Tên Sản Phẩm", "Thương Hiệu", "Nhà Xuất Bản", "Giá Sản Phẩm", "Số Lượng", "Ảnh"]);
 
-            // Thêm dữ liệu từ danh sách sản phẩm vào mảng dữ liệu
-            for (var i = start; i < end; i++) {
-                var item = filteredData[i];
-                dataToExport.push([
-                    item.product.productId || '',  // Sử dụng '' nếu giá trị là null
-                    item.product.productName || '',
-                    item.product.brand ? item.product.brand.brandName || '' : '',  // Kiểm tra brand có tồn tại trước khi truy cập property
-                    item.product.publisher ? item.product.publisher.publisherName || '' : '',  // Kiểm tra publisher có tồn tại trước khi truy cập property
-                    item.productDetail ? item.productDetail.price || '' : '',  // Kiểm tra productDetail có tồn tại trước khi truy cập property
-                    item.productDetail ? item.productDetail.quantityInStock || '' : '',  // Kiểm tra productDetail có tồn tại trước khi truy cập property
-                    item.productDetail ? item.productDetail.image || '' : ''  // Kiểm tra productDetail có tồn tại trước khi truy cập property
-                ]);
-            }
+        // Thêm dữ liệu từ danh sách sản phẩm vào mảng dữ liệu
+        for (var i = start; i < end; i++) {
+            var item = filteredData[i];
+            dataToExport.push([
+                item.product.productId || '',  // Sử dụng '' nếu giá trị là null
+                item.product.productName || '',
+                item.product.brand ? item.product.brand.brandName || '' : '',  // Kiểm tra brand có tồn tại trước khi truy cập property
+                item.product.publisher ? item.product.publisher.publisherName || '' : '',  // Kiểm tra publisher có tồn tại trước khi truy cập property
+                item.productDetail ? item.productDetail.price || '' : '',  // Kiểm tra productDetail có tồn tại trước khi truy cập property
+                item.productDetail ? item.productDetail.quantityInStock || '' : '',  // Kiểm tra productDetail có tồn tại trước khi truy cập property
+                item.productDetail ? item.productDetail.image || '' : ''  // Kiểm tra productDetail có tồn tại trước khi truy cập property
+            ]);
+        }
 
-            // Tạo một đối tượng workbook từ dữ liệu
-            var wb = XLSX.utils.book_new();
-            var ws = XLSX.utils.aoa_to_sheet(dataToExport);
-            XLSX.utils.book_append_sheet(wb, ws, 'Products');
+        // Tạo một đối tượng workbook từ dữ liệu
+        var wb = XLSX.utils.book_new();
+        var ws = XLSX.utils.aoa_to_sheet(dataToExport);
+        XLSX.utils.book_append_sheet(wb, ws, 'Products');
 
-            // Xuất file Excel
-            XLSX.writeFile(wb, 'Products_Page_' + $scope.currentPage + '.xlsx');
-        };
+        // Xuất file Excel
+        XLSX.writeFile(wb, 'Products_Page_' + $scope.currentPage + '.xlsx');
+    };
 
-        $scope.importProductsToExcel = function () {
-            var fileInput = document.getElementById('fileInputExcel');
-            var file = fileInput.files[0];
+    $scope.importProductsToExcel = function () {
+        var fileInput = document.getElementById('fileInputExcel');
+        var file = fileInput.files[0];
 
-            if (!file) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Lỗi",
-                    text: "Vui lòng chọn file Excel.",
-                });
-                return;
-            }
+        if (!file) {
+            Swal.fire({
+                icon: "error",
+                title: "Lỗi",
+                text: "Vui lòng chọn file Excel.",
+            });
+            return;
+        }
 
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    var data = new Uint8Array(e.target.result);
-                    var workbook = XLSX.read(data, {type: 'array'});
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var data = new Uint8Array(e.target.result);
+                var workbook = XLSX.read(data, { type: 'array' });
 
-                    // Kiểm tra tên cột ở đây
+                // Kiểm tra tên cột ở đây
                 var sheet = workbook.Sheets[workbook.SheetNames[0]];
                 var expectedColumns = ["Mã Sản Phẩm", "Tên Sản Phẩm", "Thương Hiệu", "Nhà Xuất Bản", "Giá Sản Phẩm", "số Lượng", "Ảnh"];
                 var headers = [];
@@ -582,12 +582,13 @@ app.controller("ProductController", function ($scope, $http, $filter) {
             return category.categoryId === selectedCategoryId;
         });
 
-        // Kiểm tra nếu typeID của danh mục được chọn là 1
-        if (selectedCategory && selectedCategory.typeId && selectedCategory.typeId.typeId === "1") {
+        // Kiểm tra nếu typeID của danh mục được chọn là 1, 2, 3, 4, hoặc 5 (sách)
+        if (selectedCategory && selectedCategory.typeId && (selectedCategory.typeId.typeId === "1" || selectedCategory.typeId.typeId === "2" || selectedCategory.typeId.typeId === "3" || selectedCategory.typeId.typeId === "4" || selectedCategory.typeId.typeId === "5" || selectedCategory.typeId.typeId === "12")) {
             $scope.showAuthorSelect = true; // Hiển thị form chọn tên tác giả
         } else {
             $scope.showAuthorSelect = false; // Ẩn form chọn tên tác giả
         }
+
     };
 
 
@@ -600,12 +601,12 @@ app.controller("ProductController", function ($scope, $http, $filter) {
             return category.categoryId === selectedCategoryId;
         });
 
-        // Kiểm tra nếu typeID của danh mục được chọn là 1
-        if (selectedCategory && selectedCategory.typeId && selectedCategory.typeId.typeId === "1") {
+        // Kiểm tra nếu typeID của danh mục được chọn là 1, 2, 3, 4, hoặc 5 (sách)
+        if (selectedCategory && selectedCategory.typeId && (selectedCategory.typeId.typeId === "1" || selectedCategory.typeId.typeId === "2" || selectedCategory.typeId.typeId === "3" || selectedCategory.typeId.typeId === "4" || selectedCategory.typeId.typeId === "5" || selectedCategory.typeId.typeId === "12")) {
             $scope.showAuthorSelected = true; // Hiển thị form chọn tên tác giả
         } else {
             $scope.showAuthorSelected = false; // Ẩn form chọn tên tác giả
-        }
+        }yy
     };
 
 

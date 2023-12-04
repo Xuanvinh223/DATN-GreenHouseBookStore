@@ -38,25 +38,10 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
     $scope.itemsPerPage1 = 5;
     // $scope.totalItems1 = $scope.listProductFlashSale.length;
     $scope.maxSize1 = 5;
+    $scope.timeRanges = ["00:00-02:00", "02:00-04:00", "04:00-06:00", "06:00-08:00", "08:00-10:00", "10:00-12:00", "12:00-14:00", "14:00-16:00", "16:00-18:00", "18:00-20:00", "20:00-22:00", "22:00-00:"];
 
     let host = "http://localhost:8081/rest";
 
-    $scope.getNumOfPages1 = function () {
-        return Math.ceil($scope.totalItems1 / $scope.itemsPerPage1);
-    };
-    $scope.setPage1 = function (pageNo) {
-        $scope.currentPage1 = pageNo;
-    };
-    $scope.calculateRange1 = function () {
-        var startIndex1 = ($scope.currentPage1 - 1) * $scope.itemsPerPage1 + 1;
-        var endIndex1 = $scope.currentPage1 * $scope.itemsPerPage1;
-
-        if (endIndex1 > $scope.totalItems1) {
-            endIndex1 = $scope.totalItems1;
-        }
-
-        return startIndex1 + ' đến ' + endIndex1 + ' trên tổng số ' + $scope.totalItems1 + ' mục';
-    };
     // Hàm tính toán số trang dựa trên số lượng mục và số mục trên mỗi trang
     $scope.getNumOfPages = function () {
         return Math.ceil($scope.totalItems / $scope.itemsPerPage);
@@ -105,7 +90,6 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
 
             $scope.loadModelProduct();
             $scope.totalItems = $scope.originalFlashSaleList.length; // Tổng số mục
-            // $scope.totalItems1 = $scope.listProductFlashSale.length;
         }).catch(error => {
             console.log("Error", error);
 
@@ -207,13 +191,16 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
             var formattedEndTime = moment($scope.item.endTime, 'hh:mm A').format('HH:mm:ss');
             var formatUserDate = moment($scope.item.userDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
             // Tạo dữ liệu yêu cầu POST từ các trường trong form HTML
+            var startTime = moment($scope.item.timeRange.split("-")[0], 'HH:mm').format('HH:mm:ss');
+            var endTime = moment($scope.item.timeRange.split("-")[1], 'HH:mm').format('HH:mm:ss');
+
             var requestData = {
                 flashSale: {
                     flashSaleId: $scope.item.flashSaleId | null,
                     name: $scope.item.name,
-                    startTime: formattedTime,
-                    endTime: formattedEndTime,
-                    userDate: formatUserDate,
+                    startTime: startTime,
+                    endTime: endTime,
+                    userDate: $scope.item.userDate,
                     status: $scope.item.status
                 },
                 productFlashSales: $scope.listProductFlashSale,
@@ -223,7 +210,7 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
             console.log(requestData);
             $http.post(url, requestData).then(resp => {
                 console.log("Thêm Flashsale thành công", resp);
-                // $scope.clearTable();
+                $scope.clearTable();
                 Swal.fire({
                     icon: "success",
                     title: "Thành công",
@@ -269,17 +256,26 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
             });
     }
 
+    
+
     if ($routeParams.data) {
         // Parse dữ liệu từ tham số data và gán vào $scope.item.
         $scope.item = angular.fromJson($routeParams.data.flashSale);
         $scope.listProductFlashSale = angular.fromJson($routeParams.data.listProductFlashSale);
-        if ($scope.item.status === 3) {
+        if ($scope.item && $scope.item.status === 3) {
             $scope.disableSaveButton = true;
         } else {
             $scope.disableSaveButton = false;
         }
-        console.log("Status", $scope.item);
-        console.log("$scope.disableSaveButton", $scope.disableSaveButton);
+       
+        if (!moment($scope.item.startTime).isValid() || !moment($scope.item.endTime).isValid()) {
+            // Chuyển đổi chuỗi thời gian thành đối tượng Date
+            $scope.item.startTime = moment($scope.item.startTime, 'HH:mm:ss').toDate();
+            $scope.item.endTime = moment($scope.item.endTime, 'HH:mm:ss').toDate();
+        }
+
+        // Gán giá trị của timeRange bằng giá trị từ $scope.item.startTime và $scope.item.endTime
+        $scope.item.timeRange = moment($scope.item.startTime).format('HH:mm') + '-' + moment($scope.item.endTime).format('HH:mm');
     }
 
 
@@ -294,44 +290,66 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
 
         return `${year}-${month}-${day}`;
     };
+   // $scope.isUpdating = $scope.item.flashSaleId !== null;
+    $scope.checkTimeRangeOverlap = function () {
+        if ($scope.flashsalelist && $scope.item && !$scope.item.flashSaleId) {
+            var existingFlashSales = $scope.flashsalelist.filter(function (flashSale) {
+                var formatTime = function (time) {
+                    return moment(time, 'HH:mm:ss.SSSSSSS').format('HH:mm');
+                };
+
+                var flashSaleTimeRange = formatTime(flashSale.startTime) + '-' + formatTime(flashSale.endTime);
+
+                var formatUserDate = function (date) {
+                    return moment(date).format('YYYY-MM-DD');
+                };
+                var flashSaleUserDate = formatUserDate(flashSale.userDate);
+                var itemUserDate = formatUserDate($scope.item.userDate);
+
+                return (
+                    flashSaleUserDate === itemUserDate &&
+                    flashSaleTimeRange === $scope.item.timeRange
+                );
+
+            });
+            return existingFlashSales.length > 0;
+        }
+
+        return false;
+    };
 
     $scope.check = function () {
         if ($scope.item) {
             console.log("Ok");
             var flashSaleName = $scope.item.name;
-            var startTime = moment($scope.item.startTime, 'HH:mm:ss');
-            var endTime = moment($scope.item.endTime, 'HH:mm:ss');
             var userDate = $scope.item.userDate;
             var active = $scope.item.status;
-            var usedQuantity = $scope.item.usedQuantity;
-            var quantity = $scope.item.quantity;
-
+            var timeRange = $scope.item.timeRange;
             $scope.errors = {}; // Đặt lại đối tượng errors
 
             if (!flashSaleName) {
                 $scope.errors.flashSaleName = '*Vui lòng nhập tên FlashSale';
             }
-            if (!startTime) {
-                $scope.errors.startTime = '*Vui lòng chọn giờ bắt đầu hợp lệ';
+            if (!timeRange) {
+                $scope.errors.timeRange = '*Vui lòng chọn thời gian';
             }
-
-            if (!endTime.isValid()) {
-                $scope.errors.endTime = '*Vui lòng chọn giờ kết thúc hợp lệ';
+            if ($scope.checkTimeRangeOverlap()) {
+                $scope.errors.duplicateFlashSale = 'Flash Sale trùng lặp với khoảng thời gian đã có';
             }
+            console.log($scope.checkTimeRangeOverlap());
 
             if (!userDate) {
                 $scope.errors.userDate = '*Vui lòng chọn ngày thực hiện';
             }
-
 
             if (!active || active == null) {
                 $scope.errors.status = '*Vui lòng chọn trạng thái';
             }
             // So sánh ngày bắt đầu và ngày kết thúc
             // So sánh thời gian bắt đầu và kết thúc
-            if (startTime && endTime && endTime.isBefore(startTime)) {
-                $scope.errors.failTime = '*Giờ kết thúc phải sau giờ bắt đầu';
-            }
+            // if (startTime && endTime && endTime.isBefore(startTime)) {
+            //     $scope.errors.failTime = '*Giờ kết thúc phải sau giờ bắt đầu';
+            // }
 
 
             if (!$scope.listProductFlashSale || $scope.listProductFlashSale.length === 0) {
@@ -347,7 +365,7 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
             console.log($scope.errors);
             var hasErrors = Object.keys($scope.errors).length > 0;
 
-            return !hasErrors
+            return !hasErrors && !$scope.checkTimeRangeOverlap();
         }
     }
 

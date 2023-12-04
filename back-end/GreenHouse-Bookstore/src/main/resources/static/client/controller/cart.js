@@ -187,22 +187,22 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
             .then(function (response) {
                 if (response.data.listVouchers) {
                     angular.forEach(response.data.listVouchers, function (voucher) {
+                        console.log(voucher.voucherId);
                         voucher.moreAmount = voucher.minimumPurchaseAmount;
                         voucher.moreAmountPercents = 0;
                         $scope.listVouchersOriginal.push(voucher);
+                        console.table($scope.listVouchersOriginal);
                     })
                 }
                 $scope.listVouchersMappingCategories = response.data.listVouchersMappingCategories;
                 $scope.listVouchersMappingProducts = response.data.listVouchersMappingProducts;
 
                 angular.forEach($scope.listVouchersOriginal, v => {
-                    if (voucherIsEligible(v)) {
                         if (v.voucherType == "Sản phẩm" || v.voucherType == "Loại sản phẩm") {
                             $scope.listNormalVouchers.push(v);
                         } else if (v.voucherType == "Ship") {
                             $scope.listShippingVouchers.push(v);
                         }
-                    }
                 })
 
             })
@@ -227,13 +227,11 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                 var isEligible = false;
                 var totalAmount = 0;
 
-                isEligible = voucherIsEligible(voucher);
-
-                if (isEligible) {
                     angular.forEach(listCartItemSelected, function (cartItem) {
                         var amount = 0;
                         if (voucherIsRelatedToProduct(voucher, cartItem) || voucherIsRelatedToCategory(voucher, cartItem)) {
                             isRelated = true;
+                            console.table(voucher);
                         }
 
                         if (isRelated) {
@@ -243,16 +241,36 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                             voucher.moreAmountPercents = 100 - (((voucher.minimumPurchaseAmount - totalAmount) / voucher.minimumPurchaseAmount) * 100).toFixed(2);
                         }
                     });
-                }
 
-                if (isRelated && isEligible) {
+                if (isRelated) {
                     if (voucher.moreAmountPercents < 100 && voucher.moreAmountPercents >= 0) {
                         $scope.relatedVouchers.push(voucher);
                     } else {
+                        voucher.moreAmount = 0;
+                        voucher.moreAmountPercents = 100;
                         $scope.eligibleVouchers.push(voucher);
                     }
                 }
             });
+            if ($scope.relatedVouchers.length <= 0) {
+                var count = 0;
+                var exitLoop = false; // Cờ để kiểm soát thoát khỏi vòng lặp
+                angular.forEach($scope.listVouchersOriginal, voucher => {
+                    if (!exitLoop) {
+                        var kt = $scope.eligibleVouchers.some(item => {
+                            return item == voucher;
+                        });
+                        if (!kt) {
+                            $scope.relatedVouchers.push(voucher);
+                            count++;
+
+                            if (count >= 4) {
+                                exitLoop = true; // Đặt cờ để thoát khỏi vòng lặp
+                            }
+                        }
+                    }
+                });
+            }
         }
     };
     // ----------------------------------------------
@@ -278,17 +296,6 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
             }
         })
         return isRelated;
-    }
-
-    function voucherIsEligible(voucher) {
-        var currentDate = $filter('date')(new Date(), 'yyyy-MM-dd hh-mm-ss');
-        var startDate = $filter('date')(voucher.startDate, 'yyyy-MM-dd hh-mm-ss');
-        var endDate = $filter('date')(voucher.endDate, 'yyyy-MM-dd hh-mm-ss');
-        return (
-            voucher.status &&
-            startDate <= currentDate &&
-            endDate >= currentDate
-        );
     }
 
     $scope.isEligibleVoucherPopup = function (voucher) {

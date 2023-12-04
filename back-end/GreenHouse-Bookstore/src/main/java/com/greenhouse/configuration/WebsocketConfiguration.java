@@ -22,7 +22,7 @@ public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer 
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/notify")
                 .withSockJS();
-        registry.addEndpoint("/rest/gs-guide-websocket").withSockJS();
+        registry.addEndpoint("/websocket/gs-guide-websocket").withSockJS();
     }
 
     @Override

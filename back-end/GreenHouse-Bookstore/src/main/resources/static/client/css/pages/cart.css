@@ -903,17 +903,18 @@ hr {
     display: flex;
     font-size: 1.2em;
     padding: 10px 16px;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .title-cart-page-left {
-    flex-basis: 65%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    margin-right: 10px;
 }
 
 .number-cart-page-right {
-    flex-basis: 35%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -1000,18 +1001,12 @@ button.btn-checkout {
     max-width: 100%;
     background-color: white;
     display: none;
+    border-radius: 10px;
     border: none;
     top: 15%;
     left: 40%;
-    -webkit-transform: translate(-50%, 0);
-    -ms-transform: translate(-50%, 0);
-    -moz-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
-    -webkit-border-bottom-left-radius: 10px;
-    -webkit-border-bottom-right-radius: 10px;
-    -webkit-border-top-left-radius: 10px;
-    -webkit-border-top-right-radius: 10px;
-    transform: scale(1.2);
+  
     overflow: hidden;
 }
 

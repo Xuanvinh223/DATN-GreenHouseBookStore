@@ -3,7 +3,7 @@ app.factory('WebSocketService', function () {
     var stompClient = null;
 
     function connect(callback) {
-        var socket = new SockJS('http://localhost:8081/rest/gs-guide-websocket');
+        var socket = new SockJS('http://localhost:8081/websocket/gs-guide-websocket');
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, function (frame) {

@@ -301,6 +301,30 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             .catch(function (error) {
                 console.error(error);
             });
+        var updatedOrder = {
+            status: 'pending',
+            confirmed_By: $scope.username,
+            note: 'Đơn hàng của bạn đã được GreenHouse xác nhận!'
+        };
+        $http.put('/rest/order/cancelOrder/' + order.orderCode, updatedOrder)
+            .then(function (response) {
+                // Xử lý khi hủy đơn hàng thành công
+                console.log(response.data);
+                loadingOverlay.style.display = "none";
+                $scope.sendNotification("Thông báo giao hàng", order.orderCode, order.username, "Đơn hàng của bạn đã được GreenHouse xác nhận ");
+                $scope.getData();
+                $scope.clearCancel();
+
+                Swal.fire({
+                    icon: "success",
+                    title: "Thành công",
+                    text: `Xác nhận đơn hàng thành công`,
+                });
+            })
+            .catch(function (error) {
+                // Xử lý khi có lỗi xảy ra
+                console.error("Lỗi khi hủy đơn hàng:", error.data);
+            });
     };
 
     //Hàm hủy
@@ -358,7 +382,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
                     $scope.sendNotification("Thông báo hủy đơn hàng", $scope.cancelOrder.orderCode, $scope.cancelOrder.username, "Lí do hủy đơn hàng: " + $scope.cancelOrder.noteCancel);
                     $scope.getData();
                     $scope.clearCancel();
-                   
+
                     Swal.fire({
                         icon: "success",
                         title: "Thành công",
