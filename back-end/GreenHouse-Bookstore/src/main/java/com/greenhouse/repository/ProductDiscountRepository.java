@@ -31,4 +31,6 @@ public interface ProductDiscountRepository extends JpaRepository<Product_Discoun
             "AND d.endDate >= CURRENT_DATE")
     List<Product_Discount> findProductDiscountsByDate();
 
+    Product_Discount findByProductDetailAndDiscount(Product_Detail productDetail,  Discounts discounts);
+
 }

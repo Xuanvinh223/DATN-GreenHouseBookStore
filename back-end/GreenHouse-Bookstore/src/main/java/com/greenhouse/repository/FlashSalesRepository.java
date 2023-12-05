@@ -1,9 +1,12 @@
 package com.greenhouse.repository;
 
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.greenhouse.model.Flash_Sales;
 
@@ -20,5 +23,7 @@ public interface FlashSalesRepository extends JpaRepository<Flash_Sales, Integer
             "ON p.Product_Id = d.Product_Id " +
             "WHERE p.Status = 1", nativeQuery = true)
     List<Object[]> findProductsByStatus();
+
+    Flash_Sales findByStatus(int i);
 
 }
