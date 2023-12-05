@@ -56,8 +56,6 @@
                               class="mdi mdi-swap-vertical"></i></a></th>
                         <th class="text-center"><a ng-click="sortBy('item[5]')"> Trạng thái <i
                               class="mdi mdi-swap-vertical"></i></a></th>
-                        <th class="text-center"><a ng-click="sortBy('item[6]')"> Thương Hiệu <i
-                              class="mdi mdi-swap-vertical"></i></a></th>
                         <th class="text-center"><a ng-click="sortBy('item[7]')"> Ngày sản xuất <i
                               class="mdi mdi-swap-vertical"></i></a></th>
                       </tr>
@@ -76,8 +74,7 @@
                     <td class="text-center">{{item[3] | number:'0'}}</td>
                     <td class="text-center">{{item[4] | number:'0'}}</td>
                     <td class="text-center">{{item[5] ? 'Đang bán' : 'Dừng kinh doanh'}}</td>
-                    <td class="text-center">{{item[6]}}</td>
-                    <td class="text-center">{{item[7] | date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item[6] | date:'dd/MM/yyyy'}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -142,8 +139,6 @@
                           class="mdi mdi-swap-vertical"></i></a></th>
                     <th class="text-center"><a ng-click="sortByTable2('item[5]')"> Trạng thái <i
                           class="mdi mdi-swap-vertical"></i></a></th>
-                    <th class="text-center"><a ng-click="sortByTable2('item[6]')"> Thương Hiệu <i
-                          class="mdi mdi-swap-vertical"></i></a></th>
                     <th class="text-center"><a ng-click="sortByTable2('item[7]')"> Ngày sản xuất <i
                           class="mdi mdi-swap-vertical"></i></a></th>
                   </tr>
@@ -162,8 +157,7 @@
                     <td class="text-center"><span class="text-danger">{{item[3] | number:'0'}}</span></td>
                     <td class="text-center">{{item[4] | number:'0'}}</td>
                     <td class="text-center">{{item[5] ? 'Đang bán' : 'Dừng kinh doanh'}}</td>
-                    <td class="text-center">{{item[6]}}</td>
-                    <td class="text-center">{{item[7] | date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item[6] | date:'dd/MM/yyyy'}}</td>
                   </tr>
                 </tbody>
               </table>

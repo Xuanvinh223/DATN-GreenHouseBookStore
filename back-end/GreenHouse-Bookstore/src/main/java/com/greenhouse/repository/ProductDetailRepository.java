@@ -3,8 +3,10 @@ package com.greenhouse.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Products;
@@ -22,25 +24,21 @@ public interface ProductDetailRepository extends JpaRepository<Product_Detail, I
                         "    pd.Quantity_In_Stock AS 'Số lượng tồn kho', " +
                         "    pd.Price AS 'Giá nhập', " + // Sửa tên cột từ "Giá bán" thành "Giá nhập"
                         "    p.Status AS 'Trạng thái tồn kho', " +
-                        "    b.Brand_Name AS 'Tên thương hiệu', " +
                         "    p.Manufacture_Date AS 'Ngày sản xuất' " +
                         "FROM Products p " +
-                        "INNER JOIN Product_Detail pd ON p.Product_Id = pd.Product_Id " +
-                        "INNER JOIN Brands b ON p.Brand_Id = b.Brand_Id", nativeQuery = true)
+                        "INNER JOIN Product_Detail pd ON p.Product_Id = pd.Product_Id ", nativeQuery = true)
         List<Object[]> findAllInventoryList();
 
         @Query(value = "SELECT " +
-                        "    pd.Image AS 'Hình', " +
+                       "    pd.Image AS 'Hình', " +
                         "    p.Product_Id AS ID, " +
                         "    p.Product_Name AS 'Tên sản phẩm', " +
                         "    pd.Quantity_In_Stock AS 'Số lượng tồn kho', " +
-                        "    pd.Price AS 'Giá nhập', " +
+                        "    pd.Price AS 'Giá nhập', " + // Sửa tên cột từ "Giá bán" thành "Giá nhập"
                         "    p.Status AS 'Trạng thái tồn kho', " +
-                        "    b.Brand_Name AS 'Tên thương hiệu', " +
                         "    p.Manufacture_Date AS 'Ngày sản xuất' " +
                         "FROM Products p " +
                         "INNER JOIN Product_Detail pd ON p.Product_Id = pd.Product_Id " +
-                        "INNER JOIN Brands b ON p.Brand_Id = b.Brand_Id " +
                         "WHERE pd.Quantity_In_Stock <= 10 " +
                         "ORDER BY pd.Quantity_In_Stock DESC", nativeQuery = true)
         List<Object[]> findAllInventoryListAsc();
@@ -130,9 +128,20 @@ public interface ProductDetailRepository extends JpaRepository<Product_Detail, I
         boolean hasPurchasedProduct(@Param("username") String username,
                         @Param("productDetailId") Integer productDetailId);
 
-        @Query(value="SELECT  PD.* FROM Product_Detail PD " +
+        @Query(value = "SELECT  PD.* FROM Product_Detail PD " +
                         "JOIN Product_Discount PDs ON PD.Product_Detail_Id = PDs.Product_Detail_Id " +
                         "JOIN Discounts D ON PDs.Discount_Id = D.Discount_Id " +
-                        "WHERE GETDATE() BETWEEN D.Start_Date AND D.End_Date",nativeQuery = true)
+                        "WHERE GETDATE() BETWEEN D.Start_Date AND D.End_Date", nativeQuery = true)
         List<Product_Detail> findProductsOnDiscount();
+
+        @Modifying
+        @Transactional
+        @Query(value = "UPDATE Product_Detail " +
+                        "SET Price_Discount = Price - (Price * d.Value / 100) " +
+                        "FROM Product_Detail pd " +
+                        "JOIN Product_Discount pdt ON pdt.Product_Detail_Id = pd.Product_Detail_Id " +
+                        "JOIN Discounts d ON d.Discount_Id = pdt.Discount_Id " +
+                        "WHERE GETDATE() BETWEEN d.Start_Date AND d.End_Date", nativeQuery = true)
+        void updatePriceDiscount();
+
 }

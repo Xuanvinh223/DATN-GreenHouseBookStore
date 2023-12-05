@@ -28,6 +28,7 @@ function indexClientController($scope, $http) {
         localStorage.setItem("categoryName", categoryName);
         window.location.href = '/product';
     };
+   
 
     $scope.loadIndex = function () {
         var url = `${host}/getDataIndex`;

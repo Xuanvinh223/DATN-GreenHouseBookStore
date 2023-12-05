@@ -582,12 +582,13 @@ app.controller("ProductController", function ($scope, $http, $filter) {
             return category.categoryId === selectedCategoryId;
         });
 
-        // Kiểm tra nếu typeID của danh mục được chọn là 1
-        if (selectedCategory && selectedCategory.typeId && selectedCategory.typeId.typeId === "1") {
+        // Kiểm tra nếu typeID của danh mục được chọn là 1, 2, 3, 4, hoặc 5 (sách)
+        if (selectedCategory && selectedCategory.typeId && (selectedCategory.typeId.typeId === "1" || selectedCategory.typeId.typeId === "2" || selectedCategory.typeId.typeId === "3" || selectedCategory.typeId.typeId === "4" || selectedCategory.typeId.typeId === "5" || selectedCategory.typeId.typeId === "12")) {
             $scope.showAuthorSelect = true; // Hiển thị form chọn tên tác giả
         } else {
             $scope.showAuthorSelect = false; // Ẩn form chọn tên tác giả
         }
+
     };
 
 
@@ -600,12 +601,12 @@ app.controller("ProductController", function ($scope, $http, $filter) {
             return category.categoryId === selectedCategoryId;
         });
 
-        // Kiểm tra nếu typeID của danh mục được chọn là 1
-        if (selectedCategory && selectedCategory.typeId && selectedCategory.typeId.typeId === "1") {
+        // Kiểm tra nếu typeID của danh mục được chọn là 1, 2, 3, 4, hoặc 5 (sách)
+        if (selectedCategory && selectedCategory.typeId && (selectedCategory.typeId.typeId === "1" || selectedCategory.typeId.typeId === "2" || selectedCategory.typeId.typeId === "3" || selectedCategory.typeId.typeId === "4" || selectedCategory.typeId.typeId === "5" || selectedCategory.typeId.typeId === "12")) {
             $scope.showAuthorSelected = true; // Hiển thị form chọn tên tác giả
         } else {
             $scope.showAuthorSelected = false; // Ẩn form chọn tên tác giả
-        }
+        }yy
     };
 
 
