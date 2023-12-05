@@ -180,17 +180,6 @@ function SuppliersController($scope, $location, $routeParams, $http) {
             return; // Không tiếp tục lưu nếu có lỗi
         }
 
-        //kiểm tra định dạng sđt
-        function isPhoneNumber(phone) {
-            var phoneNumberRegex = /^(032|033|034|035|036|037|038|039|081|082|083|084|085|070|079|077|076|078|056|058)\d{7}$|^(0282|0242|0286|0246|0283|0243|0244|0245|0246|0247|0248|0287|0247|0289|0249)\d{6}$/;
-            return phoneNumberRegex.test(phone);
-        }
-
-        if (!isPhoneNumber($scope.editingSupplier.phone)) {
-            // Hiển thị thông báo lỗi nếu số điện thoại không đúng định dạng
-            $scope.errorMessages.phone = `Số điện thoại "${$scope.editingSupplier.phone}" không đúng định dạng đầu số Việt Nam. Vui lòng kiểm tra lại.`;
-            return; // Không tiếp tục lưu nếu có lỗi
-        }
 
         // Kiểm tra trùng lặp số điện thoại trước khi thêm
         var existingPhoneNumber = $scope.suppliers.find(function (supplier) {
