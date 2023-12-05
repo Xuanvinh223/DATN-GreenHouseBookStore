@@ -1,9 +1,13 @@
 package com.greenhouse.service;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import com.greenhouse.dto.client.CheckoutDTO;
 import com.greenhouse.model.Accounts;
 import com.greenhouse.model.Carts;
 import com.greenhouse.model.Discounts;
+import com.greenhouse.model.Flash_Sales;
 import com.greenhouse.model.InvoiceDetails;
 import com.greenhouse.model.InvoiceMappingStatus;
 import com.greenhouse.model.InvoiceMappingVoucher;
@@ -24,12 +29,14 @@ import com.greenhouse.model.Order_Status_History;
 import com.greenhouse.model.Orders;
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Product_Discount;
+import com.greenhouse.model.Product_Flash_Sale;
 import com.greenhouse.model.Products;
 import com.greenhouse.model.UserVoucher;
 import com.greenhouse.model.Vouchers;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.CartsRepository;
 import com.greenhouse.repository.DiscountsRepository;
+import com.greenhouse.repository.FlashSalesRepository;
 import com.greenhouse.repository.InvoiceDetailsRepository;
 import com.greenhouse.repository.InvoiceMappingStatusRepository;
 import com.greenhouse.repository.InvoiceMappingVoucherRepository;
@@ -40,9 +47,8 @@ import com.greenhouse.repository.OrdersRepository;
 import com.greenhouse.repository.PaymentStatusRepository;
 import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.repository.ProductDiscountRepository;
+import com.greenhouse.repository.Product_FlashSaleRepository;
 import com.greenhouse.repository.UserVoucherRepository;
-import com.greenhouse.repository.VoucherMappingCategoryRepository;
-import com.greenhouse.repository.VoucherMappingProductRepository;
 import com.greenhouse.repository.VouchersRepository;
 
 @Service
@@ -78,6 +84,10 @@ public class CheckoutService {
     private DiscountsRepository discountsRepository;
     @Autowired
     private VouchersRepository vouchersRepository;
+    @Autowired
+    private FlashSalesRepository flashSalesRepository;
+    @Autowired
+    private Product_FlashSaleRepository product_FlashSaleRepository;
 
     // ================================================================================================
     public Invoices createInvoice(CheckoutDTO data) {
@@ -211,20 +221,41 @@ public class CheckoutService {
 
     // ================================================================================================
     public void subtractProductQuantity(List<Carts> listCarts) {
+        Date currentDate = new Date();
+
         for (Carts item : listCarts) {
             Product_Detail pDetail = item.getProductDetail();
             pDetail.setQuantityInStock(pDetail.getQuantityInStock() - item.getQuantity());
             productDetailsRepository.save(pDetail);
+
+            updateUsedQuantityForFlashSale(pDetail, item.getQuantity());
+            updateUsedQuantityForDiscounts(pDetail, currentDate, item.getQuantity());
         }
     }
 
-    public void increaseDiscountProductQuantity(List<Carts> listCarts) {
-        for (Carts item : listCarts) {
-            Product_Discount pDiscount = productDiscountRepository.findByProductDetail(item.getProductDetail());
-            Discounts discount = pDiscount.getDiscount();
-            discount.setUsedQuantity(discount.getUsedQuantity() + item.getQuantity());
-            discountsRepository.save(discount);
-        }
+    private void updateUsedQuantityForFlashSale(Product_Detail pDetail, int quantity) {
+        Optional<Flash_Sales> flashSalesOptional = Optional.ofNullable(flashSalesRepository.findByStatus(2));
+
+        flashSalesOptional.ifPresent(flashSales -> {
+            List<Product_Flash_Sale> pfs = product_FlashSaleRepository.findByFlashSaleId(flashSales);
+
+            pfs.stream()
+                    .filter(pf -> pDetail.getProductDetailId() == pf.getProductDetail().getProductDetailId())
+                    .findFirst()
+                    .ifPresent(pf -> pf.setUsedQuantity(pf.getUsedQuantity() + quantity));
+        });
+    }
+
+    private void updateUsedQuantityForDiscounts(Product_Detail pDetail, Date currentDate, int quantity) {
+        List<Discounts> discounts = discountsRepository.findActiveDiscountsNow(currentDate);
+
+        discounts.forEach(discount -> {
+            Optional<Product_Discount> productDiscountOptional = Optional.ofNullable(
+                    productDiscountRepository.findByProductDetailAndDiscount(pDetail, discount));
+
+            productDiscountOptional
+                    .ifPresent(productDiscount -> discount.setUsedQuantity(discount.getUsedQuantity() + quantity)); 
+        });
     }
 
     public void updateCartStatus(List<Carts> listCarts) {
