@@ -85,6 +85,8 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
         if ($scope.listCartItem[index].quantity > 1) {
             $scope.listCartItem[index].quantity--;
             $scope.updateQuantity(index);
+        } else {
+            $scope.removeFromCart(index);
         }
     }
 
@@ -98,24 +100,26 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
     $scope.updateQuantity = function (index) {
         var cartId = $scope.listCartItem[index].cartId;
         var quantity = $scope.listCartItem[index].quantity;
+        if (quantity == 0) {
+            $scope.removeFromCart(index);
+        } else {
+            CartService.updateQuantity(cartId, quantity)
+                .then(function (response) {
+                    $scope.listCartItemSelected.find(function (item) {
+                        if (item.cartId === response.cart.cartId) {
+                            response.cart.checked = item.checked
+                        }
+                    });
+                    $scope.listCartItem[index] = response.cart;
 
-        CartService.updateQuantity(cartId, quantity)
-            .then(function (response) {
-                $scope.listCartItemSelected.find(function (item) {
-                    if (item.cartId === response.cart.cartId) {
-                        response.cart.checked = item.checked
+                    if (response.status == 'error') {
+                        $scope.showNotification(response.status, response.message);
                     }
-                });
-                $scope.listCartItem[index] = response.cart;
-
-                if (response.status == 'error') {
-                    $scope.showNotification(response.status, response.message);
-                }
-            })
-            .catch(function (error) {
-                console.log('error', 'Lỗi trong quá trình gửi dữ liệu lên server: ' + error);
-            })
-
+                })
+                .catch(function (error) {
+                    console.log('error', 'Lỗi trong quá trình gửi dữ liệu lên server: ' + error);
+                })
+        }
     }
 
     $scope.removeCartSelected = function () {
@@ -154,7 +158,25 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                     $scope.listCartItem.splice(index, 1);
                     $scope.getCartHeader();
                 });
+            } else {
+                var cartId = $scope.listCartItem[index].cartId;
+                var quantity = $scope.listCartItem[index].quantity;
+                CartService.updateQuantity(cartId, quantity)
+                    .then(function (response) {
+                        $scope.listCartItemSelected.find(function (item) {
+                            if (item.cartId === response.cart.cartId) {
+                                response.cart.checked = item.checked
+                            }
+                        });
+                        $scope.listCartItem[index] = response.cart;
 
+                        if (response.status == 'error') {
+                            $scope.showNotification(response.status, response.message);
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log('error', 'Lỗi trong quá trình gửi dữ liệu lên server: ' + error);
+                    })
             }
         });
     }
@@ -198,11 +220,11 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                 $scope.listVouchersMappingProducts = response.data.listVouchersMappingProducts;
 
                 angular.forEach($scope.listVouchersOriginal, v => {
-                        if (v.voucherType == "Sản phẩm" || v.voucherType == "Loại sản phẩm") {
-                            $scope.listNormalVouchers.push(v);
-                        } else if (v.voucherType == "Ship") {
-                            $scope.listShippingVouchers.push(v);
-                        }
+                    if (v.voucherType == "Sản phẩm" || v.voucherType == "Loại sản phẩm") {
+                        $scope.listNormalVouchers.push(v);
+                    } else if (v.voucherType == "Ship") {
+                        $scope.listShippingVouchers.push(v);
+                    }
                 })
 
             })
@@ -227,20 +249,20 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                 var isEligible = false;
                 var totalAmount = 0;
 
-                    angular.forEach(listCartItemSelected, function (cartItem) {
-                        var amount = 0;
-                        if (voucherIsRelatedToProduct(voucher, cartItem) || voucherIsRelatedToCategory(voucher, cartItem)) {
-                            isRelated = true;
-                            console.table(voucher);
-                        }
+                angular.forEach(listCartItemSelected, function (cartItem) {
+                    var amount = 0;
+                    if (voucherIsRelatedToProduct(voucher, cartItem) || voucherIsRelatedToCategory(voucher, cartItem)) {
+                        isRelated = true;
+                        console.table(voucher);
+                    }
 
-                        if (isRelated) {
-                            amount += cartItem.amount;
-                            totalAmount += amount;
-                            voucher.moreAmount = voucher.minimumPurchaseAmount - totalAmount;
-                            voucher.moreAmountPercents = 100 - (((voucher.minimumPurchaseAmount - totalAmount) / voucher.minimumPurchaseAmount) * 100).toFixed(2);
-                        }
-                    });
+                    if (isRelated) {
+                        amount += cartItem.amount;
+                        totalAmount += amount;
+                        voucher.moreAmount = voucher.minimumPurchaseAmount - totalAmount;
+                        voucher.moreAmountPercents = 100 - (((voucher.minimumPurchaseAmount - totalAmount) / voucher.minimumPurchaseAmount) * 100).toFixed(2);
+                    }
+                });
 
                 if (isRelated) {
                     if (voucher.moreAmountPercents < 100 && voucher.moreAmountPercents >= 0) {

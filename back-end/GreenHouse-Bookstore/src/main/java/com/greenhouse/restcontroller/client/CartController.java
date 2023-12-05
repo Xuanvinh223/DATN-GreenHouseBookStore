@@ -2,7 +2,7 @@ package com.greenhouse.restcontroller.client;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap; 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -161,17 +161,20 @@ public class CartController {
                 int quantityInStock = cart.getProductDetail().getQuantityInStock();
 
                 if (quantityInStock - quantity > 0) {
-                    Double price = cart.getPrice();
-                    Double priceDiscount = cart.getPriceDiscount();
-                    Double amount = quantity * (priceDiscount - price != 0 ? priceDiscount : price);
+                    if (quantity > 0) {
+                        Double price = cart.getPrice();
+                        Double priceDiscount = cart.getPriceDiscount();
+                        Double amount = quantity * (priceDiscount - price != 0 ? priceDiscount : price);
 
-                    cart.setQuantity(quantity);
-                    cart.setAmount(amount);
-                    cartsRepository.save(cart);
+                        cart.setQuantity(quantity);
+                        cart.setAmount(amount);
+                        cartsRepository.save(cart);
 
-                    status = "success";
-                    message = "Cập nhật thông tin sản phẩm [" + cart.getProductDetail().getProduct().getProductName()
-                            + "] trong giỏ hàng thành công";
+                        status = "success";
+                        message = "Cập nhật thông tin sản phẩm ["
+                                + cart.getProductDetail().getProduct().getProductName()
+                                + "] trong giỏ hàng thành công";
+                    }
                 } else {
                     status = "error";
                     message = "Sản phẩm [" + cart.getProductDetail().getProduct().getProductName()
