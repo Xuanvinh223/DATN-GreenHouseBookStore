@@ -94,6 +94,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="center_center mt--20" ng-if="productFlashSales.length > 8">
+                        <a class="flashsale-xemthem" ng-click="loadMoreFlashSaleToday()" th:text="#{lo.mn.flsee}">Xem
+                            thêm</a>
+                    </div>
                 </div>
             </div>
             <div class="flashsale-section mt--15" ng-if="productFlashSales.length === 0">
