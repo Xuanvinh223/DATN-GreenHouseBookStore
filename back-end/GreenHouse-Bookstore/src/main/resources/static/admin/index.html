@@ -128,17 +128,18 @@
 							</ul>
 						</li>
 
-						<li class="nav-item dropdown"><a data-target="#quanli-danhmuc" data-toggle="collapse"
-								aria-expanded="false" class="dropdown-toggle nav-link"> <i
-									class="fe fe-grid fe-18 "></i>
-								<span class="ml-3 item-text">Quản Lý Danh Mục</span>
-							</a>
-							<ul class="collapse list-unstyled pl-4 w-100" id="quanli-danhmuc">
-								<li class="nav-item"><a href="#!/category-form" class="nav-link  pl-3"> <span
-											class="ml-1 item-text">Cập
+						<li class="nav-item dropdown" ng-show="roleName !== 'Nhân viên'"><a
+                                data-target="#quanli-danhmuc" data-toggle="collapse"
+                                aria-expanded="false" class="dropdown-toggle nav-link"> <i
+                                class="fe fe-grid fe-18 "></i>
+                            <span class="ml-3 item-text">Quản Lý Danh Mục</span>
+                        </a>
+                            <ul class="collapse list-unstyled pl-4 w-100" id="quanli-danhmuc">
+                                <li class="nav-item"><a href="#!/category-form" class="nav-link  pl-3"> <span
+                                        class="ml-1 item-text">Cập
 											Nhật</span>
-									</a></li>
-								<li class="nav-item"><a href="#!/category-table" class="nav-link  pl-3"> <span
+                                </a></li>
+                                <li class="nav-item"><a href="#!/category-table" class="nav-link  pl-3"> <span
 											class="ml-1 item-text">Danh
 											Sách</span>
 									</a></li>
@@ -177,67 +178,73 @@
 													Sách</span></a></li>
 									</ul>
 								</li>
-								<li class="nav-item dropdown"><a data-target="#quanli-uudai" data-toggle="collapse"
-										aria-expanded="false" class="dropdown-toggle nav-link pl-3" href=""> <span
-											class="ml-1 item-text">Flash Sale</span>
-									</a>
-									<ul class="collapse list-unstyled pl-4 w-100" id="quanli-uudai">
-										<li class="nav-item"><a class="nav-link pl-3" href="#!/flashsale-form"><span
-													class="ml-1 item-text">Cập
+                                <li class="nav-item dropdown" ng-show="roleName !== 'Nhân viên'"><a
+                                        data-target="#quanli-uudai" data-toggle="collapse"
+                                        aria-expanded="false" class="dropdown-toggle nav-link pl-3" href=""> <span
+                                        class="ml-1 item-text">Flash Sale</span>
+                                </a>
+                                    <ul class="collapse list-unstyled pl-4 w-100" id="quanli-uudai">
+                                        <li class="nav-item"><a class="nav-link pl-3" href="#!/flashsale-form"><span
+                                                class="ml-1 item-text">Cập
 													Nhật</span></a></li>
-										<li class="nav-item"><a class="nav-link pl-3" href="#!/flashsale-table"><span
-													class="ml-1 item-text">Danh
+                                        <li class="nav-item"><a class="nav-link pl-3" href="#!/flashsale-table"><span
+                                                class="ml-1 item-text">Danh
 													Sách</span></a></li>
 									</ul>
 								</li>
 							</ul>
 						</li>
 
-						<li class="nav-item dropdown"><a data-target="#quanli-thuonghieu" data-toggle="collapse"
-								aria-expanded="false" class="dropdown-toggle nav-link"> <i
-									class="fe fe-award fe-18"></i>
-								<span class="ml-3 item-text">Quản
+                        <li class="nav-item dropdown" ng-show="roleName !== 'Nhân viên'"><a
+                                data-target="#quanli-thuonghieu" data-toggle="collapse"
+                                aria-expanded="false" class="dropdown-toggle nav-link"> <i
+                                class="fe fe-award fe-18"></i>
+                            <span class="ml-3 item-text">Quản
 									Lý Thương Hiệu</span>
-							</a>
-							<ul class="collapse list-unstyled pl-4 w-100" id="quanli-thuonghieu">
-								<li class="nav-item"><a href="#!/brand-form" class="nav-link  pl-3"> <span
-											class="ml-1 item-text">Form
+                        </a>
+                            <ul class="collapse list-unstyled pl-4 w-100" id="quanli-thuonghieu">
+                                <li class="nav-item"><a href="#!/brand-form" class="nav-link  pl-3"> <span
+                                        class="ml-1 item-text">Form
 											Cập Nhật</span>
-									</a></li>
+                                </a></li>
 								<li class="nav-item"><a href="#!/brand-table" class="nav-link  pl-3"> <span
 											class="ml-1 item-text">Danh
 											Sách</span>
 									</a></li>
 							</ul>
 						</li>
-						<li class="nav-item dropdown"><a data-target="#quanli-nhaxuatban" data-toggle="collapse"
-								aria-expanded="false" class="dropdown-toggle nav-link"> <i
-									class="fe fe-layers fe-16"></i>
-								<span class="ml-3 item-text">Quản
+                        <li class="nav-item dropdown" ng-show="roleName !== 'Nhân viên'"><a
+                                data-target="#quanli-nhaxuatban" data-toggle="collapse"
+                                aria-expanded="false" class="dropdown-toggle nav-link"> <i
+                                class="fe fe-layers fe-16"></i>
+                            <span class="ml-3 item-text">Quản
 									Lý Nhà Xuất Bản</span>
-							</a>
-							<ul class="collapse list-unstyled pl-4 w-100" id="quanli-nhaxuatban">
-								<li class="nav-item"><a href="#!/publisher-form" class="nav-link pl-3"> <span
-											class="ml-1 item-text">Form
+                        </a>
+                            <ul class="collapse list-unstyled pl-4 w-100" id="quanli-nhaxuatban">
+                                <li class="nav-item"><a href="#!/publisher-form" class="nav-link pl-3"> <span
+                                        class="ml-1 item-text">Form
 											Cập Nhật</span>
-									</a></li>
+                                </a></li>
 								<li class="nav-item"><a href="#!/publisher-table" class="nav-link  pl-3"> <span
 											class="ml-1 item-text">Danh
 											Sách</span>
 									</a></li>
 							</ul>
 						</li>
-						<li class="nav-item dropdown"><a data-target="#quanli-tacgia" data-toggle="collapse"
-								aria-expanded="false" class="dropdown-toggle nav-link"> <i
-									class="fe fe-book-open fe-18"></i> <span class="ml-3 item-text">Quản
+                        <li class="nav-item dropdown" ng-show="roleName !== 'Nhân viên'"><a data-target="#quanli-tacgia"
+                                                                                            data-toggle="collapse"
+                                                                                            aria-expanded="false"
+                                                                                            class="dropdown-toggle nav-link">
+                            <i
+                                    class="fe fe-book-open fe-18"></i> <span class="ml-3 item-text">Quản
 									Lý Tác Giả</span>
-							</a>
-							<ul class="collapse list-unstyled pl-4 w-100" id="quanli-tacgia">
-								<li class="nav-item"><a href="#!/author-form" class="nav-link  pl-3"> <span
-											class="ml-1 item-text">Cập
+                        </a>
+                            <ul class="collapse list-unstyled pl-4 w-100" id="quanli-tacgia">
+                                <li class="nav-item"><a href="#!/author-form" class="nav-link  pl-3"> <span
+                                        class="ml-1 item-text">Cập
 											Nhật</span>
-									</a></li>
-								<li class="nav-item"><a href="#!/author-table" class="nav-link  pl-3"> <span
+                                </a></li>
+                                <li class="nav-item"><a href="#!/author-table" class="nav-link  pl-3"> <span
 											class="ml-1 item-text">Danh
 											Sách</span>
 									</a></li>
