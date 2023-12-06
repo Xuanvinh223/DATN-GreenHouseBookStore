@@ -329,8 +329,12 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
     $scope.buyNow = function (productDetailId, quantity) {
         CartService.buyNow(productDetailId, quantity, username)
             .then(function (response) {
+                console.log(response);
                 $scope.showNotifi(response.message, response.status);
                 $scope.getCartHeader();
+                if(response.status == 'success') {
+                    window.location.href = '/cart'
+                }
             })
             .catch(function (error) {
                 console.log(
@@ -417,20 +421,7 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
             $('#message-cart').modal('hide');
         }, 2000);
     }
-    $scope.showNotification = function (type, message) {
-        var notification = { type: type, message: message };
-        $scope.notifications.push(notification);
-        $timeout(function () {
-            $scope.removeNotification(notification);
-        }, 3000);
-    };
 
-    $scope.removeNotification = function (notification) {
-        var index = $scope.notifications.indexOf(notification);
-        if (index !== -1) {
-            $scope.notifications.splice(index, 1);
-        }
-    };
     // =========== LOADER =============================
     $scope.isLoading = false;
     // Hàm để hiển thị loading
@@ -487,8 +478,7 @@ app.service("CartService", function ($http, cartAPI) {
     }
 
     this.buyNow = function (productDetailId, quantity, username) {
-        this.addToCart(productDetailId, quantity, username);
-        window.location.href = '/cart';
+        return this.addToCart(productDetailId, quantity, username);
     }
 
     this.getCart = function (username) {

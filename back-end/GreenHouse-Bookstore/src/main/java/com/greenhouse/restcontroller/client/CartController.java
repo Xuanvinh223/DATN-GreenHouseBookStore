@@ -69,6 +69,9 @@ public class CartController {
                 Double price = productDetail.getPrice();
                 Double priceDiscount = productDetail.getPriceDiscount();
                 Double amount = quantity * (priceDiscount > 0 ? priceDiscount : price);
+                if (duplicate != null) {
+                    quantity += duplicate.getQuantity();
+                }
 
                 if (productDetail.getQuantityInStock() - quantity >= 0) {
                     if (duplicate != null) {
@@ -94,9 +97,14 @@ public class CartController {
                     }
                     status = "success";
                     message = "Đã thêm sản phẩm vào giỏ hàng";
+                } else if (duplicate != null) {
+                    status = "error";
+                    message = "Bạn có thể thêm tối đa: "
+                            + (productDetail.getQuantityInStock() - duplicate.getQuantity());
                 } else {
                     status = "error";
-                    message = "Sản phẩm chỉ còn: " + productDetail.getQuantityInStock();
+                    message = "Bạn có thể thêm tối đa: "
+                            + (productDetail.getQuantityInStock());
                 }
             }
         } catch (Exception e) {
