@@ -31562,13 +31562,17 @@ p.show-full-text {
   background: rgb(255, 28, 51, 0.9);
   color: white;
   width: 24px;
-  height: 24px;
-  line-height: 24px;
-  font-size: 12px;
-  border-radius: 50%;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease-in-out;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+    border-radius: 50%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.footer-two {
+    padding-bottom: 20px;
 }

@@ -630,7 +630,7 @@
                       <a href="/product" th:text="#{lo.mn.product}">Sản Phẩm </a>
                     </li>
                     <li class="menu-item">
-                      <a href="/flash-sale" th:text="#{lo.mn.sales}">Ưu Đãi</a>
+                      <a href="/flash-sale" th:text="#{lo.mn.sales}"></a>
                     </li>
 
                     <li class="menu-item">
@@ -684,25 +684,25 @@
                             <a href="#">{{ categoryType.typeName }}</a>
                             <ul class="sub-menu">
                               <li ng-repeat="subcategory in getSubcategories(parentCategory, categoryType.typeName) ">
-                                <a ng-click="redirectToProduct(subcategory.categoryId,subcategory.categoryName)">{{
-                                  subcategory.categoryName }}</a>
+                                  <a ng-click="redirectToProduct(subcategory.categoryId,subcategory.categoryName)">{{
+                                      subcategory.categoryName }}</a>
                               </li>
-                              <li><a href="/product" class="title-last">Xem tất cả</a></li>
+                                <li><a href="/product" class="title-last">Xem tất cả</a></li>
                             </ul>
                           </li>
                         </ul>
                       </li>
                     </ul>
                   </li>
-                  <!-- <li class="menu-item">
-                    <a href="#!flash-sale">Ưu Đãi</a>
-                  </li> -->
-                  <li class="menu-item">
-                    <a href="/voucher" th:text="#{lo.mn.voucher}">Mã Khuyến Mãi</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="/contact" th:text="#{lo.mn.contact}">Liên Hệ</a>
-                  </li>
+                    <li class="menu-item">
+                        <a href="/flash-sale" th:text="#{lo.mn.sales}"></a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/voucher" th:text="#{lo.mn.voucher}">Mã Khuyến Mãi</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/contact" th:text="#{lo.mn.contact}">Liên Hệ</a>
+                    </li>
                 </ul>
               </nav>
               <!-- mobile menu navigation end -->
@@ -785,17 +785,17 @@
                 </div>
             </div>
           </div>
-          <div class=" col-xl-4 col-lg-2 col-sm-6 border-end border-success text-center">
-            <div class="single-footer pb--40 ">
-              <div class="footer-title">
-                <h3 th:text="#{lo.mn.dichvu}">dịch vụ của Greenhouse</h3>
-              </div>
-              <ul class="footer-list normal-list">
-                <li><a href="" th:text="#{lo.mn.baomat}">Bảo mật thông tin cá nhân</a></li>
-                <li><a href="" th:text="#{lo.mn.thanhtoan}">Bảo mật thanh toán</a></li>
-                <li><a href="" th:text="#{lo.mn.hethong}">Hệ thống uy tín</a></li>
-                <li><a href="" th:text="#{lo.mn.dieukhoan}">Điều khoản sử dụng phù hợp</a></li>
-              </ul>
+            <div class=" col-xl-4 col-lg-2 col-sm-6 border-end border-success text-center footer-two">
+                <div class="single-footer pb--40 ">
+                    <div class="footer-title">
+                        <h3 th:text="#{lo.mn.dichvu}">dịch vụ của Greenhouse</h3>
+                    </div>
+                    <ul class="footer-list normal-list">
+                        <li><a href="" th:text="#{lo.mn.baomat}">Bảo mật thông tin cá nhân</a></li>
+                        <li><a href="" th:text="#{lo.mn.thanhtoan}">Bảo mật thanh toán</a></li>
+                        <li><a href="" th:text="#{lo.mn.hethong}">Hệ thống uy tín</a></li>
+                        <li><a href="" th:text="#{lo.mn.dieukhoan}">Điều khoản sử dụng phù hợp</a></li>
+                    </ul>
             </div>
             <a href="#" class="payment-block">
                 <img src="https://pay.vnpay.vn/images/brands/logo-en.svg" alt="">
