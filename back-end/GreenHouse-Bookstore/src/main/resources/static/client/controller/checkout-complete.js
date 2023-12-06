@@ -16,6 +16,29 @@ app.controller("checkoutCompleteController", function ($scope, $http, checkoutAP
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
     //================================================
+    var socket = new SockJS('/notify');
+    var stompClient = Stomp.over(socket);
+
+    // $scope.username1 = '114069353350424347080';
+
+    // Kết nối đến WebSocket
+    stompClient.connect({}, function (frame) {
+        console.log("Checkout Connected: " + frame);
+
+        // Hàm để gửi thông báo
+        $scope.sendNotification = function (title, orderCode, username, message) {
+            var notification = {
+                username: { username: username },
+                title: title + " (" + orderCode + ")",
+                message: message,
+                createAt: new Date()
+            };
+            console.log("notification", notification);
+            // Gửi thông báo đến phía server
+            stompClient.send("/app/notify/" + username, {}, JSON.stringify(notification));
+        };
+        getData();
+    });
     function getData() {
         var currentURL = window.location.href;
         var startIndex = currentURL.indexOf("payment-callback?");
@@ -31,8 +54,12 @@ app.controller("checkoutCompleteController", function ($scope, $http, checkoutAP
                     $scope.invoiceMV = response.data.invoiceMV;
                     if (response.data.status == "success") {
                         $scope.payment_status = true;
+                        $scope.sendNotification("Thanh toán thành công cho đơn hàng ", $scope.order.orderCode, $scope.order.username, "Bạn đã đặt hàng thành công!!! ");
+
                     } else {
                         $scope.payment_status = false;
+                        $scope.sendNotification("Thanh toán thất bại cho đơn hàng ", $scope.order.orderCode, $scope.order.username, "Bạn đã đặt hàng thất bại!!! ");
+
                     }
                 })
                 .catch(function (error) {
@@ -93,14 +120,17 @@ app.controller("checkoutCompleteController", function ($scope, $http, checkoutAP
             }
         }
     }
+
+
+    // Thêm biến selectedSt
     //----------------------------------------------------------------
     $scope.VNnum2words = function (num) {
         return VNnum2words(parseInt(num));
     };
 
-    function init() {
-        getData();
-    }
+    // function init() {
+    //     getData();
+    // }
 
-    init();
+    // init();
 });

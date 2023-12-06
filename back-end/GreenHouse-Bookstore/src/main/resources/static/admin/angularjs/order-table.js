@@ -425,7 +425,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
                 message: message,
                 createAt: new Date()
             };
-
+            console.log("notification", notification);
             // Gửi thông báo đến phía server
             stompClient.send("/app/notify/" + username, {}, JSON.stringify(notification));
         };

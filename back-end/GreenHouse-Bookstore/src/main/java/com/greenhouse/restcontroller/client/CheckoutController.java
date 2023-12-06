@@ -8,6 +8,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,6 +64,8 @@ public class CheckoutController {
     private InvoiceMappingStatusRepository invoiceMappingStatusRepository;
     @Autowired
     private OrdersRepository ordersRepository;
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     @GetMapping("/getData")
     public ResponseEntity<Map<String, Object>> getData() {
@@ -277,6 +280,7 @@ public class CheckoutController {
             response.put("orderDetails", orderDetails);
             response.put("invoiceDetails", invoiceDetails);
             response.put("invoiceMV", imv);
+
             // -----------------------------------------
             if (statusInvoice.getPaymentStatus().getStatusId() == 1) {
                 status = "success";
@@ -287,6 +291,8 @@ public class CheckoutController {
                 message = "Đơn hàng chưa được thanh toán";
                 System.out.println("error");
             }
+            // Sau khi tạo sản phẩm thành công, gửi thông báo đến client sử dụng WebSocket
+            messagingTemplate.convertAndSend("/topic/products", "update");
         }
         // -----------------------------------------
 
