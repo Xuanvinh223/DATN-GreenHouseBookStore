@@ -93,6 +93,25 @@
 								<li> Sẵn Có: <span class="list-value mt--15 ">{{productDetail.quantityInStock}}</span>
 								</li>
 							</ul>
+							<div class="flashsale-product-info flashsale-product-info-desktop"
+								ng-controller="flashSaleController" ng-show="showCountdownProd">
+								<div class="flashsale-product" ng-repeat="flash in flashSales"
+									ng-show="flash.showCountdown" ng-if="flash.status == 2">
+									<div class="flashsale-product-banner" >
+										<img
+											src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/flashsale/label-flashsale.svg?q=10357">
+
+										<div class="flashsale-countdown">
+											<span class="flashsale-countdown-temp"></span>
+											<span class="flashsale-countdown-number">{{flash.hours}}</span>
+											<span>:</span>
+											<span class="flashsale-countdown-number">{{flash.minutes}}</span>
+											<span>:</span>
+											<span class="flashsale-countdown-number">{{flash.seconds}}</span>
+										</div>
+									</div>
+								</div>
+							</div>
 							<div class="price-block">
 								<span class="price1">{{ productDetail.priceDiscount|number:'0'}}đ</span>
 								<del class="price-old" ng-if="productDetail.price - productDetail.priceDiscount> 0">{{
@@ -428,8 +447,8 @@
 												<a href="" class="btn btn-outlined--primary"
 													ng-click="addToCart(quickViewProduct.productDetailId, quickViewProduct.quantity)"><span
 														class="plus-icon"></span>Thêm vào giỏ hàng</a>
-												<a ng-click="buyNow(quickViewProduct.productDetailId, quickViewProduct.quantity)" class="btn btn-outlined--primary"><span
-														class="plus-icon"></span>Mua
+												<a ng-click="buyNow(quickViewProduct.productDetailId, quickViewProduct.quantity)"
+													class="btn btn-outlined--primary"><span class="plus-icon"></span>Mua
 													Ngay</a>
 											</div>
 										</div>
