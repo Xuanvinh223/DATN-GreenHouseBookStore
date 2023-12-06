@@ -242,7 +242,10 @@ public class CheckoutService {
             pfs.stream()
                     .filter(pf -> pDetail.getProductDetailId() == pf.getProductDetail().getProductDetailId())
                     .findFirst()
-                    .ifPresent(pf -> pf.setUsedQuantity(pf.getUsedQuantity() + quantity));
+                    .ifPresent(pf -> {
+                        pf.setUsedQuantity(pf.getUsedQuantity() + quantity);
+                        product_FlashSaleRepository.save(pf);
+                    });
         });
     }
 
@@ -254,7 +257,10 @@ public class CheckoutService {
                     productDiscountRepository.findByProductDetailAndDiscount(pDetail, discount));
 
             productDiscountOptional
-                    .ifPresent(productDiscount -> discount.setUsedQuantity(discount.getUsedQuantity() + quantity)); 
+                    .ifPresent(productDiscount -> {
+                        discount.setUsedQuantity(discount.getUsedQuantity() + quantity);
+                        discountsRepository.save(discount);
+                    }); 
         });
     }
 
