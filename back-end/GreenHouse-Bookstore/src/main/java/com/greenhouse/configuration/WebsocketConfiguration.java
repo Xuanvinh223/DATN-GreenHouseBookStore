@@ -1,6 +1,5 @@
 package com.greenhouse.configuration;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -10,12 +9,6 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer {
-
-    @Value("${greenhouse.host}")
-    private String greenhouseHost;
-
-    @Value("${greenhouse.port}")
-    private int greenhousePort;
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {

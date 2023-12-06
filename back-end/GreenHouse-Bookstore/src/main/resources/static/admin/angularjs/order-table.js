@@ -430,6 +430,171 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             stompClient.send("/app/notify/" + username, {}, JSON.stringify(notification));
         };
     });
+    // Thêm biến selectedStatus vào scope để theo dõi trạng thái hiện tại
+    $scope.selectedStatus = 'all';
+
+    // Hàm thay đổi trạng thái
+    $scope.changeStatus = function (status) {
+        $scope.selectedStatus = status;
+        $scope.loadOrders(); // Gọi hàm loadOrders hoặc tương tự để cập nhật dữ liệu
+    };
+
+    // Thêm ánh xạ trạng thái
+    $scope.statusMapping = {
+        'pending_confirmation': 'Chờ Xác Nhận',
+        'pending': 'Chờ Bàn Giao',
+        'transporting': 'Đang Giao',
+        'return_transporting': 'Đang Hoàn Hàng',
+        'waiting_to_return': 'Chờ Xác Nhận Giao Lại',
+        'completed': 'Hoàn Tất',
+        'received': 'Đã Nhận',
+        'cancel': 'Đã Hủy',
+        'lost_damage': 'Hàng Thất Lạc - Hư Hỏng'
+    };
+
+    // Sửa đoạn mã xuất Excel
+    $scope.exportToExcel = function () {
+        if ($scope.filteredOrders.length === 0) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Không có dữ liệu để xuất Excel.',
+                text: 'Vui lòng kiểm tra lại.',
+            });
+            return;
+        }
+
+        // Tạo mảng dữ liệu cho tệp Excel
+        var excelData = [
+            ['BÁO CÁO - DANH SÁCH HÓA ĐƠN'], // Header
+            [], // Empty row for spacing
+            ['STT', 'Mã Đơn', 'Ngày Tạo', 'Người Đặt', 'SĐT', 'Địa Chỉ Giao Hàng', 'Phí Vận Chuyển', 'Thanh Toán Bằng', 'Trạng Thái']
+        ];
+
+        $scope.filteredOrders.forEach(function (item, index) {
+            excelData.push([
+                index + 1,
+                item.orderCode,
+                $scope.formatDate(item.create_Date),
+                item.username,
+                item.toPhone,
+                item.toAddress,
+                item.codAmount,
+                item.invoices.paymentMethod,
+                $scope.statusMapping[item.status] || item.status
+            ]);
+        });
+
+        // Đặt độ rộng cố định cho từng cột (có thể điều chỉnh theo ý muốn)
+        var colWidths = [10, 20, 20, 20, 15, 30, 25, 25, 20];
+
+        // Sử dụng thư viện XLSX để tạo tệp Excel
+        var ws = XLSX.utils.aoa_to_sheet(excelData);
+
+        // Đặt độ rộng cố định cho các cột
+        for (var i = 0; i < colWidths.length; i++) {
+            ws['!cols'] = ws['!cols'] || [];
+            ws['!cols'].push({ wch: colWidths[i] });
+        }
+
+        // Căn giữa dữ liệu trong từng cột
+        for (var row = 0; row < excelData.length; row++) {
+            for (var col = 0; col < excelData[row].length; col++) {
+                ws[XLSX.utils.encode_cell({ r: row, c: col })].s = { alignment: { horizontal: 'center' } };
+            }
+        }
+
+        var currentTime = moment().format('DDMMYYYY_HHmmss');
+        var statusMapping = $scope.statusMapping[$scope.currentStatus] || $scope.currentStatus;
+        var fileName = 'danh_sach_don_hang_' + statusMapping + '_' + currentTime + '.xlsx';
+
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Danh sách đơn hàng');
+
+        // Xuất tệp Excel
+        XLSX.writeFile(wb, fileName);
+    };
+
+    // Tạo một đối tượng mapping giữa trạng thái tiếng Anh và tiếng Việt
+    var statusMapping = {
+        'pending_confirmation': 'Chờ Xác Nhận',
+        'pending': 'Chờ Bàn Giao',
+        'transporting': 'Đang Giao',
+        'return_transporting': 'Đang Hoàn Hàng',
+        'waiting_to_return': 'Chờ Xác Nhận Giao Lại',
+        'completed': 'Hoàn Tất',
+        'received': 'Đã Nhận',
+        'cancel': 'Đã Hủy',
+        'lost_damage': 'Hàng Thất Lạc - Hư Hỏng'
+    };
+    // Thay đổi hàm printPDF để chỉ in dữ liệu theo trạng thái hiện tại
+    $scope.printPDF = function () {
+        // Kiểm tra nếu không có dữ liệu
+        // if ($scope.filteredOrders.length === 0) {
+        //     alert('Không có dữ liệu để xuất PDF.');
+        //     return;
+        // }
+        if ($scope.filteredOrders.length === 0) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Không có dữ liệu để xuất PDF.',
+                text: 'Vui lòng kiểm tra lại.',
+            });
+            return;
+        }
+        var headerTable = {
+            table: {
+                headerRows: 1,
+                widths: [20, 40, 50, 50, 50, 90, 40, 60, 35],
+                body: [
+                    [{ text: 'STT', alignment: 'center', fontSize: 11 },
+                    { text: 'Mã Đơn', alignment: 'center', fontSize: 11 },
+                    { text: 'Ngày Tạo', alignment: 'center', fontSize: 11 },
+                    { text: 'Người Đặt', alignment: 'center', fontSize: 11 },
+                    { text: 'SĐT', alignment: 'center', fontSize: 11 },
+                    { text: 'Địa Chỉ Giao Hàng', alignment: 'center', fontSize: 11 },
+                    { text: 'Phí Vận Chuyển', alignment: 'center', fontSize: 11 },
+                    { text: 'Thanh Toán Bằng', alignment: 'center', fontSize: 11 },
+                    { text: 'Trạng Thái', alignment: 'center', fontSize: 11 }]
+                ]
+            }
+        };
+
+        var bodyTable = {
+            table: {
+                widths: [20, 40, 50, 50, 50, 90, 40, 60, 35],
+                body: $scope.filteredOrders.map((item, index) => [
+                    { text: (index + 1).toString(), alignment: 'center', fontSize: 11 },
+                    { text: item.orderCode, alignment: 'center', fontSize: 11 },
+                    { text: $scope.formatDate(item.create_Date), fontSize: 11 },
+                    { text: item.username, fontSize: 11 },
+                    { text: item.toPhone, fontSize: 11 },
+                    { text: item.toAddress, fontSize: 11 },
+                    { text: item.codAmount, fontSize: 11 },
+                    { text: item.invoices.paymentMethod, fontSize: 11 },
+                    { text: statusMapping[item.status], fontSize: 11 }, // Sử dụng đối tượng mapping
+                ])
+            }
+        };
+
+        var docDefinition = {
+            pageOrientation: 'portrait',
+            pageSize: 'A4',
+            content: [
+                { text: 'Danh sách đơn hàng', style: 'header' },
+                ' ',
+                { text: 'Ngày in: ' + moment().format('DD/MM/YYYY'), alignment: 'right', fontSize: 12 },
+                ' ',
+                headerTable,
+                bodyTable
+            ],
+            styles: {
+                header: { fontSize: 16, bold: true, alignment: 'center' },
+                default: { fontSize: 14 }
+            }
+        };
+
+        pdfMake.createPdf(docDefinition).open();
+    };
 
 
     // END WEBSOCKET
