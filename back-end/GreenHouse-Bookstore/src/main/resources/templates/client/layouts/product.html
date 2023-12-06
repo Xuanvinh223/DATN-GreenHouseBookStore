@@ -617,7 +617,9 @@
             <div class="modal-content model-message">
                 <!-- Modal body -->
                 <div class="modal-body text-center">
-                    <i class="far fa-check-circle text-success mb-1" style="font-size: 50px;"></i>
+                    <i class="fas mb-1"
+                        ng-class="{'fa-exclamation-circle text-danger': !typeNotifi, 'fa-check-circle text-success': typeNotifi}"
+                        style="font-size: 50px;" ></i>
                     <p class="mt--10" style="color: rgb(255, 255, 255);">{{ modalContent }}</p>
                 </div>
             </div>

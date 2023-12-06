@@ -87,7 +87,7 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
             $scope.updateQuantity(index);
         } else {
             $scope.removeFromCart(index);
-        }
+        } 
     }
 
     $scope.addQuantity = function (index) {

@@ -93,11 +93,10 @@ public class CartController {
                         cartsRepository.save(cart);
                     }
                     status = "success";
-                    message = "Đã thêm sản phẩm [" + productDetail.getProduct().getProductName() + "] vào giỏ hàng";
+                    message = "Đã thêm sản phẩm vào giỏ hàng";
                 } else {
                     status = "error";
-                    message = "Sản phẩm [" + productDetail.getProduct().getProductName() + "] chỉ còn: ["
-                            + productDetail.getQuantityInStock() + "]";
+                    message = "Sản phẩm chỉ còn: " + productDetail.getQuantityInStock();
                 }
             }
         } catch (Exception e) {

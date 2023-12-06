@@ -315,8 +315,7 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
     $scope.addToCart = function (productDetailId, quantity) {
         CartService.addToCart(productDetailId, quantity, username)
             .then(function (response) {
-                // $scope.showNotification(response.status, response.message);
-                $scope.showNotifi();
+                $scope.showNotifi(response.message, response.status);
                 $scope.getCartHeader();
             })
             .catch(function (error) {
@@ -330,7 +329,7 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
     $scope.buyNow = function (productDetailId, quantity) {
         CartService.buyNow(productDetailId, quantity, username)
             .then(function (response) {
-                $scope.showNotifi();
+                $scope.showNotifi(response.message, response.status);
                 $scope.getCartHeader();
             })
             .catch(function (error) {
@@ -405,9 +404,15 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
     // =========== NOTIFICATION =============================
     $scope.notifications = [];
 
-    $scope.showNotifi = function () {
+    $scope.showNotifi = function (message, status) {
+        $scope.modalContent = message;
+        if(status == 'success') {
+            $scope.typeNotifi = true;
+        }else{
+            $scope.typeNotifi = false;
+        }
         $('#message-cart').modal('show');
-        $scope.modalContent = "Sản phẩm đã được thêm vào giỏ hàng!";
+
         $timeout(function () {
             $('#message-cart').modal('hide');
         }, 2000);
