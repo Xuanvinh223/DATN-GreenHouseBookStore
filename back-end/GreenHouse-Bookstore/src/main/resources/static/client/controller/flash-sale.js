@@ -14,12 +14,14 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
         $scope.loadMoreFlashSaleToday = function () {
             $scope.visibleFlashSaleCount += 8;
         };
+        $scope.productFlashSales = [];
         // Hàm load dữ liệu
         $scope.loadData = function () {
             // Tạo mảng promise cho cả hai yêu cầu HTTP
             var promises = [
                 $http.get(`${host}`),
-                $http.get("http://localhost:8081/customer/rest/flashSales")
+                $http.get("http://localhost:8081/customer/rest/flashSales"),
+                $http.get("http://localhost:8081/customer/rest/getProductDetail")
             ];
 
             // Sử dụng Promise.all để chờ cả hai promise hoàn thành
@@ -28,11 +30,16 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
                     // responses[0] chứa kết quả của yêu cầu đầu tiên
                     // responses[1] chứa kết quả của yêu cầu thứ hai
                     $scope.productFlashSales = filterData(responses[0].data);
-                    console.log($scope.productFlashSales);
-                    $scope.showCountdownProd = checkAndDisplayCountdownForProductDetail($scope.productDetailId, $scope.productFlashSales);
-                    console.log("$scope.showCountdownProd", $scope.showCountdownProd);
-
                     $scope.flashSales = responses[1].data;
+                    $scope.productDetails = responses[2].data;
+                    $scope.showCountdownProd = checkAndDisplayCountdownForProductDetail($scope.productDetailId, $scope.productFlashSales);
+                    $scope.discountPercentage = getDiscountPercentageForProduct($scope.productDetailId, $scope.productFlashSales);
+
+                    // $scope.discountPercentages = $scope.currentFlashSaleProducts.map(product =>
+                    //     getDiscountPercentageForProduct(product.productDetailId, $scope.productFlashSales)
+                    // );
+
+
                     if (!$scope.flashSales.some(flash => flash.status === 2)) {
                         $scope.showSection = false;
                     } else {
@@ -44,6 +51,20 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
                 .catch((error) => {
                     console.log("Error", error);
                 });
+        };
+      
+        $scope.hasDiscount = function (productDetailId) {
+            // Kiểm tra nếu cả $scope.productFlashSales và $scope.productDetails tồn tại và không phải là undefined
+            if ($scope.productFlashSales && $scope.productFlashSales.length > 0 ) {
+                var discountValue = null;
+                // Lọc từ listProductFlashSale để tìm discountValue
+                $scope.productFlashSales.find(e => {
+                    if (e.productDetail.productDetailId === productDetailId) {
+                        discountValue = e.discountPercentage
+                    }
+                });
+            }
+            return discountValue ? discountValue : 0;
         };
 
         // Hàm lọc dữ liệu
@@ -72,6 +93,13 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
             });
 
             return showCountdown;
+        }
+        function getDiscountPercentageForProduct(productDetailId, productFlashSales) {
+            var flashSale = productFlashSales.find(function (flashSale) {
+                return flashSale.productDetail.productDetailId == productDetailId;
+            });
+
+            return flashSale ? flashSale.discountPercentage : null;
         }
 
         function isWithinTimeFrame(startTime, endTime) {
