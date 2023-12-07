@@ -243,6 +243,13 @@
                                     </div>
 
                                 </div>
+                                     <!-- hiển thị tên file đã chọn ở đây -->
+                                     <div class="selected-file">
+                                        {{ selectedFileName }}
+                                        <a ng-click="clearSelectedFile()" ng-if="selectedFileName">
+                                            <i class="fas fa-times"></i>
+                                        </a>
+                                    </div>
 
                                 <div class="btn-group">
                                     <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle"

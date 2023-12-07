@@ -313,6 +313,19 @@ app.controller("ProductController", function ($scope, $http, $filter) {
             return;
         }
 
+        var fileType = file.type;
+        if (fileType !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" &&
+            fileType !== "application/vnd.ms-excel") {
+            // Bắt lỗi khi định dạng không đúng
+            Swal.fire({
+                icon: "error",
+                title: "Lỗi",
+                text: "Định dạng file Excel không đúng. Vui lòng chọn lại.",
+            });
+            return;
+        }
+    
+
         if (file) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -363,9 +376,26 @@ app.controller("ProductController", function ($scope, $http, $filter) {
         }
     };
 
+    $scope.selectedFileName = "";  // Thêm biến này vào $scope
+
     $scope.openFileInput = function () {
-        document.getElementById('fileInputExcel').click();
+        var fileInput = document.getElementById('fileInputExcel');
+        fileInput.click();  // Kích hoạt sự kiện click trực tiếp từ mã nguồn
+    
+        // Cập nhật tên file đã chọn
+        fileInput.addEventListener('change', function () {
+            $scope.selectedFileName = fileInput.files[0].name;
+            $scope.$apply();  // Cập nhật scope để hiển thị ngay lập tức
+        });
     };
+    
+    $scope.clearSelectedFile = function () {
+        $scope.selectedFileName = "";
+        // Đặt giá trị input file thành rỗng để có thể chọn lại cùng một file
+        document.getElementById('fileInputExcel').value = "";
+    };
+    
+        
     $scope.calculateRange = function () {
         var filteredData = $scope.getFilteredData();
         var start = ($scope.currentPage - 1) * $scope.itemsPerPage;
@@ -395,12 +425,43 @@ app.controller("ProductController", function ($scope, $http, $filter) {
 
         // Lưu hình ảnh sản phẩm
         if (fileInput && fileInput.files.length > 0) {
-            formData.append("image", fileInput.files[0]);
+            var file = fileInput.files[0];
+
+            // Kiểm tra nếu là tệp hình ảnh
+            if (isImageFile(file)) {
+                formData.append("image", file);
+            } else {
+                // Nếu không phải là hình ảnh, hiển thị thông báo lỗi bằng Swal
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi",
+                    text: "Chỉ cho phép tải lên các file hình ảnh (png, jpg, jpeg).",
+                });
+                // Ẩn hiệu ứng loading khi lưu thành công
+                loadingOverlay.style.display = "none";
+                return;
+            }
         }
 
         // Lưu nhiều hình ảnh sản phẩm
         for (var i = 0; i < $scope.selectedImages.length; i++) {
-            formData.append("file", $scope.selectedImages[i].file);
+            var selectedImage = $scope.selectedImages[i];
+            var selectedFile = selectedImage.file;
+
+            // Kiểm tra nếu là tệp hình ảnh
+            if (isImageFile(selectedFile)) {
+                formData.append("file", selectedFile);
+            } else {
+                // Nếu không phải là hình ảnh, hiển thị thông báo lỗi bằng Swal
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi",
+                    text: "Chỉ cho phép tải lên các file hình ảnh (png, jpg, jpeg).",
+                });
+                // Ẩn hiệu ứng loading khi lưu thành công
+                loadingOverlay.style.display = "none";
+                return;
+            }
         }
 
         // Tạo id ngẫu nhiên nếu đang thêm sản phẩm mới
@@ -503,17 +564,44 @@ app.controller("ProductController", function ($scope, $http, $filter) {
         var formData = new FormData();
         var fileInput = document.getElementById("fileInput");
 
+        // Lưu hình ảnh sản phẩm
         if (fileInput && fileInput.files.length > 0) {
-            // Lưu hình ảnh sản phẩm
-            formData.append("image", fileInput.files[0]);
+            var file = fileInput.files[0];
+
+            // Kiểm tra nếu là tệp hình ảnh
+            if (isImageFile(file)) {
+                formData.append("image", file);
+            } else {
+                // Nếu không phải là hình ảnh, hiển thị thông báo lỗi bằng Swal
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi",
+                    text: "Chỉ cho phép tải lên các file hình ảnh (png, jpg, jpeg).",
+                });
+                // Ẩn hiệu ứng loading khi lưu thành công
+                loadingOverlay.style.display = "none";
+                return;
+            }
         }
 
         // Lưu nhiều hình ảnh sản phẩm
         for (var i = 0; i < $scope.editingProduct.productImages.length; i++) {
             var image = $scope.editingProduct.productImages[i];
-            if (!image.deleted) {
-                // Nếu ảnh không bị xóa, thì mới thêm vào formData
+
+            // Kiểm tra nếu ảnh không bị xóa và là tệp hình ảnh
+            if (!image.deleted && isImageFile(image.file)) {
+                // Thêm vào formData
                 formData.append("file", image.file);
+            } else if (!image.deleted) {
+                // Nếu không phải là hình ảnh, hiển thị thông báo lỗi bằng Swal
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi",
+                    text: "Chỉ cho phép tải lên các file hình ảnh (png, jpg, jpeg).",
+                });
+                // Ẩn hiệu ứng loading khi lưu thành công
+                loadingOverlay.style.display = "none";
+                return;
             }
         }
 
@@ -606,7 +694,7 @@ app.controller("ProductController", function ($scope, $http, $filter) {
             $scope.showAuthorSelected = true; // Hiển thị form chọn tên tác giả
         } else {
             $scope.showAuthorSelected = false; // Ẩn form chọn tên tác giả
-        }yy
+        } yy
     };
 
 
@@ -749,7 +837,7 @@ app.controller("ProductController", function ($scope, $http, $filter) {
         // Nếu sản phẩm đang kinh doanh, hiển thị thông báo xác nhận
         Swal.fire({
             title: "Ngừng kinh doanh sản phẩm?",
-            text: `Bạn muốn ngừng kinh doanh hàng hóa mã ${productId} trên hệ thống?\n\nLưu ý:\n- Thông tin tồn kho và lịch sử giao dịch vẫn được giữ.\n- Hàng hóa quy đổi liên quan cũng sẽ ngừng kinh doanh.`,
+            text: `Bạn muốn ngừng kinh doanh sản phẩm mã ${productId} trên hệ thống?\n\nLưu ý:\n- Thông tin tồn kho và lịch sử giao dịch vẫn được giữ.`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Có",
@@ -1030,28 +1118,42 @@ app.controller("ProductController", function ($scope, $http, $filter) {
 
     $scope.selectedImages = [];
     // Hàm xử lý khi người dùng chọn nhiều ảnh
+    // Hàm xử lý khi người dùng chọn nhiều ảnh
     $scope.onImageSelect = function (event) {
         var files = event.target.files;
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            var imageUrl = URL.createObjectURL(file);
-            if ($scope.selectedImages.length < 5) {
-                $scope.$apply(function () {
-                    $scope.selectedImages.push({ file: file, image: imageUrl });
-                });
+
+            // Kiểm tra nếu là tệp hình ảnh
+            if (isImageFile(file)) {
+                var imageUrl = URL.createObjectURL(file);
+                if ($scope.selectedImages.length < 5) {
+                    $scope.$apply(function () {
+                        $scope.selectedImages.push({ file: file, image: imageUrl });
+                    });
+                } else {
+                    // Hiển thị thông báo nếu đã chọn đủ 5 ảnh
+                    Swal.fire({
+                        icon: "error",
+                        title: "Thất bại",
+                        text: "Chỉ được chọn tối đa 5 ảnh.",
+                    });
+                    break;
+                }
             } else {
-                // Hiển thị thông báo nếu đã chọn đủ 5 ảnh
+                // Nếu không phải là hình ảnh, hiển thị thông báo lỗi bằng Swal
                 Swal.fire({
                     icon: "error",
-                    title: "Thất bại",
-                    text: "Chỉ được chọn tối đa 5 ảnh.",
+                    title: "Lỗi",
+                    text: "Chỉ cho phép tải lên các file hình ảnh (png, jpg, jpeg).",
                 });
+                // Đặt giá trị của input file về null để người dùng có thể chọn lại một tệp khác.
+                event.target.value = null;
                 break;
             }
         }
         console.log(files);
     };
-
 
 
     // Hàm xử lý khi người dùng xóa một ảnh
@@ -1099,18 +1201,32 @@ app.controller("ProductController", function ($scope, $http, $filter) {
         var files = event.target.files;
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            var imageUrl = URL.createObjectURL(file);
-            if ($scope.editingProduct.productImages.length < 5) {
-                $scope.$apply(function () {
-                    $scope.editingProduct.productImages.push({ file: file, image: imageUrl });
-                });
+
+            // Kiểm tra nếu là tệp hình ảnh
+            if (isImageFile(file)) {
+                var imageUrl = URL.createObjectURL(file);
+                if ($scope.editingProduct.productImages.length < 5) {
+                    $scope.$apply(function () {
+                        $scope.editingProduct.productImages.push({ file: file, image: imageUrl });
+                    });
+                } else {
+                    // Hiển thị thông báo nếu đã chọn đủ 5 ảnh
+                    Swal.fire({
+                        icon: "error",
+                        title: "Thất bại",
+                        text: "Chỉ được chọn tối đa 5 ảnh.",
+                    });
+                    break;
+                }
             } else {
-                // Hiển thị thông báo nếu đã chọn đủ 5 ảnh
+                // Nếu không phải là hình ảnh, hiển thị thông báo lỗi bằng Swal
                 Swal.fire({
                     icon: "error",
-                    title: "Thất bại",
-                    text: "Chỉ được chọn tối đa 5 ảnh.",
+                    title: "Lỗi",
+                    text: "Chỉ cho phép tải lên các file hình ảnh (png, jpg, jpeg).",
                 });
+                // Đặt giá trị của input file về null để người dùng có thể chọn lại một tệp khác.
+                event.target.value = null;
                 break;
             }
         }
@@ -1123,16 +1239,37 @@ app.controller("ProductController", function ($scope, $http, $filter) {
 }
 );
 
+// Hiển thị ảnh tải lên khi chọn tệp
 function displayImage(event) {
     var imageElement = document.getElementById("uploadedImage");
     var fileInput = event.target;
 
     if (fileInput.files && fileInput.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            imageElement.src = e.target.result;
-        };
+        var file = fileInput.files[0];
 
-        reader.readAsDataURL(fileInput.files[0]);
+        // Kiểm tra nếu là tệp hình ảnh
+        if (isImageFile(file)) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imageElement.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            // Nếu không phải là hình ảnh, hiển thị thông báo lỗi bằng Swal
+            Swal.fire({
+                icon: "error",
+                title: "Lỗi",
+                text: "Chỉ cho phép tải lên các file hình ảnh (png, jpg, jpeg).",
+            });
+            // Đặt giá trị của input file về null để người dùng có thể chọn lại một tệp khác.
+            fileInput.value = null;
+        }
     }
+}
+
+// Kiểm tra nếu là tệp hình ảnh
+function isImageFile(file) {
+    return file.type.startsWith("image/");
 }

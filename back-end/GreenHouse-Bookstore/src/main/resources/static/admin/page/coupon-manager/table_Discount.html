@@ -6,11 +6,12 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="card-title mb-0">Thông Tin Giảm Giá</h4>
 
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addDiscountModal">
+                        <button type="button" class="btn btn-success" data-toggle="modal"
+                            data-target="#addDiscountModal">
                             <i class="fa fa-plus"> </i> Thêm Giảm Giá
 
                         </button>
-                       
+
                     </div>
                 </div>
 
@@ -21,7 +22,7 @@
     <!-- .col-12 -->
     <!-- Modal -->
     <div class="modal fade" id="addDiscountModal" tabindex="-1" role="dialog" aria-labelledby="addDiscountModalLabel"
-         aria-hidden="true">
+        aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -40,19 +41,20 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="discountId">Mã Giảm Giá(*)</label>
                                         <input type="text" ng-model="editingDiscount.discountId" class="form-control"
-                                               id="discountId" name="discountId" ng-disabled="isEditing"
-                                               placeholder="Mã giảm giá tự động">
+                                            id="discountId" name="discountId" ng-disabled="isEditing"
+                                            placeholder="Mã giảm giá tự động">
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="startDate">Ngày bắt đầu(*)</label>
                                         <input class="form-control" type="date" ng-model="editingDiscount.startDate"
-                                               ng-change="hideError('startDate')" name="startDate">
-                                        <small class="text-danger" ng-show="errors.startDate">{{ errors.startDate }}</small>
+                                            ng-change="hideError('startDate')" name="startDate">
+                                        <small class="text-danger" ng-show="errors.startDate">{{ errors.startDate
+                                            }}</small>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="endDate">Ngày kết thúc(*)</label>
                                         <input class="form-control" type="date" ng-model="editingDiscount.endDate"
-                                               ng-change="hideError('endDate')" name="endDate">
+                                            ng-change="hideError('endDate')" name="endDate">
                                         <small class="text-danger" ng-show="errors.endDate">{{ errors.endDate }}</small>
                                     </div>
                                 </div>
@@ -60,16 +62,16 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="value">Giá Trị Giảm Giá(*)</label>
                                         <input class="form-control" type="number" ng-model="editingDiscount.value"
-                                               name="value" ng-change="hideError('value')"
-                                               placeholder="Nhập giá tiền">
+                                            name="value" ng-change="hideError('value')" placeholder="Nhập giá tiền">
                                         <small class="text-danger" ng-show="errors.value">{{ errors.value }}</small>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="quantity">Tổng Số Lượng(*)</label>
                                         <input class="form-control" type="number" ng-model="editingDiscount.quantity"
-                                               name="quantity" ng-change="hideError('quantity')"
-                                               placeholder="Nhập số lượng">
-                                        <small class="text-danger" ng-show="errors.quantity">{{ errors.quantity }}</small>
+                                            name="quantity" ng-change="hideError('quantity')"
+                                            placeholder="Nhập số lượng">
+                                        <small class="text-danger" ng-show="errors.quantity">{{ errors.quantity
+                                            }}</small>
                                     </div>
                                 </div>
                                 <button type="button" class="btn btn-primary" ng-click="saveDiscount()">
@@ -79,8 +81,8 @@
                                         class="fa fa-undo"> </i> Làm Mới
                                 </button>
                             </div>
-              </div>
-            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -102,16 +104,27 @@
                                     <div class="input-wrapper">
                                         <i class="fe fe-search fe-18 icon"></i>
                                         <input class="form-control input" type="search" placeholder="Tìm kiếm..."
-                                               ng-model="searchText" ng-change="searchData()">
+                                            ng-model="searchText" ng-change="searchData()">
                                     </div>
                                 </div>
                                 <div ng-if="noResults" class="alert alert-warning">
                                     Không tìm thấy dữ liệu.
                                 </div>
+
+                                <!-- hiển thị tên file đã chọn ở đây -->
+                                <div class="selected-file">
+                                    {{ selectedFileName }}
+                                    <a ng-click="clearSelectedFile()" ng-if="selectedFileName">
+                                        <i class="fas fa-times"></i>
+                                    </a>
+                                </div>
+
+
+
                                 <div class="btn-group">
                                     <button class="btn btn-default border-1 float-right ml-3 dropdown-toggle"
-                                            type="button" id="btn-products" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
+                                        type="button" id="btn-products" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
                                         Tất cả trạng thái
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="btn-products">
@@ -124,7 +137,7 @@
                                                 <i class="fas fa-file-excel"></i> Chọn File Excel
                                             </a>
                                             <input type="file" id="fileInputExcel" accept=".xls,.xlsx"
-                                                   style="display:none"/>
+                                                style="display:none" />
 
                                             <a type="button" class="dropdown-item" ng-click="importDiscounts()">
                                                 <i class="fas fa-save"></i> Lưu File Excel
@@ -132,14 +145,15 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             <!-- table -->
                             <table class="table table-striped table-hover">
                                 <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>
-                                        <a ng-click="sortBy('discountId')" href="" style="text-decoration: none;">
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>
+                                            <a ng-click="sortBy('discountId')" href="" style="text-decoration: none;">
                                                 Mã Giảm Giá
                                                 <i class="mdi mdi-swap-vertical"></i>
                                             </a>
@@ -180,7 +194,7 @@
                                                 <i class="mdi mdi-swap-vertical"></i>
                                             </a>
                                         </th>
-                                    <th>Thao Tác</th>
+                                        <th>Thao Tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>

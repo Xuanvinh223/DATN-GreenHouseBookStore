@@ -49,6 +49,18 @@ app.controller("DiscountController", function ($scope, $location, $routeParams, 
             });
             return;
         }
+
+        var fileType = file.type;
+        if (fileType !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" &&
+            fileType !== "application/vnd.ms-excel") {
+            // Bắt lỗi khi định dạng không đúng
+            Swal.fire({
+                icon: "error",
+                title: "Lỗi",
+                text: "Định dạng file Excel không đúng. Vui lòng chọn lại.",
+            });
+            return;
+        }
     
         if (file) {
             var reader = new FileReader();
@@ -99,11 +111,29 @@ app.controller("DiscountController", function ($scope, $location, $routeParams, 
             reader.readAsArrayBuffer(file);
         }
     };
+
+
+    $scope.selectedFileName = "";  // Thêm biến này vào $scope
+
+$scope.openFileInput = function () {
+    var fileInput = document.getElementById('fileInputExcel');
+    fileInput.click();  // Kích hoạt sự kiện click trực tiếp từ mã nguồn
+
+    // Cập nhật tên file đã chọn
+    fileInput.addEventListener('change', function () {
+        $scope.selectedFileName = fileInput.files[0].name;
+        $scope.$apply();  // Cập nhật scope để hiển thị ngay lập tức
+    });
+};
+
+$scope.clearSelectedFile = function () {
+    $scope.selectedFileName = "";
+    // Đặt giá trị input file thành rỗng để có thể chọn lại cùng một file
+    document.getElementById('fileInputExcel').value = "";
+};
+
     
-    $scope.openFileInput = function () {
-        document.getElementById('fileInputExcel').click();
-    };
-    
+ 
 
     $scope.loadDiscounts = function () {
         var url = `${host}`;
