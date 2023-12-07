@@ -234,6 +234,9 @@ app.controller("OrderController", function ($scope, $http, $interval) {
         var length = order.length;
         var width = order.width;
         var height = order.height;
+        if (order.insuranceValue > 8000000) {
+            order.insuranceValue = 8000000;
+        }
         var insuranceValue = order.insuranceValue;
         var serviceId = order.serviceId;
         var serviceTypeId = order.serviceTypeId;
@@ -284,7 +287,6 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             items: items
         };
 
-
         var requestConfig = {
             headers: {
                 'Content-Type': 'application/json',
@@ -292,39 +294,44 @@ app.controller("OrderController", function ($scope, $http, $interval) {
                 'Token': tokenGHN
             }
         };
-
+        var updatedOrder = {
+            status: 'pending',
+            confirmed_By: $scope.username,
+            note: 'Đơn hàng của bạn đã được GreenHouse xác nhận!',
+            returnAddress: '',
+        };
         $http.post(apiUrl, requestBody, requestConfig)
             .then(function (response) {
                 $scope.getData();
-                console.log(response.data);
+                console.log(response.data.data.order_code);
+                $scope.returnAddress = response.data.data.order_code;
+                console.log($scope.returnAddress);
+                updatedOrder.returnAddress = $scope.returnAddress;
+                $http.put('/rest/order/cancelOrder/' + order.orderCode, updatedOrder)
+                    .then(function (response) {
+                        // Xử lý khi hủy đơn hàng thành công
+                        console.log(response.data);
+                        loadingOverlay.style.display = "none";
+                        $scope.sendNotification("Thông báo giao hàng", order.orderCode, order.username, "Đơn hàng của bạn đã được GreenHouse xác nhận ");
+                        $scope.getData();
+                        $scope.clearCancel();
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "Thành công",
+                            text: `Xác nhận đơn hàng thành công`,
+                        });
+                    })
+                    .catch(function (error) {
+                        // Xử lý khi có lỗi xảy ra
+                        console.error("Lỗi khi hủy đơn hàng:", error.data);
+                    });
             })
             .catch(function (error) {
                 console.error(error);
             });
-        var updatedOrder = {
-            status: 'pending',
-            confirmed_By: $scope.username,
-            note: 'Đơn hàng của bạn đã được GreenHouse xác nhận!'
-        };
-        $http.put('/rest/order/cancelOrder/' + order.orderCode, updatedOrder)
-            .then(function (response) {
-                // Xử lý khi hủy đơn hàng thành công
-                console.log(response.data);
-                loadingOverlay.style.display = "none";
-                $scope.sendNotification("Thông báo giao hàng", order.orderCode, order.username, "Đơn hàng của bạn đã được GreenHouse xác nhận ");
-                $scope.getData();
-                $scope.clearCancel();
 
-                Swal.fire({
-                    icon: "success",
-                    title: "Thành công",
-                    text: `Xác nhận đơn hàng thành công`,
-                });
-            })
-            .catch(function (error) {
-                // Xử lý khi có lỗi xảy ra
-                console.error("Lỗi khi hủy đơn hàng:", error.data);
-            });
+
     };
 
     //Hàm hủy
@@ -336,6 +343,8 @@ app.controller("OrderController", function ($scope, $http, $interval) {
         $scope.cancelOrder.noteCancel = "";
         $scope.cancelOrder.status = item.status;
         $scope.errorsNoteCancel = "";
+        $scope.cancelOrder.returnAddress = item.returnAddress;
+        console.log(item);
     };
 
     $scope.confirmCancel = function () {
@@ -354,14 +363,14 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             if ($scope.cancelOrder.status === 'pending') {
                 // Nếu đơn hàng ở trạng thái 'pending', thực hiện cuộc gọi API của Giao Hàng Nhanh
                 var ghnApiData = {
-                    order_codes: [$scope.cancelOrder.orderCode]
+                    order_codes: [$scope.cancelOrder.returnAddress]
                 };
 
                 $http.post('https://online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel', ghnApiData, {
                     headers: {
                         'Content-Type': 'application/json',
-                        'ShopId': '4586990',
-                        'Token': '7a77199f-6293-11ee-af43-6ead57e9219a'
+                        'ShopId': shopIdGHN,
+                        'Token': tokenGHN
                     }
                 }).then(function (ghnResponse) {
                     // Xử lý phản hồi từ Giao Hàng Nhanh (nếu cần)
