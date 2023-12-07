@@ -142,7 +142,7 @@ public class CheckoutService {
 
         String orderCode = generateOrderCode();
         while (ordersRepository.existsById(orderCode)) {
-            orderCode = generateOrderCode();
+            orderCode = generateOrderCode(); 
         }
 
         orders.setOrderCode(orderCode);

@@ -80,7 +80,7 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                 console.error('Lỗi kết nối đến API: ' + error);
             });
     }
-
+ 
     $scope.subtractQuantity = function (index) {
         if ($scope.listCartItem[index].quantity > 1) {
             $scope.listCartItem[index].quantity--;
