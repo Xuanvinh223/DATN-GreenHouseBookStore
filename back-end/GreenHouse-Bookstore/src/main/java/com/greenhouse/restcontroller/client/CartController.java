@@ -126,6 +126,7 @@ public class CartController {
         List<Carts> listCart = new ArrayList<>();
         try {
             listCart = cartsRepository.findByAccountIdAndStatusOrderByCreatedDateDesc(username, true);
+            updatePriceCarts(listCart);
             status = "success";
             message = "Lấy dữ liệu giỏ hàng của người dùng: [" + username + "] thành công";
         } catch (Exception e) {
@@ -137,6 +138,21 @@ public class CartController {
         response.put("message", message);
 
         return ResponseEntity.ok(response);
+    }
+
+    private void updatePriceCarts(List<Carts> listCarts) {
+        if (!listCarts.isEmpty() && listCarts != null) {
+            for (Carts carts : listCarts) {
+                Product_Detail pd = productDetailRepository.findById(carts.getProductDetail().getProductDetailId())
+                        .orElse(null);
+                if (pd != null) {
+                    carts.setPrice(pd.getPrice());
+                    carts.setPriceDiscount(pd.getPriceDiscount());
+                    carts.setAmount(carts.getQuantity() * carts.getPriceDiscount());
+                    cartsRepository.save(carts);
+                }
+            }
+        }
     }
 
     @GetMapping("/getProductCategory")
