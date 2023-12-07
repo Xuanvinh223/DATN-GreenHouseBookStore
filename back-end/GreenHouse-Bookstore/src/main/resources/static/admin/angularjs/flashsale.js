@@ -197,7 +197,7 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
                     startTime: startTime,
                     endTime: endTime,
                     userDate: $scope.item.userDate,
-                    status: $scope.item.status
+                    status: 1
                 },
                 productFlashSales: $scope.listProductFlashSale,
                 listDeletedProductFlashSale: $scope.listDeletedProductFlashSale
