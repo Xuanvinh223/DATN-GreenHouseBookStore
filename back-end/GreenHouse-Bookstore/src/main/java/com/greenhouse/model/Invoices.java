@@ -32,6 +32,7 @@ public class Invoices implements Serializable {
     @Column(name = "Total_Amount")
     private double totalAmount;
 
+  
     @Column(name = "Payment_Amount")
     private double paymentAmount;
 
