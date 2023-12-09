@@ -4149,7 +4149,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
 }
 
 .top-cart-mobile .top-cart-dropdown {
-  z-index: 1;
+  z-index: 1; 
   width: 100vw;
   right: -24px;
 }

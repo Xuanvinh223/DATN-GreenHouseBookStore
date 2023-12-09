@@ -1,6 +1,6 @@
 app.controller("cartController", cartController);
 
-function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAPI) {
+function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAPI, WebSocketService) {
     const username = localStorage.getItem("username");
     const tokenGHN = '7a77199f-6293-11ee-af43-6ead57e9219a';
     const shopIdGHN = 4586990;
@@ -80,7 +80,7 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                 console.error('Lỗi kết nối đến API: ' + error);
             });
     }
-
+ 
     $scope.subtractQuantity = function (index) {
         if ($scope.listCartItem[index].quantity > 1) {
             $scope.listCartItem[index].quantity--;
@@ -1168,6 +1168,12 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
 
     //=========[CHECKOUT]===================[CHECKOUT]==========================[CHECKOUT]======================[CHECKOUT]==================================
 
+    $scope.connectWebSocket = function () {
+        WebSocketService.connect(getCart);
+    };
+
+  
+
     function init() {
         getProvince();
         getProvinceCodeGHN();
@@ -1175,7 +1181,10 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
         getProductCategory();
         getVoucherByUsername(username);
         getListAddress(username);
+        // Gọi hàm connectWebSocket khi controller được khởi tạo
+
     }
+    $scope.connectWebSocket();
 
     init();
 }

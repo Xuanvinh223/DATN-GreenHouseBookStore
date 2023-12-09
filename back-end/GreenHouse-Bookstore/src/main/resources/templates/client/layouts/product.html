@@ -211,20 +211,30 @@
                                                     </a>
                                                 </h3>
                                             </div>
-                                            <div class="price-block">
-                                                <span class="price">{{productDetail.price - productDetail.priceDiscount
-                                                    > 0 ?
-                                                    productDetail.priceDiscount : productDetail.price | number:'0'}}
-                                                </span>
-                                                <del class="price-old"
-                                                    ng-if="productDetail.price - productDetail.priceDiscount > 0">
-                                                    {{productDetail.price
-                                                    |
-                                                    number:'0'}}
-                                                </del>
-                                                <span class="price-discount"
-                                                    ng-if="getDiscountValueByProductId(productDetail.productDetailId)">{{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
+                                            <div ng-controller="flashSaleController">
+                                                <div class="price-block">
+                                                    <span class="price">{{productDetail.price -
+                                                        productDetail.priceDiscount
+                                                        > 0 ?
+                                                        productDetail.priceDiscount : productDetail.price | number:'0'}}
+                                                    </span>
+                                                    <del class="price-old"
+                                                        ng-if="productDetail.price - productDetail.priceDiscount > 0">
+                                                        {{productDetail.price
+                                                        |
+                                                        number:'0'}}
+                                                    </del>
+                                                    <span class="price-discount"
+                                                        ng-if="!hasDiscount(productDetail.productDetailId) "
+                                                        ng-show="getDiscountValueByProductId(productDetail.productDetailId)">
+                                                        {{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
+                                                    <span class="price-discount"
+                                                        ng-if="hasDiscount(productDetail.productDetailId)">
+                                                        {{ hasDiscount(productDetail.productDetailId) }}%
+                                                    </span>
+                                                </div>
                                             </div>
+
                                             <div class="rating-block">
                                                 <div class="rating-star">
                                                     <span class="fas fa-star"

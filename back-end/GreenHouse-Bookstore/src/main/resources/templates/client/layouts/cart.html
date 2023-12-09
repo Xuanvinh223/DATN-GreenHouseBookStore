@@ -99,10 +99,10 @@
                                             </div>
                                         </div>
                                         <div class="img-product-cart">
-                                            <a href="#"><img src="{{cart.productDetail.image}}" alt=""></a>
+                                            <a ng-click="getProductDetail(cart.productDetail.productDetailId)"><img src="{{cart.productDetail.image}}" alt=""></a>
                                         </div>
                                         <div class="group-product-info">
-                                            <div class="info-product-cart">
+                                            <div class="info-product-cart" ng-click="getProductDetail(cart.productDetail.productDetailId)">
                                                 <h2 class="product-name-full-text">
                                                     {{cart.productDetail.product.productName}}</h2>
                                                 <div class="price-original">
@@ -206,7 +206,7 @@
                                                                     class="gh-event-promo-list-item-content-description">
                                                                     {{voucher.description}}
                                                                 </div>
-                                                            </div>
+                                                            </div> 
                                                         </div>
                                                         <div>
                                                             <div class="gh-event-promo-item-progress-bar">

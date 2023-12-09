@@ -69,6 +69,9 @@ public class CartController {
                 Double price = productDetail.getPrice();
                 Double priceDiscount = productDetail.getPriceDiscount();
                 Double amount = quantity * (priceDiscount > 0 ? priceDiscount : price);
+                if (duplicate != null) {
+                    quantity += duplicate.getQuantity();
+                }
 
                 if (productDetail.getQuantityInStock() - quantity >= 0) {
                     if (duplicate != null) {
@@ -93,11 +96,15 @@ public class CartController {
                         cartsRepository.save(cart);
                     }
                     status = "success";
-                    message = "Đã thêm sản phẩm [" + productDetail.getProduct().getProductName() + "] vào giỏ hàng";
+                    message = "Đã thêm sản phẩm vào giỏ hàng";
+                } else if (duplicate != null) {
+                    status = "error";
+                    message = "Bạn có thể thêm tối đa: "
+                            + (productDetail.getQuantityInStock() - duplicate.getQuantity());
                 } else {
                     status = "error";
-                    message = "Sản phẩm [" + productDetail.getProduct().getProductName() + "] chỉ còn: ["
-                            + productDetail.getQuantityInStock() + "]";
+                    message = "Bạn có thể thêm tối đa: "
+                            + (productDetail.getQuantityInStock());
                 }
             }
         } catch (Exception e) {
@@ -119,6 +126,7 @@ public class CartController {
         List<Carts> listCart = new ArrayList<>();
         try {
             listCart = cartsRepository.findByAccountIdAndStatusOrderByCreatedDateDesc(username, true);
+            updatePriceCarts(listCart);
             status = "success";
             message = "Lấy dữ liệu giỏ hàng của người dùng: [" + username + "] thành công";
         } catch (Exception e) {
@@ -130,6 +138,21 @@ public class CartController {
         response.put("message", message);
 
         return ResponseEntity.ok(response);
+    }
+
+    private void updatePriceCarts(List<Carts> listCarts) {
+        if (!listCarts.isEmpty() && listCarts != null) {
+            for (Carts carts : listCarts) {
+                Product_Detail pd = productDetailRepository.findById(carts.getProductDetail().getProductDetailId())
+                        .orElse(null);
+                if (pd != null) {
+                    carts.setPrice(pd.getPrice());
+                    carts.setPriceDiscount(pd.getPriceDiscount());
+                    carts.setAmount(carts.getQuantity() * carts.getPriceDiscount());
+                    cartsRepository.save(carts);
+                }
+            }
+        }
     }
 
     @GetMapping("/getProductCategory")

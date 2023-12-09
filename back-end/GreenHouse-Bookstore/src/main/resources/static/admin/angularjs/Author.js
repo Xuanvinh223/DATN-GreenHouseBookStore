@@ -100,7 +100,7 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
             start + $scope.itemsPerPage,
             $scope.filteredAuthors.length
         );
-        return start + 1 + "-" + end + " of " + $scope.filteredAuthors.length;
+        return start + 1 + "-" + end + " của " + $scope.filteredAuthors.length;
     };
 
     function generateRandomId() {
@@ -121,11 +121,27 @@ app.controller("AuthorController", function ($scope, $location, $routeParams, $h
         }
 
         // Hiển thị hiệu ứng loading
-        var loadingOverlay = document.getElementById("loadingOverlay");
-        loadingOverlay.style.display = "block";
-        if (fileInput && fileInput.files.length > 0) {
-            formData.append("image", fileInput.files[0]);
+    var loadingOverlay = document.getElementById("loadingOverlay");
+    loadingOverlay.style.display = "block";
+
+    if (fileInput && fileInput.files.length > 0) {
+        var file = fileInput.files[0];
+
+        // Kiểm tra nếu là tệp hình ảnh
+        if (isImageFile(file)) {
+            formData.append("image", file);
+        } else {
+            // Nếu không phải là hình ảnh, hiển thị thông báo lỗi bằng Swal
+            Swal.fire({
+                icon: "error",
+                title: "Lỗi",
+                text: "Chỉ cho phép tải lên các file hình ảnh (png, jpg, jpeg).",
+            });
+            // Ẩn hiệu ứng loading khi lưu thành công
+            loadingOverlay.style.display = "none";
+            return;
         }
+    }
         if (!$scope.isEditing) {
             $scope.editingAuthor.authorId = generateRandomId();
         }
@@ -364,12 +380,31 @@ function displayImage(event) {
     var fileInput = event.target;
 
     if (fileInput.files && fileInput.files[0]) {
-        var reader = new FileReader();
+        var file = fileInput.files[0];
 
-        reader.onload = function (e) {
-            imageElement.src = e.target.result;
-        };
+        // Kiểm tra nếu là tệp hình ảnh
+        if (isImageFile(file)) {
+            var reader = new FileReader();
 
-        reader.readAsDataURL(fileInput.files[0]);
+            reader.onload = function (e) {
+                imageElement.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            // Nếu không phải là hình ảnh, hiển thị thông báo lỗi bằng Swal
+            Swal.fire({
+                icon: "error",
+                title: "Lỗi",
+                text: "Chỉ cho phép tải lên các file hình ảnh (png, jpg, jpeg).",
+            });
+            // Đặt giá trị của input file về null để người dùng có thể chọn lại một tệp khác.
+            fileInput.value = null;
+        }
     }
+}
+
+// Kiểm tra nếu là tệp hình ảnh
+function isImageFile(file) {
+    return file.type.startsWith("image/");
 }

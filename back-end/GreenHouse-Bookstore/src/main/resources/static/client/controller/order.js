@@ -111,6 +111,7 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
             $scope.cacelOrder.noteCancel = "";
             $scope.cacelOrder.status = item.status;
             $scope.errorsNoteCancel = "";
+            $scope.cacelOrder.returnAddress = item.returnAddress;
         };
 
         $scope.confirmCancel = function () {
@@ -126,7 +127,7 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
                 if ($scope.cancelOrder && $scope.cancelOrder.status === 'pending') {
                     // Nếu đơn hàng ở trạng thái 'Pending Handover', thực hiện cuộc gọi API của Giao Hàng Nhanh
                     var ghnApiData = {
-                        order_codes: [$scope.cancelOrder.orderCode]
+                        order_codes: [$scope.cancelOrder.returnAddress]
                     };
 
                     $http.post('https://online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel', ghnApiData, {

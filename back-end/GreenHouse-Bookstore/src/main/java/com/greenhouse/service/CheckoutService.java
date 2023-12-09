@@ -97,7 +97,6 @@ public class CheckoutService {
         invoices.setCreateDate(new Date());
         invoices.setQuantity(data.getCarts().size());
         invoices.setTotalAmount(data.getTotal_amount());
-        invoices.setShippingFee(data.getShipping_fee());
         invoices.setPaymentAmount(data.getPayment_total());
         invoices.setPaymentMethod(data.getPayment_method());
         invoicesRepository.save(invoices);
@@ -143,7 +142,7 @@ public class CheckoutService {
 
         String orderCode = generateOrderCode();
         while (ordersRepository.existsById(orderCode)) {
-            orderCode = generateOrderCode();
+            orderCode = generateOrderCode(); 
         }
 
         orders.setOrderCode(orderCode);

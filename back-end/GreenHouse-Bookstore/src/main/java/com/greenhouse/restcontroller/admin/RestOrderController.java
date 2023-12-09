@@ -81,6 +81,7 @@ public class RestOrderController {
             existingOrder.setStatus(updatedOrder.getStatus());
             existingOrder.setConfirmed_By(updatedOrder.getConfirmed_By());
             existingOrder.setNote(updatedOrder.getNote());
+            existingOrder.setReturnAddress(updatedOrder.getReturnAddress());
             ordersRepository.save(existingOrder);
             // Gửi email thông báo hủy đơn hàng
             sendEmail.sendEmailOrderCancellation(existingOrder.getAccount().getEmail(), "GreenHouse | Hủy Đơn Hàng",

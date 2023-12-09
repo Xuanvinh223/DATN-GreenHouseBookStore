@@ -315,8 +315,7 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
     $scope.addToCart = function (productDetailId, quantity) {
         CartService.addToCart(productDetailId, quantity, username)
             .then(function (response) {
-                // $scope.showNotification(response.status, response.message);
-                $scope.showNotifi();
+                $scope.showNotifi(response.message, response.status);
                 $scope.getCartHeader();
             })
             .catch(function (error) {
@@ -330,8 +329,12 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
     $scope.buyNow = function (productDetailId, quantity) {
         CartService.buyNow(productDetailId, quantity, username)
             .then(function (response) {
-                $scope.showNotifi();
+                console.log(response);
+                $scope.showNotifi(response.message, response.status);
                 $scope.getCartHeader();
+                if(response.status == 'success') {
+                    window.location.href = '/cart'
+                }
             })
             .catch(function (error) {
                 console.log(
@@ -405,27 +408,20 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
     // =========== NOTIFICATION =============================
     $scope.notifications = [];
 
-    $scope.showNotifi = function () {
+    $scope.showNotifi = function (message, status) {
+        $scope.modalContent = message;
+        if(status == 'success') {
+            $scope.typeNotifi = true;
+        }else{
+            $scope.typeNotifi = false;
+        }
         $('#message-cart').modal('show');
-        $scope.modalContent = "Sản phẩm đã được thêm vào giỏ hàng!";
+
         $timeout(function () {
             $('#message-cart').modal('hide');
         }, 2000);
     }
-    $scope.showNotification = function (type, message) {
-        var notification = { type: type, message: message };
-        $scope.notifications.push(notification);
-        $timeout(function () {
-            $scope.removeNotification(notification);
-        }, 3000);
-    };
 
-    $scope.removeNotification = function (notification) {
-        var index = $scope.notifications.indexOf(notification);
-        if (index !== -1) {
-            $scope.notifications.splice(index, 1);
-        }
-    };
     // =========== LOADER =============================
     $scope.isLoading = false;
     // Hàm để hiển thị loading
@@ -482,8 +478,7 @@ app.service("CartService", function ($http, cartAPI) {
     }
 
     this.buyNow = function (productDetailId, quantity, username) {
-        this.addToCart(productDetailId, quantity, username);
-        window.location.href = '/cart';
+        return this.addToCart(productDetailId, quantity, username);
     }
 
     this.getCart = function (username) {
