@@ -68,7 +68,6 @@
                                             <div class="d-flex justify-content-between align-items-center address-content mb-2">
                                                 <a href="/account/order"><i style="font-size: 20px;"
                                                                             class="fas fa-chevron-circle-left"></i></a>
-                                                <h4 class="text-13 ">Đã hủy dơn hàng</h4>
                                             </div>
                                             <div class="product-details mt--20">
                                                 <div class="card-body order-body">
@@ -77,24 +76,28 @@
                                                             {{order.orderCode}}
                                                         </div>
                                                         <div class="col-md-10 d-flex justify-content-end ">
-                                                            <span class="fw-normal mb-0">Trạng thái đơn hàng|
-                                                                <strong class="text-primary"
-                                                                        ng-if="order.status === 'cancel'">Đã Hủy</strong>
-                                                            </span>
+                                                            <h4 class="mb-0" style="font-size: 15px; font-weight: bolder;">Đã hủy đơn hàng</h4>
                                                         </div>
                                                     </div>
                                                     <hr class="order-hr">
                                                     <div ng-repeat="orderDetail  in orderDetails[order.orderCode]"
                                                          class="row order-item align-items-center">
-                                                        <div class="col-md-2">
-                                                            <img ng-src="{{orderDetail.productDetail.image}}"
-                                                                 style="width: 80px; height: 80px;" class="img-fluid"
-                                                                 alt="Sản phẩm không có ảnh">
+                                                         <div class="col-md-2">
+                                                            <a
+                                                                ng-click="getProductDetail(orderDetail.productDetail.productDetailId)">
+                                                                <img ng-src="{{orderDetail.productDetail.image}}"
+                                                                    style="width: 80px; height: 80px;"
+                                                                    class="img-fluid"
+                                                                    alt="Sản phẩm không có ảnh"></a>
                                                         </div>
-                                                        <div class="col-md-7 order-name d-flex justify-content-left">
+                                                        <div
+                                                            class="col-md-7 order-name d-flex justify-content-left">
                                                             <div>
-                                                                <p class="fw-normal mb-0">{{
-                                                                    orderDetail.productName }}</p>
+                                                                <p class="fw-normal mb-0">
+                                                                    <a
+                                                                        ng-click="getProductDetail(orderDetail.productDetail.productDetailId)">{{orderDetail.productName
+                                                                        }}</a>
+                                                                </p>
                                                                 <p>x{{ orderDetail.quantity }}</p>
                                                             </div>
                                                         </div>
@@ -102,33 +105,54 @@
                                                             <div class="order-price">
                                                                 <p class="fw-normal mb-0">
                                                                     <span
-                                                                            ng-if="orderDetail.productDetail.price !== orderDetail.productDetail.priceDiscount">
+                                                                        ng-if="orderDetail.productDetail.price !== orderDetail.productDetail.priceDiscount">
                                                                         <del class="order-price-origin">{{
-                                                                            orderDetail.productDetail.price | number:'0'
-                                                                            }}<sup>đ</sup></del>
+                                                                            orderDetail.productDetail.price |
+                                                                            number:'0' }} đ</del>
                                                                     </span>
                                                                     {{ orderDetail.productDetail.priceDiscount |
-                                                                    number:'0' }}<sup>đ</sup>
+                                                                    number:'0' }} đ
                                                                 </p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row order-item">
+                                                    <!-- <div class="row order-item">
                                                         <div
                                                                 class="col-md-12 d-flex justify-content-end align-items-center">
                                                             <small class="text-muted font-weight-bold">Phí ship: {{
                                                                 order.codAmount | number:'0' }}<sup>đ</sup></small>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <hr class="order-hr">
-                                                    <div class="row">
+                                                    <!-- <div class="row">
                                                         <div class="col-md-12 d-flex justify-content-end">
                                                             <div style="color: red;;">
                                                                 Tổng tiền: <span class="lead fw-normal mb-0">{{ calculateTotalAmount(order) | number:'0' }}<sup>đ</sup></span>
                                                             </div>
                                                         </div>
+                                                    </div> -->
+                                                    <div class="col-12">
+                                                        <!-- Cột thứ nhất (chiếm 70%) -->
+                                                        <table class="table table-borderless">
+                                                            <tr>
+                                                                <td colspan="2" style="font-size: 16px;"><strong>Chi tiết đơn hủy:</strong></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 27%;">Yêu cầu bởi:</td>
+                                                                <td ><strong>{{ order.confirmed_By ? 'Người bán' : 'Người mua' }}</strong></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 27%;">Lý do:</td>
+                                                                <td ><strong>{{order.note}}</strong></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 27%;">Ngày đặt hàng:</td>
+                                                                <td ><strong>{{ order.create_Date | date:' HH:mm
+                                                                    dd/MM/yyyy ' }}</strong></td>
+                                                            </tr>
+                                                        </table>
                                                     </div>
-                                                    <div class="row ">
+                                                    <!-- <div class="row ">
                                                         <div
                                                                 class="col-md-6 d-flex justify-content-start align-items-center">
                                                             <small class="text-muted font-weight-bold">Ngày đặt
@@ -140,7 +164,7 @@
                                                         <div class="col-md-12 reason-cancel d-flex justify-content-start ">
                                                             <p class="mt-2 mb-2">Lý do: {{order.note}}</p>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>

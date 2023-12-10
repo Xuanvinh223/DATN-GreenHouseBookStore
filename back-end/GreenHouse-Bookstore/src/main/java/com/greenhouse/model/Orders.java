@@ -17,6 +17,9 @@ public class Orders {
     @Column(name = "Order_Code", length = 50, nullable = false)
     private String orderCode;
 
+    @Column(name = "Order_code_ghn", length = 50, nullable = false)
+    private String orderCodeGHN;
+
     @Column(name = "Username", length = 50, nullable = false)
     private String username;
 
@@ -112,6 +115,9 @@ public class Orders {
 
     @Column(name = "created_date")
     private Date create_Date;
+
+    @Column(name = "expected_delivery_time")
+    private Date expected_delivery_time;
 
     @Column(name = "status")
     private String status;
