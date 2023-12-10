@@ -82,7 +82,7 @@
                                                         <li ng-class="{active: selectedStatus === 'cancel'}" class="nav-item">
                                                             <a class="nav-link" id="tab6" data-bs-toggle="tab" ng-click="setListOrderByStatus('cancel')" href="#content6">Đã hủy</a>
                                                         </li>
-                                                    </ul>                                                    
+                                                    </ul>
                                             </div>
                                         </div>
                                         <div class="myaccount-content order-content">
@@ -99,7 +99,8 @@
                                                         <div class="card-body order-body">
                                                             <div class="row mt-2">
                                                                 <div class="col-md-2 d-flex justify-content-start ">
-                                                                    {{ order.orderCode }}
+                                                                 {{ order.orderCode }}   
+                                                                 <span ng-if="order.orderCodeGHN"><b>Mã vận đơn - </b>   {{ order.orderCodeGHN }} </span>
                                                                 </div>
                                                                 <div class="col-md-10 d-flex justify-content-end ">
                                                                     <span class="fw-normal mb-0">Trạng thái đơn hàng|
@@ -775,7 +776,7 @@
                     <div class="modal-content pb-3">
                         <div class="modal-header bg-danger">
                             <h5 class="modal-title text-white" id="exampleModalLabel">
-                                THÔNG BÁO - ĐƠN HÀNG <u>{{cacelOrder.orderCode}}</u>
+                                THÔNG BÁO - ĐƠN HÀNG <u>{{cancelOrder.orderCode}}</u>
                             </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -786,7 +787,7 @@
                                 <div class="form-group">
                                     <label for="message-text" class="col-form-label h6 text-uppercase text-danger">Nội
                                         dung (LÝ DO HỦY ĐƠN):</label>
-                                    <textarea ng-model="cacelOrder.noteCancel" name="message" class="form-control"
+                                    <textarea ng-model="cancelOrder.noteCancel" name="message" class="form-control"
                                         required style="height: 200px;" placeholder="Nhập nội dung ...."></textarea>
                                     <span class="text-danger" ng-show="errorsNoteCancel">*{{errorsNoteCancel}}</span>
                                 </div>
