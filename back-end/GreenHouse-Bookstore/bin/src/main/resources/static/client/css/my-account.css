@@ -46,28 +46,83 @@
 }
 
 .order-status-button:hover {
-	background-color: var(--hover-background-color);
-	color: var(--hover-text-color);
+    background-color: var(--hover-background-color);
+    color: var(--hover-text-color);
 }
+
 /* Address */
-.btn-edit-address {
-	border-radius: 15px;
-	display: inline;
+/* .btn-edit-address {
+    border: 1px solid #62ab00;
+    color: #62ab00;
+    font-size: 1rem;
+    display: inline;
+}
+
+.btn-edit-address:hover {
+    background-color: #8ac938;
+    color: rgb(255, 255, 255);
+    border: none;
+}
+
+.btn-edit-address i {
+    padding-right: 0.6rem;
 }
 
 .form-control {
-	border: none;
-	border-bottom: 1px solid #ccc;
-	outline: none;
-	padding: 5px 0;
-	width: 100%;
-	transition: border-bottom-color 0.3s;
-}
+    border: none;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    padding: 5px 0;
+    width: 100%;
+    transition: border-bottom-color 0.3s;
+} */
 
 .form-control:focus {
-	border-bottom-color: #007bff;
+    border-bottom-color: #007bff;
 }
 
 .remove-bg {
-	background-color: transparent;
+    background-color: transparent;
+}
+
+#createAddressModal textarea.form-control {
+    height: auto;
+}
+
+#createAddressModal .form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+#createAddressModal .btn-secondary {
+    color: #212529;
+    background-color: #F5F5F5;
+    border-color: #F5F5F5;
+    font-size: 0.8rem;
+    min-height: 40px !important;
+    padding: 0.375rem 0.75rem;
+    font-weight: 400 !important;
+    font-weight: bold;
+}
+
+#createAddressModal .btn-primary {
+    color: #212529;
+    background-color: #00d404;
+    border-color: #00d404;
+    font-size: 0.8rem;
+    min-height: 40px !important;
+    padding: 0.375rem 0.75rem;
+    font-weight: 400 !important;
+    font-weight: bold;
 }

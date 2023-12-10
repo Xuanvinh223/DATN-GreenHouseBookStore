@@ -3,7 +3,7 @@
 /* table */
 /* paging */
 /* tabs */
-/* dropdown */
+/* dropdown */ 
 /* list group */
 /* modal */
 /* tabs */
@@ -376,7 +376,7 @@ template {
   display: none;
 }
 
-span{
+span {
   font-size: 0.9rem;
 }
 [hidden] {
@@ -1719,11 +1719,11 @@ pre code {
 .table-striped thead tr th a:hover {
   color: #4eaa4f;
 }
-.table-striped tbody tr td a i{
+.table-striped tbody tr td a i {
   color: #6c757d;
   padding-right: 5px;
 }
-.table-striped tbody tr td a i:hover{
+.table-striped tbody tr td a i:hover {
   color: #4eaa4f;
 }
 .table-hover tbody tr:hover {
@@ -4523,7 +4523,7 @@ input[type="button"].btn-block {
   word-wrap: break-word;
   background-color: #ffffff;
   background-clip: border-box;
-      border: 1px solid #e9ecef;
+  border: 1px solid #e9ecef;
   border-radius: 0.25rem;
 }
 .card > hr {
@@ -4553,6 +4553,7 @@ input[type="button"].btn-block {
 
 .card-title {
   margin-bottom: 0.75rem;
+  color: #6c757d;
 }
 
 .card-subtitle {
@@ -4775,7 +4776,7 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #6c757d ;
+  color: #6c757d;
   background-color: transparent;
   border: 1px solid transparent;
 }
@@ -6329,7 +6330,9 @@ a.close.disabled {
 .bg-primary {
   background-color: #62ab00 !important;
 }
-
+.bg-default1{
+  background-color: #5da0f1 !important;
+}
 a.bg-primary:hover,
 a.bg-primary:focus,
 button.bg-primary:hover,
@@ -9510,6 +9513,10 @@ button.bg-dark:focus {
   color: #62ab00 !important;
 }
 
+.text-default1{
+  color: #5da0f1;
+}
+
 a.text-primary:hover,
 a.text-primary:focus {
   color: #0045ce !important;
@@ -9581,7 +9588,7 @@ a.text-dark:focus {
 .text-body {
   color: #6c757d !important;
 }
-.card-title1{
+.card-title1 {
   color: blue !important;
 }
 .text-muted {
@@ -10335,9 +10342,8 @@ select {
 .table tbody tr th {
   font-weight: 400;
 }
-.table tbody tr td a i{
-
-} 
+.table tbody tr td a i {
+}
 .table tr.collapse {
   border-top: 1px solid #e9ecef;
   border-bottom: 1px solid #e9ecef;
@@ -10899,9 +10905,9 @@ strong {
 
 img.brand-img {
   width: 100px;
-  height:auto;
-  fill: #62ab00; }
-
+  height: auto;
+  fill: #62ab00;
+}
 
 .navbar-light .navbar-nav .nav-link {
   color: #001a4e;
@@ -11728,7 +11734,7 @@ form.was-validated
     -o-transform: translateY(40px);
     transform: translateY(40px);
   }
-30%,
+  30%,
   70% {
     opacity: 1;
     -webkit-transform: translateY(0px);
@@ -15790,15 +15796,15 @@ a.uppy-Dashboard-poweredBy {
     top: -10px;
     right: -35px;
   }
-
-  .Upload{
-    padding-top:100px;
-  }
+/* 
+  .Upload {
+    padding-top: 100px;
+  } */
 }
 
 /* Định dạng của container chứa icon và input */
 .input-container {
- width:60%;
+  width: 60%;
 }
 @media (min-width: 992px) {
   .input-container {
@@ -15806,7 +15812,7 @@ a.uppy-Dashboard-poweredBy {
   }
 }
 
-.icon{
+.icon {
   padding-left: 10px;
 }
 
@@ -15818,7 +15824,6 @@ a.uppy-Dashboard-poweredBy {
   align-items: center;
   padding: 3px; /* Khoảng cách bên trong phần tử bao quanh */
 }
-
 
 /* Định dạng của input */
 .input {
@@ -15837,10 +15842,9 @@ a.uppy-Dashboard-poweredBy {
 .select2 {
   margin-left: 5px; /* Điều chỉnh khoảng cách bên trái của combobox */
 }
-
 /* Định dạng của container chứa icon và input */
 .input-container {
- width:60%;
+  width: 60%;
 }
 @media (min-width: 992px) {
   .input-container {
@@ -15848,7 +15852,7 @@ a.uppy-Dashboard-poweredBy {
   }
 }
 
-.icon{
+.icon {
   padding-left: 10px;
 }
 
@@ -15861,6 +15865,1254 @@ a.uppy-Dashboard-poweredBy {
   padding: 3px; /* Khoảng cách bên trong phần tử bao quanh */
 }
 
-.button-add{
- /* padding-left: 100px; */
+/* Định dạng của input */
+.input {
+  border: none;
+  /* Loại bỏ border của input */
+  outline: none;
+  /* Loại bỏ border khi focus */
+  width: 100% !important;
+  /* Độ rộng của input */
 }
+
+/* Đảm bảo icon và combobox nằm cùng một hàng ngang */
+.input-group-prepend .input-group-text {
+  border-right: none !important;
+  padding: 0;
+  /* Loại bỏ khoảng trống xung quanh icon */
+}
+
+/* Điều chỉnh khoảng cách giữa icon và combobox */
+.select2 {
+  margin-left: 5px;
+  /* Điều chỉnh khoảng cách bên trái của combobox */
+}
+
+/* CUSTOM CSS FOR GREENHOUSE */
+.modal-supper-lg {
+  min-width: 90%;
+}
+/* Thanh cuộn */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #30cf30;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #62ab00;
+}
+
+/* End Thanh cuộn */
+/* CSS Invertory  */
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .form-modal-search
+  button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+
+.inventory-table #inventoryModal .modal-body .search-box .form-modal-search {
+  --timing: 0.3s;
+  --width-of-input: 100%;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #2f2ee9;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  border: 1px solid #e9ecef;
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg, #fff);
+}
+
+.inventory-table #inventoryModal .modal-body .search-box .input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .form-modal-search:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .form-modal-search:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+.inventory-table #inventoryModal .modal-body .search-box input:focus {
+  outline: none;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .form-modal-search:focus-within:before {
+  transform: scale(1);
+}
+
+.inventory-table #inventoryModal .modal-body .search-box .reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  input:not(:placeholder-shown)
+  ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .form-modal-search
+  svg {
+  width: 17px;
+  margin-top: 3px;
+}
+
+/* MODAL - CART PRODUCT LEFT - START*/
+.inventory-table #inventoryModal .modal-body .selected-products {
+  position: relative;
+  max-height: 50vh;
+  overflow: auto;
+}
+.inventory-table #inventoryModal .modal-body .search-box .product-cart-left {
+  z-index: 10;
+  height: 400px;
+  width: 95%;
+  overflow: auto;
+  position: absolute !important;
+}
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart {
+  background: #dff0ef;
+  cursor: pointer;
+  margin: 0 0.8rem;
+  border-radius: 10px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.inventory-table #inventoryModal .modal-body .product-cart-left {
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.inventory-table #inventoryModal .modal-body .item-product-cart {
+  margin: 1rem 0.8rem;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .item-product-cart
+  .img-product-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+  margin-left: 0.5rem;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .item-product-cart
+  .img-product-cart
+  img {
+  width: 100%;
+  max-width: 80px;
+  object-fit: contain;
+}
+
+.inventory-table #inventoryModal .modal-body .group-product-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inventory-table #inventoryModal .modal-body .product-name-full-text {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 18px;
+  display: inline-block;
+  color: #595959;
+}
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart:hover {
+  background: #a5ead3;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .product-name-full-text
+  .product-name {
+  font-size: 1rem;
+  color: #030404;
+  font-weight: 600;
+}
+.inventory-table #inventoryModal .modal-body .info-product-cart {
+  padding-top: 0.3rem;
+  width: 100%;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .info-product-cart
+  .cart-item-price {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .info-product-cart
+  .cart-price
+  .price-old
+  .price {
+  font-size: 1em;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .info-product-cart
+  .cart-price
+  .price {
+  font-size: 1.2em;
+  line-height: 1.2em;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .price-original
+  .cart-price
+  .price {
+  color: #333;
+  font-weight: 650;
+}
+
+.inventory-table #inventoryModal .modal-body .price-old .price {
+  color: #7a7e7f !important;
+  text-decoration: line-through;
+  font-size: 0.95em;
+  font-weight: normal !important;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .group-product-info
+  .number-product-cart {
+  width: 50%;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  gap: 20px;
+}
+
+.inventory-table #inventoryModal .modal-body .product-view-quantity-box {
+  padding: 0px 10px 0px 10px;
+  width: 100px;
+}
+
+.inventory-table #inventoryModal .modal-body .product-view-quantity-box-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e0e0e0e0;
+  border-radius: 5px;
+  height: 30px;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .product-view-quantity-box-block
+  a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .product-view-quantity-box-block
+  .qty-carts {
+  border: none !important;
+  flex: 1;
+  width: 2em !important;
+  font-weight: 650;
+  font-size: 1em;
+  text-align: center;
+}
+
+.inventory-table #inventoryModal .modal-body input.qty-carts {
+  width: 100%;
+  height: unset !important;
+}
+
+.inventory-table #inventoryModal .modal-body .qty-carts {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.inventory-table #inventoryModal .modal-body .btn-add-qty,
+.inventory-table #inventoryModal.modal-body .btn-subtract-qty {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .cart-price-total
+  .cart-price
+  .price {
+  color: #c92127;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.inventory-table #inventoryModal .modal-body .cart-ui-content .price {
+  font-family: sans-serif !important;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .item-product-cart
+  .btn-remove-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inventory-table
+  #inventoryModal
+  .modal-body
+  .item-product-cart
+  .btn-remove-box
+  .btn-remove {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+}
+
+.order-page #orderModal .modal-body .border-product {
+  width: 95%;
+  margin: auto;
+  border-bottom-width: 1px;
+  border-bottom-color: #ededed;
+  border-bottom-style: solid;
+}
+.input-group-icon {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #343a40;
+  border: 1px solid #6c757d;
+  border-radius: 0.25rem;
+}
+.bg-success1 {
+  position: absolute;
+  background-color: #3ad29f !important;
+  bottom: 0;
+  right: 0;
+  -webkit-animation: online 2s infinite;
+  /* Safari 4.0 - 8.0 */
+  animation: online 2s infinite;
+}
+.alert-product {
+  color: #282726;
+  background-color: #ecebeb;
+  border-color: #d3eaf2;
+  text-align: center;
+}
+/* END */
+
+/* VOUCHER */
+.voucher-page #voucherModal .modal-body .border-product {
+  width: 95%;
+  margin: auto;
+  border-bottom-width: 1px;
+  border-bottom-color: #ededed;
+  border-bottom-style: solid;
+}
+
+.modal-supper-lg1 {
+  min-width: 50%;
+}
+
+.voucher-page #voucherModal .modal-body .search-box .form-modal-search button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+
+.voucher-page #voucherModal .modal-body .search-box .form-modal-search {
+  --timing: 0.3s;
+  --width-of-input: 100%;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #2f2ee9;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg, #fff);
+}
+
+.voucher-page #voucherModal .modal-body .search-box .input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+
+.voucher-page #voucherModal .modal-body .search-box .form-modal-search:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  .form-modal-search:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+.voucher-page #voucherModal .modal-body .search-box input:focus {
+  outline: none;
+}
+
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  .form-modal-search:focus-within:before {
+  transform: scale(1);
+}
+
+.voucher-page #voucherModal .modal-body .search-box .reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  input:not(:placeholder-shown)
+  ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+
+.voucher-page #voucherModal .modal-body .search-box .form-modal-search svg {
+  width: 17px;
+  margin-top: 3px;
+}
+
+.voucher-page #voucherModal .modal-body .selected-products {
+  position: relative;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.voucher-page #voucherModal .modal-body .product-cart-left {
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.voucher-page #voucherModal .modal-body .item-product-cart {
+  margin: 1rem 0.8rem;
+}
+
+.voucher-page #voucherModal .modal-body .group-product-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.voucher-page #voucherModal .modal-body .product-name-full-text {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.voucher-page #voucherModal .modal-body .product-name-full-text {
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 18px;
+  display: inline-block;
+  color: #595959;
+}
+
+.voucher-page #voucherModal .modal-body .info-product-cart {
+  width: 100%;
+}
+
+.voucher-page #voucherModal .modal-body .info-product-cart .cart-item-price {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.voucher-page
+  #voucherModal
+  .modal-body
+  .info-product-cart
+  .cart-price
+  .price-old
+  .price {
+  font-size: 1em;
+}
+
+.voucher-page #voucherModal .modal-body .item-product-cart .btn-remove-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.voucher-page #voucherModal .modal-body .search-box .product-cart-left {
+  z-index: 10;
+  max-height: 150%;
+  width: 95%;
+  overflow: auto;
+  position: absolute !important;
+  bottom: 1px;
+  top: 50px;
+}
+
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart {
+  background: #eaeaea;
+  cursor: pointer;
+  margin: 0 0.8rem;
+  padding: 7px;
+}
+
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart
+  .img-product-cart {
+  padding: 0;
+}
+
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart:hover {
+  background: #d5f5d6;
+}
+
+.voucher-page
+  #voucherModal
+  .modal-body
+  .search-box
+  .product-cart-left
+  .group-product-info
+  .info-product-cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.voucher-page #voucherModal .modal-body .border-product {
+  width: 95%;
+  margin: auto;
+  border-bottom-width: 1px;
+  border-bottom-color: #ededed;
+  border-bottom-style: solid;
+}
+
+/*VoucherModal Product*/
+.voucher-page #voucherProduct .modal-body .border-product {
+  width: 95%;
+  margin: auto;
+  border-bottom-width: 1px;
+  border-bottom-color: #ededed;
+  border-bottom-style: solid;
+}
+
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .form-modal-search
+  button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+
+.voucher-page #voucherProduct .modal-body .search-box .form-modal-search {
+  --timing: 0.3s;
+  --width-of-input: 100%;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #2f2ee9;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg, #fff);
+}
+
+.voucher-page #voucherProduct .modal-body .search-box .input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .form-modal-search:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .form-modal-search:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+.voucher-page #voucherProduct .modal-body .search-box input:focus {
+  outline: none;
+}
+
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .form-modal-search:focus-within:before {
+  transform: scale(1);
+}
+
+.voucher-page #voucherProduct .modal-body .search-box .reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  input:not(:placeholder-shown)
+  ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+
+.voucher-page #voucherProduct .modal-body .search-box .form-modal-search svg {
+  width: 17px;
+  margin-top: 3px;
+}
+
+.voucher-page #voucherProduct .modal-body .selected-products {
+  position: relative;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.voucher-page #voucherProduct .modal-body .product-cart-left {
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.voucher-page #voucherProduct .modal-body .item-product-cart {
+  margin: 1rem 0.8rem;
+}
+
+.voucher-page #voucherProduct .modal-body .group-product-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.voucher-page #voucherProduct .modal-body .product-name-full-text {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.voucher-page #voucherProduct .modal-body .product-name-full-text {
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 18px;
+  display: inline-block;
+  color: #595959;
+}
+
+.voucher-page #voucherProduct .modal-body .info-product-cart {
+  width: 100%;
+}
+
+.voucher-page #voucherProduct .modal-body .info-product-cart .cart-item-price {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .info-product-cart
+  .cart-price
+  .price-old
+  .price {
+  font-size: 1em;
+}
+
+.voucher-page #voucherProduct .modal-body .item-product-cart .btn-remove-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.voucher-page #voucherProduct .modal-body .search-box .product-cart-left {
+  z-index: 10;
+  max-height: 150%;
+  width: 95%;
+  overflow: auto;
+  position: absolute !important;
+  bottom: 1px;
+  top: 50px;
+}
+
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart {
+  background: #eaeaea;
+  cursor: pointer;
+  margin: 0 0.8rem;
+  padding: 7px;
+}
+
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart
+  .img-product-cart {
+  padding: 0;
+}
+
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .product-cart-left
+  .item-product-cart:hover {
+  background: #d5f5d6;
+}
+
+.voucher-page
+  #voucherProduct
+  .modal-body
+  .search-box
+  .product-cart-left
+  .group-product-info
+  .info-product-cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.voucher-page #voucherProduct .modal-body .border-product {
+  width: 95%;
+  margin: auto;
+  border-bottom-width: 1px;
+  border-bottom-color: #ededed;
+  border-bottom-style: solid;
+}
+
+.button-voucher {
+  text-align: right;
+  padding: 20px;
+}
+
+.table-voucher {
+  width: 100%;
+  border: solid 1px;
+}
+
+.th-voucher {
+  white-space: nowrap;
+}
+
+/*VoucherModal Product end*/
+
+/* Định dạng của container chứa icon và input */
+
+@media (min-width: 992px) {
+  .input-container {
+    width: 70%;
+  }
+}
+
+.icon {
+  padding-left: 10px;
+}
+
+.voucher-page #voucherModal .modal-body .border-product {
+  width: 95%;
+  margin: auto;
+  border-bottom-width: 1px;
+  border-bottom-color: #ededed;
+  border-bottom-style: solid;
+}
+
+/*END VOUCHER */
+
+/* Định dạng phần phân trang - start */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+/* Định dạng nút phân trang */
+.pagination .pagination-first a {
+  margin-left: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.pagination li a {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #adb5bd;
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+.pagination .pagination-last a {
+  margin-right: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.pagination li:not(.active):hover a {
+  background-color: rgb(237, 237, 237, 0.3);
+  color: #20c997;
+}
+
+/* Định dạng nút trang hiện tại */
+.pagination .active a {
+  background-color: #62ab00;
+  border-color: #62ab00;
+  z-index: 3;
+  color: #f8f9fa;
+}
+
+/* Định dạng phần phân trang - end */
+/* END */
+
+/*ZON*/
+/*Hiện doanh thu*/
+.table-hover-green tbody tr:hover {
+  background-color: #3ad29f;
+  /* Màu nền hover mong muốn */
+  cursor: pointer;
+  /* Biểu tượng chuột thay đổi thành con trỏ */
+}
+
+.total-profit {
+  float: right;
+  margin-right: 50px;
+}
+
+.body-profit {
+  padding: 0 10px 10px 10px;
+  /* Padding top = 0px, Padding right = 10px, Padding bottom = 10px, Padding left = 10px */
+}
+
+.total {
+  float: right;
+  color: orangered;
+  margin-left: 20px;
+}
+
+.expense {
+  float: right;
+  color: #ff1a1a;
+  margin-left: 20px;
+}
+
+.profit {
+  float: right;
+  color: #62ab00;
+  margin-left: 20px;
+}
+
+.table-hr {
+  border: 1px solid #000;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+.online_animation {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #1ed085;
+  border-radius: 100%;
+  margin-top: 0;
+  position: relative;
+  top: 1px;
+  -webkit-animation: online 2s infinite;
+  /* Safari 4.0 - 8.0 */
+  animation: online 2s infinite;
+}
+/* Safari 4.0 - 8.0 */
+
+@-webkit-keyframes online {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes online {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.ellipsis {
+  max-width: 100px; /* Thiết lập chiều rộng tối đa của cột */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nav-pills a.active {
+  color: #fff !important;
+}
+/* Thanh cuộn ngang order */
+.order-page .nav-pills a.active{
+  font-weight: bold;
+}
+.nav-pills {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  max-width: 100%;
+  font-size: larger;
+}
+.collapsed .nav-pills {
+  max-width: 1400px;
+}
+.nav-pills::-webkit-scrollbar {
+  width: 10px;
+  height: 7px;
+}
+
+.nav-pills::-webkit-scrollbar-thumb {
+  background-color: #30cf30;
+}
+
+.nav-pills::-webkit-scrollbar-thumb:hover {
+  background-color: var(--green);
+}
+
+.nav-item {
+  white-space: nowrap;
+}
+/* .order-page .nav-pills .nav-item a.nav-link{
+  font-size: 0.9rem;
+} */
+@media (max-width: 320px) {
+  .nav-pills {
+    max-width: 240px;
+  }
+  .form-inline {
+    max-width: 100%;
+  }
+}
+@media (max-width: 1024px) {
+  .nav-pills {
+    max-width: 650px;
+  }
+  .collapsed .nav-pills {
+    max-width: 820px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-pills {
+    max-width: 500px; /* Đặt giá trị max-width cho tablet tại đây */
+  }
+  .collapsed .nav-pills {
+    max-width: 750px;
+  }
+  .toolbar .dropdown{
+    margin-top: 10px;
+  }
+  .pagination-sm{
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .dropdown .float-right {
+    float: none !important; /* Bỏ float-right */
+  }
+
+  .dropdown {
+    display: inline-block !important; /* Hiển thị như inline block */
+  }
+
+  .dropdown .btn {
+    margin-bottom: 5px; /* Thêm khoảng cách giữa nút */
+  }
+}
+
+.strong-order-detail {
+  font-weight: 450 !important;
+  color: #1a3e5d;
+}
+.invoice_blog h4 {
+  color: #15283c;
+  background: #f8f8f8;
+  padding: 15px 20px;
+  font-weight: 400;
+  font-size: 18px;
+}
+.img-container-td {
+  display: flex;
+  align-items: center;
+}
+
+.img-boder-td {
+  width: 60px;
+  height: 60px;
+  border-radius: 5%;
+  border: 1px solid #6c757d;
+  margin-right: 10px;
+}
+
+.img-boder-td img {
+  max-width: 90%;
+}
+
+.td-span {
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.order-detail-modal-lg .modal-footer,
+.order-detail-modal-lg .modal-header {
+  border: none !important;
+}
+
+
+
+/* Mai Dat */
+
+  /* CSS cho hiệu ứng loading */
+  .loading-overlay {
+     display: none;
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(255, 255, 255, 0.8);
+     z-index: 99999;
+ }
+
+ .loading-spinner {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 100%;
+ }
+
+ .loading-spinner i {
+     font-size: 50px;
+     /* Điều chỉnh kích thước của spinner */
+     color: #3498db;
+     /* Màu sắc cho spinner */
+     animation: spin 1s linear infinite;
+ }
+
+ .loading-text {
+     text-align: center;
+     font-size: 18px;
+     margin-top: 20px;
+     color: #3498db;
+     /* Màu sắc cho văn bản */
+ }
+
+ @keyframes spin {
+     0% {
+         transform: rotate(0deg);
+     }
+
+     100% {
+         transform: rotate(360deg);
+     }
+ }
+
+/* END */
