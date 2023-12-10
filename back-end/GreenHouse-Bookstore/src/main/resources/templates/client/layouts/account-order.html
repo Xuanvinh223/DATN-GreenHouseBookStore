@@ -880,7 +880,7 @@
                     <div class="modal-content pb-3">
                         <div class="modal-header bg-danger">
                             <h5 class="modal-title text-white" id="exampleModalLabel">
-                                THÔNG BÁO - ĐƠN HÀNG <u>{{cacelOrder.orderCode}}</u>
+                                THÔNG BÁO - ĐƠN HÀNG <u>{{cancelOrder.orderCode}}</u>
                             </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -891,7 +891,7 @@
                                 <div class="form-group">
                                     <label for="message-text" class="col-form-label h6 text-uppercase text-danger">Nội
                                         dung (LÝ DO HỦY ĐƠN):</label>
-                                    <textarea ng-model="cacelOrder.noteCancel" name="message" class="form-control"
+                                    <textarea ng-model="cancelOrder.noteCancel" name="message" class="form-control"
                                         required style="height: 200px;" placeholder="Nhập nội dung ...."></textarea>
                                     <span class="text-danger" ng-show="errorsNoteCancel">*{{errorsNoteCancel}}</span>
                                 </div>

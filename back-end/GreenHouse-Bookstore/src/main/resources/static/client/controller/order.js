@@ -425,7 +425,7 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
             return totalAmount;
         };
         $scope.getOrderCode = function (orderCode) {
-            window.location.href = '/account/order-cancel?orderCode=' + orderCode;
+            window.location.href = '/account/order-detail?orderCode=' + orderCode;
         };
 
         $scope.init = function () {
