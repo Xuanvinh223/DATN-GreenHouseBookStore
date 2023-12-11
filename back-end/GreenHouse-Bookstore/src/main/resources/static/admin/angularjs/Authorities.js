@@ -81,9 +81,17 @@ app.controller("AuthoritiesController", function ($scope, $http) {
 
         if (index >= 0) {
             authoritiesId = $scope.db.authorities[index].authoritiesId;
-            $http.delete(`/rest/authorities/${authoritiesId}`).then(function (resp) {
+            var username = localStorage.getItem('username');
+            $http.delete(`/rest/authorities/${authoritiesId}/${username}`).then(function (resp) {
+                var status = resp.data.status;
+                var message = resp.data.message;
+                if (status == 400) {
+                    swal.fire('Thất bại', message, 'warning');
+                } else if (status == 200) {
+                    swal.fire('Thành công!', 'Đã cập nhật thành công.', 'success');
+                }
                 $scope.getData();
-                swal.fire('Thành công!', 'Đã cập nhật thành công.', 'success');
+
             });
         } else {
             $http.post('/rest/authorities', data).then(function (resp) {
