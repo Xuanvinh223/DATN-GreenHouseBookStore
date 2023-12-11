@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,21 +17,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.dto.client.CartDTO;
+import com.greenhouse.dto.client.CartVoucherDTO;
 import com.greenhouse.model.Accounts;
 import com.greenhouse.model.Carts;
+import com.greenhouse.model.Discounts;
+import com.greenhouse.model.Flash_Sales;
 import com.greenhouse.model.Product_Category;
 import com.greenhouse.model.Product_Detail;
+import com.greenhouse.model.Product_Discount;
+import com.greenhouse.model.Product_Flash_Sale;
 import com.greenhouse.model.UserVoucher;
 import com.greenhouse.model.VoucherMappingCategory;
 import com.greenhouse.model.VoucherMappingProduct;
 import com.greenhouse.model.Vouchers;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.CartsRepository;
+import com.greenhouse.repository.DiscountsRepository;
+import com.greenhouse.repository.FlashSalesRepository;
 import com.greenhouse.repository.ProductCategoryRepository;
 import com.greenhouse.repository.ProductDetailRepository;
+import com.greenhouse.repository.ProductDiscountRepository;
+import com.greenhouse.repository.Product_FlashSaleRepository;
 import com.greenhouse.repository.UserVoucherRepository;
 import com.greenhouse.repository.VoucherMappingCategoryRepository;
 import com.greenhouse.repository.VoucherMappingProductRepository;
+import com.greenhouse.service.CheckoutService;
 
 @RestController
 @RequestMapping("/customer/rest/cart")
@@ -50,6 +61,16 @@ public class CartController {
     private VoucherMappingProductRepository voucherMappingProductRepository;
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
+    @Autowired
+    private CheckoutService checkoutService;
+    @Autowired
+    private FlashSalesRepository flashSalesRepository;
+    @Autowired
+    private Product_FlashSaleRepository product_FlashSaleRepository;
+    @Autowired
+    private DiscountsRepository discountsRepository;
+    @Autowired
+    private ProductDiscountRepository productDiscountRepository;
 
     @PostMapping("/add")
     public ResponseEntity<Map<String, Object>> addToCart(@RequestBody CartDTO data) {
@@ -126,7 +147,11 @@ public class CartController {
         List<Carts> listCart = new ArrayList<>();
         try {
             listCart = cartsRepository.findByAccountIdAndStatusOrderByCreatedDateDesc(username, true);
-            updatePriceCarts(listCart);
+            // ----------------------------------------------------------------
+            for (Carts carts : listCart) {
+                updatePriceCart(carts);
+            }
+            // ----------------------------------------------------------------
             status = "success";
             message = "Lấy dữ liệu giỏ hàng của người dùng: [" + username + "] thành công";
         } catch (Exception e) {
@@ -138,21 +163,6 @@ public class CartController {
         response.put("message", message);
 
         return ResponseEntity.ok(response);
-    }
-
-    private void updatePriceCarts(List<Carts> listCarts) {
-        if (!listCarts.isEmpty() && listCarts != null) {
-            for (Carts carts : listCarts) {
-                Product_Detail pd = productDetailRepository.findById(carts.getProductDetail().getProductDetailId())
-                        .orElse(null);
-                if (pd != null) {
-                    carts.setPrice(pd.getPrice());
-                    carts.setPriceDiscount(pd.getPriceDiscount());
-                    carts.setAmount(carts.getQuantity() * carts.getPriceDiscount());
-                    cartsRepository.save(carts);
-                }
-            }
-        }
     }
 
     @GetMapping("/getProductCategory")
@@ -175,34 +185,48 @@ public class CartController {
 
         int cartId = Integer.valueOf(data.get("cartId").toString());
 
-        Carts cart = new Carts();
-        cart = cartsRepository.findById(cartId).get();
+        Carts cart = cartsRepository.findById(cartId).orElse(null);
 
-        if (cart != null) {
-            if (data.get("quantity").toString().matches("^[0-9]+$")) {
-                int quantity = Integer.valueOf(data.get("quantity").toString());
-                int quantityInStock = cart.getProductDetail().getQuantityInStock();
+        if (cart != null && data.get("quantity").toString().matches("^[0-9]+$")) {
+            int quantity = Integer.valueOf(data.get("quantity").toString());
+            int quantityInStock = cart.getProductDetail().getQuantityInStock();
 
-                if (quantityInStock - quantity > 0) {
-                    if (quantity > 0) {
-                        Double price = cart.getPrice();
-                        Double priceDiscount = cart.getPriceDiscount();
-                        Double amount = quantity * (priceDiscount - price != 0 ? priceDiscount : price);
+            if (quantityInStock - quantity >= 0) {
+                if (quantity > 0) {
+                    Optional<Flash_Sales> flashSalesOptional = Optional
+                            .ofNullable(flashSalesRepository.findByStatus(2));
+                    List<Product_Flash_Sale> pfs = flashSalesOptional
+                            .map(flashSales -> product_FlashSaleRepository.findByFlashSaleId(flashSales))
+                            .orElse(new ArrayList<>());
 
-                        cart.setQuantity(quantity);
-                        cart.setAmount(amount);
-                        cartsRepository.save(cart);
+                    for (Product_Flash_Sale item : pfs) {
+                        if (item.getProductDetail().getProductDetailId() == cart.getProductDetail()
+                                .getProductDetailId()) {
+                            int remainingQuantity = item.getQuantity() - item.getUsedQuantity();
+                            if (remainingQuantity > 0) {
+                                if (quantity > remainingQuantity && (quantity - 1) == remainingQuantity) {
+                                    status = "info";
+                                    message = "Số lượng sản phẩm trong FLASH SALE chỉ còn: " + remainingQuantity
+                                            + " sản phẩm!";
+                                } else if (quantity < remainingQuantity && quantity > item.getPurchaseLimit()
+                                        && quantity - 1 == item.getPurchaseLimit()) {
+                                    status = "info";
+                                    message = "Số lượng mua giới hạn mỗi lượt trong FLASH SALE là: "
+                                            + item.getPurchaseLimit()
+                                            + ". Xin vui lòng cân nhắc!";
+                                }
 
-                        status = "success";
-                        message = "Cập nhật thông tin sản phẩm ["
-                                + cart.getProductDetail().getProduct().getProductName()
-                                + "] trong giỏ hàng thành công";
+                            }
+                        }
                     }
-                } else {
-                    status = "error";
-                    message = "Sản phẩm [" + cart.getProductDetail().getProduct().getProductName()
-                            + "] còn: " + cart.getProductDetail().getQuantityInStock();
+                    cart.setQuantity(quantity);
+                    cartsRepository.save(cart);
+                    updatePriceCart(cart);
                 }
+            } else {
+                status = "error";
+                message = "Sản phẩm [" + cart.getProductDetail().getProduct().getProductName()
+                        + "] chỉ còn: " + cart.getProductDetail().getQuantityInStock();
             }
         }
 
@@ -213,8 +237,57 @@ public class CartController {
         return ResponseEntity.ok(response);
     }
 
+    private void updatePriceCart(Carts cart) {
+        Optional<Flash_Sales> flashSalesOptional = Optional.ofNullable(flashSalesRepository.findByStatus(2));
+        List<Product_Flash_Sale> pfs = flashSalesOptional
+                .map(flashSales -> product_FlashSaleRepository.findByFlashSaleId(flashSales))
+                .orElse(new ArrayList<>());
+        boolean isFlashSales = false;
+        boolean isDiscount = false;
+        for (Product_Flash_Sale pf : pfs) {
+            if (pf.getProductDetail().getProductDetailId() == cart.getProductDetail().getProductDetailId()) {
+                int remainingQuantity = pf.getQuantity() - pf.getUsedQuantity();
+                int quantity = cart.getQuantity();
+                if (quantity <= remainingQuantity) {
+                    Double priceOriginal = cart.getProductDetail().getPrice();
+                    Double discountPercent = Double.valueOf(pf.getDiscountPercentage()) / 100;
+                    Double priceDiscount = priceOriginal * (1 - discountPercent);
+                    cart.setPriceDiscount(priceDiscount);
+                    cart.setAmount(cart.getQuantity() * cart.getPriceDiscount());
+                    cartsRepository.save(cart);
+                    isFlashSales = true;
+                }
+            }
+        }
+        if (!isFlashSales) {
+            List<Discounts> discountList = discountsRepository.findActiveDiscountsNowAndActive(new Date(),
+                    true);
+            for (Discounts d : discountList) {
+                Product_Discount pdDiscount = productDiscountRepository
+                        .findByProductDetailAndDiscount(cart.getProductDetail(), d);
+                if (pdDiscount != null) {
+                    Double priceOriginal = cart.getProductDetail().getPrice();
+                    Double discountPercent = Double.valueOf(pdDiscount.getDiscount().getValue()) / 100;
+                    Double priceDiscount = priceOriginal * (1 - discountPercent);
+                    cart.setPriceDiscount(priceDiscount);
+                    cart.setAmount(cart.getQuantity() * cart.getPriceDiscount());
+                    cartsRepository.save(cart);
+                    isDiscount = true;
+                }
+            }
+        }
+
+        if (!isFlashSales && !isDiscount) {
+            Double priceOriginal = cart.getProductDetail().getPrice();
+            Double priceDiscount = priceOriginal;
+            cart.setPriceDiscount(priceDiscount);
+            cart.setAmount(cart.getQuantity() * cart.getPriceDiscount());
+            cartsRepository.save(cart);
+        }
+    }
+
     @PostMapping("/remove")
-    public ResponseEntity<Map<String, Object>> removeCartItem(@RequestBody Integer cartId) {
+    public ResponseEntity<Map<String, Object>> removeCartpf(@RequestBody Integer cartId) {
         Carts cart = new Carts();
         cart = cartsRepository.findById(cartId).get();
 
@@ -265,6 +338,103 @@ public class CartController {
         response.put("status", status);
         response.put("message", message);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/validateVoucher")
+    public ResponseEntity<Map<String, Object>> validateVoucher(@RequestBody CartVoucherDTO voucherDTO) {
+        Map<String, Object> response = new HashMap<>();
+        boolean appliedVoucher = false;
+        boolean validNormalVoucher = false;
+        boolean validShippingVoucher = false;
+
+        Vouchers normalVoucher = voucherDTO.getNormalVoucherApplied();
+        Vouchers shippingVoucher = voucherDTO.getShippingVoucherApplied();
+
+        if (normalVoucher != null) {
+            appliedVoucher = true;
+            validNormalVoucher = checkoutService.isVoucherValid(normalVoucher);
+        }
+
+        if (shippingVoucher != null) {
+            appliedVoucher = true;
+            validShippingVoucher = checkoutService.isVoucherValid(shippingVoucher);
+        }
+        List<Vouchers> voucherIsNotValid = new ArrayList<>();
+        if (appliedVoucher) {
+            if (!validNormalVoucher) {
+                voucherIsNotValid.add(normalVoucher);
+            }
+            if (!validShippingVoucher) {
+                voucherIsNotValid.add(shippingVoucher);
+            }
+            if (voucherIsNotValid.isEmpty()) {
+                response.put("status", "success");
+                response.put("message", "Mã giảm giá đã áp dụng thành công!");
+            } else {
+                response.put("listVoucherIsNotValid", voucherIsNotValid);
+                response.put("status", "error");
+                response.put("message", "Mã giảm giá không hợp lệ!");
+            }
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/validatePurchaseLimitFlashSale")
+    public ResponseEntity<Map<String, Object>> validatePurchaseLimitFlashSale(@RequestBody List<Carts> listCartItems) {
+        Map<String, Object> response = new HashMap<>();
+        String status = "success";
+        String message = "Purchase limit is valid.";
+
+        Optional<Flash_Sales> flashSalesOptional = Optional.ofNullable(flashSalesRepository.findByStatus(2));
+        List<Product_Flash_Sale> pfs = new ArrayList<>();
+        if (flashSalesOptional.isPresent()) {
+            pfs = product_FlashSaleRepository.findByFlashSaleId(flashSalesOptional.get());
+        }
+
+        if (!listCartItems.isEmpty() && flashSalesOptional.isPresent() && !pfs.isEmpty()) {
+            List<Carts> listNotValidPurchaseLimit = new ArrayList<>();
+            for (Carts cart : listCartItems) {
+                pfs.stream()
+                        .filter(pf -> cart.getProductDetail().getProductDetailId() == pf.getProductDetail()
+                                .getProductDetailId()
+                                && cart.getQuantity() > pf.getPurchaseLimit())
+                        .findFirst()
+                        .ifPresent(pf -> {
+                            listNotValidPurchaseLimit.add(cart);
+                        });
+            }
+            if (!listNotValidPurchaseLimit.isEmpty()) {
+                status = "error";
+                message = "Purchase limit is not valid.";
+                response.put("listNotValidPurchaseLimit", listNotValidPurchaseLimit);
+            }
+        }
+
+        response.put("status", status);
+        response.put("message", message);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/getProductFlashSales")
+    public ResponseEntity<Map<String, Object>> getProductFlashSales() {
+        Map<String, Object> response = new HashMap<>();
+        String status = "success";
+        String message = "get List product flash sale success.";
+
+        Optional<Flash_Sales> flashSalesOptional = Optional.ofNullable(flashSalesRepository.findByStatus(2));
+        List<Product_Flash_Sale> pfs = new ArrayList<>();
+        if (flashSalesOptional.isPresent()) {
+            pfs = product_FlashSaleRepository.findByFlashSaleId(flashSalesOptional.get());
+        } else {
+            status = "error";
+            message = "get List product flash sale fail.";
+        }
+
+        response.put("listProductFlashSales", pfs);
+        response.put("status", status);
+        response.put("message", message);
         return ResponseEntity.ok(response);
     }
 

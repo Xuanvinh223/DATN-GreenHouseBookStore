@@ -13,7 +13,8 @@ public interface DiscountsRepository extends JpaRepository<Discounts, Integer> {
 
     @Query("SELECT d FROM Discounts d " +
             "WHERE d.startDate <= :currentDateTime " +
-            "AND d.endDate >= :currentDateTime")
-    List<Discounts> findActiveDiscountsNow(@Param("currentDateTime") Date currentDateTime);
+            "AND d.endDate >= :currentDateTime AND d.active = :active")
+    List<Discounts> findActiveDiscountsNowAndActive(@Param("currentDateTime") Date currentDateTime,
+            @Param("active") boolean active);
 
 }

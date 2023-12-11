@@ -131,7 +131,7 @@ public class CheckoutController {
                 message = "Voucher đã hết!";
                 response.put("status", status);
                 response.put("message", message);
-                return ResponseEntity.ok(response);
+                return ResponseEntity.ok(response); 
             }
 
             // Create invoice
@@ -285,11 +285,9 @@ public class CheckoutController {
             if (statusInvoice.getPaymentStatus().getStatusId() == 1) {
                 status = "success";
                 message = "Đơn hàng đã được thanh toán thành công";
-                System.out.println("success");
             } else {
                 status = "error";
                 message = "Đơn hàng chưa được thanh toán";
-                System.out.println("error");
             }
             // Sau khi tạo sản phẩm thành công, gửi thông báo đến client sử dụng WebSocket
             messagingTemplate.convertAndSend("/topic/products", "update");

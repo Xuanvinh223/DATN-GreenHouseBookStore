@@ -63,9 +63,11 @@
                                 </div>
                                 <div class="space">Đang chọn {{listCartItemSelected.length}} sản phẩm</div>
                                 <div class="cart-action">
-                                    <div class="div-of-btn-remove-cart" ng-click="removeCartSelected()" ng-if="listCartItemSelected.length > 0">
+                                    <div class="div-of-btn-remove-cart" ng-click="removeCartSelected()"
+                                        ng-if="listCartItemSelected.length > 0">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="delete">
-                                            <path d="M24.2,12.193,23.8,24.3a3.988,3.988,0,0,1-4,3.857H12.2a3.988,3.988,0,0,1-4-3.853L7.8,12.193a1,1,0,0,1,2-.066l.4,12.11a2,2,0,0,0,2,1.923h7.6a2,2,0,0,0,2-1.927l.4-12.106a1,1,0,0,1,2,.066Zm1.323-4.029a1,1,0,0,1-1,1H7.478a1,1,0,0,1,0-2h3.1a1.276,1.276,0,0,0,1.273-1.148,2.991,2.991,0,0,1,2.984-2.694h2.33a2.991,2.991,0,0,1,2.984,2.694,1.276,1.276,0,0,0,1.273,1.148h3.1A1,1,0,0,1,25.522,8.164Zm-11.936-1h4.828a3.3,3.3,0,0,1-.255-.944,1,1,0,0,0-.994-.9h-2.33a1,1,0,0,0-.994.9A3.3,3.3,0,0,1,13.586,7.164Zm1.007,15.151V13.8a1,1,0,0,0-2,0v8.519a1,1,0,0,0,2,0Zm4.814,0V13.8a1,1,0,0,0-2,0v8.519a1,1,0,0,0,2,0Z">
+                                            <path
+                                                d="M24.2,12.193,23.8,24.3a3.988,3.988,0,0,1-4,3.857H12.2a3.988,3.988,0,0,1-4-3.853L7.8,12.193a1,1,0,0,1,2-.066l.4,12.11a2,2,0,0,0,2,1.923h7.6a2,2,0,0,0,2-1.927l.4-12.106a1,1,0,0,1,2,.066Zm1.323-4.029a1,1,0,0,1-1,1H7.478a1,1,0,0,1,0-2h3.1a1.276,1.276,0,0,0,1.273-1.148,2.991,2.991,0,0,1,2.984-2.694h2.33a2.991,2.991,0,0,1,2.984,2.694,1.276,1.276,0,0,0,1.273,1.148h3.1A1,1,0,0,1,25.522,8.164Zm-11.936-1h4.828a3.3,3.3,0,0,1-.255-.944,1,1,0,0,0-.994-.9h-2.33a1,1,0,0,0-.994.9A3.3,3.3,0,0,1,13.586,7.164Zm1.007,15.151V13.8a1,1,0,0,0-2,0v8.519a1,1,0,0,0,2,0Zm4.814,0V13.8a1,1,0,0,0-2,0v8.519a1,1,0,0,0,2,0Z">
                                             </path>
                                         </svg>
                                     </div>
@@ -99,10 +101,12 @@
                                             </div>
                                         </div>
                                         <div class="img-product-cart">
-                                            <a ng-click="getProductDetail(cart.productDetail.productDetailId)"><img src="{{cart.productDetail.image}}" alt=""></a>
+                                            <a ng-click="getProductDetail(cart.productDetail.productDetailId)"><img
+                                                    src="{{cart.productDetail.image}}" alt=""></a>
                                         </div>
                                         <div class="group-product-info">
-                                            <div class="info-product-cart" ng-click="getProductDetail(cart.productDetail.productDetailId)">
+                                            <div class="info-product-cart"
+                                                ng-click="getProductDetail(cart.productDetail.productDetailId)">
                                                 <h2 class="product-name-full-text">
                                                     {{cart.productDetail.product.productName}}</h2>
                                                 <div class="price-original">
@@ -124,6 +128,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="flashsale-product-banner" ng-if="isProductFlashSale(cart)">
+                                                    <img
+                                                        src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/flashsale/label-flashsale.svg?q=10357">
                                                 </div>
                                             </div>
                                             <div class="number-product-cart">
@@ -206,7 +214,7 @@
                                                                     class="gh-event-promo-list-item-content-description">
                                                                     {{voucher.description}}
                                                                 </div>
-                                                            </div> 
+                                                            </div>
                                                         </div>
                                                         <div>
                                                             <div class="gh-event-promo-item-progress-bar">
@@ -320,8 +328,7 @@
                                         <div class="method-button-cart">
                                             <a ng-click="checkout()">
                                                 <button type="button" title="Thanh toán"
-                                                    class="btn-proceed-checkout btn-checkout"><span><span>Thanh
-                                                            toán</span></span>
+                                                    class="btn-proceed-checkout btn-checkout"><span><span>Đặt Hàng</span></span>
                                                 </button>
                                             </a>
                                         </div>
@@ -340,10 +347,10 @@
                                 <div class="icon-empty-cart"><img
                                         src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/checkout_cart/ico_emptycart.svg"
                                         class="center"></div>
-                                <p style="font-size:1.4rem;margin: 20px 0;">Chưa có sản phẩm trong giỏ hàng của bạn.</p><a
-                                    style="color: white;text-transform: uppercase;"
-                                    href="/product"><button class="button-shopping"
-                                        type="button" title="Mua sắm ngay" style="margin:auto">Mua sắm ngay</button></a>
+                                <p style="font-size:1.4rem;margin: 20px 0;">Chưa có sản phẩm trong giỏ hàng của bạn.</p>
+                                <a style="color: white;text-transform: uppercase;" href="/product"><button
+                                        class="button-shopping" type="button" title="Mua sắm ngay"
+                                        style="margin:auto">Mua sắm ngay</button></a>
                             </div>
                         </div>
                     </div>

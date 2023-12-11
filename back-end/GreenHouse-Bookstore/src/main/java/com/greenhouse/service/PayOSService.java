@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 import com.greenhouse.model.Invoices;
 import com.greenhouse.model.Orders;
 
-@Service
+@Service 
 public class PayOSService {
 
     private String payOSApiUrl = "https://api-merchant.payos.vn/v2/payment-requests";
