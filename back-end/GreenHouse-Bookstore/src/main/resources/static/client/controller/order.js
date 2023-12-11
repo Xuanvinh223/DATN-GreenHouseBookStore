@@ -17,7 +17,9 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
             return $http.get(host + '/' + $scope.username)
                 .then(function (response) {
                     $scope.listOrders = response.data.orders;
-
+                    $scope.listOrders.sort(function (a, b) {
+                        return new Date(b.create_Date) - new Date(a.create_Date);
+                    })
                     // Gọi hàm để lấy danh sách order details dựa trên danh sách order
                     var getOrderDetailPromises = $scope.listOrders.map(function (order) {
                         return $scope.getOrderDetailsWithReviews(order.orderCode, order);
@@ -83,51 +85,33 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
             $scope.hasOrders = $scope.filteredOrders.length > 0;
         };
 
-
-        // Hàm để kiểm tra trạng thái mong muốn
-        // $scope.isDesiredStatus = function (status) {
-        //     const desiredStatuses = ['pending_confirmation', 'pending', 'transporting', 'completed', 'cancel'];
-        //     return desiredStatuses.includes(status);
-        // };
-
-        // Hàm để lấy những đơn hàng có trạng thái mong muốn
-        // $scope.shouldShowOrder = function (order) {
-        //     const excludedStatuses = ['return_transporting', 'waiting_to_return', 'lost_damage'];
-        //     return excludedStatuses.indexOf(order.status) === -1 && $scope.isDesiredStatus(order.status);
-        // };
-
-        // $scope.isDesiredStatus = function (status) {
-        //     const desiredStatuses = ['pending_confirmation', 'pending', 'transporting', 'completed', 'cancel'];
-        //     return desiredStatuses.includes(status);
-        // };
-
-
         //Hủy đơn hàng
-        $scope.cacelOrder = [];
+        $scope.cancelOrder = [];
         $scope.showCancelModal = function (item) {
             $('#order-cancel').modal('show');
-            $scope.cacelOrder.orderCode = item.orderCode;
-            $scope.cacelOrder.username = item.account.username;
-            $scope.cacelOrder.noteCancel = "";
-            $scope.cacelOrder.status = item.status;
+            $scope.cancelOrder.orderCode = item.orderCode;
+            $scope.cancelOrder.username = item.account.username;
+            $scope.cancelOrder.noteCancel = "";
+            $scope.cancelOrder.status = item.status;
             $scope.errorsNoteCancel = "";
-            $scope.cacelOrder.returnAddress = item.returnAddress;
+            $scope.cancelOrder.orderCodeGHN = item.orderCodeGHN;
+            console.log("item", item);
         };
 
         $scope.confirmCancel = function () {
-            if ($scope.cacelOrder.noteCancel == null || $scope.cacelOrder.noteCancel.length < 10) {
+            if ($scope.cancelOrder.noteCancel == null || $scope.cancelOrder.noteCancel.length < 10) {
                 $scope.errorsNoteCancel = 'Vui lòng nhập lí do không ít hơn 10 kí tự!';
             } else {
                 var updatedOrder = {
                     status: 'cancel',
                     confirmed_By: $scope.username,
-                    note: $scope.cacelOrder.noteCancel
+                    note: $scope.cancelOrder.noteCancel
                 };
 
                 if ($scope.cancelOrder && $scope.cancelOrder.status === 'pending') {
                     // Nếu đơn hàng ở trạng thái 'Pending Handover', thực hiện cuộc gọi API của Giao Hàng Nhanh
                     var ghnApiData = {
-                        order_codes: [$scope.cancelOrder.returnAddress]
+                        order_codes: [$scope.cancelOrder.orderCodeGHN]
                     };
 
                     $http.post('https://online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel', ghnApiData, {
@@ -147,13 +131,13 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
 
                 var url = `${host}/cancelOrder/`;
                 // Gọi API để hủy đơn hàng
-                $http.put(url + $scope.cacelOrder.orderCode, updatedOrder)
+                $http.put(url + $scope.cancelOrder.orderCode, updatedOrder)
                     .then(function (response) {
                         $('#order-cancel').modal('hide');
                         Swal.fire({
                             icon: "success",
                             title: "Thành công",
-                            text: `Hủy đơn hàng ${$scope.cacelOrder.orderCode} thành công`,
+                            text: `Hủy đơn hàng ${$scope.cancelOrder.orderCode} thành công`,
                         });
 
                         $scope.getOrders().then(function () {
@@ -441,7 +425,7 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
             return totalAmount;
         };
         $scope.getOrderCode = function (orderCode) {
-            window.location.href = '/account/order-cancel?orderCode=' + orderCode;
+            window.location.href = '/account/order-detail?orderCode=' + orderCode;
         };
 
         $scope.init = function () {

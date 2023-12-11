@@ -105,7 +105,7 @@ public class Orders {
     private int serviceTypeId;
 
     @Column(name = "payment_type_id", nullable = false)
-    private int paymentTypeId;
+private int paymentTypeId;
 
     @Column(name = "note", columnDefinition = "nvarchar(MAX)")
     private String note;

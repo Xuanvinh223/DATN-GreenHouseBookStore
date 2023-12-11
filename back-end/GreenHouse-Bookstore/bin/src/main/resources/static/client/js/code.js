@@ -1,39 +1,6 @@
-function toggleLanguage() {
-    let language = document.getElementById("top-language-dropdown");
-    if (language.style.display === "block") {
-        language.setAttribute("style", "display: none;");
-    } else {
-        language.setAttribute("style", "display: block;");
-    }
-}
-
-
-
-var checkToggleLanguage = function (event) {
-    let find = false;
-    let element = event.target;
-    for (let i = 0; i < element.classList.length; i++) {
-        if (element.classList[i].includes("top-language")) {
-            find = true;
-            break;
-        }
-    }
-
-
-    if (find) {
-       
-    } else {
-        let language = document.getElementById("top-language-dropdown");
-        language.setAttribute("style", "display: none;");
-    }
-
-}
-
-var allElement = document.getElementsByTagName("*");
-for (let i = 0; i < allElement.length; i++) {
-    allElement[i].addEventListener("click", checkToggleLanguage);
-}
-
+$(document).ready(function () {
+    $('.selectpicker').selectpicker();
+});
 
 //Menu Sách
 $("#sach-menu").mouseenter(function () {
@@ -89,8 +56,6 @@ $("#top-bar-category-container-right-hanhtrang").mouseenter(function () {
 });
 
 
-
-
 //Menu Sách mobile
 $("#sach-menu1").mouseenter(function () {
     $("#top-bar-category-container-right-sach1").css("display", "block");
@@ -143,3 +108,18 @@ $("#top-bar-category-container-right-hanhtrang1").mouseenter(function () {
 }).mouseleave(function () {
     $("#top-bar-category-container-right-hanhtrang1").css("display", "none");
 });
+
+
+$(document).ready(function () {
+    $("a[href*=lang]").on("click", function () {
+        var param = $(this).attr("href");
+        $.ajax({
+            url: "/index" + param,
+            success: function () {
+                location.reload();
+            }
+        });
+        return false;
+    });
+});
+

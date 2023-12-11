@@ -111,6 +111,26 @@
 												<span class="flashsale-countdown-number">{{flash.seconds}}</span>
 											</div>
 										</div>
+										<div class="flashsale-product-last">
+											<div class="flashsale-progress">
+												<div class="flashsale-progress-bar"
+													ng-style="{'width': getQuantitySold(productDetail.productDetailId) / getQuantityFl(productDetail.productDetailId) * 100 + '%'}">
+												</div>
+												<div class="flashsale-progress-value"
+													ng-if="getQuantitySold(productDetail.productDetailId) == getQuantityFl(productDetail.productDetailId)">
+													Hết hàng
+												</div>
+												<div class="flashsale-progress-value"
+													ng-if="getQuantitySold(productDetail.productDetailId) < getQuantityFl(productDetail.productDetailId)">
+													Đã bán:
+													<span class="flashsale_sold_number">{{
+														getQuantitySold(productDetail.productDetailId) }}</span>
+												</div>
+
+											</div>
+
+
+										</div>
 									</div>
 									<div class="price-block">
 										<span class="price1">{{ productDetail.priceDiscount|number:'0'}}đ</span>

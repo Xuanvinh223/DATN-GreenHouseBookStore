@@ -87,6 +87,7 @@ jQuery(document).ready(function ($) {
                 $(this).siblings('.sub-menu').slideToggle('500');
             });
         }
+
         categoryMenuExpand();
         categoryMenuExpandInMobile();
 
@@ -225,7 +226,7 @@ jQuery(document).ready(function ($) {
         ---------------------------------------*/
         function stickyHeader() {
 
-            var headerHeight = $('.site-header')[0].getBoundingClientRect().height;
+            var headerHeight = $('nav')[0].getBoundingClientRect().height;
             $(window).on({
                 resize: function () {
                     var width = $(window).width();
@@ -339,6 +340,7 @@ jQuery(document).ready(function ($) {
                 $(this).addClass('added').find('i').addClass('ti-check').removeClass('ti-shopping-cart').siblings('span').text('added');
             }
         });
+
         /*-------------------------------------
             --> Data Background Image
         ---------------------------------------*/
@@ -462,7 +464,6 @@ jQuery(document).ready(function ($) {
     /*--
         15: Google Map
     ----------------------------------------------------*/
-<<<<<<< HEAD:font-end/client-template/js/custom.js
     // Initialize and add the map
     if ($('#google-map').length) {
         function initMap() {
@@ -473,24 +474,30 @@ jQuery(document).ready(function ($) {
                 document.getElementById('google-map'), { zoom: 12, center: uluru });
             // The marker, positioned at Uluru
             var marker = new google.maps.Marker({ position: uluru, map: map });
+            console.log("GG Map");
         }
+
         initMap();
     }
-=======
-	// Initialize and add the map
-	if($('#google-map').length){
-		function initMap() {
-			// The location of Uluru
-			var uluru = {lat: 9.984232450459027, lng: 105.75771759264275};  
-			// The map, centered at Uluru
-			var map = new google.maps.Map(
-				document.getElementById('google-map'), {zoom: 12, center: uluru});
-			// The marker, positioned at Uluru
-			var marker = new google.maps.Marker({position: uluru, map: map});
-            console.log("GG Map");
-		}
-		initMap();
-	}
->>>>>>> dev/datmv:back-end/GreenHouse-Bookstore/src/main/resources/static/client/js/custom.js
 
+    document.addEventListener("DOMContentLoaded", function () {
+        var textContainer = document.querySelector(".limit-text");
+        var readMore = document.querySelector(".read-more");
+    
+        if (textContainer) {
+            if (textContainer.scrollWidth > textContainer.clientWidth) {
+                // Đoạn văn bản bị giới hạn, hiển thị "Xem Thêm"
+                readMore.style.display = "inline";
+            }
+        }
+    
+        readMore.addEventListener("click", function () {
+            // Xử lý khi người dùng bấm "Xem Thêm" (có thể hiển thị toàn bộ văn bản)
+            textContainer.classList.remove("limit-text");
+            readMore.style.display = "none";
+        });
+    });
+    
+    
+    
 });

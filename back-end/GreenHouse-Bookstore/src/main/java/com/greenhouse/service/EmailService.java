@@ -53,7 +53,14 @@ public class EmailService {
                 "        <p>Vui lòng nhập mã OTP dưới đây để đăng ký tài khoản của bạn:</p>\r\n" + //
                 "        <p style=\"font-size: 24px; font-weight: bold;\">Mã OTP: " + confirmationCode + "</p>\r\n" + //
                 "        <p>Nếu bạn không yêu cầu mã OTP này, xin vui lòng bỏ qua email này. Mã OTP này sẽ hết hạn sau một thời gian nhất định.</p>\r\n"
+                + "        <div style=\"background-color: #ffffff; padding: 20px; text-align: center;\">\r\n" + //
+                "            <span style=\"color: gray;\">Email Hỗ Trợ: </span><a href=\"mailto:greenhousestore@gmail.com\" style=\"color: #007bff; text-decoration: none;\"><i class=\"fas fa-envelope\"></i>greenhousestore@gmail.com</a><br>\r\n"
                 + //
+                "            <span style=\"color: gray;\">Số Điện Thoại Hỗ Trợ: </span><a href=\"tel:+84886077296\" style=\"color: #007bff; text-decoration: none;\"><i class=\"fas fa-phone-alt\"></i>(+84) 886077296</a>\r\n"
+                + //
+                "        </div>\r\n"
+                + //
+                "        <p style=\"color: gray;\">GreenHouse©2023, Designed & Developed By Team GreenHouse</p>\r\n" +
                 "    </div>\r\n" + //
                 "</body>\r\n" + //
                 "</html>\r\n" + //
@@ -79,7 +86,14 @@ public class EmailService {
                 + "\" style=\"background-color: green; color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; margin: 10px;\">Đổi Mật Khẩu</a>\r\n"
                 + //
                 "        <p>Nếu bạn không yêu cầu đổi mật khẩu, xin vui lòng bỏ qua email này. Liên kết này sẽ hết hạn sau 24 giờ.</p>\r\n"
+                + "        <div style=\"background-color: #ffffff; padding: 20px; text-align: center;\">\r\n" + //
+                "            <span style=\"color: gray;\">Email Hỗ Trợ: </span><a href=\"mailto:greenhousestore@gmail.com\" style=\"color: #007bff; text-decoration: none;\"><i class=\"fas fa-envelope\"></i>greenhousestore@gmail.com</a><br>\r\n"
                 + //
+                "            <span style=\"color: gray;\">Số Điện Thoại Hỗ Trợ: </span><a href=\"tel:+84886077296\" style=\"color: #007bff; text-decoration: none;\"><i class=\"fas fa-phone-alt\"></i>(+84) 886077296</a>\r\n"
+                + //
+                "        </div>\r\n"
+                + //
+                "        <p style=\"color: gray;\">GreenHouse©2023, Designed & Developed By Team GreenHouse</p>\r\n" +
                 "    </div>\r\n" + //
                 "</body>\r\n" + //
                 "</html>\r\n" + //
@@ -167,22 +181,31 @@ public class EmailService {
                 "<head>\r\n" + //
                 "    <meta charset=\"UTF-8\">\r\n" + //
                 "    <title>Tri Ân Khách Hàng</title>\r\n" + //
-                "    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css\">\r\n" + //
+                "    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css\">\r\n"
+                + //
                 "</head>\r\n" + //
-                "<body style=\"background-color: #f4f4f4; font-family: Arial, sans-serif; padding: 20px; text-align: center;\">\r\n" + //
+                "<body style=\"background-color: #f4f4f4; font-family: Arial, sans-serif; padding: 20px; text-align: center;\">\r\n"
+                + //
                 "\r\n" + //
-                "    <div style=\"max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\">\r\n" + //
-                "        <img src=\"https://down-ws-vn.img.susercontent.com/87ec164c0d56e1d4c58487973017ed3f_tn\" alt=\"Logo\" width=\"150\" height=\"150\">\r\n" + //
+                "    <div style=\"max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\">\r\n"
+                + //
+                "        <img src=\"https://down-ws-vn.img.susercontent.com/87ec164c0d56e1d4c58487973017ed3f_tn\" alt=\"Logo\" width=\"150\" height=\"150\">\r\n"
+                + //
                 "        <h2>Chân thành cảm ơn sự đồng hành của bạn!</h2>\r\n" + //
-                "        <p>Chúng tôi đánh giá cao sự phản hồi và ý kiến của bạn về dịch vụ/sản phẩm của chúng tôi.</p>\r\n" + //
-                "        <p>Nếu có bất kỳ điều gì chúng tôi có thể cải thiện hoặc hỗ trợ, đừng ngần ngại liên hệ với chúng tôi.</p>\r\n" + //
+                "        <p>Chúng tôi đánh giá cao sự phản hồi và ý kiến của bạn về dịch vụ/sản phẩm của chúng tôi.</p>\r\n"
+                + //
+                "        <p>Nếu có bất kỳ điều gì chúng tôi có thể cải thiện hoặc hỗ trợ, đừng ngần ngại liên hệ với chúng tôi.</p>\r\n"
+                + //
                 "\r\n" + //
                 "        <div style=\"background-color: #ffffff; padding: 20px; text-align: center;\">\r\n" + //
-                "            <span style=\"color: gray;\">Email Hỗ Trợ: </span><a href=\"mailto:greenhousestore@gmail.com\" style=\"color: #007bff; text-decoration: none;\"><i class=\"fas fa-envelope\"></i>greenhousestore@gmail.com</a><br>\r\n" + //
-                "            <span style=\"color: gray;\">Số Điện Thoại Hỗ Trợ: </span><a href=\"tel:+84886077296\" style=\"color: #007bff; text-decoration: none;\"><i class=\"fas fa-phone-alt\"></i>(+84) 886077296</a>\r\n" + //
+                "            <span style=\"color: gray;\">Email Hỗ Trợ: </span><a href=\"mailto:greenhousestore@gmail.com\" style=\"color: #007bff; text-decoration: none;\"><i class=\"fas fa-envelope\"></i>greenhousestore@gmail.com</a><br>\r\n"
+                + //
+                "            <span style=\"color: gray;\">Số Điện Thoại Hỗ Trợ: </span><a href=\"tel:+84886077296\" style=\"color: #007bff; text-decoration: none;\"><i class=\"fas fa-phone-alt\"></i>(+84) 886077296</a>\r\n"
+                + //
                 "        </div>\r\n" + //
                 "\r\n" + //
-                "        <p style=\"color: gray;\">Nhận ngay <a href=\"http://greenhouse-v1-env.eba-2yfkh2vp.us-east-1.elasticbeanstalk.com/voucher\">voucher</a> đặc biệt khi mua sắm tại cửa hàng GreenHouse!</p>\r\n" + //
+                "        <p style=\"color: gray;\">Nhận ngay <a href=\"http://greenhouse-v1-env.eba-2yfkh2vp.us-east-1.elasticbeanstalk.com/voucher\">voucher</a> đặc biệt khi mua sắm tại cửa hàng GreenHouse!</p>\r\n"
+                + //
                 "\r\n" + //
                 "        <p style=\"color: gray;\">GreenHouse©2023, Designed & Developed By Team GreenHouse</p>\r\n" + //
                 "    </div>\r\n" + //

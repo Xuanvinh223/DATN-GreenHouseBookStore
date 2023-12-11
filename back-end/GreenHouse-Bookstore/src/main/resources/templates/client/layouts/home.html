@@ -64,8 +64,7 @@
     </section>
     <!--=================================  End Hero Area  ===================================== -->
     <!--=================================  Flash Sale  ===================================== -->
-    <section class="section-margin container" ng-controller="flashSaleController"
-    ng-show="showSection">
+    <section class="section-margin container" ng-controller="flashSaleController" ng-show="showSection">
         <!-- Flash Sale Header -->
         <div class="flashsale-header section-title--bordered" ng-repeat="flash in flashSales"
             ng-show="flash.showCountdown" ng-if="flash.status == 2">
@@ -128,13 +127,20 @@
                             <div class="progress mt--10">
                                 <div class="progress-bar"
                                     ng-style="{'width': proFlaSal.usedQuantity / proFlaSal.quantity * 100 + '%'}"></div>
-                                <span class="progress-label">Đã bán {{ proFlaSal.usedQuantity }}</span>
+                                <span ng-if="proFlaSal.usedQuantity == proFlaSal.quantity" class="progress-label">
+                                    Hết hàng
+                                </span>
+                                <span class="progress-label" ng-if="proFlaSal.usedQuantity < proFlaSal.quantity">
+                                    Đã bán {{ proFlaSal.usedQuantity }}
+                                </span>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="center_center mt--20">
+            <div class="center_center mt--20" ng-if="productFlashSales.length>8">
                 <a class="flashsale-xemthem" ng-click="loadMoreFlashSaleToday()" th:text="#{lo.mn.flsee}">Xem
                     thêm</a>
             </div>
@@ -153,7 +159,7 @@
             <span class="flashsale-header-title" style="margin-right:5px" th:text="#{lo.mn.suggest}">
                 GỢI Ý HÔM NAY </span>
         </div>
-        <div class="flashsale-section">
+        <div class="flashsale-section ">
             <div class="shop-product-wrap grid-four shop-border row space-db--30 ">
                 <div class="col-lg-4 col-sm-6 mt--10"
                     ng-repeat="productDetail in listProductDiscountToday.slice(0, visibleProductDiscountTodayCount)">
@@ -191,18 +197,18 @@
                             <span class="price-discount"
                                 ng-if="getDiscountValueByProductId(productDetail.productDetailId)">{{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
                         </div>
-                        <div class="rating-block">
+                        <!-- <div class="rating-block">
                             <div class="rating-star">
                                 <span class="fas fa-star"
                                     ng-class="{star_on: star <= getStarRatingByProductId(productDetail.productDetailId)}"
                                     ng-repeat="star in numStar track by $index"></span>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
             </div>
-            <div class="center_center mt--20">
+            <div class="center_center mt--20" ng-if="listProductDiscountToday.length>8">
                 <a class="flashsale-xemthem" ng-click="loadMoreProductDiscountToday()" th:text="#{lo.mn.flsee}">Xem
                     thêm</a>
             </div>
@@ -210,7 +216,7 @@
     </section>
     <!-- ================================ END GỢI Ý HÔM NAY  ==================================== -->
     <!--=================================  Sản Phẩm Bán Chạy  ===================================== -->
-    <section class="section-margin  container">
+    <section class="section-margin container">
 
         <div class="flashsale-header section-title--bordered">
             <!-- Start flashsale-header -->
@@ -219,7 +225,7 @@
             <span class="flashsale-header-title" style="margin-right:5px" th:text="#{lo.mn.sphbanchay}">SẢN PHẨM BÁN
                 CHẠY </span>
         </div>
-        <div class="flashsale-section">
+        <div class="flashsale-section mb--20">
             <div class="shop-product-wrap grid-four shop-border row space-db--30 ">
                 <div class="col-lg-4 col-sm-6 mt--10"
                     ng-repeat="productDetail in sellingProducts.slice(0, visibleSellingProductsCount)">
@@ -256,34 +262,31 @@
                                     > 0 ?
                                     productDetail.priceDiscount : productDetail.price | number:'0'}}
                                 </span>
-                                <del class="price-old"
-                                    ng-if="productDetail.price - productDetail.priceDiscount > 0">
+                                <del class="price-old" ng-if="productDetail.price - productDetail.priceDiscount > 0">
                                     {{productDetail.price
                                     |
                                     number:'0'}}
                                 </del>
-                                <span class="price-discount"
-                                    ng-if="!hasDiscount(productDetail.productDetailId) "
+                                <span class="price-discount" ng-if="!hasDiscount(productDetail.productDetailId) "
                                     ng-show="getDiscountValueByProductId(productDetail.productDetailId)">
                                     {{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
-                                <span class="price-discount"
-                                    ng-if="hasDiscount(productDetail.productDetailId)">
+                                <span class="price-discount" ng-if="hasDiscount(productDetail.productDetailId)">
                                     {{ hasDiscount(productDetail.productDetailId) }}%
                                 </span>
                             </div>
                         </div>
-                        <div class="rating-block">
+                        <!-- <div class="rating-block">
                             <div class="rating-star">
                                 <span class="fas fa-star"
                                     ng-class="{star_on: star <= getStarRatingByProductId(productDetail.productDetailId)}"
                                     ng-repeat="star in numStar track by $index"></span>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
             </div>
-            <div class="center_center mt--20">
+            <div class="center_center mt--20" ng-if="sellingProducts.length>8">
                 <a class="flashsale-xemthem" ng-click="loadMoreSellingProducts()" th:text="#{lo.mn.flsee}">Xem thêm</a>
             </div>
         </div>
@@ -351,19 +354,19 @@
                                     <span class="price-discount"
                                         ng-if="getDiscountValueByProductId(productDetail.productDetailId)">{{getDiscountValueByProductId(productDetail.productDetailId)}}%</span>
                                 </div>
-                                <div class="rating-block">
+                                <!-- <div class="rating-block">
                                     <div class="rating-star">
                                         <span class="fas fa-star"
                                             ng-class="{star_on: star <= getStarRatingByProductId(productDetail.productDetailId)}"
                                             ng-repeat="star in numStar track by $index"></span>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="center_center mt--20">
+            <div class="center_center mt--20" ng-if="selectedBrandProducts.length>8">
                 <a class="flashsale-xemthem" ng-click="loadMoreProductByBrand()" th:text="#{lo.mn.flsee}">Xem thêm</a>
             </div>
         </div>

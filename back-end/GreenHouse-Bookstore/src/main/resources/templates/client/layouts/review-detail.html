@@ -29,10 +29,6 @@
                             <!-- My Account Tab Menu Start -->
                             <div class="col-lg-3 col-12">
                                 <div class="myaccount-tab-menu nav" role="tablist">
-                                    <a href="/account">
-                                        <i class="fas fa-tachometer-alt"></i>
-                                        <span th:text="#{lo.mn.bdk}">Bảng điều khiển tài khoản</span>
-                                    </a>
                                     <a href="/account/info">
                                         <i class="fa fa-user"></i>
                                         <span th:text="#{lo.mn.tttk}">Thông tin tài khoản</span>
@@ -129,11 +125,11 @@
                                                     </center>
                                                 </div>
                                                 <div class="buttons-set mt--10 mb--30">
-                                                    <p class="back-link mt--10" ng-if="productReview"><a
+                                                    <!-- <p class="back-link mt--10" ng-if="productReview"><a
                                                             ng-click="showConfirmReview(productReview.reviewId)"
                                                             previewlistener="true"><small>« </small>
-                                                            <span th:text="#{lo.mn.delete}">Xóa</span></a></p>
-                                                    <p class="back-link mt--10" ng-if="!productReview"><a
+                                                            <span th:text="#{lo.mn.delete}">Xóa</span></a></p> -->
+                                                    <p class="back-link mt--10"><a
                                                             href="/account/review" previewlistener="true"><small>«
                                                             </small>
                                                             <span th:text="#{lo.mn.trove}">Trở về</span></a></p>

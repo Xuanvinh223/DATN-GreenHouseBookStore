@@ -34,7 +34,7 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
                     $scope.productDetails = responses[2].data;
                     $scope.showCountdownProd = checkAndDisplayCountdownForProductDetail($scope.productDetailId, $scope.productFlashSales);
                     $scope.discountPercentage = getDiscountPercentageForProduct($scope.productDetailId, $scope.productFlashSales);
-
+                   
                     // $scope.discountPercentages = $scope.currentFlashSaleProducts.map(product =>
                     //     getDiscountPercentageForProduct(product.productDetailId, $scope.productFlashSales)
                     // );
@@ -66,7 +66,23 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
             }
             return discountValue ? discountValue : 0;
         };
-
+        $scope.getQuantitySold = function (productDetailId) {
+            // Tìm sản phẩm chi tiết trong danh sách sản phẩm flash sale
+            var flashSaleProduct = $scope.productFlashSales.find(function (flashSale) {
+                return flashSale.productDetail.productDetailId === productDetailId;
+            });
+        
+            // Trả về số lượng đã bán hoặc 0 nếu không tìm thấy
+            return flashSaleProduct ? flashSaleProduct.usedQuantity : 0;
+        };
+        $scope.getQuantityFl = function (productDetailId) {
+            // Tìm sản phẩm chi tiết trong danh sách sản phẩm flash sale
+            var flashSaleProduct = $scope.productFlashSales.find(function (flashSale) {
+                return flashSale.productDetail.productDetailId === productDetailId;
+            });
+            // Trả về số lượng đã bán hoặc 0 nếu không tìm thấy
+            return flashSaleProduct ? flashSaleProduct.quantity : 0;
+        };
         // Hàm lọc dữ liệu
         function filterData(data) {
             var currentDate = new Date();
