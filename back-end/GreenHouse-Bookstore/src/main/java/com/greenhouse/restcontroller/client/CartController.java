@@ -119,9 +119,14 @@ public class CartController {
                     status = "success";
                     message = "Đã thêm sản phẩm vào giỏ hàng";
                 } else if (duplicate != null) {
+                    int addMaxQuantity = productDetail.getQuantityInStock() - duplicate.getQuantity();
                     status = "error";
-                    message = "Bạn có thể thêm tối đa: "
-                            + (productDetail.getQuantityInStock() - duplicate.getQuantity());
+                    if (duplicate.getQuantity() > 0) {
+                        message = "Số lượng trong giỏ hàng bạn đã có nhiều hơn số lượng còn của sản phẩm.";
+                    } else {
+                        message = "Bạn có thể thêm tối đa: "
+                                + (addMaxQuantity > 0 ? addMaxQuantity : 0);
+                    }
                 } else {
                     status = "error";
                     message = "Bạn có thể thêm tối đa: "

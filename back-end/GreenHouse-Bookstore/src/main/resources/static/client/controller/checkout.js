@@ -57,18 +57,7 @@ app.controller("checkoutController", function ($scope, $http, checkoutAPI, $time
                     if(response.data.url){
                         window.location.href = response.data.url;
                     }
-                } else if (response.data.status == "error-voucher") {
-                    Swal.fire({
-                        icon: "warring",
-                        title: "Mã giảm đã hết lượt sử dụng",
-                        confirmButtonText: "OK"
-                    }).then(result => {
-                        if (result.isConfirmed) {
-                            window.location.href = '/cart';
-                        }
-                    })
                 }
-                console.log(response);
             })
             .catch(function (error) {
                 console.error('Error calling API:', error);

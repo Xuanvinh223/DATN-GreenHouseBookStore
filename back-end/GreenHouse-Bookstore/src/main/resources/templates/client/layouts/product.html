@@ -180,6 +180,8 @@
                                     <div class="product-grid-content">
                                         <div class="product-card--body">
                                             <div class="card-image">
+                                                <div class="label_expired" ng-if="productDetail.quantityInStock <= 10 && productDetail.quantityInStock > 0"></div>
+                                                <div class="out-of-stock-label" ng-if="productDetail.quantityInStock <= 0">Hết hàng</div>
                                                 <a ng-click="getProductDetail(productDetail.productDetailId)">
                                                     <img src="{{productDetail.image}}" alt=""></a>
                                                 <div class="hover-contents">
@@ -187,7 +189,7 @@
                                                         class="hover-image">
                                                         <img src="{{productDetail.image}}" alt="">
                                                     </a>
-                                                    <div class="hover-btns">
+                                                    <div class="hover-btns" ng-if="productDetail.quantityInStock > 0">
                                                         <a href="" class="single-btn"
                                                             ng-click="addToCart(productDetail.productDetailId, 1)">
                                                             <i class="fas fa-shopping-basket"></i>

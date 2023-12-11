@@ -1,5 +1,6 @@
 package com.greenhouse.restcontroller.client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,18 +21,21 @@ import org.springframework.web.client.RestTemplate;
 
 import com.greenhouse.dto.client.CheckoutCompleteDTO;
 import com.greenhouse.dto.client.CheckoutDTO;
+import com.greenhouse.model.Carts;
 import com.greenhouse.model.InvoiceDetails;
 import com.greenhouse.model.InvoiceMappingStatus;
 import com.greenhouse.model.InvoiceMappingVoucher;
 import com.greenhouse.model.Invoices;
 import com.greenhouse.model.OrderDetails;
 import com.greenhouse.model.Orders;
+import com.greenhouse.model.Product_Detail;
 import com.greenhouse.repository.InvoiceDetailsRepository;
 import com.greenhouse.repository.InvoiceMappingStatusRepository;
 import com.greenhouse.repository.InvoiceMappingVoucherRepository;
 import com.greenhouse.repository.InvoicesRepository;
 import com.greenhouse.repository.OrderDetailsRepository;
 import com.greenhouse.repository.OrdersRepository;
+import com.greenhouse.repository.ProductDetailRepository;
 import com.greenhouse.service.CheckoutService;
 import com.greenhouse.service.PayOSService;
 import com.greenhouse.service.VNPayService;
@@ -66,6 +70,8 @@ public class CheckoutController {
     private OrdersRepository ordersRepository;
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
+    @Autowired
+    private ProductDetailRepository productDetailsRepository;
 
     @GetMapping("/getData")
     public ResponseEntity<Map<String, Object>> getData() {
@@ -97,6 +103,31 @@ public class CheckoutController {
         // -----------------------------------------
         checkoutData = data;
         try {
+            boolean appliedVoucher = false;
+            boolean validVoucher = false;
+            if (data.getVoucher() != null) {
+                appliedVoucher = true;
+                if (checkoutService.validVoucher(data.getVoucher())) {
+                    validVoucher = true;
+                }
+            }
+            if (appliedVoucher && !validVoucher) {
+                status = "error-voucher";
+                message = "Mã giảm đã hết lượt sử dụng.";
+                response.put("status", status);
+                response.put("message", message);
+                return ResponseEntity.ok(response);
+            }
+            List<Carts> notValidCarts = validQuantityInStockProduct(data.getCarts());
+            if (notValidCarts.size() > 0) {
+                status = "error-product";
+                message = "Số lượng sản phẩm không đủ hoặc đã hết hàng.";
+                response.put("status", status);
+                response.put("message", message);
+                response.put("invalidProducts", notValidCarts);
+                return ResponseEntity.ok(response);
+            }
+
             response.put("checkoutData", checkoutData);
         } catch (Exception e) {
             System.out.println(e);
@@ -118,22 +149,6 @@ public class CheckoutController {
         String status = "success";
         String message = "Create payment success";
         try {
-            boolean appliedVoucher = false;
-            boolean validVoucher = false;
-            if (data.getVoucher() != null) {
-                appliedVoucher = true;
-                if (checkoutService.validVoucher(data.getVoucher())) {
-                    validVoucher = true;
-                }
-            }
-            if (appliedVoucher && !validVoucher) {
-                status = "error-voucher";
-                message = "Voucher đã hết!";
-                response.put("status", status);
-                response.put("message", message);
-                return ResponseEntity.ok(response); 
-            }
-
             // Create invoice
             Invoices invoices = checkoutService.createInvoice(data);
 
@@ -300,4 +315,20 @@ public class CheckoutController {
         return ResponseEntity.ok(response);
     }
     // ==================================================================================================
+
+    private List<Carts> validQuantityInStockProduct(List<Carts> listCarts) {
+        List<Carts> notValidCarts = new ArrayList<>();
+        if (listCarts.size() > 0) {
+            for (Carts cart : listCarts) {
+                Product_Detail pDetail = productDetailsRepository.findById(cart.getProductDetail().getProductDetailId())
+                        .orElse(null);
+                if (pDetail != null) {
+                    if (pDetail.getQuantityInStock() - cart.getQuantity() < 0) {
+                        notValidCarts.add(cart);
+                    }
+                }
+            }
+        }
+        return notValidCarts;
+    }
 }

@@ -1177,10 +1177,22 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
 
                         var api = `${checkoutAPI}/setData`;
                         return $http.post(api, data).then(function (response) {
-                            if (response.data.status == "success") {
+                            var status = response.data.status;
+                            var message = response.data.message;
+                            if (status == "success") {
                                 return true;
-                            } else {
-                                return false;
+                            } else if (status == "error-voucher") {
+                                Swal.fire({
+                                    icon: "warring",
+                                    title: "Voucher đã hết",
+                                    text: message,
+                                })
+                            } else if (status == "error-product") {
+                                Swal.fire({
+                                    icon: "warring",
+                                    title: "Sản phẩm không đủ",
+                                    text: message,
+                                })
                             }
                         });
                     } else {
@@ -1270,7 +1282,7 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
     }
 
     $scope.isProductFlashSale = function (cart) {
-        var flashSaleProduct = $scope.listProductFlashSales.find(pflsale => cart.productDetail.productDetailId == pflsale.productDetail.productDetailId 
+        var flashSaleProduct = $scope.listProductFlashSales.find(pflsale => cart.productDetail.productDetailId == pflsale.productDetail.productDetailId
             && pflsale.usedQuantity < pflsale.quantity && (cart.quantity + pflsale.usedQuantity) <= pflsale.quantity);
         if (flashSaleProduct && cart.quantity <= flashSaleProduct.purchaseLimit) {
             return true;
