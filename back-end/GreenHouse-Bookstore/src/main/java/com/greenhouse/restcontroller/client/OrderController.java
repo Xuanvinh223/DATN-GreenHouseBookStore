@@ -101,7 +101,7 @@ public class OrderController {
         return od.findByOrderCode(orderCode);
     }
 
-     @PutMapping("/cancelOrder/{orderCode}")
+    @PutMapping("/cancelOrder/{orderCode}")
     public ResponseEntity<String> cancelOrder(@PathVariable String orderCode, @RequestBody Orders updatedOrder) {
         Optional<Orders> optionalOrder = o.findById(orderCode);
 
@@ -109,8 +109,15 @@ public class OrderController {
             Orders existingOrder = optionalOrder.get();
             // Update order status, confirmed_By, and save cancellation reason (note)
             existingOrder.setStatus(updatedOrder.getStatus());
+            existingOrder.setConfirmed_By(updatedOrder.getConfirmed_By());
             existingOrder.setNote(updatedOrder.getNote());
+            existingOrder.setOrderCodeGHN(updatedOrder.getOrderCodeGHN());
+            existingOrder.setExpected_delivery_time(updatedOrder.getExpected_delivery_time());
             o.save(existingOrder);
+            // Gửi email thông báo hủy đơn hàng
+            sendEmail.sendEmailOrderCancellation(existingOrder.getAccount().getEmail(), "GreenHouse | Hủy Đơn Hàng",
+                    orderCode,
+                    existingOrder.getNote());
             return ResponseEntity.ok("Đã hủy đơn hàng");
         } else {
             return ResponseEntity.badRequest().body("Không thể hủy đơn hàng với trạng thái hiện tại");

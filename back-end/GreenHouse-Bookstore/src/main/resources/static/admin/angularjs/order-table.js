@@ -207,6 +207,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
     };
     // duyệt đơn
     $scope.acceptOrder = function (order) {
+        loadingOverlay.style.display = "block";
         var apiUrl = 'https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create';
         //================================================================
         var paymentTypeId = order.paymentTypeId;
@@ -298,19 +299,17 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             status: 'pending',
             confirmed_By: $scope.username,
             note: 'Đơn hàng của bạn đã được GreenHouse xác nhận!',
-            returnAddress: '',
+            orderCodeGHN: '',
+            expected_delivery_time: '',
         };
         $http.post(apiUrl, requestBody, requestConfig)
             .then(function (response) {
                 $scope.getData();
-                console.log(response.data.data.order_code);
-                $scope.returnAddress = response.data.data.order_code;
-                console.log($scope.returnAddress);
-                updatedOrder.returnAddress = $scope.returnAddress;
+                updatedOrder.orderCodeGHN = response.data.data.order_code;
+                updatedOrder.expected_delivery_time = response.data.data.expected_delivery_time;
                 $http.put('/rest/order/cancelOrder/' + order.orderCode, updatedOrder)
                     .then(function (response) {
                         // Xử lý khi hủy đơn hàng thành công
-                        console.log(response.data);
                         loadingOverlay.style.display = "none";
                         $scope.sendNotification("Thông báo giao hàng", order.orderCode, order.username, "Đơn hàng của bạn đã được GreenHouse xác nhận ");
                         $scope.getData();
@@ -321,6 +320,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
                             title: "Thành công",
                             text: `Xác nhận đơn hàng thành công`,
                         });
+                        loadingOverlay.style.display = "none";
                     })
                     .catch(function (error) {
                         // Xử lý khi có lỗi xảy ra
@@ -343,7 +343,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
         $scope.cancelOrder.noteCancel = "";
         $scope.cancelOrder.status = item.status;
         $scope.errorsNoteCancel = "";
-        $scope.cancelOrder.returnAddress = item.returnAddress;
+        $scope.cancelOrder.orderCodeGHN = item.orderCodeGHN;
         console.log(item);
     };
 
@@ -363,9 +363,9 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             if ($scope.cancelOrder.status === 'pending') {
                 // Nếu đơn hàng ở trạng thái 'pending', thực hiện cuộc gọi API của Giao Hàng Nhanh
                 var ghnApiData = {
-                    order_codes: [$scope.cancelOrder.returnAddress]
+                    order_codes: [$scope.cancelOrder.orderCodeGHN]
                 };
-
+                console.log(ghnApiData);
                 $http.post('https://online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel', ghnApiData, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -400,6 +400,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
                 })
                 .catch(function (error) {
                     // Xử lý khi có lỗi xảy ra
+                    loadingOverlay.style.display = "none";
                     console.error("Lỗi khi hủy đơn hàng:", error.data);
                 });
         }

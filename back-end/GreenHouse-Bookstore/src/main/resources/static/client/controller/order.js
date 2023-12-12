@@ -102,10 +102,12 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
             if ($scope.cancelOrder.noteCancel == null || $scope.cancelOrder.noteCancel.length < 10) {
                 $scope.errorsNoteCancel = 'Vui lòng nhập lí do không ít hơn 10 kí tự!';
             } else {
+                $scope.showLoading();
                 var updatedOrder = {
                     status: 'cancel',
                     confirmed_By: $scope.username,
-                    note: $scope.cancelOrder.noteCancel
+                    note: $scope.cancelOrder.noteCancel,
+                    orderCodeGHN: $scope.cancelOrder.orderCodeGHN
                 };
 
                 if ($scope.cancelOrder && $scope.cancelOrder.status === 'pending') {
@@ -143,11 +145,12 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
                         $scope.getOrders().then(function () {
                             $scope.setListOrderByStatus($scope.currentStatus);
                         });
-
+                        $scope.hideLoading();
                     })
                     .catch(function (error) {
                         // Xử lý khi có lỗi xảy ra
                         console.error("Lỗi khi hủy đơn hàng:", error.data);
+                        $scope.hideLoading();
                     });
             }
 

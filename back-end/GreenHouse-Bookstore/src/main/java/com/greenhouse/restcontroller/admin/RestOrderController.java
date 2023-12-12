@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin; 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -66,7 +66,7 @@ public class RestOrderController {
         // Lấy thông tin đơn hàng chi tiết
         List<OrderDetails> orderDetails = orderDetailsRepository.findByOrderCode(orderCode);
         responseData.put("orderDetails", orderDetails);
- 
+
         return ResponseEntity.ok(responseData);
     }
 
@@ -81,17 +81,22 @@ public class RestOrderController {
             existingOrder.setStatus(updatedOrder.getStatus());
             existingOrder.setConfirmed_By(updatedOrder.getConfirmed_By());
             existingOrder.setNote(updatedOrder.getNote());
-            existingOrder.setReturnAddress(updatedOrder.getReturnAddress());
+            existingOrder.setOrderCodeGHN(updatedOrder.getOrderCodeGHN());
+            existingOrder.setExpected_delivery_time(updatedOrder.getExpected_delivery_time());
             ordersRepository.save(existingOrder);
-            // Gửi email thông báo hủy đơn hàng
-            sendEmail.sendEmailOrderCancellation(existingOrder.getAccount().getEmail(), "GreenHouse | Hủy Đơn Hàng",
-                    orderCode,
-                    existingOrder.getNote());
-            return ResponseEntity.ok("Đã hủy đơn hàng");
+            if ("cancel".equalsIgnoreCase(updatedOrder.getStatus())) {
+                // Gửi email thông báo hủy đơn hàng
+                sendEmail.sendEmailOrderCancellation(existingOrder.getAccount().getEmail(), "GreenHouse | Hủy Đơn Hàng",
+                        orderCode,
+                        existingOrder.getNote());
+                return ResponseEntity.ok("Đã hủy đơn hàng");
+            } else {
+                return ResponseEntity.ok("Đã duyệt đơn hàng");
+            }
+
         } else {
             return ResponseEntity.badRequest().body("Không thể hủy đơn hàng với trạng thái hiện tại");
         }
     }
 
-    
 }
