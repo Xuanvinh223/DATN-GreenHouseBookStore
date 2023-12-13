@@ -2,6 +2,7 @@ package com.greenhouse.restcontroller.admin;
 
 import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Product_Discount;
+import com.greenhouse.service.ProductDetailService;
 import com.greenhouse.service.ProductDiscountService;
 import com.greenhouse.dto.ProductDiscountRequest;
 import com.greenhouse.model.Discounts;
@@ -18,6 +19,9 @@ public class RestProductDiscountCtrl {
 
     @Autowired
     private ProductDiscountService productDiscountService;
+
+    @Autowired
+    private ProductDetailService productDetailService;
 
     @GetMapping
     public ResponseEntity<List<Product_Discount>> getAllProductDiscounts() {
@@ -36,7 +40,6 @@ public class RestProductDiscountCtrl {
 
     @PostMapping
     public ResponseEntity<Object> create(@RequestBody ProductDiscountRequest productDiscountRequest) {
-
         // Kiểm tra xem Discounts có tồn tại không
         Discounts discount = productDiscountRequest.getDiscount();
         if (discount == null) {
@@ -50,44 +53,22 @@ public class RestProductDiscountCtrl {
         }
 
         for (Product_Detail selectedProductDetail : selectedProductDetails) {
+            double productPrice = selectedProductDetail.getPrice();
+            double valueDiscount = ((double) discount.getValue()) / 100;
+
+            double priceDiscount = productPrice - (productPrice * valueDiscount);
+            selectedProductDetail.setPriceDiscount(priceDiscount);
+            // Thêm Product_Detail vào service
+            productDetailService.add(selectedProductDetail);
+
+            // Tạo Product_Discount và thêm vào service nếu cần
             Product_Discount productDiscount = new Product_Discount();
             productDiscount.setDiscount(discount);
             productDiscount.setProductDetail(selectedProductDetail);
-
             productDiscountService.add(productDiscount);
         }
 
         return new ResponseEntity<>("Chiến dịch giảm giá đã được tạo thành công.", HttpStatus.OK);
-    }
-
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<Product_Discount> update(@PathVariable("id") int id,
-            @RequestBody ProductDiscountRequest productDiscountRequest) {
-        Product_Discount existingProductDiscount = productDiscountService.findById(id);
-        if (existingProductDiscount == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        // Kiểm tra xem Discounts có tồn tại không
-        Discounts discount = productDiscountRequest.getDiscount();
-        if (discount == null) {
-        }
-
-        // Xử lý danh sách sản phẩm được chọn
-        List<Product_Detail> selectedProductDetails = productDiscountRequest.getProductDetails();
-        if (selectedProductDetails == null || selectedProductDetails.isEmpty()) {
-        }
-
-        // Thêm sản phẩm mới vào chiến dịch giảm giá
-        for (Product_Detail selectedProductDetail : selectedProductDetails) {
-            Product_Discount productDiscount = new Product_Discount();
-            productDiscount.setDiscount(discount);
-            productDiscount.setProductDetail(selectedProductDetail);
-
-            productDiscountService.add(productDiscount);
-        }
-
-        return new ResponseEntity<>(existingProductDiscount, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -96,9 +77,20 @@ public class RestProductDiscountCtrl {
         if (existingProductDiscount == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        // Lấy Product_Detail từ existingProductDiscount
+        Product_Detail productDetail = existingProductDiscount.getProductDetail();
+
+        // Gán priceDiscount bằng giá gốc (price)
+        productDetail.setPriceDiscount(productDetail.getPrice());
+
+        // Cập nhật Product_Detail
+        productDetailService.update(productDetail);
+
+        // Xóa Product_Discount
         productDiscountService.delete(id);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    
 }

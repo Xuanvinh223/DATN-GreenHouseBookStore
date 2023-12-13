@@ -40,9 +40,11 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
+                                        <th colspan="2">Tên Sản Phẩm</th>
                                         <th>Phần Trăm Giảm Giá</th>
                                         <th>Số Lượng</th>
-                                        <th colspan="2">Tên Sản Phẩm</th>
+                                        <th>Giá Gốc</th>
+                                        <th>Giá Giảm</th>
                                         <th>Thao Tác</th>
                                     </tr>
                                 </thead>
@@ -50,12 +52,13 @@
                                     <tr
                                         ng-repeat="dis in filterProductDiscounts  | limitTo: itemsPerPage : (currentPage - 1) * itemsPerPage">
                                         <td>{{$index + 1}}</td>
-                                        <td>{{dis.discount.value}} %</td>
-                                        <td>{{dis.discount.quantity}}</td>
                                         <td><img class="object-fit" ng-src="{{dis.productDetail.image}}"
                                                 style="width: 50px; height: 50px; border-radius: 10%;"></td>
                                         <td>{{dis.productDetail.product.productName}}</td>
-
+                                        <td>{{dis.discount.value}} %</td>
+                                        <td>{{dis.discount.quantity}}</td>
+                                        <td>{{dis.productDetail.price | number }} VNĐ</td>
+                                        <td>{{dis.productDetail.priceDiscount | number }} VNĐ</td>
                                         <td>
                                             <a ng-show="roleName !== 'Nhân viên'" ng-click="deleteDiscount(dis.id)">
                                                 <i class="fe fe-trash-2 fe-16"></i>
