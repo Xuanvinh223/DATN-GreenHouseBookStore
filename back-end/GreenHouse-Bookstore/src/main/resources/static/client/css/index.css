@@ -1470,7 +1470,7 @@ ul.dropdown-menu.dropdown-menu-edit-review {
 
   .review-comment .rating .edit-review-mobile {
     display: block;
-    margin-left: 20px;
+    margin-left: 10px;
   }
 
   .edit-review {
@@ -4104,7 +4104,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   visibility: visible;
   opacity: 1;
   transform: translateY(0%);
-  top: 38px;
+  top: 45px;
 }
 
 .top-bar-mobile-icon .top-notification-dropdown {
@@ -4144,6 +4144,7 @@ html.bx-ios.bx-ios-fix-frame-focus {
   opacity: 1;
   transform: translateY(0%);
   z-index: 1;
+  top: 45px;
 }
 
 .top-notification-button .top-notification-dropdown {

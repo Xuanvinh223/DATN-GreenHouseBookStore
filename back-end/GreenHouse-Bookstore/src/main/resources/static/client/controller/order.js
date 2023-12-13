@@ -374,6 +374,7 @@ app.controller("OrderDetailController", function ($scope, $timeout, $routeParams
         }
 
         $scope.clearReview = function () {
+            $('#popup_write_review').modal('hide');
             $scope.saveReview.comment = '';
             $scope.saveReview.star = 5;
             $scope.selectedImages = [];
