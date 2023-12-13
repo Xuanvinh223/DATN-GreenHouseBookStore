@@ -68,11 +68,39 @@
                                             <div class="product-details mt--20">
                                                 <div class="card-body order-body">
                                                     <div class="row ">
-                                                        <div class="col-md-2 d-flex justify-content-start ">
+                                                        <div class="col-md-6 d-flex justify-content-start ">
                                                             {{order.orderCode}}
                                                         </div>
-                                                        <div class="col-md-10 d-flex justify-content-end ">
-                                                            <h4 class="mb-0" style="font-size: 15px; font-weight: bolder;">Đã hủy đơn hàng</h4>
+                                                        <div class="col-md-6 d-flex justify-content-end ">
+                                                            <span class="fw-normal mb-0">Trạng thái đơn hàng |
+                                                                <strong class="text-primary"
+                                                                    ng-if="order.status === 'pending_confirmation'">Chờ
+                                                                    Xác Nhận</strong>
+                                                                <strong class="text-primary"
+                                                                    ng-if="order.status === 'pending'">Chờ Bàn
+                                                                    Giao</strong>
+                                                                <strong class="text-primary"
+                                                                    ng-if="order.status === 'transporting'">Đang
+                                                                    Giao</strong>
+                                                                <strong class="text-primary"
+                                                                    ng-if="order.status === 'return_transporting'">Đang
+                                                                    Hoàn Hàng</strong>
+                                                                <strong class="text-primary"
+                                                                    ng-if="order.status === 'waiting_to_return'">Chờ
+                                                                    Xác Nhận Giao Lại</strong>
+                                                                <strong class="text-primary"
+                                                                    ng-if="order.status === 'completed'">Hoàn
+                                                                    Tất</strong>
+                                                                <strong class="text-primary"
+                                                                    ng-if="order.status === 'cancel'">Đã
+                                                                    Hủy</strong>
+                                                                <strong class="text-primary"
+                                                                    ng-if="order.status === 'lost_damage'">Hàng
+                                                                    Thất Lạc - Hư Hỏng</strong>
+                                                                <strong class="text-primary"
+                                                                    ng-if="order.status === 'received'">Đã Nhận
+                                                                    Hàng</strong>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                     <hr class="order-hr">
@@ -131,13 +159,17 @@
                                                         <!-- Cột thứ nhất (chiếm 70%) -->
                                                         <table class="table table-borderless">
                                                             <tr>
-                                                                <td colspan="2" style="font-size: 16px;"><strong>Chi tiết đơn hủy:</strong></td>
+                                                                <td colspan="2" style="font-size: 16px;"><strong>Chi tiết đơn:</strong></td>
                                                             </tr>
-                                                            <tr>
-                                                                <td style="width: 27%;">Yêu cầu bởi:</td>
+                                                            <tr ng-if="order.status !== 'cancel' && order.status !== 'pending_confirmation' && !== 'pending'">
+                                                                <td style="width: 27%;">Mã vận đơn:</td>
+                                                                <td><strong>{{ order.orderCodeGHN }}</strong></td>
+                                                            </tr>                                                                                                                    
+                                                            <tr ng-if="order.status === 'cancel'">
+                                                                <td style="width: 27%;">Hủy bởi:</td>
                                                                 <td ><strong>{{ order.confirmed_By ? 'Người bán' : 'Người mua' }}</strong></td>
                                                             </tr>
-                                                            <tr>
+                                                            <tr ng-if="order.status === 'cancel'">
                                                                 <td style="width: 27%;">Lý do:</td>
                                                                 <td ><strong>{{order.note}}</strong></td>
                                                             </tr>
@@ -145,6 +177,14 @@
                                                                 <td style="width: 27%;">Ngày đặt hàng:</td>
                                                                 <td ><strong>{{ order.create_Date | date:' HH:mm
                                                                     dd/MM/yyyy ' }}</strong></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 27%;">Phương thức thanh toán:</td>
+                                                                <td ><strong>{{order.invoices.paymentMethod}}</strong></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 27%;">Ngày nhận hàng dự kiến:</td>
+                                                                <td ><strong>{{order.expected_delivery_time | date:' dd/MM/yyyy '}}</strong></td>
                                                             </tr>
                                                         </table>
                                                     </div>
