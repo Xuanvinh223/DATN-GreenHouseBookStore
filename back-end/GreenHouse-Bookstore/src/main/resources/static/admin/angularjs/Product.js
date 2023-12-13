@@ -187,8 +187,8 @@ app.controller("ProductController", function ($scope, $http, $filter) {
         tinymce.init({
             selector: '#description',
             height: 300,
-            plugins: 'mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
             tinycomments_mode: 'embedded',
             tinycomments_author: 'Author name',
             setup: function (editor) {
@@ -206,23 +206,6 @@ app.controller("ProductController", function ($scope, $http, $filter) {
     $scope.initTinyMCE();
 
 
-    // Gọi API để lấy dữ liệu discounts
-    $http.get("/rest/discounts")
-        .then(function (response) {
-            // Lọc dữ liệu theo điều kiện endDate lớn hơn ngày hiện tại
-            $scope.discounts = filterDiscounts(response.data);
-        })
-        .catch(function (error) {
-            console.log("Error", error);
-        });
-
-    // Hàm để lọc dữ liệu discounts
-    function filterDiscounts(discounts) {
-        var currentDate = new Date();
-        return discounts.filter(function (discount) {
-            return new Date(discount.endDate) > currentDate;
-        });
-    }
 
 
 
@@ -501,7 +484,6 @@ app.controller("ProductController", function ($scope, $http, $filter) {
             status: $scope.product.status = true,
             category: $scope.productCategory.category || "",
             author: $scope.bookAuthor ? $scope.bookAuthor.author : null,
-            discount: $scope.productDiscount ? $scope.productDiscount.discount : null,
             productDetail: $scope.productDetail || "",
             image: $scope.productDetail.image || "",
             attributeValues: attributeValues || "",
@@ -586,7 +568,6 @@ app.controller("ProductController", function ($scope, $http, $filter) {
             product: $scope.editingProduct.product,
             category: $scope.editingProduct.productCategory.category,
             author: $scope.editingProduct.bookAuthor ? $scope.editingProduct.bookAuthor.author : null,
-            discount: $scope.editingProduct.productDiscount ? $scope.editingProduct.productDiscount.discount : null,
             productDetail: $scope.editingProduct.productDetail,
             attributeValues: $scope.editingProduct.attributeValues,
         };
@@ -1078,7 +1059,6 @@ app.controller("ProductController", function ($scope, $http, $filter) {
         };
         $scope.clearImage();
         $scope.productDetail = {};
-        $scope.productDiscount = {};
         $scope.productCategory = {};
 
         $scope.bookAuthor = {},

@@ -52,4 +52,9 @@ public class ProductDiscountServiceImpl implements ProductDiscountService {
     public Product_Discount findByProductDetail(Product_Detail productDetail) {
         return productDiscountRepository.findByProductDetail(productDetail);
     }
+
+    @Override
+    public void delete(Product_Discount productDiscount) {
+        productDiscountRepository.delete(productDiscount);
+    }
 }

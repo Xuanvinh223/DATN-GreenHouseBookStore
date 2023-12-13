@@ -96,9 +96,13 @@ app.config(function ($routeProvider) {
             templateUrl: "page/product-manager/form_product.html",
             controller: "ProductController"
         })
-        .when("/product-learning-table", {
-            templateUrl: "page/product-manager/form_product_learning.html",
-            controller: ""
+        .when("/productDiscount-table", {
+            templateUrl: "page/coupon-manager/table_ProductDiscount.html",
+            controller: "ProductDiscountController"
+        })
+        .when("/productDiscount-form", {
+            templateUrl: "page/coupon-manager/form_ProductDiscount.html",
+            controller: "ProductDiscountController"
         })
         //nhà xuất bản
         .when("/publisher-form", {
