@@ -45,16 +45,10 @@ public class RestProductCtrl {
     private ProductCategoryService productCategoryService;
 
     @Autowired
-    private DiscountsService discountsService;
-
-    @Autowired
     private BookAuthorsService bookAuthorsService;
 
     @Autowired
     private ProductDetailService productDetailService;
-
-    @Autowired
-    private ProductDiscountService productDiscountService;
 
     @Autowired
     private ProductImagesService productImagesService;
@@ -117,56 +111,14 @@ public class RestProductCtrl {
             System.out.println("Author is null. Book_Authors not added.");
         }
 
-        double price = data.getProductDetail().getPrice();
-
-        // Kiểm tra xem giảm giá có giá trị không
-        if (data.getDiscount() != null && data.getDiscount().getValue() != null) {
-            // Lấy thông tin về giảm giá
-            Discounts discount = data.getDiscount();
-
-            // Kiểm tra điều kiện với startDate và endDate
-            Date currentDate = new Date();
-            if (discount.getStartDate().before(currentDate) && discount.getEndDate().after(currentDate)) {
-                // Nếu giảm giá đang có hiệu lực, tính giảm giá
-                double discountPercentage = discount.getValue() / 100.0;
-                double priceDiscount = price - (price * discountPercentage);
-                data.getProductDetail().setPriceDiscount(priceDiscount);
-            } else {
-                // Nếu giảm giá không có hiệu lực, giữ nguyên giá sản phẩm
-                data.getProductDetail().setPriceDiscount(price);
-            }
-        } else {
-            // Nếu giảm giá là null, giữ nguyên giá sản phẩm
-            data.getProductDetail().setPriceDiscount(price);
-        }
-
         data.getProductDetail().setProduct(createdProduct);
         if (photoUrl != null) {
             data.getProductDetail().setImage(photoUrl);
         }
         Product_Detail productDetail = productDetailService.add(data.getProductDetail());
-
-        Product_Discount productDiscount = new Product_Discount();
-        // Kiểm tra nếu setAuthor không phải là null mới thêm bookAuthor
-        if (data.getDiscount() != null) {
-            productDiscount.setProductDetail(productDetail);
-            productDiscount.setDiscount(data.getDiscount());
-            productDiscountService.add(productDiscount);
-            // Lấy đối tượng Discount từ ProductDTO
-            Discounts discount = data.getDiscount();
-            // Cập nhật trạng thái và số lượng của đối tượng Discount
-            discount.setActive(true); // Đặt trạng thái là true
-
-            // Lưu đối tượng Discount đã cập nhật
-            discountsService.update(discount);
-        } else {
-            // Xử lý khi setAuthor là null (nếu cần)
-            System.out.println("Discount is null. Product_Discount not added.");
-        }
-
         ProductPriceHistories productPriceHistories = new ProductPriceHistories();
         productPriceHistories.setProductDetail(productDetail);
-        productPriceHistories.setPriceNew(price);
+        productPriceHistories.setPriceNew(productDetail.getPrice());
         productPriceHistories.setTimeChange(new Date());
 
         productPriceHistoriesService.add(productPriceHistories);
@@ -274,35 +226,12 @@ public class RestProductCtrl {
 
         // Update thông tin của productDetail
         existingProductDetail.setPrice(data.getProductDetail().getPrice());
+        existingProductDetail.setPriceDiscount(data.getProductDetail().getPriceDiscount());
         existingProductDetail.setQuantityInStock(data.getProductDetail().getQuantityInStock());
         existingProductDetail.setWeight(data.getProductDetail().getWeight());
         existingProductDetail.setHeight(data.getProductDetail().getHeight());
         existingProductDetail.setLength(data.getProductDetail().getLength());
         existingProductDetail.setWidth(data.getProductDetail().getWidth());
-
-        double price = existingProductDetail.getPrice();
-
-        // Kiểm tra xem giảm giá có giá trị không
-        if (data.getDiscount() != null && data.getDiscount().getValue() != null) {
-            // Lấy thông tin về giảm giá
-            Discounts discount = data.getDiscount();
-
-            // Kiểm tra điều kiện với startDate và endDate
-            Date currentDate = new Date();
-            if (discount.getStartDate() != null && discount.getEndDate() != null
-                    && discount.getStartDate().before(currentDate) && discount.getEndDate().after(currentDate)) {
-                // Nếu giảm giá đang có hiệu lực, tính giảm giá
-                double discountValue = discount.getValue() / 100.0;
-                double priceDiscount = price - (price * discountValue);
-                existingProductDetail.setPriceDiscount(priceDiscount);
-            } else {
-                // Nếu giảm giá không có hiệu lực, giữ nguyên giá sản phẩm
-                existingProductDetail.setPriceDiscount(price);
-            }
-        } else {
-            // Nếu giảm giá là null, giữ nguyên giá sản phẩm
-            existingProductDetail.setPriceDiscount(price);
-        }
 
         if (photoUrl != null) {
             existingProductDetail.setImage(photoUrl);
@@ -323,26 +252,6 @@ public class RestProductCtrl {
         exPriceHistories.setTimeChange(new Date());
 
         productPriceHistoriesService.update(exPriceHistories);
-
-        Product_Discount existingProductDiscount = productDiscountService.findByProductDetail(existingProductDetail);
-
-        if (existingProductDiscount == null) {
-            existingProductDiscount = new Product_Discount();
-            existingProductDiscount.setProductDetail(existingProductDetail);
-        }
-
-        Discounts newDiscount = data.getDiscount();
-
-        // Kiểm tra nếu giảm giá đã hết hạn
-        if (newDiscount != null && newDiscount.getEndDate() != null && new Date().after(newDiscount.getEndDate())) {
-            // Nếu giảm giá đã hết hạn, cập nhật discount thành null
-            productDiscountService.update(existingProductDiscount);
-        } else {
-            // Nếu giảm giá còn hiệu lực, cập nhật discount thành giảm giá mới
-            existingProductDiscount.setDiscount(newDiscount);
-        }
-
-        productDiscountService.update(existingProductDiscount);
 
         if (files != null && files.length > 0) {
             // Tải lên và lưu ảnh mới lên Cloudinary

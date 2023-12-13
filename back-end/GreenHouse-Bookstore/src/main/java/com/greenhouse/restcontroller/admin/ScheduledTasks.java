@@ -31,7 +31,6 @@ public class ScheduledTasks {
     private final FlashSalesService flashSalesService;
     private final ProductDetailRepository productDetailReps; // Make sure this line is correct
 
-    @Autowired
     public ScheduledTasks(
             ProductDiscountService productDiscountService,
             ProductDetailService productDetailService,
@@ -60,8 +59,7 @@ public class ScheduledTasks {
                     productDetailService.update(productDetail);
                 }
 
-                productDiscount.setDiscount(null);
-                productDiscountService.update(productDiscount);
+                productDiscountService.delete(productDiscount);
 
                 messagingTemplate.convertAndSend("/topic/products", "update");
             }

@@ -117,19 +117,11 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="quantityInStock">Số lượng Sản Phẩm(*)</label>
                                         <input type number class="form-control" ng-model="productDetail.quantityInStock"
-                                            min="1" max="100" required ng-change="hideError('quantityInStock')"
+                                            min="1" max="1000" required ng-change="hideError('quantityInStock')"
                                             name="quantityInStock" placeholder="Nhập tên sản phẩm">
                                         <small class="text-danger" ng-show="errors.quantityInStock">{{
                                             errors.quantityInStock }}</small>
 
-                                    </div>
-
-                                    <div class="col-md-4 mb-3">
-                                        <label for="discount">Phần Trăm Giảm(*)</label>
-                                        <select class="form-control" id="discount" ng-model="productDiscount.discount"
-                                            ng-options="discount as discount.value for discount in discounts track by discount.discountId">
-                                            <option value="">Chọn phần trăm giảm</option>
-                                        </select>
                                     </div>
 
                                     <div class="col-md-4 mb-3" ng-show="showAuthorSelect">
@@ -196,7 +188,7 @@
                                     </div>
 
                                     <div class="col-md-8 mb-3">
-                                        <label for="proAtribute">Tên Thuộc Tính(*)</label>
+                                        <label for="proAtribute">Tên Thuộc Tính</label>
                                         <div ng-repeat="proAtribute in productAttributes">
                                             <label class="attribute-row">
                                                 <div class="attribute-select">

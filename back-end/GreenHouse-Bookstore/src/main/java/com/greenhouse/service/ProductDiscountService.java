@@ -18,6 +18,9 @@ public interface ProductDiscountService {
 
     void delete(Integer id);
 
+    // Trong ProductDiscountService.java
+    void delete(Product_Discount entity);
+
     List<Product_Discount> findByDiscount(Discounts discount);
 
     Product_Discount findByProductDetail(Product_Detail productDetail);
