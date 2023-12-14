@@ -50,7 +50,7 @@
 									</tr>
 									<tr>
 										<th>Phí ship:</th>
-										<td class="money">{{invoice.shippingFee <= 0 ? "Miễn phí" : invoice.shippingFee
+										<td class="money">{{order.codAmount <= 0 ? "Miễn phí" : order.codAmount
 												| number:'0'}} đ</td>
 									</tr>
 									<tr ng-repeat="imv in invoiceMV track by $index">

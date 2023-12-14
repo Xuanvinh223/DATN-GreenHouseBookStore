@@ -361,7 +361,6 @@ public class CartController {
     @PostMapping("/validateVoucher")
     public ResponseEntity<Map<String, Object>> validateVoucher(@RequestBody CartVoucherDTO voucherDTO) {
         Map<String, Object> response = new HashMap<>();
-        boolean appliedVoucher = false;
         boolean validNormalVoucher = false;
         boolean validShippingVoucher = false;
 
@@ -369,30 +368,26 @@ public class CartController {
         Vouchers shippingVoucher = voucherDTO.getShippingVoucherApplied();
 
         if (normalVoucher != null) {
-            appliedVoucher = true;
             validNormalVoucher = checkoutService.isVoucherValid(normalVoucher);
         }
 
         if (shippingVoucher != null) {
-            appliedVoucher = true;
             validShippingVoucher = checkoutService.isVoucherValid(shippingVoucher);
         }
         List<Vouchers> voucherIsNotValid = new ArrayList<>();
-        if (appliedVoucher) {
-            if (!validNormalVoucher) {
-                voucherIsNotValid.add(normalVoucher);
-            }
-            if (!validShippingVoucher) {
-                voucherIsNotValid.add(shippingVoucher);
-            }
-            if (voucherIsNotValid.isEmpty()) {
-                response.put("status", "success");
-                response.put("message", "Mã giảm giá đã áp dụng thành công!");
-            } else {
-                response.put("listVoucherIsNotValid", voucherIsNotValid);
-                response.put("status", "error");
-                response.put("message", "Mã giảm giá không hợp lệ!");
-            }
+        if (!validNormalVoucher && normalVoucher != null) {
+            voucherIsNotValid.add(normalVoucher);
+        }
+        if (!validShippingVoucher && shippingVoucher != null) {
+            voucherIsNotValid.add(shippingVoucher);
+        }
+        if (!voucherIsNotValid.isEmpty()) {
+            response.put("listVoucherIsNotValid", voucherIsNotValid);
+            response.put("status", "error");
+            response.put("message", "Mã giảm giá không hợp lệ!");
+        } else {
+            response.put("status", "success");
+            response.put("message", "Mã giảm giá đã áp dụng thành công!");
         }
 
         return ResponseEntity.ok(response);
