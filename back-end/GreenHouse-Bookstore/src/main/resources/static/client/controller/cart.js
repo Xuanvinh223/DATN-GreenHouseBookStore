@@ -1194,6 +1194,13 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                                     text: message,
                                 })
                             }
+                            else if (status == "error-flashSale-product") {
+                                Swal.fire({
+                                    icon: "warring",
+                                    title: "Sản phẩm đã đăng ký bán trong Flash Sale",
+                                    text: message,
+                                })
+                            }
                         });
                     } else {
                         return false;

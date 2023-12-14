@@ -1,6 +1,7 @@
 package com.greenhouse.restcontroller.client;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 import com.greenhouse.dto.client.CheckoutCompleteDTO;
 import com.greenhouse.dto.client.CheckoutDTO;
 import com.greenhouse.model.Carts;
+import com.greenhouse.model.Flash_Sales;
 import com.greenhouse.model.InvoiceDetails;
 import com.greenhouse.model.InvoiceMappingStatus;
 import com.greenhouse.model.InvoiceMappingVoucher;
@@ -29,6 +31,8 @@ import com.greenhouse.model.Invoices;
 import com.greenhouse.model.OrderDetails;
 import com.greenhouse.model.Orders;
 import com.greenhouse.model.Product_Detail;
+import com.greenhouse.model.Product_Flash_Sale;
+import com.greenhouse.repository.FlashSalesRepository;
 import com.greenhouse.repository.InvoiceDetailsRepository;
 import com.greenhouse.repository.InvoiceMappingStatusRepository;
 import com.greenhouse.repository.InvoiceMappingVoucherRepository;
@@ -36,6 +40,7 @@ import com.greenhouse.repository.InvoicesRepository;
 import com.greenhouse.repository.OrderDetailsRepository;
 import com.greenhouse.repository.OrdersRepository;
 import com.greenhouse.repository.ProductDetailRepository;
+import com.greenhouse.repository.Product_FlashSaleRepository;
 import com.greenhouse.service.CheckoutService;
 import com.greenhouse.service.PayOSService;
 import com.greenhouse.service.VNPayService;
@@ -72,6 +77,10 @@ public class CheckoutController {
     private SimpMessagingTemplate messagingTemplate;
     @Autowired
     private ProductDetailRepository productDetailsRepository;
+    @Autowired
+    private FlashSalesRepository flashSalesRepository;
+    @Autowired
+    private Product_FlashSaleRepository product_FlashSaleRepository;
 
     @GetMapping("/getData")
     public ResponseEntity<Map<String, Object>> getData() {
@@ -122,6 +131,15 @@ public class CheckoutController {
             if (notValidCarts.size() > 0) {
                 status = "error-product";
                 message = "Số lượng sản phẩm không đủ hoặc đã hết hàng.";
+                response.put("status", status);
+                response.put("message", message);
+                response.put("invalidProducts", notValidCarts);
+                return ResponseEntity.ok(response);
+            }
+            notValidCarts = validQuantityInStockFlashSaleProduct(data.getCarts());
+            if (notValidCarts.size() > 0) {
+                status = "error-flashSale-product";
+                message = "Số lượng còn lại của sản phẩm đã được đăng ký bán trong Flash Sale.";
                 response.put("status", status);
                 response.put("message", message);
                 response.put("invalidProducts", notValidCarts);
@@ -331,4 +349,25 @@ public class CheckoutController {
         }
         return notValidCarts;
     }
+
+    private List<Carts> validQuantityInStockFlashSaleProduct(List<Carts> listCarts) {
+        List<Carts> notValidCarts = new ArrayList<>();
+
+        List<Flash_Sales> listFlashSales = flashSalesRepository.findFlashSalesComingSoon();
+
+        for (Flash_Sales flash_Sales : listFlashSales) {
+            for (Carts cart : listCarts) {
+                Product_Flash_Sale productFlashSale = product_FlashSaleRepository
+                        .findByFlashSaleIdAndProductDetail(flash_Sales, cart.getProductDetail());
+                if (productFlashSale != null) {
+                    if (productFlashSale.getQuantity() >= cart.getProductDetail().getQuantityInStock()) {
+                        notValidCarts.add(cart);
+                    }
+                }
+            }
+        }
+
+        return notValidCarts;
+    }
+
 }
