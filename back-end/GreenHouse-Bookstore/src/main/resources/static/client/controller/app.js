@@ -332,7 +332,7 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
                 console.log(response);
                 $scope.showNotifi(response.message, response.status);
                 $scope.getCartHeader();
-                if(response.status == 'success') {
+                if (response.status == 'success') {
                     window.location.href = '/cart'
                 }
             })
@@ -410,9 +410,9 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
 
     $scope.showNotifi = function (message, status) {
         $scope.modalContent = message;
-        if(status == 'success') {
+        if (status == 'success') {
             $scope.typeNotifi = true;
-        }else{
+        } else {
             $scope.typeNotifi = false;
         }
         $('#message-cart').modal('show');
@@ -516,6 +516,18 @@ app.service("CartService", function ($http, cartAPI) {
         var url = cartAPI + '/remove'
 
         return $http.post(url, cartId)
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                return Promise.reject(error);
+            });
+    }
+
+    this.removeCartItemSelected = function (listCart) {
+        var url = cartAPI + '/removeSelected'
+
+        return $http.post(url, listCart)
             .then(function (response) {
                 return response.data;
             })

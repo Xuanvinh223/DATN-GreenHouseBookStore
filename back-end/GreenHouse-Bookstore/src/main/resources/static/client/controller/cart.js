@@ -137,12 +137,10 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
             cancelButtonText: "Hủy",
         }).then((result) => {
             if (result.isConfirmed) {
-                angular.forEach($scope.listCartItemSelected, item => {
-                    CartService.removeCartItem(item.cartId);
+                CartService.removeCartItemSelected($scope.listCartItemSelected).then(() => {
                     $scope.getCartHeader();
-                })
-                $scope.getCartHeader();
-                getCart();
+                    getCart();
+                });
             }
         });
 
