@@ -36,7 +36,6 @@
                                 <div class="col pr-0">
                                     <p class="small text-muted mb-0">Tổng đơn hàng </p>
                                     <span class="h3 mb-0">{{countOrdersWithStatus}}</span>
-                                    <span class="small text-success">+16.5%</span>
                                 </div>
                             </div>
                         </div>
@@ -79,10 +78,21 @@
                                         <i class="fe fe-16 fe-activity text-white mb-0"></i>
                                     </span>
                                 </div>
-                                <div class="col">
-                                    <p class="small text-muted mb-0">Tổng doanh thu năm 2023</p>
-                                    <span class="h3 mb-0">$80</span>
-                                    <span class="small text-success">+16.5%</span>
+                                <div class="col" ng-controller="StaticOvertime">
+                                    <strong class="card-title">Tổng danh thu trong năm nay</strong>
+                                    <p class="small mb-0">
+                                        <span class="fe fe-12 fe-arrow-up text-success"></span>
+                                        <span class="text-muted">{{calculateTotalRevenueForCurrentYear |
+                                                    number:'0'}} VNĐ</span>
+                                        <span class="small"
+                                              ng-class="{'text-success': percent > 0, 'text-danger': percent < 0}">
+                                                    {{ percent |number:'2'}}%
+                                                    <span ng-if="percent > 0"
+                                                          class="fe fe-12 fe-arrow-up text-success"></span>
+                                                    <span ng-if="percent < 0"
+                                                          class="fe fe-12 fe-arrow-down text-danger"></span>
+                                                </span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
