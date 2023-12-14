@@ -1,6 +1,6 @@
 app.controller("productPageController", productPageController);
 
-function productPageController($http, $scope, productPageAPI) {
+function productPageController($http, $scope, productPageAPI, WebSocketService) {
     const host = productPageAPI;
 
     //Phân trang
@@ -139,13 +139,11 @@ function productPageController($http, $scope, productPageAPI) {
         });
     };
 
-    // $scope.connectWebSocket = function () {
-    //     WebSocketService.connect($scope.getDataProductDetail());
-    // };
+    $scope.connectWebSocket = function () {
+        WebSocketService.connect($scope.init);
+    };
 
-    // // Gọi hàm connectWebSocket để kết nối WebSocket khi controller được khởi tạo
-    // $scope.connectWebSocket();
-
+   
     //LỌC THEO GIÁ
     $scope.priceSelection = {
         gia1: false,
@@ -417,6 +415,8 @@ function productPageController($http, $scope, productPageAPI) {
             $scope.getDataProductDetail();
         }
     }
+ // Gọi hàm connectWebSocket để kết nối WebSocket khi controller được khởi tạo
+ $scope.connectWebSocket();
 
     $scope.init();
 }

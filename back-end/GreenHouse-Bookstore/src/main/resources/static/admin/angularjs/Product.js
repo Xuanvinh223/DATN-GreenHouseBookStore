@@ -45,142 +45,97 @@ app.controller("ProductController", function ($scope, $http, $filter) {
 
 
     $scope.loadProducts = function () {
-        // Lấy dữ liệu sản phẩm và sản phẩm chi tiết
         var productsUrl = `${host}`;
         var productDetailsUrl = "/rest/productDetails";
-        $http
-            .get(productsUrl)
-            .then((productsResp) => {
-                $http
-                    .get(productDetailsUrl)
-                    .then((productDetailsResp) => {
-                        var products = productsResp.data;
-                        var productDetails = productDetailsResp.data;
+        var productCategoriesUrl = "/rest/productCategories";
+        var bookAuthorsUrl = "/rest/bookAuthors";
+        var productDiscountsUrl = "/rest/productDiscounts";
+        var attributeValuesUrl = "/rest/attributeValues";
+        var productImagesUrl = "/rest/productImages";
+        var productPriceHistoriesUrl = "/rest/productPriceHistories";
+    
+        // Sử dụng Promise.all để thực hiện tất cả các yêu cầu đồng thời
+        Promise.all([
+            $http.get(productsUrl),
+            $http.get(productDetailsUrl),
+            $http.get(productCategoriesUrl),
+            $http.get(bookAuthorsUrl),
+            $http.get(productDiscountsUrl),
+            $http.get(attributeValuesUrl),
+            $http.get(productImagesUrl),
+            $http.get(productPriceHistoriesUrl)
+        ])
+        .then((responses) => {
+            var products = responses[0].data;
+            var productDetails = responses[1].data;
+            var productCategories = responses[2].data;
+            var bookAuthors = responses[3].data;
+            var productDiscounts = responses[4].data;
+            var attributeValues = responses[5].data;
+            var productImages = responses[6].data;
+            var productPriceHistories = responses[7].data;
+    
+            // Tiếp tục với xử lý dữ liệu như bạn đã làm trước đó
+        // Tạo mảng combinedData bằng cách kết hợp dữ liệu từ tất cả các URL
+        $scope.combinedData = products.map(function (product) {
+            var matchingDetail = productDetails.find(function (detail) {
 
-                        // Lấy dữ liệu danh mục sản phẩm
-                        $http
-                            .get("/rest/productCategories")
-                            .then((productCategoriesResp) => {
-                                var productCategories = productCategoriesResp.data;
-
-
-                                // Lấy dữ liệu tác giả sách
-                                $http
-                                    .get("/rest/bookAuthors")
-                                    .then((bookAuthorsResp) => {
-                                        var bookAuthors = bookAuthorsResp.data;
-
-                                        // Lấy dữ liệu sản phẩm giảm giá
-                                        $http
-                                            .get("/rest/productDiscounts")
-                                            .then((productDiscountsResp) => {
-                                                var productDiscounts = productDiscountsResp.data;
-
-                                                // Lấy dữ liệu các giá trị thuộc tính sản phẩm
-                                                $http
-                                                    .get("/rest/attributeValues")
-                                                    .then((attributeValuesResp) => {
-                                                        var attributeValues = attributeValuesResp.data;
-
-                                                        $http
-                                                            .get("/rest/productImages")
-                                                            .then((productImagesResp) => {
-                                                                var productImages = productImagesResp.data;
-
-                                                                $http
-                                                                    .get("/rest/productPriceHistories")
-                                                                    .then((productPriceHistoriesResp) => {
-                                                                        var productPriceHistories = productPriceHistoriesResp.data;
-
-                                                                        // Tạo mảng combinedData bằng cách kết hợp dữ liệu từ tất cả các URL
-                                                                        $scope.combinedData = products.map(function (product) {
-                                                                            var matchingDetail = productDetails.find(function (detail) {
-
-                                                                                return detail.product.productId === product.productId;
-                                                                            });
-
-                                                                            var matchingCategory = productCategories.find(function (category) {
-                                                                                return category.product.productId === product.productId;
-                                                                            });
-
-                                                                            var matchingAuthor = bookAuthors.find(function (author) {
-                                                                                return author.product.productId === product.productId;
-                                                                            });
-
-                                                                            var matchingDiscount = productDiscounts.find(function (discount) {
-                                                                                return discount.productDetail.product.productId === product.productId;
-                                                                            });
-
-                                                                            var matchingAttributeValues = [];
-                                                                            var matchingImages = [];
-
-                                                                            if (matchingDetail && matchingDetail.productDetailId) {
-                                                                                matchingAttributeValues = attributeValues.filter(function (value) {
-                                                                                    return value.productDetail && value.productDetail.productDetailId === matchingDetail.productDetailId;
-                                                                                });
-
-                                                                                matchingImages = productImages.filter(function (image) {
-                                                                                    return image.productDetail && image.productDetail.productDetailId === matchingDetail.productDetailId;
-                                                                                });
-                                                                            }
-
-                                                                            var matchingPriceHistories = null;
-
-                                                                            if (matchingDetail && matchingDetail.productDetailId) {
-                                                                                matchingPriceHistories = productPriceHistories.find(function (price) {
-                                                                                    return price.productDetail && price.productDetail.product.productId === product.productId;
-                                                                                });
-                                                                            }
-
-
-                                                                            return {
-                                                                                product: product,
-                                                                                productDetail: matchingDetail,
-                                                                                productCategory: matchingCategory,
-                                                                                bookAuthor: matchingAuthor,
-                                                                                productDiscount: matchingDiscount,
-                                                                                attributeValues: matchingAttributeValues,
-                                                                                productImages: matchingImages,
-                                                                                productPriceHistories: matchingPriceHistories
-
-                                                                            };
-                                                                        });
-
-
-                                                                    })
-
-                                                                    .catch((productPriceHistoriesError) => {
-                                                                        console.log("Error", productPriceHistoriesError);
-                                                                    });
-                                                            })
-                                                            .catch((productImagesError) => {
-                                                                console.log("Error", productImagesError);
-                                                            });
-                                                    })
-                                                    .catch((attributeValuesError) => {
-                                                        console.log("Error", attributeValuesError);
-                                                    });
-                                            })
-                                            .catch((productDiscountsError) => {
-                                                console.log("Error", productDiscountsError);
-                                            });
-                                    })
-                                    .catch((bookAuthorsError) => {
-                                        console.log("Error", bookAuthorsError);
-                                    });
-                            })
-                            .catch((productCategoriesError) => {
-                                console.log("Error", productCategoriesError);
-                            });
-                    })
-                    .catch((productDetailsError) => {
-                        console.log("Error", productDetailsError);
-                    });
-            })
-            .catch((productsError) => {
-                console.log("Error", productsError);
+                return detail.product.productId === product.productId;
             });
+
+            var matchingCategory = productCategories.find(function (category) {
+                return category.product.productId === product.productId;
+            });
+
+            var matchingAuthor = bookAuthors.find(function (author) {
+                return author.product.productId === product.productId;
+            });
+
+            var matchingDiscount = productDiscounts.find(function (discount) {
+                return discount.productDetail.product.productId === product.productId;
+            });
+
+            var matchingAttributeValues = [];
+            var matchingImages = [];
+
+            if (matchingDetail && matchingDetail.productDetailId) {
+                matchingAttributeValues = attributeValues.filter(function (value) {
+                    return value.productDetail && value.productDetail.productDetailId === matchingDetail.productDetailId;
+                });
+
+                matchingImages = productImages.filter(function (image) {
+                    return image.productDetail && image.productDetail.productDetailId === matchingDetail.productDetailId;
+                });
+            }
+
+            var matchingPriceHistories = null;
+
+            if (matchingDetail && matchingDetail.productDetailId) {
+                matchingPriceHistories = productPriceHistories.find(function (price) {
+                    return price.productDetail && price.productDetail.product.productId === product.productId;
+                });
+            }
+
+
+            return {
+                product: product,
+                productDetail: matchingDetail,
+                productCategory: matchingCategory,
+                bookAuthor: matchingAuthor,
+                productDiscount: matchingDiscount,
+                attributeValues: matchingAttributeValues,
+                productImages: matchingImages,
+                productPriceHistories: matchingPriceHistories
+
+            };
+        });
+          
+        })
+        .catch((error) => {
+            console.log("Error", error);
+        });
     };
+   
 
 
     $scope.initTinyMCE = function () {
