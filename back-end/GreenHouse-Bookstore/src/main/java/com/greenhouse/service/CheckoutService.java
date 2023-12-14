@@ -313,8 +313,10 @@ public class CheckoutService {
 
                 UserVoucher userVoucher = userVoucherRepository.findByUsernameAndVoucherAndStatus(username, vouchers,
                         true);
-                userVoucher.setStatus(false);
-                userVoucherRepository.save(userVoucher);
+                if (userVoucher != null) {
+                    userVoucher.setStatus(false);
+                    userVoucherRepository.save(userVoucher);
+                }
 
                 vouchers.setUsedQuantity(vouchers.getUsedQuantity() + 1);
                 if (vouchers.getTotalQuantity() - vouchers.getUsedQuantity() <= 0) {
