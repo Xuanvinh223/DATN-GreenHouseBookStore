@@ -292,7 +292,7 @@ public class CartController {
     }
 
     @PostMapping("/remove")
-    public ResponseEntity<Map<String, Object>> removeCartpf(@RequestBody Integer cartId) {
+    public ResponseEntity<Map<String, Object>> removeCart(@RequestBody Integer cartId) {
         Carts cart = new Carts();
         cart = cartsRepository.findById(cartId).get();
 
@@ -300,6 +300,18 @@ public class CartController {
             cartsRepository.delete(cart);
         }
 
+        return ResponseEntity.ok(null);
+    }
+
+    @PostMapping("/removeSelected")
+    public ResponseEntity<Map<String, Object>> removeCartSelected(@RequestBody List<Carts> listCarts) {
+        if (listCarts.size() > 0) {
+            for (Carts carts : listCarts) {
+                if (carts != null) {
+                    cartsRepository.delete(carts);
+                }
+            }
+        }
         return ResponseEntity.ok(null);
     }
 
