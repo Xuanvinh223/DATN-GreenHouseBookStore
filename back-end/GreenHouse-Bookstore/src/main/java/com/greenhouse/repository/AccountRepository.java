@@ -32,8 +32,7 @@ public interface AccountRepository extends JpaRepository<Accounts, String> {
 
         boolean existsByEmail(String email);
 
-        @Query(value = "SELECT COUNT(o.Order_Code) FROM Orders o " + //
-                        " WHERE o.status = N'Completed'", nativeQuery = true)
+        @Query(value = "SELECT COUNT(o.Order_Code) FROM Orders o ", nativeQuery = true)
         int countOrdersWithStatus();
 
         @Query(value = "SELECT  COUNT(*) AS UsersCount " +

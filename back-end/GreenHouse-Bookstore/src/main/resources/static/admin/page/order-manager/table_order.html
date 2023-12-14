@@ -162,7 +162,7 @@
                                         <td class="ellipsis" style="max-width: 100px;">{{item.username}}</td>
                                         <td>{{item.toPhone}}</td>
                                         <td class="ellipsis" style="max-width: 200px;">{{item.toAddress}}</td>
-                                        <td>{{item.codAmount |number:'0'}}VND</td>
+                                        <td>{{item.codAmount |number:'0'}}đ</td>
                                         <td>{{item.invoices.paymentMethod == 'cod' ? 'Thanh toán khi nhận hàng' :
                                             item.invoices.paymentMethod}}
                                         </td>
@@ -370,10 +370,10 @@
                                                 {{detail.quantity}}
                                             </td>
                                             <td class="align-middle">
-                                                {{detail.price | number:'0'}} VND
+                                                {{detail.price | number:'0'}} đ
                                             </td>
                                             <td class="align-middle">
-                                                {{(detail.price * detail.quantity) | number:'0'}} VND
+                                                {{(detail.price * detail.quantity) | number:'0'}} đ
                                             </td>
                                         </tr>
                                     </tbody>
@@ -390,13 +390,13 @@
                         <h6>
                             Phí vận chuyển:
                             <strong class="text-danger">
-                                {{selectedOrder.codAmount | number:'0'}} VND
+                                {{selectedOrder.codAmount | number:'0'}} đ
                             </strong>
                         </h6>
                         <h6>
                             TỔNG TIỀN:
                             <strong class="text-danger">
-                                {{totalOrderAmount | number:'0'}} VND
+                                {{totalOrderAmount | number:'0'}} đ
                             </strong>
                         </h6>
                     </div>

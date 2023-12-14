@@ -56,8 +56,8 @@
                                             style="width: 50px; height: 50px; border-radius: 10%;"></td>
                                     <td>{{item.productPriceHistories.productDetail.product.productName}}
                                     </td>
-                                    <td>{{item.productPriceHistories.priceOld | number }} VNĐ</td>
-                                    <td>{{item.productPriceHistories.priceNew | number }} VNĐ</td>
+                                    <td>{{item.productPriceHistories.priceOld | number }} đ</td>
+                                    <td>{{item.productPriceHistories.priceNew | number }} đ</td>
                                     <td>{{item.productPriceHistories.timeChange | date:'dd/MM/yyyy
                                         HH:mm:ss'}}
                                     </td>
@@ -153,14 +153,14 @@
                                                                             {{ "Giá bán: " +
                                                                             (item.productDetail.price |
                                                                             number)
-                                                                            + " VNĐ" }}
+                                                                            + " đ" }}
                                                                         </p>
                                                                         <p class="product-price-discount">
                                                                             {{ "Giá bán sau giảm: " +
                                                                             (item.productDetail.priceDiscount
                                                                             |
                                                                             number)
-                                                                            + " VNĐ" }}
+                                                                            + " đ" }}
                                                                         </p>
                                                                         <p class="product-quantity">
                                                                             Số lượng:
@@ -348,7 +348,7 @@
                                         <td>{{item.product.productName}}</td>
                                         <td>{{item.product.brand.brandName}}</td>
                                         <td>{{item.product.publisher.publisherName}}</td>
-                                        <td> {{item.productDetail.price | number }} VNĐ</td>
+                                        <td> {{item.productDetail.price | number }} đ</td>
                                     </tr>
 
                                     <tr id="product{{product.productId}}" class="collapse"
@@ -442,7 +442,7 @@
                                                                             <p class="product-price">
                                                                                 {{ "Giá bán: " +
                                                                                 (item.productDetail.price |
-                                                                                number) + " VNĐ" }}
+                                                                                number) + " đ" }}
                                                                             </p>
                                                                             <p class="product-quantity">
                                                                                 Số lượng:

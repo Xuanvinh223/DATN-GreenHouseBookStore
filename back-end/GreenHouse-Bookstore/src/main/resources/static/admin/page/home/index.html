@@ -12,7 +12,7 @@
                                     </span>
                                 </div>
                                 <div class="col pr-0">
-                                    <p class="small text-muted mb-0">Tổng người dùng năm 2023</p>
+                                    <p class="small card-title mb-0">Tổng người dùng năm 2023</p>
                                     <span class="h3 mb-0">{{countUsersCurrentYear}}</span>
                                     <span class="small"
                                         ng-class="{'text-success': percentageChange > 0, 'text-danger': percentageChange < 0}">
@@ -34,8 +34,9 @@
                                     </span>
                                 </div>
                                 <div class="col pr-0">
-                                    <p class="small text-muted mb-0">Tổng đơn hàng </p>
-                                    <span class="h3 mb-0">{{countOrdersWithStatus}}</span>
+                                    <p class="small card-title mb-0">Tổng đơn hàng </p>
+                                    <span class="h3 mb-0">{{countOrdersWithStatus}} </span>
+                                    <span class="small text-muted">đơn hàng</span>
                                 </div>
                             </div>
                         </div>
@@ -51,17 +52,11 @@
                                     </span>
                                 </div>
                                 <div class="col">
-                                    <p class="small text-muted mb-0">Thương hiệu hợp tác</p>
+                                    <p class="small card-title mb-0">Thương hiệu hợp tác</p>
                                     <div class="row align-items-center no-gutters">
                                         <div class="col-auto">
                                             <span class="h3 mr-2 mb-0"> {{countBrand}} </span>
-                                        </div>
-                                        <div class="col-md-12 col-lg">
-                                            <div class="progress progress-sm mt-2" style="height:3px">
-                                                <div class="progress-bar bg-success" role="progressbar"
-                                                    style="width: 87%" aria-valuenow="87" aria-valuemin="0"
-                                                    aria-valuemax="100"></div>
-                                            </div>
+                                            <span class="small text-muted">thương hiệu</span>
                                         </div>
                                     </div>
                                 </div>
@@ -79,11 +74,11 @@
                                     </span>
                                 </div>
                                 <div class="col" ng-controller="StaticOvertime">
-                                    <strong class="card-title">Tổng danh thu trong năm nay</strong>
+                                    <p class="small card-title mb-0">Tổng danh thu trong năm nay</p>
                                     <p class="small mb-0">
                                         <span class="fe fe-12 fe-arrow-up text-success"></span>
                                         <span class="text-muted">{{calculateTotalRevenueForCurrentYear |
-                                                    number:'0'}} VNĐ</span>
+                                                    number:'0'}} đ</span>
                                         <span class="small"
                                               ng-class="{'text-success': percent > 0, 'text-danger': percent < 0}">
                                                     {{ percent |number:'2'}}%
@@ -106,7 +101,7 @@
                         <div class="col-md-12 mb-4">
                             <div class="card shadow">
                                 <div class="card-header">
-                                    <div class="dropdown float-right">
+                                    <!-- <div class="dropdown float-right">
                                         <select ng-model="selectedYear" ng-change="updateSelectedYear()"
                                             class="btn btn-sm btn-link text-muted p-0" id="rangeDropdown">
                                             <option value="{{selectedYear}}">{{selectedYear}}</option>
@@ -115,11 +110,11 @@
                                                 ng-if="year[0] != selectedYear">{{year[0]}}
                                             </option>
                                         </select>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="card-body">
                                     <canvas id="monthlyRevenueChart" width="300" height="100"></canvas>
-                                    <center><strong class="card-title mb-0 item-text">Biều đồ doanh thu trong năm
+                                    <center class="mt-2"><strong class="card-title mb-0 item-text">Biều đồ doanh thu trong năm
                                             {{selectedYear}}</strong></center>
                                 </div> <!-- /.card-body -->
                             </div> <!-- /.card -->
