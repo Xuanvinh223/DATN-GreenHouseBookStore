@@ -4238,3 +4238,26 @@ html.bx-ios.bx-ios-fix-frame-focus {
   opacity: .9;
   z-index: 19;
 }
+
+.std{
+  font-size: 13px;
+}
+
+.col1-layout{
+  margin-top: 0px;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
+.main1{
+  margin: 0 auto;
+  min-height: 320px;
+  padding: 0px;
+  text-align: left;
+}
+
+.dieukhoanne{
+  font-style: serif;
+  font-size: 13px;
+  text-align: justify
+}
