@@ -126,12 +126,12 @@ public class CheckoutService {
             orderDetails.setOrderCode(order.getOrderCode());
             orderDetails.setProductDetailId(item.getProductDetail().getProductDetailId());
             orderDetails.setProductName(item.getProductDetail().getProduct().getProductName());
-            orderDetails.setPrice(item.getPriceDiscount());
+            orderDetails.setPrice(Double.valueOf(item.getPriceDiscount()).intValue());
             orderDetails.setQuantity(item.getQuantity());
-            orderDetails.setWeight(item.getProductDetail().getWeight() * item.getQuantity());
-            orderDetails.setWidth(item.getProductDetail().getWidth());
-            orderDetails.setLength(item.getProductDetail().getLength());
-            orderDetails.setHeight(item.getProductDetail().getHeight());
+            orderDetails.setWeight(Double.valueOf(item.getProductDetail().getWeight() * item.getQuantity()).intValue());
+            orderDetails.setWidth(Double.valueOf(item.getProductDetail().getWidth()).intValue());
+            orderDetails.setLength(Double.valueOf(item.getProductDetail().getLength()).intValue());
+            orderDetails.setHeight(Double.valueOf(item.getProductDetail().getHeight()).intValue());
             orderDetailsRepository.save(orderDetails);
         }
     }

@@ -287,6 +287,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
             service_type_id: serviceTypeId,
             items: items
         };
+        console.log(requestBody);
 
         var requestConfig = {
             headers: {
@@ -304,6 +305,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
         };
         $http.post(apiUrl, requestBody, requestConfig)
             .then(function (response) {
+                console.log(response);
                 $scope.getData();
                 updatedOrder.orderCodeGHN = response.data.data.order_code;
                 updatedOrder.expected_delivery_time = response.data.data.expected_delivery_time;
@@ -323,11 +325,13 @@ app.controller("OrderController", function ($scope, $http, $interval) {
                         loadingOverlay.style.display = "none";
                     })
                     .catch(function (error) {
+                        loadingOverlay.style.display = "none";
                         // Xử lý khi có lỗi xảy ra
                         console.error("Lỗi khi hủy đơn hàng:", error.data);
                     });
             })
             .catch(function (error) {
+                loadingOverlay.style.display = "none";
                 console.error(error);
             });
 
