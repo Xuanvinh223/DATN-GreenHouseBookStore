@@ -252,6 +252,9 @@ public class CartController {
         for (Product_Flash_Sale pf : pfs) {
             if (pf.getProductDetail().getProductDetailId() == cart.getProductDetail().getProductDetailId()) {
                 int remainingQuantity = pf.getQuantity() - pf.getUsedQuantity();
+                if (remainingQuantity >= pf.getPurchaseLimit()) {
+                    remainingQuantity = pf.getPurchaseLimit();
+                }
                 int quantity = cart.getQuantity();
                 if (quantity <= remainingQuantity) {
                     Double priceOriginal = cart.getProductDetail().getPrice();
