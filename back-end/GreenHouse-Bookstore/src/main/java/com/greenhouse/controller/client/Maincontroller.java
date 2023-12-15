@@ -202,9 +202,9 @@ public class Maincontroller {
         return "client/layouts/hinh-thuc-thanh-toan";
     }
 
-    @GetMapping(value = "/khach-hang-tim-nang")
+    @GetMapping(value = "/khach-hang-tiem-nang")
     public String khachHangTimNang() {
-        return "client/layouts/khach-hang-tim-nang";
+        return "client/layouts/khach-hang-tiem-nang";
     }
 
     @GetMapping(value = "/van-chuyen")
