@@ -941,45 +941,57 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
     function transProvinceNameToProvinceGHN(provinceName) {
         try {
             var provinceData = $scope.provinceGHN;
-            var matchedProvince = provinceData.data.find(province => {
-                return province.NameExtension.includes(provinceName) || province.ProvinceName == provinceName;
-            });
-            return matchedProvince || null;
+            if (!provinceData || !provinceData.data) {
+                return null;
+            }
+            
+            return provinceData.data.find(province =>
+                province.NameExtension.some(item => item.toLowerCase() === provinceName.toLowerCase()) || 
+                province.ProvinceName.toLowerCase() === provinceName.toLowerCase()
+            ) || null;
         } catch (error) {
             console.error("Lỗi khi chuyển đổi tỉnh thành GHN:", error);
             throw error;
         }
     }
+    
 
     // Hàm chuyển đổi quận huyện GHN
     function transDistrictNameToDistrictGHN(districtName) {
         try {
             var districtData = $scope.districtGHN;
-
-            var matchedDistrict = districtData.data.find(district => {
-                return (district.NameExtension.includes(districtName) || district.DistrictName == districtName);
-            });
-            return matchedDistrict || null;
+            if (!districtData || !districtData.data) {
+                return null;
+            }
+            return districtData.data.find(district =>
+                district.NameExtension.some(item => item.toLowerCase() === districtName.toLowerCase()) ||
+                district.DistrictName.toLowerCase() === districtName.toLowerCase()
+            ) || null;
         } catch (error) {
             console.error("Lỗi khi chuyển đổi quận huyện GHN:", error);
             throw error;
         }
     }
 
+
     // Hàm chuyển đổi phường xã GHN
     function transWardNameToWardGHN(wardName) {
         try {
             var wardData = $scope.wardGHN;
+            if (!wardData || !wardData.data) {
+                return null;
+            }
 
-            var matchedWard = wardData.data.find(ward => {
-                return (ward.NameExtension.includes(wardName) || ward.WardName == wardName);
-            });
-            return matchedWard || null;
+            return wardData.data.find(ward =>
+                ward.NameExtension.includes(wardName.toLowerCase()) ||
+                ward.WardName.toLowerCase() === wardName.toLowerCase()
+            ) || null;
         } catch (error) {
             console.error("Lỗi khi chuyển đổi phường xã GHN:", error);
             throw error;
         }
     }
+
 
     // Hàm tách địa chỉ
     function tachDiaChi(diaChi) {
