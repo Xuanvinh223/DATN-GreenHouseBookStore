@@ -167,6 +167,51 @@ public class Maincontroller {
         return "client/layouts/change-password";
     }
 
+    @GetMapping(value = "/bao-hanh")
+    public String baoHanh() {
+        return "client/layouts/bao-hanh";
+    }
+
+    @GetMapping(value = "/bao-mat-thanh-toan")
+    public String baoMatThanhToan() {
+        return "client/layouts/bao-mat-thanh-toan";
+    }
+
+    @GetMapping(value = "/chinh-sach-bao-mat")
+    public String chinhSachBaoMat() {
+        return "client/layouts/chinh-sach-bao-mat";
+    }
+
+    @GetMapping(value = "/dieu-khoan-su-dung")
+    public String dieuKhoanSuDung() {
+        return "client/layouts/dieu-khoan-su-dung";
+    }
+
+    @GetMapping(value = "/doi-tra")
+    public String doiTra() {
+        return "client/layouts/doi-tra";
+    }
+
+    @GetMapping(value = "/he-thong")
+    public String heThong() {
+        return "client/layouts/he-thong";
+    }
+
+    @GetMapping(value = "/hinh-thuc-thanh-toan")
+    public String hinhThucThanhToan() {
+        return "client/layouts/hinh-thuc-thanh-toan";
+    }
+
+    @GetMapping(value = "/khach-hang-tim-nang")
+    public String khachHangTimNang() {
+        return "client/layouts/khach-hang-tim-nang";
+    }
+
+    @GetMapping(value = "/van-chuyen")
+    public String vanChuyen() {
+        return "client/layouts/van-chuyen";
+    }
+
     @GetMapping("/404")
     public String accessDenied() {
         return "client/layouts/404"; // Chuyển hướng đến trang 403
@@ -174,7 +219,7 @@ public class Maincontroller {
 
     @GetMapping("/login-processing")
     public String loginProcessing(HttpServletResponse response, RedirectAttributes redirectAttributes,
-            HttpSession session) {
+                                  HttpSession session) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         // Trích xuất thông tin người dùng từ đối tượng Authentication
