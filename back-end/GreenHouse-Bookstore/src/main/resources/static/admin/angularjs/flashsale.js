@@ -338,9 +338,6 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
                 $scope.errors.userDate = '*Vui lòng chọn ngày thực hiện';
             }
 
-            if (!active || active == null) {
-                $scope.errors.status = '*Vui lòng chọn trạng thái';
-            }
             // So sánh ngày bắt đầu và ngày kết thúc
             // So sánh thời gian bắt đầu và kết thúc
             // if (startTime && endTime && endTime.isBefore(startTime)) {
