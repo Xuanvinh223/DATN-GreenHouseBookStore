@@ -1087,10 +1087,12 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
     //=========[CHECKOUT]===================[CHECKOUT]==========================[CHECKOUT]======================[CHECKOUT]==================================
     $scope.checkout = function () {
         if ($scope.selectedAddress && $scope.listCartItemSelected.length > 0) {
+            $scope.showLoading();
             // Kiểm tra voucher
             validateVoucher($scope.voucherApplied)
                 .then(function (resp) {
                     if (resp.status == 'error') {
+                        $scope.hideLoading();
                         var listVoucherIsNotValid = resp.listVoucherIsNotValid;
                         // Xử lý khi voucher không hợp lệ
                         if (listVoucherIsNotValid.length > 0) {
@@ -1116,6 +1118,7 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                 .then(function (resp) {
                     // Xử lý khi có sản phẩm không hợp lệ trong flash sale
                     if (resp.status == "error") {
+                        $scope.hideLoading();
                         var listNotValidPurchaseLimit = resp.listNotValidPurchaseLimit;
                         return Swal.fire({
                             title: "Flash Sale Đang Diễn Ra",
@@ -1201,15 +1204,18 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                             }
                         });
                     } else {
+                        $scope.hideLoading();
                         return false;
                     }
                 })
                 .then(function (response) {
+                    $scope.hideLoading();
                     if (response) {
                         window.location.href = "/checkout";
                     }
                 })
                 .catch(function (error) {
+                    $scope.hideLoading();
                     console.error('Error during checkout:', error);
                 });
         } else {
