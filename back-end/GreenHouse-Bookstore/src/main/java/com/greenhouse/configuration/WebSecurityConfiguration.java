@@ -54,7 +54,7 @@ public class WebSecurityConfiguration {
             "/logout", "/google-processing", "/google-success", "/client/**", "/send/**",
             "/notify/**", "/topic/**", "/app/**", "/admin/css/app-dark.css", "/ghn/**", "/websocket/**",
             "/bao-hanh", "/bao-mat-thanh-toan", "/chinh-sach-bao-mat", "/dieu-khoan-su-dung", "/doi-tra", "/he-thong",
-            "/hinh-thuc-thanh-toan", "/khach-hang-tim-nang", "/van-chuyen"};
+            "/hinh-thuc-thanh-toan", "/khach-hang-tiem-nang", "/van-chuyen"};
     private final String[] securedApiEndpointsAfterLogin = {"/account/**", "/cart/**", "/checkout/**",
             "/checkout-complete/**", "/admin/**"};
 
