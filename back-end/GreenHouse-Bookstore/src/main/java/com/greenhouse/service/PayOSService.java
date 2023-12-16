@@ -5,9 +5,12 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +25,7 @@ import org.springframework.web.client.RestTemplate;
 import com.greenhouse.model.Invoices;
 import com.greenhouse.model.Orders;
 
-@Service 
+@Service
 public class PayOSService {
 
     private String payOSApiUrl = "https://api-merchant.payos.vn/v2/payment-requests";
@@ -42,12 +45,18 @@ public class PayOSService {
             requestData.put("amount", Double.valueOf(invoices.getPaymentAmount()).intValue());
             requestData.put("cancelUrl", "http://localhost:8081/checkout-complete/payment-callback");
             requestData.put("description", orders.getOrderCode());
-            requestData.put("orderCode", invoices.getInvoiceId());
+            String orderCode = orders.getClientOrderCode().substring(2);
+            Long orderCodeLong = Long.parseLong(orderCode);
+            requestData.put("orderCode", orderCodeLong);
+
             requestData.put("returnUrl", "http://localhost:8081/checkout-complete/payment-callback");
+            LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(15);
+            long unixTimestamp = expirationTime.atZone(ZoneId.systemDefault()).toEpochSecond();
 
             // Thêm chữ ký vào requestData
             String signature = generateSignature(requestData, checkSumKey);
             requestData.put("signature", signature);
+            requestData.put("expirationTime", unixTimestamp);
 
             // Cấu hình header
             HttpHeaders headers = new HttpHeaders();
@@ -71,8 +80,15 @@ public class PayOSService {
             // Xử lý phản hồi tùy thuộc vào mã trạng thái HTTP và nội dung phản hồi
             if (statusCode == HttpStatus.OK) {
                 JSONObject responseBodyJSON = new JSONObject(responseEntity.getBody());
-                String checkoutUrl = responseBodyJSON.getJSONObject("data").getString("checkoutUrl");
-                return checkoutUrl;
+                System.out.println("--------------------------------" + responseBodyJSON.toString());
+                String code = responseBodyJSON.getString("code");
+                if ("00".equalsIgnoreCase(code)) {
+                    String checkoutUrl = responseBodyJSON.getJSONObject("data").getString("checkoutUrl");
+                    return checkoutUrl;
+                } else {
+                    System.out.println("Lỗi trong quá trình gửi yêu cầu. Mã trạng thái: " + statusCode);
+                    return null;
+                }
             } else {
                 System.out.println("Lỗi trong quá trình gửi yêu cầu. Mã trạng thái: " + statusCode);
                 return null;
@@ -81,6 +97,45 @@ public class PayOSService {
             // Xử lý lỗi
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void cancelPaymentRequest(String orderCode) {
+        try {
+            // Tạo URL của API hủy thanh toán
+            String cancelUrl = payOSApiUrl + "/" + orderCode + "/cancel";
+
+            // Chuẩn bị request data
+            Map<String, Object> requestData = new HashMap<>();
+            requestData.put("cancellationReason", "Changed my mind");
+
+            // Cấu hình header
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("x-client-id", clientId);
+            headers.set("x-api-key", apiKey);
+
+            // Gửi yêu cầu và nhận phản hồi
+            HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange(
+                    cancelUrl,
+                    HttpMethod.POST,
+                    requestEntity,
+                    String.class);
+
+            // Lấy thông tin từ phản hồi
+            HttpStatusCode statusCode = responseEntity.getStatusCode();
+
+            // Xử lý phản hồi tùy thuộc vào mã trạng thái HTTP và nội dung phản hồi
+            if (statusCode == HttpStatus.OK) {
+                JSONObject responseBodyJSON = new JSONObject(responseEntity.getBody());
+                System.out.println("Cancel Response: " + responseBodyJSON.toString());
+            } else {
+                System.out.println("Lỗi trong quá trình gửi yêu cầu hủy thanh toán. Mã trạng thái: " + statusCode);
+            }
+        } catch (Exception e) {
+            // Xử lý lỗi
+            e.printStackTrace();
         }
     }
 
