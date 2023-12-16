@@ -1,4 +1,4 @@
-app.controller("OrderController", function ($scope, $http, $interval) {
+app.controller("OrderController", function ($scope, $http, WebSocketService) {
 
     $scope.$on('$routeChangeSuccess', function (event, current, previous) {
         $scope.page.setTitle(current.$$route.title || ' Quản lý đơn hàng');
@@ -316,7 +316,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
                         $scope.sendNotification("Thông báo giao hàng", order.orderCode, order.username, "Đơn hàng của bạn đã được GreenHouse xác nhận ");
                         $scope.getData();
                         $scope.clearCancel();
-
+                        $('#order-detail-modal-lg').modal('hide');
                         Swal.fire({
                             icon: "success",
                             title: "Thành công",
@@ -351,11 +351,14 @@ app.controller("OrderController", function ($scope, $http, $interval) {
         console.log(item);
     };
 
+    $scope.sendNotification = function (title, orderCode, username, message) {
+        WebSocketService.sendNotification(title, orderCode, username, message);
+    };
+
     $scope.confirmCancel = function () {
         if ($scope.cancelOrder.noteCancel == null || $scope.cancelOrder.noteCancel.length < 10) {
             $scope.errorsNoteCancel = 'Vui lòng nhập lí do không ít hơn 10 kí tự!';
-        }
-        else {
+        } else {
             var loadingOverlay = document.getElementById("loadingOverlay");
             loadingOverlay.style.display = "block";
             var updatedOrder = {
@@ -392,6 +395,7 @@ app.controller("OrderController", function ($scope, $http, $interval) {
                     $('#order-cancel').modal('hide');
                     console.log(response.data);
                     loadingOverlay.style.display = "none";
+
                     $scope.sendNotification("Thông báo hủy đơn hàng", $scope.cancelOrder.orderCode, $scope.cancelOrder.username, "Lí do hủy đơn hàng: " + $scope.cancelOrder.noteCancel);
                     $scope.getData();
                     $scope.clearCancel();
@@ -417,33 +421,6 @@ app.controller("OrderController", function ($scope, $http, $interval) {
         $scope.errorsNoteCancel = "";
 
     };
-    ////////=================WEBSOCKET NOTIFICATION==============///////
-
-    // WEbsocket
-    $scope.notifications = [];
-
-    var socket = new SockJS('/notify');
-    var stompClient = Stomp.over(socket);
-
-    // $scope.username1 = '114069353350424347080';
-
-    // Kết nối đến WebSocket
-    stompClient.connect({}, function (frame) {
-        console.log("Admin Connected: " + frame);
-
-        // Hàm để gửi thông báo
-        $scope.sendNotification = function (title, orderCode, username, message) {
-            var notification = {
-                username: { username: username },
-                title: title + " (" + orderCode + ")",
-                message: message,
-                createAt: new Date()
-            };
-            console.log("notification", notification);
-            // Gửi thông báo đến phía server
-            stompClient.send("/app/notify/" + username, {}, JSON.stringify(notification));
-        };
-    });
     // Thêm biến selectedStatus vào scope để theo dõi trạng thái hiện tại
     $scope.selectedStatus = 'all';
 
@@ -614,173 +591,14 @@ app.controller("OrderController", function ($scope, $http, $interval) {
     // END WEBSOCKET
 
     $scope.init = function () {
+        WebSocketService.connect();
         $scope.getData();
     }
 
     $scope.init();
 
+    $scope.$on('$destroy', function () {
+        WebSocketService.disconnect();
+    });
 });
 
-
-
-
-
-
-
-
-
-
-// $scope.invoice = {
-//     invoiceId: 0,
-//     username: null,
-//     createDate: new Date(),
-//     quantity: 0,
-//     totalAmount: 0.0,
-//     shippingMethod: '',
-//     shippingFee: 0.0,
-//     paymentAmount: 0.0,
-//     paymentMethod: '',
-//     bankCode: '',
-//     paymentDate: new Date(),
-//     receiverName: '',
-//     receiverPhone: '',
-//     receiverAddress: ''
-// };
-// NO NAME - END =))
-
-//  // SEARCH PRODUCT -- START
-
-//  $scope.searchProduct = function (keyword) {
-//     $scope.searchProductResults = [];
-//     if (keyword) {
-//         keyword = keyword.toLowerCase();
-//         $scope.searchProductResults = $scope.listProductDetails.filter(function (productD) {
-//             return productD.product.productName.toLowerCase().includes(keyword);
-//         });
-//     } else {
-//         $scope.searchProductKeyword = null;
-//     }
-// };
-
-
-// $scope.selectedProduct = function (product) {
-//     var existingProduct = $scope.selectedProducts.find(function (p) {
-//         return p.productDetailId.productDetailId === product.productDetailId;
-//     });
-
-//     if (existingProduct) {
-//         existingProduct.quantity++;
-//         existingProduct.amount = existingProduct.quantity * existingProduct.price;
-//     } else {
-//         var cart = {
-//             productDetailId: product,
-//             quantity: 1,
-//             price: product.price,
-//             amount: product.price,
-//         };
-//         $scope.selectedProducts.push(cart);
-//     }
-
-//     $scope.updateInvoice();
-//     console.log("Sản phẩm đã chọn: ", $scope.selectedProducts);
-//     $scope.searchProduct(null);
-// };
-
-
-// $scope.increaseQuantityProduct = function (item) {
-//     if (item.quantity < item.productDetailId.quantityInStock) {
-//         item.quantity++;
-//         $scope.updateCartItemAmount(item);
-//         $scope.updateInvoice();
-//     }
-// }
-
-// $scope.decreaseQuantityProduct = function (item) {
-//     if (item.quantity > 1) {
-//         item.quantity--;
-//         $scope.updateCartItemAmount(item);
-//         $scope.updateInvoice();
-//     }
-// }
-
-// $scope.validateQuantity = function (item) {
-//     if (isNaN(item.quantity) || item.quantity < 0 || item.quantity > item.productDetailId.quantityInStock) {
-//         item.quantity = 1;
-//     }
-//     $scope.updateCartItemAmount(item);
-//     $scope.updateInvoice();
-// };
-
-// $scope.updateCartItemAmount = function (item) {
-//     item.amount = item.price * item.quantity;
-// }
-
-// $scope.deleteCartItem = function (item) {
-//     var index = $scope.selectedProducts.findIndex(function (e) {
-//         return e.productDetailId.productDetailId === item.productDetailId.productDetailId
-//     })
-//     $scope.selectedProducts.splice(index, 1);
-// }
-
-// // SEARCH PRODUCT -- END
-// // SEARCH USER -- START
-
-// $scope.searchUser = function (keyword) {
-//     $scope.searchUserResults = [];
-//     if (keyword) {
-//         keyword = keyword.toLowerCase();
-//         $scope.listCustomer.forEach(function (customer) {
-//             if (customer.username.toLowerCase().includes(keyword)) {
-//                 $scope.searchUserResults.push(customer);
-//             }
-//         });
-//     } else {
-//         $scope.searchUserKeyword = null;
-//     }
-// }
-
-// $scope.selectedUser = function (user) {
-//     $scope.selectedUsers = user;
-//     $scope.searchUser(null);
-// }
-
-// $scope.resetSelectedUser = function () {
-//     $scope.selectedUsers = null;
-//     $scope.searchUser(null);
-// }
-
-// // SEARCH USER -- END
-
-// // INVOICE -- START
-
-// $scope.updateQuantityItemInInvoices = function () {
-//     $scope.invoice.quantity = 0;
-//     $scope.selectedProducts.forEach(function (c) {
-//         $scope.invoice.quantity += parseInt(c.quantity);
-//     });
-// }
-
-// $scope.updateTotalAmountInvoice = function () {
-//     $scope.invoice.totalAmount = 0;
-//     $scope.selectedProducts.forEach(function (c) {
-//         $scope.invoice.totalAmount += parseInt(c.amount);
-//     });
-// }
-
-// $scope.updateShippingFeeInvoice = function () {
-
-// }
-
-// $scope.updatePaymentAmountInvoice = function () {
-//     $scope.invoice.paymentAmount = $scope.invoice.totalAmount + $scope.invoice.shippingFee;
-
-// }
-
-// $scope.updateInvoice = function () {
-//     $scope.updateQuantityItemInInvoices();
-//     $scope.updateTotalAmountInvoice();
-//     $scope.updateShippingFeeInvoice();
-//     $scope.updatePaymentAmountInvoice();
-// }
-
-// // INVOICE -- END

@@ -102,17 +102,17 @@ app.config(["$httpProvider", function ($httpProvider) {
 },]);
 
 // ================= MAIN CONTROLLER ==================
-app.controller("MainController", function ($scope, CartService, $timeout, customerAPI, ProductDetailService, NotifyService, SearchDataService) {
-    var token = localStorage.getItem("token");
-    var username = localStorage.getItem("username");
-    $scope.token = token;
-    $scope.username = username;
-    $scope.currentPage = 1;
-    //======================   SEARCH ===============================//
-    $scope.listSearchHistories = [];
-    $scope.listSearchInvoices = [];
-    $scope.listProductDetails = [];
-    $scope.listProductDetailsResult = [];
+app.controller("MainController", function ($scope, CartService, $timeout, customerAPI, ProductDetailService, NotifyService, SearchDataService, WebSocketService) {
+        var token = localStorage.getItem("token");
+        var username = localStorage.getItem("username");
+        $scope.token = token;
+        $scope.username = username;
+        $scope.currentPage = 1;
+        //======================   SEARCH ===============================//
+        $scope.listSearchHistories = [];
+        $scope.listSearchInvoices = [];
+        $scope.listProductDetails = [];
+        $scope.listProductDetailsResult = [];
     $scope.listCategories = [];
     $scope.keyword = null;
 
@@ -176,7 +176,6 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
             });
     };
 
-
     // Hàm Xóa
     $scope.removeSearchHistory = function (index) {
         SearchDataService.removeFromSearchHistory(index);
@@ -211,37 +210,43 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
         console.log("Danh sách sản phẩm có status = 1:", $scope.listProductDetailsResult);
 
     }
-    $scope.getSearch();
-    //======================  NOTIFICATION HEADER  =====================//
-    var socket = new SockJS('/notify');
-    var userStompClient = Stomp.over(socket);
-    userStompClient.connect({}, function (frame) {
-        console.log("User Connected: " + frame);
+        $scope.getSearch();
+        //======================  NOTIFICATION HEADER  =====================//
 
-        // Subscribe để nhận thông báo từ admin
-        userStompClient.subscribe('/user/' + $scope.username + '/topic/notification', function (notification) {
-            console.log("Received Notification:", notification);
-            var receivedNotification = JSON.parse(notification.body);
+        $scope.isWebSocketConnected = false;
 
-            // Xử lý thông báo khi nhận được
-            if (receivedNotification.username.username === $scope.username) {
-                $scope.$apply(function () {
-                    $scope.notifications.push(receivedNotification);
-                    $scope.getUnreadNotifications();
-                    $scope.getListNotification();
+        $scope.connectWebSocket = function () {
+            WebSocketService.connect(function () {
+                $scope.isWebSocketConnected = true;
+                // Đăng ký cho đường dẫn /user/{username}/topic/notification (ví dụ)
+                WebSocketService.subscribeToTopic('/user/' + $scope.username + '/topic/notification', function (notification) {
+                    console.log("Received Notification:", notification);
+                    var receivedNotification = JSON.parse(notification.body);
+
+                    // Xử lý thông báo khi nhận được
+                    if (receivedNotification.username.username === $scope.username) {
+                        $scope.$apply(function () {
+                            $scope.notifications.push(receivedNotification);
+                            $scope.getUnreadNotifications();
+                            $scope.getListNotification();
+                        });
+                    }
                 });
-            }
-        });
-    });
-    $scope.ListNotifyUser = [];
-    $scope.ListUnNotifyUser = [];
-    $scope.getUnreadNotifications = function () {
-        // Sử dụng dịch vụ NotifyService để lấy danh sách thông báo có status == 0
-        NotifyService.getNotificationsByUsername(username)
-            .then(function (ListUnNotifyUser) {
-                // Lấy ngày hiện tại
-                var currentDate = new Date();
-                // Lọc thông báo trong khoảng 7 ngày gần nhất và status == 0
+            });
+        };
+
+        // Gọi hàm connectWebSocket để kết nối WebSocket khi controller được khởi tạo
+        $scope.connectWebSocket();
+
+        $scope.ListNotifyUser = [];
+        $scope.ListUnNotifyUser = [];
+        $scope.getUnreadNotifications = function () {
+            // Sử dụng dịch vụ NotifyService để lấy danh sách thông báo có status == 0
+            NotifyService.getNotificationsByUsername(username)
+                .then(function (ListUnNotifyUser) {
+                    // Lấy ngày hiện tại
+                    var currentDate = new Date();
+                    // Lọc thông báo trong khoảng 7 ngày gần nhất và status == 0
                 $scope.ListUnNotifyUser = ListUnNotifyUser.filter(function (notification) {
                     var createAt = new Date(notification.createAt);
                     var timeDiff = currentDate - createAt;

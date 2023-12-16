@@ -1284,9 +1284,22 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
 
     //=========[CHECKOUT]===================[CHECKOUT]==========================[CHECKOUT]======================[CHECKOUT]==================================
 
+    $scope.isWebSocketConnected = false;
+
     $scope.connectWebSocket = function () {
-        WebSocketService.connect(socketFunction);
-    };
+        WebSocketService.connect(function () {
+            $scope.isWebSocketConnected = true;
+
+            // Đăng ký cho đường dẫn /topic/products (ví dụ)
+            WebSocketService.subscribeToTopic('/topic/products', function (message) {
+                console.log("Received Product Update:", message);
+                socketFunction();
+            });
+        });
+    }
+
+    // Gọi hàm connectWebSocket khi controller được khởi tạo
+    $scope.connectWebSocket();
 
     function socketFunction() {
         getCart();
@@ -1326,7 +1339,5 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
         // Gọi hàm connectWebSocket khi controller được khởi tạo
 
     }
-    $scope.connectWebSocket();
-
     init();
 }

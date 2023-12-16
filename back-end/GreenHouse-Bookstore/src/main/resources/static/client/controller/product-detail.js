@@ -1,4 +1,4 @@
-app.controller("productDetailController", function ($scope, $timeout, $routeParams, $http, jwtHelper, ProductDetailService,WebSocketService) {
+app.controller("productDetailController", function ($scope, $timeout, $routeParams, $http, jwtHelper, ProductDetailService, WebSocketService) {
     let host = "http://localhost:8081/customer/rest/product-detail";
     var token = localStorage.getItem('token');
     // Trong trang product-details
@@ -78,9 +78,19 @@ app.controller("productDetailController", function ($scope, $timeout, $routePara
             });
     };
 
+    $scope.isWebSocketConnected = false;
+
     $scope.connectWebSocket = function () {
-        WebSocketService.connect($scope.getProductDetail);
-    };
+        WebSocketService.connect(function () {
+            $scope.isWebSocketConnected = true;
+
+            // Đăng ký cho đường dẫn /topic/products (ví dụ)
+            WebSocketService.subscribeToTopic('/topic/products', function (message) {
+                console.log("Received Product Update:", message);
+                $scope.getProductDetail();
+            });
+        });
+    }
 
     // Gọi hàm connectWebSocket khi controller được khởi tạo
     $scope.connectWebSocket();
