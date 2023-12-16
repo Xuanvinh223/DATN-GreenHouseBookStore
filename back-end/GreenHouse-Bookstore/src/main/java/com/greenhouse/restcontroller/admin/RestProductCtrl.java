@@ -1,38 +1,43 @@
 package com.greenhouse.restcontroller.admin;
 
-import com.google.gson.Gson;
-import com.greenhouse.dto.ProductDTO;
-import com.greenhouse.model.Attribute_Value;
-import com.greenhouse.model.Book_Authors;
-import com.greenhouse.model.Discounts;
-import com.greenhouse.model.ProductPriceHistories;
-import com.greenhouse.model.Product_Category;
-import com.greenhouse.model.Product_Detail;
-import com.greenhouse.model.Product_Discount;
-import com.greenhouse.model.Product_Images;
-import com.greenhouse.model.Products;
-import com.greenhouse.service.AttributeValueService;
-import com.greenhouse.service.BookAuthorsService;
-import com.greenhouse.service.DiscountsService;
-import com.greenhouse.service.ProductCategoryService;
-import com.greenhouse.service.ProductDetailService;
-import com.greenhouse.service.ProductDiscountService;
-import com.greenhouse.service.ProductImagesService;
-import com.greenhouse.service.ProductPriceHistoriesService;
-import com.greenhouse.service.ProductsService;
-import com.greenhouse.util.ImageUploader;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
+import com.greenhouse.dto.ProductDTO;
+import com.greenhouse.model.Attribute_Value;
+import com.greenhouse.model.Book_Authors;
+import com.greenhouse.model.ProductPriceHistories;
+import com.greenhouse.model.Product_Category;
+import com.greenhouse.model.Product_Detail;
+import com.greenhouse.model.Product_Images;
+import com.greenhouse.model.Products;
+import com.greenhouse.service.AttributeValueService;
+import com.greenhouse.service.BookAuthorsService;
+import com.greenhouse.service.ProductCategoryService;
+import com.greenhouse.service.ProductDetailService;
+import com.greenhouse.service.ProductImagesService;
+import com.greenhouse.service.ProductPriceHistoriesService;
+import com.greenhouse.service.ProductsService;
+import com.greenhouse.util.ImageUploader;
 
 @RestController
 @RequestMapping(value = "/rest/products")
@@ -297,7 +302,7 @@ public class RestProductCtrl {
         // Sau khi tạo sản phẩm thành công, gửi thông báo đến client sử dụng WebSocket
         messagingTemplate.convertAndSend("/topic/products", "update");
 
-        System.out.println(dataJson);
+        // System.out.println(dataJson);
 
         // Get the updated product information
         List<Products> updatedProducts = productsService.findAll();

@@ -1502,3 +1502,16 @@
   white-space: nowrap;
 }
 /* END FLASH_SALE */
+.product-details-article p.limit-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.product-details-article p.show-full-text {
+  overflow: none !important;
+  white-space: wrap;
+  max-height: 100px;
+}

@@ -5,10 +5,7 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
         var params = new URLSearchParams(location.search);
         var productDetailId = params.get('id');
         $scope.productDetailId = productDetailId; 
-        // Gọi hàm connectWebSocket khi controller được khởi tạo
-        $scope.connectWebSocket = function () {
-            WebSocketService.connect($scope.loadData);
-        };
+        
         $scope.visibleFlashSaleCount = 8;
 
         $scope.loadMoreFlashSaleToday = function () {
@@ -35,11 +32,6 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
                     $scope.showCountdownProd = checkAndDisplayCountdownForProductDetail($scope.productDetailId, $scope.productFlashSales);
                     $scope.discountPercentage = getDiscountPercentageForProduct($scope.productDetailId, $scope.productFlashSales);
                    
-                    // $scope.discountPercentages = $scope.currentFlashSaleProducts.map(product =>
-                    //     getDiscountPercentageForProduct(product.productDetailId, $scope.productFlashSales)
-                    // );
-
-
                     if (!$scope.flashSales.some(flash => flash.status === 2)) {
                         $scope.showSection = false;
                     } else {
@@ -182,6 +174,20 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
             }, 1000);
         }
 
+        $scope.isWebSocketConnected = false;
+
+        $scope.connectWebSocket = function () {
+            WebSocketService.connect(function () {
+                $scope.isWebSocketConnected = true;
+    
+                // Đăng ký cho đường dẫn /topic/products (ví dụ)
+                WebSocketService.subscribeToTopic('/topic/products', function (message) {
+                    console.log("Received Product Update:", message);
+                    $scope.loadData();
+                });
+            });
+        }
+    
         // Gọi hàm connectWebSocket khi controller được khởi tạo
         $scope.connectWebSocket();
 

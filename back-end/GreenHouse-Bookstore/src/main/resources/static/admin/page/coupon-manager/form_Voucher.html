@@ -123,23 +123,7 @@
                     ng-show="errorMessages.minimumPurchaseAmount">{{errorMessages.minimumPurchaseAmount}}</small>
                 </div>
 
-                <div class="mb-3">
-                  <p class="mb-2">Trạng thái(*)</p>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="status1" name="status"
-                      ng-model="edittingVoucher.status" ng-value="false">
-                    <label for="status1" class="form-check-label">Hết hạn</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="status" name="status"
-                      ng-model="edittingVoucher.status" ng-value="true" ng-checked="true">
-                    <label for="status" class="form-check-label">Còn hạn</label>
-                  </div>
-                  <div>
-                    <small class="error-label text-danger"
-                      ng-show="errorMessages.status">{{errorMessages.status}}</small>
-                  </div>
-                </div>
+           
 
               </div>
 

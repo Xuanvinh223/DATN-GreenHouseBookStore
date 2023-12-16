@@ -102,7 +102,7 @@ app.config(["$httpProvider", function ($httpProvider) {
 },]);
 
 // ================= MAIN CONTROLLER ==================
-app.controller("MainController", function ($scope, CartService, $timeout, customerAPI, ProductDetailService, NotifyService, SearchDataService) {
+app.controller("MainController", function ($scope, CartService, $timeout, customerAPI, ProductDetailService, NotifyService, SearchDataService,WebSocketService) {
     var token = localStorage.getItem("token");
     var username = localStorage.getItem("username");
     $scope.token = token;
@@ -176,7 +176,6 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
             });
     };
 
-
     // Hàm Xóa
     $scope.removeSearchHistory = function (index) {
         SearchDataService.removeFromSearchHistory(index);
@@ -213,26 +212,32 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
     }
     $scope.getSearch();
     //======================  NOTIFICATION HEADER  =====================//
-    var socket = new SockJS('/notify');
-    var userStompClient = Stomp.over(socket);
-    userStompClient.connect({}, function (frame) {
-        console.log("User Connected: " + frame);
+   
+    $scope.isWebSocketConnected = false;
 
-        // Subscribe để nhận thông báo từ admin
-        userStompClient.subscribe('/user/' + $scope.username + '/topic/notification', function (notification) {
-            console.log("Received Notification:", notification);
-            var receivedNotification = JSON.parse(notification.body);
+    $scope.connectWebSocket = function () {
+        WebSocketService.connect(function () {
+            $scope.isWebSocketConnected = true;
+            // Đăng ký cho đường dẫn /user/{username}/topic/notification (ví dụ)
+            WebSocketService.subscribeToTopic('/user/' + $scope.username + '/topic/notification', function (notification) {
+                console.log("Received Notification:", notification);
+                var receivedNotification = JSON.parse(notification.body);
 
-            // Xử lý thông báo khi nhận được
-            if (receivedNotification.username.username === $scope.username) {
-                $scope.$apply(function () {
-                    $scope.notifications.push(receivedNotification);
-                    $scope.getUnreadNotifications();
-                    $scope.getListNotification();
-                });
-            }
+                // Xử lý thông báo khi nhận được
+                if (receivedNotification.username.username === $scope.username) {
+                    $scope.$apply(function () {
+                        $scope.notifications.push(receivedNotification);
+                        $scope.getUnreadNotifications();
+                        $scope.getListNotification();
+                    });
+                }
+            });
         });
-    });
+    };
+
+    // Gọi hàm connectWebSocket để kết nối WebSocket khi controller được khởi tạo
+    $scope.connectWebSocket();
+
     $scope.ListNotifyUser = [];
     $scope.ListUnNotifyUser = [];
     $scope.getUnreadNotifications = function () {

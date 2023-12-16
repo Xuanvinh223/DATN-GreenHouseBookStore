@@ -1,22 +1,34 @@
-// Tạo một service hoặc factory (ví dụ, WebSocketService)
-app.factory('WebSocketService', function () {
+app.service('WebSocketService', function ($rootScope) {
     var stompClient = null;
 
-    function connect(callback) {
-        var socket = new SockJS('http://localhost:8081/websocket/gs-guide-websocket');
+    this.connect = function () {
+        var socket = new SockJS('/notify');
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, function (frame) {
-            stompClient.subscribe('/topic/products', function (message) {
-                // Nhận biết thông điệp và gọi callback
-                if (message.body === 'update') {
-                    callback();
-                }
-            });
+            console.log("Admin Connected: " + frame);
         });
-    }
+    };
 
-    return {
-        connect: connect
+    this.disconnect = function () {
+        if (stompClient !== null) {
+            stompClient.disconnect();
+        }
+        console.log("Disconnected");
+    };
+
+    this.sendNotification = function (title, orderCode, username, message) {
+        var notification = {
+            username: { username: username },
+            title: title + " (" + orderCode + ")",
+            message: message,
+            createAt: new Date()
+        };
+
+        if (stompClient !== null && stompClient.connected) {
+            stompClient.send("/app/notify/" + username, {}, JSON.stringify(notification));
+        } else {
+            console.error("WebSocket not connected");
+        }
     };
 });

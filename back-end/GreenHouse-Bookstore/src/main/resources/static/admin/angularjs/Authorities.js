@@ -4,7 +4,7 @@ app.controller("AuthoritiesController", function ($scope, $http) {
     $scope.itemsPerPage = 12;
     $scope.originalAccountsList = [];
     $scope.maxSize = 5;
- 
+
 
     $scope.getData = function () {
         $http.get("/rest/authorities").then(resp => {
@@ -69,7 +69,6 @@ app.controller("AuthoritiesController", function ($scope, $http) {
         $scope.setPage(1);// Set the current page to the first page
     };
 
-
     $scope.updateAuthorities = function (username, roleId) {
         var index = $scope.index_of(username, roleId);
         var authoritiesId;
@@ -82,17 +81,47 @@ app.controller("AuthoritiesController", function ($scope, $http) {
         if (index >= 0) {
             authoritiesId = $scope.db.authorities[index].authoritiesId;
             var username = localStorage.getItem('username');
-            $http.delete(`/rest/authorities/${authoritiesId}/${username}`).then(function (resp) {
-                var status = resp.data.status;
-                var message = resp.data.message;
-                if (status == 400) {
-                    swal.fire('Thất bại', message, 'warning');
-                } else if (status == 200) {
-                    swal.fire('Thành công!', 'Đã cập nhật thành công.', 'success');
-                }
-                $scope.getData();
 
-            });
+            if (roleId == 1) {
+                Swal.fire({
+                    title: 'Mật mã',
+                    input: 'text',
+                    showCancelButton: true,
+                    confirmButtonText: 'Đồng ý',
+                    cancelButtonText: 'Hủy',
+                }).then((result) => {
+                    if (result.value) {
+                        if (result.value == 'taolaadmin') {
+                            $http.delete(`/rest/authorities/${authoritiesId}/${username}`).then(function (resp) {
+                                var status = resp.data.status;
+                                var message = resp.data.message;
+                                if (status == 400) {
+                                    swal.fire('Thất bại', message, 'warning');
+                                } else if (status == 200) {
+                                    swal.fire('Thành công!', message, 'success');
+                                    window.location.reload();
+                                }
+                            });
+                        } else {
+                            swal.fire('Thất bại', "Sai mật mã...", 'error');
+                        }
+                    }
+                });
+            } else if (roleId == 2 || roleId == 3) {
+
+                $http.delete(`/rest/authorities/${authoritiesId}/${username}`).then(function (resp) {
+                    var status = resp.data.status;
+                    var message = resp.data.message;
+                    if (status == 400) {
+                        swal.fire('Thất bại', message, 'warning');
+                    } else if (status == 200) {
+                        swal.fire('Thành công!', message, 'success');
+                    }
+                    window.location.reload();
+                });
+            }
+
+
         } else {
             $http.post('/rest/authorities', data).then(function (resp) {
                 $scope.getData();

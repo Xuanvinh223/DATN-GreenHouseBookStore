@@ -32,12 +32,9 @@ function productPageController($http, $scope, productPageAPI, WebSocketService) 
     // DECLARE SCOPE FOR UI - END
     //=================================
     // SCOPE_FUNCTION GET DATA - START
-    // var param = new URLSearchParams(location.search);
-    // var categoryId = param.get('categoryId');
-    // var categoryName = param.get('categoryName');
-    // console.log(categoryId, categoryName);
+
     $scope.getDataProductDetail = function () {
-        $scope.showLoading();
+
         var url = host + "/product-show";
         var params = {};
 
@@ -133,18 +130,10 @@ function productPageController($http, $scope, productPageAPI, WebSocketService) 
             if (localStorage.getItem("categoryName")) {
                 localStorage.removeItem("categoryName");
             }
-            $scope.hideLoading();
         }).catch(function (error) {
             console.error("Lỗi call API: ", error);
         });
     };
-
-    $scope.connectWebSocket = function () {
-        WebSocketService.connect($scope.getDataProductDetail);
-    };
-
-    // Gọi hàm connectWebSocket để kết nối WebSocket khi controller được khởi tạo
-    $scope.connectWebSocket();
 
     //LỌC THEO GIÁ
     $scope.priceSelection = {
@@ -417,6 +406,22 @@ function productPageController($http, $scope, productPageAPI, WebSocketService) 
             $scope.getDataProductDetail();
         }
     }
+    $scope.isWebSocketConnected = false;
+
+    $scope.connectWebSocket = function () {
+        WebSocketService.connect(function () {
+            $scope.isWebSocketConnected = true;
+
+            // Đăng ký cho đường dẫn /topic/products (ví dụ)
+            WebSocketService.subscribeToTopic('/topic/products', function (message) {
+                console.log("Received Product Update:", message);
+                $scope.init();
+            });
+        });
+    }
+
+    // Gọi hàm connectWebSocket khi controller được khởi tạo
+    $scope.connectWebSocket();
 
     $scope.init();
 }

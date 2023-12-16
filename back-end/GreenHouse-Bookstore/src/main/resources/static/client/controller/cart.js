@@ -1087,10 +1087,12 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
     //=========[CHECKOUT]===================[CHECKOUT]==========================[CHECKOUT]======================[CHECKOUT]==================================
     $scope.checkout = function () {
         if ($scope.selectedAddress && $scope.listCartItemSelected.length > 0) {
+            $scope.showLoading();
             // Kiểm tra voucher
             validateVoucher($scope.voucherApplied)
                 .then(function (resp) {
                     if (resp.status == 'error') {
+                        $scope.hideLoading();
                         var listVoucherIsNotValid = resp.listVoucherIsNotValid;
                         // Xử lý khi voucher không hợp lệ
                         if (listVoucherIsNotValid.length > 0) {
@@ -1116,6 +1118,7 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                 .then(function (resp) {
                     // Xử lý khi có sản phẩm không hợp lệ trong flash sale
                     if (resp.status == "error") {
+                        $scope.hideLoading();
                         var listNotValidPurchaseLimit = resp.listNotValidPurchaseLimit;
                         return Swal.fire({
                             title: "Flash Sale Đang Diễn Ra",
@@ -1201,15 +1204,18 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
                             }
                         });
                     } else {
+                        $scope.hideLoading();
                         return false;
                     }
                 })
                 .then(function (response) {
+                    $scope.hideLoading();
                     if (response) {
                         window.location.href = "/checkout";
                     }
                 })
                 .catch(function (error) {
+                    $scope.hideLoading();
                     console.error('Error during checkout:', error);
                 });
         } else {
@@ -1266,9 +1272,22 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
 
     //=========[CHECKOUT]===================[CHECKOUT]==========================[CHECKOUT]======================[CHECKOUT]==================================
 
+    $scope.isWebSocketConnected = false;
+
     $scope.connectWebSocket = function () {
-        WebSocketService.connect(socketFunction);
-    };
+        WebSocketService.connect(function () {
+            $scope.isWebSocketConnected = true;
+
+            // Đăng ký cho đường dẫn /topic/products (ví dụ)
+            WebSocketService.subscribeToTopic('/topic/products', function (message) {
+                console.log("Received Product Update:", message);
+                socketFunction();
+            });
+        });
+    }
+
+    // Gọi hàm connectWebSocket khi controller được khởi tạo
+    $scope.connectWebSocket();
 
     function socketFunction() {
         getCart();
@@ -1308,7 +1327,5 @@ function cartController($http, $scope, cartAPI, CartService, $filter, checkoutAP
         // Gọi hàm connectWebSocket khi controller được khởi tạo
 
     }
-    $scope.connectWebSocket();
-
     init();
 }

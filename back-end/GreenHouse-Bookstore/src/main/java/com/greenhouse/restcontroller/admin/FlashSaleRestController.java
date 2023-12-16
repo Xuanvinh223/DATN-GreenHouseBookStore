@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -134,5 +135,33 @@ public class FlashSaleRestController {
     }
 
     // FORM FLASH SALE REST API
+    @DeleteMapping("/rest/delete/{id}")
+    public ResponseEntity<String> deleteFlashSale(@PathVariable Integer id) {
+        try {
+            // Lấy Flash Sale theo ID
+            Optional<Flash_Sales> flashSaleOptional = fs.findById(id);
+            if (flashSaleOptional.isPresent()) {
+                Flash_Sales flashSale = flashSaleOptional.get();
 
+                List<Product_Flash_Sale> productFSList = profs.findByFlashSaleId(flashSale);
+                if (!productFSList.isEmpty()) {
+                    for (Product_Flash_Sale productFS : productFSList) {
+                        profs.delete(productFS);
+                    }
+                }
+
+                fs.delete(flashSale);
+
+                return ResponseEntity.ok("Xóa Flash Sale thành công");
+            } else {
+                // Nếu không tìm thấy Flash Sale theo ID, trả về phản hồi lỗi
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            // Xử lý lỗi và trả về phản hồi lỗi
+            e.printStackTrace(); // In lỗi ra console để gỡ rối (có thể loại bỏ ở production)
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Có lỗi xảy ra khi xóa Flash Sale");
+        }
+    }
 }

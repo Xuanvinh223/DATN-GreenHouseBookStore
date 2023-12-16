@@ -213,7 +213,6 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
                 startDate: "",
                 endDate: "",
                 totalQuantity: "",
-                status: "",
             };
 
             if (!voucher.voucherName) {
@@ -333,7 +332,7 @@ app.controller("VouchersController", function ($scope, $location, $routeParams, 
                         endDate: $scope.edittingVoucher.endDate,
                         totalQuantity: $scope.edittingVoucher.totalQuantity,
                         usedQuantity: $scope.edittingVoucher.usedQuantity,
-                        status: $scope.edittingVoucher.status,
+                        status: $scope.edittingVoucher.status == true,
                         description: $scope.edittingVoucher.description,
                     },
                     categories: $scope.selectedCategories,

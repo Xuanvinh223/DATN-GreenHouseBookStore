@@ -319,6 +319,8 @@ public class CheckoutController {
                 status = "success";
                 message = "Đơn hàng đã được thanh toán thành công";
             } else {
+                orders.setStatus("cancel");
+                ordersRepository.save(orders);
                 status = "error";
                 message = "Đơn hàng chưa được thanh toán";
             }

@@ -11,7 +11,7 @@
 }
 
 .checkout-cart-total .money-word {
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-transform: uppercase;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .checkout-form .checkout-info-receiver>div {
-    font-size: 1.4rem;
+    font-size: 1rem;
     color: #181818;
 }
 

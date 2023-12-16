@@ -47,21 +47,25 @@ app.controller("checkoutController", function ($scope, $http, checkoutAPI, $time
 
     //================================================================
     $scope.checkout = function () {
+        $scope.showLoading();
         var api = `${checkoutAPI}/create-payment`;
         $scope.checkoutDataPayment.payment_method = $scope.paymentMethod;
         var data = $scope.checkoutDataPayment;
         console.log("Dữ liệu gửi về API để thanh toán: ", data);
         $http.post(api, data)
             .then(function (response) {
-                if (response.data.status == "success") { 
-                    if(response.data.url){
+                if (response.data.status == "success") {
+                    if (response.data.url) {
                         window.location.href = response.data.url;
                     }
                 }
             })
             .catch(function (error) {
                 console.error('Error calling API:', error);
-            });
+            }).finally(() => {
+            // Sau khi hoàn thành gọi API (thành công hoặc thất bại), đặt isLoading lại thành false.
+            $scope.hideLoading();
+        });
     }
 
     // ----------------------------------------------------------------
