@@ -263,25 +263,28 @@ public class CheckoutController {
             // Begin process return from VNPAY
             String code = request.get("code");
             String status = request.get("status");
-            String orderCode = request.get("orderCode");
+            String orderCode = "GH" + request.get("orderCode");
 
-            Invoices invoices = invoicesRepository.findById(Integer.parseInt(orderCode)).orElse(null);
-            Orders orders = ordersRepository.findByInvoices(invoices);
-            CheckoutCompleteDTO checkoutCompleteDTO = new CheckoutCompleteDTO();
-            checkoutCompleteDTO.setInvoices(invoices);
-            checkoutCompleteDTO.setOrders(orders);
-            checkoutCompleteData = checkoutCompleteDTO;
-            if ("00".equals(code)) {
-                // Update status of invoice
-                if ("PAID".equalsIgnoreCase(status)) {
-                    checkoutService.createInvoiceStatusMapping(invoices, 1);
-                } else {
-                    checkoutService.createInvoiceStatusMapping(invoices, 3);
-                    orders.setStatus("cancel");
-                    ordersRepository.save(orders);
-                    checkoutService.createOrderStatusHistory(orders.getOrderCode(), "cancel");
+            Orders orders = ordersRepository.findById(orderCode).orElse(null);
+            if (orders != null) {
+                Invoices invoices = orders.getInvoices();
+                CheckoutCompleteDTO checkoutCompleteDTO = new CheckoutCompleteDTO();
+                checkoutCompleteDTO.setInvoices(invoices);
+                checkoutCompleteDTO.setOrders(orders);
+                checkoutCompleteData = checkoutCompleteDTO;
+                if ("00".equals(code)) {
+                    // Update status of invoice
+                    if ("PAID".equalsIgnoreCase(status)) {
+                        checkoutService.createInvoiceStatusMapping(invoices, 1);
+                    } else {
+                        checkoutService.createInvoiceStatusMapping(invoices, 3);
+                        orders.setStatus("cancel");
+                        ordersRepository.save(orders);
+                        checkoutService.createOrderStatusHistory(orders.getOrderCode(), "cancel");
+                    }
                 }
             }
+
         } catch (Exception e) {
             System.out.println("{\"RspCode\":\"99\",\"Message\":\"Unknow error\"}");
         }
