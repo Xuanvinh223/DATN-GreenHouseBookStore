@@ -140,7 +140,7 @@ function StaticOvertime($scope, $http, $filter) {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'đ',
+                    label: 'VNĐ',
                     data: data,
                     backgroundColor: 'rgb(48,207,48, 0.5)',
                     borderColor: 'rgba(75, 192, 192, 1)',
@@ -251,10 +251,9 @@ function StaticOvertime($scope, $http, $filter) {
     $scope.getListInvoiceDetailByInvoiceId = function (invoiceId) {
         return $scope.invoiceDetails.filter(a => a.invoice.invoiceId === invoiceId);
     };
-    //Xuất EXCEL
     $scope.exportToExcel = function () {
         // Lấy toàn bộ dữ liệu từ server khi tải trang ban đầu
-        $scope.loadStaticOvertime();
+        // $scope.loadStaticOvertime();
 
         // Bây giờ, $scope.invoice sẽ chứa toàn bộ dữ liệu từ tất cả các trang
 
@@ -277,22 +276,29 @@ function StaticOvertime($scope, $http, $filter) {
                 $filter('date')(item.paymentDate, 'dd/MM/yyyy')
             ]);
         });
-        // Đặt độ rộng cố định cho từng cột
-        var colWidths = [10, 15, 20, 15, 15, 15, 15, 15];
 
         // Sử dụng thư viện XLSX để tạo tệp Excel
         var ws = XLSX.utils.aoa_to_sheet(excelData);
 
-        // Đặt độ rộng cố định cho các cột
-        for (var i = 0; i < colWidths.length; i++) {
-            ws['!cols'] = ws['!cols'] || [];
-            ws['!cols'].push({ wch: colWidths[i] });
-        }
+        // Đặt độ rộng cố định cho từng cột
+        var colWidths = [10, 15, 20, 15, 15, 15, 15, 15];
+        ws['!cols'] = colWidths.map(function (width) {
+            return {wch: width};
+        });
 
-        // Căn giữa dữ liệu trong từng cột
-        for (var row = 0; row < excelData.length; row++) {
+        // Căn giữa dữ liệu trong từng cột (trừ hàng đầu tiên)
+        for (var row = 1; row < excelData.length; row++) {
             for (var col = 0; col < excelData[row].length; col++) {
-                ws[XLSX.utils.encode_cell({ r: row, c: col })].s = { alignment: { horizontal: 'center' } };
+                var cellAddress = XLSX.utils.encode_cell({r: row, c: col});
+                var cell = ws[cellAddress];
+
+                if (cell && !cell.s) {
+                    cell.s = {};
+                }
+
+                if (cell && cell.s) {
+                    cell.s.alignment = {horizontal: 'center'};
+                }
             }
         }
 
@@ -301,8 +307,7 @@ function StaticOvertime($scope, $http, $filter) {
 
         // Xuất tệp Excel
         XLSX.writeFile(wb, 'danh_sach_don_hang.xlsx');
-    }
-
+    };
 
     // Định nghĩa hàm formatDate để định dạng ngày in
     function formatDate(date) {

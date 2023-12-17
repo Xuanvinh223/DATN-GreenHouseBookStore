@@ -78,7 +78,7 @@ function BestSellerController($scope, $location, $routeParams, $http) {
         var excelData = [
             ['BÁO CÁO - DANH SÁCH SẢN PHẨM TỒN TRONG KHO'], // Header
             [], // Empty row for spacing
-            ['#', 'ID', 'Tên sản phẩm', 'Số lượng tồn', 'Số lượng đã bán', 'Điểm đánh giá trung bình', 'Số đánh giá']
+            ['#', 'ID', 'Tên sản phẩm', 'Số lượng tồn', 'Số lượng đã bán', 'Điểm đánh giá trung bình']
         ];
 
         $scope.bestsellers.forEach(function (item, index) {
@@ -87,13 +87,12 @@ function BestSellerController($scope, $location, $routeParams, $http) {
                 item[0],
                 item[1],
                 item[2],
-                item[3],
                 item[4],
                 item[5],
             ]);
         });
         // Đặt độ rộng cố định cho từng cột
-        var colWidths = [10, 10, 50, 15, 15, 15, 15];
+        var colWidths = [10, 10, 50, 15, 15, 15];
 
         // Sử dụng thư viện XLSX để tạo tệp Excel
         var ws = XLSX.utils.aoa_to_sheet(excelData);
@@ -130,30 +129,28 @@ function BestSellerController($scope, $location, $routeParams, $http) {
         var headerTable = {
             table: {
                 headerRows: 1,
-                widths: [20, 40, 110, 60, 60, 100, 60],
+                widths: [20, 40, 180, 70, 70, 70],
                 body: [
-                    [{ text: '#', alignment: 'center', fontSize: 11 }, // Căn giữa cột '#'
-                    { text: 'ID', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Mã hóa đơn'
-                    { text: 'Tên sản phảm', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Tên khách hàng'
-                    { text: 'Số lượng tồn', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Ngày tạo'
-                    { text: 'Số lượng đã bán', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Tổng tiền'
-                    { text: 'Điểm đánh giá trung bình', alignment: 'center', fontSize: 11 }, // Căn giữa cột 'Tiền thanh toán'
-                    { text: 'Số đánh giá', alignment: 'center', fontSize: 11 }] // Căn giữa cột 'Ngày thanh toán'
+                    [{text: '#', alignment: 'center', fontSize: 11}, // Căn giữa cột '#'
+                        {text: 'ID', alignment: 'center', fontSize: 11}, // Căn giữa cột 'Mã hóa đơn'
+                        {text: 'Tên sản phảm', alignment: 'center', fontSize: 11}, // Căn giữa cột 'Tên khách hàng'
+                        {text: 'Số lượng tồn', alignment: 'center', fontSize: 11}, // Căn giữa cột 'Ngày tạo'
+                        {text: 'Số lượng đã bán', alignment: 'center', fontSize: 11}, // Căn giữa cột 'Tổng tiền'
+                        {text: 'Điểm đánh giá trung bình', alignment: 'center', fontSize: 11}] // Căn giữa cột 'Ngày thanh toán'
                 ]
             }
         };
 
         bodyTable = {
             table: {
-                widths: [20, 40, 110, 60, 60, 100, 60],
+                widths: [20, 40, 180, 70, 70, 70],
                 body: $scope.bestsellers.map((item, index) => [
-                    { text: (index + 1).toString(), alignment: 'center', fontSize: 11 },
-                    { text: item[0], alignment: 'center', fontSize: 11 },
-                    { text: item[1], fontSize: 11 },
-                    { text: item[2], alignment: 'center', fontSize: 11 },
-                    { text: item[3], alignment: 'center', fontSize: 11 },
-                    { text: item[4], alignment: 'center', fontSize: 11 }, // Chuyển đổi giá trị bool thành văn bản
-                    { text: item[5], alignment: 'center', fontSize: 11 },
+                    {text: (index + 1).toString(), alignment: 'center', fontSize: 11},
+                    {text: item[0], alignment: 'center', fontSize: 11}, // Chỉnh sửa để lấy ID sản phẩm từ item[0]
+                    {text: item[1], fontSize: 11},
+                    {text: item[2], alignment: 'center', fontSize: 11},
+                    {text: item[4], alignment: 'center', fontSize: 11},
+                    {text: item[5], alignment: 'center', fontSize: 11}
                 ])
             }
         };
