@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.greenhouse.dto.Response;
 import com.greenhouse.model.Authorities;
 import com.greenhouse.repository.AccountRepository;
 import com.greenhouse.repository.AuthoritiesRepository;
@@ -55,8 +56,19 @@ public class RestAuthoritiesController {
         return ResponseEntity.ok(createdAuthorities);
     }
 
-    @DeleteMapping("/{authoritiesId}") // Đường dẫn ID được truyền qua biến authoritiesId
-    public void delete(@PathVariable("authoritiesId") Integer authoritiesId) {
+    @DeleteMapping("/{authoritiesId}/{username}") // Đường dẫn ID được truyền qua biến authoritiesId
+    public ResponseEntity<Response> delete(@PathVariable("authoritiesId") Integer authoritiesId,
+                                           @PathVariable("username") String username) {
+        Response response = new Response();
+        Authorities authorities = authoritiesRepository.findById(authoritiesId).get();
+        if (authorities.getUsername().equals(username)) {
+            response.setStatus(400);
+            response.setMessage("Không thể thay đổi.");
+            return ResponseEntity.status(response.getStatus()).body(response);
+        }
         authoritiesRepository.deleteById(authoritiesId);
+        response.setStatus(200);
+        response.setMessage("Cập nhật thành công");
+        return ResponseEntity.status(response.getStatus()).body(response);
     }
 }

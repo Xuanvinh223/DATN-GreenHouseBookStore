@@ -4,7 +4,7 @@ app.controller('flashSaleController', ['$http', '$scope', '$interval', 'WebSocke
         let host = "http://localhost:8081/customer/rest/productFlashSales";
         var params = new URLSearchParams(location.search);
         var productDetailId = params.get('id');
-        $scope.productDetailId = productDetailId;
+        $scope.productDetailId = productDetailId; 
         // Gọi hàm connectWebSocket khi controller được khởi tạo
         $scope.connectWebSocket = function () {
             WebSocketService.connect($scope.loadData);

@@ -142,7 +142,7 @@ public class CheckoutService {
 
         String orderCode = generateOrderCode();
         while (ordersRepository.existsById(orderCode)) {
-            orderCode = generateOrderCode(); 
+            orderCode = generateOrderCode();
         }
 
         orders.setOrderCode(orderCode);
@@ -226,9 +226,35 @@ public class CheckoutService {
             Product_Detail pDetail = item.getProductDetail();
             pDetail.setQuantityInStock(pDetail.getQuantityInStock() - item.getQuantity());
             productDetailsRepository.save(pDetail);
-
-            updateUsedQuantityForFlashSale(pDetail, item.getQuantity());
-            updateUsedQuantityForDiscounts(pDetail, currentDate, item.getQuantity());
+            // ============================================================================================
+            Optional<Flash_Sales> flashSalesOptional = Optional.ofNullable(flashSalesRepository.findByStatus(2));
+            List<Product_Flash_Sale> pfs = flashSalesOptional
+                    .map(flashSales -> product_FlashSaleRepository.findByFlashSaleId(flashSales))
+                    .orElse(new ArrayList<>());
+            // ----------------------------------------------------------------
+            boolean isFlashSales = false;
+            for (Product_Flash_Sale pf : pfs) {
+                if (pf.getProductDetail().getProductDetailId() == item.getProductDetail().getProductDetailId()) {
+                    int remainingQuantity = pf.getQuantity() - pf.getUsedQuantity();
+                    int quantity = item.getQuantity();
+                    if (quantity <= remainingQuantity) {
+                        updateUsedQuantityForFlashSale(pDetail, item.getQuantity());
+                        isFlashSales = true;
+                    }
+                }
+            }
+            // ---------------------------------------------------------
+            if (!isFlashSales) {
+                List<Discounts> discountList = discountsRepository.findActiveDiscountsNowAndActive(new Date(),
+                        true);
+                for (Discounts d : discountList) {
+                    Product_Discount pdDiscount = productDiscountRepository
+                            .findByProductDetailAndDiscount(item.getProductDetail(), d);
+                    if (pdDiscount != null) {
+                        updateUsedQuantityForDiscounts(pDetail, currentDate, item.getQuantity());
+                    }
+                }
+            }
         }
     }
 
@@ -249,17 +275,19 @@ public class CheckoutService {
     }
 
     private void updateUsedQuantityForDiscounts(Product_Detail pDetail, Date currentDate, int quantity) {
-        List<Discounts> discounts = discountsRepository.findActiveDiscountsNow(currentDate);
+        List<Discounts> discounts = discountsRepository.findActiveDiscountsNowAndActive(currentDate, true);
 
         discounts.forEach(discount -> {
             Optional<Product_Discount> productDiscountOptional = Optional.ofNullable(
                     productDiscountRepository.findByProductDetailAndDiscount(pDetail, discount));
-
             productDiscountOptional
                     .ifPresent(productDiscount -> {
                         discount.setUsedQuantity(discount.getUsedQuantity() + quantity);
+                        if (discount.getUsedQuantity() >= discount.getQuantity()) {
+                            discount.setActive(false);
+                        }
                         discountsRepository.save(discount);
-                    }); 
+                    });
         });
     }
 
@@ -334,9 +362,7 @@ public class CheckoutService {
         return true;
     }
 
-    // ================================================================================================
-
-    private static boolean isVoucherValid(Vouchers voucher) {
+    public boolean isVoucherValid(Vouchers voucher) {
         Date currentDate = new Date();
         int stock = voucher.getTotalQuantity() - voucher.getUsedQuantity();
         if (currentDate.before(voucher.getEndDate()) && currentDate.after(voucher.getStartDate()) && stock > 0) {
@@ -345,6 +371,8 @@ public class CheckoutService {
             return false;
         }
     }
+
+    // ================================================================================================
 
     private String generateOrderCode() {
         String dateFormat = "ddMMyyyy";
