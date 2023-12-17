@@ -37,7 +37,7 @@
                   <div class="col-md-4 mb-3">
                     <label for="example-password">Mật Khẩu(*)</label>
                     <input type="password" id="password" class="form-control" value="password"
-                      ng-model="editingAccounts.password" placeholder="Nhập password">
+                      ng-model="editingAccounts.password" placeholder="Nhập password" ng-disabled="isEditing">
                     <small class="error-label text-danger"
                       ng-show="errorMessages.password">{{errorMessages.password}}</small>
                   </div>

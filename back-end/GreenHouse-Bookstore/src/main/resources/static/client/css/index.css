@@ -4245,9 +4245,11 @@ html.bx-ios.bx-ios-fix-frame-focus {
 
 .col1-layout{
   margin-top: 0px;
-  padding-left: 200px;
-  padding-right: 200px;
+  padding-left: 25px;
+  padding-right: 25px;
 }
+
+
 
 .main1{
   margin: 0 auto;
