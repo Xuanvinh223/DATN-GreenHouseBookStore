@@ -85,13 +85,13 @@ app.controller("AuthoritiesController", function ($scope, $http) {
             if (roleId == 1) {
                 Swal.fire({
                     title: 'Mật mã',
-                    input: 'text',
+                    input: 'password',
                     showCancelButton: true,
                     confirmButtonText: 'Đồng ý',
                     cancelButtonText: 'Hủy',
                 }).then((result) => {
                     if (result.value) {
-                        if (result.value == 'taolaadmin') {
+                        if (result.value == 'admin') {
                             $http.delete(`/rest/authorities/${authoritiesId}/${username}`).then(function (resp) {
                                 var status = resp.data.status;
                                 var message = resp.data.message;
@@ -99,12 +99,12 @@ app.controller("AuthoritiesController", function ($scope, $http) {
                                     swal.fire('Thất bại', message, 'warning');
                                 } else if (status == 200) {
                                     swal.fire('Thành công!', message, 'success');
-                                    window.location.reload();
                                 }
                             });
                         } else {
                             swal.fire('Thất bại', "Sai mật mã...", 'error');
                         }
+                        window.location.reload();
                     }
                 });
             } else if (roleId == 2 || roleId == 3) {
@@ -117,16 +117,36 @@ app.controller("AuthoritiesController", function ($scope, $http) {
                     } else if (status == 200) {
                         swal.fire('Thành công!', message, 'success');
                     }
-                    window.location.reload();
                 });
             }
 
 
         } else {
-            $http.post('/rest/authorities', data).then(function (resp) {
-                $scope.getData();
-                swal.fire('Thành công!', 'Đã cập nhật thành công.', 'success');
-            });
+            if (roleId == 1) {
+                Swal.fire({
+                    title: 'Mật mã',
+                    input: 'password',
+                    showCancelButton: true,
+                    confirmButtonText: 'Đồng ý',
+                    cancelButtonText: 'Hủy',
+                }).then((result) => {
+                    if (result.value) {
+                        if (result.value == 'admin') {
+                            $http.post('/rest/authorities', data).then(function (resp) {
+                                swal.fire('Thành công!', 'Đã cập nhật thành công.', 'success');
+                            });
+                        } else {
+                            swal.fire('Thất bại', "Sai mật mã...", 'error');
+                        }
+                        window.location.reload();
+                    }
+                });
+            } else if (roleId == 2 || roleId == 3) {
+                $http.post('/rest/authorities', data).then(function (resp) {
+                    $scope.getData();
+                    swal.fire('Thành công!', 'Đã cập nhật thành công.', 'success');
+                });
+            }
         }
     };
 

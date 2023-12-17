@@ -39,8 +39,6 @@ public class AccountsServiceImpl implements AccountsService {
 
     @Override
     public Accounts update(Accounts accounts) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        accounts.setPassword(passwordEncoder.encode(accounts.getPassword()));
         return accountsRepository.save(accounts);
     }
 
