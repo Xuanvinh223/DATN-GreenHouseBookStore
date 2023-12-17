@@ -252,10 +252,7 @@ function accountController($http, $window, $scope, jwtHelper, $timeout) {
             // Kiểm tra các điều kiện cho trường fullname
             if ($scope.address.fullname == null) {
                 $scope.errors.fullname = 'Vui lòng nhập họ và tên';
-            } else if ($scope.address.fullname.length < 10) {
-                $scope.errors.fullname = 'Họ và tên phải có ít nhất 10 ký tự';
-            }
-
+            } 
             var reg = /^(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/;
             // Kiểm tra các điều kiện cho trường phone
             if (!$scope.address.phone) {
