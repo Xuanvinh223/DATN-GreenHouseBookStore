@@ -1,5 +1,9 @@
 package com.greenhouse.restcontroller.admin;
 
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -67,112 +71,76 @@ public class ScheduledTasks {
     }
 
     // bắt đầu
-    @Scheduled(cron = "0 0 0,2,4,6,8,10,12,14,16,18,20,22 * * ?")
+    @Scheduled(cron = "0 32 1,2,4,6,8,10,12,14,16,18,20,22 * * ?")
     public void updateExpiredFlashSales() {
         List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
 
         for (Product_Flash_Sale productFlashSale : allProductFlashSales) {
+            LocalDateTime currentTime = LocalDateTime.now();
+
             Flash_Sales flashSale = productFlashSale.getFlashSaleId();
-            if (flashSale != null && flashSale.getStartTime() != null && flashSale.getEndTime() != null &&
-                    flashSale.getStartTime().before(new Date()) && flashSale.getEndTime().before(new Date()) &&
-                    isSameDay(flashSale.getUserDate(), new Date())) {
-                Product_Detail productDetail = productFlashSale.getProductDetail();
+            if (flashSale != null) {
+                Time startTime = flashSale.getStartTime();
 
-                if (productDetail != null) {
-                    Date currentTime = new Date();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-                    if (flashSale.getStartTime().before(currentTime) && flashSale.getEndTime().after(currentTime)) {
-
-                    } else {
+                if (isSameDay(flashSale.getUserDate(), new Date()) && startTime.toLocalTime().format(formatter)
+                        .equalsIgnoreCase(currentTime.toLocalTime().format(formatter))) {
+                    Product_Detail productDetail = productFlashSale.getProductDetail();
+                    if (productDetail != null) {
                         double exitPriceDiscount = productDetail.getPrice();
                         double discountPercentage = (double) productFlashSale.getDiscountPercentage() / 100;
                         double newPriceDiscount = exitPriceDiscount * (1 - discountPercentage);
                         productDetail.setPriceDiscount(newPriceDiscount);
                         flashSale.setStatus(2);
-
+                        flashSalesService.update(flashSale);
+                        productDetailService.update(productDetail);
                     }
-                    flashSalesService.update(flashSale);
-                    productDetailService.update(productDetail);
-                }
 
-                productFlashSaleService.update(productFlashSale);
-                messagingTemplate.convertAndSend("/topic/products", "update");
+                    productFlashSaleService.update(productFlashSale);
+                    messagingTemplate.convertAndSend("/topic/products", "update");
+                }
             }
+
         }
     }
 
     // kết thúc
-    @Scheduled(cron = "0 0 2,4,6,8,10,12,14,16,18,20,22 * * ?")
+    @Scheduled(cron = "0 33 2,4,6,8,10,12,14,16,18,20,22 * * ?")
     public void updateExpiredFlashSales1() {
         List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
 
         for (Product_Flash_Sale productFlashSale : allProductFlashSales) {
+            LocalDateTime currentTime = LocalDateTime.now();
+
             Flash_Sales flashSale = productFlashSale.getFlashSaleId();
+            if (flashSale != null) {
+                Time endTime = flashSale.getEndTime();
 
-            if (flashSale != null && flashSale.getStartTime() != null && flashSale.getEndTime() != null &&
-                    flashSale.getStartTime().before(new Date()) && flashSale.getEndTime().before(new Date()) &&
-                    isSameDay(flashSale.getUserDate(), new Date())) {
-                Product_Detail productDetail = productFlashSale.getProductDetail();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-                if (productDetail != null) {
-                    Date currentTime = new Date();
-
-                    if (flashSale.getStartTime().before(currentTime) && flashSale.getEndTime().after(currentTime)) {
-
-                    } else {
-
-                        flashSale.setStatus(3);
-
+                if (isSameDay(flashSale.getUserDate(), new Date()) && endTime.toLocalTime().format(formatter)
+                        .equalsIgnoreCase(currentTime.toLocalTime().format(formatter))) {
+                    Product_Detail productDetail = productFlashSale.getProductDetail();
+                    if (productDetail != null) {
+                        productDetailService.update(productDetail);
                     }
+
                     productDetailReps.updatePriceDiscount();
-
+                    flashSale.setStatus(3);
                     flashSalesService.update(flashSale);
-
-                    // Cập nhật Product_Detail trong cơ sở dữ liệu
-                    // productDetailService.update(productDetail);
+                    productFlashSaleService.update(productFlashSale);
+                    messagingTemplate.convertAndSend("/topic/products", "update");
                 }
-
-                productFlashSaleService.update(productFlashSale);
-                messagingTemplate.convertAndSend("/topic/products", "update");
             }
+
         }
     }
 
     // Kết thúc lúc 23:59
     @Scheduled(cron = "0 59 23 * * ?")
     public void updateExpiredFlashSales23() {
-        List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
-
-        for (Product_Flash_Sale productFlashSale : allProductFlashSales) {
-            Flash_Sales flashSale = productFlashSale.getFlashSaleId();
-
-            if (flashSale != null && flashSale.getStartTime() != null && flashSale.getEndTime() != null &&
-                    flashSale.getStartTime().before(new Date()) && flashSale.getEndTime().before(new Date()) &&
-                    isSameDay(flashSale.getUserDate(), new Date())) {
-                Product_Detail productDetail = productFlashSale.getProductDetail();
-
-                if (productDetail != null) {
-                    Date currentTime = new Date();
-
-                    if (flashSale.getStartTime().before(currentTime) && flashSale.getEndTime().after(currentTime)) {
-
-                    } else {
-
-                        flashSale.setStatus(3);
-
-                    }
-                    productDetailReps.updatePriceDiscount();
-
-                    flashSalesService.update(flashSale);
-
-                    // Cập nhật Product_Detail trong cơ sở dữ liệu
-                    // productDetailService.update(productDetail);
-                }
-
-                productFlashSaleService.update(productFlashSale);
-                messagingTemplate.convertAndSend("/topic/products", "update");
-            }
-        }
+        updateExpiredFlashSales1();
     }
 
     private boolean isSameDay(Date date1, Date date2) {
