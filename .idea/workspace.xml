@@ -5,49 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bc8ebbc-8eda-437b-aa23-4a4eeaefac03" name="Changes" comment="[Back-end] - merge dev/anhhtv">
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/configuration/I18NConfig.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/configuration/TwilioConfig.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/configuration/VNPayConfig.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/configuration/WebsocketConfiguration.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/dto/ChangePasswordDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/dto/FlashSaleRequest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/dto/ImportInvoiceDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/dto/ProductDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/dto/Response.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/dto/VoucherCateCreateDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Attribute_Value.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Brands.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ImportInvoiceDetail.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/InvoiceMappingVoucher.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/ListVoucherMappingProduct.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/OrderDetails.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/OrderInfo.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Order_Status_History.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/Search_History.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/VoucherMappingCategory.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/model/VoucherMappingProduct.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/repository/ImportInvoiceDetailRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/repository/InvoiceMappingVoucherRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/repository/OrderDetailsRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/repository/OrderStatusHistoryRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/repository/ProductReviewsRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/repository/VoucherMappingCategoryRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/repository/VoucherMappingProductRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/service/CheckoutService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/service/EmailService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/service/FileManagerService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/service/PayOSService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/service/TwilioOTPService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/service/VNPayService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/util/ImageUploader.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/bin/src/main/java/com/greenhouse/util/JwtTokenEmail.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_6_2023_2_36_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_6_2023_2_36_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/controller/client/Maincontroller.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/java/com/greenhouse/controller/client/Maincontroller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/controller/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/static/client/controller/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/account-order.html" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/account-order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/order-cancel.html" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/order-cancel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/review-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/review-detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/voucher.html" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/GreenHouse-Bookstore/src/main/resources/templates/client/layouts/voucher.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,6 +136,7 @@
       <workItem from="1700904705285" duration="184000" />
       <workItem from="1701343640615" duration="3000000" />
       <workItem from="1702186185733" duration="379000" />
+      <workItem from="1702703104161" duration="1227000" />
     </task>
     <task id="LOCAL-00001" summary="[Project] - Create packages">
       <created>1692841448096</created>

@@ -232,19 +232,54 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
                 productFlashSales: $scope.listProductFlashSale,
                 listDeletedProductFlashSale: $scope.listDeletedProductFlashSale
             };
+            for (var i = 0; i < $scope.listProductFlashSale.length; i++) {
+                var product = $scope.listProductFlashSale[i];
+                if (product.quantity < product.purchaseLimit) {
+                    product.quantityError = true;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Lỗi",
+                        text: `Số lượng giảm phải lớn hơn hoặc bằng giới hạn số lượng mua cho sản phẩm ${i + 1}`
+                    });
+                } else {
+                    product.quantityError = false;
+                }
+            }
+    
+            // Nếu có sản phẩm có lỗi, không thực hiện request và dừng hàm
+            if ($scope.listProductFlashSale.some(product => product.quantityError)) {
+                return;
+            }
             // Duyệt qua danh sách sản phẩm đã chọn và thêm chúng vào danh sách productFlashSales
             console.log(requestData);
             $http.post(url, requestData).then(resp => {
                 console.log("Thêm Flashsale thành công", resp);
-                $scope.clearTable();
-                Swal.fire({
-                    icon: "success",
-                    title: "Thành công",
-                    text: `Thêm Flash Sale thành công`,
-                });
-
+                if (resp.data) {
+                    // Nếu có dữ liệu trong resp.data, kiểm tra và hiển thị thông báo lỗi
+                    if (resp.data.date) {
+                        // Có lỗi ngày, xử lý tương ứng
+                        console.error("Lỗi ngày:", resp.data.date);
+                        // Hiển thị thông báo lỗi ngày
+                        Swal.fire({ icon: "error", title: "Lỗi", text: resp.data.date });
+                    }
+                    if (resp.data.time) {
+                        // Có lỗi giờ, xử lý tương ứng
+                        console.error("Lỗi giờ:", resp.data.time);
+                        // Hiển thị thông báo lỗi giờ
+                        Swal.fire({ icon: "error", title: "Lỗi", text: resp.data.time });
+                    }
+                } else {
+                    // Nếu không có dữ liệu trong resp.data, hiển thị thông báo thành công
+                    $scope.clearTable();
+                    Swal.fire({
+                        icon: "success",
+                        title: "Thành công",
+                        text: `Thêm Flash Sale thành công`,
+                    });
+                }
             }).catch(error => {
                 console.log("Error", error);
+                // Nếu có lỗi khác ngoài lỗi trả về từ server, hiển thị thông báo lỗi mặc định
                 Swal.fire({
                     icon: "error",
                     title: "Thất bại",
