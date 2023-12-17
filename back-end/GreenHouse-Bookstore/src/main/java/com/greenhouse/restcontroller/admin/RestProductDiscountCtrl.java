@@ -9,6 +9,7 @@ import com.greenhouse.model.Discounts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class RestProductDiscountCtrl {
 
     @Autowired
     private ProductDetailService productDetailService;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     @GetMapping
     public ResponseEntity<List<Product_Discount>> getAllProductDiscounts() {
@@ -66,6 +70,8 @@ public class RestProductDiscountCtrl {
             productDiscount.setDiscount(discount);
             productDiscount.setProductDetail(selectedProductDetail);
             productDiscountService.add(productDiscount);
+            // Sau khi tạo sản phẩm thành công, gửi thông báo đến client sử dụng WebSocket
+            messagingTemplate.convertAndSend("/topic/products", "update");
         }
 
         return new ResponseEntity<>("Chiến dịch giảm giá đã được tạo thành công.", HttpStatus.OK);
@@ -89,6 +95,8 @@ public class RestProductDiscountCtrl {
 
         // Xóa Product_Discount
         productDiscountService.delete(id);
+        // Sau khi tạo sản phẩm thành công, gửi thông báo đến client sử dụng WebSocket
+        messagingTemplate.convertAndSend("/topic/products", "update");
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -19,6 +19,7 @@ import com.greenhouse.model.Product_Detail;
 import com.greenhouse.model.Product_Discount;
 import com.greenhouse.model.Product_Flash_Sale;
 import com.greenhouse.repository.ProductDetailRepository;
+import com.greenhouse.repository.ProductDiscountRepository;
 import com.greenhouse.service.FlashSalesService;
 import com.greenhouse.service.ProductDetailService;
 import com.greenhouse.service.ProductDiscountService;
@@ -34,18 +35,21 @@ public class ScheduledTasks {
     private final ProductFlashSaleService productFlashSaleService;
     private final FlashSalesService flashSalesService;
     private final ProductDetailRepository productDetailReps; // Make sure this line is correct
+    private final ProductDiscountRepository productDiscountRepository; // Create
 
     public ScheduledTasks(
             ProductDiscountService productDiscountService,
             ProductDetailService productDetailService,
             ProductFlashSaleService productFlashSaleService,
             FlashSalesService flashSalesService,
-            ProductDetailRepository productDetailReps) {
+            ProductDetailRepository productDetailReps,
+            ProductDiscountRepository productDiscountRepository) {
         this.productDiscountService = productDiscountService;
         this.productDetailService = productDetailService;
         this.productFlashSaleService = productFlashSaleService;
         this.flashSalesService = flashSalesService;
         this.productDetailReps = productDetailReps;
+        this.productDiscountRepository = productDiscountRepository;
     }
 
     @Scheduled(cron = "0 0 0 * * ?")
@@ -71,7 +75,7 @@ public class ScheduledTasks {
     }
 
     // bắt đầu
-    @Scheduled(cron = "0 32 1,2,4,6,8,10,12,14,16,18,20,22 * * ?")
+    @Scheduled(cron = "0 0 0,2,4,6,8,10,12,14,16,18,20,22 * * ?")
     public void updateExpiredFlashSales() {
         List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
 
@@ -93,10 +97,10 @@ public class ScheduledTasks {
                         double newPriceDiscount = exitPriceDiscount * (1 - discountPercentage);
                         productDetail.setPriceDiscount(newPriceDiscount);
                         flashSale.setStatus(2);
-                        flashSalesService.update(flashSale);
-                        productDetailService.update(productDetail);
-                    }
 
+                    }
+                    flashSalesService.update(flashSale);
+                    productDetailService.update(productDetail);
                     productFlashSaleService.update(productFlashSale);
                     messagingTemplate.convertAndSend("/topic/products", "update");
                 }
@@ -106,34 +110,46 @@ public class ScheduledTasks {
     }
 
     // kết thúc
-    @Scheduled(cron = "0 33 2,4,6,8,10,12,14,16,18,20,22 * * ?")
+    @Scheduled(cron = "0 0 2,4,6,8,10,12,14,16,18,20,22 * * ?")
     public void updateExpiredFlashSales1() {
         List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
+        List<Product_Discount> currentDayDiscounts = productDiscountRepository.findProductDiscountsByDate();
 
         for (Product_Flash_Sale productFlashSale : allProductFlashSales) {
             LocalDateTime currentTime = LocalDateTime.now();
-
             Flash_Sales flashSale = productFlashSale.getFlashSaleId();
+
             if (flashSale != null) {
                 Time endTime = flashSale.getEndTime();
-
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
                 if (isSameDay(flashSale.getUserDate(), new Date()) && endTime.toLocalTime().format(formatter)
                         .equalsIgnoreCase(currentTime.toLocalTime().format(formatter))) {
                     Product_Detail productDetail = productFlashSale.getProductDetail();
+
                     if (productDetail != null) {
-                        productDetailService.update(productDetail);
+                        // Kiểm tra xem sản phẩm có trong danh sách discount không
+                        boolean hasDiscount = currentDayDiscounts.stream()
+                                .anyMatch(discount -> discount.getProductDetail().getProductDetailId() == productDetail
+                                        .getProductDetailId());
+
+                        if (hasDiscount) {
+                            // Có discount, gọi hàm updatePriceDiscount
+                            productDetailReps.updatePriceDiscount();
+                        } else {
+                            // Không có discount, set về giá gốc
+                            productDetail.setPriceDiscount(productDetail.getPrice());
+                            productDetailService.update(productDetail);
+                        }
                     }
 
-                    productDetailReps.updatePriceDiscount();
                     flashSale.setStatus(3);
-                    flashSalesService.update(flashSale);
-                    productFlashSaleService.update(productFlashSale);
-                    messagingTemplate.convertAndSend("/topic/products", "update");
+
                 }
             }
-
+            flashSalesService.update(flashSale);
+            productFlashSaleService.update(productFlashSale);
+            messagingTemplate.convertAndSend("/topic/products", "update");
         }
     }
 
