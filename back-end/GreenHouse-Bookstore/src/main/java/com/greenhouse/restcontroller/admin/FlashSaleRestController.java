@@ -1,5 +1,9 @@
 package com.greenhouse.restcontroller.admin;
 
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,28 +76,29 @@ public class FlashSaleRestController {
     @GetMapping("/rest/edit/{id}")
     public ResponseEntity<Map<String, Object>> editFlashSale(@PathVariable Integer id) {
         Map<String, Object> resp = new HashMap<>();
-    
+
         // Lấy Flash Sale theo ID
         Optional<Flash_Sales> flashSaleOptional = fs.findById(id);
         if (flashSaleOptional.isPresent()) {
             Flash_Sales flashSale = flashSaleOptional.get();
-    
+
             // Lấy danh sách sản phẩm chi tiết liên quan đến Flash Sale
             List<Product_Flash_Sale> productFS = profs.findByFlashSaleId(flashSale);
-    
+
             resp.put("listProductFlashSale", productFS);
             resp.put("flashSale", flashSale);
             return ResponseEntity.ok(resp);
         } else {
-            // Nếu không tìm thấy Flash Sale theo ID, trả về phản hồi rỗng hoặc thông báo lỗi
+            // Nếu không tìm thấy Flash Sale theo ID, trả về phản hồi rỗng hoặc thông báo
+            // lỗi
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     @PostMapping("/rest/flashsales")
-    public ResponseEntity<String> createFlashSale(@RequestBody FlashSaleRequest request) {
-        // Ở đây, FlashSaleRequest là một lớp Java chứa cả flashSale và
-        // productFlashSales.
+    public ResponseEntity<Map<String, String>> createFlashSale(@RequestBody FlashSaleRequest request) {
+        Map<String, String> errorMap = new HashMap<>();
+
         Flash_Sales flashSale = request.getFlashSale();
         List<Product_Flash_Sale> product_Flash_Sale = request.getProductFlashSales();
         List<Product_Flash_Sale> listDeletedProductFlashSale = request.getListDeletedProductFlashSale();
@@ -103,13 +108,45 @@ public class FlashSaleRestController {
                 profs.delete(item);
             }
         }
-        
+
+        LocalDateTime startDateTime = LocalDateTime.now();
+        LocalDateTime endDateTime = LocalDateTime.now();
+
+        if (flashSale.getStartTime() instanceof Time) {
+            Time startTime = (Time) flashSale.getStartTime();
+            startDateTime = LocalDateTime.of(LocalDate.now(), startTime.toLocalTime());
+        }
+
+        if (flashSale.getEndTime() instanceof Time) {
+            Time endTime = (Time) flashSale.getEndTime();
+            endDateTime = LocalDateTime.of(LocalDate.now(), endTime.toLocalTime());
+        }
+
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime userDateTime = LocalDateTime.ofInstant(flashSale.getUserDate().toInstant(),
+                ZoneId.systemDefault());
+
+        // Kiểm tra ngày của userDate
+        if (userDateTime.toLocalDate().isBefore(currentDateTime.toLocalDate())) {
+            errorMap.put("date", "Ngày không được ở quá khứ");
+        }else if(userDateTime.toLocalDate().isEqual(currentDateTime.toLocalDate())) {
+            if (startDateTime.isBefore(currentDateTime)) {
+                errorMap.put("time", "Giờ không được ở quá khứ");
+            }
+        }
+
+        if (!errorMap.isEmpty()) {
+            // Nếu có lỗi, trả về map chứa thông báo lỗi
+            return ResponseEntity.ok(errorMap);
+        }
+
         fs.save(flashSale);
 
         for (Product_Flash_Sale p : product_Flash_Sale) {
             p.setFlashSaleId(flashSale);
             profs.save(p);
         }
+
         // Trả về FlashSale đã được tạo.
         return ResponseEntity.ok(null);
     }

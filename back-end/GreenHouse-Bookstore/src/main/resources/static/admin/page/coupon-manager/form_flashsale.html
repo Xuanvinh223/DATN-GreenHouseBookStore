@@ -1,3 +1,29 @@
+<style>
+    /* CSS để định dạng màu đỏ cho ô input khi có lỗi */
+    .is-invalid {
+        border-color: #dc3545;
+        /* Màu đỏ thường được sử dụng trong Bootstrap */
+        padding-right: calc(1.5em + 0.75rem);
+        /* Để tránh che phủ icon trong ô input */
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16"><path d="M8.557 1.275a1.13 1.13 0 0 1 1.386 0l5.647 3.28a1.134 1.134 0 0 1 .557 1.018v6.56a1.133 1.133 0 0 1-.557 1.018l-5.647 3.28a1.134 1.134 0 0 1-1.386 0l-5.647-3.28a1.133 1.133 0 0 1-.557-1.018V5.573a1.133 1.133 0 0 1 .557-1.018L8.557 1.275z"/></svg>');
+        /* Icon chú ý */
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        /* Vị trí của icon chú ý */
+        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        /* Kích thước của icon chú ý */
+    }
+
+    /* CSS để định dạng màu đỏ cho nền và chữ trong thông báo lỗi */
+    .is-invalid+.invalid-feedback {
+        display: block;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 80%;
+        color: #dc3545;
+        /* Màu đỏ thường được sử dụng trong Bootstrap */
+    }
+</style>
 <div class="container-fluid" ng-controller="flashsaleController">
     <div class="row justify-content-center">
         <div class="col-12">
@@ -51,31 +77,6 @@
                                             }}</small>
                                     </div>
                                 </div>
-                                <!-- <div class="form-row">
-                                    <div class="col-md-12 mb-3">
-                                        <p class="mb-2">Trạng Thái(*)</p>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" ng-model="item.status"
-                                                ng-value="1" id="active">
-                                            <label class="form-check-label" for="active">Đã lên lịch</label>
-                                        </div>
-                                        <div class="form-check form-check-inline" >
-                                            <input class="form-check-input" type="radio" ng-model="item.status"
-                                                ng-value="2" id="unactive">
-                                            <label class="form-check-label" for="unactive">Đang sử dụng</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" ng-model="item.status"
-                                                ng-value="3" id="expired">
-                                            <label class="form-check-label" for="expired">Hết hạn</label>
-                                        </div>
-                                        <br>
-                                        <small class="mt-1 text-danger" ng-show="errors.status">{{ errors.status
-                                            }}</small>
-
-                                      
-                                    </div>
-                                </div> -->
                                 <button type="submit" class="btn btn-primary mr-2" ng-click="create()"
                                     ng-disabled="disableSaveButton">Lưu
                                 </button>
@@ -132,12 +133,14 @@
                                             </div>
                                         </td>
                                         <td> {{ product.productDetail.price| number:'0' }}</td>
-                                        <td><input type="number" ng-model="product.discountPercentage"
+                                        <td><input type="number" min="0" ng-model="product.discountPercentage"
                                                 class="form-control form-control-sm"></td>
                                         <td>{{ calculateDiscountedPrice(product)| number:'0' }}</td>
-                                        <td><input type="number" ng-model="product.quantity"
-                                                class="form-control form-control-sm"></td>
-                                        <td><input type="number" ng-model="product.purchaseLimit"
+                                        <td><input type="number" min="0" ng-model="product.quantity"
+                                                class="form-control form-control-sm"
+                                                ng-class="{ 'is-invalid': product.quantityError }"></td>
+
+                                        <td><input type="number" min="0" ng-model="product.purchaseLimit"
                                                 class="form-control form-control-sm"></td>
                                         <td>
                                             <a ng-click="removeProduct($index)">
