@@ -209,7 +209,8 @@ public class CartController {
                                 .getProductDetailId()) {
                             int remainingQuantity = item.getQuantity() - item.getUsedQuantity();
                             if (remainingQuantity > 0) {
-                                if (quantity > remainingQuantity && (quantity - 1) == remainingQuantity) {
+                                if (quantity > remainingQuantity && (quantity - 1) == remainingQuantity
+                                        && remainingQuantity < item.getQuantity()) {
                                     status = "info";
                                     message = "Số lượng sản phẩm trong FLASH SALE chỉ còn: " + remainingQuantity
                                             + " sản phẩm!";
