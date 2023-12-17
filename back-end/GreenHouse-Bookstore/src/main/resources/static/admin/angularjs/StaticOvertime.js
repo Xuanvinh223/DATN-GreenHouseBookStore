@@ -140,7 +140,7 @@ function StaticOvertime($scope, $http, $filter) {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'VNĐ',
+                    label: 'đ',
                     data: data,
                     backgroundColor: 'rgb(48,207,48, 0.5)',
                     borderColor: 'rgba(75, 192, 192, 1)',
