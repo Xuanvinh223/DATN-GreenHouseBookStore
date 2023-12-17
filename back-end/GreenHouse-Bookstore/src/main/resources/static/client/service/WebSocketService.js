@@ -1,22 +1,40 @@
-// Tạo một service hoặc factory (ví dụ, WebSocketService)
 app.factory('WebSocketService', function () {
     var stompClient = null;
+    var isConnected = false; // Thêm biến để theo dõi trạng thái kết nối
+    var subscriptions = {}; // Lưu trữ danh sách các đường dẫn được đăng ký
 
     function connect(callback) {
-        var socket = new SockJS('http://localhost:8081/websocket/gs-guide-websocket');
+        // Kiểm tra nếu đã có kết nối, sử dụng kết nối hiện tại
+        if (isConnected) {
+            callback();
+            return;
+        }
+
+        var socket = new SockJS('/notify');
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, function (frame) {
-            stompClient.subscribe('/topic/products', function (message) {
-                // Nhận biết thông điệp và gọi callback
-                if (message.body === 'update') {
-                    callback();
-                }
-            });
+            isConnected = true; // Đánh dấu là đã kết nối
+            callback();
+
+            // Đăng ký các đường dẫn đã được đăng ký
+            for (var path in subscriptions) {
+                stompClient.subscribe(path, subscriptions[path]);
+            }
         });
     }
 
+    function subscribeToTopic(path, callback) {
+        if (isConnected) {
+            stompClient.subscribe(path, callback);
+        } else {
+            // Nếu chưa kết nối, lưu lại đường dẫn và callback để đăng ký sau khi kết nối
+            subscriptions[path] = callback;
+        }
+    }
+
     return {
-        connect: connect
+        connect: connect,
+        subscribeToTopic: subscribeToTopic
     };
 });

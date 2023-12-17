@@ -1,9 +1,4 @@
 app.controller('flashsaleController', flashsaleController);
-// app.controller('flashsale-formCtrl', flashsale_formCtrl)
-
-var test3 = 0;
-// var key5 = null;
-var form5 = {};
 
 //Table
 function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, $interval, $filter) {
@@ -91,12 +86,47 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
 
         });
     }
+    //xóa
+    $scope.deleteFlashSale = function (flashSaleId) {
+        // Sử dụng Swal để hiển thị hộp thoại xác nhận
+        Swal.fire({
+            title: 'Xác nhận xóa',
+            text: 'Bạn có chắc chắn muốn xóa Flash Sale này?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng xác nhận xóa
+                var url = `${host}/delete/` + flashSaleId;
+
+                $http({
+                    method: 'DELETE',
+                    url: url
+                }).then(function successCallback(response) {
+                    $scope.load_All();
+                    Swal.fire({
+                        icon: "success",
+                        title: "Thành công",
+                        text: `Xóa Flash Sale thành công`,
+                    });
+                }, function errorCallback(response) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Thất bại",
+                        text: `Xóa Flash Sale thất bại`,
+                    });
+                });
+            }
+        });
+    };
 
     //Load model product
     $scope.loadModelProduct = function () {
         $scope.listModelProduct = [];
         $scope.productDetailList.filter(function (item) {
-            if (item.product.status === true) {
+            if (item.product.status === true && item.quantityInStock > 1) {
                 $scope.listModelProduct.push(item);
             }
         });
@@ -252,7 +282,7 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
             });
     }
 
-    
+
 
     if ($routeParams.data) {
         // Parse dữ liệu từ tham số data và gán vào $scope.item.
@@ -263,7 +293,7 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
         } else {
             $scope.disableSaveButton = false;
         }
-       
+
         if (!moment($scope.item.startTime).isValid() || !moment($scope.item.endTime).isValid()) {
             // Chuyển đổi chuỗi thời gian thành đối tượng Date
             $scope.item.startTime = moment($scope.item.startTime, 'HH:mm:ss').toDate();
@@ -286,7 +316,7 @@ function flashsaleController($scope, $http, jwtHelper, $location, $routeParams, 
 
         return `${year}-${month}-${day}`;
     };
-   // $scope.isUpdating = $scope.item.flashSaleId !== null;
+    // $scope.isUpdating = $scope.item.flashSaleId !== null;
     $scope.checkTimeRangeOverlap = function () {
         if ($scope.flashsalelist && $scope.item && !$scope.item.flashSaleId) {
             var existingFlashSales = $scope.flashsalelist.filter(function (flashSale) {
