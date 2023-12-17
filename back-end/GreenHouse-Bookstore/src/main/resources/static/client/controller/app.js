@@ -102,9 +102,13 @@ app.config(["$httpProvider", function ($httpProvider) {
 },]);
 
 // ================= MAIN CONTROLLER ==================
-app.controller("MainController", function ($scope, CartService, $timeout, customerAPI, ProductDetailService, NotifyService, SearchDataService, WebSocketService) {
+app.controller("MainController", function ($scope, CartService, $timeout, jwtHelper, ProductDetailService, NotifyService, SearchDataService, WebSocketService) {
         var token = localStorage.getItem("token");
-        var username = localStorage.getItem("username");
+        var username;
+        if (token) {
+            var decodedToken = jwtHelper.decodeToken(token);
+            username = decodedToken.sub;
+        }
         $scope.token = token;
         $scope.username = username;
         $scope.currentPage = 1;
@@ -113,8 +117,8 @@ app.controller("MainController", function ($scope, CartService, $timeout, custom
         $scope.listSearchInvoices = [];
         $scope.listProductDetails = [];
         $scope.listProductDetailsResult = [];
-    $scope.listCategories = [];
-    $scope.keyword = null;
+        $scope.listCategories = [];
+        $scope.keyword = null;
 
     // Lấy lịch sử tìm kiếm từ localStorage khi controller khởi tạo
     $scope.updateSearchHistory = function () {
