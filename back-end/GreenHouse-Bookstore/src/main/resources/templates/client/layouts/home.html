@@ -91,13 +91,15 @@
                         <div class="product-card">
                             <div class="product-card--body">
                                 <div class="card-image">
+                                    <div class="label_expired" ng-if="proFlaSal.productDetail.quantityInStock <= 10 && proFlaSal.productDetail.quantityInStock > 0"></div>
+                                    <div class="out-of-stock-label" ng-if="proFlaSal.productDetail.quantityInStock <= 0">Hết hàng</div>
                                     <img ng-src="{{proFlaSal.productDetail.image }}" alt="Loi anh">
                                     <div class="hover-contents">
                                         <a ng-click="getProductDetail(proFlaSal.productDetail.productDetailId)">
                                             <img ng-src="{{proFlaSal.productDetail.image }}"
                                                 alt="{{proFlaSal.productDetail.product.productName }}">
                                         </a>
-                                        <div class="hover-btns">
+                                        <div class="hover-btns" ng-if="proFlaSal.productDetail.quantityInStock > 0">
                                             <a ng-click="addToCart(proFlaSal.productDetail.productDetailId,1)"
                                                 class="single-btn">
                                                 <i class="fas fa-shopping-basket"></i>
@@ -166,13 +168,15 @@
                     <div class="product-card">
                         <div class="product-card--body">
                             <div class="card-image">
+                                <div class="label_expired" ng-if="productDetail.quantityInStock <= 10 && productDetail.quantityInStock > 0"></div>
+                                <div class="out-of-stock-label" ng-if="productDetail.quantityInStock <= 0">Hết hàng</div>
                                 <img ng-src="{{ productDetail.image }}" alt="{{ productDetail.product.productName }}">
                                 <div class="hover-contents">
                                     <a ng-click="getProductDetail(productDetail.productDetailId)">
                                         <img ng-src="{{ productDetail.image }}"
                                             alt="{{ productDetail.product.productName }}">
                                     </a>
-                                    <div class="hover-btns">
+                                    <div class="hover-btns" ng-if="productDetail.quantityInStock > 0">
                                         <a ng-click="addToCart(productDetail.productDetailId,1)" class="single-btn">
                                             <i class="fas fa-shopping-basket"></i>
                                         </a>
@@ -232,13 +236,15 @@
                     <div class="product-card">
                         <div class="product-card--body">
                             <div class="card-image">
+                                <div class="label_expired" ng-if="productDetail.quantityInStock <= 10 && productDetail.quantityInStock > 0"></div>
+                                <div class="out-of-stock-label" ng-if="productDetail.quantityInStock <= 0">Hết hàng</div>
                                 <img ng-src="{{ productDetail.image }}" alt="{{ productDetail.product.productName }}">
                                 <div class="hover-contents">
                                     <a ng-click="getProductDetail(productDetail.productDetailId)">
                                         <img ng-src="{{ productDetail.image }}"
                                             alt="{{ productDetail.product.productName }}">
                                     </a>
-                                    <div class="hover-btns">
+                                    <div class="hover-btns" ng-if="productDetail.quantityInStock > 0">
                                         <a ng-click="addToCart(productDetail.productDetailId,1)" class="single-btn">
                                             <i class="fas fa-shopping-basket"></i>
                                         </a>
@@ -321,6 +327,8 @@
                             <div class="product-card">
                                 <div class="product-card--body">
                                     <div class="card-image">
+                                        <div class="label_expired" ng-if="productDetail.quantityInStock <= 10 && productDetail.quantityInStock > 0"></div>
+                                        <div class="out-of-stock-label" ng-if="productDetail.quantityInStock <= 0">Hết hàng</div>
                                         <img ng-src="{{ productDetail.image }}"
                                             alt="{{ productDetail.product.productName }}">
                                         <div class="hover-contents">
@@ -328,7 +336,7 @@
                                                 <img ng-src="{{ productDetail.image }}"
                                                     alt="{{ productDetail.product.productName }}">
                                             </a>
-                                            <div class="hover-btns">
+                                            <div class="hover-btns" ng-if="productDetail.quantityInStock > 0">
                                                 <a ng-click="addToCart(productDetail.productDetailId,1)"
                                                     class="single-btn">
                                                     <i class="fas fa-shopping-basket"></i>

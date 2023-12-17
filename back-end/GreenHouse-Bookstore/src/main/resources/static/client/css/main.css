@@ -23489,8 +23489,8 @@ input[type=number] {
 
 @media (max-width:320px) {
   .product-details-slider .single-slide img {
-    width: 100%;
-    height: 150px;
+    width: 100% !important;
+    height: 250px !important;
     border: 1px solid gainsboro;
   }
 
