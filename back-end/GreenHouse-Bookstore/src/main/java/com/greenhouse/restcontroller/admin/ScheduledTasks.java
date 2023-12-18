@@ -75,7 +75,7 @@ public class ScheduledTasks {
     }
 
     // bắt đầu
-    @Scheduled(cron = "0 0 0,2,4,6,8,10,12,14,16,18,20,22 * * ?")
+    @Scheduled(cron = "0 30 0,2,4,6,8,10,12,14,16,18,20,22 * * ?")
     public void updateExpiredFlashSales() {
         List<Product_Flash_Sale> allProductFlashSales = productFlashSaleService.findAll();
 
